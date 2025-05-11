@@ -57,7 +57,7 @@ module.exports.ali = {
 
 module.exports.web = {
   pages,
-  title: 'Remax Web Template',
+  title: 'Rsmax Web Template',
   tabBar: {
     backgroundColor: '#fff',
     activeTitleColor: 'red',

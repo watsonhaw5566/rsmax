@@ -2,7 +2,7 @@ import * as path from 'path';
 import { Compilation, Compiler, sources } from 'webpack';
 import { slash } from '@rsmax/shared';
 
-const PLUGIN_NAME = 'RemaxOptimizeEntriesPlugin';
+const PLUGIN_NAME = 'RsmaxOptimizeEntriesPlugin';
 
 interface Meta {
   style: string;

@@ -2,7 +2,7 @@ import { Compilation, Compiler, sources } from 'webpack';
 import SourceCache from '../../../SourceCache';
 import Builder from '../../Builder';
 
-const PLUGIN_NAME = 'RemaxThemeAssetPlugin';
+const PLUGIN_NAME = 'RsmaxThemeAssetPlugin';
 
 export default class ThemeAssetPlugin {
   builder: Builder;

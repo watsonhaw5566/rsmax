@@ -2,7 +2,7 @@ import { Compiler, sources, Compilation, javascript } from 'webpack';
 
 const { ConcatSource } = sources;
 
-const PLUGIN_NAME = 'RemaxCoverageIgnorePlugin';
+const PLUGIN_NAME = 'RsmaxCoverageIgnorePlugin';
 
 /**
  * 伙伴会为每个小程序构建一个覆盖率包来统计测试覆盖率。

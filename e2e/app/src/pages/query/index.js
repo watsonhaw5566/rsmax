@@ -1,4 +1,4 @@
-import { useQuery } from 'remax';
+import { useQuery } from 'rsmax';
 import { View } from 'rsmax/one';
 
 export default props => {

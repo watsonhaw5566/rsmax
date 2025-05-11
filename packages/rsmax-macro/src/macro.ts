@@ -41,7 +41,7 @@ type AppEventName =
   | 'onUnhandledRejection'
   | 'onThemeChange';
 
-function remax({ references, state }: { references: { [name: string]: NodePath[] }; state: any }) {
+function rsmax({ references, state }: { references: { [name: string]: NodePath[] }; state: any }) {
   references.createHostComponent?.forEach(path => createHostComponentMacro(path, state));
 
   references.requirePluginComponent?.forEach(path => requirePluginComponentMacro(path, state));
@@ -71,4 +71,4 @@ export declare function usePageEvent(eventName: PageEventName, callback: (...par
 
 export declare function useAppEvent(eventName: AppEventName, callback: (...params: any[]) => any): void;
 
-export default createMacro(remax);
+export default createMacro(rsmax);

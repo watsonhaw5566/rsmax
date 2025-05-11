@@ -64,14 +64,14 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
   config.optimization.splitChunks({
     cacheGroups: {
       remaxStyles: {
-        name: 'remax-styles',
+        name: 'rsmax-styles',
         test: new RegExp(`(.css|.less|.sass|.scss|.stylus|.styl|${builder.api.meta.style})$`),
         chunks: 'initial',
         minChunks: 2,
         minSize: 0,
       },
       remaxVendors: {
-        name: 'remax-vendors',
+        name: 'rsmax-vendors',
         test: moduleMatcher,
         chunks: 'initial',
         minChunks: 2,

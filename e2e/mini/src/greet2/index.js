@@ -8,7 +8,7 @@ export default ({ name }) => {
     <View id="greeting">
       <View>Hello {name}</View>
       <Badge>
-        <View slot="inner">Remax</View>
+        <View slot="inner">Rsmax</View>
       </Badge>
     </View>
   );

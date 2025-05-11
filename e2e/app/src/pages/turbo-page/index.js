@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
-import { View, View as CustomView, Text, Button, Picker } from 'remax/ali';
-import { createHostComponent } from 'remax/macro';
-import * as Remax from 'rsmax/one';
+import { View, View as CustomView, Text, Button, Picker } from 'rsmax/ali';
+import { createHostComponent } from 'rsmax/macro';
+import * as Rsmax from 'rsmax/one';
 import Badge from 'mini-antui/es/badge/index';
 import Card from '@/components/Card';
 import A from './module';
@@ -60,7 +60,7 @@ export default function Index() {
           <React.Fragment>React.Fragment</React.Fragment>
           {A}
           <DDD />
-          <Remax.Text>Remax.Text</Remax.Text>
+          <Rsmax.Text>Rsmax.Text</Rsmax.Text>
           <Badge />
           <Card />
           <ReactComp>

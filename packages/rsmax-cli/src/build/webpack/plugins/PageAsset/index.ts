@@ -8,7 +8,7 @@ import Builder from '../../../Builder';
 import { Compiler } from 'webpack';
 import PageEntry from '../../../entries/PageEntry';
 
-const PLUGIN_NAME = 'RemaxPageAssetPlugin';
+const PLUGIN_NAME = 'RsmaxPageAssetPlugin';
 
 export default class PageAssetPlugin {
   builder: Builder;

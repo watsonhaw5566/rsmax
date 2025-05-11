@@ -6,7 +6,7 @@ import getModules from '../../utils/modules';
 import Builder from '../../Builder';
 import PageEntry from '../../entries/PageEntry';
 
-const PLUGIN_NAME = 'RemaxRuntimeOptionsPlugin';
+const PLUGIN_NAME = 'RsmaxRuntimeOptionsPlugin';
 
 type Events = Set<string>;
 

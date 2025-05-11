@@ -6,7 +6,7 @@ export default class Page extends React.Component {
     return (
       <View>
         <View>
-          <Button style={{ background: '#0074D9', color: 'white' }}>Remax</Button>
+          <Button style={{ background: '#0074D9', color: 'white' }}>Rsmax</Button>
         </View>
 
         <View>

@@ -7,7 +7,7 @@ import createTurboTemplate from '../PageAsset/createTurboTemplate';
 import Builder from '../../../Builder';
 import ComponentEntry from '../../../entries/ComponentEntry';
 
-const PLUGIN_NAME = 'RemaxComponentAssetPlugin';
+const PLUGIN_NAME = 'RsmaxComponentAssetPlugin';
 
 export default class ComponentAssetPlugin {
   builder: Builder;
