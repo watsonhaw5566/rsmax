@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
 for pkg in `npx lerna list`; do
-  npx lerna exec npm publish --registry=https://registry.npmjs.org/ --scope $pkg
+  npx lerna exec npm publish --scope $pkg
 done
