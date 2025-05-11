@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/toutiao",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Rsmax for Toutiao",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",
@@ -16,7 +16,7 @@
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
   "dependencies": {
-    "@rsmax/shared": "1.0.1",
+    "@rsmax/shared": "1.0.2",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
