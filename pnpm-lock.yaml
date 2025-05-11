@@ -105,7 +105,7 @@ importers:
     dependencies:
       '@remax/plugin-less':
         specifier: ^1.0.0
-        version: 1.0.0(remax@2.15.14(prop-types@15.8.1)(react-dom@18.3.1(react@16.14.0))(react@16.14.0))(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
+        version: 1.0.0(remax@2.15.14(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       antd-mini:
         specifier: ^2.15.0
         version: 2.36.9
@@ -113,11 +113,11 @@ importers:
         specifier: ^1.0.4
         version: 1.2.1
       react:
-        specifier: ^16.8.6
-        version: 16.14.0
-      remax:
+        specifier: ^18.3
+        version: 18.3.1
+      rsmax:
         specifier: '*'
-        version: 2.15.14(prop-types@15.8.1)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
+        version: 1.0.1
     devDependencies:
       '@types/expect-puppeteer':
         specifier: ^4.4.0
@@ -269,8 +269,8 @@ importers:
         specifier: ^7.11.0
         version: 7.27.1
       '@rsmax/build-store':
-        specifier: 1.0.1
-        version: 1.0.1(react@18.3.1)
+        specifier: workspace:*
+        version: link:../rsmax-build-store
       '@types/jest':
         specifier: ^26.0.8
         version: 26.0.24
@@ -642,8 +642,8 @@ importers:
         specifier: ^12.2.0
         version: 12.3.0(@rspack/core@1.3.9(@swc/helpers@0.5.17))(less@3.13.1)(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       memfs:
-        specifier: ^3.1.2
-        version: 3.6.0
+        specifier: ^4.17.1
+        version: 4.17.1
       memory-fs:
         specifier: ^0.5.0
         version: 0.5.0
@@ -737,8 +737,8 @@ importers:
   packages/rsmax-macro:
     dependencies:
       '@rsmax/shared':
-        specifier: 1.0.1
-        version: 1.0.1(react@18.3.1)
+        specifier: workspace:*
+        version: link:../rsmax-shared
     devDependencies:
       '@babel/core':
         specifier: ^7.4.3
@@ -931,8 +931,8 @@ importers:
         version: 1.22.10
     devDependencies:
       '@rsmax/types':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: workspace:*
+        version: link:../rsmax-types
       '@types/babel__traverse':
         specifier: ^7.0.8
         version: 7.20.7
@@ -964,8 +964,8 @@ importers:
   packages/rsmax-toutiao:
     dependencies:
       '@rsmax/shared':
-        specifier: 1.0.1
-        version: 1.0.1(react@18.3.1)
+        specifier: workspace:*
+        version: link:../rsmax-shared
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1087,8 +1087,8 @@ importers:
         version: 4.0.7
     devDependencies:
       '@rsmax/types':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: workspace:*
+        version: link:../rsmax-types
       '@types/react':
         specifier: ^18.3.0
         version: 18.3.21
@@ -1105,8 +1105,8 @@ importers:
   packages/rsmax-xhs:
     dependencies:
       '@rsmax/shared':
-        specifier: 1.0.1
-        version: 1.0.1(react@18.3.1)
+        specifier: workspace:*
+        version: link:../rsmax-shared
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2759,6 +2759,27 @@ packages:
     resolution:
       { integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ== }
 
+  '@jsonjoy.com/base64@1.1.2':
+    resolution:
+      { integrity: sha512-q6XAnWQDIMA3+FTiOYajoYqySkO+JSat0ytXGSuRdq9uXE7o92gzuQwQM14xaCRlBLGq3v5miDGC4vkVTn54xA== }
+    engines: { node: '>=10.0' }
+    peerDependencies:
+      tslib: '2'
+
+  '@jsonjoy.com/json-pack@1.2.0':
+    resolution:
+      { integrity: sha512-io1zEbbYcElht3tdlqEOFxZ0dMTYrHz9iMf0gqn1pPjZFTCgM5R4R5IMA20Chb2UPYYsxjzs8CgZ7Nb5n2K2rA== }
+    engines: { node: '>=10.0' }
+    peerDependencies:
+      tslib: '2'
+
+  '@jsonjoy.com/util@1.6.0':
+    resolution:
+      { integrity: sha512-sw/RMbehRhN68WRtcKCpQOPfnH6lLP4GJfqzi3iYej8tnzpZUDr6UkZYJjcjjC0FWEJOJbyM3PTIwxucUmDG2A== }
+    engines: { node: '>=10.0' }
+    peerDependencies:
+      tslib: '2'
+
   '@leichtgewicht/ip-codec@2.0.5':
     resolution:
       { integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw== }
@@ -3476,20 +3497,6 @@ packages:
       { integrity: sha512-bwspbWB04XJpeElvsp+DCylKfF4trJDa2Y9Go8O6A7YLX2LIKGcNK/CYImJN6ZP4DcuOHB4Utl3iCbnR62DudA== }
     cpu: [x64]
     os: [win32]
-
-  '@rsmax/build-store@1.0.1':
-    resolution:
-      { integrity: sha512-T+cQMJJN5VCf4Uhozb9lOtAY8+4A0ez5uDMP6ulDhOdXZWy/VUuClfniOMvjicU00Jd42m76cedPmQgu3/UZbQ== }
-
-  '@rsmax/shared@1.0.1':
-    resolution:
-      { integrity: sha512-sMDzbO3jbqN+m5NHjrozC9VHwxMhRthqOXlyX5DGn+RDZf4eNs2qVBtgg2W3ruB7XXBp2CE/U7yfFefqS4R6lA== }
-    peerDependencies:
-      react: ^18.3.0
-
-  '@rsmax/types@1.0.1':
-    resolution:
-      { integrity: sha512-oaunYHMczZUy1Etv6MH4iyIo5x1/fhawuFaPLunGDGOV8AvvTqnxTp0zT3tMkg0/+O27dieqgkNHlpowFRQ5vg== }
 
   '@rspack/binding-darwin-arm64@1.3.9':
     resolution:
@@ -8088,6 +8095,11 @@ packages:
       { integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw== }
     engines: { node: '>=10.17.0' }
 
+  hyperdyperid@1.2.0:
+    resolution:
+      { integrity: sha512-Y93lCzHYgGWdrJ66yIktxiaGULYc6oGiABxhcO5AufBeOyoIdZF7bIfLaOrbM0iGIOXQQgxxRrFEnb+Y6w1n4A== }
+    engines: { node: '>=10.18' }
+
   iconv-lite@0.4.24:
     resolution:
       { integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA== }
@@ -9457,6 +9469,11 @@ packages:
       { integrity: sha512-EGowvkkgbMcIChjMTMkESFDbZeSh8xZ7kNSF0hAiAN4Jh6jgHCRS0Ga/+C8y6Au+oqpezRHCfPsmJ2+DwAgiwQ== }
     engines: { node: '>= 4.0.0' }
     deprecated: this will be v4
+
+  memfs@4.17.1:
+    resolution:
+      { integrity: sha512-thuTRd7F4m4dReCIy7vv4eNYnU6XI/tHMLSMMHLiortw/Y0QxqKtinG523U2aerzwYWGi606oBP4oMPy4+edag== }
+    engines: { node: '>= 4.0.0' }
 
   memoize-one@5.2.1:
     resolution:
@@ -12053,6 +12070,11 @@ packages:
       { integrity: sha512-antALPJaKBRPBU1X2q9t085K4htWDOOv/K1qhTUk7h0l1ePU/KbDqKJn19eKP0dk7PqMioeA0+fu3gyPXCsXxQ== }
     engines: { node: '>=14.17.6' }
 
+  rsmax@1.0.1:
+    resolution:
+      { integrity: sha512-9bfvfS60P4ZvEJwysmk0qZt+0tRDHLJ7EzSvAAkBPjeGtX09EI+lej9gSXVyNG1AbSe0+3Q4J3opgOoOuhIJPA== }
+    hasBin: true
+
   run-async@2.4.1:
     resolution:
       { integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ== }
@@ -12996,6 +13018,13 @@ packages:
     resolution:
       { integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw== }
 
+  thingies@1.21.0:
+    resolution:
+      { integrity: sha512-hsqsJsFMsV+aD4s3CWKk85ep/3I9XzYV/IXaSouJMYIoDlgyi11cBhsqYe9/geRfB0YIikBQg6raRaM+nIMP9g== }
+    engines: { node: '>=10.18' }
+    peerDependencies:
+      tslib: ^2
+
   through2-filter@3.0.0:
     resolution:
       { integrity: sha512-jaRjI2WxN3W1V8/FMZ9HKIBXixtiqs3SQSX4/YGIiP3gL6djW48VoZq9tDqeCWs3MT8YY5wb/zli8VW8snY1CA== }
@@ -13156,6 +13185,13 @@ packages:
     resolution:
       { integrity: sha512-hdF5ZgjTqgAntKkklYw0R03MG2x/bSzTtkxmIRw/sTNV8YXsCJ1tfLAX23lhxhHJlEf3CRCOCGGWw3vI3GaSPw== }
     engines: { node: '>=18' }
+
+  tree-dump@1.0.2:
+    resolution:
+      { integrity: sha512-dpev9ABuLWdEubk+cIaI9cHwRNNDjkBBLXTwI4UCUFdQ5xXKqNXoK4FEciw/vxf+NQ7Cb7sGUyeUtORvHIdRXQ== }
+    engines: { node: '>=10.0' }
+    peerDependencies:
+      tslib: '2'
 
   tree-kill@1.2.2:
     resolution:
@@ -16207,6 +16243,22 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  '@jsonjoy.com/base64@1.1.2(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
+  '@jsonjoy.com/json-pack@1.2.0(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/base64': 1.1.2(tslib@2.8.1)
+      '@jsonjoy.com/util': 1.6.0(tslib@2.8.1)
+      hyperdyperid: 1.2.0
+      thingies: 1.21.0(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/util@1.6.0(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
   '@leichtgewicht/ip-codec@2.0.5': {}
 
   '@lerna/create@8.1.8(@swc/core@1.11.24(@swc/helpers@0.5.17))(babel-plugin-macros@3.1.0)(encoding@0.1.13)(typescript@4.9.5)':
@@ -17069,10 +17121,10 @@ snapshots:
       - remax
       - supports-color
 
-  '@remax/plugin-less@1.0.0(remax@2.15.14(prop-types@15.8.1)(react-dom@18.3.1(react@16.14.0))(react@16.14.0))(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))':
+  '@remax/plugin-less@1.0.0(remax@2.15.14(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))':
     dependencies:
       less-loader: 6.2.0(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
-      remax: 2.15.14(prop-types@15.8.1)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
+      remax: 2.15.14(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
       - webpack
 
@@ -17353,32 +17405,6 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.40.2':
     optional: true
-
-  '@rsmax/build-store@1.0.1(react@18.3.1)':
-    dependencies:
-      '@rsmax/shared': 1.0.1(react@18.3.1)
-      lodash: 4.17.21
-    transitivePeerDependencies:
-      - react
-      - supports-color
-
-  '@rsmax/shared@1.0.1(react@18.3.1)':
-    dependencies:
-      '@babel/parser': 7.27.2
-      '@babel/traverse': 7.27.1
-      htmlparser2: 4.1.0
-      lodash: 4.17.21
-      react: 18.3.1
-      resolve: 1.22.10
-    transitivePeerDependencies:
-      - supports-color
-
-  '@rsmax/types@1.0.1':
-    dependencies:
-      '@babel/types': 7.27.1
-      '@types/react': 18.3.21
-      '@types/yargs': 15.0.19
-      webpack-5-chain: 8.0.2
 
   '@rspack/binding-darwin-arm64@1.3.9':
     optional: true
@@ -21883,6 +21909,8 @@ snapshots:
 
   human-signals@2.1.0: {}
 
+  hyperdyperid@1.2.0: {}
+
   iconv-lite@0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -23109,6 +23137,13 @@ snapshots:
   memfs@3.6.0:
     dependencies:
       fs-monkey: 1.0.6
+
+  memfs@4.17.1:
+    dependencies:
+      '@jsonjoy.com/json-pack': 1.2.0(tslib@2.8.1)
+      '@jsonjoy.com/util': 1.6.0(tslib@2.8.1)
+      tree-dump: 1.0.2(tslib@2.8.1)
+      tslib: 2.8.1
 
   memoize-one@5.2.1: {}
 
@@ -25744,6 +25779,19 @@ snapshots:
 
   rslog@1.2.3: {}
 
+  rsmax@1.0.1:
+    dependencies:
+      '@rsmax/ali': link:packages/rsmax-ali
+      '@rsmax/cli': link:packages/rsmax-cli
+      '@rsmax/macro': link:packages/rsmax-macro
+      '@rsmax/one': link:packages/rsmax-one
+      '@rsmax/runtime': link:packages/rsmax-runtime
+      '@rsmax/toutiao': link:packages/rsmax-toutiao
+      '@rsmax/types': link:packages/rsmax-types
+      '@rsmax/web': link:packages/rsmax-web
+      '@rsmax/wechat': link:packages/rsmax-wechat
+      '@rsmax/xhs': link:packages/rsmax-xhs
+
   run-async@2.4.1: {}
 
   run-parallel@1.2.0:
@@ -26639,6 +26687,10 @@ snapshots:
 
   text-table@0.2.0: {}
 
+  thingies@1.21.0(tslib@2.8.1):
+    dependencies:
+      tslib: 2.8.1
+
   through2-filter@3.0.0:
     dependencies:
       through2: 2.0.5
@@ -26752,6 +26804,10 @@ snapshots:
   tr46@5.1.1:
     dependencies:
       punycode: 2.3.1
+
+  tree-dump@1.0.2(tslib@2.8.1):
+    dependencies:
+      tslib: 2.8.1
 
   tree-kill@1.2.2: {}
 

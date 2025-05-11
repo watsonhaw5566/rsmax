@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/xhs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Rsmax for xhs",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",
@@ -16,7 +16,7 @@
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
   "dependencies": {
-    "@rsmax/shared": "1.0.2",
+    "@rsmax/shared": "workspace:*",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

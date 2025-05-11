@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Rsmax 是一个全新的基于 React 的小程序开发框架",
   "main": "./lib/index.js",
   "keywords": [
@@ -109,7 +109,7 @@
     "fs-readdir-recursive": "^1.1.0",
     "jest-diff": "^27.0.2",
     "less-loader": "^12.2.0",
-    "memfs": "^3.1.2",
+    "memfs": "^4.17.1",
     "memory-fs": "^0.5.0",
     "parsec-hooks": "^0.0.123",
     "postcss-url": "^8.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/macro",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -32,7 +32,7 @@
     "react": "^18.3.0"
   },
   "dependencies": {
-    "@rsmax/shared": "1.0.2"
+    "@rsmax/shared": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
