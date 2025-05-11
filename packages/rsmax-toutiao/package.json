@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/toutiao",
-  "version": "3.9.2",
+  "version": "1.0.1",
   "description": "Rsmax for Toutiao",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",
@@ -32,6 +32,5 @@
   "dependencies": {
     "@rsmax/shared": "workspace:*",
     "lodash": "^4.17.21"
-  },
-  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+  }
 }

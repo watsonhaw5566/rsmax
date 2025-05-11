@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-rsmax-turbo-render",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "使用真正的 React 构建跨平台小程序",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://remaxjs.org",
@@ -34,6 +34,5 @@
     "@rsmax/build-store": "workspace:*",
     "@types/jest": "^26.0.8",
     "babel-plugin-tester": "^9.2.0"
-  },
-  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+  }
 }

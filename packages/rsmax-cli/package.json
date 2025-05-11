@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rsmax 是一个全新的基于 React 的小程序开发框架",
   "main": "./lib/index.js",
   "keywords": [
@@ -31,11 +31,11 @@
     "@babel/preset-typescript": "^7.7.4",
     "@babel/register": "^7.7.0",
     "@babel/types": "^7.7.4",
+    "@remax/postcss-px2units": "^0.2.0",
     "@rsmax/build-store": "workspace:*",
     "@rsmax/macro": "workspace:*",
     "@rsmax/plugin-devtools": "workspace:*",
     "@rsmax/plugin-error-screen": "workspace:*",
-    "@remax/postcss-px2units": "^0.2.0",
     "@rsmax/postcss-tag": "workspace:*",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/shared": "workspace:*",
@@ -120,6 +120,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+  }
 }

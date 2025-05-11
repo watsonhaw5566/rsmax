@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/web",
-  "version": "3.9.2",
+  "version": "1.0.1",
   "description": "Shim of web for rsmax",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://github.com/remaxjs/remax#readme",
@@ -47,6 +47,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+  }
 }

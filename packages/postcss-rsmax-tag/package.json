@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/postcss-tag",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "git@github.com:remaxjs/remax.git",
   "author": "Caihuanyu <eterlf41@gmail.com>",
@@ -10,6 +10,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+  }
 }
