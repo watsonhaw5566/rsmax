@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/xhs",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Rsmax for xhs",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",

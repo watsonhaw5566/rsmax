@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/remaxjs/remax/compare/v1.0.7...v1.0.8) (2025-05-11)
+
+### Bug Fixes
+
+- **one:** 修复 @rsmax/redbox-react 丢失问题 ([5810302](https://github.com/remaxjs/remax/commit/581030286d05a1e9c4411e17d8bdd75f56527653))
+
 ## [1.0.7](https://github.com/remaxjs/remax/compare/v1.0.6...v1.0.7) (2025-05-11)
 
 ### Bug Fixes
