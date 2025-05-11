@@ -47,13 +47,13 @@ export default class RuntimeOptionsPlugin {
     appEvents: any,
     assetsPath: string
   ) {
-    compilation.assets[path.join(assetsPath, '__remax_runtime_options__.js')] = new sources.OriginalSource(
+    compilation.assets[path.join(assetsPath, '__rsmax_runtime_options__.js')] = new sources.OriginalSource(
       `module.exports = {
       hostComponents: ${JSON.stringify(hostComponents, null, 2)},
       pageEvents: ${JSON.stringify(pageEvents, null, 2)},
       appEvents: ${JSON.stringify(appEvents, null, 2)}
     }`,
-      '__remax_runtime_options__.js'
+      '__rsmax_runtime_options__.js'
     );
   }
 

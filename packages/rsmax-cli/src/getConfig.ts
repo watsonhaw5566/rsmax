@@ -37,14 +37,14 @@ export default function getConfig(validate = true): Options {
 
   if (validate) {
     validateOptions(schema as any, options, {
-      name: 'remax',
+      name: 'rsmax',
     });
   }
 
-  const remaxConfig = {
+  const rsmaxConfig = {
     ...getDefaultOptions(),
     ...options,
   };
 
-  return normalizeConfigPath(remaxConfig);
+  return normalizeConfigPath(rsmaxConfig);
 }
