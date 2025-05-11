@@ -12,7 +12,7 @@ interface CustomOptions {
 
 function processPresets(presets: ConfigItem[], babel: any, react: boolean) {
   const remaxPresetIndex = presets.findIndex(
-    preset => preset.file && preset.file.resolved.includes(`${path.sep}babel-preset-remax${path.sep}`)
+    preset => preset.file && preset.file.resolved.includes(`${path.sep}babel-preset-rsmax${path.sep}`)
   );
 
   const defaultOptions = {
@@ -23,7 +23,7 @@ function processPresets(presets: ConfigItem[], babel: any, react: boolean) {
   const existOptions = remaxPresetIndex !== -1 ? presets[remaxPresetIndex].options : {};
 
   const remaxPreset = babel.createConfigItem(
-    [require.resolve('babel-preset-remax'), merge({}, defaultOptions, existOptions)],
+    [require.resolve('babel-preset-rsmax'), merge({}, defaultOptions, existOptions)],
     {
       type: `preset`,
     }

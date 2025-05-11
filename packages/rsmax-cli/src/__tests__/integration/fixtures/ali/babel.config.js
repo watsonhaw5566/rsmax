@@ -2,6 +2,6 @@ module.exports = function (api) {
   api.cache(true);
 
   return {
-    presets: [['babel-preset-remax']],
+    presets: [['babel-preset-rsmax']],
   };
 };

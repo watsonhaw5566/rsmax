@@ -4,7 +4,7 @@ module.exports = function (api) {
   return {
     presets: [
       [
-        'babel-preset-remax',
+        'babel-preset-rsmax',
         {
           'throw-if-namespace': false,
         },

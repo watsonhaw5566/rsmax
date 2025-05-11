@@ -5,7 +5,7 @@ module.exports = function (api) {
     plugins: ['loop-optimizer'],
     presets: [
       [
-        'babel-preset-remax',
+        'babel-preset-rsmax',
         {
           'class-properties': {
             loose: true,
