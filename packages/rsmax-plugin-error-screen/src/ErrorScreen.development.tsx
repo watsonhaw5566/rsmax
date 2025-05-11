@@ -1,5 +1,6 @@
-import * as React from 'react';
-import RedBox from '@remax/redbox-react';
+import React from 'react';
+// @ts-nocheck
+import RedBox from '@rsmax/redbox-react';
 
 interface Props {
   error: Error;

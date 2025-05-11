@@ -26,7 +26,7 @@
     "react-test-renderer": "^18.3.0"
   },
   "dependencies": {
-    "@remax/redbox-react": "^1.0.0",
+    "@rsmax/redbox-react": "^1.0.0",
     "@rsmax/ali": "workspace:*",
     "@rsmax/framework-shared": "workspace:*",
     "@rsmax/runtime": "workspace:*",
