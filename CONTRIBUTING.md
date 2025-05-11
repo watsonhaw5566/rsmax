@@ -56,5 +56,5 @@ $ yarn dev
 ### 运行测试
 
 ```javascript
-$ pnpm test
+$pnpm test
 ```
