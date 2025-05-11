@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/watsonhaw5566/rsmax/compare/v1.0.5...v1.0.6) (2025-05-11)
+
+### Bug Fixes
+
+- **one:** 修复 @rsmax/redbox-react 丢失问题 ([21c6051](https://github.com/watsonhaw5566/rsmax/commit/21c605113dc0f85eabca55ae6b04f490caebabd6))
+
 ## [1.0.5](https://github.com/watsonhaw5566/rsmax/compare/v1.0.4...v1.0.5) (2025-05-11)
 
 ### Bug Fixes

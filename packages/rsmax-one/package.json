@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/one",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Rsmax 小程序多端方案",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",
@@ -26,9 +26,9 @@
     "react-test-renderer": "^18.3.0"
   },
   "dependencies": {
-    "@rsmax/redbox-react": "^1.0.0",
     "@rsmax/ali": "workspace:*",
     "@rsmax/framework-shared": "workspace:*",
+    "@rsmax/redbox-react": "^1.0.0",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/toutiao": "workspace:*",
     "@rsmax/web": "workspace:*",
