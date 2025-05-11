@@ -28,11 +28,11 @@
     "@babel/helper-plugin-utils": "^7.10.4",
     "@babel/traverse": "^7.11.0",
     "@babel/types": "^7.11.0",
-    "@rsmax/ali": "1.0.1",
-    "@rsmax/build-store": "1.0.1",
-    "@rsmax/macro": "1.0.1",
-    "@rsmax/shared": "1.0.1",
-    "@rsmax/types": "1.0.1",
+    "@rsmax/ali": "workspace:*",
+    "@rsmax/build-store": "workspace:*",
+    "@rsmax/macro": "workspace:*",
+    "@rsmax/shared": "workspace:*",
+    "@rsmax/types": "workspace:*",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

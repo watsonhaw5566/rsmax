@@ -17,7 +17,7 @@
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
   "devDependencies": {
-    "@rsmax/types": "1.0.1",
+    "@rsmax/types": "workspace:*",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@types/react-test-renderer": "^18.3.0",
@@ -26,14 +26,14 @@
     "react-test-renderer": "^18.3.0"
   },
   "dependencies": {
+    "@rsmax/framework-shared": "workspace:*",
     "@remax/redbox-react": "^1.0.0",
-    "@rsmax/ali": "1.0.1",
-    "@rsmax/framework-shared": "1.0.1",
-    "@rsmax/runtime": "1.0.1",
-    "@rsmax/toutiao": "1.0.1",
-    "@rsmax/web": "1.0.1",
-    "@rsmax/wechat": "1.0.1",
-    "@rsmax/xhs": "1.0.1",
+    "@rsmax/runtime": "workspace:*",
+    "@rsmax/ali": "workspace:*",
+    "@rsmax/toutiao": "workspace:*",
+    "@rsmax/web": "workspace:*",
+    "@rsmax/wechat": "workspace:*",
+    "@rsmax/xhs": "workspace:*",
     "clsx": "^2.1.1",
     "memoize-one": "^5.1.1",
     "react-autosize-textarea": "^7.0.0"

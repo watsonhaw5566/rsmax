@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@remax/react-devtools-core": "^4.7.1",
-    "@rsmax/shared": "1.0.1",
+    "@rsmax/shared": "workspace:*",
     "webpack-inject-plugin": "^1.5.4"
   },
   "publishConfig": {

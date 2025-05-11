@@ -30,16 +30,16 @@
     "prepack": "pnpm build"
   },
   "dependencies": {
-    "@rsmax/ali": "1.0.1",
-    "@rsmax/cli": "1.0.1",
-    "@rsmax/macro": "1.0.1",
-    "@rsmax/one": "1.0.1",
-    "@rsmax/runtime": "1.0.1",
-    "@rsmax/toutiao": "1.0.1",
-    "@rsmax/types": "1.0.1",
-    "@rsmax/web": "1.0.1",
-    "@rsmax/wechat": "1.0.1",
-    "@rsmax/xhs": "1.0.1"
+    "@rsmax/ali": "workspace:*",
+    "@rsmax/cli": "workspace:*",
+    "@rsmax/macro": "workspace:*",
+    "@rsmax/one": "workspace:*",
+    "@rsmax/runtime": "workspace:*",
+    "@rsmax/toutiao": "workspace:*",
+    "@rsmax/types": "workspace:*",
+    "@rsmax/web": "workspace:*",
+    "@rsmax/wechat": "workspace:*",
+    "@rsmax/xhs": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

@@ -27,11 +27,11 @@
     "@babel/helper-plugin-utils": "^7.10.4",
     "@babel/traverse": "^7.11.0",
     "@babel/types": "^7.11.0",
-    "@rsmax/shared": "1.0.1"
+    "@rsmax/shared": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",
-    "@rsmax/build-store": "1.0.1"
+    "@rsmax/build-store": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

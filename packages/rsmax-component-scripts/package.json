@@ -28,8 +28,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@rsmax/cli": "workspace:*",
     "@remax/father-build": "^1.19.8",
-    "@rsmax/cli": "1.0.1",
     "@types/lodash": "^4.14.171",
     "glob": "^11.0.2",
     "less": "^3.7.1",

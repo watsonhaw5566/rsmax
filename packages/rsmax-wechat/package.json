@@ -17,9 +17,9 @@
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
   "dependencies": {
-    "@rsmax/framework-shared": "1.0.1",
-    "@rsmax/runtime": "1.0.1",
-    "@rsmax/shared": "1.0.1",
+    "@rsmax/framework-shared": "workspace:*",
+    "@rsmax/runtime": "workspace:*",
+    "@rsmax/shared": "workspace:*",
     "miniprogram-api-typings": "^4.0.7"
   },
   "devDependencies": {
