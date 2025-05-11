@@ -23,7 +23,7 @@
     "@babel/helper-plugin-utils": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
-    "@rsmax/babel-plugin-auto-css-modules": "workspace:*",
+    "@rsmax/babel-plugin-auto-css-modules": "1.0.1",
     "babel-plugin-auto-import": "^1.0.5",
     "babel-plugin-macros": "^3.1.0",
     "lodash": "^4.17.15"
@@ -33,5 +33,9 @@
   },
   "peerDependencies": {
     "@babel/core": ">=7.0.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

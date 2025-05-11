@@ -16,10 +16,10 @@
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
   "dependencies": {
-    "@rsmax/framework-shared": "workspace:*",
-    "@rsmax/runtime": "workspace:*",
-    "@rsmax/shared": "workspace:*",
-    "@rsmax/types": "workspace:*"
+    "@rsmax/framework-shared": "1.0.1",
+    "@rsmax/runtime": "1.0.1",
+    "@rsmax/shared": "1.0.1",
+    "@rsmax/types": "1.0.1"
   },
   "devDependencies": {
     "@mini-types/alipay": "^3.0.14",
@@ -30,5 +30,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

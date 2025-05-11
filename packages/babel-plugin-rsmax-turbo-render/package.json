@@ -31,8 +31,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",
-    "@rsmax/build-store": "workspace:*",
+    "@rsmax/build-store": "1.0.1",
     "@types/jest": "^26.0.8",
     "babel-plugin-tester": "^9.2.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

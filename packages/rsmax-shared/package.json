@@ -18,14 +18,11 @@
     "build:cjs": "tsc --module CommonJS --outDir cjs",
     "test": "vitest run"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "peerDependencies": {
     "react": "^18.3.0"
   },
   "devDependencies": {
-    "@rsmax/types": "workspace:*",
+    "@rsmax/types": "1.0.1",
     "@types/babel__traverse": "^7.0.8",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.135",
@@ -42,5 +39,9 @@
     "htmlparser2": "^4.1.0",
     "lodash": "^4.17.11",
     "resolve": "^1.12.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

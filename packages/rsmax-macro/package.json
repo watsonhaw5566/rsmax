@@ -23,8 +23,8 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-transform-modules-commonjs": "^7.4.4",
-    "@rsmax/build-store": "workspace:*",
-    "@rsmax/types": "workspace:*",
+    "@rsmax/build-store": "1.0.1",
+    "@rsmax/types": "1.0.1",
     "@types/babel-plugin-macros": "^2.6.0",
     "@types/lodash": "^4.14.149",
     "babel-plugin-macros": "^3.1.0",
@@ -32,9 +32,10 @@
     "react": "^18.3.0"
   },
   "dependencies": {
-    "@rsmax/shared": "workspace:*"
+    "@rsmax/shared": "1.0.1"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

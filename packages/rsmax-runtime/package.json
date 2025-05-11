@@ -29,16 +29,16 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@rsmax/framework-shared": "workspace:*",
-    "@rsmax/shared": "workspace:*",
-    "@rsmax/web": "workspace:*",
+    "@rsmax/framework-shared": "1.0.1",
+    "@rsmax/shared": "1.0.1",
+    "@rsmax/web": "1.0.1",
     "qs": "^6.9.3",
     "react-is": "^18.3.0",
     "react-reconciler": "0.29.0",
     "scheduler": "0.19.1"
   },
   "devDependencies": {
-    "@rsmax/types": "workspace:*",
+    "@rsmax/types": "1.0.1",
     "@types/lodash.merge": "^4.6.6",
     "@types/node": "^18",
     "@types/qs": "^6.9.3",
@@ -48,5 +48,9 @@
     "@types/react-test-renderer": "^18.3.0",
     "object-path-immutable": "^4.0.2",
     "react-test-renderer": "^18.3.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }
