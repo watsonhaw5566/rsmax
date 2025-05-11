@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Text > render correctly 1`] = `
+<text
+  className="class"
+>
+  text
+</text>
+`;
+
+exports[`Text render correctly 1`] = `
+<text
+  className="class"
+>
+  text
+</text>
+`;

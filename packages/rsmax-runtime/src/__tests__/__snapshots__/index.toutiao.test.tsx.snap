@@ -1,0 +1,647 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`remax render > change elements' order 1`] = `
+{
+  "children": [
+    7,
+  ],
+  "id": 0,
+  "nodes": {
+    "7": {
+      "children": [
+        2,
+        4,
+        6,
+      ],
+      "id": 7,
+      "nodes": {
+        "2": {
+          "children": [
+            1,
+          ],
+          "id": 2,
+          "nodes": {
+            "1": {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "4": {
+          "children": [
+            3,
+          ],
+          "id": 4,
+          "nodes": {
+            "3": {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "6": {
+          "children": [
+            5,
+          ],
+          "id": 6,
+          "nodes": {
+            "5": {
+              "id": 5,
+              "text": "3",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > change elements' order 2`] = `
+{
+  "children": [
+    7,
+  ],
+  "id": 0,
+  "nodes": {
+    "7": {
+      "children": [
+        4,
+        2,
+        6,
+      ],
+      "id": 7,
+      "nodes": {
+        "2": {
+          "children": [
+            1,
+          ],
+          "id": 2,
+          "nodes": {
+            "1": {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "4": {
+          "children": [
+            3,
+          ],
+          "id": 4,
+          "nodes": {
+            "3": {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "6": {
+          "children": [
+            5,
+          ],
+          "id": 6,
+          "nodes": {
+            "5": {
+              "id": 5,
+              "text": "3",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > change elements' order 3`] = `
+{
+  "children": [
+    7,
+  ],
+  "id": 0,
+  "nodes": {
+    "7": {
+      "children": [
+        4,
+        6,
+        2,
+      ],
+      "id": 7,
+      "nodes": {
+        "2": {
+          "children": [
+            1,
+          ],
+          "id": 2,
+          "nodes": {
+            "1": {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "4": {
+          "children": [
+            3,
+          ],
+          "id": 4,
+          "nodes": {
+            "3": {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "6": {
+          "children": [
+            5,
+          ],
+          "id": 6,
+          "nodes": {
+            "5": {
+              "id": 5,
+              "text": "3",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > insert new element 1`] = `
+{
+  "children": [
+    5,
+  ],
+  "id": 0,
+  "nodes": {
+    "5": {
+      "children": [
+        2,
+        4,
+      ],
+      "id": 5,
+      "nodes": {
+        "2": {
+          "children": [
+            1,
+          ],
+          "id": 2,
+          "nodes": {
+            "1": {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "4": {
+          "children": [
+            3,
+          ],
+          "id": 4,
+          "nodes": {
+            "3": {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > insert new element 2`] = `
+{
+  "children": [
+    5,
+  ],
+  "id": 0,
+  "nodes": {
+    "5": {
+      "children": [
+        2,
+        7,
+        4,
+      ],
+      "id": 5,
+      "nodes": {
+        "2": {
+          "children": [
+            1,
+          ],
+          "id": 2,
+          "nodes": {
+            "1": {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "4": {
+          "children": [
+            3,
+          ],
+          "id": 4,
+          "nodes": {
+            "3": {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        "7": {
+          "children": [
+            6,
+          ],
+          "id": 7,
+          "nodes": {
+            "6": {
+              "id": 6,
+              "text": "2",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > render correctly 1`] = `
+{
+  "children": [
+    2,
+  ],
+  "id": 0,
+  "nodes": {
+    "2": {
+      "children": [
+        1,
+      ],
+      "id": 2,
+      "nodes": {
+        "1": {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      },
+      "props": {
+        "className": "foo",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > render native component correctly 1`] = `
+[
+  {
+    "root.children": [
+      1,
+    ],
+    "root.nodes.1": {
+      "children": [],
+      "id": 1,
+      "props": {
+        "className": "class",
+        "fooBar": "fooBar",
+        "onClick": "$$REMAX_METHOD_1_onClick",
+      },
+      "text": undefined,
+      "type": "native-component",
+    },
+  },
+]
+`;
+
+exports[`remax render > renders conditional fragment correctly 1`] = `
+{
+  "children": [
+    2,
+    4,
+  ],
+  "id": 0,
+  "nodes": {
+    "2": {
+      "children": [
+        1,
+      ],
+      "id": 2,
+      "nodes": {
+        "1": {
+          "id": 1,
+          "text": "one",
+          "type": "plain-text",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+    "4": {
+      "children": [
+        3,
+      ],
+      "id": 4,
+      "nodes": {
+        "3": {
+          "id": 3,
+          "text": "two",
+          "type": "plain-text",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > renders conditional fragment correctly 2`] = `
+{
+  "children": [
+    2,
+  ],
+  "id": 0,
+  "nodes": {
+    "2": {
+      "children": [
+        1,
+      ],
+      "id": 2,
+      "nodes": {
+        "1": {
+          "id": 1,
+          "text": "foo",
+          "type": "plain-text",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > renders empty style 1`] = `
+{
+  "children": [
+    2,
+  ],
+  "id": 0,
+  "nodes": {
+    "2": {
+      "children": [
+        1,
+      ],
+      "id": 2,
+      "nodes": {
+        "1": {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      },
+      "props": {
+        "style": "",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > renders style 1`] = `
+{
+  "children": [
+    2,
+  ],
+  "id": 0,
+  "nodes": {
+    "2": {
+      "children": [
+        1,
+      ],
+      "id": 2,
+      "nodes": {
+        "1": {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      },
+      "props": {
+        "style": "width:100rpx;height:100rpx;",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > renders vendor prefix style 1`] = `
+{
+  "children": [
+    2,
+  ],
+  "id": 0,
+  "nodes": {
+    "2": {
+      "children": [
+        1,
+      ],
+      "id": 2,
+      "nodes": {
+        "1": {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      },
+      "props": {
+        "style": "-webkit-line-clamp:2;height:100rpx;",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > umount component 1`] = `
+{
+  "children": [
+    3,
+  ],
+  "id": 0,
+  "nodes": {
+    "3": {
+      "children": [
+        2,
+      ],
+      "id": 3,
+      "nodes": {
+        "2": {
+          "children": [
+            1,
+          ],
+          "id": 2,
+          "nodes": {
+            "1": {
+              "id": 1,
+              "text": "foo",
+              "type": "plain-text",
+            },
+          },
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      },
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`remax render > umount component 2`] = `
+{
+  "children": [
+    3,
+  ],
+  "id": 0,
+  "nodes": {
+    "3": {
+      "children": [],
+      "id": 3,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  },
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;

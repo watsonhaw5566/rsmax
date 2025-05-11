@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PageContainer > render correctly 1`] = `
+<page-container
+  closeOnSlideDown={false}
+  duration={300}
+  overlay={true}
+  position="bottom"
+  round={false}
+  show={false}
+  zIndex={100}
+/>
+`;
+
+exports[`PageContainer render correctly 1`] = `
+<page-container
+  closeOnSlideDown={false}
+  duration={300}
+  overlay={true}
+  position="bottom"
+  round={false}
+  show={false}
+  zIndex={100}
+/>
+`;

@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "lib",
+    "types": [
+      "@types/node",
+      "vitest/globals"
+    ]
+  },
+  "exclude": [
+    "tests/**/*",
+    "node_modules",
+    "lib"
+  ]
+}

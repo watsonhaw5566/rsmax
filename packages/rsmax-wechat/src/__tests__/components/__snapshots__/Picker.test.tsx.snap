@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Picker > render correctly 1`] = `
+<picker
+  disabled={false}
+  fields="day"
+  mode="selector"
+  range={[]}
+/>
+`;
+
+exports[`Picker render correctly 1`] = `
+<picker
+  disabled={false}
+  fields="day"
+  mode="selector"
+  range={Array []}
+/>
+`;

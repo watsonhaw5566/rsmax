@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SwiperItem > render correctly 1`] = `<swiper-item />`;
+
+exports[`SwiperItem render correctly 1`] = `<swiper-item />`;

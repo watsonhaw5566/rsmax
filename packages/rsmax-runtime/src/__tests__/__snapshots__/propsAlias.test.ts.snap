@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`props alias > transform style prop correctly 1`] = `
+{
+  "style": "color:#ffffff;height:2rpx;-webkit-flex:1;--color:red;--textColor:blue;background-color:var(--textColor);",
+}
+`;
+
+exports[`props alias > transform style prop correctly 2`] = `
+{
+  "style": null,
+}
+`;

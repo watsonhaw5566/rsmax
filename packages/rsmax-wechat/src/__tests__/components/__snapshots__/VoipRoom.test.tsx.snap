@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`VoipRoom > render correctly 1`] = `
+<voip-room
+  devicePosition="front"
+  mode="camera"
+  openId="openId"
+/>
+`;
+
+exports[`VoipRoom render correctly 1`] = `
+<voip-room
+  devicePosition="front"
+  mode="camera"
+  openId="openId"
+/>
+`;

@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Image > render correctly in ali 1`] = `
+<image
+  className="class"
+  onError={[Function]}
+  onLoad={[Function]}
+/>
+`;
+
+exports[`Image > render correctly in toutiao 1`] = `
+<image
+  className="class"
+  onError={[Function]}
+  onLoad={[Function]}
+/>
+`;
+
+exports[`Image > render correctly in wechat 1`] = `
+<image
+  className="class"
+  onError={[Function]}
+  onLoad={[Function]}
+/>
+`;
+
+exports[`Image render correctly in ali 1`] = `
+<image
+  className="class"
+  onError={[Function]}
+  onLoad={[Function]}
+/>
+`;
+
+exports[`Image render correctly in toutiao 1`] = `
+<image
+  className="class"
+  onError={[Function]}
+  onLoad={[Function]}
+/>
+`;
+
+exports[`Image render correctly in wechat 1`] = `
+<image
+  className="class"
+  onError={[Function]}
+  onLoad={[Function]}
+/>
+`;

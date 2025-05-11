@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`createNativeComponent > create native component 1`] = `
+<card
+  __ref={[Function]}
+/>
+`;
+
+exports[`createNativeComponent > functional ref 1`] = `
+<card
+  __ref={[Function]}
+/>
+`;
+
+exports[`createNativeComponent > rename ref 1`] = `
+<card
+  __ref={[Function]}
+/>
+`;

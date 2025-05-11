@@ -1,0 +1,45 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextArea > render correctly 1`] = `
+<textarea
+  adjustPosition={true}
+  autoFocus={false}
+  autoHeight={false}
+  className="class"
+  cursor={-1}
+  cursorSpacing={0}
+  disableDefaultPadding={false}
+  disabled={false}
+  fixed={false}
+  focus={false}
+  holdKeyboard={false}
+  maxlength={140}
+  placeholderClassName="textarea-placeholder"
+  selectionEnd={-1}
+  selectionStart={-1}
+  showConfirmBar={true}
+  value=""
+/>
+`;
+
+exports[`TextArea render correctly 1`] = `
+<textarea
+  adjustPosition={true}
+  autoFocus={false}
+  autoHeight={false}
+  className="class"
+  cursor={-1}
+  cursorSpacing={0}
+  disableDefaultPadding={false}
+  disabled={false}
+  fixed={false}
+  focus={false}
+  holdKeyboard={false}
+  maxlength={140}
+  placeholderClassName="textarea-placeholder"
+  selectionEnd={-1}
+  selectionStart={-1}
+  showConfirmBar={true}
+  value=""
+/>
+`;

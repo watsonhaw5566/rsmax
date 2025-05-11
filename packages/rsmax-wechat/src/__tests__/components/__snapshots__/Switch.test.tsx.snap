@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Switch > render correctly 1`] = `
+<switch
+  checked={false}
+  color="#04BE02"
+  disabled={false}
+  type="switch"
+/>
+`;
+
+exports[`Switch render correctly 1`] = `
+<switch
+  checked={false}
+  color="#04BE02"
+  disabled={false}
+  type="switch"
+/>
+`;

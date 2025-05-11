@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Image > render correctly 1`] = `
+<image
+  className="class"
+  lazyLoad={false}
+  mode="scaleToFill"
+  showMenuByLongpress={false}
+  webp={false}
+/>
+`;
+
+exports[`Image render correctly 1`] = `
+<image
+  className="class"
+  lazyLoad={false}
+  mode="scaleToFill"
+  showMenuByLongpress={false}
+  webp={false}
+/>
+`;

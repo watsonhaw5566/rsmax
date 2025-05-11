@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RadioGroup > render correctly 1`] = `<radio-group />`;
+
+exports[`RadioGroup render correctly 1`] = `<radio-group />`;

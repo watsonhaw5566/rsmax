@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NavigationBar > render correctly 1`] = `
+<navigation-bar
+  colorAnimationDuration={0}
+  colorAnimationTimingFunc="linear"
+  loading={false}
+/>
+`;
+
+exports[`NavigationBar render correctly 1`] = `
+<navigation-bar
+  colorAnimationDuration={0}
+  colorAnimationTimingFunc="linear"
+  loading={false}
+/>
+`;

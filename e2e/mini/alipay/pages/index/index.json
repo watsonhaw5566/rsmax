@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "greet": "/components/greet",
+    "greet2": "/components/greet2"
+  }
+}

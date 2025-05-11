@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OfficialAccount > render correctly 1`] = `<official-account />`;
+
+exports[`OfficialAccount render correctly 1`] = `<official-account />`;

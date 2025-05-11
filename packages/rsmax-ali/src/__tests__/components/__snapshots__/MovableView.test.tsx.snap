@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MovableView > render correctly 1`] = `
+<movable-view
+  height={10}
+  width={10}
+/>
+`;
+
+exports[`MovableView render correctly 1`] = `
+<movable-view
+  height={10}
+  width={10}
+/>
+`;

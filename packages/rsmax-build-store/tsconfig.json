@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2017",
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "lib",
+    "types": [
+      "@types/node",
+      "vitest/globals"
+    ],
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src",
+    "src/OptionsSchema.json",
+    "typings"
+  ],
+  "exclude": [
+    "tests",
+    "lib"
+  ]
+}

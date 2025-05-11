@@ -1,0 +1,942 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Remax Suspense placeholder > hides and unhides timed out DOM elements 2`] = `
+[
+  {
+    "root.children": [
+      0,
+      0,
+      {
+        "children": [],
+        "id": 1,
+        "props": {
+          "className": "class",
+          "fooBar": "fooBar",
+          "onClick": "$$REMAX_METHOD_1_onClick",
+        },
+        "text": undefined,
+        "type": "native-component",
+      },
+    ],
+  },
+]
+`;
+
+exports[`ali remax render > change elements' order 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 5,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 6,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 7,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > change elements' order 2`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 5,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 6,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 7,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > change elements' order 3`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 5,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 6,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 7,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > conditional render 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > conditional render 2`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > conditional render 3`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 6,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 7,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > insert and remove element 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > insert and remove element 2`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 6,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 7,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > insert and remove element 3`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > insert new element 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > insert new element 2`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 6,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 7,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > insert new element 3`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 8,
+              "text": "0",
+              "type": "plain-text",
+            },
+          ],
+          "id": 9,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "1",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 6,
+              "text": "2",
+              "type": "plain-text",
+            },
+          ],
+          "id": 7,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "3",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 5,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > render correctly 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      ],
+      "id": 2,
+      "props": {
+        "className": "foo",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > renders conditional fragment correctly 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 1,
+          "text": "one",
+          "type": "plain-text",
+        },
+      ],
+      "id": 2,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+    {
+      "children": [
+        {
+          "id": 3,
+          "text": "two",
+          "type": "plain-text",
+        },
+      ],
+      "id": 4,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > renders conditional fragment correctly 2`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 1,
+          "text": "foo",
+          "type": "plain-text",
+        },
+      ],
+      "id": 2,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > renders empty style 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      ],
+      "id": 2,
+      "props": {
+        "style": "",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > renders style 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      ],
+      "id": 2,
+      "props": {
+        "style": "width:100rpx;height:100rpx;",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > renders unitless style 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      ],
+      "id": 2,
+      "props": {
+        "style": "height:100rpx;flex:1;",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > renders vendor prefix style 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 1,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      ],
+      "id": 2,
+      "props": {
+        "style": "-webkit-line-clamp:2;height:100rpx;",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > umount component 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 1,
+              "text": "foo",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {},
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 3,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > umount component 2`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "id": 3,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > update element props 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [],
+          "id": 1,
+          "props": {
+            "className": "className",
+            "disabled": false,
+            "style": "display:flex;flex:1;",
+          },
+          "text": undefined,
+          "type": "input",
+        },
+      ],
+      "id": 2,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`ali remax render > update element props 2`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [],
+          "id": 1,
+          "props": {
+            "className": "updateClassName",
+            "disabled": true,
+            "style": "display:flex;flex:2;",
+          },
+          "text": undefined,
+          "type": "input",
+        },
+      ],
+      "id": 2,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;

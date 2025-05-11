@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Audio > render correctly 1`] = `<audio />`;
+
+exports[`Audio render correctly 1`] = `<audio />`;

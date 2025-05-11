@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Radio > render correctly 1`] = `
+<radio
+  checked={false}
+  color="#09BB07"
+  disabled={false}
+/>
+`;
+
+exports[`Radio render correctly 1`] = `
+<radio
+  checked={false}
+  color="#09BB07"
+  disabled={false}
+/>
+`;

@@ -1,0 +1,38 @@
+{
+  "name": "babel-preset-rsmax",
+  "version": "1.0.0",
+  "description": "rsmax babel preset",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "author": "Caihuanyu <eterlf41@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "prebuild": "npm run clean",
+    "build": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/remaxjs/remax/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remaxjs/remax.git"
+  },
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@rsmax/babel-plugin-auto-css-modules": "workspace:*",
+    "babel-plugin-auto-import": "^1.0.5",
+    "babel-plugin-macros": "^3.1.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4"
+  },
+  "peerDependencies": {
+    "@babel/core": ">=7.0.0"
+  },
+  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+}

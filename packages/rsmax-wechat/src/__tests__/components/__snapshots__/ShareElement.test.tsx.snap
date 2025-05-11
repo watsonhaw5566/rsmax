@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ShareElement > render correctly 1`] = `
+<share-element
+  duration={300}
+  easingFunction="ease-out"
+  transform={false}
+/>
+`;
+
+exports[`ShareElement render correctly 1`] = `
+<share-element
+  duration={300}
+  easingFunction="ease-out"
+  transform={false}
+/>
+`;

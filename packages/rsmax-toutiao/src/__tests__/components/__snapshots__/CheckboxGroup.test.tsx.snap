@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CheckboxGroup > render correctly 1`] = `<checkbox-group />`;
+
+exports[`CheckboxGroup render correctly 1`] = `<checkbox-group />`;

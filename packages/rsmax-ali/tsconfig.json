@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": [
+      "es2015",
+      "DOM"
+    ],
+    "declaration": true,
+    "jsx": "react",
+    "types": [
+      "@types/node",
+      "vitest/globals",
+      "@mini-types/alipay"
+    ],
+    "rootDir": "src",
+    "outDir": "esm",
+    "downlevelIteration": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "cjs",
+    "esm"
+  ]
+}

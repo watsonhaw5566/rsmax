@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MovableArea > render correctly 1`] = `
+<movable-area
+  height={10}
+  width={10}
+/>
+`;
+
+exports[`MovableArea render correctly 1`] = `
+<movable-area
+  height={10}
+  width={10}
+/>
+`;

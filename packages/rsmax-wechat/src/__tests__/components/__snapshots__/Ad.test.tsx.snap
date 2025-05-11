@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Ad > render correctly 1`] = `
+<ad
+  adTheme="white"
+  adType="banner"
+  unitId="id"
+/>
+`;
+
+exports[`Ad render correctly 1`] = `
+<ad
+  adTheme="white"
+  adType="banner"
+  unitId="id"
+/>
+`;

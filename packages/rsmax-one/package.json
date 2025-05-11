@@ -1,0 +1,45 @@
+{
+  "name": "@rsmax/one",
+  "version": "1.0.0",
+  "description": "Rsmax 小程序多端方案",
+  "main": "./cjs/index.js",
+  "esnext": "./esm/index.js",
+  "module": "./esm/index.js",
+  "typings": "./esm/index.d.ts",
+  "scripts": {
+    "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir cjs",
+    "postbuild": "node ./scripts/postbuild.js",
+    "test": "vitest run"
+  },
+  "repository": "git+https://github.com/remaxjs/remax.git",
+  "license": "MIT",
+  "devDependencies": {
+    "@rsmax/types": "workspace:*",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-test-renderer": "^18.3.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-test-renderer": "^18.3.0"
+  },
+  "dependencies": {
+    "@rsmax/framework-shared": "workspace:*",
+    "@remax/redbox-react": "^1.0.0",
+    "@rsmax/runtime": "workspace:*",
+    "@rsmax/ali": "workspace:*",
+    "@rsmax/toutiao": "workspace:*",
+    "@rsmax/web": "workspace:*",
+    "@rsmax/wechat": "workspace:*",
+    "@rsmax/xhs": "workspace:*",
+    "clsx": "^2.1.1",
+    "memoize-one": "^5.1.1",
+    "react-autosize-textarea": "^7.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+}

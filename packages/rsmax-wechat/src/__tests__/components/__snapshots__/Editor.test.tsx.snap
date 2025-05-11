@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Editor > render correctly 1`] = `
+<editor
+  readOnly={false}
+  showImgResize={false}
+  showImgSize={false}
+  showImgToolbar={false}
+/>
+`;
+
+exports[`Editor render correctly 1`] = `
+<editor
+  readOnly={false}
+  showImgResize={false}
+  showImgSize={false}
+  showImgToolbar={false}
+/>
+`;

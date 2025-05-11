@@ -1,0 +1,74 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/rsmax-types"
+    },
+    {
+      "path": "./packages/rsmax-framework-shared"
+    },
+    {
+      "path": "./packages/rsmax-shared"
+    },
+    {
+      "path": "./packages/rsmax-build-store"
+    },
+    {
+      "path": "./packages/babel-preset-rsmax"
+    },
+    {
+      "path": "./packages/babel-plugin-auto-css-modules"
+    },
+    {
+      "path": "./packages/babel-plugin-rsmax-host-component"
+    },
+    {
+      "path": "./packages/babel-plugin-rsmax-turbo-render"
+    },
+    {
+      "path": "./packages/babel-plugin-rsmax-lifecycle"
+    },
+    {
+      "path": "./packages/babel-plugin-rsmax-regenerator-runtime"
+    },
+    {
+      "path": "./packages/rsmax-runtime"
+    },
+    {
+      "path": "./packages/rsmax-ali"
+    },
+    {
+      "path": "./packages/rsmax-wechat"
+    },
+    {
+      "path": "./packages/rsmax-toutiao"
+    },
+    {
+      "path": "./packages/rsmax-xhs"
+    },
+    {
+      "path": "./packages/rsmax-web"
+    },
+    {
+      "path": "./packages/rsmax-one"
+    },
+    {
+      "path": "./packages/rsmax-macro"
+    },
+    {
+      "path": "./packages/rsmax-plugin-devtools"
+    },
+    {
+      "path": "./packages/rsmax-plugin-error-screen"
+    },
+    {
+      "path": "./packages/rsmax-cli"
+    },
+    {
+      "path": "./packages/rsmax-component-scripts"
+    },
+    {
+      "path": "./packages/rsmax"
+    }
+  ]
+}

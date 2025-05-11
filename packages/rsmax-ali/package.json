@@ -1,0 +1,35 @@
+{
+  "name": "@rsmax/ali",
+  "version": "1.0.0",
+  "description": "Rsmax for Ali",
+  "main": "./cjs/index.js",
+  "esnext": "./esm/index.js",
+  "module": "./esm/index.js",
+  "typings": "./esm/index.d.ts",
+  "scripts": {
+    "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir cjs",
+    "test": "vitest run"
+  },
+  "repository": "git+https://github.com/remaxjs/remax.git",
+  "license": "MIT",
+  "dependencies": {
+    "@rsmax/framework-shared": "workspace:*",
+    "@rsmax/runtime": "workspace:*",
+    "@rsmax/shared": "workspace:*",
+    "@rsmax/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@mini-types/alipay": "^3.0.14",
+    "@types/react": "^18.3.0",
+    "@types/react-test-renderer": "^18.3.0",
+    "react": "^18.3.0",
+    "react-test-renderer": "^18.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+}

@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Icon > render correctly 1`] = `
+<icon
+  className="class"
+  size={23}
+  type="info"
+/>
+`;
+
+exports[`Icon render correctly 1`] = `
+<icon
+  className="class"
+  size={23}
+  type="info"
+/>
+`;

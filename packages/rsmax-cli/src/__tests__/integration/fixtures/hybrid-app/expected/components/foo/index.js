@@ -1,0 +1,1 @@
+require("./../../runtime.js"),(()=>{var r={id:1,ids:[1]};r.modules={10:(r,e,i)=>{"use strict";i.r(e)},9:(r,e,i)=>{i(10),Component({})}};var e=require("../../runtime.js");e.C(r),e(e.s=9)})();

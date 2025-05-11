@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Checkbox > render correctly 1`] = `
+<checkbox
+  checked={false}
+  disabled={false}
+/>
+`;
+
+exports[`Checkbox render correctly 1`] = `
+<checkbox
+  checked={false}
+  disabled={false}
+/>
+`;

@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Video > render correctly 1`] = `
+<video
+  src="https://www.alipay.com"
+/>
+`;
+
+exports[`Video render correctly 1`] = `
+<video
+  src="https://www.alipay.com"
+/>
+`;

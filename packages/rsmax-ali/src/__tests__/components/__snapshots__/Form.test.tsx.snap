@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Form > render correctly 1`] = `
+<form
+  reportSubmit={true}
+/>
+`;
+
+exports[`Form render correctly 1`] = `
+<form
+  reportSubmit={true}
+/>
+`;

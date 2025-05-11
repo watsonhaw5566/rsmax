@@ -1,0 +1,1 @@
+require("./../../runtime.js"),(()=>{var e={id:4,ids:[4]};e.modules={8:(e,r,i)=>{"use strict";i.r(r)},7:(e,r,i)=>{i(8),Page({data:{name:"TypeScript Page"}})}};var r=require("../../runtime.js");r.C(e),r(r.s=7)})();

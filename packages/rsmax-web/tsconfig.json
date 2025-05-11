@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "esm",
+    "declaration": true,
+    "jsx": "react",
+    "downlevelIteration": true,
+    "types": [
+      "@types/node",
+      "vitest/globals"
+    ]
+  },
+  "exclude": [
+    "cjs",
+    "esm"
+  ]
+}

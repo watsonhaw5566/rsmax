@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ChannelVideo > render correctly 1`] = `
+<channel-live
+  autoplay={true}
+  feedId="id"
+  feedToken=""
+  finderUserName=""
+  loop={false}
+  muted="contain"
+/>
+`;
+
+exports[`ChannelVideo render correctly 1`] = `
+<channel-live
+  autoplay={true}
+  feedId="id"
+  feedToken=""
+  finderUserName=""
+  loop={false}
+  muted="contain"
+/>
+`;

@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+const RsmaxCLI = require('@rsmax/cli').default;
+
+new RsmaxCLI().run(process.argv.slice(2, process.argv.length));

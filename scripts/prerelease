@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+printf "npm build:\n"
+
+npm run lint && npm run build

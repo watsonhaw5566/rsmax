@@ -1,0 +1,36 @@
+{
+  "name": "@rsmax/framework-shared",
+  "version": "1.0.0",
+  "description": "使用真正的 React 构建跨平台小程序",
+  "author": "Wei Zhu <yesmeck@gmail.com>",
+  "homepage": "https://remaxjs.org",
+  "license": "MIT",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:remaxjs/remax.git"
+  },
+  "scripts": {
+    "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir cjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react-is": "^18.3.0"
+  },
+  "devDependencies": {
+    "@rsmax/types": "workspace:*",
+    "@types/react": "^18.3.0",
+    "@types/react-is": "^18.3.0",
+    "@types/react-test-renderer": "^18.3.0",
+    "react-test-renderer": "^18.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+}

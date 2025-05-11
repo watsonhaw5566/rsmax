@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2017",
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "lib",
+    "types": [
+      "@types/jest",
+      "vitest/globals"
+    ],
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "tests",
+    "lib"
+  ]
+}

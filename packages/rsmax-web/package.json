@@ -1,0 +1,52 @@
+{
+  "name": "@rsmax/web",
+  "version": "3.9.2",
+  "description": "Shim of web for rsmax",
+  "author": "Wei Zhu <yesmeck@gmail.com>",
+  "homepage": "https://github.com/remaxjs/remax#readme",
+  "license": "MIT",
+  "main": "./cjs/index.js",
+  "esnext": "./esm/index.js",
+  "module": "./esm/index.js",
+  "typings": "./esm/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remaxjs/remax.git"
+  },
+  "scripts": {
+    "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir cjs",
+    "test": "vitest run"
+  },
+  "bugs": {
+    "url": "https://github.com/remaxjs/remax/issues"
+  },
+  "dependencies": {
+    "@loadable/component": "^5.12.0",
+    "@remax/react-router-cache-route": "^1.8.4",
+    "@rsmax/framework-shared": "workspace:*",
+    "history": "^5.3.0",
+    "qs": "^6.9.3",
+    "react-is": "^18.3.0",
+    "react-router-dom": "^5.2.0",
+    "rmc-pull-to-refresh": "^1.0.12",
+    "umi-hd": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/loadable__component": "^5.10.0",
+    "@types/qs": "^6.9.3",
+    "@types/react": "^18.3.0",
+    "@types/react-is": "^17.0.2",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/react-test-renderer": "^18.3.0",
+    "jsdom": "^26.1.0",
+    "react": "^18.3.0",
+    "react-test-renderer": "^18.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "14d4b95d916a55e4ecbe5fbda933bbc57018d7df"
+}

@@ -1,0 +1,6 @@
+lib
+node_modules
+**/__tests__/**/expected
+packages/**/templates/*.ejs
+cjs
+esm

@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PageMeta > render correctly 1`] = `
+<page-meta
+  scrollDuration={300}
+/>
+`;
+
+exports[`PageMeta render correctly 1`] = `
+<page-meta
+  scrollDuration={300}
+/>
+`;

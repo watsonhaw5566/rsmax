@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button > render correctly 1`] = `
+<button
+  className="class"
+>
+  Button
+</button>
+`;
+
+exports[`Button render correctly 1`] = `
+<button
+  className="class"
+>
+  Button
+</button>
+`;

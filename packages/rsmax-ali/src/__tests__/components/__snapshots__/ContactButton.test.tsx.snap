@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContactButton > render correctly 1`] = `
+<contact-button
+  scene=""
+  tntInstId=""
+/>
+`;
+
+exports[`ContactButton render correctly 1`] = `
+<contact-button
+  scene=""
+  tntInstId=""
+/>
+`;

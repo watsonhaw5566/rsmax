@@ -1,0 +1,20 @@
+{
+  "miniprogramRoot": "build/src",
+  "scripts": {
+    "watch": "npm run watch:mini",
+    "beforePreview": "npm run build",
+    "beforeUpload": "npm run build"
+  },
+  "exclude": [
+    "src/**",
+    "node_modules",
+    "node_modules/**",
+    "babel.config.js",
+    "package-lock.json",
+    "package.json",
+    "rsmax.config.js",
+    "app.json",
+    "miniapptools_dist/**/*",
+    "dist/**/*"
+  ]
+}

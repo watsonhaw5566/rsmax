@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AdCustom > render correctly 1`] = `
+<ad-custom
+  unitId="id"
+/>
+`;
+
+exports[`AdCustom render correctly 1`] = `
+<ad-custom
+  unitId="id"
+/>
+`;

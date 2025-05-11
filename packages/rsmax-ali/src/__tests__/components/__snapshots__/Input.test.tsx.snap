@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Input > render correctly 1`] = `
+<input
+  className="class"
+/>
+`;
+
+exports[`Input render correctly 1`] = `
+<input
+  className="class"
+/>
+`;

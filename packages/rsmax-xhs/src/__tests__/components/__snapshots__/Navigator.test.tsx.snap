@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Navigator > render correctly 1`] = `
+<navigator
+  hoverClassName="navigator-hover"
+  hoverStartTime={50}
+  hoverStayTime={400}
+  hoverStopPropagation={false}
+  openType="navigate"
+  url="url"
+/>
+`;
+
+exports[`Navigator render correctly 1`] = `
+<navigator
+  hoverClassName="navigator-hover"
+  hoverStartTime={50}
+  hoverStayTime={400}
+  hoverStopPropagation={false}
+  openType="navigate"
+  url="url"
+/>
+`;

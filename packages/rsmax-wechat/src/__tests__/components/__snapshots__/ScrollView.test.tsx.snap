@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ScrollView > render correctly 1`] = `
+<scroll-view
+  bounces={true}
+  enableBackToTop={false}
+  enableFlex={false}
+  enhanced={false}
+  fastDeceleration={false}
+  lowerThreshold={50}
+  pagingEnabled={false}
+  refresherBackground="#fff"
+  refresherDefaultStyle="black"
+  refresherEnabled={false}
+  refresherThreshold={45}
+  refresherTriggered={false}
+  scrollAnchoring={false}
+  scrollWithAnimation={false}
+  scrollX={false}
+  scrollY={false}
+  showScrollbar={true}
+  upperThreshold={50}
+/>
+`;
+
+exports[`ScrollView render correctly 1`] = `
+<scroll-view
+  bounces={true}
+  enableBackToTop={false}
+  enableFlex={false}
+  enhanced={false}
+  fastDeceleration={false}
+  lowerThreshold={50}
+  pagingEnabled={false}
+  refresherBackground="#fff"
+  refresherDefaultStyle="black"
+  refresherEnabled={false}
+  refresherThreshold={45}
+  refresherTriggered={false}
+  scrollAnchoring={false}
+  scrollWithAnimation={false}
+  scrollX={false}
+  scrollY={false}
+  showScrollbar={true}
+  upperThreshold={50}
+/>
+`;
