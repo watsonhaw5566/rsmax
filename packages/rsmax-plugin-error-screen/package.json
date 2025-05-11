@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@rsmax/one": "workspace:*",
-    "@rsmax/redbox-react": "^1.0.1",
+    "@rsmax/redbox-react": "^1.0.2",
     "@rsmax/shared": "workspace:*",
     "webpack-virtual-modules": "^0.6.1"
   },
