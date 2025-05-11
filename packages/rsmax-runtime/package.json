@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/runtime",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Rsmax 是一个全新的基于 React 的小程序开发框架",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/remaxjs/remax/compare/v1.0.3...v1.0.4) (2025-05-11)
+
+### Bug Fixes
+
+- **remax:** 修正 rsmax 命令无法相应问题 ([9dd31a2](https://github.com/remaxjs/remax/commit/9dd31a2da94b9fbdfadac16c346915a9a3b7310a))
+
 ## 1.0.3 (2025-05-11)
 
 ### Bug Fixes
