@@ -17,7 +17,7 @@ import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
 import moduleResolver from 'babel-plugin-module-resolver';
 import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
 import Store from '@rsmax/build-store';
-import * as RemaxPlugins from './plugins';
+import * as RsmaxPlugins from './plugins';
 import API from '../../API';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import baseConfig from './baseConfig';
@@ -85,7 +85,7 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
 
   if (builder.options.turboRenders) {
     const options = {
-      isHostComponentPackage: (pkg: string) => pkg.startsWith('remax'),
+      isHostComponentPackage: (pkg: string) => pkg.startsWith('rsmax'),
     };
     // turbo pages
     config.module
@@ -236,15 +236,15 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
       },
     ]);
   }
-  config.plugin('webpack-bar').use(WebpackBar, [{ name: 'remax' }]);
+  config.plugin('webpack-bar').use(WebpackBar, [{ name: 'rsmax' }]);
   config.plugin('mini-css-extract-plugin').use(MiniCssExtractPlugin, [{ filename: `[name]${meta.style}` }]);
-  config.plugin('remax-optimize-entries-plugin').use(RemaxPlugins.OptimizeEntries, [meta]);
-  config.plugin('remax-app-asset-plugin').use(RemaxPlugins.AppAsset, [builder]);
-  config.plugin('remax-page-asset-plugin').use(RemaxPlugins.PageAsset, [builder]);
-  config.plugin('remax-theme-asset-plugin').use(RemaxPlugins.ThemeAsset, [builder]);
-  config.plugin('remax-runtime-options-plugin').use(RemaxPlugins.RuntimeOptions, [builder]);
-  config.plugin('remax-coverage-ignore-plugin').use(RemaxPlugins.CoverageIgnore);
-  config.plugin('remax-native-asset-plugin').use(RemaxPlugins.NativeAsset, [builder]);
+  config.plugin('rsmax-optimize-entries-plugin').use(RsmaxPlugins.OptimizeEntries, [meta]);
+  config.plugin('rsmax-app-asset-plugin').use(RsmaxPlugins.AppAsset, [builder]);
+  config.plugin('rsmax-page-asset-plugin').use(RsmaxPlugins.PageAsset, [builder]);
+  config.plugin('rsmax-theme-asset-plugin').use(RsmaxPlugins.ThemeAsset, [builder]);
+  config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);
+  config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
+  config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
   if (builder.options.analyze) {
     config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin);
@@ -267,7 +267,7 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
   const externals = config.get('externals');
 
   const runtimeOptionsExternal = {
-    '/__remax_runtime_options__': `require('/__remax_runtime_options__')`,
+    '/__rsmax_runtime_options__': `require('/__rsmax_runtime_options__')`,
   };
 
   if (Array.isArray(externals)) {
