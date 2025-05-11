@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/wechat",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Rsmax for Wechat",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",
