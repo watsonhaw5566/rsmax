@@ -13,8 +13,6 @@ BugFix
 
 由于 remax npm 包已经存在，为了避免之前项目正常运行，故重新更名为 rsmax 包, 感谢 Remax 原团队所有成员心辛勤付出。
 
-目前仅有我一人在维护，故时间和精力都有限，会尽自己的能力更新。
-
 <a href="https://remaxjs.wdchiphop.cn">
 	<img src="https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*7BLVSL14gvoAAAAAAAAAAABkARQnAQ" width="882" />
 </a>
