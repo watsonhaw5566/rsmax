@@ -13,6 +13,10 @@ describe('node', () => {
       }
     `);
     expect(meta.style).toMatchInlineSnapshot(`".ttss"`);
-    expect(meta.jsHelper).toMatchInlineSnapshot(`undefined`);
+    expect(meta.jsHelper).toMatchInlineSnapshot(`{
+  "extension": ".sjs",
+  "src": "src",
+  "tag": "sjs",
+}`);
   });
 });
