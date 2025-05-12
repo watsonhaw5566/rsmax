@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.11](https://github.com/remaxjs/remax/compare/v1.0.10...v1.0.11) (2025-05-12)
+
+### Bug Fixes
+
+- **rsmax-plugin-error-screen:** 修改 configWebpack 的命名 ([58ada46](https://github.com/remaxjs/remax/commit/58ada46df6a46105ce2f8fc9d238af3c886220ed))
+
 ## [1.0.10](https://github.com/remaxjs/remax/compare/v1.0.9...v1.0.10) (2025-05-11)
 
 **Note:** Version bump only for package @rsmax/plugin-error-screen
