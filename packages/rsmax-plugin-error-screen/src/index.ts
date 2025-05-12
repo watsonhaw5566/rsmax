@@ -48,7 +48,7 @@ export default (_: any, { cwd, rootDir }: { cwd: string; rootDir: string }) => {
 
   return {
     configWebpack({ config }: { config: any }) {
-      config.plugin('remax-plugin-error-screen-virtual-modules').use(virtualModules);
+      config.plugin('rsmax-plugin-error-screen-virtual-modules').use(virtualModules);
     },
     registerRuntimePlugin() {
       return '@rsmax/plugin-error-screen/runtime.js';
