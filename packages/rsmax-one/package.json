@@ -28,7 +28,7 @@
   "dependencies": {
     "@rsmax/ali": "workspace:*",
     "@rsmax/framework-shared": "workspace:*",
-    "@rsmax/redbox-react": "^1.0.2",
+    "@rsmax/redbox-react": "^1.0.3",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/toutiao": "workspace:*",
     "@rsmax/web": "workspace:*",
