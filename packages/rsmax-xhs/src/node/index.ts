@@ -14,6 +14,11 @@ const plugin: PluginConstructor = () => {
         src: 'src',
       },
       style: '.css',
+      jsHelper: {
+        extension: '.sjs',
+        tag: 'sjs',
+        src: 'src',
+      },
       ejs: {
         base: path.join(EJS_TPL_ROOT, 'base.ejs'),
         page: path.join(EJS_TPL_ROOT, 'page.ejs'),
