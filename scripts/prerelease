@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-printf "npm build:\n"
+printf "pnpm build:\n"
 
 pnpm lint && pnpm build
