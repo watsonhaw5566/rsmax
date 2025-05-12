@@ -17,7 +17,6 @@ function resolvePostcssConfig(options: Options) {
   if (fs.existsSync(path.join(options.cwd, 'postcss.config.js'))) {
     return options.cwd;
   }
-
   return slash(path.resolve(__dirname, '../../../..'));
 }
 
@@ -31,7 +30,6 @@ export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean
     } else {
       rule.use('mini-css-extract-loader').loader(MiniCssExtractPlugin.loader);
     }
-
     rule
       .use('css-loader')
       .loader(require.resolve('css-loader'))
@@ -89,7 +87,7 @@ export function cssConfig(webpackConfig: Config, builder: Builder, web: boolean)
     test: /\.css$/i,
   });
 
-  if (!web) {
+  if (!web && builder.options.target !== 'xhs') {
     const { style } = builder.api.getMeta();
     webpackConfig.module
       .rule(style)
