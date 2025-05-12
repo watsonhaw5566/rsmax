@@ -1,5 +1,5 @@
-import fs from 'fs';
-import * as path from 'path';
+import fs from 'node:fs';
+import * as path from 'node:path';
 import * as webpack from 'webpack';
 import Config from 'webpack-5-chain';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';

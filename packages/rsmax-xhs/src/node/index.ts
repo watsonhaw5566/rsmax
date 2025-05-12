@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import hostComponents from '../hostComponents/node';
 import type { PluginConstructor } from '@rsmax/types';
 

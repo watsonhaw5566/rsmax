@@ -1,7 +1,7 @@
 import babelLoader from 'babel-loader';
 import { PartialConfig, ConfigItem } from '@babel/core';
 import { merge } from 'lodash';
-import path from 'path';
+import path from 'node:path';
 import API from '../../../API';
 
 interface CustomOptions {

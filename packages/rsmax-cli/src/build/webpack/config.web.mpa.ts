@@ -1,5 +1,5 @@
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import webpack from 'webpack';
 import Config from 'webpack-5-chain';
 import HtmlWebpackPlugin from 'html-webpack-plugin';

@@ -2,7 +2,7 @@ import Config from 'webpack-5-chain';
 import * as webpack from 'webpack';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
-import fs from 'fs';
+import fs from 'node:fs';
 import CopyPlugin from 'copy-webpack-plugin';
 import WebpackBar from 'webpackbar';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';

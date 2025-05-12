@@ -1,7 +1,7 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
 const hash = (name: string) => crypto.createHash('md5').update(name).digest('hex');
 

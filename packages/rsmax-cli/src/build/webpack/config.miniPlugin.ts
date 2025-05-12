@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import * as webpack from 'webpack';
 import Config from 'webpack-5-chain';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -15,7 +15,7 @@ import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
 import Store from '@rsmax/build-store';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import baseConfig from './baseConfig';
-import fs from 'fs';
+import fs from 'node:fs';
 import CopyPlugin from 'copy-webpack-plugin';
 import * as RemaxPlugins from './plugins';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
