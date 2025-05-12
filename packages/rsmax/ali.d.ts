@@ -1,4 +1,2 @@
-import 'mini-types/types/app';
-import 'mini-types/types/page';
-import 'mini-types/types/api';
+import '@mini-types/alipay';
 export * from '@rsmax/ali';
