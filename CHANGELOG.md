@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/watsonhaw5566/rsmax/compare/v1.0.12...v1.0.13) (2025-05-12)
+
+### Bug Fixes
+
+- **toutiao:** 加入 jsHelper ([d749d21](https://github.com/watsonhaw5566/rsmax/commit/d749d216459b42a9708626aaa44e4061ce9045df))
+- **xhs:** 修复小红书样式解析问题 ([8e1ca8b](https://github.com/watsonhaw5566/rsmax/commit/8e1ca8bd136157c26b9753ac2d183bdd6b2e8fa4))
+- **xhs:** 加入 jsHelper ([ba9cf0c](https://github.com/watsonhaw5566/rsmax/commit/ba9cf0cdb4c6c1d199cba3cfb8bcc25d0f615be0))
+- 移除小红书 sjs 脚本优化 ([9a0ae7d](https://github.com/watsonhaw5566/rsmax/commit/9a0ae7df3b022f7e5fd0ec60afebc9f1cbcbc6c6))
+
 **Note:** Version bump only for package root
 
 ## [1.0.11](https://github.com/watsonhaw5566/rsmax/compare/v1.0.12...v1.0.11) (2025-05-12)

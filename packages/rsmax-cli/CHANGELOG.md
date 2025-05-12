@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/remaxjs/remax/compare/v1.0.12...v1.0.13) (2025-05-12)
+
+### Bug Fixes
+
+- **xhs:** 修复小红书样式解析问题 ([8e1ca8b](https://github.com/remaxjs/remax/commit/8e1ca8bd136157c26b9753ac2d183bdd6b2e8fa4))
+
 **Note:** Version bump only for package @rsmax/cli
 
 ## [1.0.11](https://github.com/remaxjs/remax/compare/v1.0.12...v1.0.11) (2025-05-12)
