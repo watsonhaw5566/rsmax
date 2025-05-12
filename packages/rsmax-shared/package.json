@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/shared",
-  "version": "1.0.12",
+  "version": "1.0.10",
   "description": "Rsmax Shared",
   "main": "cjs/index.js",
   "module": "esm/index.js",
