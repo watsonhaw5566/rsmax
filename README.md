@@ -1,9 +1,9 @@
-### fork Remax 分支构建版本
+## fork Remax 分支构建版本
 
 Feature
 
  - 使用 webpack5 构建
- - 使用 swc-loader 解析基础的 js / jsx / tsx 文件，已加速解析速度
+ - 使用 swc-loader 解析基础的 js / jsx / tsx 文件，加速解析速度
 
 
 BugFix
@@ -11,7 +11,7 @@ BugFix
 
 #### 特别说明
 
-由于 remax 已经存在，为了避免之前的项目正常运行，故重新更名为 rsmax, 感谢 Remax 原团队所有成员付出。
+由于 remax npm 包已经存在，为了避免之前项目正常运行，故重新更名为 rsmax 包, 感谢 Remax 原团队所有成员心辛勤付出。
 
 目前仅有我一人在维护，故时间和精力都有限，会尽自己的能力更新。
 
