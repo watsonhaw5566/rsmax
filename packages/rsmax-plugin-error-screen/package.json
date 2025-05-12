@@ -23,13 +23,13 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@rsmax/one": "workspace:*",
     "@rsmax/redbox-react": "^1.0.3",
     "@rsmax/shared": "workspace:*",
     "webpack-virtual-modules": "^0.6.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.0"
+    "@types/react": "^18.3.0",
+    "rsmax": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from '@rsmax/one';
+import * as React from 'react';
+import { View } from 'rsmax/one';
 
 const styles = {
   screen: {
