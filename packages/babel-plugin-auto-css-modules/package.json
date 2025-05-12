@@ -22,7 +22,6 @@
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "prebuild": "npm run clean",
-    "dev": "rslib build",
     "build": "tsc",
     "test": "vitest run"
   },
