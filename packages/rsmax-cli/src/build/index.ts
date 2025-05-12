@@ -32,7 +32,7 @@ export function internalBuildApp(options: Options, api: API) {
   const { target } = options;
   process.env.RSMAX_PLATFORM = target;
 
-  logger.greet(`Remax v${version}`);
+  logger.greet(`Rsmax v${version}`);
   logger.start(`🚀 构建应用`);
   return run(options, api);
 }
@@ -43,7 +43,7 @@ export function buildMiniPlugin(options: Options) {
   const { target } = options;
   process.env.RSMAX_PLATFORM = target;
 
-  logger.greet(`Remax v${version}`);
+  logger.greet(`Rsmax v${version}`);
   logger.start(`🔨 构建插件`);
 
   const api = new API();
@@ -59,7 +59,7 @@ export function buildMiniComponent(options: Options) {
   const { target } = options;
   process.env.RSMAX_PLATFORM = target;
 
-  logger.greet(`Remax v${version}`);
+  logger.greet(`Rsmax v${version}`);
   logger.start(`🔨 构建组件`);
 
   const api = new API();
