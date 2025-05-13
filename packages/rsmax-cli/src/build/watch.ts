@@ -1,5 +1,5 @@
 import chokidar from 'chokidar';
-import SingleEntryPlugin from 'webpack/lib/SingleEntryPlugin';
+import { rspack } from '@rspack/core';
 import Builder from './Builder';
 
 let isRunning = true;
@@ -22,7 +22,7 @@ export default function watch(builder: Builder, watcher: any, addEntry = false) 
           if (!entries.get(entry.filename)) {
             entry.virtualModule.apply(builder.webpackCompiler);
             entry.updateSource(true);
-            new SingleEntryPlugin(null, entry.virtualPath, entry.name).apply(builder.webpackCompiler);
+            new rspack.EntryPlugin('', entry.virtualPath, entry.name).apply(builder.webpackCompiler);
           }
         });
       }

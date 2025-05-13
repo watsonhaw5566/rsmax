@@ -1,12 +1,10 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { Compilation } from 'webpack';
-import EntryDependency from 'webpack/lib/dependencies/EntryDependency';
-import VirtualModulesPlugin from 'webpack-virtual-modules';
+import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import Builder from '../Builder';
 import NormalEntry from './NormalEntry';
 import { replaceExtension } from '../utils/paths';
-import webpack from 'webpack';
+import { Compilation, Compiler, EntryDependency } from '@rspack/core';
 
 export default class VirtualEntry extends NormalEntry {
   originalSource: string;
@@ -19,7 +17,7 @@ export default class VirtualEntry extends NormalEntry {
     this.virtualPath = path.resolve(
       replaceExtension(this.filename, this.filename.endsWith('.ts') ? '.entry.ts' : '.entry.js')
     );
-    this.virtualModule = new VirtualModulesPlugin({
+    this.virtualModule = new RspackVirtualModulePlugin({
       [this.virtualPath]: this.outputSource(),
     });
   }
@@ -37,15 +35,14 @@ export default class VirtualEntry extends NormalEntry {
     this.virtualModule.writeModule(this.virtualPath, this.outputSource());
   }
 
-  addToWebpack(compiler: webpack.Compiler, compilation: Compilation) {
+  addToWebpack(compiler: Compiler, compilation: Compilation) {
     return new Promise(resolve => {
       if (!this.virtualModule._compiler) {
         this.virtualModule.apply(compiler);
         this.virtualModule.writeModule(this.virtualPath, this.outputSource());
       }
       const dep = new EntryDependency(this.virtualPath);
-      dep.loc = { name: this.name };
-      compilation.addEntry('', dep, this.name, resolve);
+      compilation.addInclude('', dep, { name: this.name }, resolve);
     });
   }
 }

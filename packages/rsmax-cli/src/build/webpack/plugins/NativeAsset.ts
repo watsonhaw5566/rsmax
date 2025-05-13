@@ -1,4 +1,4 @@
-import { Compilation, Compiler, sources } from 'webpack';
+import { Compilation, Compiler, sources } from '@rspack/core';
 import Builder from '../../Builder';
 import NativeEntry from '../../entries/NativeEntry';
 

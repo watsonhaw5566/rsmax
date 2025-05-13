@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import VirtualEntry from './VirtualEntry';
 
 export default class MpaEntry extends VirtualEntry {

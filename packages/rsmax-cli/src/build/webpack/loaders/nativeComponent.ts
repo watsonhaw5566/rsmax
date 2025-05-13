@@ -1,11 +1,11 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import webpack from 'webpack';
 import Store from '@rsmax/build-store';
 import { isNativeComponent, slash } from '@rsmax/shared';
 import { getNativeAssetOutputPath, replaceExtension } from '../../utils/paths';
 import { cssExtensions } from '../../../extensions';
 import NativeEntry from '../../entries/NativeEntry';
+import { LoaderContext } from '@rspack/core';
 
 const EntryFilePathRegex = /\.entry\.(js|ts)$/;
 
@@ -13,7 +13,7 @@ function isEntryFile(filepath: string) {
   return EntryFilePathRegex.test(filepath);
 }
 
-export default async function nativeModule(this: webpack.LoaderContext<any>, source: string) {
+export default async function nativeModule(this: LoaderContext<any>, source: string) {
   this.cacheable();
 
   const callback = this.async()!;
@@ -34,7 +34,7 @@ export default async function nativeModule(this: webpack.LoaderContext<any>, sou
       Array.from(entry.getDependentEntries().values()).map(component => {
         builder.entryCollection.nativeComponentEntries.set(component.filename, component);
         component.watchAssets(this);
-        return component.addToWebpack(this._compiler!, this._compilation!);
+        return component.addToWebpack(this._compiler, this._compilation);
       })
     );
   }
@@ -58,9 +58,7 @@ export default async function nativeModule(this: webpack.LoaderContext<any>, sou
     const entry = new NativeEntry(builder, name, resourcePath);
     builder.entryCollection.nativeComponentEntries.set(entry.filename, entry);
     entry.watchAssets(this);
-    if (this._compiler && this._compilation) {
-      await entry.addToWebpack(this._compiler!, this._compilation!);
-    }
+    await entry.addToWebpack(this._compiler, this._compilation);
     finalSource = `import { createNativeComponent } from '@rsmax/runtime';
 export default createNativeComponent('${id}')
 `;

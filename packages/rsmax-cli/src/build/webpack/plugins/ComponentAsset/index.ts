@@ -1,4 +1,4 @@
-import { Compiler } from 'webpack';
+import { Compiler } from '@rspack/core';
 import SourceCache from '../../../../SourceCache';
 import createManifest from './createManifest';
 import createTemplate from './createTemplate';

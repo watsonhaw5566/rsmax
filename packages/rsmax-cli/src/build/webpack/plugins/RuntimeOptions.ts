@@ -1,4 +1,4 @@
-import { Compiler, Compilation, Chunk, sources } from 'webpack';
+import { Compiler, Compilation, Chunk, sources } from '@rspack/core';
 import * as path from 'path';
 import { slash } from '@rsmax/shared';
 import Store from '@rsmax/build-store';
@@ -22,7 +22,7 @@ export default class RuntimeOptionsPlugin {
 
   apply(compiler: Compiler) {
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation: Compilation) => {
-      compilation.hooks.optimizeChunks.tap(PLUGIN_NAME, chunks => {
+      compilation.hooks.optimizeChunkModules.tap(PLUGIN_NAME, chunks => {
         const hostComponents = this.getHostComponents();
         const pageEvents = this.getPageEvents(chunks as Chunk[], compilation);
         const appEvents = this.getAppEvents();

@@ -1,9 +1,10 @@
-import webpack from 'webpack';
+import { Configuration, Compiler } from '@rspack/core';
 import EntryCollection from './EntryCollection';
 import ProjectPath from './ProjectPath';
 import readManifest from '../readManifest';
 import API from '../API';
 import { AppConfig, BuildType, MiniPluginConfig, Options, Platform } from '@rsmax/types';
+import { rspack } from '@rspack/core';
 
 abstract class Builder {
   api: API;
@@ -13,7 +14,7 @@ abstract class Builder {
   projectConfig: AppConfig | MiniPluginConfig;
   projectThemeConfig: any;
   entryCollection: EntryCollection;
-  webpackCompiler: webpack.Compiler;
+  webpackCompiler: Compiler;
   buildType: BuildType;
   webpackConfig: any;
 
@@ -36,13 +37,13 @@ abstract class Builder {
     this.webpackCompiler = this.createWebpackCompiler();
   }
 
-  abstract run(): webpack.Compiler;
+  abstract run(): Compiler;
 
   abstract build(): void;
 
   abstract watch(): void;
 
-  abstract createWebpackConfig(): webpack.Configuration;
+  abstract createWebpackConfig(): Configuration;
 
   fetchProjectConfig() {
     const configFile =
@@ -68,7 +69,7 @@ abstract class Builder {
     return this.projectThemeConfig;
   }
 
-  createWebpackCompiler(): webpack.Compiler {
+  createWebpackCompiler(): Compiler {
     const cfg = this.webpackConfig;
 
     const index = cfg.plugins.findIndex((e: any) => e.constructor.name === 'MiniCssExtractPlugin');
@@ -77,8 +78,8 @@ abstract class Builder {
     if (cssPlugin) {
       cfg.plugins[index] = cssPlugin;
     }
-
-    return webpack(cfg);
+    // @ts-expect-error
+    return rspack(cfg);
   }
 }
 

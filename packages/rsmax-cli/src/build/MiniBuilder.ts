@@ -3,7 +3,7 @@ import watch from './watch';
 import type { Options } from '@rsmax/types';
 import API from '../API';
 import webpackConfig from './webpack/config.mini';
-import webpack from 'webpack';
+import { Configuration } from '@rspack/core';
 import { logger } from 'rslog';
 
 export default class MiniBuilder extends BaseBuilder {
@@ -11,7 +11,7 @@ export default class MiniBuilder extends BaseBuilder {
     super(api, options, 'miniapp');
   }
 
-  createWebpackConfig(): webpack.Configuration {
+  createWebpackConfig(): Configuration {
     return webpackConfig(this);
   }
 

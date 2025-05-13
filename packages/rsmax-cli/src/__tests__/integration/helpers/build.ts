@@ -6,7 +6,7 @@ import { slash } from '@rsmax/shared';
 import API from '../../../API';
 import getConfig from '../../../getConfig';
 import type { Platform } from '@rsmax/types';
-import Config from 'webpack-5-chain';
+import Config from 'rspack-chain';
 import MiniBuilder from '../../../build/MiniBuilder';
 import MiniPluginBuilder from '../../../build/MiniPluginBuilder';
 import WebBuilder from '../../../build/WebBuilder';

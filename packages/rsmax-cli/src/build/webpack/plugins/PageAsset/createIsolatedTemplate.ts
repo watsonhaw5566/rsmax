@@ -1,5 +1,5 @@
 import ejs from 'ejs';
-import { Compilation, sources } from 'webpack';
+import { Compilation, sources } from '@rspack/core';
 import type { Meta } from '@rsmax/types';
 import Store, { ExtractedTemplate } from '@rsmax/build-store';
 

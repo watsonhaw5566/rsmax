@@ -1,6 +1,6 @@
 import path from 'node:path';
-import webpack, { DefinePlugin } from 'webpack';
-import Config from 'webpack-5-chain';
+import { rspack } from '@rspack/core';
+import Config from 'rspack-chain';
 import alias from '../utils/alias';
 import getEnvironment from '../utils/env';
 import Builder from '../Builder';
@@ -20,8 +20,8 @@ export default function baseConfig(config: Config, builder: Builder) {
   config.output.path(path.join(builder.options.cwd, builder.options.output));
 
   const env = getEnvironment(builder.options, builder.target);
-  config.plugin('webpack-define-plugin').use(DefinePlugin, [env.stringified]);
-  config.plugin('provide-regeneratorRuntime').use(webpack.ProvidePlugin, [
+  config.plugin('rspack-define-plugin').use(rspack.DefinePlugin, [env.stringified]);
+  config.plugin('provide-regeneratorRuntime').use(rspack.ProvidePlugin, [
     {
       regeneratorRuntime: 'regenerator-runtime',
     },
