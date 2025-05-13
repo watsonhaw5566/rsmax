@@ -2,9 +2,6 @@ import { declare } from '@babel/helper-plugin-utils';
 
 interface PresetOption {
   react?: boolean | { [key: string]: any };
-  typescript?: any;
-  decorators?: any;
-  'class-properties'?: any;
   'throw-if-namespace'?: boolean;
   target?: any;
 }
