@@ -455,9 +455,6 @@ importers:
       '@rspack/dev-server':
         specifier: ^1.1.1
         version: 1.1.1(@rspack/core@1.3.10(@swc/helpers@0.5.17))(@types/express@4.17.21)(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
-      '@swc/core':
-        specifier: ^1.11.24
-        version: 1.11.24(@swc/helpers@0.5.17)
       babel-loader:
         specifier: ^9.1.3
         version: 9.2.1(@babel/core@7.27.1)(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
@@ -482,9 +479,6 @@ importers:
       chokidar:
         specifier: ^3.6.0
         version: 3.6.0
-      copy-webpack-plugin:
-        specifier: ^12.0.2
-        version: 12.0.2(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       css-loader:
         specifier: ^6.7.0
         version: 6.11.0(@rspack/core@1.3.10(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
@@ -512,9 +506,6 @@ importers:
       lodash:
         specifier: ^4.17.11
         version: 4.17.21
-      mini-css-extract-plugin:
-        specifier: ^2.9.2
-        version: 2.9.2(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       node-notifier:
         specifier: ^8.0.0
         version: 8.0.2
@@ -554,24 +545,6 @@ importers:
       style-loader:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
-      swc-loader:
-        specifier: ^0.2.6
-        version: 0.2.6(@swc/core@1.11.24(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
-      webpack:
-        specifier: ^5.99
-        version: 5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17))
-      webpack-5-chain:
-        specifier: ^8.0.1
-        version: 8.0.2
-      webpack-bundle-analyzer:
-        specifier: ^4.9.1
-        version: 4.10.2
-      webpack-dev-server:
-        specifier: ^4.15.1
-        version: 4.15.2(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
-      webpackbar:
-        specifier: ^7.0.0
-        version: 7.0.0(@rspack/core@1.3.10(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       yargs:
         specifier: ^16.0.3
         version: 16.2.0
@@ -633,9 +606,6 @@ importers:
       '@types/semver':
         specifier: ^7.1.0
         version: 7.7.0
-      '@types/webpack-bundle-analyzer':
-        specifier: ^4.6.3
-        version: 4.7.0(@swc/core@1.11.24(@swc/helpers@0.5.17))
       address:
         specifier: ^1.1.2
         version: 1.2.2
@@ -708,15 +678,15 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      rspack-chain:
+        specifier: ^1.2.4
+        version: 1.2.4
       sass:
         specifier: ^1.43.4
         version: 1.88.0
       sass-loader:
         specifier: ^8.0.2
         version: 8.0.2(sass@1.88.0)(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
-      webpack-5-chain:
-        specifier: ^8.0.1
-        version: 8.0.2
       yargs:
         specifier: ^16.0.3
         version: 16.2.0
@@ -3778,9 +3748,6 @@ packages:
 
   '@types/uglify-js@3.17.5':
     resolution: {integrity: sha512-TU+fZFBTBcXj/GpDpDaBmgWk/gn96kMZ+uocaFUlV2f8a6WdMzzI44QBCmGcCiYR0Y6ZlNRiyUyKKt5nl/lbzQ==}
-
-  '@types/webpack-bundle-analyzer@4.7.0':
-    resolution: {integrity: sha512-c5i2ThslSNSG8W891BRvOd/RoCjI2zwph8maD22b1adtSns20j+0azDDMCK06DiVrzTgnwiDl5Ntmu1YRJw8Sg==}
 
   '@types/webpack-sources@3.2.3':
     resolution: {integrity: sha512-4nZOdMwSPHZ4pTEZzSp0AsTM4K7Qmu40UKW4tJDiOVs20UzYF9l+qUe4s0ftfN0pin06n+5cWWDJXH+sbhAiDw==}
@@ -16215,17 +16182,6 @@ snapshots:
   '@types/uglify-js@3.17.5':
     dependencies:
       source-map: 0.6.1
-
-  '@types/webpack-bundle-analyzer@4.7.0(@swc/core@1.11.24(@swc/helpers@0.5.17))':
-    dependencies:
-      '@types/node': 18.19.100
-      tapable: 2.2.1
-      webpack: 5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17))
-    transitivePeerDependencies:
-      - '@swc/core'
-      - esbuild
-      - uglify-js
-      - webpack-cli
 
   '@types/webpack-sources@3.2.3':
     dependencies:

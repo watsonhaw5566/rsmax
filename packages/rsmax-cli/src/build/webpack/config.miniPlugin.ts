@@ -15,9 +15,11 @@ import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import baseConfig from './baseConfig';
 import fs from 'node:fs';
 import * as RsmaxPlugins from './plugins';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Builder from '../Builder';
 import NativeEntry from '../entries/NativeEntry';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import { execute } from '@rsdoctor/cli';
+import { logger } from 'rslog';
 
 function resolveBabelConfig(options: Options) {
   if (fs.existsSync(path.join(options.cwd, 'babel.config.js'))) {
@@ -223,12 +225,21 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rsmax-plugin-asset-plugin').use(RsmaxPlugins.PluginAsset, [builder]);
   config.plugin('rsmax-page-asset-plugin').use(RsmaxPlugins.PageAsset, [builder]);
   config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);
-  config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
+  // config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
   config.plugin('rsmax-component-asset-plugin').use(RsmaxPlugins.ComponentAsset, [builder]);
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
   if (builder.options.analyze) {
-    config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin);
+    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
+      {
+        disableClientServer: true,
+      },
+    ]);
+    execute('analyze', {
+      profile: './dist/.rsdoctor/manifest.json',
+    }).then(r => {
+      logger.success('已生成分析报告');
+    });
   }
 
   const context = {

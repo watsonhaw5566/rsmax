@@ -14,10 +14,12 @@ import Store from '@rsmax/build-store';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import baseConfig from './baseConfig';
 import * as RsmaxPlugins from './plugins';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Builder from '../Builder';
 import NativeEntry from '../entries/NativeEntry';
 import { Configuration, rspack } from '@rspack/core';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import { execute } from '@rsdoctor/cli';
+import { logger } from 'rslog';
 
 function resolveBabelConfig(options: Options) {
   if (fs.existsSync(path.join(options.cwd, 'babel.config.js'))) {
@@ -171,7 +173,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     path.resolve(__dirname, '../../../template/component-runtime-options.js.ejs'),
     'utf-8'
   );
-  const runtimeOptionsPath = slash('node_modules/@rsmax/apply-runtime-options.js');
+  const runtimeOptionsPath = slash('@rsmax/apply-runtime-options.js');
 
   entries.forEach(entry => {
     if (!(entry instanceof NativeEntry)) {
@@ -195,7 +197,7 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rspack-virtual-modules').use(virtualModules);
 
   if (fs.existsSync(builder.projectPath.publicDir())) {
-    config.plugin('webpack-copy-plugin').use(rspack.CopyRspackPlugin, [
+    config.plugin('rspack-copy-plugin').use(rspack.CopyRspackPlugin, [
       {
         patterns: [
           {
@@ -223,7 +225,16 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
   if (builder.options.analyze) {
-    config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin);
+    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
+      {
+        disableClientServer: true,
+      },
+    ]);
+    execute('analyze', {
+      profile: './dist/.rsdoctor/manifest.json',
+    }).then(r => {
+      logger.success('已生成分析报告');
+    });
   }
 
   const context = {

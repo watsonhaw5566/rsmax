@@ -3,8 +3,10 @@ import Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import fs from 'node:fs';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Builder from '../Builder';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import { execute } from '@rsdoctor/cli';
+import { logger } from 'rslog';
 
 export default function webBaseConfig(config: Config, builder: Builder) {
   config.devtool(process.env.NODE_ENV === 'development' ? 'cheap-module-source-map' : false);
@@ -90,7 +92,16 @@ export default function webBaseConfig(config: Config, builder: Builder) {
   config.plugin('rspack-bar').use(rspack.ProgressPlugin);
 
   if (builder.options.analyze) {
-    config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin);
+    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
+      {
+        disableClientServer: true,
+      },
+    ]);
+    execute('analyze', {
+      profile: './dist/.rsdoctor/manifest.json',
+    }).then(r => {
+      logger.success('已生成分析报告');
+    });
   }
 
   if (!builder.options.watch) {

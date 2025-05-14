@@ -37,7 +37,7 @@
     "lodash": "^4.17.21",
     "sass": "^1.43.4",
     "sass-loader": "^8.0.2",
-    "webpack-5-chain": "^8.0.1",
+    "rspack-chain": "^1.2.4",
     "yargs": "^16.0.3"
   },
   "devDependencies": {
