@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import Config from 'rspack-chain';
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { execute } from '@rsdoctor/cli';
 import type { Options } from '@rsmax/types';
 import { slash } from '@rsmax/shared';
 import ejs from 'ejs';
@@ -20,6 +20,7 @@ import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import baseConfig from './baseConfig';
 import Builder from '../Builder';
 import { rspack, Configuration } from '@rspack/core';
+import { logger } from 'rslog';
 
 function prepare(api: API) {
   const meta = api.getMeta();
@@ -245,7 +246,16 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
   if (builder.options.analyze) {
-    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin);
+    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
+      {
+        disableClientServer: true,
+      },
+    ]);
+    execute('analyze', {
+      profile: './dist/.rsdoctor/manifest.json',
+    }).then(r => {
+      logger.success('已生成分析报告');
+    });
   }
 
   const context = {

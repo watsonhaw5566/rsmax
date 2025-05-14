@@ -32,6 +32,7 @@
     "@babel/register": "^7.7.0",
     "@babel/types": "^7.7.4",
     "@remax/postcss-px2units": "^0.2.0",
+    "@rsdoctor/cli": "^1.1.2",
     "@rsdoctor/rspack-plugin": "^1.1.2",
     "@rsmax/build-store": "workspace:*",
     "@rsmax/macro": "workspace:*",
