@@ -9,7 +9,7 @@ import { execute } from '@rsdoctor/cli';
 import { logger } from 'rslog';
 
 export default function webBaseConfig(config: Config, builder: Builder) {
-  config.devtool(process.env.NODE_ENV === 'development' ? 'cheap-module-source-map' : false);
+  config.devtool(process.env.NODE_ENV === 'development' ? 'cheap-source-map' : false);
   config.resolve.extensions.merge(targetExtensions(builder.target));
   config.output.filename(process.env.NODE_ENV === 'production' ? '[name].[chunkhash:8].js' : '[name].js');
   config.optimization.runtimeChunk({
@@ -97,11 +97,13 @@ export default function webBaseConfig(config: Config, builder: Builder) {
         disableClientServer: true,
       },
     ]);
-    execute('analyze', {
-      profile: './dist/.rsdoctor/manifest.json',
-    }).then(r => {
-      logger.success('已生成分析报告');
-    });
+    setTimeout(() => {
+      execute('analyze', {
+        profile: './dist/.rsdoctor/manifest.json',
+      }).then(r => {
+        logger.success('已生成分析报告');
+      });
+    }, 3000);
   }
 
   if (!builder.options.watch) {

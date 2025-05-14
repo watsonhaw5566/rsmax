@@ -177,7 +177,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     path.resolve(__dirname, '../../../template/app-runtime-options.js.ejs'),
     'utf-8'
   );
-  const runtimeOptionsPath = slash('node_modules/@rsmax/apply-runtime-options.js');
+  const runtimeOptionsPath = slash('@rsmax/apply-runtime-options.js');
 
   entries.forEach(entry => {
     if (!(entry instanceof NativeEntry)) {
@@ -235,11 +235,13 @@ export default function webpackConfig(builder: Builder): Configuration {
         disableClientServer: true,
       },
     ]);
-    execute('analyze', {
-      profile: './dist/.rsdoctor/manifest.json',
-    }).then(r => {
-      logger.success('已生成分析报告');
-    });
+    setTimeout(() => {
+      execute('analyze', {
+        profile: './dist/.rsdoctor/manifest.json',
+      }).then(r => {
+        logger.success('已生成分析报告');
+      });
+    }, 3000);
   }
 
   const context = {

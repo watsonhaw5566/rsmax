@@ -251,11 +251,13 @@ export default function webpackConfig(builder: Builder): Configuration {
         disableClientServer: true,
       },
     ]);
-    execute('analyze', {
-      profile: './dist/.rsdoctor/manifest.json',
-    }).then(r => {
-      logger.success('已生成分析报告');
-    });
+    setTimeout(() => {
+      execute('analyze', {
+        profile: './dist/.rsdoctor/manifest.json',
+      }).then(r => {
+        logger.success('已生成分析报告');
+      });
+    }, 3000);
   }
 
   const context = {
