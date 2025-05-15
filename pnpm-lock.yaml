@@ -1001,9 +1001,6 @@ importers:
       rspack-chain:
         specifier: ^1.2.4
         version: 1.2.4
-      webpack-5-chain:
-        specifier: ^8.0.1
-        version: 8.0.2
 
   packages/rsmax-web:
     dependencies:
