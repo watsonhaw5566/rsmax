@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import fs from 'fs';
 import { getNativeAssetOutputPath, replaceExtension } from '../utils/paths';
 import VirtualEntry from './VirtualEntry';
 import Builder from '../Builder';
