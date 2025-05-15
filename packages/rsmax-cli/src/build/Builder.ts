@@ -72,7 +72,7 @@ abstract class Builder {
   createWebpackCompiler(): Compiler {
     const cfg = this.webpackConfig;
 
-    const index = cfg.plugins.findIndex((e: any) => e.constructor.name === 'MiniCssExtractPlugin');
+    const index = cfg.plugins.findIndex((e: any) => e.constructor.name === 'CssExtractRspackPlugin');
     const cssPlugin = cfg.plugins[index];
 
     if (cssPlugin) {
