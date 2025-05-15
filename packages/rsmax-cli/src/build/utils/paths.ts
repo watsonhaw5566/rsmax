@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import path from 'node:path';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
 import crypto from 'node:crypto';
