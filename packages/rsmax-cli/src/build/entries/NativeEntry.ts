@@ -81,6 +81,9 @@ export default class NativeEntry extends VirtualEntry {
     });
     loaderContext.addDependency(this.rawManifestFile);
     loaderContext.addDependency(this.filename);
+    loaderContext.addDependency(
+      '/Users/wangjue/WebstormProjects/mini/demo/node_modules/rspack-virtual-module-2bf8b1f6/Users/wangjue/WebstormProjects/mini/demo/node_modules/@vant/weapp/lib/button/index.entry.js'
+    );
   }
 
   get rawManifestFile() {

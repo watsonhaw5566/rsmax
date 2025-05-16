@@ -17,6 +17,11 @@ export default function baseConfig(config: Config, builder: Builder) {
 
   config.resolve.alias.merge(alias(builder.options, builder.target));
 
+  config.experiments({
+    // @ts-ignore
+    useInputFileSystem: true,
+  });
+
   config.output.path(path.join(builder.options.cwd, builder.options.output));
 
   const env = getEnvironment(builder.options, builder.target);
