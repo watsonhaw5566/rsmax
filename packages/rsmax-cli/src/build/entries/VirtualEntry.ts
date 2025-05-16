@@ -36,13 +36,17 @@ export default class VirtualEntry extends NormalEntry {
   }
 
   addToWebpack(compiler: Compiler, compilation: Compilation) {
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       if (!this.virtualModule._compiler) {
         this.virtualModule.apply(compiler);
         this.virtualModule.writeModule(this.virtualPath, this.outputSource());
       }
+
       const dep = new EntryDependency(this.virtualPath);
-      compilation.addEntry('', dep, { name: this.name }, resolve);
+      compilation.addEntry('', dep, { name: this.name }, err => {
+        console.log(err);
+        resolve();
+      });
     });
   }
 }
