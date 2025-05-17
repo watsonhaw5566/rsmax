@@ -17,7 +17,7 @@
     "test:web": "TEST_TARGET=web npm run test"
   },
   "dependencies": {
-    "@remax/plugin-less": "^1.0.0",
+    "@rsmax/plugin-less": "^1.0.0",
     "clsx": "^1.0.4",
     "antd-mini": "^2.15.0",
     "react": "^18.3",
