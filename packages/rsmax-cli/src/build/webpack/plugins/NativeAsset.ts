@@ -12,7 +12,7 @@ export default class NativeAssetPlugin {
   }
 
   apply(compiler: Compiler) {
-    compiler.hooks.make.tapAsync(PLUGIN_NAME, async (compilation, callback) => {
+    compiler.hooks.finishMake.tapAsync(PLUGIN_NAME, async (compilation, callback) => {
       await Promise.all(
         Array.from(this.builder.entryCollection.nativeComponentEntries.values()).map(entry => {
           entry.updateSource();

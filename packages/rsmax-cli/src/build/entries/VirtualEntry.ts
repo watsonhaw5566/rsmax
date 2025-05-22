@@ -1,5 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import Builder from '../Builder';
 import NormalEntry from './NormalEntry';
@@ -36,15 +36,17 @@ export default class VirtualEntry extends NormalEntry {
   }
 
   addToWebpack(compiler: Compiler, compilation: Compilation) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve, reject) => {
       if (!this.virtualModule._compiler) {
         this.virtualModule.apply(compiler);
         this.virtualModule.writeModule(this.virtualPath, this.outputSource());
       }
-
+      fs.writeFileSync(this.virtualPath, this.outputSource());
       const dep = new EntryDependency(this.virtualPath);
-      compilation.addEntry('', dep, { name: this.name }, err => {
-        console.log(err);
+      compilation.addEntry(compiler.context, dep, { name: this.name }, err => {
+        if (err) {
+          reject(err);
+        }
         resolve();
       });
     });
