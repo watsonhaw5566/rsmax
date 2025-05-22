@@ -2,8 +2,7 @@
 
 Feature
 
- - 使用 webpack5 构建
- - 使用 swc-loader 解析基础的 js / jsx / tsx 文件，加速解析速度
+ - 使用 rspack 构建，超快的构建速度
 
 
 BugFix
