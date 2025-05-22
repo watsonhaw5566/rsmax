@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
+
+### Bug Fixes
+
+- **cli:** 加入 node: 前缀 ([62c50a2](https://github.com/remaxjs/remax/commit/62c50a2966d298dc174fbe6ed0a5fb65e525c394))
+- **cli:** 虚拟模块加入 reject ([b3f9b47](https://github.com/remaxjs/remax/commit/b3f9b47aa75c9ae1569f4b7b45c190b4265656f6))
+- **cli:** 重命名 remax.config.js 为 rsmax.config.js ([498a2c8](https://github.com/remaxjs/remax/commit/498a2c80a5845d6a1a4cd483a0ffdeb6b424adb6))
+- 修复 cssPlugin index 查找问题 ([0148033](https://github.com/remaxjs/remax/commit/0148033d2d7206920064f056aa92d9309907bc6f))
+- 修复 vitest 配置 ([2b34227](https://github.com/remaxjs/remax/commit/2b3422783254140f2296b7b8460e109a372e0e7a))
+- 修复无法构建原生组件问题 ([e317322](https://github.com/remaxjs/remax/commit/e317322bafdf629154e1176ae63729666101f521))
+- 修正 compilation.addEntry 问题 ([01e8e2c](https://github.com/remaxjs/remax/commit/01e8e2c740150d506aaa8aaee1333a5e2237633d))
+- 移除 \* 号全量引入 ([65645e0](https://github.com/remaxjs/remax/commit/65645e02a0d75f2729777510f49199110db578c3))
+- 移除 \* 号全量引入 ([fe3476c](https://github.com/remaxjs/remax/commit/fe3476c036b12e45d06ec8d12f9e99aea6e461f4))
+
+### Features
+
+- 使用 rspack 构建 ([755dfa8](https://github.com/remaxjs/remax/commit/755dfa893218cc389be88b3217646d9cdcb693ea))
+- 加入 rsdoctor 进行产物分析 ([cc9d719](https://github.com/remaxjs/remax/commit/cc9d719fc84a3e106fb78e3383516f73f979ab1a))
+- 加入 rsdoctor 进行产物分析 ([905c219](https://github.com/remaxjs/remax/commit/905c219cef0d13410d2feb4c831a5ab627de13bc))
+
 ## [1.0.13](https://github.com/remaxjs/remax/compare/v1.0.12...v1.0.13) (2025-05-12)
 
 ### Bug Fixes

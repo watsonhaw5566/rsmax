@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/ali",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "Rsmax for Ali",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",

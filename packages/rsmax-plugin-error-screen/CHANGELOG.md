@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
+
+### Bug Fixes
+
+- **rsmax/plugin-error-screen:** 修复 plugin-error-screen 依赖关系 ([b71fa37](https://github.com/remaxjs/remax/commit/b71fa3750b496baac493544414542fcd89f68c9b))
+
+### Features
+
+- 使用 rspack 构建 ([755dfa8](https://github.com/remaxjs/remax/commit/755dfa893218cc389be88b3217646d9cdcb693ea))
+
 ## [1.0.13](https://github.com/remaxjs/remax/compare/v1.0.12...v1.0.13) (2025-05-12)
 
 **Note:** Version bump only for package @rsmax/plugin-error-screen

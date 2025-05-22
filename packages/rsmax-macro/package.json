@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/macro",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

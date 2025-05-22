@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/watsonhaw5566/rsmax/compare/v1.0.13...v1.1.0) (2025-05-22)
+
+### Bug Fixes
+
+- **cli:** 加入 node: 前缀 ([62c50a2](https://github.com/watsonhaw5566/rsmax/commit/62c50a2966d298dc174fbe6ed0a5fb65e525c394))
+- **cli:** 虚拟模块加入 reject ([b3f9b47](https://github.com/watsonhaw5566/rsmax/commit/b3f9b47aa75c9ae1569f4b7b45c190b4265656f6))
+- **cli:** 重命名 remax.config.js 为 rsmax.config.js ([498a2c8](https://github.com/watsonhaw5566/rsmax/commit/498a2c80a5845d6a1a4cd483a0ffdeb6b424adb6))
+- **preset-rsmax:** 修正 PresetOptions 选项 ([7be9245](https://github.com/watsonhaw5566/rsmax/commit/7be9245a1f2b42d1f74f6469b113b093ba0f74ab))
+- **rsmax/plugin-error-screen:** 修复 plugin-error-screen 依赖关系 ([b71fa37](https://github.com/watsonhaw5566/rsmax/commit/b71fa3750b496baac493544414542fcd89f68c9b))
+- **rsmax:** 修复 ali.d.ts 类型引用 ([8d5c1ff](https://github.com/watsonhaw5566/rsmax/commit/8d5c1ff704a4c8465f93275ccbcf7772695c99a0))
+- **types:** 移除 webpack-chian ([db95786](https://github.com/watsonhaw5566/rsmax/commit/db95786cecfa0cceeb34eda6d699d0d3372f6e0d))
+- 修复 cssPlugin index 查找问题 ([0148033](https://github.com/watsonhaw5566/rsmax/commit/0148033d2d7206920064f056aa92d9309907bc6f))
+- 修复 vitest 配置 ([2b34227](https://github.com/watsonhaw5566/rsmax/commit/2b3422783254140f2296b7b8460e109a372e0e7a))
+- 修复无法构建原生组件问题 ([e317322](https://github.com/watsonhaw5566/rsmax/commit/e317322bafdf629154e1176ae63729666101f521))
+- 修正 compilation.addEntry 问题 ([01e8e2c](https://github.com/watsonhaw5566/rsmax/commit/01e8e2c740150d506aaa8aaee1333a5e2237633d))
+- 标记废弃函数 ([49ae28c](https://github.com/watsonhaw5566/rsmax/commit/49ae28c8f6f8e38804b138a6e10e246b25565e65))
+- 移除 \* 号全量引入 ([65645e0](https://github.com/watsonhaw5566/rsmax/commit/65645e02a0d75f2729777510f49199110db578c3))
+- 移除 \* 号全量引入 ([fe3476c](https://github.com/watsonhaw5566/rsmax/commit/fe3476c036b12e45d06ec8d12f9e99aea6e461f4))
+
+### Features
+
+- 使用 rspack 构建 ([755dfa8](https://github.com/watsonhaw5566/rsmax/commit/755dfa893218cc389be88b3217646d9cdcb693ea))
+- 加入 rsdoctor 进行产物分析 ([cc9d719](https://github.com/watsonhaw5566/rsmax/commit/cc9d719fc84a3e106fb78e3383516f73f979ab1a))
+- 加入 rsdoctor 进行产物分析 ([905c219](https://github.com/watsonhaw5566/rsmax/commit/905c219cef0d13410d2feb4c831a5ab627de13bc))
+
 ## [1.0.13](https://github.com/watsonhaw5566/rsmax/compare/v1.0.12...v1.0.13) (2025-05-12)
 
 ### Bug Fixes

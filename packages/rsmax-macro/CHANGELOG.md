@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/watsonhaw5566/rsmax/compare/v1.0.13...v1.1.0) (2025-05-22)
+
+**Note:** Version bump only for package @rsmax/macro
+
 ## [1.0.13](https://github.com/watsonhaw5566/rsmax/compare/v1.0.12...v1.0.13) (2025-05-12)
 
 **Note:** Version bump only for package @rsmax/macro

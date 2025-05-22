@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
+
+### Bug Fixes
+
+- 标记废弃函数 ([49ae28c](https://github.com/remaxjs/remax/commit/49ae28c8f6f8e38804b138a6e10e246b25565e65))
+
 ## [1.0.13](https://github.com/remaxjs/remax/compare/v1.0.12...v1.0.13) (2025-05-12)
 
 **Note:** Version bump only for package @rsmax/shared

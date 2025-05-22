@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
+
+### Bug Fixes
+
+- **preset-rsmax:** 修正 PresetOptions 选项 ([7be9245](https://github.com/remaxjs/remax/commit/7be9245a1f2b42d1f74f6469b113b093ba0f74ab))
+
 ## [1.0.13](https://github.com/remaxjs/remax/compare/v1.0.12...v1.0.13) (2025-05-12)
 
 **Note:** Version bump only for package babel-preset-rsmax

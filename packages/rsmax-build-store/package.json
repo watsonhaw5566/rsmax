@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/build-store",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "使用真正的 React 构建跨平台小程序",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://remaxjs.org",

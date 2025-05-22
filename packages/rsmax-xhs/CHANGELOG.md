@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
+
+### Bug Fixes
+
+- **cli:** 加入 node: 前缀 ([62c50a2](https://github.com/remaxjs/remax/commit/62c50a2966d298dc174fbe6ed0a5fb65e525c394))
+
 ## [1.0.13](https://github.com/remaxjs/remax/compare/v1.0.12...v1.0.13) (2025-05-12)
 
 ### Bug Fixes
