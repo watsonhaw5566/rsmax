@@ -13,12 +13,20 @@ export default class NativeAssetPlugin {
 
   apply(compiler: Compiler) {
     compiler.hooks.finishMake.tapAsync(PLUGIN_NAME, async (compilation, callback) => {
-      await Promise.all(
-        Array.from(this.builder.entryCollection.nativeComponentEntries.values()).map(entry => {
+      const entries = this.builder.entryCollection.nativeComponentEntries;
+      const processEntries = async () => {
+        for (const entry of entries.values()) {
+          // 处理依赖的组件
+          for (const component of entry.getDependentEntries().values()) {
+            entries.set(component.filename, component);
+            await component.addToWebpack(compilation);
+          }
+          // 更新并添加入口
           entry.updateSource();
-          return entry.addToWebpack(compiler, compilation);
-        })
-      );
+          await entry.addToWebpack(compilation);
+        }
+      };
+      await processEntries();
       callback();
     });
 

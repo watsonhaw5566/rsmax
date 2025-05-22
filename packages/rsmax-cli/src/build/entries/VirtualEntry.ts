@@ -1,10 +1,10 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import Builder from '../Builder';
 import NormalEntry from './NormalEntry';
 import { replaceExtension } from '../utils/paths';
-import { Compilation, Compiler, EntryDependency } from '@rspack/core';
+import { Compilation, EntryDependency } from '@rspack/core';
 
 export default class VirtualEntry extends NormalEntry {
   originalSource: string;
@@ -35,16 +35,14 @@ export default class VirtualEntry extends NormalEntry {
     this.virtualModule.writeModule(this.virtualPath, this.outputSource());
   }
 
-  addToWebpack(compiler: Compiler, compilation: Compilation) {
+  addToWebpack(compilation: Compilation) {
     return new Promise<void>((resolve, reject) => {
-      if (!this.virtualModule._compiler) {
-        this.virtualModule.apply(compiler);
-        this.virtualModule.writeModule(this.virtualPath, this.outputSource());
-      }
       fs.writeFileSync(this.virtualPath, this.outputSource());
       const dep = new EntryDependency(this.virtualPath);
-      compilation.addEntry(compiler.context, dep, { name: this.name }, err => {
+      // rspack 中 addEntry 不允许加入虚拟文件，所以写入虚拟模块入口时需要先落盘 this.virtualPath 文件
+      compilation.addEntry('', dep, { name: this.name }, err => {
         if (err) {
+          console.error(err);
           reject(err);
         }
         resolve();

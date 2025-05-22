@@ -34,7 +34,6 @@ export default async function nativeModule(this: LoaderContext<any>, source: str
       Array.from(entry.getDependentEntries().values()).map(component => {
         builder.entryCollection.nativeComponentEntries.set(component.filename, component);
         component.watchAssets(this);
-        return component.addToWebpack(this._compiler, this._compilation);
       })
     );
   }
@@ -58,7 +57,6 @@ export default async function nativeModule(this: LoaderContext<any>, source: str
     const entry = new NativeEntry(builder, name, resourcePath);
     builder.entryCollection.nativeComponentEntries.set(entry.filename, entry);
     entry.watchAssets(this);
-    await entry.addToWebpack(this._compiler, this._compilation);
     finalSource = `import { createNativeComponent } from '@rsmax/runtime';
 export default createNativeComponent('${id}')
 `;
