@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Compilation, Compiler, sources } from 'webpack';
+import { Compilation, Compiler, sources } from '@rspack/core';
 import { slash } from '@rsmax/shared';
 
 const PLUGIN_NAME = 'RsmaxOptimizeEntriesPlugin';
@@ -15,7 +15,7 @@ class OptimizeEntriesPlugin {
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation: Compilation) => {
       compilation.hooks.processAssets.tapAsync(PLUGIN_NAME, (assets, callback) => {
         compilation.chunkGroups.forEach(group => {
-          group.chunks.reverse().forEach(chunk => {
+          group.chunks.forEach(chunk => {
             this.requireChunks(compilation, chunk, group);
             this.requireStyles(compilation, chunk, group);
           });

@@ -1,12 +1,12 @@
 import { sortBy } from 'lodash';
-import { Compilation, sources } from 'webpack';
+import { Compilation, sources } from '@rspack/core';
 import ejs from 'ejs';
 import type { Options, Meta } from '@rsmax/types';
 import Store from '@rsmax/build-store';
 import SourceCache from '../../../../SourceCache';
 import { slash } from '@rsmax/shared';
 import { getUsingComponents } from '../getUsingComponents';
-import path from 'path';
+import path from 'node:path';
 import ComponentEntry from '../../../entries/ComponentEntry';
 
 export function createRenderOptions(componentPath: string, compilation: Compilation, options: Options) {

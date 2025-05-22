@@ -1,4 +1,4 @@
-import { Compilation, sources } from 'webpack';
+import { Compilation, sources } from '@rspack/core';
 import path from 'path';
 import SourceCache from '../../../../SourceCache';
 import { getUsingComponents } from '../getUsingComponents';

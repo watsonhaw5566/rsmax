@@ -1,11 +1,11 @@
-import * as fs from 'fs';
-import webpack from 'webpack';
+import fs from 'fs';
 import { getNativeAssetOutputPath, replaceExtension } from '../utils/paths';
 import VirtualEntry from './VirtualEntry';
 import Builder from '../Builder';
 import NativeAssets from '../NativeAssets';
 import { slash } from '@rsmax/shared';
 import { logger } from 'rslog';
+import { LoaderContext } from '@rspack/core';
 
 interface Manifest {
   usingComponents?: Record<string, string>;
@@ -75,7 +75,7 @@ export default class NativeEntry extends VirtualEntry {
     return this.assets.getAll();
   }
 
-  watchAssets(loaderContext: webpack.LoaderContext<any>) {
+  watchAssets(loaderContext: LoaderContext<any>) {
     this.assets.getAll().forEach(asset => {
       loaderContext.addDependency(asset.filename);
     });

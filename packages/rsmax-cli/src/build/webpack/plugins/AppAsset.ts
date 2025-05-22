@@ -1,4 +1,4 @@
-import { Compiler, Compilation, sources } from 'webpack';
+import { Compiler, Compilation, sources } from '@rspack/core';
 import SourceCache from '../../../SourceCache';
 import Builder from '../../Builder';
 

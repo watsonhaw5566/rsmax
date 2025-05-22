@@ -5,7 +5,7 @@ import getModules from '../../../utils/modules';
 import SourceCache from '../../../../SourceCache';
 import createIsolatedTemplate from './createIsolatedTemplate';
 import Builder from '../../../Builder';
-import { Compiler } from 'webpack';
+import { Compiler } from '@rspack/core';
 import PageEntry from '../../../entries/PageEntry';
 
 const PLUGIN_NAME = 'RsmaxPageAssetPlugin';

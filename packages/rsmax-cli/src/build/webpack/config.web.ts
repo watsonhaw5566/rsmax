@@ -1,14 +1,14 @@
 import path from 'node:path';
 import fs from 'node:fs';
-import webpack from 'webpack';
-import Config from 'webpack-5-chain';
+import { Configuration } from '@rspack/core';
+import Config from 'rspack-chain';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './baseConfig';
 import webBaseConfig from './webBaseConfig';
 import Builder from '../Builder';
 import SpaEntry from '../entries/SpaEntry';
 
-export default function webpackConfig(builder: Builder): webpack.Configuration {
+export default function webpackConfig(builder: Builder): Configuration {
   const config = new Config();
 
   config.output.publicPath('/');
@@ -17,7 +17,7 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
 
   const spaEntry = new SpaEntry(builder, 'index', './_index.js');
   config.entry(spaEntry.name).add(spaEntry.virtualPath);
-  config.plugin('webpack-virtual-modules').use(spaEntry.virtualModule);
+  config.plugin('rspack-virtual-modules').use(spaEntry.virtualModule);
 
   config.optimization.splitChunks({
     cacheGroups: {

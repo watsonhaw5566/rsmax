@@ -1,11 +1,11 @@
 import type { Options } from '@rsmax/types';
-import * as webpack from 'webpack';
 import API from '../API';
 import { logger } from 'rslog';
+import { Compiler } from '@rspack/core';
 
 const version = require('../../package.json').version;
 
-export function run(options: Options, api: API): webpack.Compiler {
+export function run(options: Options, api: API): Compiler {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
   api.loadBuiltinPlugins(options);

@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Compilation, sources } from 'webpack';
+import { Compilation, sources } from '@rspack/core';
 import SourceCache from '../../../../SourceCache';
 import { getUsingComponents } from '../getUsingComponents';
 import Builder from '../../../Builder';

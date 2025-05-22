@@ -1,16 +1,15 @@
-import Config from 'webpack-5-chain';
-import * as webpack from 'webpack';
+import { rspack } from '@rspack/core';
+import Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import fs from 'node:fs';
-import CopyPlugin from 'copy-webpack-plugin';
-import WebpackBar from 'webpackbar';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import Builder from '../Builder';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import { execute } from '@rsdoctor/cli';
+import { logger } from 'rslog';
 
 export default function webBaseConfig(config: Config, builder: Builder) {
-  config.devtool(process.env.NODE_ENV === 'development' ? 'cheap-module-source-map' : false);
+  config.devtool(process.env.NODE_ENV === 'development' ? 'cheap-source-map' : false);
   config.resolve.extensions.merge(targetExtensions(builder.target));
   config.output.filename(process.env.NODE_ENV === 'production' ? '[name].[chunkhash:8].js' : '[name].js');
   config.optimization.runtimeChunk({
@@ -23,7 +22,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
     .exclude.add(/react-reconciler/)
     .end()
     .use('swc-loader')
-    .loader(require.resolve('swc-loader'))
+    .loader('builtin:swc-loader')
     .options({
       jsc: {
         parser: {
@@ -78,7 +77,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
     .type('asset/resource');
 
   if (fs.existsSync(builder.projectPath.publicDir())) {
-    config.plugin('webpack-copy-plugin').use(CopyPlugin, [
+    config.plugin('rspack-copy-plugin').use(rspack.CopyRspackPlugin, [
       {
         patterns: [
           {
@@ -90,14 +89,25 @@ export default function webBaseConfig(config: Config, builder: Builder) {
     ]);
   }
 
-  config.plugin('webpack-bar').use(WebpackBar, [{ name: 'web' }]);
+  config.plugin('rspack-bar').use(rspack.ProgressPlugin);
 
   if (builder.options.analyze) {
-    config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin);
+    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
+      {
+        disableClientServer: true,
+      },
+    ]);
+    setTimeout(() => {
+      execute('analyze', {
+        profile: './dist/.rsdoctor/manifest.json',
+      }).then(r => {
+        logger.success('已生成分析报告');
+      });
+    }, 3000);
   }
 
   if (!builder.options.watch) {
-    config.plugin('mini-css-extract-plugin').use(MiniCssExtractPlugin, [
+    config.plugin('mini-css-extract-plugin').use(rspack.CssExtractRspackPlugin, [
       {
         filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash:8].css' : '[name].css',
       },
@@ -106,16 +116,17 @@ export default function webBaseConfig(config: Config, builder: Builder) {
 
   const context = {
     config,
-    webpack,
+    rspack,
     addCSSRule: (ruleConfig: RuleConfig) => {
       addCSSRule(config, builder, true, ruleConfig);
     },
   };
 
   if (typeof builder.options.configWebpack === 'function') {
+    // @ts-ignore
     builder.options.configWebpack(context);
   }
-
+  // @ts-ignore
   builder.api.configWebpack(context);
 
   return config;

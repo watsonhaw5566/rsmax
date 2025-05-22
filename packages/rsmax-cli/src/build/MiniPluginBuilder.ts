@@ -2,7 +2,7 @@ import type { Options } from '@rsmax/types';
 import API from '../API';
 import Builder from './Builder';
 import webpackConfig from './webpack/config.miniPlugin';
-import webpack from 'webpack';
+import { Configuration } from '@rspack/core';
 import { logger } from 'rslog';
 
 export default class MiniPluginBuilder extends Builder {
@@ -10,7 +10,7 @@ export default class MiniPluginBuilder extends Builder {
     super(api, options, 'miniplugin');
   }
 
-  createWebpackConfig(): webpack.Configuration {
+  createWebpackConfig(): Configuration {
     return webpackConfig(this);
   }
 

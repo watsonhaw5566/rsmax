@@ -1,5 +1,5 @@
 import { sortBy } from 'lodash';
-import { Compilation, sources } from 'webpack';
+import { Compilation, sources } from '@rspack/core';
 import ejs from 'ejs';
 import type { Options, Meta, EntryInfo } from '@rsmax/types';
 import Store from '@rsmax/build-store';

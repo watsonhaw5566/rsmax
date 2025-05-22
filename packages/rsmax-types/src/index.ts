@@ -1,6 +1,6 @@
 import React from 'react';
 import yargs from 'yargs';
-import WebpackConfig from 'webpack-5-chain';
+import WebpackConfig from 'rspack-chain';
 import * as t from '@babel/types';
 
 export type LogLevel = 'debug' | 'verbose' | 'info' | 'warn' | 'error' | 'silent';

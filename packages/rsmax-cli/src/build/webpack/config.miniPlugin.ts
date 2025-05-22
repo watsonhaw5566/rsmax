@@ -1,10 +1,8 @@
 import * as path from 'node:path';
-import * as webpack from 'webpack';
-import Config from 'webpack-5-chain';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import WebpackBar from 'webpackbar';
+import { rspack, Configuration } from '@rspack/core';
+import Config from 'rspack-chain';
 import type { Options } from '@rsmax/types';
-import VirtualModulesPlugin from 'webpack-virtual-modules';
+import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import { slash } from '@rsmax/shared';
 import ejs from 'ejs';
 import { moduleMatcher, targetExtensions } from '../../extensions';
@@ -16,11 +14,12 @@ import Store from '@rsmax/build-store';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import baseConfig from './baseConfig';
 import fs from 'node:fs';
-import CopyPlugin from 'copy-webpack-plugin';
-import * as RemaxPlugins from './plugins';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import * as RsmaxPlugins from './plugins';
 import Builder from '../Builder';
 import NativeEntry from '../entries/NativeEntry';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import { execute } from '@rsdoctor/cli';
+import { logger } from 'rslog';
 
 function resolveBabelConfig(options: Options) {
   if (fs.existsSync(path.join(options.cwd, 'babel.config.js'))) {
@@ -29,7 +28,7 @@ function resolveBabelConfig(options: Options) {
   return false;
 }
 
-export default function webpackConfig(builder: Builder): webpack.Configuration {
+export default function webpackConfig(builder: Builder): Configuration {
   const config = new Config();
 
   baseConfig(config, builder);
@@ -43,7 +42,7 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
   }
 
   entries.forEach(e => {
-    config.plugin('webpack-virtual-modules' + e.name).use(e.virtualModule);
+    config.plugin('rspack-virtual-modules' + e.name).use(e.virtualModule);
     config.entry(e.name).add(e.virtualPath);
   });
 
@@ -101,7 +100,7 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
     .exclude.add(/react-reconciler/)
     .end()
     .use('swc-loader')
-    .loader(require.resolve('swc-loader'))
+    .loader('builtin:swc-loader')
     .options({
       jsc: {
         parser: {
@@ -178,7 +177,7 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
     path.resolve(__dirname, '../../../template/app-runtime-options.js.ejs'),
     'utf-8'
   );
-  const runtimeOptionsPath = slash('node_modules/@rsmax/apply-runtime-options.js');
+  const runtimeOptionsPath = slash('@rsmax/apply-runtime-options.js');
 
   entries.forEach(entry => {
     if (!(entry instanceof NativeEntry)) {
@@ -196,13 +195,13 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
     appEvents: '[]',
   };
 
-  const virtualModules = new VirtualModulesPlugin({
+  const virtualModules = new RspackVirtualModulePlugin({
     [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
   });
-  config.plugin('webpack-virtual-modules').use(virtualModules);
+  config.plugin('rspack-virtual-modules').use(virtualModules);
 
   if (fs.existsSync(builder.projectPath.publicDir())) {
-    config.plugin('webpack-copy-plugin').use(CopyPlugin, [
+    config.plugin('rspack-copy-plugin').use(rspack.CopyRspackPlugin, [
       {
         patterns: [
           {
@@ -220,32 +219,44 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
     },
   ]);
 
-  config.plugin('webpack-bar').use(WebpackBar, [{ name: 'remax' }]);
-  config.plugin('mini-css-extract-plugin').use(MiniCssExtractPlugin, [{ filename: `[name]${meta.style}` }]);
-  config.plugin('remax-optimize-entries-plugin').use(RemaxPlugins.OptimizeEntries, [meta]);
-  config.plugin('remax-plugin-asset-plugin').use(RemaxPlugins.PluginAsset, [builder]);
-  config.plugin('remax-page-asset-plugin').use(RemaxPlugins.PageAsset, [builder]);
-  config.plugin('remax-runtime-options-plugin').use(RemaxPlugins.RuntimeOptions, [builder]);
-  config.plugin('remax-coverage-ignore-plugin').use(RemaxPlugins.CoverageIgnore);
-  config.plugin('remax-component-asset-plugin').use(RemaxPlugins.ComponentAsset, [builder]);
-  config.plugin('remax-native-asset-plugin').use(RemaxPlugins.NativeAsset, [builder]);
+  config.plugin('rspack-bar').use(rspack.ProgressPlugin);
+  config.plugin('mini-css-extract-plugin').use(rspack.CssExtractRspackPlugin, [{ filename: `[name]${meta.style}` }]);
+  config.plugin('rsmax-optimize-entries-plugin').use(RsmaxPlugins.OptimizeEntries, [meta]);
+  config.plugin('rsmax-plugin-asset-plugin').use(RsmaxPlugins.PluginAsset, [builder]);
+  config.plugin('rsmax-page-asset-plugin').use(RsmaxPlugins.PageAsset, [builder]);
+  config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);
+  // config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
+  config.plugin('rsmax-component-asset-plugin').use(RsmaxPlugins.ComponentAsset, [builder]);
+  config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
   if (builder.options.analyze) {
-    config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin);
+    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
+      {
+        disableClientServer: true,
+      },
+    ]);
+    setTimeout(() => {
+      execute('analyze', {
+        profile: './dist/.rsdoctor/manifest.json',
+      }).then(r => {
+        logger.success('已生成分析报告');
+      });
+    }, 3000);
   }
 
   const context = {
     config,
-    webpack,
+    rspack,
     addCSSRule: (ruleConfig: RuleConfig) => {
       addCSSRule(config, builder, false, ruleConfig);
     },
   };
 
   if (typeof builder.options.configWebpack === 'function') {
+    // @ts-ignore
     builder.options.configWebpack(context);
   }
-
+  // @ts-ignore
   builder.api.configWebpack(context);
 
   return config.toConfig();

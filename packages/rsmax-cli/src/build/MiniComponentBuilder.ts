@@ -2,15 +2,15 @@ import type { Options } from '@rsmax/types';
 import API from '../API';
 import Builder from './Builder';
 import webpackConfig from './webpack/config.miniComponent';
-import webpack from 'webpack';
 import { logger } from 'rslog';
+import { Configuration } from '@rspack/core';
 
 export default class MiniPluginBuilder extends Builder {
   constructor(api: API, options: Options) {
     super(api, options, 'minicomponent');
   }
 
-  createWebpackConfig(): webpack.Configuration {
+  createWebpackConfig(): Configuration {
     return webpackConfig(this);
   }
 

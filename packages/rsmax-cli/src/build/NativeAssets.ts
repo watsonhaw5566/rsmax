@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import fs from 'node:fs';
 import * as babelParser from '@babel/parser';
 import traverse from '@babel/traverse';
 import * as htmlparser2 from 'htmlparser2';
