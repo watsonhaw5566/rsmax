@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "watch": "concurrently \"lerna run build:cjs --parallel -- -w\" \"tsc -b -w\"",
+    "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w",
     "prebuild": "npm run clean:packages",
     "build": "tsc -b && lerna run build:cjs",
     "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
@@ -37,7 +37,6 @@
     "@types/yargs": "^15.0.0",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
-    "concurrently": "^5.2.0",
     "eslint": "^6.2.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.0",

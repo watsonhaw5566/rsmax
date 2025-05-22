@@ -59,7 +59,7 @@ export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean
             [require.resolve('postcss-preset-env')]: web && {
               browsers: ['chrome >= 49', 'edge >= 13', 'ios >= 8', 'Android >= 4.4'],
             },
-            [require.resolve('@remax/postcss-px2units')]:
+            [require.resolve('@rsmax/postcss-px2units')]:
               options.pxToRpx &&
               (web
                 ? {
