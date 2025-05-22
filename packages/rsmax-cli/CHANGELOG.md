@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/remaxjs/remax/compare/v1.1.0...v1.1.1) (2025-05-22)
+
+### Bug Fixes
+
+- **cli:** 修复环境变量 REMAX_APP 为 RSMAX_APP ([21bdc83](https://github.com/remaxjs/remax/commit/21bdc83ec911acbc89032de28e3ec063f39738c8))
+
 # [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
 
 ### Bug Fixes
