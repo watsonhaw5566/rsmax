@@ -9,13 +9,3 @@ exports[`Image > render correctly 1`] = `
   webp={false}
 />
 `;
-
-exports[`Image render correctly 1`] = `
-<image
-  className="class"
-  lazyLoad={false}
-  mode="scaleToFill"
-  showMenuByLongpress={false}
-  webp={false}
-/>
-`;

@@ -7,11 +7,3 @@ exports[`Image > render correctly 1`] = `
   mode="scaleToFill"
 />
 `;
-
-exports[`Image render correctly 1`] = `
-<image
-  className="class"
-  lazyLoad={false}
-  mode="scaleToFill"
-/>
-`;

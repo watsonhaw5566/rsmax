@@ -11,15 +11,3 @@ exports[`Progress > render correctly 1`] = `
   strokeWidth={6}
 />
 `;
-
-exports[`Progress render correctly 1`] = `
-<progress
-  active={false}
-  activeColor="#F85959"
-  activeMode="backwards"
-  backgroundColor="#EBEBEB"
-  color="#F85959"
-  percent={0}
-  strokeWidth={6}
-/>
-`;

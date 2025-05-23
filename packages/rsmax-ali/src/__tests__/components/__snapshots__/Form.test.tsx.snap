@@ -5,9 +5,3 @@ exports[`Form > render correctly 1`] = `
   reportSubmit={true}
 />
 `;
-
-exports[`Form render correctly 1`] = `
-<form
-  reportSubmit={true}
-/>
-`;

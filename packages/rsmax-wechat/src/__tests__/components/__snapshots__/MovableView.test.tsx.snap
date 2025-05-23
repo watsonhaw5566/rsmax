@@ -15,19 +15,3 @@ exports[`MovableView > render correctly 1`] = `
   scaleValue={1}
 />
 `;
-
-exports[`MovableView render correctly 1`] = `
-<movable-view
-  animation={true}
-  damping={20}
-  direction="none"
-  disabled={false}
-  friction={2}
-  inertia={false}
-  outOfBounds={false}
-  scale={false}
-  scaleMax={10}
-  scaleMin={0}
-  scaleValue={1}
-/>
-`;

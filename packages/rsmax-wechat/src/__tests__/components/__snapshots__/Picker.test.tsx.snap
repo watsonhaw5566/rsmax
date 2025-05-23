@@ -8,12 +8,3 @@ exports[`Picker > render correctly 1`] = `
   range={[]}
 />
 `;
-
-exports[`Picker render correctly 1`] = `
-<picker
-  disabled={false}
-  fields="day"
-  mode="selector"
-  range={Array []}
-/>
-`;

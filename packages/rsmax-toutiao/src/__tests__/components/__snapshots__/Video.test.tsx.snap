@@ -12,16 +12,3 @@ exports[`Video > render correctly 1`] = `
   src="video-src"
 />
 `;
-
-exports[`Video render correctly 1`] = `
-<video
-  autoplay={false}
-  controls={true}
-  loop={false}
-  objectFit="contain"
-  playBtnPosition="center"
-  showFullscreenBtn={true}
-  showPlayBtn={true}
-  src="video-src"
-/>
-`;

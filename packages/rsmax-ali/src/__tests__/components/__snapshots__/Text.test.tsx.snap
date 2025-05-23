@@ -7,11 +7,3 @@ exports[`Text > render correctly 1`] = `
   text
 </text>
 `;
-
-exports[`Text render correctly 1`] = `
-<text
-  className="class"
->
-  text
-</text>
-`;

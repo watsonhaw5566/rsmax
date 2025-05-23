@@ -7,11 +7,3 @@ exports[`NavigationBar > render correctly 1`] = `
   loading={false}
 />
 `;
-
-exports[`NavigationBar render correctly 1`] = `
-<navigation-bar
-  colorAnimationDuration={0}
-  colorAnimationTimingFunc="linear"
-  loading={false}
-/>
-`;

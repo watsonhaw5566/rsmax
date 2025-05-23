@@ -1,5 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`PickerView > render correctly 1`] = `<picker-view />`;
-
-exports[`PickerView render correctly 1`] = `<picker-view />`;

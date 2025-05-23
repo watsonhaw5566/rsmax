@@ -5,9 +5,3 @@ exports[`Camera > render correctly 1`] = `
   id="my-camera"
 />
 `;
-
-exports[`Camera render correctly 1`] = `
-<camera
-  id="my-camera"
-/>
-`;

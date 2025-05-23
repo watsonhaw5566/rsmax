@@ -32,36 +32,3 @@ exports[`Video > render correctly 1`] = `
   vslideGestureInFullscreen={true}
 />
 `;
-
-exports[`Video render correctly 1`] = `
-<video
-  autoPauseIfNavigate={true}
-  autoPauseIfOpenNative={true}
-  autoplay={false}
-  controls={true}
-  danmuBtn={false}
-  enableAutoRotation={false}
-  enableDanmu={false}
-  enablePlayGesture={false}
-  enableProgressGesture={true}
-  initialTime={0}
-  loop={false}
-  muted={false}
-  objectFit="contain"
-  pageGesture={false}
-  pictureInPictureShowProgress={false}
-  playBtnPosition="bottom"
-  showBackgroundPlaybackButton={false}
-  showCastingButton={false}
-  showCenterPlayBtn={true}
-  showFullscreenBtn={true}
-  showMuteBtn={false}
-  showPlayBtn={true}
-  showProgress={true}
-  showScreenLockButton={false}
-  showSnapshotButton={false}
-  src="video-src"
-  vslideGesture={false}
-  vslideGestureInFullscreen={true}
-/>
-`;

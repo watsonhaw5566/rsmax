@@ -5,9 +5,3 @@ exports[`Textarea > render correctly 1`] = `
   className="class"
 />
 `;
-
-exports[`Textarea render correctly 1`] = `
-<textarea
-  className="class"
-/>
-`;

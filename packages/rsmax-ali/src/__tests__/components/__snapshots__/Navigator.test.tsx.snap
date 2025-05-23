@@ -5,9 +5,3 @@ exports[`Navigator > render correctly 1`] = `
   url="url"
 />
 `;
-
-exports[`Navigator render correctly 1`] = `
-<navigator
-  url="url"
-/>
-`;

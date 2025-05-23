@@ -5,9 +5,3 @@ exports[`Canvas > render correctly 1`] = `
   disableScroll={false}
 />
 `;
-
-exports[`Canvas render correctly 1`] = `
-<canvas
-  disableScroll={false}
-/>
-`;

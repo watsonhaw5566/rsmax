@@ -5,9 +5,3 @@ exports[`AdCustom > render correctly 1`] = `
   unitId="id"
 />
 `;
-
-exports[`AdCustom render correctly 1`] = `
-<ad-custom
-  unitId="id"
-/>
-`;

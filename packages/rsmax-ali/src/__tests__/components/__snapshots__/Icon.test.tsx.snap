@@ -6,10 +6,3 @@ exports[`Icon > render correctly 1`] = `
   type="info"
 />
 `;
-
-exports[`Icon render correctly 1`] = `
-<icon
-  className="class"
-  type="info"
-/>
-`;

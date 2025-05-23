@@ -20,24 +20,3 @@ exports[`Input > render correctly 1`] = `
   value=""
 />
 `;
-
-exports[`Input render correctly 1`] = `
-<input
-  adjustPosition={true}
-  alwaysEmbed={false}
-  autoFocus={false}
-  confirmHold={false}
-  confirmType="done"
-  cursorSpacing={0}
-  disabled={false}
-  focus={false}
-  holdKeyboard={false}
-  maxlength={140}
-  password={false}
-  placeholderClassName="input-placeholder"
-  selectionEnd={-1}
-  selectionStart={-1}
-  type="text"
-  value=""
-/>
-`;

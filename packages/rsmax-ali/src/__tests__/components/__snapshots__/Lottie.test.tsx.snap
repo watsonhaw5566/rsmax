@@ -6,10 +6,3 @@ exports[`Lottie > render correctly 1`] = `
   id="foo"
 />
 `;
-
-exports[`Lottie render correctly 1`] = `
-<lottie
-  className="class"
-  id="foo"
-/>
-`;
