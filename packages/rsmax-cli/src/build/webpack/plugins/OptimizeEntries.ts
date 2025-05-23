@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 import { Compilation, Compiler, sources } from '@rspack/core';
 import { slash } from '@rsmax/shared';
 
