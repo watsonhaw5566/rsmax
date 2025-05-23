@@ -22,7 +22,7 @@
     "react": "^18.3.0"
   },
   "devDependencies": {
-    "@rsmax/types": "workspace:*",
+    "@rsmax/types": "1.1.2",
     "@types/babel__traverse": "^7.0.8",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.135",
@@ -43,5 +43,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
+  "gitHead": "dda4d00bac9b8822523a1ddaa8fbef489d7c92f5"
 }

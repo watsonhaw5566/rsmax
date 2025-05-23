@@ -17,13 +17,13 @@
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
   "dependencies": {
-    "@rsmax/framework-shared": "workspace:*",
-    "@rsmax/runtime": "workspace:*",
-    "@rsmax/shared": "workspace:*",
+    "@rsmax/framework-shared": "1.1.2",
+    "@rsmax/runtime": "1.1.2",
+    "@rsmax/shared": "1.1.2",
     "miniprogram-api-typings": "^4.0.7"
   },
   "devDependencies": {
-    "@rsmax/types": "workspace:*",
+    "@rsmax/types": "1.1.2",
     "@types/react": "^18.3.0",
     "@types/react-test-renderer": "^18.3.0",
     "react": "^18.3.0",
@@ -32,5 +32,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
+  "gitHead": "dda4d00bac9b8822523a1ddaa8fbef489d7c92f5"
 }
