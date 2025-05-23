@@ -71,7 +71,6 @@
     "resolve": "^1.12.0",
     "rslog": "^1.2.3",
     "rspack-chain": "^1.2.4",
-    "rspack-plugin-virtual-module": "^1.0.0",
     "schema-utils": "^2.6.1",
     "style-loader": "^4.0.0",
     "webpack-virtual-modules": "^0.6.2",
