@@ -2,7 +2,7 @@ import * as path from 'node:path';
 import { rspack, Configuration } from '@rspack/core';
 import Config from 'rspack-chain';
 import type { Options } from '@rsmax/types';
-import VirtualModulesPlugin from 'webpack-virtual-modules';
+import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import { slash } from '@rsmax/shared';
 import ejs from 'ejs';
 import { moduleMatcher, targetExtensions } from '../../extensions';
@@ -195,7 +195,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     appEvents: '[]',
   };
 
-  const virtualModules = new VirtualModulesPlugin({
+  const virtualModules = new RspackVirtualModulePlugin({
     [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
   });
   config.plugin('rspack-virtual-modules').use(virtualModules);

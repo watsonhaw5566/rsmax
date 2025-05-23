@@ -533,6 +533,9 @@ importers:
       rspack-chain:
         specifier: ^1.2.4
         version: 1.2.4
+      rspack-plugin-virtual-module:
+        specifier: ^1.0.0
+        version: 1.0.0
       schema-utils:
         specifier: ^2.6.1
         version: 2.7.1
@@ -832,9 +835,9 @@ importers:
       '@rsmax/shared':
         specifier: workspace:*
         version: link:../rsmax-shared
-      webpack-virtual-modules:
-        specifier: ^0.6.2
-        version: 0.6.2
+      rspack-plugin-virtual-module:
+        specifier: ^1.0.0
+        version: 1.0.0
     devDependencies:
       '@types/react':
         specifier: ^18.3.0
