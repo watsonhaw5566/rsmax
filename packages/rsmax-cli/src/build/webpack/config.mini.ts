@@ -243,7 +243,7 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rsmax-page-asset-plugin').use(RsmaxPlugins.PageAsset, [builder]);
   config.plugin('rsmax-theme-asset-plugin').use(RsmaxPlugins.ThemeAsset, [builder]);
   config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);
-  // config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
+  config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
   if (builder.options.analyze) {
