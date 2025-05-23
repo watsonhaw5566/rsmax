@@ -131,16 +131,12 @@ export default class PageAssetPlugin {
           // 将页面条目分批处理
           const batches = this.batchArray(pageEntries, BATCH_SIZE);
 
-          console.time(`[${PLUGIN_NAME}] Process ${pageEntries.length} pages`);
-
           // 按批次顺序处理
           for (const batch of batches) {
             await Promise.all(
               batch.map(page => this.processPageEntry(page, cache!.chunkMap, compilation, options, meta))
             );
           }
-
-          console.timeEnd(`[${PLUGIN_NAME}] Process ${pageEntries.length} pages`);
 
           callback();
         } catch (error) {
