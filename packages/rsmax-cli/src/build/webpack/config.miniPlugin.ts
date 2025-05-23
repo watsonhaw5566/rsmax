@@ -187,7 +187,7 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   const runtimeOptions = {
     pxToRpx: builder.options.pxToRpx,
-    debug: !!process.env.REMAX_DEBUG,
+    debug: !!process.env.RSMAX_DEBUG,
     platform: builder.target,
     pluginFiles: builder.api.getRuntimePluginFiles(),
     hostComponents: '[]',

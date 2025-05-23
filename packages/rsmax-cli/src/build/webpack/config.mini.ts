@@ -63,14 +63,14 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.optimization.runtimeChunk({ name: 'runtime' });
   config.optimization.splitChunks({
     cacheGroups: {
-      remaxStyles: {
+      rsmaxStyles: {
         name: 'rsmax-styles',
         test: new RegExp(`(.css|.less|.sass|.scss|.stylus|.styl|${builder.api.meta.style})$`),
         chunks: 'initial',
         minChunks: 2,
         minSize: 0,
       },
-      remaxVendors: {
+      rsmaxVendors: {
         name: 'rsmax-vendors',
         test: moduleMatcher,
         chunks: 'initial',
@@ -211,7 +211,7 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   const runtimeOptions = {
     pxToRpx: builder.options.pxToRpx,
-    debug: !!process.env.REMAX_DEBUG,
+    debug: !!process.env.RSMAX_DEBUG,
     platform: builder.options.target,
     pluginFiles: builder.api.getRuntimePluginFiles(),
     hostComponents: '[]',
