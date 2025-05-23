@@ -35,7 +35,7 @@ export default function getEnvironment(options: Options, target: string) {
     }
   });
 
-  // 注入所有 REMAX_APP_ 开头的环境变量
+  // 注入所有 RSMAX_APP_ 开头的环境变量
   const RSMAX_APP = /^RSMAX_APP_/i;
 
   const builtiEnv: Env = {

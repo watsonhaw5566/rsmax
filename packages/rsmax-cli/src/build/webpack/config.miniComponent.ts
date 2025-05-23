@@ -2,7 +2,7 @@ import * as path from 'node:path';
 import fs from 'node:fs';
 import Config from 'rspack-chain';
 import type { Options } from '@rsmax/types';
-import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
+import VirtualModulesPlugin from 'webpack-virtual-modules';
 import { slash } from '@rsmax/shared';
 import ejs from 'ejs';
 import { moduleMatcher, targetExtensions } from '../../extensions';
@@ -191,7 +191,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     appEvents: '[]',
   };
 
-  const virtualModules = new RspackVirtualModulePlugin({
+  const virtualModules = new VirtualModulesPlugin({
     [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
   });
   config.plugin('rspack-virtual-modules').use(virtualModules);
@@ -220,7 +220,7 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rsmax-optimize-entries-plugin').use(RsmaxPlugins.OptimizeEntries, [meta]);
   config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);
   config.plugin('rsmax-page-asset-plugin').use(RsmaxPlugins.PageAsset, [builder]);
-  // config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
+  config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
   config.plugin('rsmax-component-asset-plugin').use(RsmaxPlugins.ComponentAsset, [builder]);
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 

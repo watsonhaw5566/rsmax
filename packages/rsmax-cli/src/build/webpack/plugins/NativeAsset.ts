@@ -19,11 +19,11 @@ export default class NativeAssetPlugin {
           // 处理依赖的组件
           for (const component of entry.getDependentEntries().values()) {
             entries.set(component.filename, component);
-            await component.addToWebpack(compilation);
+            await component.addToWebpack(compiler, compilation);
           }
           // 更新并添加入口
           entry.updateSource();
-          await entry.addToWebpack(compilation);
+          await entry.addToWebpack(compiler, compilation);
         }
       };
       await processEntries();
