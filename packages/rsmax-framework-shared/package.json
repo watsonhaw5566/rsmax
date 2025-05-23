@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/framework-shared",
-  "version": "1.1.2",
+  "version": "1.1.0",
   "description": "使用真正的 React 构建跨平台小程序",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://remaxjs.org",
@@ -23,7 +23,7 @@
     "react-is": "^18.3.0"
   },
   "devDependencies": {
-    "@rsmax/types": "1.1.2",
+    "@rsmax/types": "workspace:*",
     "@types/react": "^18.3.0",
     "@types/react-is": "^18.3.0",
     "@types/react-test-renderer": "^18.3.0",
@@ -32,5 +32,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "dda4d00bac9b8822523a1ddaa8fbef489d7c92f5"
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

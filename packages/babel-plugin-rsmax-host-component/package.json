@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-rsmax-host-component",
-  "version": "1.1.2",
+  "version": "1.1.0",
   "description": "使用真正的 React 构建跨平台小程序",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://remaxjs.org",
@@ -28,11 +28,11 @@
     "@babel/helper-plugin-utils": "^7.10.4",
     "@babel/traverse": "^7.11.0",
     "@babel/types": "^7.11.0",
-    "@rsmax/ali": "1.1.2",
-    "@rsmax/build-store": "1.1.2",
-    "@rsmax/macro": "1.1.2",
-    "@rsmax/shared": "1.1.2",
-    "@rsmax/types": "1.1.2",
+    "@rsmax/ali": "workspace:*",
+    "@rsmax/build-store": "workspace:*",
+    "@rsmax/macro": "workspace:*",
+    "@rsmax/shared": "workspace:*",
+    "@rsmax/types": "workspace:*",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
@@ -42,5 +42,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "dda4d00bac9b8822523a1ddaa8fbef489d7c92f5"
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

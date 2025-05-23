@@ -3,19 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.1.2](https://github.com/watsonhaw5566/rsmax/compare/v1.1.1...v1.1.2) (2025-05-23)
-
-### Bug Fixes
-
-- 使用 webpack-virtual-modules ([1a588a2](https://github.com/watsonhaw5566/rsmax/commit/1a588a28827b2126ecdc06f908825e14f846df53))
-- 移除 useInputFileSystem 方法，使用 公开发布的 rspack/core 版本 ([46519e4](https://github.com/watsonhaw5566/rsmax/commit/46519e438a4f9b65650d5974d515e80096f10976))
-
-## [1.1.1](https://github.com/watsonhaw5566/rsmax/compare/v1.1.0...v1.1.1) (2025-05-22)
-
-### Bug Fixes
-
-- **cli:** 修复环境变量 REMAX_APP 为 RSMAX_APP ([21bdc83](https://github.com/watsonhaw5566/rsmax/commit/21bdc83ec911acbc89032de28e3ec063f39738c8))
-
 # [1.1.0](https://github.com/watsonhaw5566/rsmax/compare/v1.0.13...v1.1.0) (2025-05-22)
 
 ### Bug Fixes

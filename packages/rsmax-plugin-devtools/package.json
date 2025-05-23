@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/plugin-devtools",
-  "version": "1.1.2",
+  "version": "1.1.0",
   "description": "Inject React Devtools to Rsmax",
   "keywords": [
     "react"
@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "@remax/react-devtools-core": "^4.7.1",
-    "@rsmax/shared": "1.1.2",
+    "@rsmax/shared": "workspace:*",
     "webpack-inject-plugin": "^1.5.4"
   },
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "dda4d00bac9b8822523a1ddaa8fbef489d7c92f5"
+  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }
