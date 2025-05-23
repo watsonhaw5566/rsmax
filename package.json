@@ -56,7 +56,6 @@
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -E GIT_PARAMS"
   },
-  "packageManager": "pnpm@10.10.0",
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/remax"
