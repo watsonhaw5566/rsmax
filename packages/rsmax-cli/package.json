@@ -74,7 +74,6 @@
     "rspack-plugin-virtual-module": "^1.0.0",
     "schema-utils": "^2.6.1",
     "style-loader": "^4.0.0",
-    "webpack-virtual-modules": "^0.6.2",
     "yargs": "^16.0.3",
     "yargs-parser": "^16.0.0"
   },
