@@ -5,9 +5,3 @@ exports[`Lifestyle > render correctly 1`] = `
   publicId=""
 />
 `;
-
-exports[`Lifestyle render correctly 1`] = `
-<lifestyle
-  publicId=""
-/>
-`;

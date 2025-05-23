@@ -5,9 +5,3 @@ exports[`Input > render correctly 1`] = `
   className="class"
 />
 `;
-
-exports[`Input render correctly 1`] = `
-<input
-  className="class"
-/>
-`;

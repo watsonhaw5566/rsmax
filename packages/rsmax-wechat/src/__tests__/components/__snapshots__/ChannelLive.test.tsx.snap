@@ -6,10 +6,3 @@ exports[`ChannelLive > render correctly 1`] = `
   finderUserName=""
 />
 `;
-
-exports[`ChannelLive render correctly 1`] = `
-<channel-live
-  feedId="id"
-  finderUserName=""
-/>
-`;

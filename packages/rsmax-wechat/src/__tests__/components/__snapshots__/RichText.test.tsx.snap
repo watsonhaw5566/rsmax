@@ -5,9 +5,3 @@ exports[`RichText > render correctly 1`] = `
   nodes={[]}
 />
 `;
-
-exports[`RichText render correctly 1`] = `
-<rich-text
-  nodes={Array []}
-/>
-`;

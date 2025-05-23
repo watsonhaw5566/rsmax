@@ -5,9 +5,3 @@ exports[`Video > render correctly 1`] = `
   src="https://www.alipay.com"
 />
 `;
-
-exports[`Video render correctly 1`] = `
-<video
-  src="https://www.alipay.com"
-/>
-`;

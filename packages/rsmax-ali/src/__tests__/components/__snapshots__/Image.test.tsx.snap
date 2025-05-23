@@ -5,9 +5,3 @@ exports[`Image > render correctly 1`] = `
   className="class"
 />
 `;
-
-exports[`Image render correctly 1`] = `
-<image
-  className="class"
-/>
-`;

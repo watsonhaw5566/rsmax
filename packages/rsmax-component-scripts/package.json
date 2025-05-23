@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/component-scripts",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Rsmax 是一个全新的基于 React 的小程序开发框架",
   "main": "./lib/index.js",
   "bin": {
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@remax/father-build": "^1.19.8",
-    "@rsmax/cli": "workspace:*",
+    "@rsmax/cli": "1.1.2",
     "@types/lodash": "^4.14.171",
     "glob": "^11.0.2",
     "less": "^3.7.1",
@@ -48,5 +48,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
+  "gitHead": "dda4d00bac9b8822523a1ddaa8fbef489d7c92f5"
 }

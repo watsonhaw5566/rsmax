@@ -5,9 +5,3 @@ exports[`Snapshot > render correctly 1`] = `
   mode="view"
 />
 `;
-
-exports[`Snapshot render correctly 1`] = `
-<snapshot
-  mode="view"
-/>
-`;

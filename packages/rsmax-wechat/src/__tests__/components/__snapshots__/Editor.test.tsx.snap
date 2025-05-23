@@ -8,12 +8,3 @@ exports[`Editor > render correctly 1`] = `
   showImgToolbar={false}
 />
 `;
-
-exports[`Editor render correctly 1`] = `
-<editor
-  readOnly={false}
-  showImgResize={false}
-  showImgSize={false}
-  showImgToolbar={false}
-/>
-`;

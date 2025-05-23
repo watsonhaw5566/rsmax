@@ -7,11 +7,3 @@ exports[`Button > render correctly 1`] = `
   Button
 </button>
 `;
-
-exports[`Button render correctly 1`] = `
-<button
-  className="class"
->
-  Button
-</button>
-`;

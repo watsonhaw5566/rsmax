@@ -7,11 +7,3 @@ exports[`VoipRoom > render correctly 1`] = `
   openId="openId"
 />
 `;
-
-exports[`VoipRoom render correctly 1`] = `
-<voip-room
-  devicePosition="front"
-  mode="camera"
-  openId="openId"
-/>
-`;

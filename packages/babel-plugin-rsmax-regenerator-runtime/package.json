@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-rsmax-regenerator-runtime",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "使用真正的 React 构建跨平台小程序",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://remaxjs.org",
@@ -36,5 +36,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
+  "gitHead": "dda4d00bac9b8822523a1ddaa8fbef489d7c92f5"
 }

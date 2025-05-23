@@ -9,13 +9,3 @@ exports[`ScrollView > render correctly 1`] = `
   upperThreshold={50}
 />
 `;
-
-exports[`ScrollView render correctly 1`] = `
-<scroll-view
-  lowerThreshold={50}
-  scrollWithAnimation={false}
-  scrollX={false}
-  scrollY={false}
-  upperThreshold={50}
-/>
-`;

@@ -5,9 +5,3 @@ exports[`FunctionalPageNavigator > render correctly 1`] = `
   version="release"
 />
 `;
-
-exports[`FunctionalPageNavigator render correctly 1`] = `
-<functional-page-navigator
-  version="release"
-/>
-`;

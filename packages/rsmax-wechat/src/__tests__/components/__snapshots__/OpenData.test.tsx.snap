@@ -5,9 +5,3 @@ exports[`OpenData > render correctly 1`] = `
   lang="en"
 />
 `;
-
-exports[`OpenData render correctly 1`] = `
-<open-data
-  lang="en"
-/>
-`;

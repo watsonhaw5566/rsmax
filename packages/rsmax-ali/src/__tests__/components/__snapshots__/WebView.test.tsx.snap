@@ -5,9 +5,3 @@ exports[`WebView > render correctly 1`] = `
   src="https://url.com"
 />
 `;
-
-exports[`WebView render correctly 1`] = `
-<web-view
-  src="https://url.com"
-/>
-`;

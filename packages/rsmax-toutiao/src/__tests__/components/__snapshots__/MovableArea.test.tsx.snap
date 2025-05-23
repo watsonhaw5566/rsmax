@@ -5,9 +5,3 @@ exports[`MovableArea > render correctly 1`] = `
   scaleArea={false}
 />
 `;
-
-exports[`MovableArea render correctly 1`] = `
-<movable-area
-  scaleArea={false}
-/>
-`;

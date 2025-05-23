@@ -9,13 +9,3 @@ exports[`View > render correctly 1`] = `
   view
 </view>
 `;
-
-exports[`View render correctly 1`] = `
-<view
-  catchClick={[Function]}
-  className="class"
-  onAnimationStart={[Function]}
->
-  view
-</view>
-`;
