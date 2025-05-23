@@ -5,7 +5,8 @@ import Config from 'webpack-5-chain';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { RsdoctorWebpackPlugin } from '@rsdoctor/webpack-plugin';
 import WebpackBar from 'webpackbar';
 import type { Options } from '@rsmax/types';
 import { slash } from '@rsmax/shared';
@@ -22,6 +23,8 @@ import API from '../../API';
 import { addCSSRule, cssConfig, RuleConfig } from './config/css';
 import baseConfig from './baseConfig';
 import Builder from '../Builder';
+import { execute } from '@rsdoctor/cli';
+import { logger } from 'rslog';
 
 function prepare(api: API) {
   const meta = api.getMeta();
@@ -247,7 +250,18 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
   if (builder.options.analyze) {
-    config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin);
+    config.plugin('rspack-bundle-analyzer').use(RsdoctorWebpackPlugin, [
+      {
+        disableClientServer: true,
+      },
+    ]);
+    setTimeout(() => {
+      execute('analyze', {
+        profile: './dist/.rsdoctor/manifest.json',
+      }).then(r => {
+        logger.success('已生成分析报告');
+      });
+    }, 3000);
   }
 
   const context = {
