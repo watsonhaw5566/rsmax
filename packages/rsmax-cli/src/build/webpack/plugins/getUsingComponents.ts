@@ -10,11 +10,39 @@ interface Component {
   props: string[];
 }
 
+// 模块缓存
+const moduleCache = new Map<string, NormalModule>();
+// 组件缓存
+const compositionComponentsCache = new Map<Compilation, Map<string, Set<string>>>();
+// 使用组件缓存
+const usingComponentsCache = new Map<string, Map<string, Component>>();
+
+/**
+ * 查找模块，使用缓存提高性能
+ */
 function findModule(compilation: Compilation, file: string) {
-  return Array.from(compilation.modules.values()).find((m: any) => slash(m.resource) === file) as NormalModule;
+  const cacheKey = `${compilation.hash}_${file}`;
+  if (moduleCache.has(cacheKey)) {
+    return moduleCache.get(cacheKey);
+  }
+
+  const module = Array.from(compilation.modules.values()).find((m: any) => slash(m.resource) === file) as NormalModule;
+
+  if (module) {
+    moduleCache.set(cacheKey, module);
+  }
+
+  return module;
 }
 
+/**
+ * 计算组合组件，使用缓存提高性能
+ */
 function compositionComponents(compilation: any) {
+  if (compositionComponentsCache.has(compilation)) {
+    return compositionComponentsCache.get(compilation)!;
+  }
+
   const cc = new Map<string, Set<string>>();
   Store.compositionComponents.forEach((components, file) => {
     const module = findModule(compilation, file);
@@ -29,7 +57,18 @@ function compositionComponents(compilation: any) {
       }
     });
   });
+
+  compositionComponentsCache.set(compilation, cc);
   return cc;
+}
+
+/**
+ * 清除所有缓存，在编译开始时调用
+ */
+function clearComponentsCache() {
+  moduleCache.clear();
+  compositionComponentsCache.clear();
+  usingComponentsCache.clear();
 }
 
 /**
@@ -41,6 +80,14 @@ function compositionComponents(compilation: any) {
  * 4. 通过 1、2 中的信息从 dependencies 中找出 page 依赖的小程序自定义组件。
  */
 function getUsingComponents(page: string, compilation: any, options: any, prefixPath = ''): Map<string, Component> {
+  // 生成缓存键
+  const cacheKey = `${compilation.hash}_${page}_${prefixPath}`;
+
+  // 检查缓存
+  if (usingComponentsCache.has(cacheKey)) {
+    return usingComponentsCache.get(cacheKey)!;
+  }
+
   const components = new Map<string, Component>();
   const handledModules = new Set<string>();
 
@@ -57,6 +104,7 @@ function getUsingComponents(page: string, compilation: any, options: any, prefix
       handledModules.add(resource);
     }
 
+    // 优化：预先过滤插件组件，避免每次都遍历全部组件
     const pluginComponents = Array.from(Store.pluginComponents.values()).filter(c => c.importers.has(resource));
     pluginComponents.forEach(pluginComponent => {
       components.set(pluginComponent.id, {
@@ -66,37 +114,54 @@ function getUsingComponents(page: string, compilation: any, options: any, prefix
       });
     });
 
-    module?.dependencies.forEach((dep: any) => {
+    // 使用批量处理依赖，减少循环次数
+    const dependencies = Array.from(module?.dependencies || []);
+    if (dependencies.length === 0) {
+      return;
+    }
+
+    // 预先获取组合组件，避免在循环中重复调用
+    const cc = compositionComponents(compilation);
+
+    dependencies.forEach((dep: any) => {
       const mod = compilation.moduleGraph.getModule(dep);
-      if (mod) {
-        let depModule;
-        if (mod.resource) {
-          depModule = mod;
-        } else if (mod.rootModule) {
-          depModule = mod.rootModule;
-        } else {
-          return;
-        }
-        const depResource = slash(depModule.resource);
-        const nativeComponent = Store.nativeComponents.get(depResource);
-        if (nativeComponent) {
-          const componentProps = compositionComponents(compilation).get(depResource);
-          const componentPath = slash(path.join(prefixPath, getNativeAssetOutputPath(depResource, options)));
-          const props = Array.from(componentProps ? componentProps.values() : []);
-          components.set(nativeComponent.id, {
-            id: nativeComponent.id,
-            path: componentPath.replace(new RegExp(`\\${path.extname(componentPath)}$`), ''),
-            props,
-          });
-        }
-        getComponents(depModule);
+      if (!mod) return;
+
+      let depModule;
+      if (mod.resource) {
+        depModule = mod;
+      } else if (mod.rootModule) {
+        depModule = mod.rootModule;
+      } else {
+        return;
       }
+
+      const depResource = slash(depModule.resource);
+      const nativeComponent = Store.nativeComponents.get(depResource);
+
+      if (nativeComponent) {
+        const componentProps = cc.get(depResource);
+        const componentPath = slash(path.join(prefixPath, getNativeAssetOutputPath(depResource, options)));
+        const props = Array.from(componentProps ? componentProps.values() : []);
+
+        components.set(nativeComponent.id, {
+          id: nativeComponent.id,
+          path: componentPath.replace(new RegExp(`\\${path.extname(componentPath)}$`), ''),
+          props,
+        });
+      }
+
+      getComponents(depModule);
     });
   };
 
-  getComponents(findModule(compilation, page));
+  const pageModule = findModule(compilation, page);
+  getComponents(pageModule);
+
+  // 存入缓存
+  usingComponentsCache.set(cacheKey, components);
 
   return components;
 }
 
-export { getUsingComponents };
+export { getUsingComponents, clearComponentsCache };
