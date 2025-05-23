@@ -27,11 +27,6 @@ export default function baseConfig(config: Config, builder: Builder) {
     },
   ]);
 
-  config.experiments({
-    // @ts-ignore
-    useInputFileSystem: true,
-  });
-
   if (process.env.NODE_ENV === 'production') {
     config.clear();
   }

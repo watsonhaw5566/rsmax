@@ -1,7 +1,7 @@
 import fs from 'node:fs';
-import * as path from 'node:path';
+import path from 'node:path';
 import Config from 'rspack-chain';
-import VirtualModulesPlugin from 'webpack-virtual-modules';
+import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { execute } from '@rsdoctor/cli';
 import type { Options } from '@rsmax/types';
@@ -206,7 +206,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     path.resolve(__dirname, '../../../template/app-runtime-options.js.ejs'),
     'utf-8'
   );
-  const runtimeOptionsPath = slash('node_modules/@rsmax/apply-runtime-options.js');
+  const runtimeOptionsPath = slash('@rsmax/apply-runtime-options.js');
   config.entry(appEntry!.name).prepend('@rsmax/apply-runtime-options');
 
   const runtimeOptions = {
@@ -219,7 +219,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     appEvents: '[]',
   };
 
-  const virtualModules = new VirtualModulesPlugin({
+  const virtualModules = new RspackVirtualModulePlugin({
     [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
   });
   config.plugin('rspack-virtual-modules').use(virtualModules);
