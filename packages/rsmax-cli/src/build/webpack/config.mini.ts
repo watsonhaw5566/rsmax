@@ -206,8 +206,6 @@ export default function webpackConfig(builder: Builder): Configuration {
     'utf-8'
   );
   const runtimeOptionsPath = slash('@rsmax/apply-runtime-options.js');
-  console.log(runtimeOptionsPath);
-  console.log(runtimeOptionsTemplate);
   config.entry(appEntry!.name).prepend('@rsmax/apply-runtime-options');
 
   const runtimeOptions = {

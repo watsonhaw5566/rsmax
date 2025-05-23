@@ -87,7 +87,7 @@ export function cssConfig(webpackConfig: Config, builder: Builder, web: boolean)
     test: /\.css$/i,
   });
 
-  if (!web && builder.options.target !== 'xhs') {
+  if (!web) {
     const { style } = builder.api.getMeta();
     webpackConfig.module
       .rule(style)
