@@ -41,7 +41,6 @@ export default class VirtualEntry extends NormalEntry {
         this.virtualModule.apply(compiler);
         this.virtualModule.writeModule(this.virtualPath, this.outputSource());
       }
-      // fs.writeFileSync(this.virtualPath, this.outputSource());
       const dep = new EntryDependency(this.virtualPath);
       // rspack 中 addEntry 不允许加入虚拟文件，所以写入虚拟模块入口时需要先落盘 this.virtualPath 文件
       compilation.addEntry('', dep, { name: this.name }, err => {
