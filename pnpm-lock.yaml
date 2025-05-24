@@ -56,9 +56,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^4.1.1
         version: 4.33.0(eslint@6.8.0)(typescript@4.9.5)
-      concurrently:
-        specifier: ^5.2.0
-        version: 5.3.0
       eslint:
         specifier: ^6.2.1
         version: 6.8.0
@@ -5054,11 +5051,6 @@ packages:
   concat-with-sourcemaps@1.1.0:
     resolution: {integrity: sha512-4gEjHJFT9e+2W/77h/DS5SGUgwDaOwprX8L/gl5+3ixnzkVJJsZWDSelmN3Oilw3LNDZjZV0yqH1hLG3k6nghg==}
 
-  concurrently@5.3.0:
-    resolution: {integrity: sha512-8MhqOB6PWlBfA2vJ8a0bSFKATOdWlHiQlk11IfmQBPaHVP8oP2gsh2MObE6UR3hqDHqvaIvLTyceNW6obVuFHQ==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
   configstore@4.0.0:
     resolution: {integrity: sha512-CmquAXFBocrzaSM8mtGPMM/HiWmyIpr4CcJl/rgY2uCObZ/S7cKU0silxslqJejl+t/T9HS8E0PUNQD81JGUEQ==}
     engines: {node: '>=6'}
@@ -5443,10 +5435,6 @@ packages:
   data-view-byte-offset@1.0.1:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
-
-  date-fns@2.30.0:
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
 
   dateformat@3.0.3:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
@@ -9845,10 +9833,6 @@ packages:
     resolution: {integrity: sha512-BLq/cCO9two+lBgiTYNqD6GdtK8s4NpaWrl6/rCO9w0TUS8oJl7cmToOZfRYllKTISY6nt1U7jQ53brmKqY6BA==}
     engines: {node: '>=4'}
 
-  read-pkg@4.0.1:
-    resolution: {integrity: sha512-+UBirHHDm5J+3WDmLBZYSklRYg82nMlz+enn+GMZ22nSR2f4bzxmhso6rzQW/3mT2PVzpzDTiYIZahk8UmZ44w==}
-    engines: {node: '>=6'}
-
   read-pkg@5.2.0:
     resolution: {integrity: sha512-Ug69mNOpfvKDAc2Q8DRpMjjzdtrnv9HcSMX+4VsZxD1aZ6ZzrIE7rlzXBtWTyhULSMKg076AW6WR5iZpD0JiOg==}
     engines: {node: '>=8'}
@@ -10548,9 +10532,6 @@ packages:
 
   sourcemapped-stacktrace@1.1.11:
     resolution: {integrity: sha512-O0pcWjJqzQFVsisPlPXuNawJHHg9N9UgpJ/aDmvi9+vnS3x1C0NhwkVFzzZ1VN0Xo+bekyweoqYvBw5ZBKiNnQ==}
-
-  spawn-command@0.0.2:
-    resolution: {integrity: sha512-zC8zGoGkmc8J9ndvml8Xksr1Amk9qBujgbF0JAIWO7kXr43w0h/0GJNM/Vustixu+YE8N/MTrQ7N31FvHUACxQ==}
 
   spawnd@6.2.0:
     resolution: {integrity: sha512-qX/I4lQy4KgVEcNle0kuc4FxFWHISzBhZW1YemPfwmrmQjyZmfTK/OhBKkhrD2ooAaFZEm1maEBLE6/6enwt+g==}
@@ -17782,18 +17763,6 @@ snapshots:
     dependencies:
       source-map: 0.6.1
 
-  concurrently@5.3.0:
-    dependencies:
-      chalk: 2.4.2
-      date-fns: 2.30.0
-      lodash: 4.17.21
-      read-pkg: 4.0.1
-      rxjs: 6.6.7
-      spawn-command: 0.0.2
-      supports-color: 6.1.0
-      tree-kill: 1.2.2
-      yargs: 13.3.2
-
   configstore@4.0.0:
     dependencies:
       dot-prop: 4.2.1
@@ -18296,10 +18265,6 @@ snapshots:
       call-bound: 1.0.4
       es-errors: 1.3.0
       is-data-view: 1.0.2
-
-  date-fns@2.30.0:
-    dependencies:
-      '@babel/runtime': 7.27.1
 
   dateformat@3.0.3: {}
 
@@ -23648,12 +23613,6 @@ snapshots:
       normalize-package-data: 2.5.0
       path-type: 3.0.0
 
-  read-pkg@4.0.1:
-    dependencies:
-      normalize-package-data: 2.5.0
-      parse-json: 4.0.0
-      pify: 3.0.0
-
   read-pkg@5.2.0:
     dependencies:
       '@types/normalize-package-data': 2.4.4
@@ -24582,8 +24541,6 @@ snapshots:
   sourcemapped-stacktrace@1.1.11:
     dependencies:
       source-map: 0.5.6
-
-  spawn-command@0.0.2: {}
 
   spawnd@6.2.0:
     dependencies:
