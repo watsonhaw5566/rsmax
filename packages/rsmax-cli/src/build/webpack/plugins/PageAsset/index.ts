@@ -7,6 +7,7 @@ import createIsolatedTemplate from './createIsolatedTemplate';
 import Builder from '../../../Builder';
 import { Compiler } from 'webpack';
 import PageEntry from '../../../entries/PageEntry';
+import { clearComponentsCache } from '../getUsingComponents';
 
 const PLUGIN_NAME = 'RsmaxPageAssetPlugin';
 
@@ -19,6 +20,7 @@ export default class PageAssetPlugin {
   }
 
   apply(compiler: Compiler) {
+    clearComponentsCache();
     compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
       const { options } = this.builder;
       const meta = this.builder.api.getMeta();
