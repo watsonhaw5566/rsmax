@@ -33,7 +33,6 @@
     "@rsmax/toutiao": "workspace:*",
     "@rsmax/web": "workspace:*",
     "@rsmax/wechat": "workspace:*",
-    "@rsmax/xhs": "workspace:*",
     "clsx": "^2.1.1",
     "memoize-one": "^5.1.1",
     "react-autosize-textarea": "^7.0.0"

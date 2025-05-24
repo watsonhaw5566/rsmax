@@ -339,9 +339,6 @@ importers:
       '@rsmax/wechat':
         specifier: workspace:*
         version: link:../rsmax-wechat
-      '@rsmax/xhs':
-        specifier: workspace:*
-        version: link:../rsmax-xhs
 
   packages/rsmax-ali:
     dependencies:
@@ -534,8 +531,8 @@ importers:
         specifier: ^1.2.4
         version: 1.2.4
       rspack-plugin-virtual-module:
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       schema-utils:
         specifier: ^2.6.1
         version: 2.7.1
@@ -567,9 +564,6 @@ importers:
       '@rsmax/wechat':
         specifier: workspace:*
         version: link:../rsmax-wechat
-      '@rsmax/xhs':
-        specifier: workspace:*
-        version: link:../rsmax-xhs
       '@types/babel__traverse':
         specifier: ^7.0.8
         version: 7.20.7
@@ -777,9 +771,6 @@ importers:
       '@rsmax/wechat':
         specifier: workspace:*
         version: link:../rsmax-wechat
-      '@rsmax/xhs':
-        specifier: workspace:*
-        version: link:../rsmax-xhs
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -833,8 +824,8 @@ importers:
         specifier: workspace:*
         version: link:../rsmax-shared
       rspack-plugin-virtual-module:
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
       '@types/react':
         specifier: ^18.3.0
@@ -1075,40 +1066,6 @@ importers:
       '@rsmax/types':
         specifier: workspace:*
         version: link:../rsmax-types
-      '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.21
-      '@types/react-test-renderer':
-        specifier: ^18.3.0
-        version: 18.3.1
-      react:
-        specifier: ^18.3.0
-        version: 18.3.1
-      react-test-renderer:
-        specifier: ^18.3.0
-        version: 18.3.1(react@18.3.1)
-
-  packages/rsmax-xhs:
-    dependencies:
-      '@rsmax/shared':
-        specifier: workspace:*
-        version: link:../rsmax-shared
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-    devDependencies:
-      '@rsmax/framework-shared':
-        specifier: workspace:*
-        version: link:../rsmax-framework-shared
-      '@rsmax/runtime':
-        specifier: workspace:*
-        version: link:../rsmax-runtime
-      '@rsmax/types':
-        specifier: workspace:*
-        version: link:../rsmax-types
-      '@rsmax/wechat':
-        specifier: workspace:*
-        version: link:../rsmax-wechat
       '@types/react':
         specifier: ^18.3.0
         version: 18.3.21
@@ -9394,8 +9351,8 @@ packages:
   rspack-chain@1.2.4:
     resolution: {integrity: sha512-gd62/ZzXm9F14ZOnblz0pFPeyv09gaHPmOy6cYrDAW94pDbCiXmNSc3P8yb0osGq3H/ccESDXq4V9bQ2eG8Sng==}
 
-  rspack-plugin-virtual-module@1.0.0:
-    resolution: {integrity: sha512-v5MDtNEcDwV36gsHf5iIYyH1rYuC2TP3D+xE1Z+pqIWjFR9dpQ4DF4OzGtrBQSPKVhOyL0VW5UyeIbfdFxELmw==}
+  rspack-plugin-virtual-module@1.0.1:
+    resolution: {integrity: sha512-NQJ3fXa1v0WayvfHMWbyqLUA3JIqgCkhIcIOnZscuisinxorQyIAo+bqcU5pCusMKSyPqVIWO3caQyl0s9VDAg==}
 
   run-applescript@7.0.0:
     resolution: {integrity: sha512-9by4Ij99JUr/MCFBUkDKLWK3G9HVXmabKz9U5MlIAIuvuzkiOicRYs8XJLxX+xahD+mLiiCYDqF9dKAgtzKP1A==}
@@ -14028,7 +13985,7 @@ snapshots:
       resolve: 1.22.10
       rslog: 1.2.3
       rspack-chain: 1.2.4
-      rspack-plugin-virtual-module: 1.0.0
+      rspack-plugin-virtual-module: 1.0.1
       schema-utils: 2.7.1
       style-loader: 4.0.0(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       yargs: 16.2.0
@@ -14097,7 +14054,7 @@ snapshots:
       resolve: 1.22.10
       rslog: 1.2.3
       rspack-chain: 1.2.4
-      rspack-plugin-virtual-module: 1.0.0
+      rspack-plugin-virtual-module: 1.0.1
       schema-utils: 2.7.1
       style-loader: 4.0.0(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17)))
       yargs: 16.2.0
@@ -14315,7 +14272,7 @@ snapshots:
     dependencies:
       '@rsmax/redbox-react': 1.0.3(react@16.14.0)(rsmax@1.1.1(@swc/helpers@0.5.17)(@types/express@4.17.21)(prop-types@15.8.1)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17))))
       '@rsmax/shared': 1.1.1(react@16.14.0)
-      rspack-plugin-virtual-module: 1.0.0
+      rspack-plugin-virtual-module: 1.0.1
     transitivePeerDependencies:
       - react
       - rsmax
@@ -14325,7 +14282,7 @@ snapshots:
     dependencies:
       '@rsmax/redbox-react': 1.0.3(react@18.3.1)(rsmax@1.1.1(@swc/helpers@0.5.17)(@types/express@4.17.21)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.24(@swc/helpers@0.5.17))))
       '@rsmax/shared': 1.1.1(react@18.3.1)
-      rspack-plugin-virtual-module: 1.0.0
+      rspack-plugin-virtual-module: 1.0.1
     transitivePeerDependencies:
       - react
       - rsmax
@@ -22166,7 +22123,7 @@ snapshots:
       deepmerge: 4.3.1
       javascript-stringify: 2.1.0
 
-  rspack-plugin-virtual-module@1.0.0:
+  rspack-plugin-virtual-module@1.0.1:
     dependencies:
       fs-extra: 11.3.0
 
