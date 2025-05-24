@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.15](https://github.com/watsonhaw5566/rsmax/compare/v1.0.14...v1.0.15) (2025-05-24)
+
+### Bug Fixes
+
+- **cli:** 环境变量 REMAX_APP 更换为 RSMAX_APP ([cb6139b](https://github.com/watsonhaw5566/rsmax/commit/cb6139b48a5767247ddd4d9c81396035a04e31fa))
+
 ## [1.0.14](https://github.com/watsonhaw5566/rsmax/compare/v1.0.13...v1.0.14) (2025-05-24)
 
 **Note:** Version bump only for package root
