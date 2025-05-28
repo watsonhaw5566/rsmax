@@ -27,10 +27,6 @@ export default function baseConfig(config: Config, builder: Builder) {
     },
   ]);
 
-  if (process.env.NODE_ENV === 'production') {
-    config.clear();
-  }
-
   config.devServer
     .publicPath(config.get('publicPath'))
     .compress(true)
@@ -38,6 +34,5 @@ export default function baseConfig(config: Config, builder: Builder) {
     .open(false)
     .historyApiFallback(true)
     .noInfo(true);
-
   return config;
 }
