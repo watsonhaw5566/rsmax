@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.16](https://github.com/watsonhaw5566/rsmax/compare/v1.0.15...v1.0.16) (2025-05-28)
+
+### Bug Fixes
+
+- 修复 webpack mode not set 问题 ([fb45cb4](https://github.com/watsonhaw5566/rsmax/commit/fb45cb4d84691f22aa090749b0f8a519e35e058b))
+- 修复自定义 babel ([79ca4b6](https://github.com/watsonhaw5566/rsmax/commit/79ca4b6c3b9497349db79b0bb9e0893aede3909b))
+
 ## [1.0.15](https://github.com/watsonhaw5566/rsmax/compare/v1.0.14...v1.0.15) (2025-05-24)
 
 ### Bug Fixes

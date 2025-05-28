@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/plugin-devtools",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Inject React Devtools to Rsmax",
   "keywords": [
     "react"
