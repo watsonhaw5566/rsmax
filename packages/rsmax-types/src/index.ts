@@ -5,7 +5,7 @@ import * as t from '@babel/types';
 
 export type LogLevel = 'debug' | 'verbose' | 'info' | 'warn' | 'error' | 'silent';
 
-export type Platform = 'web' | 'wechat' | 'ali' | 'toutiao';
+export type Platform = 'web' | 'wechat' | 'ali' | 'toutiao' | 'kuaishou';
 
 export type BuildType = 'miniapp' | 'miniplugin' | 'minicomponent' | 'webapp';
 

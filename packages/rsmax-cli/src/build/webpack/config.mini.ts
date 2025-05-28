@@ -53,7 +53,8 @@ export default function webpackConfig(builder: Builder): Configuration {
     config.plugin('rspack-virtual-modules' + e.name).use(e.virtualModule);
     config.entry(e.name).add(e.virtualPath);
   });
-  config.devtool(builder.options.watch ? 'cheap-source-map' : false);
+  // config.devtool(builder.options.watch ? 'cheap-source-map' : false);
+  config.devtool(false);
   config.resolve.extensions.merge(targetExtensions(builder.target));
   config.target('node');
   config.output.filename('[name].js');
