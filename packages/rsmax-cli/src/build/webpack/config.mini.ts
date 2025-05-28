@@ -142,7 +142,7 @@ export default function webpackConfig(builder: Builder): webpack.Configuration {
     .exclude.add(/react-reconciler/)
     .end()
     .use('babel')
-    .loader(require.resolve('babel-loader'))
+    .loader('babel')
     .options({
       babelrc: false,
       configFile: resolveBabelConfig(builder.options),
