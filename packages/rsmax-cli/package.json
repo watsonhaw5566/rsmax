@@ -32,8 +32,6 @@
     "@babel/register": "^7.7.0",
     "@babel/types": "^7.7.4",
     "@remax/postcss-px2units": "^0.2.0",
-    "@rsdoctor/cli": "^1.1.2",
-    "@rsdoctor/webpack-plugin": "^1.1.2",
     "@rsmax/build-store": "workspace:*",
     "@rsmax/macro": "workspace:*",
     "@rsmax/plugin-devtools": "workspace:*",
@@ -81,7 +79,7 @@
     "webpack-virtual-modules": "^0.6.2",
     "webpackbar": "^7.0.0",
     "yargs": "^16.0.3",
-    "yargs-parser": "^16.0.0"
+    "yargs-parser": "17.0.0"
   },
   "devDependencies": {
     "@babel/traverse": "^7.7.4",
