@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/web",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Shim of web for rsmax",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://github.com/remaxjs/remax#readme",

@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-rsmax",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "rsmax babel preset",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
