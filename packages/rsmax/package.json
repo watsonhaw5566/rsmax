@@ -38,7 +38,8 @@
     "@rsmax/toutiao": "workspace:*",
     "@rsmax/types": "workspace:*",
     "@rsmax/web": "workspace:*",
-    "@rsmax/wechat": "workspace:*"
+    "@rsmax/wechat": "workspace:*",
+    "@rsmax/kuaishou": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
