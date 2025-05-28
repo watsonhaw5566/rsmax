@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/babel-plugin-auto-css-modules",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "使用真正的 React 构建跨平台小程序",
   "authors": [
     "chencheng <sorrycc@gmail.com> (https://github.com/sorrycc)"
