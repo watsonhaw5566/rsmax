@@ -292,6 +292,21 @@ export default function webpackConfig(builder: Builder): Configuration {
   if (builder.options.target === 'xhs') {
     config.devtool(false);
     config.resolve.fallback.set('util', false);
+
+    // Add util to externals for xhs target
+    const externals = config.get('externals') || {};
+    const utilExternal = {
+      util: 'null',
+    };
+
+    if (Array.isArray(externals)) {
+      config.set('externals', [...externals, utilExternal]);
+    } else {
+      config.set('externals', {
+        ...externals,
+        ...utilExternal,
+      });
+    }
   }
   return config.toConfig();
 }
