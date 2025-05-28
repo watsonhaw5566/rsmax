@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/ali",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Rsmax for Ali",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",
@@ -16,11 +16,11 @@
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
   "dependencies": {
+    "@mini-types/alipay": "^3.0.14",
     "@rsmax/framework-shared": "workspace:*",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/shared": "workspace:*",
-    "@rsmax/types": "workspace:*",
-    "@mini-types/alipay": "^3.0.14"
+    "@rsmax/types": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",

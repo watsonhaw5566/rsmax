@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/remaxjs/remax/compare/v1.1.2...v1.2.0) (2025-05-28)
+
+### Bug Fixes
+
+- **cli:** 修复生产环境下配置移除问题 ([5dad658](https://github.com/remaxjs/remax/commit/5dad658ca17bc8a087334a11f174eb7966bd12dc))
+- 开启 devtool ([7e4b781](https://github.com/remaxjs/remax/commit/7e4b781982e61fe4aa50199c13a87900b93cce9e))
+
 # [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
 
 ### Bug Fixes

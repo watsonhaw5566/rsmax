@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/remaxjs/remax/compare/v1.1.2...v1.2.0) (2025-05-28)
+
+### Features
+
+- **kuaishou:** 新增快手平台 ([4a6e34d](https://github.com/remaxjs/remax/commit/4a6e34d07b44580c29d32e01aae72c5ba0ab37a7))
+
 # [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
 
 ### Bug Fixes

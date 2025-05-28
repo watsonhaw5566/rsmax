@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/watsonhaw5566/rsmax/compare/v1.1.2...v1.2.0) (2025-05-28)
+
+### Bug Fixes
+
+- **cli:** 修复生产环境下配置移除问题 ([5dad658](https://github.com/watsonhaw5566/rsmax/commit/5dad658ca17bc8a087334a11f174eb7966bd12dc))
+- 修复 tsconfig.json xhs 配置错误问题 ([8c2656b](https://github.com/watsonhaw5566/rsmax/commit/8c2656b0515be4ffe2c28d060367beab1823ef7b))
+- 开启 devtool ([7e4b781](https://github.com/watsonhaw5566/rsmax/commit/7e4b781982e61fe4aa50199c13a87900b93cce9e))
+
+### Features
+
+- **kuaishou:** 新增快手平台 ([4a6e34d](https://github.com/watsonhaw5566/rsmax/commit/4a6e34d07b44580c29d32e01aae72c5ba0ab37a7))
+
 # [1.1.0](https://github.com/watsonhaw5566/rsmax/compare/v1.0.13...v1.1.0) (2025-05-22)
 
 ### Bug Fixes
