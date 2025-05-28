@@ -20,16 +20,13 @@ export default function baseConfig(config: Config, builder: Builder) {
   config.output.path(path.join(builder.options.cwd, builder.options.output));
 
   const env = getEnvironment(builder.options, builder.target);
+
   config.plugin('rspack-define-plugin').use(rspack.DefinePlugin, [env.stringified]);
   config.plugin('provide-regeneratorRuntime').use(rspack.ProvidePlugin, [
     {
       regeneratorRuntime: 'regenerator-runtime',
     },
   ]);
-
-  if (process.env.NODE_ENV === 'production') {
-    config.clear();
-  }
 
   config.devServer
     .publicPath(config.get('publicPath'))
