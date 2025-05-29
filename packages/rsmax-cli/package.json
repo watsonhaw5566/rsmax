@@ -75,7 +75,7 @@
     "schema-utils": "^2.6.1",
     "style-loader": "^4.0.0",
     "yargs": "^16.0.3",
-    "yargs-parser": "^16.0.0"
+    "yargs-parser": "^17.0.0"
   },
   "devDependencies": {
     "@babel/traverse": "^7.7.4",
