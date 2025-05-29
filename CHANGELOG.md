@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/watsonhaw5566/rsmax/compare/v1.1.2...v1.3.1) (2025-05-29)
+
+### Bug Fixes
+
+- **cli:** 使用 rspack-plugin-virtual-module 1.0.1 版本 ([a4aa86c](https://github.com/watsonhaw5566/rsmax/commit/a4aa86ceca16179184c0cbdebd6056016a07cfb5))
+- **cli:** 修复 rsdoctor 路径应为动态路径，而不是固定值 ([46a339a](https://github.com/watsonhaw5566/rsmax/commit/46a339a5bf989be0a8c61ceb2dd99a6b05376292))
+- **cli:** 修复生产环境下配置移除问题 ([5dad658](https://github.com/watsonhaw5566/rsmax/commit/5dad658ca17bc8a087334a11f174eb7966bd12dc))
+- **cli:** 原生组件 entry 需要 fs 写入 ([af18664](https://github.com/watsonhaw5566/rsmax/commit/af18664d3f808bc40fb89bf6b157c8943f9fed00))
+- **cli:** 恢复使用 watch ([78970c7](https://github.com/watsonhaw5566/rsmax/commit/78970c74e88737cf44d2c615346ab91c677c5747))
+- **cli:** 更新 yargs-parser 到 17.0.0 ([c95a95f](https://github.com/watsonhaw5566/rsmax/commit/c95a95fbc0bf4da38fcaf1d7afb57cc559232373))
+- **plugin-error-screen:** 修复 pnpm 循环依赖问题 ([a27349e](https://github.com/watsonhaw5566/rsmax/commit/a27349e401fd22c3ffeddc05d2d4cce67bfc3645))
+- 修复 tsconfig.json xhs 配置错误问题 ([8c2656b](https://github.com/watsonhaw5566/rsmax/commit/8c2656b0515be4ffe2c28d060367beab1823ef7b))
+- 修改基础版本为 1.3.0 版本 ([e3e3b11](https://github.com/watsonhaw5566/rsmax/commit/e3e3b1105d6aca6af7a21460a7442e7ad191f069))
+- 开启 devtool ([7e4b781](https://github.com/watsonhaw5566/rsmax/commit/7e4b781982e61fe4aa50199c13a87900b93cce9e))
+
 # [1.1.0](https://github.com/watsonhaw5566/rsmax/compare/v1.0.13...v1.1.0) (2025-05-22)
 
 ### Bug Fixes
