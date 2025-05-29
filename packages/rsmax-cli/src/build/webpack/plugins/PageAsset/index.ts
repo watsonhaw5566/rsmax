@@ -21,10 +21,29 @@ export default class PageAssetPlugin {
 
   apply(compiler: Compiler) {
     clearComponentsCache();
+
+    const { entries } = this.builder.entryCollection;
+
+    // add new page entry
+    compiler.hooks.done.tap(PLUGIN_NAME, stats => {
+      const { compilation } = stats;
+
+      this.builder.fetchProjectConfig();
+      this.builder.fetchProjectThemeConfig();
+      this.builder.entryCollection.init();
+
+      const nextEntries = this.builder.entryCollection.entries;
+      nextEntries.forEach(async entry => {
+        if (!entries.get(entry.filename)) {
+          entry.updateSource(true);
+          await entry.addToWebpack(compiler, compilation);
+        }
+      });
+    });
+
     compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
       const { options } = this.builder;
       const meta = this.builder.api.getMeta();
-      const { entries } = this.builder.entryCollection;
 
       compilation.hooks.processAssets.tapAsync(PLUGIN_NAME, async (assets, callback) => {
         // base template
