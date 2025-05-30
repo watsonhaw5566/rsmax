@@ -4,7 +4,7 @@ import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import Builder from '../Builder';
 import NormalEntry from './NormalEntry';
 import { replaceExtension } from '../utils/paths';
-import { Compilation, Compiler, EntryDependency } from '@rspack/core';
+import { Compilation, Compiler, EntryPlugin } from '@rspack/core';
 
 export default class VirtualEntry extends NormalEntry {
   originalSource: string;
@@ -41,8 +41,7 @@ export default class VirtualEntry extends NormalEntry {
         this.virtualModule.apply(compiler);
         this.virtualModule.writeModule(this.virtualPath, this.outputSource());
       }
-      fs.writeFileSync(this.virtualPath, this.outputSource());
-      const dep = new EntryDependency(this.virtualPath);
+      const dep = EntryPlugin.createDependency(this.virtualPath);
       compilation.addEntry('', dep, { name: this.name }, err => {
         if (err) {
           console.error(err);
