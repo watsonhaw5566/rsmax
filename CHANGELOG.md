@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](https://github.com/watsonhaw5566/rsmax/compare/v1.3.1...v1.3.2) (2025-05-30)
+
+### Bug Fixes
+
+- **cli:** 修复 app.json 生成时延时 500ms ([634dceb](https://github.com/watsonhaw5566/rsmax/commit/634dceb1dd057916536d88c82e7f514b87ac3d6c))
+- **cli:** 修复 rsdoctor 路径应为动态路径，而不是固定值 ([eafb6ae](https://github.com/watsonhaw5566/rsmax/commit/eafb6aec8cf01ffe5e304ebe5fb099cb59ea78a7))
+- **cli:** 修复热监听时候失效问题 ([d5e4b94](https://github.com/watsonhaw5566/rsmax/commit/d5e4b9496342124430a3542d7f2571cc4876d078))
+- **cli:** 修热监听失效问题 ([9baaf3e](https://github.com/watsonhaw5566/rsmax/commit/9baaf3e496eda8bb0895c2e93daf57b517fbbeba))
+- **cli:** 移除 watch.ts 中的 addEntry 参数 ([19dd6e9](https://github.com/watsonhaw5566/rsmax/commit/19dd6e92c0b7d22e62493b1637d51b999cb92de2))
+
 ## [1.3.1](https://github.com/watsonhaw5566/rsmax/compare/v1.1.2...v1.3.1) (2025-05-29)
 
 ### Bug Fixes

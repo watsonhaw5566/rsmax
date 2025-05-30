@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/toutiao",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Rsmax for Toutiao",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",
