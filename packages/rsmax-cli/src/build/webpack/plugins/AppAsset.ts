@@ -15,7 +15,9 @@ export default class AppAssetPlugin {
   apply(compiler: Compiler) {
     compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
       // app.json
-      this.createManifest(compilation);
+      setTimeout(() => {
+        this.createManifest(compilation);
+      }, 500);
     });
   }
 
