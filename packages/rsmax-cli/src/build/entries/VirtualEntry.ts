@@ -41,6 +41,7 @@ export default class VirtualEntry extends NormalEntry {
         this.virtualModule.apply(compiler);
         this.virtualModule.writeModule(this.virtualPath, this.outputSource());
       }
+      fs.writeFileSync(this.virtualPath, this.outputSource());
       const dep = EntryPlugin.createDependency(this.virtualPath);
       compilation.addEntry('', dep, { name: this.name }, err => {
         if (err) {
