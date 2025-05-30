@@ -3,7 +3,7 @@ import Builder from './Builder';
 
 let isRunning = true;
 
-export default function watch(builder: Builder, watcher: any, addEntry = false) {
+export default function watch(builder: Builder, watcher: any) {
   // 监听额外的文件
   chokidar
     .watch([`${builder.options.rootDir}/app.config.{js,ts}`, `${builder.options.rootDir}/theme.config.{js,ts}`], {
