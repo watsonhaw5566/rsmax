@@ -75,7 +75,7 @@ export default class MiniBuilder extends BaseBuilder {
         logger.info('Watching for changes...');
       }
     });
-    watch(this, watcher, true);
+    watch(this, watcher);
     return watcher;
   }
 }

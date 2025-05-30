@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/remaxjs/remax/compare/v1.1.2...v1.3.1) (2025-05-29)
+
+### Bug Fixes
+
+- **cli:** 使用 rspack-plugin-virtual-module 1.0.1 版本 ([a4aa86c](https://github.com/remaxjs/remax/commit/a4aa86ceca16179184c0cbdebd6056016a07cfb5))
+- **plugin-error-screen:** 修复 pnpm 循环依赖问题 ([a27349e](https://github.com/remaxjs/remax/commit/a27349e401fd22c3ffeddc05d2d4cce67bfc3645))
+
 # [1.1.0](https://github.com/remaxjs/remax/compare/v1.0.13...v1.1.0) (2025-05-22)
 
 ### Bug Fixes

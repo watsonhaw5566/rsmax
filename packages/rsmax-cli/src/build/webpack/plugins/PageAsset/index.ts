@@ -5,9 +5,10 @@ import getModules from '../../../utils/modules';
 import SourceCache from '../../../../SourceCache';
 import createIsolatedTemplate from './createIsolatedTemplate';
 import Builder from '../../../Builder';
-import { Compiler } from '@rspack/core';
+import { Compiler, EntryPlugin } from '@rspack/core';
 import PageEntry from '../../../entries/PageEntry';
 import { clearComponentsCache } from '../getUsingComponents';
+// import fs from 'fs';
 
 const PLUGIN_NAME = 'RsmaxPageAssetPlugin';
 
@@ -21,6 +22,23 @@ export default class PageAssetPlugin {
 
   apply(compiler: Compiler) {
     clearComponentsCache();
+
+    // add new page entry
+    const { entries } = this.builder.entryCollection;
+    compiler.hooks.finishMake.tap(PLUGIN_NAME, compilation => {
+      const nextEntries = this.builder.entryCollection.entries;
+      nextEntries.forEach(async entry => {
+        if (!entries.get(entry.filename)) {
+          const dep = EntryPlugin.createDependency(entry.virtualPath);
+          compilation.addEntry('', dep, { name: entry.name }, err => {
+            if (err) {
+              console.error(err);
+            }
+          });
+        }
+      });
+    });
+
     compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
       const { options } = this.builder;
       const meta = this.builder.api.getMeta();

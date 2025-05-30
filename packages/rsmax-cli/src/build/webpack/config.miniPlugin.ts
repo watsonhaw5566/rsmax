@@ -237,7 +237,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     ]);
     setTimeout(() => {
       execute('analyze', {
-        profile: './dist/.rsdoctor/manifest.json',
+        profile: `./${builder.options.output}/.rsdoctor/manifest.json`,
       }).then(r => {
         logger.success('已生成分析报告');
       });
