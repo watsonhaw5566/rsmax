@@ -1,62 +1,71 @@
 import { Chunk, Compilation, Module } from '@rspack/core';
 
-function getModuleResource(module: Module): string {
-  if (!module) {
-    return '';
-  }
-  // 跳过 css 模块
-  if (module.constructor.name === 'CssModule') {
-    return '';
-  }
-  // TODO: 针对不同类型的 module 做处理
-  // @ts-expect-error
-  return module.resource || module.rootModule?.resource;
+interface ExtendedModule extends Module {
+  resource?: string;
+  rootModule?: {
+    resource?: string;
+  };
+  modules?: ExtendedModule[];
+  _modules?: ExtendedModule[];
 }
 
-function getModule(module: Module, modules: string[], compilation: Compilation): string[] {
+/**
+ * 获取模块的资源路径
+ */
+function getModuleResource(module: ExtendedModule): string {
+  if (!module) return '';
+
+  // 跳过 CSS 模块
+  if (module.constructor.name === 'CssModule') return '';
+
+  return module.resource || module.rootModule?.resource || '';
+}
+
+/**
+ * 从模块依赖图中收集所有相关模块的资源路径
+ */
+function collectModuleResources(module: ExtendedModule, visited: Set<string>, compilation: Compilation): Set<string> {
   const resource = getModuleResource(module);
-  if (!resource) {
-    return [];
+  if (!resource || visited.has(resource)) return visited;
+
+  visited.add(resource);
+
+  // 处理模块依赖
+  for (const dependency of module.dependencies) {
+    const dependentModule = compilation.moduleGraph.getModule(dependency) as ExtendedModule;
+    if (dependentModule) {
+      collectModuleResources(dependentModule, visited, compilation);
+    }
   }
-  return Array.from(
-    new Set([
-      resource,
-      ...module.dependencies.reduce((acc: string[], d) => {
-        const newModules = [...acc, ...modules];
-        const module = compilation.moduleGraph.getModule(d);
-        if (!module) {
-          return acc;
-        }
-        const resource = getModuleResource(module);
-        if (!resource) {
-          return acc;
-        }
-        if (newModules.includes(resource)) {
-          return acc;
-        }
-        return [...acc, resource, ...getModule(module, [...newModules, resource], compilation)];
-      }, []),
-    ])
-  );
+
+  return visited;
 }
 
+/**
+ * 获取 chunk 相关的所有模块资源路径
+ */
 function getModules(chunk: Chunk, compilation: Compilation): string[] {
-  if (!chunk) {
-    return [];
+  if (!chunk) return [];
+
+  const modules = compilation.chunkGraph.getChunkModules(chunk) as ExtendedModule[];
+  const resourceSet = new Set<string>();
+
+  // 收集常规模块资源
+  modules.forEach(module => {
+    collectModuleResources(module, resourceSet, compilation);
+  });
+
+  // 处理入口模块
+  const entryModule = modules.find(m => m.rootModule) as ExtendedModule;
+  if (entryModule) {
+    const entryModules = [...(entryModule.modules || []), ...(entryModule._modules || [])];
+    entryModules.forEach(m => {
+      const resource = getModuleResource(m);
+      if (resource) resourceSet.add(resource);
+    });
   }
-  const modules = compilation.chunkGraph.getChunkModules(chunk);
-  const filenames = modules
-    .reduce((acc: string[], cur) => [...acc, ...getModule(cur, acc, compilation)], [])
-    .filter(Boolean)
-    .sort();
-  // webpack mode: development production 两种构建模式 chunk 的 modules 有可能不一样
-  // fixed: 两种构建模式 chunk 的 modules 数据不一样，导致运行时 pageEvents 数据为空
-  // fixed: chunk.entryModule 会导致 构建组件时 出现 multiple entries 的问题
-  // @ts-ignore
-  const entryModule = modules.find(m => m.rootModule) || {};
-  // @ts-ignore
-  const m = (entryModule.modules || entryModule._modules || []).map(m => m.resource || m.rootModule?.resource);
-  return Array.from(new Set(filenames.concat(m)));
+
+  return Array.from(resourceSet).sort();
 }
 
 export default getModules;
