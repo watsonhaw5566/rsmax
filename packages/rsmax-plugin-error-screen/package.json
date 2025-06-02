@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/plugin-error-screen",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "使用真正的 React 构建跨平台小程序",
   "author": "Wei Zhu <yesmeck@gmail.com>",
   "homepage": "https://remaxjs.org",
