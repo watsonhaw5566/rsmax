@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { History } from 'history';
 import { Link } from 'react-router-dom';
 import { TabBarConfig, TabItem } from './types';
@@ -23,7 +23,7 @@ export function TabBar({ config, history }: { config: TabBarConfig; history: His
   };
 
   return (
-    <div className="remax-tab-bar" style={{ backgroundColor: config.backgroundColor ?? '' }}>
+    <div className="rsmax-tab-bar" style={{ backgroundColor: config.backgroundColor ?? '' }}>
       {config.items.map((item, index) => (
         <TabBarItem key={index} config={config} isActive={isActive(item.url)} item={item} />
       ))}
@@ -37,10 +37,10 @@ function TabBarItem({ config, isActive, item }: { config: TabBarConfig; isActive
   const selectedColor = config.selectedColor ?? '#108ee9';
 
   return (
-    <Link to={`/${item.url}`} className="remax-tab-item">
-      <div className="remax-tab-item-image" style={{ backgroundImage: `url(${icon})` }} />
+    <Link to={`/${item.url}`} className="rsmax-tab-item">
+      <div className="rsmax-tab-item-image" style={{ backgroundImage: `url(${icon})` }} />
       <div
-        className="remax-tab-item-title"
+        className="rsmax-tab-item-title"
         style={{
           color: isActive ? selectedColor : textColor,
         }}

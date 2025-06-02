@@ -4,7 +4,6 @@ import detect from 'detect-port';
 import type { Options } from '@rsmax/types';
 import webpackConfig from './webpack/config.web';
 import mpaWebpackConfig from './webpack/config.web.mpa';
-import address from 'address';
 import API from '../API';
 import watch from './watch';
 import Builder from './Builder';
@@ -41,11 +40,7 @@ export default class WebBuilder extends Builder {
         logger.warn(` 端口: ${designatedPort} 被占用，系统已分配另一个可用端口：${port}`);
       }
 
-      logger.start('🚀 启动 watch');
-      logger.info(`📎 http://localhost:${port}`);
-      logger.info(`📎 http://${address.ip()}:${port}\n`);
-
-      const server = new RspackDevServer(this.webpackConfig, this.webpackCompiler);
+      const server = new RspackDevServer({ port }, this.webpackCompiler);
 
       this.webpackCompiler.hooks.done.tap('web-dev', stats => {
         console.log(
@@ -58,6 +53,7 @@ export default class WebBuilder extends Builder {
           })
         );
       });
+
       server.startCallback(error => {
         if (error) {
           console.error(error);

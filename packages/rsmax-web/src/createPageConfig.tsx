@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import qs from 'qs';
 import { createPageWrapper, Lifecycle, callbackName } from '@rsmax/framework-shared';
 import PullToRefresh from './PullToRefresh';
@@ -157,7 +157,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       const { tabBar, location } = this.props;
       const { refreshing } = this.state;
       const hasTabBar = !!tabBar;
-      const className = `remax-page ${hasTabBar ? 'with-tab-bar' : ''}`;
+      const className = `rsmax-page ${hasTabBar ? 'with-tab-bar' : ''}`;
       const query = qs.parse(location.search, { ignoreQueryPrefix: true });
 
       if (this.isPullDownRefreshEnabled()) {

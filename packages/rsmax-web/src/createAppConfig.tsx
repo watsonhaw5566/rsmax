@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ForwardRef } from 'react-is';
 import { AppInstanceContext, AppLifecycle, callbackName, isClassComponent } from '@rsmax/framework-shared';
 

@@ -21,8 +21,8 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   config.optimization.splitChunks({
     cacheGroups: {
-      remaxStyles: {
-        name: 'remax-styles',
+      rsmaxStyles: {
+        name: 'rsmax-styles',
         test: new RegExp(`(.css|.less|.sass|.scss|.stylus|.styl|${builder.api.meta.style})$`),
         chunks: 'all',
         minChunks: 2,

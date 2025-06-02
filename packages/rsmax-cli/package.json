@@ -95,7 +95,6 @@
     "@types/react": "^18.3.0",
     "@types/resolve": "^1.14.0",
     "@types/semver": "^7.1.0",
-    "address": "^1.1.2",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-loop-optimizer": "^1.4.1",
     "caniuse-lite": "^1.0.30001650",

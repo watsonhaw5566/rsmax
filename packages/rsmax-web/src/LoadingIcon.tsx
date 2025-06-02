@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 interface LoadingIconProps {
   animate?: boolean;
@@ -11,7 +11,7 @@ export default function LoadingIcon(props: LoadingIconProps) {
   const animate = props.animate;
 
   return (
-    <svg className="remax-pull-to-refresh-loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <svg className="rsmax-pull-to-refresh-loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
       <circle transform="translate(8 0)" cx="0" cy="16" r="0">
         <animate
           attributeName="r"
