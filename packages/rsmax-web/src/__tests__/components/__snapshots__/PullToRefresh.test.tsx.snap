@@ -15,7 +15,7 @@ exports[`PullToRefresh > render correctly 1`] = `
         className="rmc-pull-to-refresh-indicator"
       >
         <svg
-          className="remax-pull-to-refresh-loading"
+          className="rsmax-pull-to-refresh-loading"
           viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -93,7 +93,7 @@ exports[`PullToRefresh render correctly 1`] = `
         className="rmc-pull-to-refresh-indicator"
       >
         <svg
-          className="remax-pull-to-refresh-loading"
+          className="rsmax-pull-to-refresh-loading"
           viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg"
         >

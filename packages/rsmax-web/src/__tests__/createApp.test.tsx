@@ -48,7 +48,7 @@ describe.skip('createApp', () => {
             appConfig: {
               pages: ['pages/index'],
               window: {
-                defaultTitle: 'remax',
+                defaultTitle: 'rsmax',
               },
             },
             pageComponents: [() => createPage('index')],
@@ -62,7 +62,7 @@ describe.skip('createApp', () => {
           initHistory('/pages/index')
         )
       );
-      expect(document.title).toBe('remax');
+      expect(document.title).toBe('rsmax');
     });
 
     it('sets document title based on page config', () => {
@@ -74,7 +74,7 @@ describe.skip('createApp', () => {
             appConfig: {
               pages: ['pages/index'],
               window: {
-                defaultTitle: 'remax',
+                defaultTitle: 'rsmax',
               },
             },
             pageComponents: [() => createPage('index')],
