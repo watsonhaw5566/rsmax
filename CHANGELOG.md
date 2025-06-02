@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.4](https://github.com/watsonhaw5566/rsmax/compare/v1.3.3...v1.3.4) (2025-06-02)
+
+### Bug Fixes
+
+- **web:** 修复 web 平台无法启动 ([567d4b8](https://github.com/watsonhaw5566/rsmax/commit/567d4b88d99f3c2770336619d62197db16199e49))
+- **web:** 修复测试 ([31d6c23](https://github.com/watsonhaw5566/rsmax/commit/31d6c23d9da225bfe75eb696c6baeadf436e2554))
+
 ## [1.3.3](https://github.com/watsonhaw5566/rsmax/compare/v1.3.2...v1.3.3) (2025-05-30)
 
 ### Bug Fixes

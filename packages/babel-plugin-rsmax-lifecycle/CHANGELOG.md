@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.4](https://github.com/remaxjs/remax/compare/v1.3.3...v1.3.4) (2025-06-02)
+
+**Note:** Version bump only for package babel-plugin-rsmax-lifecycle
+
 ## [1.3.3](https://github.com/remaxjs/remax/compare/v1.3.2...v1.3.3) (2025-05-30)
 
 **Note:** Version bump only for package babel-plugin-rsmax-lifecycle
