@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/watsonhaw5566/rsmax/compare/v1.3.4...v1.3.5) (2025-06-02)
+
+### Bug Fixes
+
+- **cli:** 恢复 getModules ([9ec8977](https://github.com/watsonhaw5566/rsmax/commit/9ec8977433406858cc671827704a6c75d85403e1))
+
 ## [1.3.4](https://github.com/watsonhaw5566/rsmax/compare/v1.3.3...v1.3.4) (2025-06-02)
 
 ### Bug Fixes
