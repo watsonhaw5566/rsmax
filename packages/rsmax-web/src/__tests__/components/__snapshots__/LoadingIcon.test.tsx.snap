@@ -2,7 +2,7 @@
 
 exports[`LoadingIcon > render correctly 1`] = `
 <svg
-  className="remax-pull-to-refresh-loading"
+  className="rsmax-pull-to-refresh-loading"
   viewBox="0 0 32 32"
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -62,7 +62,7 @@ exports[`LoadingIcon > render correctly 1`] = `
 
 exports[`LoadingIcon > render with animate 1`] = `
 <svg
-  className="remax-pull-to-refresh-loading"
+  className="rsmax-pull-to-refresh-loading"
   viewBox="0 0 32 32"
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -122,7 +122,7 @@ exports[`LoadingIcon > render with animate 1`] = `
 
 exports[`LoadingIcon render correctly 1`] = `
 <svg
-  className="remax-pull-to-refresh-loading"
+  className="rsmax-pull-to-refresh-loading"
   viewBox="0 0 32 32"
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -182,7 +182,7 @@ exports[`LoadingIcon render correctly 1`] = `
 
 exports[`LoadingIcon render with animate 1`] = `
 <svg
-  className="remax-pull-to-refresh-loading"
+  className="rsmax-pull-to-refresh-loading"
   viewBox="0 0 32 32"
   xmlns="http://www.w3.org/2000/svg"
 >

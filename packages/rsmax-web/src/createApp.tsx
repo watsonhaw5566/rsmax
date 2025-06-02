@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { RuntimeOptions, PluginDriver } from '@rsmax/framework-shared';
 import { CacheRoute, CacheSwitch } from '@remax/react-router-cache-route';
 import { Router, Route, Redirect, useLocation } from 'react-router-dom';
@@ -35,7 +35,7 @@ export default function createApp(options: BootstrapOptions, history: History) {
           </Route>
           {pages.map((page, i) => {
             return (
-              <CacheRoute key={page.route} className="remax-cached-router-wrapper" path={`/${page.route}`} exact={true}>
+              <CacheRoute key={page.route} className="rsmax-cached-router-wrapper" path={`/${page.route}`} exact={true}>
                 {(props: any) => {
                   const pageComponent = pageComponentsHoc[i];
                   return React.createElement(pageComponent, {
@@ -67,7 +67,7 @@ export default function createApp(options: BootstrapOptions, history: History) {
 function LogLocation() {
   const location = useLocation();
   React.useEffect(() => {
-    console.log('[remax][react-router]location change', location.pathname);
+    console.log('[rsmax][react-router]location change', location.pathname);
   }, [location]);
 
   return null;

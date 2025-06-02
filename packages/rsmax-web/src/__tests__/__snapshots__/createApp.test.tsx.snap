@@ -2,7 +2,7 @@
 
 exports[`createApp defaultTitle pullRefresh renders pullRefresh 1`] = `
 <div
-  className="remax-cached-router-wrapper"
+  className="rsmax-cached-router-wrapper"
 >
   <div
     className="rmc-pull-to-refresh rmc-pull-to-refresh-down"
@@ -18,7 +18,7 @@ exports[`createApp defaultTitle pullRefresh renders pullRefresh 1`] = `
           className="rmc-pull-to-refresh-indicator"
         >
           <svg
-            className="remax-pull-to-refresh-loading"
+            className="rsmax-pull-to-refresh-loading"
             viewBox="0 0 32 32"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -77,7 +77,7 @@ exports[`createApp defaultTitle pullRefresh renders pullRefresh 1`] = `
         </div>
         <div>
           <div
-            className="remax-page "
+            className="rsmax-page "
           >
             <div>
               index
@@ -93,10 +93,10 @@ exports[`createApp defaultTitle pullRefresh renders pullRefresh 1`] = `
 exports[`createApp defaultTitle tabBar renders tabBar correctly 1`] = `
 Array [
   <div
-    className="remax-cached-router-wrapper"
+    className="rsmax-cached-router-wrapper"
   >
     <div
-      className="remax-page with-tab-bar"
+      className="rsmax-page with-tab-bar"
     >
       <div>
         foo
@@ -104,7 +104,7 @@ Array [
     </div>
   </div>,
   <div
-    className="remax-tab-bar"
+    className="rsmax-tab-bar"
     style={
       Object {
         "backgroundColor": "white",
@@ -112,12 +112,12 @@ Array [
     }
   >
     <a
-      className="remax-tab-item"
+      className="rsmax-tab-item"
       href="/pages/foo"
       onClick={[Function]}
     >
       <div
-        className="remax-tab-item-image"
+        className="rsmax-tab-item-image"
         style={
           Object {
             "backgroundImage": "url(/assets/foo.png)",
@@ -125,7 +125,7 @@ Array [
         }
       />
       <div
-        className="remax-tab-item-title"
+        className="rsmax-tab-item-title"
         style={
           Object {
             "color": "blue",
@@ -136,12 +136,12 @@ Array [
       </div>
     </a>
     <a
-      className="remax-tab-item"
+      className="rsmax-tab-item"
       href="/pages/bar"
       onClick={[Function]}
     >
       <div
-        className="remax-tab-item-image"
+        className="rsmax-tab-item-image"
         style={
           Object {
             "backgroundImage": "url(/assets/bar.png)",
@@ -149,7 +149,7 @@ Array [
         }
       />
       <div
-        className="remax-tab-item-title"
+        className="rsmax-tab-item-title"
         style={
           Object {
             "color": "red",
@@ -165,10 +165,10 @@ Array [
 
 exports[`createApp renders app correctly 1`] = `
 <div
-  className="remax-cached-router-wrapper"
+  className="rsmax-cached-router-wrapper"
 >
   <div
-    className="remax-page "
+    className="rsmax-page "
   >
     <div>
       foo

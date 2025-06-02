@@ -1,4 +1,4 @@
-.remax-button {
+.rsmax-button {
   /* prettier-ignore */
   font-size: 18PX;
   /* prettier-ignore */
@@ -26,7 +26,7 @@
   width: 100%;
 }
 
-.remax-input {
+.rsmax-input {
   /* prettier-ignore */
   font-size: 17PX;
   /* prettier-ignore */
@@ -39,7 +39,7 @@
   box-sizing: content-box;
 }
 
-.remax-textarea {
+.rsmax-textarea {
   position: relative;
   background-color: rgb(255, 255, 255);
   /* prettier-ignore */
@@ -52,7 +52,7 @@
   line-height: 1.4;
 }
 
-.remax-image {
+.rsmax-image {
   background-repeat: no-repeat;
   display: inline-block;
   overflow: hidden;
@@ -63,26 +63,26 @@
   height: 225PX;
 }
 
-.remax-text-selectable {
+.rsmax-text-selectable {
   user-select: text;
 }
 
-.remax-web-view {
+.rsmax-web-view {
   width: 100%;
   min-height: 100vh;
 }
 
-.remax-page.with-tab-bar {
+.rsmax-page.with-tab-bar {
   padding-bottom: 96px;
 }
 
-.remax-page {
+.rsmax-page {
   min-height: 100vh;
   box-sizing: border-box;
   font-size: 32px;
 }
 
-.remax-page.disable-scroll {
+.rsmax-page.disable-scroll {
   overflow: hidden;
 }
 
@@ -104,12 +104,12 @@
   margin-top: -100px;
 }
 
-.remax-pull-to-refresh-loading {
+.rsmax-pull-to-refresh-loading {
   width: 100px;
   height: 100px;
 }
 
-.remax-tab-bar {
+.rsmax-tab-bar {
   height: 96px;
   position: fixed;
   bottom: 0;
@@ -123,7 +123,7 @@
   z-index: 999999;
 }
 
-.remax-tab-bar .remax-tab-item {
+.rsmax-tab-bar .rsmax-tab-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,7 +131,7 @@
   height: 100%;
 }
 
-.remax-tab-bar .remax-tab-item .remax-tab-item-image {
+.rsmax-tab-bar .rsmax-tab-item .rsmax-tab-item-image {
   height: 34px;
   width: 34px;
   background-size: contain;
@@ -139,13 +139,13 @@
   background-repeat: no-repeat;
 }
 
-.remax-tab-bar .remax-tab-item .remax-tab-item-title {
+.rsmax-tab-bar .rsmax-tab-item .rsmax-tab-item-title {
   font-size: 12px;
   color: #333;
   transform: scale(0.7);
 }
 
-.remax-tab-bar .remax-tab-item .remax-tab-item-title.active {
+.rsmax-tab-bar .rsmax-tab-item .rsmax-tab-item-title.active {
   color: #108ee9;
 }
 
