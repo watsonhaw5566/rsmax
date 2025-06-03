@@ -66,11 +66,11 @@ https://github.com/remaxjs/examples
 
 ## 贡献者
 
-查看[《贡献指南》](/CONTRIBUTING.md)
-
 <a href="https://github.com/remaxjs/remax/graphs/contributors" target="_blank">
   <img src="https://contrib.rocks/image?repo=remaxjs/remax&columns=24">
 </a>
+
+查看[《贡献指南》](/CONTRIBUTING.md)
 
 ## 协议
 
