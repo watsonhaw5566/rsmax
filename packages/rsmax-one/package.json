@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/one",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "Rsmax 小程序多端方案",
   "main": "./cjs/index.js",
   "esnext": "./esm/index.js",

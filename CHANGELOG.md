@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://github.com/watsonhaw5566/rsmax/compare/v1.3.5...v1.3.6) (2025-06-03)
+
+### Bug Fixes
+
+- **cli:** 使用 swc-loader 解析 js(x)/ts(x) ([b3447d9](https://github.com/watsonhaw5566/rsmax/commit/b3447d9447c2b141d2283b4d1fd41cdbdaecf54a))
+- **web:** [#10](https://github.com/watsonhaw5566/rsmax/issues/10) ([44ea6ee](https://github.com/watsonhaw5566/rsmax/commit/44ea6ee67d2529611142ca802563526cf7323551))
+
 ## [1.3.5](https://github.com/watsonhaw5566/rsmax/compare/v1.3.4...v1.3.5) (2025-06-02)
 
 ### Bug Fixes

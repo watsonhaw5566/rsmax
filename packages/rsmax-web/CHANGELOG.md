@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://github.com/remaxjs/remax/compare/v1.3.5...v1.3.6) (2025-06-03)
+
+### Bug Fixes
+
+- **web:** [#10](https://github.com/remaxjs/remax/issues/10) ([44ea6ee](https://github.com/remaxjs/remax/commit/44ea6ee67d2529611142ca802563526cf7323551))
+
 ## [1.3.5](https://github.com/remaxjs/remax/compare/v1.3.4...v1.3.5) (2025-06-02)
 
 **Note:** Version bump only for package @rsmax/web
