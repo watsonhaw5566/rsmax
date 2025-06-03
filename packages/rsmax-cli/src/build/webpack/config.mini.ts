@@ -110,6 +110,7 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   config.module
     .rule('js')
+    .type('javascript/auto')
     .test(moduleMatcher)
     .exclude.add(/react-reconciler/)
     .end()

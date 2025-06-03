@@ -3,22 +3,14 @@ import path from 'path';
 import type { Platform } from '@rsmax/types';
 
 function readTypescriptManifest(path: string, target: Platform) {
-  require('@babel/register')({
-    presets: [[require.resolve('@babel/preset-env'), { modules: 'commonjs' }]],
-    extensions: ['.ts'],
-    cache: false,
-  });
+  require('@swc-node/register');
   delete require.cache[require.resolve(path)];
-  const config = require(path)[target] || require(path).default || require(path);
-
-  return config;
+  return require(path)[target] || require(path).default || require(path);
 }
 
 function readJavascriptManifest(path: string, target: Platform) {
   delete require.cache[require.resolve(path)];
-  const config = require(path)[target] || require(path).default || require(path);
-
-  return config;
+  return require(path)[target] || require(path).default || require(path);
 }
 
 export default function readManifest(filename: string, target: Platform, strict = false) {
