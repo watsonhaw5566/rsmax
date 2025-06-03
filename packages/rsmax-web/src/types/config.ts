@@ -5,7 +5,7 @@ export interface Page {
   config: PageConfig;
 }
 
-export const enum RouterType {
+export enum RouterType {
   hash = 'hash',
   browser = 'browser',
 }
