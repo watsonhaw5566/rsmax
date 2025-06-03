@@ -31,8 +31,8 @@
 > 推荐用 pnpm
 
 ```bash
-$ git clone git@github.com:remaxjs/remax.git
-$ cd remax
+$ git clone git@github.com:watsonhaw5566/rsmax.git
+$ cd rsmax
 $ pnpm install
 $ pnpm build
 $ pnpm watch
