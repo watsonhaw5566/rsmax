@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.7](https://github.com/remaxjs/remax/compare/v1.3.6...v1.3.7) (2025-06-03)
+
+### Bug Fixes
+
+- **cli:** 修复 RouterType 为枚举类型 ([3f24bc7](https://github.com/remaxjs/remax/commit/3f24bc7b1d7c79922fcafcda73ff4badbf37e501))
+
 ## [1.3.6](https://github.com/remaxjs/remax/compare/v1.3.5...v1.3.6) (2025-06-03)
 
 ### Bug Fixes

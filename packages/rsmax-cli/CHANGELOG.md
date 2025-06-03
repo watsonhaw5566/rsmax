@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.7](https://github.com/remaxjs/remax/compare/v1.3.6...v1.3.7) (2025-06-03)
+
+### Bug Fixes
+
+- **cli:** 新增 @swc/core 依赖 ([94cdc66](https://github.com/remaxjs/remax/commit/94cdc6638927ac23d12f4ef1f70cc3b343354e71))
+
 ## [1.3.6](https://github.com/remaxjs/remax/compare/v1.3.5...v1.3.6) (2025-06-03)
 
 ### Bug Fixes

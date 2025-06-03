@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.7](https://github.com/watsonhaw5566/rsmax/compare/v1.3.6...v1.3.7) (2025-06-03)
+
+### Bug Fixes
+
+- **cli:** 修复 RouterType 为枚举类型 ([3f24bc7](https://github.com/watsonhaw5566/rsmax/commit/3f24bc7b1d7c79922fcafcda73ff4badbf37e501))
+- **cli:** 新增 @swc/core 依赖 ([94cdc66](https://github.com/watsonhaw5566/rsmax/commit/94cdc6638927ac23d12f4ef1f70cc3b343354e71))
+
 ## [1.3.6](https://github.com/watsonhaw5566/rsmax/compare/v1.3.5...v1.3.6) (2025-06-03)
 
 ### Bug Fixes
