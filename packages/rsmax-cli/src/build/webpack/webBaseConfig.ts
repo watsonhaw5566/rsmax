@@ -18,6 +18,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
 
   config.module
     .rule('js')
+    .type('javascript/auto')
     .test(moduleMatcher)
     .exclude.add(/react-reconciler/)
     .end()
