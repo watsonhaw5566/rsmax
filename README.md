@@ -4,13 +4,23 @@ Feature
 
  - 使用 rspack 构建，超快的构建速度
 
-
 BugFix
  -  旧问题的处理会关联到之前 Remax 的 issues
 
 #### 特别说明
 
 由于 remax npm 包已经存在，为了避免之前项目正常运行，故重新更名为 rsmax 包, 感谢 Remax 原团队所有成员心辛勤付出。
+
+
+#### 已知问题
+
+由于支付宝小程序平台使用了新的 Component2 ，我个人的能力暂时无法适配, 所以当前只能支持 微信小程序、字节（抖音）小程序、Web 平台
+
+### 快速开始
+
+```js
+npx create-rsmax my-app
+```
 
 <a href="https://remaxjs.wdchiphop.cn">
 	<img src="https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*7BLVSL14gvoAAAAAAAAAAABkARQnAQ" width="882" />
@@ -46,7 +56,7 @@ Rsmax 将 React 运行在小程序环境中，让你可以使用完整的 React 
 
 ## 文档
 
-你可以从我们的[网站上](https://remaxjs.github.io/remax/)找到详细的文档。
+你可以从我们的[网站上](https://remaxjs.wdchiphop.cn)找到详细的文档。
 
 也可以通过[快速开始指南](https://remaxjs.github.io/remax/guide/quick-start)来立即体验 Rsmax。
 
@@ -58,7 +68,9 @@ https://github.com/remaxjs/examples
 
 查看[《贡献指南》](/CONTRIBUTING.md)
 
-<a href="https://github.com/remaxjs/remax/graphs/contributors"><img src="https://opencollective.com/remax/contributors.svg?width=890&button=false" /></a>
+<a href="https://github.com/remaxjs/remax/graphs/contributors" target="_blank">
+  <img src="https://contrib.rocks/image?repo=remaxjs/remax&columns=24">
+</a>
 
 ## 协议
 
