@@ -45,7 +45,7 @@ $ cd path/to/rsmax/packages/rsmax
 $ yarn link
 $ cd path/to/remax/packages/rsmax-cli
 $ yarn link
-$ git clone git@github.com:rsmaxjs/examples.git rsmax-examples
+$ https://github.com/watsonhaw5566/rsmax-examples rsmax-examples
 $ cd rsmax-examples/ali # 找一个你要调试的例子
 $ yarn link rsmax @rsmax/cli
 $ yarn dev

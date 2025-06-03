@@ -23,7 +23,7 @@ const Image: React.ForwardRefRenderFunction<any, ImageWebProps> = (props, ref) =
     <div
       {...restProps}
       onClick={onTap}
-      className={clsx('remax-image', className)}
+      className={clsx('rsmax-image', className)}
       style={{
         ...modeStyle[mode],
         backgroundImage: `url(${src})`,
