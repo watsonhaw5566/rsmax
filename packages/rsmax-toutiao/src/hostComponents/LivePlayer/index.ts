@@ -19,7 +19,7 @@ export interface LivePlayerProps extends BaseProps {
   autoplay?: boolean;
   muted?: boolean;
   orientation?: 'vertical' | 'horizontal';
-  objectFit?: ' contain' | 'fillCrop';
+  objectFit?: 'contain' | 'fillCrop';
   signature?: SignatureProps;
   showCastingButton?: boolean;
   onStatechange?: (e: any) => void;
