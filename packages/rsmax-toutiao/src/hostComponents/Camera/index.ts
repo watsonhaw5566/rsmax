@@ -4,8 +4,8 @@ import { createHostComponent } from '@rsmax/runtime';
 import { BaseProps } from '../../types/component';
 
 /**
- * live-player
- * https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/component/media-component/live-player
+ * camera
+ * https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/component/media-component/camera
  */
 export interface CameraProps extends BaseProps {
   mode?: 'normal' | 'scanCode';
