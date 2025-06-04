@@ -4,6 +4,7 @@ export const alias = {
   style: 'style',
   animation: 'animation',
   src: 'src',
+  referrerPolicy: 'referrer-policy',
   onLoad: 'bindload',
   onError: 'binderror',
   onTap: 'bindtap',
