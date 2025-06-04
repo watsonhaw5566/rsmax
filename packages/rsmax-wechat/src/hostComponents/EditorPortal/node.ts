@@ -3,12 +3,7 @@ export const alias = {
   className: 'class',
   style: 'style',
   animation: 'animation',
-  src: 'src',
-  referrerPolicy: 'referrer-policy',
-  onLoad: 'bindload',
-  onError: 'binderror',
-  onTap: 'bindtap',
-  onClick: 'bindtap',
+  portalKey: 'key',
 };
 
 export const props = Object.values(alias);

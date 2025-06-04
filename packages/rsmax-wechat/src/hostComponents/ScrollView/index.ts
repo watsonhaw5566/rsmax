@@ -17,10 +17,20 @@ export interface ScrollViewProps extends BaseProps {
   scrollLeft?: number | string;
   /** 值应为某子元素id（id不能以数字开头）。设置哪个方向可滚动，则在哪个方向滚动到该元素 1.0.0 */
   scrollIntoView?: string;
+  /**
+   * 3.1.0
+   * 跳转到 scroll-into-view 目标节点时的额外偏移。skyline 自 3.1.0 版本开始支持，webview 自 3.6.0 版本开始支持。
+   */
+  scrollIntoViewOffset?: number;
   /** (default: false) 在设置滚动条位置时使用动画过渡 1.0.0 */
   scrollWithAnimation?: boolean;
   /** (default: false) iOS点击顶部状态栏、安卓双击标题栏时，滚动条返回顶部，只支持竖向 1.0.0 */
   enableBackToTop?: boolean;
+  /**
+   * 2.25.3
+   * 开启 passive 特性，能优化一定的滚动性能
+   */
+  enablePassive?: boolean;
   /** (default: false) 启用 flexbox 布局。开启后，当前节点声明了 display: flex 就会成为 flex container，并作用于其孩子节点。 2.7.3 */
   enableFlex?: boolean;
   /** 滚动到顶部/左边时触发 1.0.0 */
@@ -45,7 +55,7 @@ export interface ScrollViewProps extends BaseProps {
   onRefresherPulling?: (event: GenericEvent) => void;
   /** 自定义下拉刷新被触发	2.10.1 */
   onRefresherRefresh?: (event: GenericEvent) => void;
-  /**	自定义下拉刷新被复位	2.10.1 */
+  /**  自定义下拉刷新被复位	2.10.1 */
   onRefresherRestore?: (event: GenericEvent) => void;
   /** 自定义下拉刷新被中止 2.10.1 */
   onRefresherAbort?: (event: GenericEvent) => void;

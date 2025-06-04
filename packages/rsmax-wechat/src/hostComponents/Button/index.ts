@@ -187,6 +187,22 @@ export interface ButtonProps extends BaseProps {
    */
   showMessageCard?: boolean;
   /**
+   * 3.0.1
+   * 当手机号快速验证或手机号实时验证额度用尽时，是否对用户展示“申请获取你的手机号，但该功能使用次数已达当前小程序上限，暂时无法使用”的提示，
+   * 默认展示，open-type="getPhoneNumber" 或 open-type="getRealtimePhoneNumber" 时有效
+   */
+  phoneNumberNoQuotaToast?: boolean;
+  /**
+   * 3.7.8
+   * 转发的文本消息是否要带小程序入口
+   */
+  needShowEntrance?: boolean;
+  /**
+   * 3.7.8
+   * 从消息小程序入口打开小程序的路径，默认为聊天工具启动路径
+   */
+  entrancePath?: string;
+  /**
    * 1.3.0
    * 用户点击该按钮时，会返回获取到的用户信息，回调的detail数据与wx.getUserInfo返回的一致，
    * open-type="getUserInfo"时有效
@@ -198,10 +214,21 @@ export interface ButtonProps extends BaseProps {
    */
   onContact?: (event: GenericEvent) => any;
   /**
+   * 2.26.2
+   * 新的一次性订阅消息下发机制,open-type=liveActivity 时有效
+   * https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/subscribe-message-2.html
+   */
+  onCreateLiveActivity?: (event: GenericEvent) => any;
+  /**
    * 1.2.0
-   * 获取用户手机号回调，open-type=getPhoneNumber时有效
+   * 手机号快速验证，open-type=getPhoneNumber时有效
    */
   onGetPhoneNumber?: (event: GenericEvent) => any;
+  /**
+   * 2.24.2
+   * 手机号实时验证，open-type=getRealtimePhoneNumber 时有效
+   */
+  onGetRealtimePhoneNumber?: (event: GenericEvent) => any;
   /**
    * 1.9.5
    * 当使用开放能力时，发生错误的回调，open-type=launchApp时有效
@@ -233,6 +260,11 @@ export interface ButtonProps extends BaseProps {
    * https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/userProfile.html
    */
   onChooseAvatar?: (event: GenericEvent) => any;
+  /**2.32.3
+   * 用户同意隐私协议按钮
+   * https://developers.weixin.qq.com/miniprogram/dev/framework/user-privacy/PrivacyAuthorize.html
+   */
+  agreePrivacyAuthorization?: (event: GenericEvent) => any;
 }
 
 /**

@@ -3,10 +3,7 @@ export const alias = {
   className: 'class',
   style: 'style',
   animation: 'animation',
-  src: 'src',
-  referrerPolicy: 'referrer-policy',
-  onLoad: 'bindload',
-  onError: 'binderror',
+  onSelectionChange: 'bindselectionchange',
   onTap: 'bindtap',
   onClick: 'bindtap',
 };

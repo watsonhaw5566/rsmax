@@ -8,6 +8,7 @@ import * as checkbox from './Checkbox/node';
 import * as coverImage from './CoverImage/node';
 import * as coverView from './CoverView/node';
 import * as editor from './Editor/node';
+import * as editorPortal from './EditorPortal/node';
 import * as form from './Form/node';
 import * as functionalPageNavigator from './FunctionalPageNavigator/node';
 import * as icon from './Icon/node';
@@ -51,6 +52,7 @@ import * as rootPortal from './RootPortal/node';
 import * as channelLive from './ChannelLive';
 import * as channelVideo from './ChannelVideo';
 import * as snapshot from './Snapshot';
+import * as selection from './Selection';
 
 const hostComponents = new Map();
 
@@ -64,6 +66,7 @@ hostComponents.set('checkbox', checkbox);
 hostComponents.set('cover-image', coverImage);
 hostComponents.set('cover-view', coverView);
 hostComponents.set('editor', editor);
+hostComponents.set('editor-portal', editorPortal);
 hostComponents.set('form', form);
 hostComponents.set('functional-page-navigator', functionalPageNavigator);
 hostComponents.set('icon', icon);
@@ -107,5 +110,6 @@ hostComponents.set('root-portal', rootPortal);
 hostComponents.set('channel-live', channelLive);
 hostComponents.set('channel-video', channelVideo);
 hostComponents.set('snapshot', snapshot);
+hostComponents.set('selection', selection);
 
 export default hostComponents;
