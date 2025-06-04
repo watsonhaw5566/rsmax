@@ -11,6 +11,7 @@ export interface ProgressProps extends BaseProps {
   backgroundColor?: string;
   active?: boolean;
   activeMode?: string;
+  duration?: number;
 }
 
 export const Progress: React.ComponentType<ProgressProps> = createHostComponent<ProgressProps>('progress');

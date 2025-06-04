@@ -14,6 +14,7 @@ export const alias = {
   activeMode: 'active-mode',
   onActiveEnd: 'bindactiveend',
   animation: 'animation',
+  duration: 'duration',
 };
 
 export const props = Object.values(alias);

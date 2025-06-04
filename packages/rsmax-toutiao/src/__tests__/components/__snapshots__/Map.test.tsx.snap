@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Map > render correctly 1`] = `
+<map
+  latitude={123}
+  longitude={123}
+/>
+`;

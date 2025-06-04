@@ -27,6 +27,14 @@ import * as view from './View/node';
 import * as webView from './WebView/node';
 import * as movableArea from './MovableArea/node';
 import * as movableView from './MovableView/node';
+import * as mask from './Mask/node';
+import * as ad from './Ad/node';
+import * as rtcRoom from './RtcRoom/node';
+import * as matchMedia from './MatchMedia/node';
+import * as livePlayer from './LivePlayer/node';
+import * as livePreview from './LivePreview/node';
+import * as camera from './Camera/node';
+import * as map from './Map/node';
 
 const hostComponents = new Map();
 
@@ -59,5 +67,13 @@ hostComponents.set('view', view);
 hostComponents.set('web-view', webView);
 hostComponents.set('movable-area', movableArea);
 hostComponents.set('movable-view', movableView);
+hostComponents.set('mask', mask);
+hostComponents.set('ad', ad);
+hostComponents.set('rtc-room', rtcRoom);
+hostComponents.set('match-media', matchMedia);
+hostComponents.set('live-player', livePlayer);
+hostComponents.set('live-preview', livePreview);
+hostComponents.set('camera', camera);
+hostComponents.set('map', map);
 
 export default hostComponents;

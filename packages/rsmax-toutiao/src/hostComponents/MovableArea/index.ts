@@ -4,7 +4,7 @@ import { createHostComponent } from '@rsmax/runtime';
 import { BaseProps } from '../../types/component';
 
 /**
- * https://microapp.bytedance.com/docs/zh-CN/mini-app/develop/component/view-container/movable-area
+ * https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/component/view-container/movable-area
  * 基础库 2.25.0 开始支持本组件。
  */
 export interface MovableAreaProps extends BaseProps {

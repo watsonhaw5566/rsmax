@@ -3,7 +3,7 @@ import { createHostComponent } from '@rsmax/runtime';
 import { BaseProps, GenericEvent } from '../../types/component';
 
 /***
- * https://microapp.bytedance.com/docs/zh-CN/mini-app/develop/component/view-container/movable-view
+ * https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/component/view-container/movable-view
  * 基础库 2.25.0 开始支持本组件。
  * 可移动的视图容器，在页面中可以拖拽滑动。movable-view 必须在 movable-area 组件中，并且必须是直接子节点，否则不能移动。
  */

@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LivePlayer > render correctly 1`] = `
+<live-player
+  src="www.123.com"
+>
+  text
+</live-player>
+`;

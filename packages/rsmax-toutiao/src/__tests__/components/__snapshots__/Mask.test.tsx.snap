@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Mask > render correctly 1`] = `
+<mask
+  hidden={false}
+>
+  text
+</mask>
+`;
