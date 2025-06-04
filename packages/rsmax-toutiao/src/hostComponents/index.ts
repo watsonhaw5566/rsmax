@@ -32,3 +32,4 @@ export * from './Ad';
 export * from './RtcRoom';
 export * from './MatchMedia';
 export * from './LivePlayer';
+export * from './LivePreview';

@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LivePreview > render correctly 1`] = `
+<live-preview
+  awemeId="123"
+/>
+`;
