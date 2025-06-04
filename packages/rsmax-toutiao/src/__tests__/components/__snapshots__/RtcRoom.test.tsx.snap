@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RtcRoom > render correctly 1`] = `
+<rtc-room
+  userId="123"
+/>
+`;

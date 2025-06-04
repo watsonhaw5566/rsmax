@@ -29,6 +29,7 @@ import * as movableArea from './MovableArea/node';
 import * as movableView from './MovableView/node';
 import * as mask from './Mask/node';
 import * as ad from './Ad/node';
+import * as rtcRoom from './RtcRoom/node';
 
 const hostComponents = new Map();
 
@@ -63,5 +64,6 @@ hostComponents.set('movable-area', movableArea);
 hostComponents.set('movable-view', movableView);
 hostComponents.set('mask', mask);
 hostComponents.set('ad', ad);
+hostComponents.set('rtc-room', rtcRoom);
 
 export default hostComponents;
