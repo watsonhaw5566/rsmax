@@ -33,6 +33,7 @@ import * as rtcRoom from './RtcRoom/node';
 import * as matchMedia from './MatchMedia/node';
 import * as livePlayer from './LivePlayer/node';
 import * as livePreview from './LivePreview/node';
+import * as camera from './Camera/node';
 
 const hostComponents = new Map();
 
@@ -71,5 +72,6 @@ hostComponents.set('rtc-room', rtcRoom);
 hostComponents.set('match-media', matchMedia);
 hostComponents.set('live-player', livePlayer);
 hostComponents.set('live-preview', livePreview);
+hostComponents.set('camera', camera);
 
 export default hostComponents;
