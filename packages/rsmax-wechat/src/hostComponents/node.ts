@@ -51,6 +51,7 @@ import * as rootPortal from './RootPortal/node';
 import * as channelLive from './ChannelLive';
 import * as channelVideo from './ChannelVideo';
 import * as snapshot from './Snapshot';
+import * as selection from './Selection';
 
 const hostComponents = new Map();
 
@@ -107,5 +108,6 @@ hostComponents.set('root-portal', rootPortal);
 hostComponents.set('channel-live', channelLive);
 hostComponents.set('channel-video', channelVideo);
 hostComponents.set('snapshot', snapshot);
+hostComponents.set('selection', selection);
 
 export default hostComponents;
