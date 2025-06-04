@@ -34,6 +34,7 @@ import * as matchMedia from './MatchMedia/node';
 import * as livePlayer from './LivePlayer/node';
 import * as livePreview from './LivePreview/node';
 import * as camera from './Camera/node';
+import * as map from './Map/node';
 
 const hostComponents = new Map();
 
@@ -73,5 +74,6 @@ hostComponents.set('match-media', matchMedia);
 hostComponents.set('live-player', livePlayer);
 hostComponents.set('live-preview', livePreview);
 hostComponents.set('camera', camera);
+hostComponents.set('map', map);
 
 export default hostComponents;
