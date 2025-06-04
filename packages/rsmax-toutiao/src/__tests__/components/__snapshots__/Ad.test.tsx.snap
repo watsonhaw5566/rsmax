@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Ad > render correctly 1`] = `
+<ad
+  scale={100}
+  unitId="123"
+/>
+`;
