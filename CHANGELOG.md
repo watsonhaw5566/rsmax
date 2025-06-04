@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.8](https://github.com/watsonhaw5566/rsmax/compare/v1.3.7...v1.3.8) (2025-06-04)
+
+### Bug Fixes
+
+- **wechat:** api 补充缺失接口 ([e1f285f](https://github.com/watsonhaw5566/rsmax/commit/e1f285f147527b8061f1a44d2c9d8d0e6a3ef1b2))
+- **wechat:** 移除 vitest 快照更新 ([a61752f](https://github.com/watsonhaw5566/rsmax/commit/a61752f7188f0f37566943a4f8dcf3fdffc1b272))
+- **wechat:** 补充 Button 组件 getRealtimePhoneNumber、agreePrivacyAuthorization、createLiveActivity、phoneNumberNoQuotaToast、needShowEntrance、entrancePath 事件 ([ea6b9b0](https://github.com/watsonhaw5566/rsmax/commit/ea6b9b09a8654332c88352452171759996f9f1fa))
+- **wechat:** 补充 cover-image referrer-policy 属性 ([f1f7e65](https://github.com/watsonhaw5566/rsmax/commit/f1f7e6543f9c2012eec6c0bf00379b7d2fa49a61))
+- **wechat:** 补充 EditorPortal 组件 ([89f9ed8](https://github.com/watsonhaw5566/rsmax/commit/89f9ed8b88ab06c7cb9e2a4ae4f51d5be3d93b71))
+- **wechat:** 补充 rich-text userSelect 属性 ([5e53df7](https://github.com/watsonhaw5566/rsmax/commit/5e53df7112ab7a9f724be8d07a531c69032e92de))
+- **wechat:** 补充 scroll-view scrollIntoViewOffset、enablePassive 属性 ([0a39e25](https://github.com/watsonhaw5566/rsmax/commit/0a39e25b140a6f3b895f01f54675ae07f8c0e302))
+- **wechat:** 补充 Selection 组件 ([635099d](https://github.com/watsonhaw5566/rsmax/commit/635099db667af1e745a741e6423bdb7f9c408994))
+
 ## [1.3.7](https://github.com/watsonhaw5566/rsmax/compare/v1.3.6...v1.3.7) (2025-06-03)
 
 ### Bug Fixes

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.8](https://github.com/remaxjs/remax/compare/v1.3.7...v1.3.8) (2025-06-04)
+
+**Note:** Version bump only for package @rsmax/babel-plugin-auto-css-modules
+
 ## [1.3.7](https://github.com/remaxjs/remax/compare/v1.3.6...v1.3.7) (2025-06-03)
 
 **Note:** Version bump only for package @rsmax/babel-plugin-auto-css-modules
