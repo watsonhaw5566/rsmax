@@ -27,3 +27,5 @@ export * from './Canvas';
 export * from './WebView';
 export * from './MovableArea';
 export * from './MovableView';
+export * from './Mask';
+export * from './Ad';

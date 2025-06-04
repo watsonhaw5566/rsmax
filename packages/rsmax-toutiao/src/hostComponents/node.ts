@@ -27,6 +27,8 @@ import * as view from './View/node';
 import * as webView from './WebView/node';
 import * as movableArea from './MovableArea/node';
 import * as movableView from './MovableView/node';
+import * as mask from './Mask/node';
+import * as ad from './Ad/node';
 
 const hostComponents = new Map();
 
@@ -59,5 +61,7 @@ hostComponents.set('view', view);
 hostComponents.set('web-view', webView);
 hostComponents.set('movable-area', movableArea);
 hostComponents.set('movable-view', movableView);
+hostComponents.set('mask', mask);
+hostComponents.set('ad', ad);
 
 export default hostComponents;
