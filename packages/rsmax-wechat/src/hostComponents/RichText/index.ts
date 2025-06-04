@@ -7,6 +7,11 @@ export interface RichTextProps extends BaseProps {
   nodes?: any[] | string;
   /** 显示连续空格 2.4.1 */
   space?: 'ensp' | 'emsp' | 'nbsp';
+  /**
+   * 2.24.0
+   * 文本是否可选，该属性会使节点显示为 block
+   */
+  userSelect?: boolean;
 }
 
 /**
