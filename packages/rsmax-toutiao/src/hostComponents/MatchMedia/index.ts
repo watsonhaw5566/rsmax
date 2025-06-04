@@ -1,0 +1,22 @@
+import React from 'react';
+import { createHostComponent } from '@rsmax/runtime';
+
+import { BaseProps } from '../../types/component';
+
+export interface MatchMediaProps extends BaseProps {
+  minWidth?: number;
+  maxWidth?: number;
+  width?: number;
+  minHeight?: number;
+  maxHeight?: number;
+  height?: number;
+  orientation?: 'portrait' | 'portraitupsidedown' | 'landscapeleft' | 'landscaperight';
+  onClick?: (e: any) => void;
+  children?: React.ReactNode;
+}
+
+/**
+ * match-media
+ * https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/component/view-container/component-match-media
+ */
+export const MatchMedia: React.ComponentType<MatchMediaProps> = createHostComponent<MatchMediaProps>('match-media');
