@@ -306,8 +306,6 @@ export const onNeedPrivacyAuthorization = tt.onNeedPrivacyAuthorization;
 // @ts-expect-error
 export const getPrivacySetting = promisify(tt.getPrivacySetting);
 // 开放接口 - web 化
-// @ts-expect-error
-export const setPageInfo = promisify(tt.setPageInfo);
 // 开放接口 -  转发和挂载
 export const showShareMenu = promisify(tt.showShareMenu);
 export const hideShareMenu = promisify(tt.hideShareMenu);
