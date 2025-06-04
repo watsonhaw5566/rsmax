@@ -166,7 +166,8 @@ export const onUserCaptureScreen = tt.onUserCaptureScreen;
 export const offUserCaptureScreen = tt.offUserCaptureScreen;
 export const getScreenBrightness = tt.getScreenBrightness;
 export const setScreenBrightness = promisify(tt.setScreenBrightness);
-export const onUserScreenRecord = tt.onUserCaptureScreen;
+// @ts-expect-error
+export const onUserScreenRecord = tt.onUserScreenRecord;
 // @ts-expect-error
 export const offUserScreenRecord = tt.offUserScreenRecord;
 // @ts-expect-error
