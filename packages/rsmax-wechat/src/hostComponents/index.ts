@@ -36,6 +36,7 @@ export * from './Canvas';
 export * from './OpenData';
 export * from './OfficialAccount';
 export * from './Editor';
+export * from './EditorPortal';
 export * from './Audio';
 export * from './Ad';
 export * from './WebView';

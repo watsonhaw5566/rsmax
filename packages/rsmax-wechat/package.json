@@ -12,7 +12,7 @@
     "dev": "rslib build",
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
-    "test": "vitest run"
+    "test": "vitest -u run"
   },
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
