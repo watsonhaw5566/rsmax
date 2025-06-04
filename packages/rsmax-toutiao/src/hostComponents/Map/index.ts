@@ -59,7 +59,7 @@ type Polyline = {
   colorList?: string[];
   borderColor?: string;
   borderWidth?: string;
-  arrowOption: ArrowOption;
+  arrowOption?: ArrowOption;
 };
 
 type Markers = {
