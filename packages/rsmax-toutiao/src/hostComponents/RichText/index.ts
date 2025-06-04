@@ -11,6 +11,7 @@ interface Node {
 
 export interface RichTextProps extends BaseProps {
   nodes?: Node | string;
+  space?: 'ensp' | 'emsp' | 'nbsp';
 }
 
 export const RichText: React.ComponentType<RichTextProps> = createHostComponent<RichTextProps>('rich-text');
