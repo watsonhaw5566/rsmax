@@ -31,6 +31,7 @@ import * as mask from './Mask/node';
 import * as ad from './Ad/node';
 import * as rtcRoom from './RtcRoom/node';
 import * as matchMedia from './MatchMedia/node';
+import * as livePlayer from './LivePlayer/node';
 
 const hostComponents = new Map();
 
@@ -67,5 +68,6 @@ hostComponents.set('mask', mask);
 hostComponents.set('ad', ad);
 hostComponents.set('rtc-room', rtcRoom);
 hostComponents.set('match-media', matchMedia);
+hostComponents.set('live-player', livePlayer);
 
 export default hostComponents;
