@@ -1,4 +1,4 @@
-## fork Remax 分支构建版本
+# Fork Remax Master 分支构建的版本
 
 Feature
 
@@ -32,18 +32,10 @@ npx create-rsmax my-app
 </p>
 
 <p class="badges" align="center">
-	<a href="https://juexin.coding.net/p/remax/ci/job">
-		<img src="https://juexin.coding.net/badges/remax/job/2619776/master/build.svg" alt="CI build status" />
-	</a>
-	<a href="https://codecov.io/gh/remaxjs/remax">
-		<img src="https://img.shields.io/codecov/c/github/remaxjs/remax/master.svg?style=flat-square" alt="Codecov" />
-	</a>
-	<a href="https://www.npmjs.com/package/remax">
-		<img alt="npm" src="https://img.shields.io/npm/v/remax?style=flat-square" />
-	</a>
-	<a href="https://user-images.githubusercontent.com/465125/69033897-f095d480-0a1a-11ea-9d4e-f14e6839bc1d.JPG">
-		<img alt="dingding" src="https://img.shields.io/badge/交流-钉钉群-brightgreen?style=flat-square" />
-	</a>
+  <a href="https://npmjs.com/package/rsmax">
+   <img src="https://img.shields.io/npm/v/rsmax?style=flat-square&colorA=564341&colorB=EDED91" alt="npm version" />
+  </a>
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square&colorA=564341&colorB=EDED91" alt="license" />
 </p>
 
 [《使用 React 开发小程序》](https://www.yuque.com/seeconf/2020/qsytho)
@@ -58,11 +50,11 @@ Rsmax 将 React 运行在小程序环境中，让你可以使用完整的 React 
 
 你可以从我们的[网站上](https://remaxjs.wdchiphop.cn)找到详细的文档。
 
-也可以通过[快速开始指南](https://remaxjs.github.io/remax/guide/quick-start)来立即体验 Rsmax。
+也可以通过[快速开始指南](https://remaxjs.wdchiphop.cn/guide/quick-start.html)来立即体验 Rsmax。
 
 ## 示例
 
-https://github.com/remaxjs/examples
+https://github.com/watsonhaw5566/rsmax-examples
 
 ## 贡献者
 
