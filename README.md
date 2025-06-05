@@ -1,4 +1,4 @@
-# Fork Remax Master 分支构建的版本
+# Fork Remax Master 分支构建
 
 Feature
 
@@ -9,7 +9,7 @@ BugFix
 
 #### 特别说明
 
-由于 remax npm 包已存在，为了避免之前项目正常运行，故重新更名为 rsmax 包, 感谢 Remax 原团队所有成员辛勤付出。
+由于 remax npm 包已存在，为避免之前项目正常运行，故更名为 rsmax 包, 感谢 Remax 原团队所有成员辛勤付出。
 
 
 #### 已知问题
