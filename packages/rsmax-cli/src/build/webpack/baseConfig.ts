@@ -28,6 +28,10 @@ export default function baseConfig(config: Config, builder: Builder) {
     },
   ]);
 
+  if (process.env.NODE_ENV === 'production') {
+    config.output.clear();
+  }
+
   config.devServer
     .publicPath(config.get('publicPath'))
     .compress(true)
