@@ -17,9 +17,9 @@ jobs:
         node-version: [ '18','20' ]
         os: [ ubuntu-latest, windows-latest ]
         include:
-          - node-version: '18'
+          - node-version: [ '18','20' ]
             os: windows-latest
-          - node-version: '18'
+          - node-version: [ '18','20' ]
             os: ubuntu-latest
             coverage: true
       fail-fast: false
@@ -38,4 +38,5 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm build
+          pnpm test
 
