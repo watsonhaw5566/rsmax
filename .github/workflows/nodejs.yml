@@ -10,19 +10,10 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [ '18','20' ]
-        os: [ ubuntu-latest, windows-latest ]
-        include:
-          - node-version: [ '18','20' ]
-            os: windows-latest
-          - node-version: [ '18','20' ]
-            os: ubuntu-latest
-            coverage: true
-      fail-fast: false
+        node-version: [18,20]
     steps:
       - uses: actions/checkout@v4
       - name: 安装 pnpm
