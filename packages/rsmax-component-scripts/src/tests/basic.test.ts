@@ -1,10 +1,10 @@
 import { buildComponent } from '../build';
-import * as path from 'path';
-import { Stats } from 'webpack';
+import * as path from 'node:path';
+import type { Stats } from '@rspack/core';
 import { join } from 'path';
 import rimraf = require('rimraf');
 import { readFileContent } from './helper/utils';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 
 describe('test basic', () => {
   const dir = path.join(__dirname, './fixture/basic');
