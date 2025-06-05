@@ -12,13 +12,13 @@ module.exports = (opts = {}) => {
     Rule(rule) {
       // Check if the rule selector is 'page'
       if (rule.selector === 'page') {
-        // Transform 'page' selector to '.remax-page'
+        // Transform 'page' selector to '.rsmax-page'
         rule.selector = '.rsmax-page';
 
         // Show warning only once per file
         if (!rule.warn) {
           console.warn(
-            '如果要兼容 web 应用，请不要在样式中使用 page 选择器，具体请参考 https://remaxjs.org/guide/one/web#样式'
+            '如果要兼容 web 应用，请不要在样式中使用 page 选择器，具体请参考 https://remaxjs.wdchiphop.cn/guide/framework/style.html'
           );
           rule.warn = true;
         }
