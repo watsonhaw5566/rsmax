@@ -69,11 +69,6 @@ export default class MiniBuilder extends BaseBuilder {
           console.warn(warn.message);
         });
       }
-
-      // 适配阿里小程序 IDE
-      if (this.options.target === 'ali') {
-        logger.info('Watching for changes...');
-      }
     });
     watch(this, watcher, true);
     return watcher;
