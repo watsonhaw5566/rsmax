@@ -55,7 +55,6 @@ export default function webpackConfig(builder: Builder): Configuration {
   });
   config.devtool(false);
   config.resolve.extensions.merge(targetExtensions(builder.target));
-  config.target('node');
   config.output.filename('[name].js');
   config.output.globalObject(meta.global);
   config.output.publicPath(publicPath);

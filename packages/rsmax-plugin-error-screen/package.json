@@ -23,7 +23,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@rsmax/redbox-react": "^1.0.3",
+    "@rsmax/redbox-react": "^1.0.4",
     "@rsmax/shared": "workspace:*",
     "rspack-plugin-virtual-module": "^1.0.1"
   },

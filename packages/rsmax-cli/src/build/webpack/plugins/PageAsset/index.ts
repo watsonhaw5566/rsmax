@@ -8,7 +8,6 @@ import Builder from '../../../Builder';
 import { Compiler, EntryPlugin } from '@rspack/core';
 import PageEntry from '../../../entries/PageEntry';
 import { clearComponentsCache } from '../getUsingComponents';
-// import fs from 'fs';
 
 const PLUGIN_NAME = 'RsmaxPageAssetPlugin';
 
