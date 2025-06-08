@@ -95,7 +95,7 @@ export default function webpackConfig(builder: Builder): Configuration {
   }
 
   config.module
-    .rule('js')
+    .rule('swc')
     .type('javascript/auto')
     .test(moduleMatcher)
     .exclude.add(/react-reconciler/)

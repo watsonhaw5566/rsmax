@@ -17,7 +17,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
   });
 
   config.module
-    .rule('js')
+    .rule('swc')
     .type('javascript/auto')
     .test(moduleMatcher)
     .exclude.add(/react-reconciler/)
