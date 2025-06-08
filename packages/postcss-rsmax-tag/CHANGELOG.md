@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.12](https://github.com/remaxjs/remax/compare/v1.3.11...v1.3.12) (2025-06-08)
+
+### Bug Fixes
+
+- **postcss-tag:** 修复 rsmax 文档位置与 remax 替换为 rsmax ([84941a2](https://github.com/remaxjs/remax/commit/84941a27551ade8b0c85d8873715aad6980ffdcc))
+
 ## [1.3.11](https://github.com/remaxjs/remax/compare/v1.3.8...v1.3.11) (2025-06-04)
 
 **Note:** Version bump only for package @rsmax/postcss-tag

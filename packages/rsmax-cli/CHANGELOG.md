@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.12](https://github.com/remaxjs/remax/compare/v1.3.11...v1.3.12) (2025-06-08)
+
+### Bug Fixes
+
+- **cli:** devtool 工具默认为关闭 ([60406ca](https://github.com/remaxjs/remax/commit/60406cae90f75dbca4b0234a6ce9c7c97d4790c2))
+- **cli:** swc js rule 名称为 swc ([531383c](https://github.com/remaxjs/remax/commit/531383c73f7970ac67b5b6192e042f3b1538846a))
+- **cli:** 生产之前应该 clean 之前产物 ([964c0a6](https://github.com/remaxjs/remax/commit/964c0a6491b7fc4931ea6c33d899202e70909e89))
+- **cli:** 移除 output.target 为 node 平台 ([9f619df](https://github.com/remaxjs/remax/commit/9f619dfc9d59a0710095947bd96aab181ea82652))
+
 ## [1.3.11](https://github.com/remaxjs/remax/compare/v1.3.8...v1.3.11) (2025-06-04)
 
 **Note:** Version bump only for package @rsmax/cli
