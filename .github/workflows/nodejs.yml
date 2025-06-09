@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ 18 ]
@@ -27,7 +27,7 @@ jobs:
           cache: 'pnpm'
       - name: install, build, and test
         run: |
-          pnpm install --force-lockfile
+          pnpm install --frozen-lockfile
           pnpm build
           pnpm test
 
