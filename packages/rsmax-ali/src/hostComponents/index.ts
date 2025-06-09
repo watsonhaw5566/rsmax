@@ -42,3 +42,4 @@ export * from './ErrorView';
 export * from './JoinGroupChat';
 export * from './SubscribeMessage';
 export * from './PageMeta';
+export * from './Ad';

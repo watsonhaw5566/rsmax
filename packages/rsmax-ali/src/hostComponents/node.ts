@@ -42,6 +42,7 @@ import * as errorView from './ErrorView/node';
 import * as joinGroupChat from './JoinGroupChat/node';
 import * as subscribeMessage from './SubscribeMessage/node';
 import * as pageMeta from './PageMeta/node';
+import * as ad from './Ad/node';
 
 const hostComponents = new Map();
 
@@ -89,5 +90,6 @@ hostComponents.set('error-view', errorView);
 hostComponents.set('join-group-chat', joinGroupChat);
 hostComponents.set('subscribe-message', subscribeMessage);
 hostComponents.set('page-meta', pageMeta);
+hostComponents.set('ad', ad);
 
 export default hostComponents;
