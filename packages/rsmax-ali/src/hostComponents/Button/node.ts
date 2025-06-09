@@ -22,6 +22,7 @@ export const alias = {
   appParameter: 'app-parameter',
   publicId: 'public-id',
   onGetAuthorize: 'onGetAuthorize',
+  onChooseAvatar: 'onChooseAvatar',
   onError: 'onError',
 };
 

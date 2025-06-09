@@ -16,13 +16,14 @@ export interface ButtonProps {
   hoverStayTime?: number;
   hoverStopPropagation?: boolean;
   formType?: 'submit' | 'reset';
-  openType?: 'share' | 'getAuthorize' | 'contactShare' | 'lifestyle';
+  openType?: 'share' | 'getAuthorize' | 'contactShare' | 'lifestyle' | 'chooseAvatar';
   scope?: 'phoneNumber' | 'userInfo';
   appParameter?: string;
   publicId?: string;
   onTap?: (e: any) => void;
   onClick?: (e: any) => void;
   onGetAuthorize?: (e: any) => void;
+  onChooseAvatar?: (e: any) => void;
   onError?: (e: any) => void;
   children?: React.ReactNode;
 }
