@@ -35,6 +35,7 @@ import * as video from './Video/node';
 import * as lottie from './Lottie/node';
 import * as camera from './Camera/node';
 import * as matchMedia from './MatchMedia/node';
+import * as pageContainer from './PageContainer/node';
 
 const hostComponents = new Map();
 
@@ -75,5 +76,6 @@ hostComponents.set('video', video);
 hostComponents.set('lottie', lottie);
 hostComponents.set('camera', camera);
 hostComponents.set('match-media', matchMedia);
+hostComponents.set('page-container', pageContainer);
 
 export default hostComponents;
