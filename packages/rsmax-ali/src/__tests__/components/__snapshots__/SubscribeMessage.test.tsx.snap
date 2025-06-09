@@ -5,3 +5,9 @@ exports[`JoinGroupChat > render correctly 1`] = `
   templateId="123"
 />
 `;
+
+exports[`SubscribeMessage > render correctly 1`] = `
+<subscribe-message
+  templateId="123"
+/>
+`;
