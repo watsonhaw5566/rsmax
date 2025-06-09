@@ -39,6 +39,7 @@ import * as pageContainer from './PageContainer/node';
 import * as shareElement from './ShareElement/node';
 import * as rootPortal from './RootPortal/node';
 import * as errorView from './ErrorView/node';
+import * as joinGroupChat from './JoinGroupChat/node';
 
 const hostComponents = new Map();
 
@@ -83,5 +84,6 @@ hostComponents.set('page-container', pageContainer);
 hostComponents.set('share-element', shareElement);
 hostComponents.set('root-portal', rootPortal);
 hostComponents.set('error-view', errorView);
+hostComponents.set('join-group-chat', joinGroupChat);
 
 export default hostComponents;

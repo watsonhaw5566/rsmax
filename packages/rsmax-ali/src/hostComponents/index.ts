@@ -39,3 +39,4 @@ export * from './PageContainer';
 export * from './ShareElement';
 export * from './RootPortal';
 export * from './ErrorView';
+export * from './JoinGroupChat';
