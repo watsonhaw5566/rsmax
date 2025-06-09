@@ -40,6 +40,7 @@ import * as shareElement from './ShareElement/node';
 import * as rootPortal from './RootPortal/node';
 import * as errorView from './ErrorView/node';
 import * as joinGroupChat from './JoinGroupChat/node';
+import * as subscribeMessage from './subscribeMessage/node';
 
 const hostComponents = new Map();
 
@@ -85,5 +86,6 @@ hostComponents.set('share-element', shareElement);
 hostComponents.set('root-portal', rootPortal);
 hostComponents.set('error-view', errorView);
 hostComponents.set('join-group-chat', joinGroupChat);
+hostComponents.set('subscribe-message', subscribeMessage);
 
 export default hostComponents;

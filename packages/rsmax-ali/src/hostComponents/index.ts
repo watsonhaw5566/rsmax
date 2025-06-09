@@ -40,3 +40,4 @@ export * from './ShareElement';
 export * from './RootPortal';
 export * from './ErrorView';
 export * from './JoinGroupChat';
+export * from './SubscribeMessage';
