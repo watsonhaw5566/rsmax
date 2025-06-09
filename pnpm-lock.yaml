@@ -74,9 +74,6 @@ importers:
       lint-staged:
         specifier: '>=8'
         version: 16.0.0
-      path-serializer:
-        specifier: ^0.4.1
-        version: 0.4.1
       prettier:
         specifier: ^2.0.5
         version: 2.8.8
@@ -8261,9 +8258,6 @@ packages:
   path-scurry@2.0.0:
     resolution: {integrity: sha512-ypGJsmGtdXUOeM5u93TyeIEfEhM6s+ljAhrk5vAvSx8uyY/02OvrZnA0YNGUrPXfpJMgI1ODd3nwz8Npx4O4cg==}
     engines: {node: 20 || >=22}
-
-  path-serializer@0.4.1:
-    resolution: {integrity: sha512-nZh0IWYm49uMU6upk268ryi8J7aA3hvlQaFS2jSTUWLkxxyZObz4dE0BrTFZDxU3qgPU/8xdpQ4TvWnYCQNHaQ==}
 
   path-to-regexp@0.1.12:
     resolution: {integrity: sha512-RA1GjUVMnvYFxuqovrEqZoxxW5NUZqbwKtYz/Tt7nXerk0LbLblQmrsgdeOxV5SFHf0UDggjS/bSeOZwt1pmEQ==}
@@ -20212,8 +20206,6 @@ snapshots:
     dependencies:
       lru-cache: 11.1.0
       minipass: 7.1.2
-
-  path-serializer@0.4.1: {}
 
   path-to-regexp@0.1.12: {}
 
