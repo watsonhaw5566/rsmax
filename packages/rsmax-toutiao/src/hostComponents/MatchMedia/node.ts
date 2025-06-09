@@ -1,9 +1,14 @@
 export const alias = {
-  className: 'class',
   id: 'id',
+  className: 'class',
   style: 'style',
-  onTap: 'bindtap',
-  onClick: 'bindtap',
+  minWidth: 'min-width',
+  maxWidth: 'max-width',
+  width: 'width',
+  minHeight: 'min-height',
+  maxHeight: 'max-height',
+  height: 'height',
+  orientation: 'orientation',
 };
 
 export const props = Object.values(alias);

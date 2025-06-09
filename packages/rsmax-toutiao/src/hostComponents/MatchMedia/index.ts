@@ -11,7 +11,6 @@ export interface MatchMediaProps extends BaseProps {
   maxHeight?: number;
   height?: number;
   orientation?: 'portrait' | 'portraitupsidedown' | 'landscapeleft' | 'landscaperight';
-  onClick?: (e: any) => void;
   children?: React.ReactNode;
 }
 
