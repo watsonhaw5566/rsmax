@@ -1,11 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`JoinGroupChat > render correctly 1`] = `
-<subscribe-message
-  templateId="123"
-/>
-`;
-
 exports[`SubscribeMessage > render correctly 1`] = `
 <subscribe-message
   templateId="123"

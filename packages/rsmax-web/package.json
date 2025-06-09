@@ -17,8 +17,7 @@
     "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir cjs",
-    "test": "vitest run"
+    "build:cjs": "tsc --module CommonJS --outDir cjs"
   },
   "bugs": {
     "url": "https://github.com/remaxjs/remax/issues"

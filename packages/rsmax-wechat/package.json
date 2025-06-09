@@ -11,8 +11,7 @@
     "prebuild": "npm run clean",
     "dev": "rslib build",
     "build": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir cjs",
-    "test": "vitest run"
+    "build:cjs": "tsc --module CommonJS --outDir cjs"
   },
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
