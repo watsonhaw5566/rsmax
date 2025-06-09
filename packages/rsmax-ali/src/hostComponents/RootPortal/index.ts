@@ -10,7 +10,7 @@ export interface RootPortalProps {
   /**
    * 是否从页面中脱离出来
    */
-  enable: boolean;
+  enable?: boolean;
 }
 
 export const RootPortal: React.ComponentType<RootPortalProps> = createHostComponent<RootPortalProps>('root-portal');

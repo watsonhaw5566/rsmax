@@ -4,7 +4,7 @@ import { RootPortal } from '../../hostComponents';
 
 describe('RootPortal', () => {
   it('render correctly', () => {
-    const testRenderer = TestRenderer.create(<RootPortal enable={true} />);
+    const testRenderer = TestRenderer.create(<RootPortal />);
 
     expect(testRenderer.toJSON()).toMatchSnapshot();
   });
