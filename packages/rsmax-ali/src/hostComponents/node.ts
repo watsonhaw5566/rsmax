@@ -36,6 +36,7 @@ import * as lottie from './Lottie/node';
 import * as camera from './Camera/node';
 import * as matchMedia from './MatchMedia/node';
 import * as pageContainer from './PageContainer/node';
+import * as shareElement from './ShareElement/node';
 
 const hostComponents = new Map();
 
@@ -77,5 +78,6 @@ hostComponents.set('lottie', lottie);
 hostComponents.set('camera', camera);
 hostComponents.set('match-media', matchMedia);
 hostComponents.set('page-container', pageContainer);
+hostComponents.set('share-element', shareElement);
 
 export default hostComponents;
