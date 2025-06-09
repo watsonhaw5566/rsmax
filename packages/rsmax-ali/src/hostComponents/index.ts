@@ -34,3 +34,4 @@ export * from './ContactButton';
 export * from './Video';
 export * from './Lottie';
 export * from './Camera';
+export * from './MatchMedia';

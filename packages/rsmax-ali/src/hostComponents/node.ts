@@ -34,6 +34,7 @@ import * as webView from './WebView/node';
 import * as video from './Video/node';
 import * as lottie from './Lottie/node';
 import * as camera from './Camera/node';
+import * as matchMedia from './MatchMedia/node';
 
 const hostComponents = new Map();
 
@@ -73,5 +74,6 @@ hostComponents.set('web-view', webView);
 hostComponents.set('video', video);
 hostComponents.set('lottie', lottie);
 hostComponents.set('camera', camera);
+hostComponents.set('match-media', matchMedia);
 
 export default hostComponents;
