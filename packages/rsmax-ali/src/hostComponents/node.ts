@@ -38,6 +38,7 @@ import * as matchMedia from './MatchMedia/node';
 import * as pageContainer from './PageContainer/node';
 import * as shareElement from './ShareElement/node';
 import * as rootPortal from './RootPortal/node';
+import * as errorView from './ErrorView/node';
 
 const hostComponents = new Map();
 
@@ -81,5 +82,6 @@ hostComponents.set('match-media', matchMedia);
 hostComponents.set('page-container', pageContainer);
 hostComponents.set('share-element', shareElement);
 hostComponents.set('root-portal', rootPortal);
+hostComponents.set('error-view', errorView);
 
 export default hostComponents;

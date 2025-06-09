@@ -38,3 +38,4 @@ export * from './MatchMedia';
 export * from './PageContainer';
 export * from './ShareElement';
 export * from './RootPortal';
+export * from './ErrorView';
