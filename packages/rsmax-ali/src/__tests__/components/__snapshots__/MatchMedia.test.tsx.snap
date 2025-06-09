@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MatchMedia > render correctly 1`] = `
+<match-media>
+  text
+</match-media>
+`;

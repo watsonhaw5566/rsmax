@@ -34,6 +34,15 @@ import * as webView from './WebView/node';
 import * as video from './Video/node';
 import * as lottie from './Lottie/node';
 import * as camera from './Camera/node';
+import * as matchMedia from './MatchMedia/node';
+import * as pageContainer from './PageContainer/node';
+import * as shareElement from './ShareElement/node';
+import * as rootPortal from './RootPortal/node';
+import * as errorView from './ErrorView/node';
+import * as joinGroupChat from './JoinGroupChat/node';
+import * as subscribeMessage from './SubscribeMessage/node';
+import * as pageMeta from './PageMeta/node';
+import * as ad from './Ad/node';
 
 const hostComponents = new Map();
 
@@ -73,5 +82,14 @@ hostComponents.set('web-view', webView);
 hostComponents.set('video', video);
 hostComponents.set('lottie', lottie);
 hostComponents.set('camera', camera);
+hostComponents.set('match-media', matchMedia);
+hostComponents.set('page-container', pageContainer);
+hostComponents.set('share-element', shareElement);
+hostComponents.set('root-portal', rootPortal);
+hostComponents.set('error-view', errorView);
+hostComponents.set('join-group-chat', joinGroupChat);
+hostComponents.set('subscribe-message', subscribeMessage);
+hostComponents.set('page-meta', pageMeta);
+hostComponents.set('ad', ad);
 
 export default hostComponents;
