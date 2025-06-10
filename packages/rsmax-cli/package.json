@@ -21,7 +21,8 @@
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "prebuild": "npm run clean",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "rstest run"
   },
   "dependencies": {
     "@babel/core": "^7.7.4",
@@ -41,6 +42,7 @@
     "@rsmax/web": "workspace:*",
     "@rspack/core": "^1.3.12",
     "@rspack/dev-server": "^1.1.2",
+    "@rstest/core": "^0.0.1",
     "@swc-node/register": "^1.10.10",
     "@swc/core": "^1.11.29",
     "babel-loader": "^9.1.3",
@@ -60,6 +62,7 @@
     "html-webpack-plugin": "^5.5.0",
     "htmlparser2": "^4.0.0",
     "lodash": "^4.17.11",
+    "lodash-es": "^4.17.21",
     "node-notifier": "^8.0.0",
     "postcss": "^8.4.41",
     "postcss-loader": "^8.0.0",
@@ -89,6 +92,7 @@
     "@types/fs-readdir-recursive": "^1.0.0",
     "@types/loader-utils": "^2.0.1",
     "@types/lodash": "^4.14.135",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^18",
     "@types/node-notifier": "^6.0.0",
     "@types/react": "^18.3.0",

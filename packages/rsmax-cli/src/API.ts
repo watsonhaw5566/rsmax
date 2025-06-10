@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
 import type { Plugin, Meta, HostComponent, Platform, Options } from '@rsmax/types';
 import { slash } from '@rsmax/shared';
-import { merge } from 'lodash';
+import { merge } from 'lodash-es';
 import Config from 'rspack-chain';
 import { RuleConfig } from './build/webpack/config/css';
 import yargs from 'yargs';
