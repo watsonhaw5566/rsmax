@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { View } from 'remax';
+import { View } from 'rsmax';
 import { usePageEvent } from '@rsmax/macro';
 import './module';
 

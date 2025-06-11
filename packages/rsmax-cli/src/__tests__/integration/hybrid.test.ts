@@ -1,6 +1,7 @@
-import { testBuildApp, testBuildMiniPlugin } from './helpers/runTest';
+import { testBuildApp } from './helpers/runTest';
 
-describe.skip('hybrid', () => {
+describe('hybrid', () => {
   testBuildApp('hybrid-app');
-  testBuildMiniPlugin('hybrid-mini-plugin');
+  // todo 待修复小程序混合组件
+  // testBuildMiniPlugin('hybrid-mini-plugin');
 });

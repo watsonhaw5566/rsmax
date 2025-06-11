@@ -35,7 +35,7 @@ describe('api', () => {
 
   it('install adapter plugin', () => {
     expect(api.adapter.target).toEqual('ali');
-    expect(api.adapter.packageName).toEqual('rsmax/ali');
+    expect(api.adapter.packageName).toEqual('@rsmax/ali');
   });
 
   it('processProps', () => {

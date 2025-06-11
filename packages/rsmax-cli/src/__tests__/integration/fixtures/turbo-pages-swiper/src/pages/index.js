@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Swiper, SwiperItem } from 'remax';
+import React from 'react';
+import { View, Swiper, SwiperItem } from 'rsmax';
 
 export default props => {
   const pictures = ['https://example.com/1.jpg', 'https://example.com/2.jpg'];

@@ -1,9 +1,5 @@
-@import "./../remax-styles.acss";
-.b {
-  background-color: white;
-}
-
-.page-index___ZtePN {
+@import "./../rsmax-styles.acss";
+.page-index___m1FKW {
   background-color: aliceblue;
 }
 

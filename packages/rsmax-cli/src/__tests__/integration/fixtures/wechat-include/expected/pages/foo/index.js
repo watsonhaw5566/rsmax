@@ -1,1 +1,14 @@
-require("./../../runtime.js"),(()=>{var e={id:1,ids:[1]};e.modules={60:()=>{Component({})}};var r=require("../../runtime.js");r.C(e),r(r.s=60)})();
+require('./../../runtime.js');
+(wx["webpackChunk"] = wx["webpackChunk"] || []).push([["1"], {
+58: (function () {
+Component({});
+
+
+}),
+
+},function(__webpack_require__) {
+var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+var __webpack_exports__ = (__webpack_exec__(58));
+
+}
+]);

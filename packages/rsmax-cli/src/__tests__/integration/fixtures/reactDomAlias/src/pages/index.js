@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View } from 'remax';
+import React from 'react';
+import { View } from 'rsmax';
 import { unstable_batchedUpdates } from 'react-dom';
 
 unstable_batchedUpdates(() => {});

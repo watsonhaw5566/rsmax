@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
 import type { Plugin, Meta, HostComponent, Platform, Options } from '@rsmax/types';
 import { slash } from '@rsmax/shared';
-import { merge } from 'lodash-es';
+import { merge } from 'lodash';
 import Config from 'rspack-chain';
 import { RuleConfig } from './build/webpack/config/css';
 import yargs from 'yargs';
@@ -121,7 +121,7 @@ export default class API {
     }, entries);
   }
 
-  configWebpack(params: { config: Config; webpack: any; addCSSRule: (ruleConfig: RuleConfig) => void }) {
+  configWebpack(params: { config: Config; rspack: any; addCSSRule: (ruleConfig: RuleConfig) => void }) {
     this.plugins.forEach(plugin => {
       if (typeof plugin.configWebpack === 'function') {
         plugin.configWebpack(params);

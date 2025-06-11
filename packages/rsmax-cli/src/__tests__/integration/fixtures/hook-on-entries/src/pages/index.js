@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View } from 'remax';
+import React from 'react';
+import { View } from 'rsmax';
 import styles from './index.css';
 
 function timesTwo(arr) {
@@ -9,5 +9,5 @@ function timesTwo(arr) {
 export default () => {
   console.log(timesTwo([1, 2, 3]));
 
-  return <View className={styles.text}>hello</View>;
+  return <View className={styles.hello}>hello</View>;
 };

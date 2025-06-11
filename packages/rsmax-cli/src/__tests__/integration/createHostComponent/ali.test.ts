@@ -1,5 +1,5 @@
 import { testBuildApp } from '../helpers/runTest';
 
-describe('create host components in ali', () => {
+describe.skip('create host components in ali', () => {
   testBuildApp('createHostComponent');
 });

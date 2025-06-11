@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'node:path';
 import { buildApp, JEST_BUILD_TIMEOUT, buildMiniPlugin, buildMiniComponent } from './build';
 import type { Platform } from '@rsmax/types';
 import Store from '@rsmax/build-store';

@@ -1,1 +1,89 @@
-require("./../runtime.js"),require("./../remax-vendors.js"),(()=>{var r={id:1,ids:[1]};r.modules={59:(r,e,a)=>{a.r(e),a.d(e,{A:()=>s,C:()=>i.C});var i=a(60),s="A"},60:(r,e,a)=>{a.r(e),a.d(e,{A:()=>i.A,C:()=>s});var i=a(59),s="C"},56:(r,e,a)=>{a.r(e);var i=a(5),s=a(57);Page((0,i.createPageConfig)(s.default,"pages/index"))},57:(r,e,a)=>{a.r(e),a.d(e,{default:()=>d}),a(8);var i=a(58),s=a(59),t=a(60),u=a(61);const d=function(){return(0,u.jsxs)(i.View,{children:[s.A,t.C]})}},8:r=>{r.exports=require("react")},61:r=>{r.exports=require("react/jsx-runtime")},58:r=>{r.exports=require("remax")}};var e=require("../runtime.js");e.C(r),e.X(0,[2],(()=>e(e.s=56)))})();
+require('./../rsmax-vendors.js');
+require('./../runtime.js');
+"use strict";
+(my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
+54: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_circularDependence_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
+
+
+Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_circularDependence_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
+
+
+}),
+57: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (A),
+  C: () => (/* reexport safe */ _circularDependency2__WEBPACK_IMPORTED_MODULE_0__.C)
+});
+/* ESM import */var _circularDependency2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
+
+var A = 'A';
+
+
+
+}),
+58: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* reexport safe */ _circularDependency1__WEBPACK_IMPORTED_MODULE_0__.A),
+  C: () => (C)
+});
+/* ESM import */var _circularDependency1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
+
+var C = 'C';
+
+
+
+}),
+55: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+});
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(rsmax__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _circularDependency1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57);
+/* ESM import */var _circularDependency2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(58);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(59);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+/* ESM default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(rsmax__WEBPACK_IMPORTED_MODULE_0__.View, {
+        children: [
+            _circularDependency1__WEBPACK_IMPORTED_MODULE_1__.A,
+            _circularDependency2__WEBPACK_IMPORTED_MODULE_2__.C
+        ]
+    });
+};
+
+
+}),
+7: (function (module) {
+module.exports = require("react");
+
+}),
+59: (function (module) {
+module.exports = require("react/jsx-runtime");
+
+}),
+56: (function (module) {
+module.exports = require("rsmax");
+
+}),
+
+},function(__webpack_require__) {
+var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+__webpack_require__.O(0, ["2",], function() {
+        return __webpack_exec__(54);
+      });
+var __webpack_exports__ = __webpack_require__.O();
+
+}
+]);

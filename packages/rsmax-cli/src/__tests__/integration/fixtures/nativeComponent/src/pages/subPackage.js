@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { requirePluginComponent, requirePlugin } from '@rsmax/macro';
-import { View } from 'remax';
+import { View } from 'rsmax';
 
 const Plugin = requirePlugin('plugin://myPlugin');
 

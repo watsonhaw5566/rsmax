@@ -1,1 +1,20 @@
-require("./../../runtime.js"),(()=>{var e={id:1,ids:[1]};e.modules={61:(e,r,i)=>{i.r(r),i.d(r,{default:()=>s}),Component({});const s={}}};var r=require("../../runtime.js");r.C(e),r(r.s=61)})();
+require('./../../runtime.js');
+"use strict";
+(my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
+59: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+});
+Component({});
+/* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+
+
+}),
+
+},function(__webpack_require__) {
+var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+var __webpack_exports__ = (__webpack_exec__(59));
+
+}
+]);

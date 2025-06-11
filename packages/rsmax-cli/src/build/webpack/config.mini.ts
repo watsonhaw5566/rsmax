@@ -78,7 +78,6 @@ export default function webpackConfig(builder: Builder): Configuration {
       },
     },
   });
-
   config.optimization.minimize(builder.options.minimize ?? true);
 
   if (builder.options.turboRenders) {
@@ -269,10 +268,8 @@ export default function webpackConfig(builder: Builder): Configuration {
   };
 
   if (typeof builder.options.configWebpack === 'function') {
-    // @ts-ignore
     builder.options.configWebpack(context);
   }
-  // @ts-ignore
   builder.api.configWebpack(context);
 
   const externals = config.get('externals');

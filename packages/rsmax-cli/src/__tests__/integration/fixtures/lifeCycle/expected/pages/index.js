@@ -1,1 +1,92 @@
-require("./../runtime.js"),require("./../remax-vendors.js"),(()=>{var e={id:2,ids:[2]};e.modules={57:(e,r,n)=>{n.r(r)},56:(e,r,n)=>{n.r(r);var o=n(5),i=n(58);n(57),Page((0,o.createPageConfig)(i.default,"pages/index"))},58:(e,r,n)=>{n.r(r),n.d(r,{default:()=>a});var o=n(5),i=(n(8),n(59)),s=(n(60),n(61));const a=function(){return(0,o.usePageEvent)("onShow",(function(){console.log("on show")})),(0,o.usePageEvent)("onShareTimeline",(function(){console.log("onShareTimeline")})),(0,s.jsx)(i.View,{children:"view"})}},60:(e,r,n)=>{n.r(r),n.d(r,{default:()=>a});var o=n(5),i=(n(8),n(59)),s=n(61);function a(){return(0,o.usePageEvent)("onShareAppMessage",(function(){console.log("onShareAppMessage")})),(0,s.jsx)(i.View,{children:"module"})}},8:e=>{e.exports=require("react")},61:e=>{e.exports=require("react/jsx-runtime")},59:e=>{e.exports=require("remax")}};var r=require("../runtime.js");r.C(e),r.X(0,[3],(()=>r(r.s=56)))})();
+require('./../rsmax-vendors.js');
+require('./../runtime.js');
+"use strict";
+(my["webpackChunk"] = my["webpackChunk"] || []).push([["2"], {
+54: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_lifeCycle_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
+
+
+Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_lifeCycle_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
+
+
+}),
+55: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+});
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rsmax__WEBPACK_IMPORTED_MODULE_1__);
+/* ESM import */var _module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(57);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(58);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+/* ESM default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+    (0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.usePageEvent)('onShow', function() {
+        console.log('on show');
+    });
+    (0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.usePageEvent)('onShareTimeline', function() {
+        console.log('onShareTimeline');
+    });
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_1__.View, {
+        children: "view"
+    });
+};
+
+
+}),
+57: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+});
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rsmax__WEBPACK_IMPORTED_MODULE_1__);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(58);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/* ESM default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+    (0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.usePageEvent)('onShareAppMessage', function() {
+        console.log('onShareAppMessage');
+    });
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_1__.View, {
+        children: "module"
+    });
+}
+
+
+}),
+7: (function (module) {
+module.exports = require("react");
+
+}),
+58: (function (module) {
+module.exports = require("react/jsx-runtime");
+
+}),
+56: (function (module) {
+module.exports = require("rsmax");
+
+}),
+
+},function(__webpack_require__) {
+var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+__webpack_require__.O(0, ["3",], function() {
+        return __webpack_exec__(54);
+      });
+var __webpack_exports__ = __webpack_require__.O();
+
+}
+]);

@@ -1,1 +1,20 @@
-require("./../../runtime.js"),(()=>{var e={id:4,ids:[4]};e.modules={8:(e,r,i)=>{"use strict";i.r(r)},7:(e,r,i)=>{i(8),Page({data:{name:"TypeScript Page"}})}};var r=require("../../runtime.js");r.C(e),r(r.s=7)})();
+require('./../../runtime.js');
+"use strict";
+(my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
+5: (function () {
+
+Page({
+    data: {
+        name: 'TypeScript Page'
+    }
+});
+
+
+}),
+
+},function(__webpack_require__) {
+var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+var __webpack_exports__ = (__webpack_exec__(5));
+
+}
+]);

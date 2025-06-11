@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View } from 'remax';
+import React from 'react';
+import { View } from 'rsmax';
 import G from '@/components/g';
 import B from '@/components/b';
 

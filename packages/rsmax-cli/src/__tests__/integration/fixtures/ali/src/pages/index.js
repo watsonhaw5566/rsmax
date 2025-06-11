@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { View, Text } from 'remax';
+import { View, Text } from 'rsmax';
 import C from '@/components/C';
 // 测试引用 json 模块
 import dataJson from './data.json';

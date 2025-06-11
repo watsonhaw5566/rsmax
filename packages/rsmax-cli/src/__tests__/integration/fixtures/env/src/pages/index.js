@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Text } from 'remax';
+import React from 'react';
+import { View, Text } from 'rsmax';
 
 export default () => {
   if (process.env.NODE_ENV === 'production') {

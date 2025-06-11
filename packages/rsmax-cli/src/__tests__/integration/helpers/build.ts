@@ -1,6 +1,5 @@
-import * as path from 'path';
-import { createFsFromVolume, Volume, IFs } from 'memfs';
-import joinPath from 'memory-fs/lib/join';
+import path from 'node:path';
+import fs from 'node:fs';
 import nodeExternals from 'webpack-node-externals';
 import { slash } from '@rsmax/shared';
 import API from '../../../API';
@@ -12,26 +11,19 @@ import MiniPluginBuilder from '../../../build/MiniPluginBuilder';
 import WebBuilder from '../../../build/WebBuilder';
 import MiniComponentBuilder from '../../../build/MiniComponentBuilder';
 
-function ensureWebpackMemoryFs(fs: IFs) {
-  const nextFs = Object.create(fs);
-  nextFs.join = joinPath;
-
-  return nextFs;
-}
-
 interface OutputFile {
   fileName: string;
   code: Buffer;
 }
 
-function getFilesInDir(fs: IFs, root: string, fsPath: string) {
+function getFilesInDir(root: string, fsPath: string) {
   const list = fs.readdirSync(fsPath);
   let outputs: OutputFile[] = [];
 
   list.forEach((fileName: any) => {
     const filePath = path.join(fsPath, fileName);
     if (fs.statSync(filePath).isDirectory()) {
-      outputs = outputs.concat(getFilesInDir(fs, root, filePath));
+      outputs = outputs.concat(getFilesInDir(root, filePath));
     } else {
       outputs.push({
         fileName: slash(filePath).replace(slash(root), ''),
@@ -73,7 +65,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
     configWebpack(context: any) {
       context.config
         .mode('none')
-        .plugins.delete('webpack-bar')
+        .plugins.delete('rspack-bar')
         .end()
         .resolve.alias.merge({
           '@components': path.resolve(cwd, 'src/components'),
@@ -81,8 +73,8 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
         })
         .end()
         .end()
-        .externals([...(context.config.get('externals') || []), ...externals]);
-
+        .externals([...(context.config.get('externals') || []), ...externals])
+        .optimization.minimize(false);
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
       }
@@ -91,10 +83,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
   };
 
   const builder = target === 'web' ? new WebBuilder(api, remaxOptions) : new MiniBuilder(api, remaxOptions);
-  const fs = createFsFromVolume(new Volume());
-  const webpackFs = ensureWebpackMemoryFs(fs);
   const compiler = builder.run();
-  compiler.outputFileSystem = webpackFs;
 
   return new Promise(resolve => {
     compiler.hooks.done.tap('done', stats => {
@@ -119,7 +108,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
       const excludeRegExp = new RegExp(`(${exclude.join('|')})`);
       const outputDir = path.join(remaxOptions.cwd, remaxOptions.output);
 
-      const output = getFilesInDir(fs, outputDir + '/', outputDir).filter(
+      const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
           (include.length > 0 && includeRegExp.test(c.fileName)) ||
           (exclude.length > 0 && !excludeRegExp.test(c.fileName))
@@ -156,12 +145,13 @@ export async function buildMiniPlugin(app: string, target: Platform, options: Pa
   const remaxOptions = {
     ...config,
     target,
-    configWebpack(context: { config: Config; webpack: any }) {
+    configWebpack(context: { config: Config; rspack: any }) {
       context.config
         .mode('none')
-        .plugins.delete('webpackbar')
+        .plugins.delete('rspack-bar')
         .end()
-        .externals([...context.config.get('externals'), ...externals]);
+        .externals([...context.config.get('externals'), ...externals])
+        .optimization.minimize(false);
 
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
@@ -170,11 +160,7 @@ export async function buildMiniPlugin(app: string, target: Platform, options: Pa
   };
 
   const builder = new MiniPluginBuilder(api, remaxOptions);
-
-  const fs = createFsFromVolume(new Volume());
-  const webpackFs = ensureWebpackMemoryFs(fs);
   const compiler = builder.run();
-  compiler.outputFileSystem = webpackFs;
 
   return new Promise(resolve => {
     compiler.hooks.done.tap('done', stats => {
@@ -197,7 +183,7 @@ export async function buildMiniPlugin(app: string, target: Platform, options: Pa
       const excludeRegExp = new RegExp(`(${exclude.join('|')})`);
       const outputDir = path.join(remaxOptions.cwd, remaxOptions.output);
 
-      const output = getFilesInDir(fs, outputDir + '/', outputDir).filter(
+      const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
           (include.length > 0 && includeRegExp.test(c.fileName)) ||
           (exclude.length > 0 && !excludeRegExp.test(c.fileName))
@@ -240,12 +226,13 @@ export function buildMiniComponent(
     ...config,
     input: inputs,
     target,
-    configWebpack(context: { config: Config; webpack: any }) {
+    configWebpack(context: { config: Config; rspack: any }) {
       context.config
         .mode('none')
-        .plugins.delete('webpackbar')
+        .plugins.delete('rspack-bar')
         .end()
-        .externals([...context.config.get('externals'), ...externals]);
+        .externals([...context.config.get('externals'), ...externals])
+        .optimization.minimize(false);
 
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
@@ -254,11 +241,7 @@ export function buildMiniComponent(
   };
 
   const builder = new MiniComponentBuilder(api, remaxOptions);
-
-  const fs = createFsFromVolume(new Volume());
-  const webpackFs = ensureWebpackMemoryFs(fs);
   const compiler = builder.run();
-  compiler.outputFileSystem = webpackFs;
 
   return new Promise(resolve => {
     compiler.hooks.done.tap('done', stats => {
@@ -281,7 +264,7 @@ export function buildMiniComponent(
       const excludeRegExp = new RegExp(`(${exclude.join('|')})`);
       const outputDir = path.join(remaxOptions.cwd, remaxOptions.output);
 
-      const output = getFilesInDir(fs, outputDir + '/', outputDir).filter(
+      const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
           (include.length > 0 && includeRegExp.test(c.fileName)) ||
           (exclude.length > 0 && !excludeRegExp.test(c.fileName))
@@ -297,4 +280,4 @@ export function buildMiniComponent(
   });
 }
 
-export const JEST_BUILD_TIMEOUT = 10 * 1000;
+export const JEST_BUILD_TIMEOUT = 5 * 1000;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import CustomComponent from 'custom-component';
 import { createHostComponent } from '@rsmax/macro';
 

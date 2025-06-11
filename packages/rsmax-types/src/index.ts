@@ -29,7 +29,7 @@ export interface BuildOptions {
   rootDir: string;
   compressTemplate?: boolean;
   UNSAFE_wechatTemplateDepth: number | { [key: string]: number };
-  configWebpack?: (params: { config: WebpackConfig; webpack: any }) => void;
+  configWebpack?: (params: { config: WebpackConfig; rspack: any }) => void;
   plugins: Plugin[];
   port?: number;
   notify?: boolean;

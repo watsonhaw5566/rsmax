@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { View, Text, Image } from 'remax/toutiao';
+import { View, Text, Image } from 'rsmax/toutiao';
 import styles from './index.css';
 
 export default () => {
