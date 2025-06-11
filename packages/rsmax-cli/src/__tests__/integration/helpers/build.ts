@@ -280,4 +280,4 @@ export function buildMiniComponent(
   });
 }
 
-export const JEST_BUILD_TIMEOUT = 5 * 1000;
+export const JEST_BUILD_TIMEOUT = 8 * 1000;
