@@ -1,0 +1,3 @@
+# 排除 测试目录中的 node_modules 提交
+src/__tests__/**/node_modules
+src/__tests__/**/dist
