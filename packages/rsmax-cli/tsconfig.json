@@ -7,8 +7,7 @@
     "rootDir": "src",
     "outDir": "lib",
     "types": [
-      "@types/jest",
-      "vitest/globals"
+      "@types/jest"
     ],
     "jsx": "preserve",
     "skipLibCheck": true,
