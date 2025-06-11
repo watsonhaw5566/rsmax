@@ -1,5 +1,4 @@
 import babel from '@remax/father-build/lib/babel';
-
 export function buildEsm({ cwd, rootPath, output, watch, babelrc, onTargetDir, esmOptions }: any) {
   const { plugins, presets } = babelrc || {};
   const bundleOpts = {
