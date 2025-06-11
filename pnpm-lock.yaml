@@ -497,6 +497,9 @@ importers:
       htmlparser2:
         specifier: ^4.0.0
         version: 4.1.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       node-notifier:
         specifier: ^8.0.0
         version: 8.0.2
