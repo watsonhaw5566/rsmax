@@ -1,1 +1,0 @@
-require("./../../runtime.js"),(()=>{var e={id:1,ids:[1]};e.modules={59:()=>{Component({})}};var r=require("../../runtime.js");r.C(e),r(r.s=59)})();

@@ -121,7 +121,7 @@ export default class API {
     }, entries);
   }
 
-  configWebpack(params: { config: Config; webpack: any; addCSSRule: (ruleConfig: RuleConfig) => void }) {
+  configWebpack(params: { config: Config; rspack: any; addCSSRule: (ruleConfig: RuleConfig) => void }) {
     this.plugins.forEach(plugin => {
       if (typeof plugin.configWebpack === 'function') {
         plugin.configWebpack(params);

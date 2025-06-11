@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { View, Text, Image } from 'rsmax/one';
 import styles from './index.scss';
 

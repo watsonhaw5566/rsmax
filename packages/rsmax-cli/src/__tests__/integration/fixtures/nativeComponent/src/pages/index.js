@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { requirePluginComponent } from '@rsmax/macro';
-import { View } from 'remax';
+import { View } from 'rsmax';
 import A from '../components/a';
 import B from '@/components/b';
 import C from '../components/c/index';

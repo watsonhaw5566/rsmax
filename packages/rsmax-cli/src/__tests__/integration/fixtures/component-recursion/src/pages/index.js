@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { View } from 'remax';
+import { View } from 'rsmax';
 import Foo from './foo/index';
 
 export default function Index() {

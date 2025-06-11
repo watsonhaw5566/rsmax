@@ -1,1 +1,139 @@
-require("./../../runtime.js"),require("./../../remax-vendors.js"),require("./../../remax-styles.js"),(()=>{var e={id:1,ids:[1]};e.modules={69:(e,r,t)=>{t.r(r)},68:(e,r,t)=>{t.r(r);var n=t(5),o=t(70);t(69),Page((0,n.createPageConfig)(o.default,"packageA/pages/index"))},70:(e,r,t)=>{t.r(r),t.d(r,{default:()=>f});var n=t(8),o=t(60),i=t(61),u=(t(69),t(63));function c(e){return c="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},c(e)}function a(e,r){var t=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);r&&(n=n.filter((function(r){return Object.getOwnPropertyDescriptor(e,r).enumerable}))),t.push.apply(t,n)}return t}function s(e){for(var r=1;r<arguments.length;r++){var t=null!=arguments[r]?arguments[r]:{};r%2?a(Object(t),!0).forEach((function(r){var n,o,i;n=e,o=r,i=t[r],(o=function(e){var r=function(e){if("object"!==c(e)||null===e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var t=r.call(e,"string");if("object"!==c(t))return t;throw new TypeError("@@toPrimitive must return a primitive value.")}return String(e)}(e);return"symbol"===c(r)?r:String(r)}(o))in n?Object.defineProperty(n,o,{value:i,enumerable:!0,configurable:!0,writable:!0}):n[o]=i})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(t)):a(Object(t)).forEach((function(r){Object.defineProperty(e,r,Object.getOwnPropertyDescriptor(t,r))}))}return e}const f=function(){var e=n.cloneElement((0,u.jsx)(o.Text,{}));return(0,u.jsxs)(o.View,{className:"pageA-index",children:[(0,u.jsx)(i.default,{className:"a"}),(0,u.jsx)(o.View,s(s({onClick:function(){},onTouchStart:function(){},id:"view","data-foo":"bar"},{}),{},{children:"foo"})),e]})}},8:e=>{e.exports=require("react")},63:e=>{e.exports=require("react/jsx-runtime")},60:e=>{e.exports=require("remax")}};var r=require("../../runtime.js");r.C(e),r.X(0,[5,4],(()=>r(r.s=68)))})();
+require('./../../rsmax-styles.js');
+require('./../../rsmax-vendors.js');
+require('./../../runtime.js');
+"use strict";
+(my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
+67: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+// extracted by css-extract-rspack-plugin
+
+
+}),
+65: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_packageA_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(66);
+
+
+Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_packageA_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'packageA/pages/index'));
+
+
+}),
+66: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+});
+/* ESM import */var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* ESM import */var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rsmax__WEBPACK_IMPORTED_MODULE_1__);
+/* ESM import */var _components_C__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(58);
+/* ESM import */var _index_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(60);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(o) {
+    "@babel/helpers - typeof";
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+        return typeof o;
+    } : function(o) {
+        return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, _typeof(o);
+}
+function ownKeys(e, r) {
+    var t = Object.keys(e);
+    if (Object.getOwnPropertySymbols) {
+        var o = Object.getOwnPropertySymbols(e);
+        r && (o = o.filter(function(r) {
+            return Object.getOwnPropertyDescriptor(e, r).enumerable;
+        })), t.push.apply(t, o);
+    }
+    return t;
+}
+function _objectSpread(e) {
+    for(var r = 1; r < arguments.length; r++){
+        var t = null != arguments[r] ? arguments[r] : {};
+        r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+            _defineProperty(e, r, t[r]);
+        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+            Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+        });
+    }
+    return e;
+}
+function _defineProperty(e, r, t) {
+    return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+        value: t,
+        enumerable: !0,
+        configurable: !0,
+        writable: !0
+    }) : e[r] = t, e;
+}
+function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return "symbol" == _typeof(i) ? i : i + "";
+}
+function _toPrimitive(t, r) {
+    if ("object" != _typeof(t) || !t) return t;
+    var e = t[Symbol.toPrimitive];
+    if (void 0 !== e) {
+        var i = e.call(t, r || "default");
+        if ("object" != _typeof(i)) return i;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return ("string" === r ? String : Number)(t);
+}
+
+
+
+
+
+/* ESM default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+    var props = {};
+    var TextElement = /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__.cloneElement(/*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_1__.Text, {}));
+    function handleClick() {}
+    function handleTouchStart() {}
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(rsmax__WEBPACK_IMPORTED_MODULE_1__.View, {
+        className: "pageA-index",
+        children: [
+            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_C__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                className: "a"
+            }),
+            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_1__.View, _objectSpread(_objectSpread({
+                onClick: handleClick,
+                onTouchStart: handleTouchStart,
+                id: "view",
+                "data-foo": "bar"
+            }, props), {}, {
+                children: "foo"
+            })),
+            TextElement
+        ]
+    });
+};
+
+
+}),
+7: (function (module) {
+module.exports = require("react");
+
+}),
+60: (function (module) {
+module.exports = require("react/jsx-runtime");
+
+}),
+57: (function (module) {
+module.exports = require("rsmax");
+
+}),
+
+},function(__webpack_require__) {
+var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+__webpack_require__.O(0, ["4","5",], function() {
+        return __webpack_exec__(65);
+      });
+var __webpack_exports__ = __webpack_require__.O();
+
+}
+]);

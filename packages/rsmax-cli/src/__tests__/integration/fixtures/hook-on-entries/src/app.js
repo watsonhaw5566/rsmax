@@ -1,4 +1,4 @@
-import * as React from 'react';
+import sReact from 'react';
 
 export default class App extends React.Component {
   render() {

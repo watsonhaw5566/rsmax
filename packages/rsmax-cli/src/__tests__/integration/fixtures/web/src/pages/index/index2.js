@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Text, Image } from 'remax';
+import React from 'react';
+import { View, Text, Image } from 'rsmax';
 import styles from './index.css';
 
 export default props => {

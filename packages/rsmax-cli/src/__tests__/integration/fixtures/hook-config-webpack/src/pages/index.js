@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { View } from 'remax';
+import { View } from 'rsmax';
 import styles from './index.less';
 
 export default () => {
-  return <View className={styles.text}>hello</View>;
+  return <View className={styles.hello}>hello</View>;
 };

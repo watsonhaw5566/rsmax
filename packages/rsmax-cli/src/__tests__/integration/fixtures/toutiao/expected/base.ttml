@@ -8,7 +8,7 @@
     var elements = {};
     module.exports = {
     v: function(value) {
-    return value;
+        return value;
     },
     tid: function (type, ancestor) {
     var items = ancestor.split(',');
@@ -25,6 +25,22 @@
     }
     };
 </sjs>
+
+<template name="REMAX_TPL_ad">
+    <ad
+    bindclose="{{i.props['bindclose']}}"
+    binderror="{{i.props['binderror']}}"
+    bindload="{{i.props['bindload']}}"
+    fixed="{{i.props['fixed']}}"
+    scale="{{i.props['scale']}}"
+    type="{{i.props['type']}}"
+    unit-id="{{i.props['unit-id']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</ad>
+</template>
 
 <template name="REMAX_TPL_button">
     <button
@@ -61,6 +77,28 @@
         <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
     </block>
 </button>
+</template>
+
+<template name="REMAX_TPL_camera">
+    <camera
+    binderror="{{i.props['binderror']}}"
+    bindinitdone="{{i.props['bindinitdone']}}"
+    bindscancode="{{i.props['bindscancode']}}"
+    bindstop="{{i.props['bindstop']}}"
+    bindtap="{{i.props['bindtap']}}"
+    class="{{i.props['class']}}"
+    device-position="{{i.props['device-position']}}"
+    flash="{{i.props['flash']}}"
+    frame-size="{{i.props['frame-size']}}"
+    id="{{i.props['id']}}"
+    mode="{{i.props['mode']}}"
+    resolution="{{i.props['resolution']}}"
+    style="{{i.props['style']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</camera>
 </template>
 
 <template name="REMAX_TPL_canvas">
@@ -227,6 +265,122 @@
 </label>
 </template>
 
+<template name="REMAX_TPL_live-player">
+    <live-player
+    autoplay="{{i.props['autoplay']}}"
+    binderror="{{i.props['binderror']}}"
+    bindfullscreenchange="{{i.props['bindfullscreenchange']}}"
+    bindstatechange="{{i.props['bindstatechange']}}"
+    bindtap="{{i.props['bindtap']}}"
+    class="{{i.props['class']}}"
+    id="{{i.props['id']}}"
+    muted="{{i.props['muted']}}"
+    object-fit="{{i.props['object-fit']}}"
+    orientation="{{i.props['orientation']}}"
+    show-casting-button="{{i.props['show-casting-button']}}"
+    signature="{{i.props['signature']}}"
+    src="{{i.props['src']}}"
+    style="{{i.props['style']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</live-player>
+</template>
+
+<template name="REMAX_TPL_live-preview">
+    <live-preview
+    aweme-id="{{i.props['aweme-id']}}"
+    bindLiveRoom="{{i.props['bindLiveRoom']}}"
+    bindLiveStatus="{{i.props['bindLiveStatus']}}"
+    bindUserPage="{{i.props['bindUserPage']}}"
+    binderror="{{i.props['binderror']}}"
+    bindtap="{{i.props['bindtap']}}"
+    class="{{i.props['class']}}"
+    hide-header="{{i.props['hide-header']}}"
+    id="{{i.props['id']}}"
+    image-src="{{i.props['image-src']}}"
+    style="{{i.props['style']}}"
+    title="{{i.props['title']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</live-preview>
+</template>
+
+<template name="REMAX_TPL_map">
+    <map
+    bindanchorpointtap="{{i.props['bindanchorpointtap']}}"
+    bindcallouttap="{{i.props['bindcallouttap']}}"
+    bindlabeltap="{{i.props['bindlabeltap']}}"
+    bindmarkertap="{{i.props['bindmarkertap']}}"
+    bindregionchange="{{i.props['bindregionchange']}}"
+    bindtap="{{i.props['bindtap']}}"
+    bindupdated="{{i.props['bindupdated']}}"
+    circles="{{i.props['circles']}}"
+    enable-3D="{{i.props['enable-3D']}}"
+    enable-building="{{i.props['enable-building']}}"
+    enable-overlooking="{{i.props['enable-overlooking']}}"
+    enable-poi="{{i.props['enable-poi']}}"
+    enable-rotate="{{i.props['enable-rotate']}}"
+    enable-satellite="{{i.props['enable-satellite']}}"
+    enable-scroll="{{i.props['enable-scroll']}}"
+    enable-traffic="{{i.props['enable-traffic']}}"
+    enable-zoom="{{i.props['enable-zoom']}}"
+    include-points="{{i.props['include-points']}}"
+    latitude="{{i.props['latitude']}}"
+    longitude="{{i.props['longitude']}}"
+    markers="{{i.props['markers']}}"
+    max-scale="{{i.props['max-scale']}}"
+    min-scale="{{i.props['min-scale']}}"
+    polygons="{{i.props['polygons']}}"
+    polyline="{{i.props['polyline']}}"
+    rotate="{{i.props['rotate']}}"
+    scale="{{i.props['scale']}}"
+    show-compass="{{i.props['show-compass']}}"
+    show-location="{{i.props['show-location']}}"
+    show-scale="{{i.props['show-scale']}}"
+    skew="{{i.props['skew']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</map>
+</template>
+
+<template name="REMAX_TPL_mask">
+    <mask
+    class="{{i.props['class']}}"
+    hidden="{{i.props['hidden']}}"
+    id="{{i.props['id']}}"
+    style="{{i.props['style']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</mask>
+</template>
+
+<template name="REMAX_TPL_match-media">
+    <match-media
+    class="{{i.props['class']}}"
+    height="{{i.props['height']}}"
+    id="{{i.props['id']}}"
+    max-height="{{i.props['max-height']}}"
+    max-width="{{i.props['max-width']}}"
+    min-height="{{i.props['min-height']}}"
+    min-width="{{i.props['min-width']}}"
+    orientation="{{i.props['orientation']}}"
+    style="{{i.props['style']}}"
+    width="{{i.props['width']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</match-media>
+</template>
+
 <template name="REMAX_TPL_movable-area">
     <movable-area
     class="{{i.props['class']}}"
@@ -373,6 +527,7 @@
     border-radius="{{i.props['border-radius']}}"
     class="{{i.props['class']}}"
     color="{{i.props['color']}}"
+    duration="{{i.props['duration']}}"
     font-size="{{i.props['font-size']}}"
     id="{{i.props['id']}}"
     percent="{{i.props['percent']}}"
@@ -438,6 +593,21 @@
         <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
     </block>
 </rich-text>
+</template>
+
+<template name="REMAX_TPL_rtc-room">
+    <rtc-room
+    binderror="{{i.props['binderror']}}"
+    bindtap="{{i.props['bindtap']}}"
+    class="{{i.props['class']}}"
+    id="{{i.props['id']}}"
+    style="{{i.props['style']}}"
+    user-id="{{i.props['user-id']}}"
+    >
+    <block tt:for="{{i.children}}" tt:key="{{id}}">
+        <template is="{{'REMAX_TPL_' + i.nodes[item].type}}" data="{{i: i.nodes[item]}}" />
+    </block>
+</rtc-room>
 </template>
 
 <template name="REMAX_TPL_scroll-view">
@@ -749,16 +919,4 @@
 </template>
 <template name="REMAX_TPL_16_CONTAINER" data="{{i: i}}">
     <template is="{{_h.tid(i.type, a)}}" data="{{i: i, a: a + ',' + i.type, tid: 16}}" />
-</template>
-<template name="REMAX_TPL_17_CONTAINER" data="{{i: i}}">
-    <template is="{{_h.tid(i.type, a)}}" data="{{i: i, a: a + ',' + i.type, tid: 17}}" />
-</template>
-<template name="REMAX_TPL_18_CONTAINER" data="{{i: i}}">
-    <template is="{{_h.tid(i.type, a)}}" data="{{i: i, a: a + ',' + i.type, tid: 18}}" />
-</template>
-<template name="REMAX_TPL_19_CONTAINER" data="{{i: i}}">
-    <template is="{{_h.tid(i.type, a)}}" data="{{i: i, a: a + ',' + i.type, tid: 19}}" />
-</template>
-<template name="REMAX_TPL_20_CONTAINER" data="{{i: i}}">
-    <template is="{{_h.tid(i.type, a)}}" data="{{i: i, a: a + ',' + i.type, tid: 20}}" />
 </template>

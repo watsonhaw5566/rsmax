@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import path from 'node:path';
 import fs from 'node:fs';
 import Config from 'rspack-chain';
 import type { Options } from '@rsmax/types';

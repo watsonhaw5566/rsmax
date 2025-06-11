@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { View } from 'rsmax';
 import { usePageEvent } from '@rsmax/macro';
-import { View } from 'remax';
+
 
 export default function () {
   usePageEvent('onShareAppMessage', () => {

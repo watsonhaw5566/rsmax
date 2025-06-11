@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'remax';
+import { View, Text } from 'rsmax';
 import { index } from 'foo';
 import { index2, foo } from 'foo/index2';
 

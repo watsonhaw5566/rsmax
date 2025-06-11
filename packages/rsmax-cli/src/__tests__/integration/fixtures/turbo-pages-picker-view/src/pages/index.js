@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, PickerView, PickerViewColumn } from 'remax';
+import { View, PickerView, PickerViewColumn } from 'rsmax';
 
 export default props => {
   const columns = [

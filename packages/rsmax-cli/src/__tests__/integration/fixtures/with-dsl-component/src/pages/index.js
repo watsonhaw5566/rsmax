@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Image } from 'remax';
+import React from 'react';
+import { View, Image } from 'rsmax';
 import Empty from 'empty';
 import { Empty2 } from './empty';
 

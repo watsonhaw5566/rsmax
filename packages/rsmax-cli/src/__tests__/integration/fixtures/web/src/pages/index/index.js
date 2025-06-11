@@ -1,4 +1,4 @@
-import { View, Text, Image, Checkbox, Label, Swiper, SwiperItem } from 'remax';
+import { View, Text, Image, Checkbox, Label, Swiper, SwiperItem } from 'rsmax';
 import styles from './index.css';
 
 const arr = [1, 2, 3, 4];

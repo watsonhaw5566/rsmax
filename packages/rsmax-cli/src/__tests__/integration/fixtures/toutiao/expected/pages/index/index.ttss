@@ -1,59 +1,27 @@
-.app {
+.app___R9oSF {
   text-align: center;
   padding: 0 24rpx;
 }
 
-.logo {
-  animation: logo-spin infinite 20s linear;
+.logo___sf5Qy {
+  animation: logo-spin___wJPgS infinite 20s linear;
   height: 240rpx;
   width: 240rpx;
   pointer-events: none;
 }
 
-.text {
+.text___LlNuW {
   margin-top: 64rpx;
 }
 
-.header {
+.header___SYloc {
   padding-top: 30%;
   background-color: #282c34;
   font-size: 40rpx;
   color: white;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.app___TzQpr {
-  text-align: center;
-  padding: 0 24rpx;
-}
-
-.logo___YkdhH {
-  animation: logo-spin___nIoTY infinite 20s linear;
-  height: 240rpx;
-  width: 240rpx;
-  pointer-events: none;
-}
-
-.text___pRHR5 {
-  margin-top: 64rpx;
-}
-
-.header___MdlyM {
-  padding-top: 30%;
-  background-color: #282c34;
-  font-size: 40rpx;
-  color: white;
-}
-
-@keyframes logo-spin___nIoTY {
+@keyframes logo-spin___wJPgS {
   from {
     transform: rotate(0deg);
   }

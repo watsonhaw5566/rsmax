@@ -6,6 +6,18 @@
   </block>
 </template>
 
+<template name="REMAX_TPL_1_ad">
+  <ad
+    onError="{{item.props['onError']}}"
+    onLoad="{{item.props['onLoad']}}"
+    unit-id="{{item.props['unit-id']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </ad>
+</template>
+
 <template name="REMAX_TPL_1_button">
   <button
     app-parameter="{{item.props['app-parameter']}}"
@@ -18,6 +30,7 @@
     hover-stop-propagation="{{item.props['hover-stop-propagation']}}"
     id="{{item.props['id']}}"
     loading="{{item.props['loading']}}"
+    onChooseAvatar="{{item.props['onChooseAvatar']}}"
     onError="{{item.props['onError']}}"
     onGetAuthorize="{{item.props['onGetAuthorize']}}"
     onTap="{{item.props['onTap']}}"
@@ -181,6 +194,26 @@
   </dsl-module-index-c6c02ac>
 </template>
 
+<template name="REMAX_TPL_1_error-view">
+  <error-view
+    class="{{item.props['class']}}"
+    data-message="{{item.props['data-message']}}"
+    data-status="{{item.props['data-status']}}"
+    data-url="{{item.props['data-url']}}"
+    fullscreen="{{item.props['fullscreen']}}"
+    id="{{item.props['id']}}"
+    message="{{item.props['message']}}"
+    message-color="{{item.props['message-color']}}"
+    style="{{item.props['style']}}"
+    title-color="{{item.props['title-color']}}"
+    type="{{item.props['type']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </error-view>
+</template>
+
 <template name="REMAX_TPL_1_form">
   <form
     class="{{item.props['class']}}"
@@ -267,6 +300,16 @@
   </input>
 </template>
 
+<template name="REMAX_TPL_1_join-group-chat">
+  <join-group-chat
+    template-id="{{item.props['template-id']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </join-group-chat>
+</template>
+
 <template name="REMAX_TPL_1_label">
   <label
     class="{{item.props['class']}}"
@@ -350,6 +393,25 @@
   </map>
 </template>
 
+<template name="REMAX_TPL_1_match-media">
+  <match-media
+    class="{{item.props['class']}}"
+    height="{{item.props['height']}}"
+    id="{{item.props['id']}}"
+    max-height="{{item.props['max-height']}}"
+    max-width="{{item.props['max-width']}}"
+    min-height="{{item.props['min-height']}}"
+    min-width="{{item.props['min-width']}}"
+    orientation="{{item.props['orientation']}}"
+    style="{{item.props['style']}}"
+    width="{{item.props['width']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </match-media>
+</template>
+
 <template name="REMAX_TPL_1_movable-area">
   <movable-area
     class="{{item.props['class']}}"
@@ -411,6 +473,54 @@
       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
     </block>
   </navigator>
+</template>
+
+<template name="REMAX_TPL_1_page-container">
+  <page-container
+    close-on-slideDown="{{item.props['close-on-slideDown']}}"
+    custom-style="{{item.props['custom-style']}}"
+    duration="{{item.props['duration']}}"
+    onAfterEnter="{{item.props['onAfterEnter']}}"
+    onAfterLeave="{{item.props['onAfterLeave']}}"
+    onBeforeEnter="{{item.props['onBeforeEnter']}}"
+    onBeforeLeave="{{item.props['onBeforeLeave']}}"
+    onClickOverlay="{{item.props['onClickOverlay']}}"
+    onEnter="{{item.props['onEnter']}}"
+    onLeave="{{item.props['onLeave']}}"
+    overlay="{{item.props['overlay']}}"
+    overlay-style="{{item.props['overlay-style']}}"
+    position="{{item.props['position']}}"
+    round="{{item.props['round']}}"
+    show="{{item.props['show']}}"
+    z-index="{{item.props['z-index']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </page-container>
+</template>
+
+<template name="REMAX_TPL_1_page-meta">
+  <page-meta
+    background-color="{{item.props['background-color']}}"
+    background-color-bottom="{{item.props['background-color-bottom']}}"
+    background-color-top="{{item.props['background-color-top']}}"
+    background-text-style="{{item.props['background-text-style']}}"
+    bindresize="{{item.props['bindresize']}}"
+    bindscroll="{{item.props['bindscroll']}}"
+    bindscrolldone="{{item.props['bindscrolldone']}}"
+    page-font-size="{{item.props['page-font-size']}}"
+    page-orientation="{{item.props['page-orientation']}}"
+    page-style="{{item.props['page-style']}}"
+    root-background-color="{{item.props['root-background-color']}}"
+    root-font-size="{{item.props['root-font-size']}}"
+    scroll-duration="{{item.props['scroll-duration']}}"
+    scroll-top="{{item.props['scroll-top']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </page-meta>
 </template>
 
 <template name="REMAX_TPL_1_picker">
@@ -522,6 +632,27 @@
   </rich-text>
 </template>
 
+<template name="REMAX_TPL_1_root-portal">
+  <root-portal
+    animation="{{item.props['animation']}}"
+    class="{{item.props['class']}}"
+    id="{{item.props['id']}}"
+    onLongClick="{{item.props['onLongClick']}}"
+    onLongTap="{{item.props['onLongTap']}}"
+    onTap="{{item.props['onTap']}}"
+    onTouchCancel="{{item.props['onTouchCancel']}}"
+    onTouchEnd="{{item.props['onTouchEnd']}}"
+    onTouchMove="{{item.props['onTouchMove']}}"
+    onTouchStart="{{item.props['onTouchStart']}}"
+    space="{{item.props['space']}}"
+    style="{{item.props['style']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </root-portal>
+</template>
+
 <template name="REMAX_TPL_1_scroll-view">
   <scroll-view
     class="{{item.props['class']}}"
@@ -554,6 +685,19 @@
   </scroll-view>
 </template>
 
+<template name="REMAX_TPL_1_share-element">
+  <share-element
+    duration="{{item.props['duration']}}"
+    easing-function="{{item.props['easing-function']}}"
+    key="{{item.props.__key}}"
+    transform="{{item.props['transform']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </share-element>
+</template>
+
 <template name="REMAX_TPL_1_slider">
   <slider
     active-color="{{item.props['active-color']}}"
@@ -578,6 +722,17 @@
       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
     </block>
   </slider>
+</template>
+
+<template name="REMAX_TPL_1_subscribe-message">
+  <subscribe-message
+    onComplete="{{item.props['onComplete']}}"
+    template-id="{{item.props['template-id']}}"
+  >
+    <block a:for="{{item.children}}" key="{{item.id}}">
+      <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+    </block>
+  </subscribe-message>
 </template>
 
 <template name="REMAX_TPL_1_swiper">

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { View, Image } from 'remax';
+import { View, Image } from 'rsmax';
 import cat from '../assets/images/inline.jpg';
 import './index.css';
 
