@@ -23,8 +23,7 @@
     "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm exec nano-staged",
-    "commit-msg": "commitlint -E GIT_PARAMS"
+    "pre-commit": "pnpm exec nano-staged"
   },
   "nano-staged": {
     "*.{md,mdx,json,css,less,scss}": "prettier --write",
@@ -36,8 +35,6 @@
   "devDependencies": {
     "@babel/types": "^7.7.4",
     "@biomejs/biome": "1.9.4",
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^8.1.0",
     "@types/babel__core": "^7.7.4",
     "@types/babel__traverse": "^7.0.8",
     "@types/babel-plugin-tester": "^9.0.0",
