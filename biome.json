@@ -44,7 +44,8 @@
           }
         },
         "noParameterAssign": "off",
-        "noArguments": "off"
+        "noArguments": "off",
+        "useImportType": "off"
       },
       "complexity": {
         "noForEach": "off"
