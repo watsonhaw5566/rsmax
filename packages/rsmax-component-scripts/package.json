@@ -25,7 +25,7 @@
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "test": "vitest -u run"
+    "test": "vitest run"
   },
   "dependencies": {
     "@remax/father-build": "^1.19.8",
