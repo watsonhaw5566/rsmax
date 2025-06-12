@@ -2,21 +2,21 @@
   "name": "@rsmax/framework-shared",
   "version": "1.3.12",
   "description": "使用真正的 React 构建跨平台小程序",
-  "author": "Wei Zhu <yesmeck@gmail.com>",
-  "homepage": "https://remaxjs.org",
+  "homepage": "https://remax.wdchiphop.cn",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:watsonhaw5566/rsmax.git"
+  },
   "license": "MIT",
+  "author": "Wei Zhu <yesmeck@gmail.com>",
   "main": "cjs/index.js",
   "module": "esm/index.js",
   "types": "esm/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:remaxjs/remax.git"
-  },
   "scripts": {
-    "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
     "prebuild": "npm run clean",
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
+    "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
     "test": "vitest run"
   },
   "dependencies": {

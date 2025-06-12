@@ -2,24 +2,28 @@
   "name": "@rsmax/shared",
   "version": "1.3.12",
   "description": "Rsmax Shared",
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
-  "types": "esm/index.d.ts",
-  "license": "MIT",
+  "homepage": "https://remax.wdchiphop.cn",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/remaxjs/remax.git"
   },
-  "homepage": "https://remaxjs.org",
+  "license": "MIT",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
   "scripts": {
-    "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
     "prebuild": "npm run clean",
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
+    "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
     "test": "vitest run"
   },
-  "peerDependencies": {
-    "react": "^18.3.0"
+  "dependencies": {
+    "@babel/parser": "^7.11.4",
+    "@babel/traverse": "^7.11.0",
+    "htmlparser2": "^4.1.0",
+    "lodash": "^4.17.11",
+    "resolve": "^1.12.0"
   },
   "devDependencies": {
     "@rsmax/types": "workspace:*",
@@ -33,12 +37,8 @@
     "react": "^18.3.0",
     "react-test-renderer": "^18.3.0"
   },
-  "dependencies": {
-    "@babel/parser": "^7.11.4",
-    "@babel/traverse": "^7.11.0",
-    "htmlparser2": "^4.1.0",
-    "lodash": "^4.17.11",
-    "resolve": "^1.12.0"
+  "peerDependencies": {
+    "react": "^18.3.0"
   },
   "publishConfig": {
     "access": "public"
