@@ -4,7 +4,7 @@
  * 3.0 可以干掉
  */
 import type { Options } from '@rsmax/types';
-import API from './API';
+import type API from './API';
 import { internalBuildApp } from './build';
 
 export function buildMini(api: API, options: Options) {

@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, TouchEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, TouchEvent } from '../../types/component';
 
 export interface ViewProps extends BaseProps {
   slot?: string;

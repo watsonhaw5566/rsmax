@@ -1,9 +1,9 @@
+import { RuntimeOptions } from '@rsmax/framework-shared';
+import { createBrowserHistory, createHashHistory } from 'history';
 import { createRoot } from 'react-dom/client';
 import hd from 'umi-hd';
-import { createHashHistory, createBrowserHistory } from 'history';
-import { RuntimeOptions } from '@rsmax/framework-shared';
 import createApp from './createApp';
-import { BootstrapOptions } from './types';
+import type { BootstrapOptions } from './types';
 
 export default function bootstrap(options: BootstrapOptions) {
   hd();

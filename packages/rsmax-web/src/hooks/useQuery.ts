@@ -1,6 +1,6 @@
-import { useLocation } from 'react-router-dom';
-import qs from 'qs';
 import { RuntimeOptions } from '@rsmax/framework-shared';
+import qs from 'qs';
+import { useLocation } from 'react-router-dom';
 
 export default function useQuery<
   Q extends Record<string, string | undefined> = { [name: string]: string | undefined }

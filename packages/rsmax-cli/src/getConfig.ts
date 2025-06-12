@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import { getDefaultOptions } from './defaultOptions';
+import fs from 'node:fs';
+import path from 'node:path';
 import type { Options } from '@rsmax/types';
 import validateOptions from 'schema-utils';
+import { getDefaultOptions } from './defaultOptions';
 
 const schema = require('../OptionsSchema.json');
 
@@ -31,8 +31,8 @@ export default function getConfig(validate = true): Options {
 
   let options = {} as Options;
 
-  if (fs.existsSync(configPath + '.js')) {
-    options = readJavascriptConfig(configPath + '.js');
+  if (fs.existsSync(`${configPath}.js`)) {
+    options = readJavascriptConfig(`${configPath}.js`);
   }
 
   if (validate) {

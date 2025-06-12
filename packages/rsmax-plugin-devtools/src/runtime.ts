@@ -4,7 +4,7 @@ import WebSocket from './WebSocket';
 export default {
   onAppConfig({ config }: { config: any }) {
     const originalLaunch = config.onLaunch;
-    config.onLaunch = function (...args: any) {
+    config.onLaunch = (...args: any) => {
       try {
         console.log('尝试连接 React DevTools，请忽略连接错误信息，详情请参考 https://remaxjs.org/guide/basic/devtools');
         connectToDevTools({

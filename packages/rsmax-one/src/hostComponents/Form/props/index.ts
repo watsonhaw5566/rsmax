@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { FormEvent } from '../../../types';
+import type * as React from 'react';
+import type { FormEvent } from '../../../types';
 
 export { default as defaults } from './default';
 

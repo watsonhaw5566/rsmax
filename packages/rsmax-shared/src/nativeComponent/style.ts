@@ -1,7 +1,7 @@
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'node:fs';
+import type { Meta } from '@rsmax/types';
 import postcss from 'postcss';
 import { getPath } from './helpers';
-import type { Meta } from '@rsmax/types';
 
 export const walk = (filePath: string, cssPaths: Set<string>) => {
   if (!existsSync(filePath)) {

@@ -1,8 +1,8 @@
-import * as React from 'react';
-import clsx from 'clsx';
 import { RuntimeOptions } from '@rsmax/framework-shared';
-import { NavigatorProps } from './props';
+import clsx from 'clsx';
+import * as React from 'react';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
+import type { NavigatorProps } from './props';
 
 export type { NavigatorProps };
 
@@ -18,8 +18,6 @@ const Navigator: React.ForwardRefRenderFunction<any, NavigatorProps> = (props, r
       case 'redirect':
         history.replace(url);
         break;
-      case 'navigate':
-      case 'switchTab':
       default:
         history.push(url);
         break;

@@ -1,9 +1,9 @@
-import { getConfig, IOptions } from './getConfig';
-import { IArgv } from './types';
-import { buildEsm } from './buildEsm';
 import { buildDsl } from './buildDsl';
+import { buildEsm } from './buildEsm';
+import { type IOptions, getConfig } from './getConfig';
+import type { IArgv } from './types';
 
-export default function build(cwd: string = process.cwd(), argv: IArgv) {
+export default function build(cwd: string, argv: IArgv) {
   const options = getConfig(argv, { cwd });
   buildComponent(cwd, options);
 }
@@ -22,7 +22,7 @@ export function buildComponent(cwd: string, options: IOptions) {
       onTargetDir,
       esmOptions: esm,
     });
-  } else if (type === 'ali' || type === 'wechat') {
+  }if (type === 'ali' || type === 'wechat') {
     return buildDsl({
       cwd,
       sourceDir,
@@ -33,7 +33,6 @@ export function buildComponent(cwd: string, options: IOptions) {
       type,
       miniOptions: mini,
     });
-  } else {
-    throw Error('未知构建类型');
   }
+    throw Error('未知构建类型');
 }

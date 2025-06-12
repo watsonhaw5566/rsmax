@@ -1,7 +1,7 @@
-import React from 'react';
+import type React from 'react';
 
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps } from '../../types/component';
+import type { BaseProps } from '../../types/component';
 
 export interface NavigatorProps extends BaseProps {
   url: string;

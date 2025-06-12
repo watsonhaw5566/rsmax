@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { NodePath } from '@babel/traverse';
-import { createMacro } from 'babel-plugin-macros';
-import { slash } from '@rsmax/shared';
+import type { NodePath } from '@babel/traverse';
 import Store from '@rsmax/build-store';
+import { slash } from '@rsmax/shared';
+import { createMacro } from 'babel-plugin-macros';
+import type * as React from 'react';
 import createHostComponentMacro from './createHostComponent';
-import requirePluginComponentMacro from './requirePluginComponent';
 import requirePluginMacro from './requirePlugin';
-import usePageEventMacro from './usePageEvent';
+import requirePluginComponentMacro from './requirePluginComponent';
 import useAppEventMacro from './useAppEvent';
+import usePageEventMacro from './usePageEvent';
 
 type PageEventName =
   | 'onLoad'

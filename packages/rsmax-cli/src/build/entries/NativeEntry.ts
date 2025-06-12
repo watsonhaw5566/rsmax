@@ -1,11 +1,11 @@
-import fs from 'fs';
+import fs from 'node:fs';
+import { slash } from '@rsmax/shared';
+import type { LoaderContext } from '@rspack/core';
+import { logger } from 'rslog';
+import type Builder from '../Builder';
+import NativeAssets from '../NativeAssets';
 import { getNativeAssetOutputPath, replaceExtension } from '../utils/paths';
 import VirtualEntry from './VirtualEntry';
-import Builder from '../Builder';
-import NativeAssets from '../NativeAssets';
-import { slash } from '@rsmax/shared';
-import { logger } from 'rslog';
-import { LoaderContext } from '@rspack/core';
 
 interface Manifest {
   usingComponents?: Record<string, string>;
@@ -29,7 +29,7 @@ export default class NativeEntry extends VirtualEntry {
     const rawManifest = this.readRawManifest();
     const usingComponents: Manifest['usingComponents'] = rawManifest.usingComponents ?? {};
     dependentEntries.forEach((entry, name) => {
-      usingComponents[name] = '/' + entry.name;
+      usingComponents[name] = `/${entry.name}`;
     });
     return {
       ...rawManifest,
@@ -41,7 +41,7 @@ export default class NativeEntry extends VirtualEntry {
     const { usingComponents = {} } = this.readRawManifest();
     return Object.keys(usingComponents).reduce((acc: Map<string, NativeEntry>, name: string) => {
       const request: string = usingComponents[name];
-      if (request && request.startsWith('plugin://')) {
+      if (request?.startsWith('plugin://')) {
         return acc;
       }
       const fileExist = ['.js', '.ts'].some(ext => {

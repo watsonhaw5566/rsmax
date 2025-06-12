@@ -1,8 +1,8 @@
-import { useLayoutEffect, useContext } from 'react';
-import { Callback, lifeCycleName, registerLifecycle } from './lifecycle';
-import PageInstanceContext from './PageInstanceContext';
-import ComponentInstanceContext from './ComponentInstanceContext';
+import { useContext, useLayoutEffect } from 'react';
 import AppInstanceContext from './AppInstanceContext';
+import ComponentInstanceContext from './ComponentInstanceContext';
+import PageInstanceContext from './PageInstanceContext';
+import { type Callback, lifeCycleName, registerLifecycle } from './lifecycle';
 
 export function usePageEvent(eventName: string, callback: Callback) {
   const pageInstance = useContext(PageInstanceContext);

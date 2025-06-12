@@ -9,7 +9,7 @@
     "clean": "lerna clean",
     "clean:packages": "lerna run clean",
     "format": "prettier --write .",
-    "lint": "biome check . --diagnostic-level=warn",
+    "lint": "biome check . --diagnostic-level=warn --write --unsafe",
     "prepack": "pnpm run readme:copy",
     "postpack": "pnpm run readme:clean",
     "readme:clean": "lerna exec 'rm README.md' --scope rsmax --scope @rsmax/cli",

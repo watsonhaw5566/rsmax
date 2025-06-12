@@ -1,5 +1,5 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
 
 export interface MapMarker {
   readonly dataset?: DOMStringMap;

@@ -1,8 +1,8 @@
-import * as React from 'react';
 import clsx from 'clsx';
-import { ButtonWebProps } from './props';
+import * as React from 'react';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
 import useWebTouch from '../useWebTouch';
+import type { ButtonWebProps } from './props';
 
 export type ButtonProps = ButtonWebProps;
 

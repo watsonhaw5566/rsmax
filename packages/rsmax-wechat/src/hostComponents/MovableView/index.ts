@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 // can't extends from BaseProps, bacause this MovableViewProps overwrite animation to boolean
 export interface MovableViewProps extends Omit<BaseProps, 'animation'> {

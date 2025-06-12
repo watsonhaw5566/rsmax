@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 import createHostComponent from '../../createHostComponent';
-import ViewProps from './props';
+import type ViewProps from './props';
 import defaults from './props/default';
 
 export type { ViewProps };

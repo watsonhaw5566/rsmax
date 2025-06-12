@@ -19,6 +19,9 @@
   },
   "files": {
     "ignore": [
+      "tests",
+      "__tests__",
+      "rsmax-web",
       "*.vue",
       "*.svelte",
       "template-lit-*/src/my-element.*",
@@ -42,18 +45,38 @@
       "style": {
         "noNonNullAssertion": "off",
         "useFilenamingConvention": {
-          "level": "error",
+          "level": "off",
           "options": {
-            "filenameCases": ["camelCase", "PascalCase", "export"]
+            "filenameCases": [
+              "camelCase",
+              "PascalCase",
+              "export"
+            ]
           }
-        }
+        },
+        "noParameterAssign": "off",
+        "noArguments": "off"
+      },
+      "complexity": {
+        "noForEach": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noConfusingVoidType": "off"
+        "noConfusingVoidType": "off",
+        "noImplicitAnyLet": "off",
+        "noShadowRestrictedNames": "off",
+        "noAssignInExpressions": "off"
+      },
+      "a11y": {
+        "useAltText": "off",
+        "noLabelWithoutControl": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
       },
       "performance": {
-        "noDelete": "off"
+        "noDelete": "off",
+        "noAccumulatingSpread": "off"
       }
     }
   }

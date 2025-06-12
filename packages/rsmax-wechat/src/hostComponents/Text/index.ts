@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps } from '../../types/component';
+import type React from 'react';
+import type { BaseProps } from '../../types/component';
 
 export interface TextProps extends BaseProps {
   /** (default: false) 文本是否可选 文本是否可选 (已废弃) 1.1.0 */

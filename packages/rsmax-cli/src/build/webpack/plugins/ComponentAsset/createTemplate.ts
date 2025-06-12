@@ -1,13 +1,13 @@
-import { sortBy } from 'lodash';
-import { Compilation, sources } from '@rspack/core';
-import ejs from 'ejs';
-import type { Options, Meta } from '@rsmax/types';
-import Store from '@rsmax/build-store';
-import SourceCache from '../../../../SourceCache';
-import { slash } from '@rsmax/shared';
-import { getUsingComponents } from '../getUsingComponents';
 import path from 'node:path';
-import ComponentEntry from '../../../entries/ComponentEntry';
+import Store from '@rsmax/build-store';
+import { slash } from '@rsmax/shared';
+import type { Meta, Options } from '@rsmax/types';
+import { type Compilation, sources } from '@rspack/core';
+import ejs from 'ejs';
+import { sortBy } from 'lodash';
+import type SourceCache from '../../../../SourceCache';
+import type ComponentEntry from '../../../entries/ComponentEntry';
+import { getUsingComponents } from '../getUsingComponents';
 
 export function createRenderOptions(componentPath: string, compilation: Compilation, options: Options) {
   const components = new Map(Store.getCollectedComponents());
@@ -42,7 +42,7 @@ export default async function createComponentTemplate(
 
   // 如果是组件构建，生成相对路径
   if (component.builder.buildType === 'minicomponent') {
-    baseTemplate = slash(path.relative(path.dirname('./' + fileName), '.' + baseTemplate));
+    baseTemplate = slash(path.relative(path.dirname(`./${fileName}`), `.${baseTemplate}`));
   }
 
   const ejsOptions: { [props: string]: any } = {

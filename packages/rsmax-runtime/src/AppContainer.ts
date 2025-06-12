@@ -1,6 +1,6 @@
-import VNode, { RawNode } from './VNode';
+import type { FiberRoot } from 'react-reconciler';
+import VNode, { type RawNode } from './VNode';
 import { generate } from './instanceId';
-import { FiberRoot } from 'react-reconciler';
 
 interface SpliceUpdate {
   path: string;

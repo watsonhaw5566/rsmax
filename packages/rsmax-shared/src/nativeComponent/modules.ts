@@ -1,9 +1,9 @@
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import * as babelParser from '@babel/parser';
 import traverse from '@babel/traverse';
+import type { Options } from '@rsmax/types';
 import { get } from 'lodash';
 import resolve from 'resolve';
-import type { Options } from '@rsmax/types';
 import { getPath } from './helpers';
 
 const walk = (jsPath: string, modules: Set<string>, options: Options) => {
@@ -29,10 +29,10 @@ const walk = (jsPath: string, modules: Set<string>, options: Options) => {
 
     const absoluteId = getPath(jsPath, importPath);
 
-    let absolutePath = /.js$/.test(absoluteId) ? absoluteId : absoluteId + '.js';
+    let absolutePath = /.js$/.test(absoluteId) ? absoluteId : `${absoluteId}.js`;
 
     if (!fs.existsSync(absolutePath)) {
-      absolutePath = absoluteId + '/index.js';
+      absolutePath = `${absoluteId}/index.js`;
     }
 
     if (!fs.existsSync(absolutePath)) {

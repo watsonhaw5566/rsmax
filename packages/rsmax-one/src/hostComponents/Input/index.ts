@@ -1,7 +1,7 @@
-import React from 'react';
 import memoizeOne from 'memoize-one';
-import { InputEvent } from '../../types';
+import React from 'react';
 import { aliasProps, createCallback, createInputEvent } from '../../createHostComponent';
+import type { InputEvent } from '../../types';
 import type { InputProps } from './props';
 import alias from './props/alias';
 

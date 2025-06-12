@@ -2,12 +2,12 @@ export default function stringPath(path: Array<string | number>) {
   return path.reduce<string>((acc, current) => {
     if (typeof current === 'string') {
       if (acc) {
-        acc += '.' + current;
+        acc += `.${current}`;
       } else {
         acc += current;
       }
     } else {
-      acc += '[' + current + ']';
+      acc += `[${current}]`;
     }
 
     return acc;

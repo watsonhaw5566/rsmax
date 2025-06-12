@@ -1,6 +1,6 @@
 const request = require('request');
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const readDir = fs.readdirSync(path.join(__dirname, "../packages"));
 

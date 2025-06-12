@@ -1,9 +1,9 @@
-import path from 'path';
+import path from 'node:path';
 import { buildMiniComponent } from '@rsmax/cli';
 import UNSAFE_wechatTemplateDepth from '@rsmax/cli/lib/defaultOptions/UNSAFE_wechatTemplateDepth';
 
 export function buildDsl({ cwd, sourceDir, miniOptions, output, watch, onTargetDir, babelrc, type }: any) {
-  let originTarget = path.join(output, './' + type);
+  let originTarget = path.join(output, `./${type}`);
   if (onTargetDir) {
     originTarget = onTargetDir(originTarget, type);
   }
@@ -49,7 +49,7 @@ export function buildDsl({ cwd, sourceDir, miniOptions, output, watch, onTargetD
         options: {},
       });
 
-      configWebpack && configWebpack({ config, addCSSRule });
+      configWebpack?.({ config, addCSSRule });
     },
     UNSAFE_wechatTemplateDepth,
     errorScreen: false,

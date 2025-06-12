@@ -1,8 +1,8 @@
-import * as React from 'react';
+import type * as React from 'react';
 import ReactReconciler from 'react-reconciler';
+import type AppContainer from './AppContainer';
+import type Container from './Container';
 import hostConfig from './hostConfig';
-import Container from './Container';
-import AppContainer from './AppContainer';
 
 export const ReactReconcilerInst = ReactReconciler(hostConfig as any);
 

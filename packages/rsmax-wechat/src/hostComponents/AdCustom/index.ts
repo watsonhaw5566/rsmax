@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface AdCustomProps extends BaseProps {
   /** 广告单元id，可在小程序管理后台的流量主模块新建 2.10.4; */

@@ -1,5 +1,5 @@
-import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
+import yargs from 'yargs/yargs';
 import build from './build';
 
 export function run() {

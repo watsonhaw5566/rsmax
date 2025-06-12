@@ -1,5 +1,5 @@
-import { View, Image } from 'rsmax/one';
 import catImage from '@/assets/images/cat.jpg';
+import { Image, View } from 'rsmax/one';
 import './index.css';
 
 export default () => {

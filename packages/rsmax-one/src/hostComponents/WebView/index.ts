@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 import createHostComponent from '../../createHostComponent';
-import { Event } from '../../types';
+import type { Event } from '../../types';
 
 export interface WebViewProps extends React.AriaAttributes {
   id?: string;

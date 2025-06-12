@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface CameraProps extends BaseProps {
   /** (default: normal) 应用模式，只在初始化时有效，不能动态变更 2.1.0  */

@@ -1,5 +1,5 @@
-import React from 'react';
 import { RuntimeOptions } from '@rsmax/framework-shared';
+import React from 'react';
 
 export default function createHostComponent<P = any>(name: string, component?: React.ComponentType<P>) {
   if (component) {

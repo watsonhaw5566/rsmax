@@ -1,13 +1,13 @@
+import { type Compiler, EntryPlugin } from '@rspack/core';
+import SourceCache from '../../../../SourceCache';
+import type Builder from '../../../Builder';
+import PageEntry from '../../../entries/PageEntry';
+import getModules from '../../../utils/modules';
+import { clearComponentsCache } from '../getUsingComponents';
+import createIsolatedTemplate from './createIsolatedTemplate';
+import createManifest from './createManifest';
 import createPageTemplate, { createBaseTemplate } from './createTemplate';
 import createTurboTemplate from './createTurboTemplate';
-import createManifest from './createManifest';
-import getModules from '../../../utils/modules';
-import SourceCache from '../../../../SourceCache';
-import createIsolatedTemplate from './createIsolatedTemplate';
-import Builder from '../../../Builder';
-import { Compiler, EntryPlugin } from '@rspack/core';
-import PageEntry from '../../../entries/PageEntry';
-import { clearComponentsCache } from '../getUsingComponents';
 
 const PLUGIN_NAME = 'RsmaxPageAssetPlugin';
 

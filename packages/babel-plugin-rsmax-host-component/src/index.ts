@@ -1,11 +1,11 @@
+import type { ConfigAPI } from '@babel/core';
 import { declare } from '@babel/helper-plugin-utils';
-import { NodePath } from '@babel/traverse';
-import { ConfigAPI } from '@babel/core';
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { kebabCase } from 'lodash';
-import type { HostComponent, Platform } from '@rsmax/types';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
+import type { HostComponent, Platform } from '@rsmax/types';
+import { kebabCase } from 'lodash';
 
 interface Options {
   target: Platform;
@@ -130,7 +130,7 @@ export default function hostComponent(options: Options) {
           }
 
           if (t.isJSXNamespacedName(prop)) {
-            propName = prop.namespace.name + ':' + prop.name.name;
+            propName = `${prop.namespace.name}:${prop.name.name}`;
           }
 
           /**
@@ -220,9 +220,8 @@ export default function hostComponent(options: Options) {
         Store.slotView.props = Array.from(new Set([...Store.slotView.props, ...props]));
 
         return;
-      } else {
-        props = getProps(id, node);
       }
+        props = getProps(id, node);
 
       if (!props) {
         return;

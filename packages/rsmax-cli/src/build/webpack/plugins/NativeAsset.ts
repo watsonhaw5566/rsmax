@@ -1,5 +1,5 @@
-import { Compilation, Compiler, sources } from '@rspack/core';
-import Builder from '../../Builder';
+import { type Compilation, type Compiler, sources } from '@rspack/core';
+import type Builder from '../../Builder';
 import NativeEntry from '../../entries/NativeEntry';
 
 const PLUGIN_NAME = 'NativeAssetPlugin';
@@ -65,6 +65,6 @@ export default class NativeAssetPlugin {
       compilation.assets[asset.output] = new sources.RawSource(asset.content);
     });
     const manifestContent = Buffer.from(JSON.stringify(entry.getManifest(), null, 2));
-    compilation.assets[entry.name + '.json'] = new sources.RawSource(manifestContent);
+    compilation.assets[`${entry.name}.json`] = new sources.RawSource(manifestContent);
   }
 }

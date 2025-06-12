@@ -1,8 +1,8 @@
+import { PluginDriver, RuntimeOptions } from '@rsmax/framework-shared';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import hd from 'umi-hd';
 import createAppConfig from './createAppConfig';
-import { PluginDriver, RuntimeOptions } from '@rsmax/framework-shared';
 import createPageConfig from './createPageConfig';
 
 const noop = () => {
@@ -56,7 +56,7 @@ export default function bootstrap(options: any) {
       if (url.startsWith('/')) publicPath = location.pathname.replace(`/${page.route}.html`, '');
 
       const arr = url.split('?');
-      arr[0] = arr[0] + '.html';
+      arr[0] = `${arr[0]}.html`;
       return publicPath + arr.join('?');
     },
   };

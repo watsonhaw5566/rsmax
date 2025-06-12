@@ -1,13 +1,13 @@
-import React from 'react';
-import { RuntimeOptions, PluginDriver } from '@rsmax/framework-shared';
-import { CacheRoute, CacheSwitch } from '@remax/react-router-cache-route';
-import { Router, Route, Redirect, useLocation } from 'react-router-dom';
 import loadable from '@loadable/component';
-import { History } from 'history';
-import { BootstrapOptions } from './types';
+import { CacheRoute, CacheSwitch } from '@remax/react-router-cache-route';
+import { PluginDriver, RuntimeOptions } from '@rsmax/framework-shared';
+import type { History } from 'history';
+import React from 'react';
+import { Redirect, Route, Router, useLocation } from 'react-router-dom';
+import { TabBar } from './TabBar';
 import createAppConfig from './createAppConfig';
 import createPageConfig from './createPageConfig';
-import { TabBar } from './TabBar';
+import type { BootstrapOptions } from './types';
 
 export default function createApp(options: BootstrapOptions, history: History) {
   const { async = true, appComponent, appConfig, pageComponents, pages, plugins = [] } = options;

@@ -1,9 +1,9 @@
-import { Compilation, sources } from '@rspack/core';
-import path from 'path';
-import SourceCache from '../../../../SourceCache';
+import path from 'node:path';
+import { type Compilation, sources } from '@rspack/core';
+import type SourceCache from '../../../../SourceCache';
+import type Builder from '../../../Builder';
+import type ComponentEntry from '../../../entries/ComponentEntry';
 import { getUsingComponents } from '../getUsingComponents';
-import Builder from '../../../Builder';
-import ComponentEntry from '../../../entries/ComponentEntry';
 
 export default function createManifest(
   builder: Builder,
@@ -12,7 +12,7 @@ export default function createManifest(
   cache: SourceCache
 ) {
   const { options } = builder;
-  const manifestPath = component.name + '.json';
+  const manifestPath = `${component.name}.json`;
   const config = component.getManifest();
 
   const prePath = path.relative(
@@ -24,7 +24,7 @@ export default function createManifest(
   getUsingComponents(component.filename, compilation, options, prePath).forEach(component => {
     let compentPath = component.path;
     if (!compentPath.startsWith('.')) {
-      compentPath = './' + compentPath;
+      compentPath = `./${compentPath}`;
     }
     usingComponents[component.id] = compentPath;
   });

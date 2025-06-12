@@ -1,7 +1,7 @@
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { NodePath } from '@babel/traverse';
-import insertImportDeclaration from './utils/insertImportDeclaration';
 import Store from '@rsmax/build-store';
+import insertImportDeclaration from './utils/insertImportDeclaration';
 
 const PACKAGE_NAME = '@rsmax/runtime';
 const FUNCTION_NAME = 'createNativeComponent';

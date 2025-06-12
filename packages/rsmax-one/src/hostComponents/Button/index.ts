@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 import createHostComponent from '../../createHostComponent';
-import { TapEvent } from '../../types';
+import type { TapEvent } from '../../types';
 import alias from './props/alias';
 import defaults from './props/default';
 

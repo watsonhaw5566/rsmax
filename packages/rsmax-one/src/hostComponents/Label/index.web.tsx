@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { LabelProps } from './props';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
+import type { LabelProps } from './props';
 
 export type { LabelProps };
 

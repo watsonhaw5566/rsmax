@@ -1,5 +1,5 @@
+import { ComponentInstanceContext, RuntimeOptions } from '@rsmax/framework-shared';
 import * as React from 'react';
-import { RuntimeOptions, ComponentInstanceContext } from '@rsmax/framework-shared';
 import Container from './Container';
 import render from './render';
 

@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps } from '../../types/component';
+import type React from 'react';
+import type { BaseProps } from '../../types/component';
 
 export interface RichTextProps extends BaseProps {
   /** 节点列表/HTML String 1.4.0 */

@@ -1,9 +1,9 @@
 import type { Options } from '@rsmax/types';
-import API from '../API';
+import type { Configuration } from '@rspack/core';
+import { logger } from 'rslog';
+import type API from '../API';
 import Builder from './Builder';
 import webpackConfig from './webpack/config.miniPlugin';
-import { Configuration } from '@rspack/core';
-import { logger } from 'rslog';
 
 export default class MiniPluginBuilder extends Builder {
   constructor(api: API, options: Options) {

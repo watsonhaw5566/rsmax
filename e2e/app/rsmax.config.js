@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const less = require('@rsmax/plugin-less');
 
 module.exports = {

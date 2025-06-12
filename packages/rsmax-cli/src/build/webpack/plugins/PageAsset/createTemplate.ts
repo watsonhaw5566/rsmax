@@ -1,15 +1,15 @@
-import { sortBy } from 'lodash';
-import { Compilation, sources } from '@rspack/core';
-import ejs from 'ejs';
-import type { Options, Meta, EntryInfo } from '@rsmax/types';
 import Store from '@rsmax/build-store';
-import SourceCache from '../../../../SourceCache';
-import { getUsingComponents } from '../getUsingComponents';
 import { slash } from '@rsmax/shared';
-import API from '../../../../API';
-import NormalEntry from '../../../entries/NormalEntry';
-import PageEntry from '../../../entries/PageEntry';
+import type { EntryInfo, Meta, Options } from '@rsmax/types';
+import { type Compilation, sources } from '@rspack/core';
+import ejs from 'ejs';
+import { sortBy } from 'lodash';
+import type API from '../../../../API';
+import type SourceCache from '../../../../SourceCache';
 import { ensureDepth } from '../../../../defaultOptions/UNSAFE_wechatTemplateDepth';
+import type NormalEntry from '../../../entries/NormalEntry';
+import PageEntry from '../../../entries/PageEntry';
+import { getUsingComponents } from '../getUsingComponents';
 
 export function createRenderOptions(page: string, compilation: Compilation, options: Options, filter = true) {
   const components = new Map(Store.getCollectedComponents());

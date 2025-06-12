@@ -1,15 +1,15 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import type { EntryInfo, AppConfig, MiniPluginConfig } from '@rsmax/types';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { slash } from '@rsmax/shared';
-import { replaceExtension } from './utils/paths';
-import Builder from './Builder';
-import NormalEntry from './entries/NormalEntry';
-import NativeEntry from './entries/NativeEntry';
+import type { AppConfig, EntryInfo, MiniPluginConfig } from '@rsmax/types';
+import type Builder from './Builder';
 import AppEntry from './entries/AppEntry';
-import PageEntry from './entries/PageEntry';
 import ComponentEntry from './entries/ComponentEntry';
 import MpaEntry from './entries/MpaEntry';
+import NativeEntry from './entries/NativeEntry';
+import NormalEntry from './entries/NormalEntry';
+import PageEntry from './entries/PageEntry';
+import { replaceExtension } from './utils/paths';
 
 type Entries = Map<string, PageEntry | ComponentEntry | NativeEntry>;
 

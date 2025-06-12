@@ -1,8 +1,8 @@
-import propsAlias, { propAlias } from './propsAlias';
-import { REMAX_METHOD, TYPE_TEXT } from './constants';
-import Container from './Container';
 import { RuntimeOptions } from '@rsmax/framework-shared';
+import type Container from './Container';
 import { createCallbackProxy } from './SyntheticEvent/createCallbackProxy';
+import { REMAX_METHOD, TYPE_TEXT } from './constants';
+import propsAlias, { propAlias } from './propsAlias';
 
 export interface RawNode {
   id: number;

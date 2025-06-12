@@ -1,5 +1,5 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
 
 export interface PageMetaProps {
   /** 窗口的背景色，必须为十六进制颜色值 */

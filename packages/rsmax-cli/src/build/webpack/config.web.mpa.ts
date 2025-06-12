@@ -1,13 +1,13 @@
-import path from 'node:path';
 import fs from 'node:fs';
-import { Configuration } from '@rspack/core';
-import Config from 'rspack-chain';
+import path from 'node:path';
+import type { Configuration } from '@rspack/core';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import Config from 'rspack-chain';
+import type Builder from '../Builder';
+import FallbackEntry from '../entries/FallbackEntry';
+import type VirtualEntry from '../entries/VirtualEntry';
 import baseConfig from './baseConfig';
 import webBaseConfig from './webBaseConfig';
-import Builder from '../Builder';
-import FallbackEntry from '../entries/FallbackEntry';
-import VirtualEntry from '../entries/VirtualEntry';
 
 export default function webpackConfig(builder: Builder): Configuration {
   const config = new Config();
@@ -16,10 +16,10 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   const addEntry = (entry: VirtualEntry) => {
     config.entry(entry.name).add(entry.virtualPath);
-    config.plugin('rspack-virtual-modules' + entry.name).use(entry.virtualModule);
-    config.plugin('html-webpack-plugin' + entry.name).use(HtmlWebpackPlugin, [
+    config.plugin(`rspack-virtual-modules${entry.name}`).use(entry.virtualModule);
+    config.plugin(`html-webpack-plugin${entry.name}`).use(HtmlWebpackPlugin, [
       {
-        filename: entry.name + '.html',
+        filename: `${entry.name}.html`,
         chunks: [entry.name],
         template: fs.existsSync(path.join(builder.projectPath.publicDir(), '/index.html'))
           ? path.join(builder.projectPath.publicDir(), '/index.html')

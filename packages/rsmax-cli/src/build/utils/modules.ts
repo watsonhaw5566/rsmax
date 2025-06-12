@@ -1,4 +1,4 @@
-import { Chunk, Compilation, Module } from '@rspack/core';
+import type { Chunk, Compilation, Module } from '@rspack/core';
 
 function getModuleResource(module: Module): string {
   if (!module) {

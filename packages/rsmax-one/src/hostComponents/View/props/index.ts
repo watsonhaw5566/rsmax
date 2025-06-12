@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { TapEvent, TouchStartEvent, TouchEndEvent, TouchMoveEvent, TouchCancelEvent } from '../../../types';
+import type * as React from 'react';
+import type { TapEvent, TouchCancelEvent, TouchEndEvent, TouchMoveEvent, TouchStartEvent } from '../../../types';
 
 export { default as defaults } from './default';
 

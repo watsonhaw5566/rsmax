@@ -1,5 +1,5 @@
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { NodePath } from '@babel/traverse';
 
 function getName(callExpression: NodePath<t.CallExpression>) {
   const args = callExpression.node.arguments;

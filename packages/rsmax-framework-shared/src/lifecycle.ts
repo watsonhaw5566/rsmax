@@ -48,7 +48,7 @@ export function callbackName(name: string) {
     return name;
   }
 
-  return 'on' + capitalize(name);
+  return `on${capitalize(name)}`;
 }
 
 export function registerLifecycle(instance: any, method: Lifecycle | AppLifecycle, callback: Callback) {

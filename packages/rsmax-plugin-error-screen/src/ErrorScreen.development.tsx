@@ -1,5 +1,5 @@
-import React from 'react';
 import RedBox from '@rsmax/redbox-react';
+import type React from 'react';
 
 interface Props {
   error: Error;

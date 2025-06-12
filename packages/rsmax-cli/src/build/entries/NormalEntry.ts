@@ -1,7 +1,7 @@
 import { slash } from '@rsmax/shared';
-import Builder from '../Builder';
-import { replaceExtension } from '../utils/paths';
 import readManifest from '../../readManifest';
+import type Builder from '../Builder';
+import { replaceExtension } from '../utils/paths';
 
 export default class NormalEntry {
   builder: Builder;

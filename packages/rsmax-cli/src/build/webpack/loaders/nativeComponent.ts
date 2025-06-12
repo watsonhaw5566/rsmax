@@ -2,10 +2,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import Store from '@rsmax/build-store';
 import { isNativeComponent, slash } from '@rsmax/shared';
-import { getNativeAssetOutputPath, replaceExtension } from '../../utils/paths';
+import type { LoaderContext } from '@rspack/core';
 import { cssExtensions } from '../../../extensions';
 import NativeEntry from '../../entries/NativeEntry';
-import { LoaderContext } from '@rspack/core';
+import { getNativeAssetOutputPath, replaceExtension } from '../../utils/paths';
 
 const EntryFilePathRegex = /\.entry\.(js|ts)$/;
 
@@ -28,7 +28,7 @@ export default async function nativeModule(this: LoaderContext<any>, source: str
     builder.entryCollection.entries.get(entryRealPath) ||
     builder.entryCollection.nativeComponentEntries.get(entryRealPath);
 
-  if (entry instanceof NativeEntry && resourcePath != entryRealPath) {
+  if (entry instanceof NativeEntry && resourcePath !== entryRealPath) {
     entry.watchAssets(this);
     await Promise.all(
       Array.from(entry.getDependentEntries().values()).map(component => {

@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
-import { Compilation, NormalModule } from '@rspack/core';
+import type { Compilation, NormalModule } from '@rspack/core';
 import { getNativeAssetOutputPath } from '../../utils/paths';
 
 interface Component {

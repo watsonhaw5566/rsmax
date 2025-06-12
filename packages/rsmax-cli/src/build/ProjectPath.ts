@@ -1,10 +1,10 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as resolve from 'resolve';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { slash } from '@rsmax/shared';
-import { replaceExtension } from './utils/paths';
-import Builder from './Builder';
+import * as resolve from 'resolve';
 import { targetExtensions } from '../extensions';
+import type Builder from './Builder';
+import { replaceExtension } from './utils/paths';
 
 export default class ProjectPath {
   builder: Builder;

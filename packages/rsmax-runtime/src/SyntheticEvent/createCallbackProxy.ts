@@ -1,7 +1,7 @@
 import { find } from '@rsmax/framework-shared';
+import type VNode from '../VNode';
+import { DEPRECATED_CATCH_TYPE, SYNTHETIC_TYPES } from './constants';
 import stopPropagation, { validate as validatePropagation, isPropagationStopped } from './stopPropagation';
-import { SYNTHETIC_TYPES, DEPRECATED_CATCH_TYPE } from './constants';
-import VNode from '../VNode';
 
 function isSyntheticType(inputType: string) {
   if (DEPRECATED_CATCH_TYPE === inputType) {
@@ -31,7 +31,7 @@ export function createCallbackProxy(eventType: string, node: VNode, callback: (.
     return callback;
   }
 
-  return function (nativeEvent: any, ...restParams: any) {
+  return (nativeEvent: any, ...restParams: any) => {
     const syntheticEvent = createBaseSyntheticEvent(node, eventType, nativeEvent);
 
     if (isPropagationStopped[eventType]) {

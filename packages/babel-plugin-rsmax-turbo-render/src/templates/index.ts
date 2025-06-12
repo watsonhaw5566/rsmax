@@ -1,9 +1,9 @@
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
 import * as helpers from '../helpers';
-import { NodePath } from '@babel/traverse';
+import type { Options, RenderNode } from '../types';
 import JSXElement from './JSXElement';
 import JSXExpressionContainer from './JSXExpressionContainer';
-import { RenderNode, Options } from '../types';
 
 /**
  * 创建单个原生模板

@@ -1,8 +1,8 @@
-import React from 'react';
+import { Lifecycle, callbackName, createPageWrapper } from '@rsmax/framework-shared';
 import qs from 'qs';
-import { createPageWrapper, Lifecycle, callbackName } from '@rsmax/framework-shared';
+import React from 'react';
 import PullToRefresh from './PullToRefresh';
-import { TabBarConfig, PageConfig } from './types';
+import type { PageConfig, TabBarConfig } from './types';
 
 interface LifeCycleCallback {
   [key: string]: Array<() => void>;
@@ -41,7 +41,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       }
 
       const callback = callbackName(lifeCycle);
-      if (this.wrapperRef.current && this.wrapperRef.current[callback]) {
+      if (this.wrapperRef.current?.[callback]) {
         return this.wrapperRef.current[callback](...args);
       }
     },

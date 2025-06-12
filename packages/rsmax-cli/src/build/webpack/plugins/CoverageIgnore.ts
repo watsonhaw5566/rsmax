@@ -1,4 +1,4 @@
-import { Compiler, sources, Compilation } from '@rspack/core';
+import { Compilation, type Compiler, sources } from '@rspack/core';
 
 const { ConcatSource, RawSource } = sources;
 

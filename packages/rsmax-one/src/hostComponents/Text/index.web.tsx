@@ -1,7 +1,7 @@
-import * as React from 'react';
 import clsx from 'clsx';
-import { TextWebProps } from './props';
+import * as React from 'react';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
+import type { TextWebProps } from './props';
 
 export type TextProps = TextWebProps;
 

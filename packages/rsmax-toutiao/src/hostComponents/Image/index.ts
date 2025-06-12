@@ -1,7 +1,7 @@
-import React from 'react';
+import type React from 'react';
 
-import { BaseProps } from '../../types/component';
 import { createHostComponent } from '@rsmax/runtime';
+import type { BaseProps } from '../../types/component';
 
 export interface ImageProps extends BaseProps {
   src?: string;

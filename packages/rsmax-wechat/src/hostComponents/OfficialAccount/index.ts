@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type * as React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface OfficialAccountProps extends BaseProps {
   /** 组件加载成功时触发 */

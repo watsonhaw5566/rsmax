@@ -1,7 +1,7 @@
-import path from 'node:path';
 import fs from 'node:fs';
-import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
+import path from 'node:path';
 import { slash } from '@rsmax/shared';
+import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 
 export default (_: any, { cwd, rootDir }: { cwd: string; rootDir: string }) => {
   const searchCustomErrorFile = () => {

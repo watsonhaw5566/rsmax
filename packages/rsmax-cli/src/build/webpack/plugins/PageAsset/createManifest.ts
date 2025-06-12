@@ -1,9 +1,9 @@
-import * as path from 'path';
-import { Compilation, sources } from '@rspack/core';
-import SourceCache from '../../../../SourceCache';
+import * as path from 'node:path';
+import { type Compilation, sources } from '@rspack/core';
+import type SourceCache from '../../../../SourceCache';
+import type Builder from '../../../Builder';
+import type PageEntry from '../../../entries/PageEntry';
 import { getUsingComponents } from '../getUsingComponents';
-import Builder from '../../../Builder';
-import PageEntry from '../../../entries/PageEntry';
 
 export default function createManifest(
   builder: Builder,
@@ -12,7 +12,7 @@ export default function createManifest(
   cache: SourceCache
 ) {
   const { options, api } = builder;
-  const manifestPath = page.name + '.json';
+  const manifestPath = `${page.name}.json`;
   const config = page.getManifest();
 
   const prefixPath = path.relative(

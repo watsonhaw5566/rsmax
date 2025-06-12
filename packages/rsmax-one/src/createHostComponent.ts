@@ -1,15 +1,15 @@
-import * as React from 'react';
-import memoizeOne from 'memoize-one';
 import { formatDisplayName } from '@rsmax/framework-shared';
-import {
+import memoizeOne from 'memoize-one';
+import * as React from 'react';
+import type {
+  EventCurrentTarget,
+  EventTarget,
+  FormEvent,
+  ImageErrorEvent,
+  ImageLoadEvent,
+  InputEvent,
   TapEvent,
   TouchEvent,
-  EventTarget,
-  EventCurrentTarget,
-  ImageLoadEvent,
-  ImageErrorEvent,
-  InputEvent,
-  FormEvent,
 } from './types';
 
 export function createTarget(target: any, detail: any): EventTarget {

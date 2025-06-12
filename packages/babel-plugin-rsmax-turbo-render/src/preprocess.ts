@@ -1,9 +1,9 @@
 import { declare } from '@babel/helper-plugin-utils';
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { NodePath } from '@babel/traverse';
-import * as helpers from './helpers';
 import { SKIP_ELEMENTS } from './constants';
-import { Options } from './types';
+import * as helpers from './helpers';
+import type { Options } from './types';
 
 const noop = t.jsxExpressionContainer(t.arrowFunctionExpression([], t.blockStatement([]), false));
 
