@@ -7,3 +7,4 @@ __tests__
 packages/**/templates/*.ejs
 cjs
 esm
+pnpm-lock.yaml
