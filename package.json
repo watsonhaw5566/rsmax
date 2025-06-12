@@ -8,6 +8,7 @@
     "build": "tsc -b && lerna run build:cjs",
     "clean": "lerna clean",
     "clean:packages": "lerna run clean",
+    "format": "prettier --write .",
     "lint": "eslint \"packages/*/src/**/*.{ts,tsx}\"",
     "prepack": "pnpm run readme:copy",
     "postpack": "pnpm run readme:clean",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.7.4",
+    "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^8.1.0",
     "@types/babel__core": "^7.7.4",
