@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'rsmax/one';
+import { Text, View } from 'rsmax/one';
 
 export default () => {
   const [showB, setB] = React.useState(false);

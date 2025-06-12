@@ -1,15 +1,15 @@
 import './polyfills/Function';
-import * as React from 'react';
-import { ForwardRef } from 'react-is';
-import render from './render';
-import AppContainer from './AppContainer';
 import {
   AppInstanceContext,
   AppLifecycle,
+  RuntimeOptions,
   callbackName,
   isClassComponent,
-  RuntimeOptions,
 } from '@rsmax/framework-shared';
+import * as React from 'react';
+import { ForwardRef } from 'react-is';
+import AppContainer from './AppContainer';
+import render from './render';
 
 class DefaultAppComponent extends React.Component {
   render() {
@@ -46,7 +46,7 @@ export default function createAppConfig(this: any, App: any) {
         }
 
         const callback = callbackName(lifecycle);
-        if (this._instance.current && this._instance.current[callback]) {
+        if (this._instance.current?.[callback]) {
           return this._instance.current[callback](...args);
         }
       },

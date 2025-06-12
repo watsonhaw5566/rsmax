@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps } from '../../types/component';
+import type React from 'react';
+import type { BaseProps } from '../../types/component';
 
 /**
  * 基础库 3.0.1 开始支持，低版本需做兼容处理。

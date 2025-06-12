@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
+import { TEMPLATE_ID } from '../constants';
 import * as helpers from '../helpers';
 import stringPath from './stringPath';
-import { TEMPLATE_ID } from '../constants';
 
 /**
  * 创建 JSXExpressionContainer 对应的模板

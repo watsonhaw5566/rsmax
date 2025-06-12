@@ -1,6 +1,6 @@
-import React from 'react';
-import { BaseProps, GenericEvent } from '../../types/component';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface VoipRoomProps extends BaseProps {
   /** 进入房间用户的 openid 2.11.0 */

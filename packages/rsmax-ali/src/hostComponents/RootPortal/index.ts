@@ -1,5 +1,5 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
 
 /**
  * 基础库 2.8.3 开始支持，低版本需要做 兼容处理。

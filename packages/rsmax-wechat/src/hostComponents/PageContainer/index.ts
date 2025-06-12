@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface PageContainerProps extends BaseProps {
   /** 是否显示容器组件 2.16.0 */

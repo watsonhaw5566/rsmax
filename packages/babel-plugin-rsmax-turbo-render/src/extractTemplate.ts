@@ -1,11 +1,11 @@
 import { declare } from '@babel/helper-plugin-utils';
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { NodePath } from '@babel/traverse';
 import Store from '@rsmax/build-store';
-import { TEMPLATE_ID, ENTRY, EXPRESSION_BLOCK, SKIP_ELEMENTS } from './constants';
-import { createTemplate } from './templates';
-import { JSXNode, RenderNode, Options } from './types';
+import { ENTRY, EXPRESSION_BLOCK, SKIP_ELEMENTS, TEMPLATE_ID } from './constants';
 import * as helpers from './helpers';
+import { createTemplate } from './templates';
+import type { JSXNode, Options, RenderNode } from './types';
 
 function isSlotElement(node: t.Node) {
   if (

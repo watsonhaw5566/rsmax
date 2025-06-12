@@ -1,4 +1,4 @@
-import { AppLifecycle } from './lifecycle';
+import type { AppLifecycle } from './lifecycle';
 
 const AppInstanceContext = {
   lifecycleCallback: {} as any,

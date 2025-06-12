@@ -1,9 +1,9 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import * as babelParser from '@babel/parser';
 import traverse from '@babel/traverse';
+import type { Meta } from '@rsmax/types';
 import * as htmlparser2 from 'htmlparser2';
 import { get } from 'lodash';
-import type { Meta } from '@rsmax/types';
 import { getPath } from './helpers';
 
 const walk = (jsHelperPath: string, jsHelpers: Set<string>) => {

@@ -3,20 +3,11 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "esm",
-    "lib": [
-      "ES2015",
-      "DOM"
-    ],
+    "lib": ["ES2015", "DOM"],
     "declaration": true,
     "jsx": "react",
-    "types": [
-      "@types/node",
-      "miniprogram-api-typings",
-      "vitest/globals"
-    ],
+    "types": ["@types/node", "miniprogram-api-typings", "vitest/globals"],
     "downlevelIteration": true
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface LivePlayerProps extends BaseProps {
   /** 音视频地址。目前仅支持 flv, rtmp 格式 1.7.0  */

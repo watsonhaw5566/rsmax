@@ -1,11 +1,11 @@
-import * as t from '@babel/types';
-import type { Plugin, Meta, HostComponent, Platform, Options } from '@rsmax/types';
-import { slash } from '@rsmax/shared';
-import { merge } from 'lodash';
-import Config from 'rspack-chain';
-import { RuleConfig } from './build/webpack/config/css';
-import yargs from 'yargs';
+import type * as t from '@babel/types';
 import Store from '@rsmax/build-store';
+import { slash } from '@rsmax/shared';
+import type { HostComponent, Meta, Options, Platform, Plugin } from '@rsmax/types';
+import { merge } from 'lodash';
+import type Config from 'rspack-chain';
+import type yargs from 'yargs';
+import type { RuleConfig } from './build/webpack/config/css';
 import { builtinPlugins } from './builtinPlugins';
 
 export default class API {
@@ -174,9 +174,9 @@ export default class API {
 
   public registerAdapterPlugins(targetName: Platform) {
     this.adapter.target = targetName;
-    this.adapter.packageName = '@rsmax/' + targetName;
+    this.adapter.packageName = `@rsmax/${targetName}`;
 
-    const packagePath = this.adapter.packageName + '/node';
+    const packagePath = `${this.adapter.packageName}/node`;
 
     let plugin = require(packagePath).default || require(packagePath);
     plugin = typeof plugin === 'function' ? plugin() : plugin;

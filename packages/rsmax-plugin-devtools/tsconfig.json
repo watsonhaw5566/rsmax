@@ -8,5 +8,5 @@
     "outDir": "lib",
     "skipLibCheck": true,
     "resolveJsonModule": true
-  },
+  }
 }

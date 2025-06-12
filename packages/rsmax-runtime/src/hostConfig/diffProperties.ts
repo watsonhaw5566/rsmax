@@ -86,7 +86,7 @@ export default function diffProperties(
       }
     } else if (propKey === CHILDREN) {
       if (lastProp !== nextProp && (typeof nextProp === 'string' || typeof nextProp === 'number')) {
-        updatePayload.push(propKey, '' + nextProp);
+        updatePayload.push(propKey, `${nextProp}`);
       }
     } else {
       // For any other property we always add it to the queue and then we

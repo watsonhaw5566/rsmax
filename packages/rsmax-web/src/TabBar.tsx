@@ -1,7 +1,7 @@
+import type { History } from 'history';
 import React from 'react';
-import { History } from 'history';
 import { Link } from 'react-router-dom';
-import { TabBarConfig, TabItem } from './types';
+import type { TabBarConfig, TabItem } from './types';
 
 export function TabBar({ config, history }: { config: TabBarConfig; history: History }) {
   const [currentPath, setCurrentPath] = React.useState<string>(history.location.pathname);
@@ -16,7 +16,7 @@ export function TabBar({ config, history }: { config: TabBarConfig; history: His
 
   const isActive = (url: string) => {
     if (!url.startsWith('/')) {
-      url = '/' + url;
+      url = `/${url}`;
     }
 
     return currentPath === url;

@@ -1,6 +1,6 @@
-import { CSSProperties } from 'react';
-import { isUnitlessNumber } from './CSSProperty';
 import { RuntimeOptions } from '@rsmax/framework-shared';
+import type { CSSProperties } from 'react';
+import { isUnitlessNumber } from './CSSProperty';
 
 const vendorPrefixes = ['webkit', 'moz', 'ms', 'o'];
 
@@ -10,9 +10,7 @@ const transformReactStyleKey = (key: string) => {
     return key;
   }
 
-  let styleValue = key.replace(/\.?([A-Z]+)/g, function (_x: any, y: string) {
-    return '-' + y.toLowerCase();
-  });
+  let styleValue = key.replace(/\.?([A-Z]+)/g, (_x: any, y: string) => `-${y.toLowerCase()}`);
 
   // vendor prefix
   if (styleValue?.startsWith('-')) {
@@ -20,7 +18,7 @@ const transformReactStyleKey = (key: string) => {
     styleValue = styleValue.replace(/^-/, '');
 
     if (vendorPrefixes.find(prefix => prefix === firstWord)) {
-      styleValue = '-' + styleValue;
+      styleValue = `-${styleValue}`;
     }
   }
 
@@ -32,7 +30,7 @@ const transformPx = (value: string) => {
     return value;
   }
 
-  return value.replace(/\b(\d+(\.\d+)?)px\b/g, function (match, x) {
+  return value.replace(/\b(\d+(\.\d+)?)px\b/g, (match, x) => {
     const targetUnit = 'rem';
     const size = Number(x / 100);
     return size % 1 === 0 ? size + targetUnit : size.toFixed(2) + targetUnit;
@@ -49,7 +47,7 @@ const plainStyle = (style?: CSSProperties) => {
       let value = (style as any)[key];
 
       if (!Number.isNaN(Number(value)) && !isUnitlessNumber[key]) {
-        value = value + 'rpx';
+        value = `${value}rpx`;
       }
 
       return [...acc, `${transformReactStyleKey(key)}:${RuntimeOptions.get('pxToRpx') ? transformPx(value) : value};`];

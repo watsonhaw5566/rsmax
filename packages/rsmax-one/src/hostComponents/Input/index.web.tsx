@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { InputWebProps } from './props';
-import { filterProps } from '../../utils/isPlatformSpecifyProp';
-import useWebPlaceholderStyle from '../../useWebPlaceholderStyle';
 import clsx from 'clsx';
+import * as React from 'react';
+import useWebPlaceholderStyle from '../../useWebPlaceholderStyle';
+import { filterProps } from '../../utils/isPlatformSpecifyProp';
+import type { InputWebProps } from './props';
 
 export type InputProps = InputWebProps;
 

@@ -1,7 +1,7 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
 
-import { BaseProps } from '../../types/component';
+import type { BaseProps } from '../../types/component';
 
 /**
  * https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/component/view-container/movable-area

@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface NavigatorProps extends BaseProps {
   /** (default: self) 在哪个目标上发生跳转，默认当前小程序 2.0.7 */

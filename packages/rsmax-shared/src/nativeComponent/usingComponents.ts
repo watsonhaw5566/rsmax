@@ -1,6 +1,6 @@
-import { existsSync } from 'fs';
-import resolve from 'resolve';
+import { existsSync } from 'node:fs';
 import type { Options } from '@rsmax/types';
+import resolve from 'resolve';
 import { getPath } from './helpers';
 
 const runWalk = (filePath: string, components: Set<string>, options: Options) => {

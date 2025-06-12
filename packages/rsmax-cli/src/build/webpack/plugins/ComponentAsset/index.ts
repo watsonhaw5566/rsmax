@@ -1,11 +1,11 @@
-import { Compiler } from '@rspack/core';
+import type { Compiler } from '@rspack/core';
 import SourceCache from '../../../../SourceCache';
-import createManifest from './createManifest';
-import createTemplate from './createTemplate';
+import type Builder from '../../../Builder';
+import ComponentEntry from '../../../entries/ComponentEntry';
 import getModules from '../../../utils/modules';
 import createTurboTemplate from '../PageAsset/createTurboTemplate';
-import Builder from '../../../Builder';
-import ComponentEntry from '../../../entries/ComponentEntry';
+import createManifest from './createManifest';
+import createTemplate from './createTemplate';
 
 const PLUGIN_NAME = 'RsmaxComponentAssetPlugin';
 

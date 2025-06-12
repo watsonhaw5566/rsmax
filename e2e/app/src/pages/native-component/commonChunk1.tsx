@@ -1,7 +1,7 @@
+import B from '@/components/b';
+import G from '@/components/g';
 import * as React from 'react';
 import { View } from 'rsmax/one';
-import G from '@/components/g';
-import B from '@/components/b';
 
 // 测试存在 common chunk 的情况
 

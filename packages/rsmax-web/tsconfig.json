@@ -6,13 +6,7 @@
     "declaration": true,
     "jsx": "react",
     "downlevelIteration": true,
-    "types": [
-      "@types/node",
-      "vitest/globals"
-    ]
+    "types": ["@types/node", "vitest/globals"]
   },
-  "exclude": [
-    "cjs",
-    "esm"
-  ]
+  "exclude": ["cjs", "esm"]
 }

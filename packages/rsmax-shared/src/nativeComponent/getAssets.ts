@@ -1,8 +1,8 @@
-import type { Options, Meta } from '@rsmax/types';
+import type { Meta, Options } from '@rsmax/types';
 import jsHelper from './jsHelper';
+import json from './json';
 import jsModule from './modules';
 import style from './style';
-import json from './json';
 import template from './template';
 import usingComponents from './usingComponents';
 

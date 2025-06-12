@@ -1,5 +1,5 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
 
 export interface PageContainerProps {
   /** 是否显示容器组件 */

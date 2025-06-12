@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps } from '../../types/component';
+import type React from 'react';
+import type { BaseProps } from '../../types/component';
 
 export interface LabelProps extends BaseProps {
   /** 绑定控件的 id 1.0.0 */

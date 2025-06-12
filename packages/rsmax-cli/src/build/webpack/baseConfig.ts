@@ -1,9 +1,9 @@
 import path from 'node:path';
 import { rspack } from '@rspack/core';
-import Config from 'rspack-chain';
+import type Config from 'rspack-chain';
+import type Builder from '../Builder';
 import alias from '../utils/alias';
 import getEnvironment from '../utils/env';
-import Builder from '../Builder';
 
 export default function baseConfig(config: Config, builder: Builder) {
   config.resolveLoader.modules

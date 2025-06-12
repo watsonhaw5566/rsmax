@@ -1,8 +1,8 @@
+import * as path from 'node:path';
+import type { RuleConfig } from '@rsmax/cli/lib/build/webpack/config/css';
 import _ from 'lodash';
-import * as path from 'path';
-import { IArgv } from './types';
-import WebpackConfig from 'rspack-chain';
-import { RuleConfig } from '@rsmax/cli/lib/build/webpack/config/css';
+import type WebpackConfig from 'rspack-chain';
+import type { IArgv } from './types';
 
 export type IBuildType = 'esm' | 'ali' | 'wechat';
 

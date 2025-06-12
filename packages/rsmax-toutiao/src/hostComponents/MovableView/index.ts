@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 /***
  * https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/component/view-container/movable-view

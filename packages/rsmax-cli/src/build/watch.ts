@@ -1,5 +1,5 @@
 import chokidar from 'chokidar';
-import Builder from './Builder';
+import type Builder from './Builder';
 
 let isRunning = true;
 

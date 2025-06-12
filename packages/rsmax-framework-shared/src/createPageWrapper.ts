@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { ForwardRef } from 'react-is';
-import isClassComponent from './utils/isClassComponent';
-import { Lifecycle, Callback, callbackName } from './lifecycle';
 import PageInstanceContext from './PageInstanceContext';
 import * as RuntimeOptions from './RuntimeOptions';
+import { type Callback, Lifecycle, callbackName } from './lifecycle';
+import isClassComponent from './utils/isClassComponent';
 
 export interface PageProps<Q = Record<string, string | undefined>> {
   location: {

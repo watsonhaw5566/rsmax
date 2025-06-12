@@ -1,5 +1,5 @@
-import * as t from '@babel/types';
-import { NodePath } from '@babel/traverse';
+import type { NodePath } from '@babel/traverse';
+import type * as t from '@babel/types';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 

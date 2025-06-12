@@ -1,8 +1,8 @@
 import scheduler from 'scheduler';
+import type Container from '../Container';
+import VNode from '../VNode';
 import { TYPE_TEXT } from '../constants';
 import { generate } from '../instanceId';
-import VNode from '../VNode';
-import Container from '../Container';
 import diffProperties from './diffProperties';
 
 const {

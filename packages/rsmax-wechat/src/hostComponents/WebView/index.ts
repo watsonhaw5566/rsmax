@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface WebViewProps extends BaseProps {
   /** webview 指向网页的链接。可打开关联的公众号的文章，其它网页需登录小程序管理后台配置业务域名。 1.6.4  */

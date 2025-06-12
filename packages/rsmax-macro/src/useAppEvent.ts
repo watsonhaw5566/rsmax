@@ -1,7 +1,7 @@
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { slash } from '@rsmax/shared';
-import { NodePath } from '@babel/traverse';
 import Store from '@rsmax/build-store';
+import { slash } from '@rsmax/shared';
 import insertImportDeclaration from './utils/insertImportDeclaration';
 
 const PACKAGE_NAME = '@rsmax/runtime';

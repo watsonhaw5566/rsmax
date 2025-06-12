@@ -1,6 +1,6 @@
+import { AppInstanceContext, AppLifecycle, callbackName, isClassComponent } from '@rsmax/framework-shared';
 import React from 'react';
 import { ForwardRef } from 'react-is';
-import { AppInstanceContext, AppLifecycle, callbackName, isClassComponent } from '@rsmax/framework-shared';
 
 class DefaultAppComponent extends React.Component {
   render() {
@@ -24,7 +24,7 @@ export default function createAppConfig(this: any, App: any) {
         }
 
         const callback = callbackName(lifecycle);
-        if (this._instance.current && this._instance.current[callback]) {
+        if (this._instance.current?.[callback]) {
           return this._instance.current[callback](...args);
         }
       },

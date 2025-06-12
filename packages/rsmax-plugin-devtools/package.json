@@ -5,25 +5,25 @@
   "keywords": [
     "react"
   ],
-  "author": "Meck Zhu <yesmeck@gmail.com>",
   "homepage": "https://reamxjs.org",
-  "license": "MIT",
-  "main": "index.js",
-  "files": [
-    "lib"
-  ],
+  "bugs": {
+    "url": "https://github.com/remaxjs/remax/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/remaxjs/remax.git"
   },
+  "license": "MIT",
+  "author": "Meck Zhu <yesmeck@gmail.com>",
+  "main": "index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "echo done",
     "prebuild": "npm run clean",
-    "build": "tsc"
-  },
-  "bugs": {
-    "url": "https://github.com/remaxjs/remax/issues"
+    "build": "tsc",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "test": "echo done"
   },
   "dependencies": {
     "@remax/react-devtools-core": "^4.7.1",

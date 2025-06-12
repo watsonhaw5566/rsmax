@@ -1,6 +1,6 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
-import { BaseProps, GenericEvent } from '../../types/component';
+import type React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 export interface FunctionalPageNavigatorProps extends BaseProps {
   /** (default: release) 跳转到的小程序版本，线上版本必须设置为 release 2.1.0  */

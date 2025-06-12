@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Portal } from 'react-is';
 
 export function createPortal(children: React.ReactNode, containerInfo: any, key?: string): any {

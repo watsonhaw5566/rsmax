@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import path from 'path';
+import * as fs from 'node:fs';
+import path from 'node:path';
 import { slash } from '../path';
 
 export const isNativeComponent = (sourcePath: string | null): boolean => {
@@ -27,13 +27,9 @@ export const getPath = (from: string, to: string) => {
 const NATIVE_COMPONENT_OUTPUT_DIR = 'remaxVendors';
 
 export function getNativeEntryAssetOutputPath(sourcePath: string, options: { cwd: string; rootDir: string }) {
-  return (
-    NATIVE_COMPONENT_OUTPUT_DIR +
-    '/' +
-    slash(sourcePath)
-      .replace(slash(options.cwd) + '/', '')
-      .replace(slash(options.rootDir) + '/', '')
-      .replace(/@/g, '_')
-      .replace(/node_modules/g, 'npm')
-  );
+  return `${NATIVE_COMPONENT_OUTPUT_DIR}/${slash(sourcePath)
+    .replace(`${slash(options.cwd)}/`, '')
+    .replace(`${slash(options.rootDir)}/`, '')
+    .replace(/@/g, '_')
+    .replace(/node_modules/g, 'npm')}`;
 }

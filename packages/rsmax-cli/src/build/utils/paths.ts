@@ -1,7 +1,7 @@
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
-import crypto from 'node:crypto';
 
 const hash = (name: string) => crypto.createHash('md5').update(name).digest('hex');
 
@@ -12,8 +12,8 @@ export function replaceExtension(file: string, ext: string) {
 
 export function getNativeAssetOutputPath(sourcePath: string, options: Options) {
   let output = slash(sourcePath)
-    .replace(slash(options.cwd) + '/', '')
-    .replace(slash(options.rootDir) + '/', '')
+    .replace(`${slash(options.cwd)}/`, '')
+    .replace(`${slash(options.rootDir)}/`, '')
     .replace(/@/g, '_')
     .replace(/node_modules/g, 'npm');
 
@@ -23,7 +23,7 @@ export function getNativeAssetOutputPath(sourcePath: string, options: Options) {
     const dirname = path.dirname(output);
     const basename = path.basename(output);
 
-    output = '_external/' + hash(dirname) + basename;
+    output = `_external/${hash(dirname)}${basename}`;
   }
 
   return output;

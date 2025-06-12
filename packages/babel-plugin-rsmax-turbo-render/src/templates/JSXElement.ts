@@ -1,11 +1,11 @@
-import * as t from '@babel/types';
-import { NodePath } from '@babel/traverse';
+import type { NodePath } from '@babel/traverse';
+import type * as t from '@babel/types';
 import { kebabCase } from 'lodash';
+import { EXPRESSION_BLOCK, SKIP_ELEMENTS } from '../constants';
 import * as helpers from '../helpers';
+import type { Options, RenderNode } from '../types';
 import { createAttributesTemplate } from './attributes';
 import stringPath from './stringPath';
-import { RenderNode, Options } from '../types';
-import { EXPRESSION_BLOCK, SKIP_ELEMENTS } from '../constants';
 
 /**
  *  创建 JSXElement 对应的模板

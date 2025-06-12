@@ -1,7 +1,7 @@
 import React from 'react';
-import { InputEvent } from '../../types';
 import { aliasProps, createCallback, createInputEvent } from '../../createHostComponent';
-import { TextareaProps } from './props';
+import type { InputEvent } from '../../types';
+import type { TextareaProps } from './props';
 import alias from './props/alias';
 
 export type { TextareaProps };

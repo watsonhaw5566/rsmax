@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { FormWebProps } from './props';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
+import type { FormWebProps } from './props';
 
 export type FormProps = FormWebProps;
 

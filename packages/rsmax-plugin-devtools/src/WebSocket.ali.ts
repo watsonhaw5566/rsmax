@@ -1,10 +1,10 @@
 import global from './global';
 
 enum ReadyState {
-  CONNECTING,
-  OPEN,
-  CLOSING,
-  CLOSED,
+  CONNECTING = 0,
+  OPEN = 1,
+  CLOSING = 2,
+  CLOSED = 3,
 }
 
 export default class WebSocket {

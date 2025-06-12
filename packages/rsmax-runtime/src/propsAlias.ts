@@ -1,5 +1,5 @@
-import plainStyle from './utils/plainStyle';
 import { RuntimeOptions } from '@rsmax/framework-shared';
+import plainStyle from './utils/plainStyle';
 
 export function getAlias(prop: string, type: string) {
   const hostComponent = RuntimeOptions.get('hostComponents')[type];

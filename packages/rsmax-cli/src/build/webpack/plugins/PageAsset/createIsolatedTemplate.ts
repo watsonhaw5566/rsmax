@@ -1,12 +1,12 @@
-import ejs from 'ejs';
-import { Compilation, sources } from '@rspack/core';
+import Store, { type ExtractedTemplate } from '@rsmax/build-store';
 import type { Meta } from '@rsmax/types';
-import Store, { ExtractedTemplate } from '@rsmax/build-store';
+import { type Compilation, sources } from '@rspack/core';
+import ejs from 'ejs';
 
 export default async function createIsolatedTemplate(meta: Meta, compilation: Compilation) {
   const templates: ExtractedTemplate[] = [];
   Store.extractedTemplates.forEach(t => {
-    if (t.isolated != false) {
+    if (t.isolated !== false) {
       templates.push(t);
     }
   });

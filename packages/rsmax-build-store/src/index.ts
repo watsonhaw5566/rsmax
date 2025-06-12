@@ -1,7 +1,7 @@
-import * as crypto from 'crypto';
-import { kebabCase } from 'lodash';
-import type { ComponentManifest, HostComponent } from '@rsmax/types';
+import * as crypto from 'node:crypto';
 import { slash } from '@rsmax/shared';
+import type { ComponentManifest, HostComponent } from '@rsmax/types';
+import { kebabCase } from 'lodash';
 
 export interface ExtractedTemplate {
   template: string;

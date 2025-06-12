@@ -1,6 +1,6 @@
-import { Compilation, Compiler, sources } from '@rspack/core';
+import { type Compilation, type Compiler, sources } from '@rspack/core';
 import SourceCache from '../../../SourceCache';
-import Builder from '../../Builder';
+import type Builder from '../../Builder';
 
 const PLUGIN_NAME = 'RsmaxPluginAssetPlugin';
 

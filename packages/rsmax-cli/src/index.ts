@@ -1,8 +1,8 @@
-import yargs from 'yargs';
 import type { Options } from '@rsmax/types';
-import { internalBuildApp, buildMiniPlugin } from './build';
-import getConfig from './getConfig';
+import yargs from 'yargs';
 import API from './API';
+import { buildMiniPlugin, internalBuildApp } from './build';
+import getConfig from './getConfig';
 
 export * from './legacyExport';
 

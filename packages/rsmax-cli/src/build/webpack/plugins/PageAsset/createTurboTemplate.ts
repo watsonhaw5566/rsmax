@@ -1,12 +1,12 @@
-import { Compilation, sources } from '@rspack/core';
-import ejs from 'ejs';
-import type { Options, Meta, EntryInfo } from '@rsmax/types';
+import Store, { type ExtractedTemplate } from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
-import Store, { ExtractedTemplate } from '@rsmax/build-store';
+import type { EntryInfo, Meta, Options } from '@rsmax/types';
+import { type Compilation, sources } from '@rspack/core';
 import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
+import ejs from 'ejs';
 import { sortBy } from 'lodash';
+import type API from '../../../../API';
 import { createRenderOptions } from './createTemplate';
-import API from '../../../../API';
 
 export default async function createTurboTemplate(
   api: API,

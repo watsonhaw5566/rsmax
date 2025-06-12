@@ -1,9 +1,9 @@
+import Card from '@/components/Card';
+import Badge from 'mini-antui/es/badge/index';
 import { Fragment } from 'react';
-import { View, View as CustomView, Text, Button, Picker } from 'rsmax/ali';
+import { Button, View as CustomView, Picker, Text, View } from 'rsmax/ali';
 import { createHostComponent } from 'rsmax/macro';
 import * as Rsmax from 'rsmax/one';
-import Badge from 'mini-antui/es/badge/index';
-import Card from '@/components/Card';
 import A from './module';
 
 const DDD = createHostComponent('ddd', []);
@@ -21,15 +21,13 @@ function ReactComp({ children }) {
     <>
       <View>
         <Text>react component</Text>
-        <>
-          <Text>Text inside Fragment</Text>
-        </>
+        <Text>Text inside Fragment</Text>
         {<View>View inside Expression</View>}
         {React.Children.map(children, (child, index) => {
           if (index === 2) {
             return child;
           }
-          return React.cloneElement(child, { id: 'reactComp' + index });
+          return React.cloneElement(child, { id: `reactComp${index}` });
         })}
       </View>
     </>
@@ -57,7 +55,7 @@ export default function Index() {
               <Text>Fragment Text 4</Text>
             </Fragment>
           </Fragment>
-          <React.Fragment>React.Fragment</React.Fragment>
+          React.Fragment
           {A}
           <DDD />
           <Rsmax.Text>Rsmax.Text</Rsmax.Text>
@@ -69,7 +67,7 @@ export default function Index() {
             <View>React Component Third Child</View>
           </ReactComp>
           <View className="className">Count: {count}</View>
-          <View id={'id' + count} className="class">
+          <View id={`id${count}`} className="class">
             view
           </View>
           <CustomView>custom view</CustomView>
@@ -95,7 +93,6 @@ export default function Index() {
           <Button id="toggle-leaf" onClick={() => setShowPlainText(!showPlainText)}>
             toggle Plain Text Leaf
           </Button>
-
           <Picker range={[1, 2, 3, 4]}>
             <View id="picker">picker</View>
           </Picker>

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View } from 'rsmax/one';
 import { usePageEvent } from 'remax/macro';
+import { View } from 'rsmax/one';
 import { GlobalContext } from '../../GlobalContext';
 
 export default () => {

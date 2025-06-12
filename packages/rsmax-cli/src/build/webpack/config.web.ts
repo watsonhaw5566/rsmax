@@ -1,12 +1,12 @@
-import path from 'node:path';
 import fs from 'node:fs';
-import { Configuration } from '@rspack/core';
-import Config from 'rspack-chain';
+import path from 'node:path';
+import type { Configuration } from '@rspack/core';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import Config from 'rspack-chain';
+import type Builder from '../Builder';
+import SpaEntry from '../entries/SpaEntry';
 import baseConfig from './baseConfig';
 import webBaseConfig from './webBaseConfig';
-import Builder from '../Builder';
-import SpaEntry from '../entries/SpaEntry';
 
 export default function webpackConfig(builder: Builder): Configuration {
   const config = new Config();

@@ -1,25 +1,25 @@
-import path from 'node:path';
 import fs from 'node:fs';
-import Config from 'rspack-chain';
-import type { Options } from '@rsmax/types';
-import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
+import path from 'node:path';
+import { execute } from '@rsdoctor/cli';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
-import ejs from 'ejs';
-import { moduleMatcher, targetExtensions } from '../../extensions';
+import type { Options } from '@rsmax/types';
+import { type Configuration, rspack } from '@rspack/core';
 import hostComponent from 'babel-plugin-rsmax-host-component';
-import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
 import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
 import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
-import Store from '@rsmax/build-store';
-import { addCSSRule, cssConfig, RuleConfig } from './config/css';
-import baseConfig from './baseConfig';
-import * as RsmaxPlugins from './plugins';
-import Builder from '../Builder';
-import NativeEntry from '../entries/NativeEntry';
-import { Configuration, rspack } from '@rspack/core';
-import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
-import { execute } from '@rsdoctor/cli';
+import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
+import ejs from 'ejs';
 import { logger } from 'rslog';
+import Config from 'rspack-chain';
+import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
+import { moduleMatcher, targetExtensions } from '../../extensions';
+import type Builder from '../Builder';
+import NativeEntry from '../entries/NativeEntry';
+import baseConfig from './baseConfig';
+import { type RuleConfig, addCSSRule, cssConfig } from './config/css';
+import * as RsmaxPlugins from './plugins';
 
 function resolveBabelConfig(options: Options) {
   if (fs.existsSync(path.join(options.cwd, 'babel.config.js'))) {
@@ -38,7 +38,7 @@ export default function webpackConfig(builder: Builder): Configuration {
   const { entries } = builder.entryCollection;
 
   entries.forEach(e => {
-    config.plugin('rspack-virtual-modules' + e.name).use(e.virtualModule);
+    config.plugin(`rspack-virtual-modules${e.name}`).use(e.virtualModule);
     config.entry(e.name).add(e.virtualPath);
   });
 
@@ -212,7 +212,7 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   config.externals([
     {
-      '/__remax_runtime_options__': `./__remax_runtime_options__`,
+      '/__remax_runtime_options__': './__remax_runtime_options__',
     },
   ]);
 

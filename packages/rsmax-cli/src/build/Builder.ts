@@ -1,10 +1,10 @@
-import { Configuration, Compiler } from '@rspack/core';
+import type { AppConfig, BuildType, MiniPluginConfig, Options, Platform } from '@rsmax/types';
+import type { Compiler, Configuration } from '@rspack/core';
+import { rspack } from '@rspack/core';
+import type API from '../API';
+import readManifest from '../readManifest';
 import EntryCollection from './EntryCollection';
 import ProjectPath from './ProjectPath';
-import readManifest from '../readManifest';
-import API from '../API';
-import { AppConfig, BuildType, MiniPluginConfig, Options, Platform } from '@rsmax/types';
-import { rspack } from '@rspack/core';
 
 abstract class Builder {
   api: API;

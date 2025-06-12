@@ -1,8 +1,8 @@
+import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { NodePath } from '@babel/traverse';
-import { JSXNode, Options } from './types';
 import { EXPRESSION_BLOCK, LEAF, TEMPLATE_ID } from './constants';
 import cleanJSXElementLiteralChild from './helpers/cleanJSXElementLiteralChild';
+import type { JSXNode, Options } from './types';
 
 /**
  * 从 JSXElement 中取出 Host Component 的名称

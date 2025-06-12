@@ -1,10 +1,10 @@
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import Config from 'rspack-chain';
-import { rspack } from '@rspack/core';
-import type { Options } from '@rsmax/types';
+import * as path from 'node:path';
 import { slash } from '@rsmax/shared';
-import Builder from '../../Builder';
+import type { Options } from '@rsmax/types';
+import { rspack } from '@rspack/core';
+import type Config from 'rspack-chain';
+import type Builder from '../../Builder';
 
 export interface RuleConfig {
   name: string;

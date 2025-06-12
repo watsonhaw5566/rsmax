@@ -2,15 +2,15 @@
 
 Feature
 
- - 使用 rspack 构建，超快的构建速度
+- 使用 rspack 构建，超快的构建速度
 
 BugFix
- -  旧问题的处理会关联到之前 Remax 的 issues
+
+- 旧问题的处理会关联到之前 Remax 的 issues
 
 #### 特别说明
 
 由于 remax npm 包已存在，为避免之前项目正常运行，故更名为 rsmax 包, 感谢 Remax 原团队所有成员辛勤付出。
-
 
 #### 已知问题
 

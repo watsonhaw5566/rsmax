@@ -6,21 +6,11 @@
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib",
-    "types": [
-      "@types/node",
-      "vitest/globals"
-    ],
+    "types": ["@types/node", "vitest/globals"],
     "jsx": "preserve",
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src",
-    "src/OptionsSchema.json",
-    "typings"
-  ],
-  "exclude": [
-    "tests",
-    "lib"
-  ]
+  "include": ["src", "src/OptionsSchema.json", "typings"],
+  "exclude": ["tests", "lib"]
 }

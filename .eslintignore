@@ -1,7 +1,0 @@
-node_modules/
-lib/
-dist/
-**/*.js
-packages/**/templates/*.ejs
-cjs
-esm

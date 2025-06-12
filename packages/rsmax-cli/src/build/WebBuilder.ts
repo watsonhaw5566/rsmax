@@ -1,13 +1,13 @@
-import { Configuration } from '@rspack/core';
+import type { Options } from '@rsmax/types';
+import type { Configuration } from '@rspack/core';
 import { RspackDevServer } from '@rspack/dev-server';
 import detect from 'detect-port';
-import type { Options } from '@rsmax/types';
+import { logger } from 'rslog';
+import type API from '../API';
+import Builder from './Builder';
+import watch from './watch';
 import webpackConfig from './webpack/config.web';
 import mpaWebpackConfig from './webpack/config.web.mpa';
-import API from '../API';
-import watch from './watch';
-import Builder from './Builder';
-import { logger } from 'rslog';
 
 export default class WebBuilder extends Builder {
   constructor(api: API, options: Options) {

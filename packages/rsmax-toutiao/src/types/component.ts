@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { BaseEvent } from '@rsmax/wechat/esm/types/component';
+import type { BaseEvent } from '@rsmax/wechat/esm/types/component';
+import type * as React from 'react';
 
 /**
  * 头条内置共有属性

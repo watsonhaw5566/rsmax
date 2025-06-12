@@ -1,7 +1,7 @@
-import React from 'react';
+import type React from 'react';
 import createHostComponent from '../../createHostComponent';
+import type { FormProps } from './props';
 import defaults from './props/default';
-import { FormProps } from './props';
 
 export type { FormProps };
 

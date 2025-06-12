@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 import createHostComponent from '../../createHostComponent';
-import { LabelProps } from './props';
+import type { LabelProps } from './props';
 
 export type { LabelProps };
 

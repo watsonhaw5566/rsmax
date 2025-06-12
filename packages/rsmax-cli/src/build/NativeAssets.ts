@@ -4,8 +4,8 @@ import traverse from '@babel/traverse';
 import * as htmlparser2 from 'htmlparser2';
 import { get } from 'lodash';
 import { cssExtensions } from '../extensions';
-import { replaceExtension, getNativeAssetOutputPath } from './utils/paths';
-import Builder from './Builder';
+import type Builder from './Builder';
+import { getNativeAssetOutputPath, replaceExtension } from './utils/paths';
 
 export default class NativeAssets {
   builder: Builder;
@@ -108,7 +108,7 @@ export default class NativeAssets {
            * https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/import.html
            */
           if (!/^(\.\/|\/)/.test(request)) {
-            request = './' + request;
+            request = `./${request}`;
           }
           const templateFile = this.builder.projectPath.resolveAsset(request, filename);
           if (templateFile) {

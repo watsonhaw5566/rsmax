@@ -1,7 +1,7 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
 
-import { BaseProps } from '../../types/component';
+import type { BaseProps } from '../../types/component';
 
 export interface FormProps extends BaseProps {
   onSubmit?: (e: any) => void;

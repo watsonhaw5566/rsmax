@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, Image } from 'rsmax/one';
+import { Button, Image, Text, View } from 'rsmax/one';
 
 export default class Page extends React.Component {
   render() {

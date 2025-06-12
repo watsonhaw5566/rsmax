@@ -1,0 +1,73 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "organizeImports": {
+    "enabled": true,
+    "include": ["./**/*.js", "./**/*.jsx", "./**/*.ts", "./**/*.tsx", "./**/*.mjs", "./**/*.cjs"]
+  },
+  "vcs": {
+    "enabled": true,
+    "defaultBranch": "main",
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignore": [
+      "tests",
+      "__tests__",
+      "rsmax-web",
+      "*.vue",
+      "*.svelte",
+      "template-lit-*/src/my-element.*",
+      "tsconfig.json",
+      "tsconfig.*.json"
+    ],
+    "ignoreUnknown": true
+  },
+  "formatter": {
+    "enabled": false
+  },
+  "css": {
+    "parser": {
+      "cssModules": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off",
+        "useFilenamingConvention": {
+          "level": "off",
+          "options": {
+            "filenameCases": ["camelCase", "PascalCase", "export"]
+          }
+        },
+        "noParameterAssign": "off",
+        "noArguments": "off",
+        "useImportType": "off"
+      },
+      "complexity": {
+        "noForEach": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noConfusingVoidType": "off",
+        "noImplicitAnyLet": "off",
+        "noShadowRestrictedNames": "off",
+        "noAssignInExpressions": "off"
+      },
+      "a11y": {
+        "useAltText": "off",
+        "noLabelWithoutControl": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      },
+      "performance": {
+        "noDelete": "off",
+        "noAccumulatingSpread": "off"
+      }
+    }
+  }
+}

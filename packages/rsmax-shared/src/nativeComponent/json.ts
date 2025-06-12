@@ -1,4 +1,4 @@
-import { existsSync } from 'fs';
+import { existsSync } from 'node:fs';
 
 export default function json(id: string) {
   const filePath = id.replace(/\.js$/, '.json');

@@ -1,26 +1,26 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { execute } from '@rsdoctor/cli';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import Store from '@rsmax/build-store';
+import { slash } from '@rsmax/shared';
+import type { Options } from '@rsmax/types';
+import { type Configuration, rspack } from '@rspack/core';
+import moduleResolver from 'babel-plugin-module-resolver';
+import hostComponent from 'babel-plugin-rsmax-host-component';
+import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
+import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
+import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
+import ejs from 'ejs';
+import { logger } from 'rslog';
 import Config from 'rspack-chain';
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
-import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
-import { execute } from '@rsdoctor/cli';
-import type { Options } from '@rsmax/types';
-import { slash } from '@rsmax/shared';
-import ejs from 'ejs';
+import type API from '../../API';
 import { moduleMatcher, targetExtensions } from '../../extensions';
-import hostComponent from 'babel-plugin-rsmax-host-component';
-import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
-import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
-import moduleResolver from 'babel-plugin-module-resolver';
-import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
-import Store from '@rsmax/build-store';
-import * as RsmaxPlugins from './plugins';
-import API from '../../API';
-import { addCSSRule, cssConfig, RuleConfig } from './config/css';
+import type Builder from '../Builder';
 import baseConfig from './baseConfig';
-import Builder from '../Builder';
-import { rspack, Configuration } from '@rspack/core';
-import { logger } from 'rslog';
+import { type RuleConfig, addCSSRule, cssConfig } from './config/css';
+import * as RsmaxPlugins from './plugins';
 
 function prepare(api: API) {
   const meta = api.getMeta();
@@ -47,10 +47,10 @@ export default function webpackConfig(builder: Builder): Configuration {
   const { meta, publicPath } = prepare(builder.api);
 
   const appEntry = builder.entryCollection.appEntry!;
-  config.plugin('rspack-virtual-modules' + appEntry.name).use(appEntry.virtualModule);
+  config.plugin(`rspack-virtual-modules${appEntry.name}`).use(appEntry.virtualModule);
   config.entry(appEntry.name).add(appEntry.virtualPath);
   builder.entryCollection.entries.forEach(e => {
-    config.plugin('rspack-virtual-modules' + e.name).use(e.virtualModule);
+    config.plugin(`rspack-virtual-modules${e.name}`).use(e.virtualModule);
     config.entry(e.name).add(e.virtualPath);
   });
   config.devtool(false);

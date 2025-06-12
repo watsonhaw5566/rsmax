@@ -1,8 +1,8 @@
-import * as React from 'react';
 import clsx from 'clsx';
-import { ViewWebProps } from './props';
+import * as React from 'react';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
 import useWebTouch from '../useWebTouch';
+import type { ViewWebProps } from './props';
 
 export type ViewProps = ViewWebProps;
 

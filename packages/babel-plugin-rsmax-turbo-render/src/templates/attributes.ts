@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import Store from '@rsmax/build-store';
-import { TEMPLATE_ID, REACT_KEY, LEAF, ENTRY } from '../constants';
+import { ENTRY, LEAF, REACT_KEY, TEMPLATE_ID } from '../constants';
 
 /**
  * 生成属性值模板
@@ -79,7 +79,7 @@ export function createAttributesTemplate(
       }
 
       if (t.isJSXNamespacedName(name)) {
-        attrName = name.namespace.name + ':' + name.name.name;
+        attrName = `${name.namespace.name}:${name.name.name}`;
       }
 
       const prop = hostComponent?.alias?.[attrName] ?? attrName;

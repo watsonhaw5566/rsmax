@@ -1,7 +1,7 @@
-import React from 'react';
 import { createHostComponent } from '@rsmax/runtime';
+import type React from 'react';
 
-import { BaseProps } from '../../types/component';
+import type { BaseProps } from '../../types/component';
 
 // docs: https://microapp.bytedance.com/dev/cn/mini-app/develop/component/media-component/video
 export interface VideoProps extends BaseProps {

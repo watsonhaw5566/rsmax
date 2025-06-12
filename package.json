@@ -1,63 +1,60 @@
 {
   "name": "root",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w",
+    "authors": "./scripts/authors",
     "prebuild": "pnpm run clean:packages",
     "build": "tsc -b && lerna run build:cjs",
-    "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
-    "test:e2e-web": "yarn --cwd e2e/app test:web",
-    "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
     "clean": "lerna clean",
     "clean:packages": "lerna run clean",
-    "readme:copy": "lerna exec 'cp ../../README.md' . --scope rsmax --scope @rsmax/cli",
-    "readme:clean": "lerna exec 'rm README.md' --scope rsmax --scope @rsmax/cli",
+    "format": "prettier --write .",
+    "lint": "biome check . --diagnostic-level=warn",
     "prepack": "pnpm run readme:copy",
     "postpack": "pnpm run readme:clean",
-    "lint": "eslint \"packages/*/src/**/*.{ts,tsx}\"",
+    "readme:clean": "lerna exec 'rm README.md' --scope rsmax --scope @rsmax/cli",
+    "readme:copy": "lerna exec 'cp ../../README.md' . --scope rsmax --scope @rsmax/cli",
     "prerelease": "./scripts/prerelease",
     "release": "lerna publish",
-    "authors": "./scripts/authors"
+    "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
+    "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
+    "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
+    "test:e2e-web": "yarn --cwd e2e/app test:web",
+    "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec nano-staged"
+  },
+  "nano-staged": {
+    "*.{md,mdx,json,css,less,scss}": "prettier --write",
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "biome check --write --formatter-enabled=false --linter-enabled=false --no-errors-on-unmatched",
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@babel/types": "^7.7.4",
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^8.1.0",
-    "@types/babel-plugin-tester": "^9.0.0",
+    "@biomejs/biome": "1.9.4",
     "@types/babel__core": "^7.7.4",
     "@types/babel__traverse": "^7.0.8",
+    "@types/babel-plugin-tester": "^9.0.0",
     "@types/express": "^4.17.4",
+    "@types/jest": "^27.5.2",
     "@types/lodash": "^4.14.135",
     "@types/node": "^18.19",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
-    "@types/jest": "^27.5.2",
     "@types/react-test-renderer": "^18.3.0",
     "@types/yargs": "^15.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.1.1",
-    "@typescript-eslint/parser": "^4.1.1",
-    "eslint": "^6.2.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.3",
     "lerna": "^8.0.0",
-    "lint-staged": ">=8",
-    "prettier": "^2.0.5",
+    "nano-staged": "^0.8.0",
+    "prettier": "^3.5.3",
     "puppeteer": "21.5.1",
     "react": "^18.3.0",
-    "rsmax": "workspace:*",
     "rimraf": "^6.0.1",
-    "vitest": "^3.1.2",
+    "rsmax": "workspace:*",
+    "simple-git-hooks": "^2.13.0",
     "typescript": "^4.7.4",
-    "yorkie": "^2.0.0"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E GIT_PARAMS"
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/remax"
+    "vitest": "^3.1.2"
   }
 }

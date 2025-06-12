@@ -1,7 +1,7 @@
 import type { Options } from '@rsmax/types';
-import API from '../API';
+import type { Compiler } from '@rspack/core';
 import { logger } from 'rslog';
-import { Compiler } from '@rspack/core';
+import API from '../API';
 
 const version = require('../../package.json').version;
 
@@ -16,10 +16,9 @@ export function run(options: Options, api: API): Compiler {
     // https://opendocs.alipay.com/mini/tool/00nxap
     const WebBuilder = require('./WebBuilder').default;
     return new WebBuilder(api, options).run();
-  } else {
-    const MiniBuilder = require('./MiniBuilder').default;
-    return new MiniBuilder(api, options).run();
   }
+  const MiniBuilder = require('./MiniBuilder').default;
+  return new MiniBuilder(api, options).run();
 }
 
 export function buildApp(options: Options) {
@@ -33,7 +32,7 @@ export function internalBuildApp(options: Options, api: API) {
   process.env.RSMAX_PLATFORM = target;
 
   logger.greet(`Rsmax v${version}`);
-  logger.start(`🚀 构建应用`);
+  logger.start('🚀 构建应用');
   return run(options, api);
 }
 
@@ -44,7 +43,7 @@ export function buildMiniPlugin(options: Options) {
   process.env.RSMAX_PLATFORM = target;
 
   logger.greet(`Rsmax v${version}`);
-  logger.start(`🔨 构建插件`);
+  logger.start('🔨 构建插件');
 
   const api = new API();
   api.registerPlugins([]);
@@ -60,7 +59,7 @@ export function buildMiniComponent(options: Options) {
   process.env.RSMAX_PLATFORM = target;
 
   logger.greet(`Rsmax v${version}`);
-  logger.start(`🔨 构建组件`);
+  logger.start('🔨 构建组件');
 
   const api = new API();
   api.registerPlugins([]);

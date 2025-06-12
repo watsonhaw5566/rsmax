@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ImageLoadEvent, ImageErrorEvent, TapEvent, TouchStartEvent } from '../../../types';
+import type * as React from 'react';
+import type { ImageErrorEvent, ImageLoadEvent, TapEvent, TouchStartEvent } from '../../../types';
 
 export { default as defaults } from './default';
 

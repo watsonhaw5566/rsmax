@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import path from 'path';
+import * as fs from 'node:fs';
+import path from 'node:path';
 import type { Platform } from '@rsmax/types';
 
 function readTypescriptManifest(path: string, target: Platform) {
@@ -22,7 +22,6 @@ export default function readManifest(filename: string, target: Platform, strict 
   }
   if (path.extname(filename) === '.ts') {
     return readTypescriptManifest(filename, target);
-  } else {
-    return readJavascriptManifest(filename, target);
   }
+  return readJavascriptManifest(filename, target);
 }

@@ -1,6 +1,6 @@
-import path from 'path';
-import { Compilation, Compiler, sources, Chunk, ChunkGroup } from '@rspack/core';
+import path from 'node:path';
 import { slash } from '@rsmax/shared';
+import { type Chunk, type ChunkGroup, Compilation, type Compiler, sources } from '@rspack/core';
 
 const PLUGIN_NAME = 'RsmaxOptimizeEntriesPlugin';
 

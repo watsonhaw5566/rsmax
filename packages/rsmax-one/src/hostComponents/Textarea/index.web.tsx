@@ -1,9 +1,9 @@
+import clsx from 'clsx';
 import * as React from 'react';
-import { TextareaWebProps } from './props';
 import TextareaAutoSize from 'react-autosize-textarea';
 import useWebPlaceholderStyle from '../../useWebPlaceholderStyle';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
-import clsx from 'clsx';
+import type { TextareaWebProps } from './props';
 
 const Textarea: React.ForwardRefRenderFunction<any, TextareaWebProps> = (props, ref) => {
   const { onConfirm, onKeyPress, autoHeight, className, placeholderStyle, ...restProps } = filterProps(props);

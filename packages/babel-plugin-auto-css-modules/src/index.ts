@@ -1,6 +1,6 @@
-import { extname } from 'path';
+import { extname } from 'node:path';
+import type { NodePath, Visitor } from '@babel/traverse';
 import * as t from '@babel/types';
-import { NodePath, Visitor } from '@babel/traverse';
 
 export interface IOpts {
   flag?: string;

@@ -1,10 +1,10 @@
+import type { Options } from '@rsmax/types';
+import type { Configuration } from '@rspack/core';
+import { logger } from 'rslog';
+import type API from '../API';
 import BaseBuilder from './Builder';
 import watch from './watch';
-import type { Options } from '@rsmax/types';
-import API from '../API';
 import webpackConfig from './webpack/config.mini';
-import { Configuration } from '@rspack/core';
-import { logger } from 'rslog';
 
 export default class MiniBuilder extends BaseBuilder {
   constructor(api: API, options: Options) {

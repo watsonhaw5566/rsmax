@@ -1,5 +1,5 @@
-import { TapEvent } from '../../../types';
-import React from 'react';
+import type React from 'react';
+import type { TapEvent } from '../../../types';
 
 export { default as defaults } from './default';
 

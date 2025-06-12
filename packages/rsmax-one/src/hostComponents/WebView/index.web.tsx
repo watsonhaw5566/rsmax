@@ -1,6 +1,6 @@
+import clsx from 'clsx';
 import * as React from 'react';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
-import clsx from 'clsx';
 
 export interface WebViewProps extends React.AriaAttributes {
   id?: string;

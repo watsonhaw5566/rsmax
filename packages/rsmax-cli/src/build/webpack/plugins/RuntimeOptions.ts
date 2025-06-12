@@ -1,10 +1,10 @@
-import { Compiler, Compilation, Chunk, sources } from '@rspack/core';
-import * as path from 'path';
-import { slash } from '@rsmax/shared';
+import * as path from 'node:path';
 import Store from '@rsmax/build-store';
-import getModules from '../../utils/modules';
-import Builder from '../../Builder';
+import { slash } from '@rsmax/shared';
+import { type Chunk, type Compilation, type Compiler, sources } from '@rspack/core';
+import type Builder from '../../Builder';
 import PageEntry from '../../entries/PageEntry';
+import getModules from '../../utils/modules';
 
 const PLUGIN_NAME = 'RsmaxRuntimeOptionsPlugin';
 

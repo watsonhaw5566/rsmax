@@ -1,5 +1,5 @@
-import React from 'react';
-import { InputEvent } from '../../../types';
+import type React from 'react';
+import type { InputEvent } from '../../../types';
 
 export { default as alias } from './alias';
 

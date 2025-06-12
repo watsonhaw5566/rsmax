@@ -1,6 +1,6 @@
-import React from 'react';
-import { BaseProps, GenericEvent } from '../../types/component';
 import { createHostComponent } from '@rsmax/runtime';
+import React from 'react';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 const hostComponentName = 'video';
 

@@ -1,9 +1,9 @@
-import VNode, { RawNode } from './VNode';
-import { generate } from './instanceId';
-import { FiberRoot } from 'react-reconciler';
-import nativeEffector from './nativeEffect';
 import { RuntimeOptions } from '@rsmax/framework-shared';
+import type { FiberRoot } from 'react-reconciler';
+import VNode, { type RawNode } from './VNode';
 import { unstable_batchedUpdates } from './index';
+import { generate } from './instanceId';
+import nativeEffector from './nativeEffect';
 
 interface SpliceUpdate {
   path: string[];

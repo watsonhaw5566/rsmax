@@ -1,4 +1,4 @@
-import VNode from '../VNode';
+import type VNode from '../VNode';
 import { SYNTHETIC_TYPES } from './constants';
 
 export const isPropagationStopped: {

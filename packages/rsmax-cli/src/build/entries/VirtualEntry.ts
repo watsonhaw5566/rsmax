@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { type Compilation, type Compiler, EntryPlugin } from '@rspack/core';
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
-import Builder from '../Builder';
-import NormalEntry from './NormalEntry';
+import type Builder from '../Builder';
 import { replaceExtension } from '../utils/paths';
-import { Compilation, Compiler, EntryPlugin } from '@rspack/core';
+import NormalEntry from './NormalEntry';
 
 export default class VirtualEntry extends NormalEntry {
   originalSource: string;

@@ -2,4 +2,4 @@
 
 printf "pnpm build:\n"
 
-pnpm lint && pnpm build
+pnpm lint && pnpm build && pnpm simple-git-hooks

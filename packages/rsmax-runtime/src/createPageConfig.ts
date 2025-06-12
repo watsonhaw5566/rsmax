@@ -1,16 +1,16 @@
+import { Lifecycle, RuntimeOptions, callbackName, createPageWrapper } from '@rsmax/framework-shared';
 import React from 'react';
-import { callbackName, createPageWrapper, Lifecycle, RuntimeOptions } from '@rsmax/framework-shared';
-import stopPullDownRefresh from './stopPullDownRefresh';
 import Container from './Container';
 import { createPortal } from './ReactPortal';
-import render from './render';
 import { unstable_batchedUpdates } from './index';
+import render from './render';
+import stopPullDownRefresh from './stopPullDownRefresh';
 
 let idCounter = 0;
 
 function generatePageId() {
   const id = idCounter;
-  const pageId = 'page_' + id;
+  const pageId = `page_${id}`;
   idCounter += 1;
   return pageId;
 }
@@ -66,7 +66,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
         ref: this.wrapperRef,
       });
 
-      if (app && app._mount) {
+      if (app?._mount) {
         this.element = createPortal(pageElement, this.container, this.pageId);
         app._mount(this);
       } else {
@@ -120,7 +120,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       }
 
       const callback = callbackName(lifecycle);
-      if (this.wrapperRef.current && this.wrapperRef.current[callback]) {
+      if (this.wrapperRef.current?.[callback]) {
         return this.wrapperRef.current[callback](...args);
       }
     },

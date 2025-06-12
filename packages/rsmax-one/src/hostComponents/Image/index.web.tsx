@@ -1,8 +1,8 @@
+import clsx from 'clsx';
 import * as React from 'react';
-import { ImageWebProps } from './props';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
 import modeStyle from './modeStyle';
-import clsx from 'clsx';
+import type { ImageWebProps } from './props';
 
 export type ImageProps = ImageWebProps;
 
@@ -27,7 +27,7 @@ const Image: React.ForwardRefRenderFunction<any, ImageWebProps> = (props, ref) =
       style={{
         ...modeStyle[mode],
         backgroundImage: `url(${src})`,
-        backgroundRepeat: `no-repeat`,
+        backgroundRepeat: 'no-repeat',
         ...style,
       }}
     >

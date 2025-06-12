@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { TapEvent } from '../../../types';
+import type * as React from 'react';
+import type { TapEvent } from '../../../types';
 
 export { default as defaults } from './default';
 export { default as alias } from './alias';

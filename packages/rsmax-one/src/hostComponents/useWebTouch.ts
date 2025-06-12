@@ -24,7 +24,7 @@ function useWebTouch<T>({
   (event: React.TouchEvent<T>) => void,
   (event: React.TouchEvent<T>) => void,
   (event: React.TouchEvent<T>) => void,
-  (event: React.TouchEvent<T>) => void
+  (event: React.TouchEvent<T>) => void,
 ] {
   const [touching, setTouching] = React.useState(false);
   const hoveringRef = React.useRef(false);

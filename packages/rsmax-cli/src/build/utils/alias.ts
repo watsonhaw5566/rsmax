@@ -1,6 +1,6 @@
-import * as path from 'path';
-import type { Options, Platform } from '@rsmax/types';
+import * as path from 'node:path';
 import { slash } from '@rsmax/shared';
+import type { Options, Platform } from '@rsmax/types';
 
 interface Alias {
   [key: string]: string;

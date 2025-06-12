@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 Page({
-    data: {
-        name: 'TypeScript Page',
-    },
+  data: {
+    name: 'TypeScript Page',
+  },
 });

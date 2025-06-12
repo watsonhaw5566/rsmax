@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 import createHostComponent from '../../createHostComponent';
-import TextProps from './props';
+import type TextProps from './props';
 import defaults from './props/default';
 
 export type { TextProps };

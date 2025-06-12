@@ -1,4 +1,4 @@
-import { View, Text, navigateTo } from 'rsmax/one';
+import { Text, View, navigateTo } from 'rsmax/one';
 
 export default () => {
   return (
