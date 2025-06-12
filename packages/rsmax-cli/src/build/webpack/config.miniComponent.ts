@@ -212,7 +212,7 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   config.externals([
     {
-      '/__remax_runtime_options__': "./__remax_runtime_options__",
+      '/__remax_runtime_options__': './__remax_runtime_options__',
     },
   ]);
 

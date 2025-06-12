@@ -17,8 +17,8 @@ export function run(options: Options, api: API): Compiler {
     const WebBuilder = require('./WebBuilder').default;
     return new WebBuilder(api, options).run();
   }
-    const MiniBuilder = require('./MiniBuilder').default;
-    return new MiniBuilder(api, options).run();
+  const MiniBuilder = require('./MiniBuilder').default;
+  return new MiniBuilder(api, options).run();
 }
 
 export function buildApp(options: Options) {
@@ -32,7 +32,7 @@ export function internalBuildApp(options: Options, api: API) {
   process.env.RSMAX_PLATFORM = target;
 
   logger.greet(`Rsmax v${version}`);
-  logger.start("🚀 构建应用");
+  logger.start('🚀 构建应用');
   return run(options, api);
 }
 
@@ -43,7 +43,7 @@ export function buildMiniPlugin(options: Options) {
   process.env.RSMAX_PLATFORM = target;
 
   logger.greet(`Rsmax v${version}`);
-  logger.start("🔨 构建插件");
+  logger.start('🔨 构建插件');
 
   const api = new API();
   api.registerPlugins([]);
@@ -59,7 +59,7 @@ export function buildMiniComponent(options: Options) {
   process.env.RSMAX_PLATFORM = target;
 
   logger.greet(`Rsmax v${version}`);
-  logger.start("🔨 构建组件");
+  logger.start('🔨 构建组件');
 
   const api = new API();
   api.registerPlugins([]);

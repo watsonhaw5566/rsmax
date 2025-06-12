@@ -23,5 +23,5 @@ export default function readManifest(filename: string, target: Platform, strict 
   if (path.extname(filename) === '.ts') {
     return readTypescriptManifest(filename, target);
   }
-    return readJavascriptManifest(filename, target);
+  return readJavascriptManifest(filename, target);
 }

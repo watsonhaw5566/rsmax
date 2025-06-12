@@ -22,7 +22,8 @@ export function buildComponent(cwd: string, options: IOptions) {
       onTargetDir,
       esmOptions: esm,
     });
-  }if (type === 'ali' || type === 'wechat') {
+  }
+  if (type === 'ali' || type === 'wechat') {
     return buildDsl({
       cwd,
       sourceDir,
@@ -34,5 +35,5 @@ export function buildComponent(cwd: string, options: IOptions) {
       miniOptions: mini,
     });
   }
-    throw Error('未知构建类型');
+  throw Error('未知构建类型');
 }

@@ -23,7 +23,7 @@ module.exports = (opts = {}) => {
           rule.warn = true;
         }
       }
-    }
+    },
   };
 };
 

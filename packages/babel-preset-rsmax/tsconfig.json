@@ -2,19 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "lib": [
-      "es2015"
-    ],
+    "lib": ["es2015"],
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib"
   },
-  "include": [
-    "src/**/*",
-    "typings/**/*"
-  ],
-  "exclude": [
-    "__tests__/**/*",
-    "lib"
-  ]
+  "include": ["src/**/*", "typings/**/*"],
+  "exclude": ["__tests__/**/*", "lib"]
 }

@@ -6,15 +6,10 @@
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib",
-    "types": [
-      "@types/jest"
-    ],
+    "types": ["@types/jest"],
     "jsx": "preserve",
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "exclude": [
-    "tests",
-    "lib"
-  ]
+  "exclude": ["tests", "lib"]
 }

@@ -15,7 +15,8 @@ function getConfig(callExpression: NodePath<t.CallExpression>) {
       if (t.isStringLiteral(element)) {
         const value = element.value;
         return [value, value];
-      }if (t.isArrayExpression(element)) {
+      }
+      if (t.isArrayExpression(element)) {
         return element.elements.map(ele => (ele as t.StringLiteral).value);
       }
     });

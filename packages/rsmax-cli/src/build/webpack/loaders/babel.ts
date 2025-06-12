@@ -11,8 +11,8 @@ interface CustomOptions {
 }
 
 function processPresets(presets: ConfigItem[], babel: any, react: boolean) {
-  const remaxPresetIndex = presets.findIndex(
-    preset => preset.file?.resolved.includes(`${path.sep}babel-preset-rsmax${path.sep}`)
+  const remaxPresetIndex = presets.findIndex(preset =>
+    preset.file?.resolved.includes(`${path.sep}babel-preset-rsmax${path.sep}`)
   );
 
   const defaultOptions = {
@@ -25,7 +25,7 @@ function processPresets(presets: ConfigItem[], babel: any, react: boolean) {
   const remaxPreset = babel.createConfigItem(
     [require.resolve('babel-preset-rsmax'), merge({}, defaultOptions, existOptions)],
     {
-      type: "preset",
+      type: 'preset',
     }
   );
 

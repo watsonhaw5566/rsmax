@@ -27,7 +27,7 @@ const Image: React.ForwardRefRenderFunction<any, ImageWebProps> = (props, ref) =
       style={{
         ...modeStyle[mode],
         backgroundImage: `url(${src})`,
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: 'no-repeat',
         ...style,
       }}
     >

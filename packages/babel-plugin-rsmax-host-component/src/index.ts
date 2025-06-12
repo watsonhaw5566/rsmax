@@ -221,7 +221,7 @@ export default function hostComponent(options: Options) {
 
         return;
       }
-        props = getProps(id, node);
+      props = getProps(id, node);
 
       if (!props) {
         return;

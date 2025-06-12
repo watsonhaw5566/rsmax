@@ -7,8 +7,5 @@
     "skipLibCheck": true,
     "jsx": "react"
   },
-  "exclude": [
-    "cjs",
-    "esm"
-  ]
+  "exclude": ["cjs", "esm"]
 }

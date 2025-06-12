@@ -2,16 +2,13 @@ import { View, Text, Image } from 'rsmax/one';
 import styles from './index.scss';
 
 export default ({ name }) => {
-    return (
-        <View className={styles.greeting}>
-            <Text>Hello111!!!!1 {name}</Text>
+  return (
+    <View className={styles.greeting}>
+      <Text>Hello111!!!!1 {name}</Text>
 
-            <View>
-                <Image
-                    mode="widthFix"
-                    src="https://gw.alicdn.com/tfs/TB1FvKecmR26e4jSZFEXXbwuXXa-140-140.svg"
-                />
-            </View>
-        </View>
-    )
+      <View>
+        <Image mode="widthFix" src="https://gw.alicdn.com/tfs/TB1FvKecmR26e4jSZFEXXbwuXXa-140-140.svg" />
+      </View>
+    </View>
+  );
 };

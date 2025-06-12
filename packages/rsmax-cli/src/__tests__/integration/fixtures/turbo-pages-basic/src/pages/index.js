@@ -1,4 +1,4 @@
-import  React from 'react';
+import React from 'react';
 import { Fragment } from 'react';
 import { View, View as CustomView, Text } from 'rsmax';
 import { createHostComponent } from '@rsmax/macro';

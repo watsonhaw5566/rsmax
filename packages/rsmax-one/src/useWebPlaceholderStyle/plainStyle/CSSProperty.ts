@@ -67,7 +67,7 @@ function prefixKey(prefix: string, key: string) {
 const prefixes = ['Webkit', 'ms', 'Moz', 'O'];
 
 for (const prop in isUnitlessNumber) {
-  prefixes.forEach((prefix) => {
+  prefixes.forEach(prefix => {
     isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
   });
 }

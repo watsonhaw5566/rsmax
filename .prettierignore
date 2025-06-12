@@ -1,6 +1,8 @@
 lib
 dist
 node_modules
+tests
+__tests__
 **/__tests__/**/expected
 packages/**/templates/*.ejs
 cjs

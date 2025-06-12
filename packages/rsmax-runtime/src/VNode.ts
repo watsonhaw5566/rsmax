@@ -259,7 +259,7 @@ export default class VNode {
   }
 
   isDeleted(): boolean {
-    return this.deleted === true ? this.deleted : this.parent?.isDeleted() ?? false;
+    return this.deleted === true ? this.deleted : (this.parent?.isDeleted() ?? false);
   }
 
   registerCallback(propKey: string, propValue: any) {

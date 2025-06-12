@@ -5,14 +5,7 @@
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib",
-    "types": [
-      "@types/node",
-      "vitest/globals"
-    ]
+    "types": ["@types/node", "vitest/globals"]
   },
-  "exclude": [
-    "tests/**/*",
-    "node_modules",
-    "lib"
-  ]
+  "exclude": ["tests/**/*", "node_modules", "lib"]
 }

@@ -93,7 +93,6 @@ export default function Index() {
           <Button id="toggle-leaf" onClick={() => setShowPlainText(!showPlainText)}>
             toggle Plain Text Leaf
           </Button>
-
           <Picker range={[1, 2, 3, 4]}>
             <View id="picker">picker</View>
           </Picker>

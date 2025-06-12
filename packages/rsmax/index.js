@@ -5,5 +5,5 @@ export {
   usePageInstance,
   useQuery,
   useNativeEffect,
-  unstable_batchedUpdates
+  unstable_batchedUpdates,
 } from '@rsmax/runtime';
