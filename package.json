@@ -23,7 +23,8 @@
     "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm exec nano-staged"
+    "pre-commit": "pnpm exec nano-staged",
+    "commit-msg": "commitlint -E GIT_PARAMS"
   },
   "nano-staged": {
     "*.{md,mdx,json,css,less,scss}": "prettier --write",
