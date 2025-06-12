@@ -1,4 +1,4 @@
-import type React from 'react';
+import React from 'react';
 import PullToRefresh from 'rmc-pull-to-refresh';
 import LoadingIcon from './LoadingIcon';
 
