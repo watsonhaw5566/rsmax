@@ -3,10 +3,11 @@ export interface PromisifyArgs<SuccessArg, FailArg> {
   fail?: (args: FailArg) => void;
 }
 
-export function promisify<Arg extends Record<string, any> = Record<string, never>, SuccessArg = any, FailArg = any>(
+export function promisify<Arg = any, SuccessArg = any, FailArg = any>(
   api: (arg: Arg & PromisifyArgs<SuccessArg, FailArg>) => void
 ) {
-  return (arg: Partial<Arg> & Partial<PromisifyArgs<SuccessArg, FailArg>> = {} as Partial<Arg>) => {
+  // @ts-ignore
+  return (arg: Arg & PromisifyArgs<SuccessArg, FailArg> = {} as Arg) => {
     return new Promise<SuccessArg>((resolve, reject) => {
       const promisifyArg: any = arg;
 
