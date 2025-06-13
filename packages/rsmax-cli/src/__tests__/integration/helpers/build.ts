@@ -91,7 +91,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
 
       if (stats.hasErrors()) {
         info?.errors?.forEach(err => {
-          console.error(err.message);
+          console.error(err.message.toString());
         });
         throw new Error(info?.errors?.join('\n'));
       }
