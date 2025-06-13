@@ -1,0 +1,50 @@
+Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+    × Module build failed:
+    ├─▶   ×   x Expression expected
+    │     │    ,-[/Users/wangjue/WebstormProjects/rspack/rsmax/packages/rsmax-cl  i/template/index.html.ejs:1:1]
+    │     │  1 | <!DOCTYPE html>
+    │     │    : ^
+    │     │  2 | <html><head><script defer src="../../runtime.js"></script><script defer src="../../common.js"></script><script defer src="../../pages/index/index2.js"></script><link href="../../common.css" rel="stylesheet"></head>
+    │     │  3 |   <head>
+    │     │  4 |     <meta charset="utf-8"/>
+    │     │    `----
+    │     │   x Expected ';', '}' or <eof>
+    │     │    ,-[/Users/wangjue/WebstormProjects/rspack/rsmax/packages/rsmax-cl  i/template/index.html.ejs:1:1]
+    │     │  1 | <!DOCTYPE html>
+    │     │    : ^^^^|^^^^ ^^^^
+    │     │    :     `-- This is the expression part of an expression statement
+    │     │  2 | <html>
+    │     │  3 |   <head>
+    │     │  4 |     <meta charset="utf-8"/>
+    │     │    `----
+    │     │
+    │   
+    ╰─▶ Syntax Error
+  
+  - child-compiler.js:211 
+    [rsmax]/[html-webpack-plugin@5.6.3_@rspack+core@1.3.15_@swc+helpers@0.5.17__    webpack@5.99.8_@swc+_17c9b98557f2fcf6cdcc2de5f0f2ffcc]/[html-webpack-plugin]    /lib/child-compiler.js:211:18
+  
+  - index.js:8527 finalCallback
+    [rsmax]/[@rspack+core@1.3.15_@swc+helpers@0.5.17]/[@rspack]/core/dist/index.    js:8527:21
+  
+  - index.js:8538 
+    [rsmax]/[@rspack+core@1.3.15_@swc+helpers@0.5.17]/[@rspack]/core/dist/index.    js:8538:24
+  
+  - index.js:8572 
+    [rsmax]/[@rspack+core@1.3.15_@swc+helpers@0.5.17]/[@rspack]/core/dist/index.    js:8572:184
+  
+  - index.js:473 done
+    [rsmax]/[@rspack+lite-tapable@1.0.1]/[@rspack]/lite-tapable/dist/index.js:47    3:13
+  
+  - index.js:480 AsyncSeriesHook.callAsyncStageRange
+    [rsmax]/[@rspack+lite-tapable@1.0.1]/[@rspack]/lite-tapable/dist/index.js:48    0:20
+  
+  - index.js:82 AsyncSeriesHook.callAsync
+    [rsmax]/[@rspack+lite-tapable@1.0.1]/[@rspack]/lite-tapable/dist/index.js:82    :21
+  
+  - index.js:8572 
+    [rsmax]/[@rspack+core@1.3.15_@swc+helpers@0.5.17]/[@rspack]/core/dist/index.    js:8572:126
+  
+</pre>
