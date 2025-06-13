@@ -70,7 +70,7 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   if (builder.options.turboRenders) {
     const options = {
-      isHostComponentPackage: (pkg: string) => pkg.startsWith('remax'),
+      isHostComponentPackage: (pkg: string) => pkg.startsWith('rsmax'),
     };
     // turbo pages
     config.module
