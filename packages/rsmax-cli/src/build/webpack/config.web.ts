@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { Configuration } from '@rspack/core';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { Configuration, rspack } from '@rspack/core';
 import Config from 'rspack-chain';
 import type Builder from '../Builder';
 import SpaEntry from '../entries/SpaEntry';
@@ -31,7 +30,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     },
   });
 
-  config.plugin('html-webpack-plugin').use(HtmlWebpackPlugin, [
+  config.plugin('html-webpack-plugin').use(rspack.HtmlRspackPlugin, [
     {
       template: fs.existsSync(path.join(builder.projectPath.publicDir(), '/index.html'))
         ? path.join(builder.projectPath.publicDir(), '/index.html')

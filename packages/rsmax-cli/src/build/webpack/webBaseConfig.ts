@@ -124,10 +124,8 @@ export default function webBaseConfig(config: Config, builder: Builder) {
   };
 
   if (typeof builder.options.configWebpack === 'function') {
-    // @ts-ignore
     builder.options.configWebpack(context);
   }
-  // @ts-ignore
   builder.api.configWebpack(context);
 
   return config;
