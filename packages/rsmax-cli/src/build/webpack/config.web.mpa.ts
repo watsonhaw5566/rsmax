@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { Configuration } from '@rspack/core';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { Configuration, rspack } from '@rspack/core';
 import Config from 'rspack-chain';
 import type Builder from '../Builder';
 import FallbackEntry from '../entries/FallbackEntry';
@@ -17,7 +16,7 @@ export default function webpackConfig(builder: Builder): Configuration {
   const addEntry = (entry: VirtualEntry) => {
     config.entry(entry.name).add(entry.virtualPath);
     config.plugin(`rspack-virtual-modules${entry.name}`).use(entry.virtualModule);
-    config.plugin(`html-webpack-plugin${entry.name}`).use(HtmlWebpackPlugin, [
+    config.plugin(`html-webpack-plugin${entry.name}`).use(rspack.HtmlRspackPlugin, [
       {
         filename: `${entry.name}.html`,
         chunks: [entry.name],
