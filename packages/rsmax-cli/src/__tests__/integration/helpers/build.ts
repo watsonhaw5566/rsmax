@@ -65,7 +65,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
     configWebpack(context: any) {
       context.config
         .mode('none')
-        .plugins.delete('rspack-bar')
+        .plugins.delete('rspackbar')
         .end()
         .resolve.alias.merge({
           '@components': path.resolve(cwd, 'src/components'),
@@ -148,7 +148,7 @@ export async function buildMiniPlugin(app: string, target: Platform, options: Pa
     configWebpack(context: { config: Config; rspack: any }) {
       context.config
         .mode('none')
-        .plugins.delete('rspack-bar')
+        .plugins.delete('rspackbar')
         .end()
         .externals([...context.config.get('externals'), ...externals])
         .optimization.minimize(false);
@@ -229,7 +229,7 @@ export function buildMiniComponent(
     configWebpack(context: { config: Config; rspack: any }) {
       context.config
         .mode('none')
-        .plugins.delete('rspack-bar')
+        .plugins.delete('rspackbar')
         .end()
         .externals([...context.config.get('externals'), ...externals])
         .optimization.minimize(false);
