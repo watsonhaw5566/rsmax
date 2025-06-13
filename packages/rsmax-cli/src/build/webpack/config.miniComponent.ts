@@ -216,7 +216,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     },
   ]);
 
-  config.plugin('rspack-bar').use(rspack.ProgressPlugin);
+  config.plugin('rspackbar').use(rspack.ProgressPlugin);
   config.plugin('mini-css-extract-plugin').use(rspack.CssExtractRspackPlugin, [{ filename: `[name]${meta.style}` }]);
   config.plugin('rsmax-optimize-entries-plugin').use(RsmaxPlugins.OptimizeEntries, [meta]);
   config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);

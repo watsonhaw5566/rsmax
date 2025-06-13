@@ -90,7 +90,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
     ]);
   }
 
-  config.plugin('rspack-bar').use(rspack.ProgressPlugin);
+  config.plugin('rspackbar').use(rspack.ProgressPlugin);
 
   if (builder.options.analyze) {
     config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
