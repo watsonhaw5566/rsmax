@@ -68,9 +68,9 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
         .plugins.delete('rspack-bar')
         .end()
         .resolve.alias.merge({
-        '@components': path.resolve(cwd, 'src/components'),
-        '@c': path.resolve(cwd, 'src/components'),
-      })
+          '@components': path.resolve(cwd, 'src/components'),
+          '@c': path.resolve(cwd, 'src/components'),
+        })
         .end()
         .end()
         .externals([...(context.config.get('externals') || []), ...externals])
@@ -90,7 +90,9 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
-        console.error(info?.errors?.join('\n'));
+        info?.errors?.forEach(err => {
+          console.error(info?.errors);
+        });
         throw new Error(info?.errors?.join('\n'));
       }
 
@@ -109,7 +111,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
       const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
           (include.length > 0 && includeRegExp.test(c.fileName)) ||
-          (exclude.length > 0 && !excludeRegExp.test(c.fileName)),
+          (exclude.length > 0 && !excludeRegExp.test(c.fileName))
       );
 
       resolve(output);
@@ -184,7 +186,7 @@ export async function buildMiniPlugin(app: string, target: Platform, options: Pa
       const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
           (include.length > 0 && includeRegExp.test(c.fileName)) ||
-          (exclude.length > 0 && !excludeRegExp.test(c.fileName)),
+          (exclude.length > 0 && !excludeRegExp.test(c.fileName))
       );
 
       resolve(output);
@@ -201,7 +203,7 @@ export function buildMiniComponent(
   app: string,
   inputs: { [k: string]: string },
   target: Platform,
-  options: Partial<Options> = {},
+  options: Partial<Options> = {}
 ) {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
@@ -265,7 +267,7 @@ export function buildMiniComponent(
       const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
           (include.length > 0 && includeRegExp.test(c.fileName)) ||
-          (exclude.length > 0 && !excludeRegExp.test(c.fileName)),
+          (exclude.length > 0 && !excludeRegExp.test(c.fileName))
       );
 
       resolve(output);
