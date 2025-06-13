@@ -57,8 +57,8 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.optimization.runtimeChunk({ name: 'runtime' });
   config.optimization.splitChunks({
     cacheGroups: {
-      remaxVendors: {
-        name: 'remax-vendors',
+      rsmaxVendors: {
+        name: 'rsmax-vendors',
         test: moduleMatcher,
         chunks: 'initial',
         minChunks: 2,
@@ -216,7 +216,7 @@ export default function webpackConfig(builder: Builder): Configuration {
 
   config.externals([
     {
-      '/__remax_runtime_options__': '/__remax_runtime_options__',
+      '/__rsmax_runtime_options__': '/__rsmax_runtime_options__',
     },
   ]);
 

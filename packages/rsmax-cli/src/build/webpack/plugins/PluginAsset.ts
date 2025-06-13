@@ -13,12 +13,9 @@ export default class PluginAssetPlugin {
   }
 
   apply(compiler: Compiler) {
-    compiler.hooks.emit.tapAsync(PLUGIN_NAME, async (compilation, callback) => {
+    compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
       // plugin.json
-      compilation.hooks.processAssets.tapAsync(PLUGIN_NAME, (assets, callback) => {
-        this.createManifest(compilation);
-        callback();
-      });
+      this.createManifest(compilation);
     });
   }
 
