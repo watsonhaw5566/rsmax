@@ -29,7 +29,7 @@ function TabBarItem({ config, isActive, item }: { config: TabBarConfig; isActive
   const selectedColor = config.selectedColor ?? '#108ee9';
 
   return (
-    <Link to={`/${item.url}`} className={'rsmax-tab-item'}>
+    <Link to={item.url.startsWith('/') ? item.url : `/${item.url}`} className={'rsmax-tab-item'}>
       <div className={'rsmax-tab-item-image'} style={{ backgroundImage: `url(${icon})` }} />
       <div
         className={'rsmax-tab-item-title'}
