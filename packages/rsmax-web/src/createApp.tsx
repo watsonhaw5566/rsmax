@@ -1,37 +1,37 @@
 import loadable from '@loadable/component';
 import { PluginDriver, RuntimeOptions } from '@rsmax/framework-shared';
-import type { History } from 'history';
 import React from 'react';
-import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { KeepAlive, KeepAliveProvider } from './KeepAlive';
 import { TabBar } from './TabBar';
 import createAppConfig from './createAppConfig';
 import createPageConfig from './createPageConfig';
 import type { BootstrapOptions } from './types';
 
-export default function createApp(options: BootstrapOptions, history: History) {
+export default function createApp(options: BootstrapOptions) {
   const { async = true, appComponent, appConfig, pageComponents, pages, plugins = [] } = options;
   const AppConfig = createAppConfig(appComponent);
 
   const pluginDriver = new PluginDriver(plugins.map(plugin => plugin.default || plugin));
-  RuntimeOptions.apply({ pluginDriver });
 
   const pageComponentsHoc = pages.map((page, i) => {
     return async
       ? loadable<any>(() =>
-        (pageComponents[i]() as Promise<{ default: React.ComponentType }>).then(({ default: c }) =>
-          createPageConfig(c, page.route)
+          (pageComponents[i]() as Promise<{ default: React.ComponentType }>).then(({ default: c }) =>
+            createPageConfig(c, page.route)
+          )
         )
-      )
       : createPageConfig(pageComponents[i]() as React.ComponentType, page.route);
   });
-  return (
-    <HashRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-    >
+
+  const AppConfigElement = () => {
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+      RuntimeOptions.apply({ pluginDriver, navigate, mpa: false });
+    }, [navigate]);
+
+    return (
       <AppConfig>
         <KeepAliveProvider>
           <Routes>
@@ -69,6 +69,23 @@ export default function createApp(options: BootstrapOptions, history: History) {
           {process.env.NODE_ENV === 'development' && <LogLocation />}
         </KeepAliveProvider>
       </AppConfig>
+    );
+  };
+  if (options.appConfig.router?.type === 'browser') {
+    return (
+      <BrowserRouter>
+        <AppConfigElement />
+      </BrowserRouter>
+    );
+  }
+  return (
+    <HashRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
+      <AppConfigElement />
     </HashRouter>
   );
 }

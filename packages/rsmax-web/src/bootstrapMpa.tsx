@@ -61,7 +61,7 @@ export default function bootstrap(options: any) {
     },
   };
 
-  RuntimeOptions.apply({ pluginDriver, history, mpa: true });
+  RuntimeOptions.apply({ pluginDriver, mpa: true });
   const App = createApp(options);
 
   const container = document.getElementById('rsmax-app');

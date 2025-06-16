@@ -8,7 +8,7 @@ export type { NavigatorProps };
 
 const Navigator: React.ForwardRefRenderFunction<any, NavigatorProps> = (props, ref) => {
   const { className, url, action, hoverClassName, hoverStartTime, hoverStayTime, ...restProps } = filterProps(props);
-  const history = RuntimeOptions.get('history');
+  const navigate = RuntimeOptions.get('navigate');
 
   function handleTap() {
     switch (action) {
@@ -16,10 +16,10 @@ const Navigator: React.ForwardRefRenderFunction<any, NavigatorProps> = (props, r
         window.location.href = window.location.hostname + url;
         break;
       case 'redirect':
-        history.replace(url);
+        navigate.replace(url);
         break;
       default:
-        history.push(url);
+        navigate.push(url);
         break;
     }
   }

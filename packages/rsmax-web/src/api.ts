@@ -14,22 +14,24 @@ type ReLaunchParams = NavigateToParams;
 type SwitchTabParams = NavigateToParams;
 
 export function navigateTo(params: NavigateToParams) {
-  const history = RuntimeOptions.get('history');
-  history.push(params.url);
-
+  const navigate = RuntimeOptions.get('navigate');
+  navigate(params.url, {
+    replace: true,
+  });
   return Promise.resolve();
 }
 
 export function navigateBack(params?: NavigateBackParams) {
-  const history = RuntimeOptions.get('history');
-  history.go(-(params?.delta || 1));
-
+  const navigate = RuntimeOptions.get('navigate');
+  navigate(-(params?.delta || 1));
   return Promise.resolve();
 }
 
 export function redirectTo(params: RedirectToParams) {
-  const history = RuntimeOptions.get('history');
-  history.replace(params.url);
+  const navigate = RuntimeOptions.get('navigate');
+  navigate(params.url, {
+    replace: true,
+  });
 
   return Promise.resolve();
 }
@@ -39,5 +41,5 @@ export function reLaunch(params: ReLaunchParams) {
 }
 
 export function switchTab(params: SwitchTabParams) {
-  navigateTo(params);
+  navigateTo(params).then();
 }
