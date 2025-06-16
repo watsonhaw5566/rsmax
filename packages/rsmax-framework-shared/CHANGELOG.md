@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.13](https://github.com/watsonhaw5566/rsmax/compare/v1.3.12...v1.3.13) (2025-06-16)
+
+### Bug Fixes
+
+- **framework-shared:** 修复 promisify 的返回类型定义 ([#25](https://github.com/watsonhaw5566/rsmax/issues/25)) ([9a7d38d](https://github.com/watsonhaw5566/rsmax/commit/9a7d38d2a6f40eb6994903730bec4456e504159a))
+
 ## [1.3.12](https://github.com/remaxjs/remax/compare/v1.3.11...v1.3.12) (2025-06-08)
 
 **Note:** Version bump only for package @rsmax/framework-shared

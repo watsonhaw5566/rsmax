@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.13](https://github.com/watsonhaw5566/rsmax/compare/v1.3.12...v1.3.13) (2025-06-16)
+
+### Bug Fixes
+
+- **ali:** Button 组件 补充 open-type 'chooseAvatar' 类型 和 onChooseAvatar 事件 ([5f5a0ce](https://github.com/watsonhaw5566/rsmax/commit/5f5a0cee2a8883d03b029c2513c2a1816c7b585a))
+- **ali:** 补充 Ad 组件 ([159403e](https://github.com/watsonhaw5566/rsmax/commit/159403e86e5034550cda0fde7cebb80c106dab39))
+- **ali:** 补充 ErrorView 组件 ([a7cc6eb](https://github.com/watsonhaw5566/rsmax/commit/a7cc6eb3cea806b412fde47cca91497fb2e2c193))
+- **ali:** 补充 JoinGroupChat 组件 ([299efc6](https://github.com/watsonhaw5566/rsmax/commit/299efc61a813dabbeaf51db97d269024f25f4011))
+- **ali:** 补充 MatchMedia 组件 ([cfe5414](https://github.com/watsonhaw5566/rsmax/commit/cfe5414d76c4107fb883327130e419ffcc43e9a6))
+- **ali:** 补充 PageContainer 组件 ([0c797dc](https://github.com/watsonhaw5566/rsmax/commit/0c797dcde779cf4d68adfdadef11169b3a537d71))
+- **ali:** 补充 PageMeta 组件 ([54e2aa1](https://github.com/watsonhaw5566/rsmax/commit/54e2aa13d1a8df70513c36adb4361b3d9fff497a))
+- **ali:** 补充 RootPortal 组件 ([54d06d0](https://github.com/watsonhaw5566/rsmax/commit/54d06d067fbfa3903f4750d9cb915b3acf3c97a6))
+- **ali:** 补充 RootPortal 组件 ([198e97e](https://github.com/watsonhaw5566/rsmax/commit/198e97ef568cf66ada477debee2b5a558e277b6e))
+- **ali:** 补充 ShareElement 组件 ([18f8c0e](https://github.com/watsonhaw5566/rsmax/commit/18f8c0e5653746341c9fd15533d9a7d5b5b85991))
+- **ali:** 补充 SubscribeMessage 组件 ([52c6f49](https://github.com/watsonhaw5566/rsmax/commit/52c6f4958569ccc49c30193bf384cad2ccb04940))
+- **ali:** 补充 阿里系小程序缺失的 api ([7c6e38e](https://github.com/watsonhaw5566/rsmax/commit/7c6e38e8560316c51ebd94ddb1929cc9ff76ddd3))
+- **cli:** 修复 web 构建 ([#32](https://github.com/watsonhaw5566/rsmax/issues/32)) ([1c61ff6](https://github.com/watsonhaw5566/rsmax/commit/1c61ff6479be00e455c689e4a444555c213b6e4b))
+- **cli:** 修复小程序插件 ([#29](https://github.com/watsonhaw5566/rsmax/issues/29)) ([771e3de](https://github.com/watsonhaw5566/rsmax/commit/771e3dee7194c0101eff29bd538739b3444b4f53))
+- **framework-shared:** 修复 promisify 的返回类型定义 ([#25](https://github.com/watsonhaw5566/rsmax/issues/25)) ([9a7d38d](https://github.com/watsonhaw5566/rsmax/commit/9a7d38d2a6f40eb6994903730bec4456e504159a))
+- **toutiao:** 修复 MatchMedia 组件缺失属性 ([7abfece](https://github.com/watsonhaw5566/rsmax/commit/7abfece2a75978a0e4b977ddfdec10ba33734f71))
+
 ## [1.3.12](https://github.com/watsonhaw5566/rsmax/compare/v1.3.11...v1.3.12) (2025-06-08)
 
 ### Bug Fixes

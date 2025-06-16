@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.13](https://github.com/remaxjs/remax/compare/v1.3.12...v1.3.13) (2025-06-16)
+
+### Bug Fixes
+
+- **toutiao:** 修复 MatchMedia 组件缺失属性 ([7abfece](https://github.com/remaxjs/remax/commit/7abfece2a75978a0e4b977ddfdec10ba33734f71))
+
 ## [1.3.12](https://github.com/remaxjs/remax/compare/v1.3.11...v1.3.12) (2025-06-08)
 
 **Note:** Version bump only for package @rsmax/toutiao

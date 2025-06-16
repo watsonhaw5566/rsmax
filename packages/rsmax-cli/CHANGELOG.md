@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.13](https://github.com/remaxjs/remax/compare/v1.3.12...v1.3.13) (2025-06-16)
+
+### Bug Fixes
+
+- **cli:** 修复 web 构建 ([#32](https://github.com/remaxjs/remax/issues/32)) ([1c61ff6](https://github.com/remaxjs/remax/commit/1c61ff6479be00e455c689e4a444555c213b6e4b))
+- **cli:** 修复小程序插件 ([#29](https://github.com/remaxjs/remax/issues/29)) ([771e3de](https://github.com/remaxjs/remax/commit/771e3dee7194c0101eff29bd538739b3444b4f53))
+
 ## [1.3.12](https://github.com/remaxjs/remax/compare/v1.3.11...v1.3.12) (2025-06-08)
 
 ### Bug Fixes
