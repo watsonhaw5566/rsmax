@@ -9,7 +9,7 @@ interface RuntimeOptions {
   pluginDriver: PluginDriver;
   pageEvents: Record<string, string[]>;
   appEvents: string[];
-  history: any;
+  navigate: any;
   mpa: boolean;
 }
 
@@ -20,7 +20,7 @@ const defaultRuntimeOptions: RuntimeOptions = {
   appEvents: [],
   pageEvents: {},
   pluginDriver: new PluginDriver([]),
-  history: {},
+  navigate: {},
   mpa: false,
 };
 
@@ -30,7 +30,7 @@ function merge(...options: Array<Partial<RuntimeOptions>>) {
   return options.reduce<RuntimeOptions>((acc, option) => {
     acc.appEvents = option.appEvents ?? acc.appEvents;
     acc.debug = option.debug ?? acc.debug;
-    acc.history = option.history ?? acc.history;
+    acc.navigate = option.navigate ?? acc.navigate;
 
     Object.keys(option.hostComponents ?? {}).forEach(k => {
       const inputHostComponent = option.hostComponents?.[k];

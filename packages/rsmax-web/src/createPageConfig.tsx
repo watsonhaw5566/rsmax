@@ -53,8 +53,8 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
     constructor(props: any) {
       super(props);
 
-      props.cacheLifecycles.didCache(this.componentDidCache);
-      props.cacheLifecycles.didRecover(this.componentDidRecover);
+      props.cacheLifecycles?.didCache(this.componentDidCache);
+      props.cacheLifecycles?.didRecover(this.componentDidRecover);
     }
 
     state = {
@@ -158,7 +158,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       const { refreshing } = this.state;
       const hasTabBar = !!tabBar;
       const className = `rsmax-page ${hasTabBar ? 'with-tab-bar' : ''}`;
-      const query = qs.parse(location.search, { ignoreQueryPrefix: true });
+      const query = qs.parse(location?.search, { ignoreQueryPrefix: true });
 
       if (this.isPullDownRefreshEnabled()) {
         return (

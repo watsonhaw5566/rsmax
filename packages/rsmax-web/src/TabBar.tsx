@@ -1,27 +1,19 @@
-import type { History } from 'history';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import type { TabBarConfig, TabItem } from './types';
 
-export function TabBar({ config, history }: { config: TabBarConfig; history: History }) {
-  const [currentPath, setCurrentPath] = React.useState<string>(history.location.pathname);
+export function TabBar({ config }: { config: TabBarConfig }) {
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-  React.useEffect(() => {
-    setCurrentPath(history.location.pathname);
-
-    return history.listen(() => {
-      setCurrentPath(history.location.pathname);
-    });
-  }, []);
+  React.useEffect(() => {}, [currentPath]);
 
   const isActive = (url: string) => {
     if (!url.startsWith('/')) {
       url = `/${url}`;
     }
-
     return currentPath === url;
   };
-
   return (
     <div className="rsmax-tab-bar" style={{ backgroundColor: config.backgroundColor ?? '' }}>
       {config.items.map((item, index) => (
@@ -37,10 +29,10 @@ function TabBarItem({ config, isActive, item }: { config: TabBarConfig; isActive
   const selectedColor = config.selectedColor ?? '#108ee9';
 
   return (
-    <Link to={`/${item.url}`} className="rsmax-tab-item">
-      <div className="rsmax-tab-item-image" style={{ backgroundImage: `url(${icon})` }} />
+    <Link to={item.url.startsWith('/') ? item.url : `/${item.url}`} className={'rsmax-tab-item'}>
+      <div className={'rsmax-tab-item-image'} style={{ backgroundImage: `url(${icon})` }} />
       <div
-        className="rsmax-tab-item-title"
+        className={'rsmax-tab-item-title'}
         style={{
           color: isActive ? selectedColor : textColor,
         }}

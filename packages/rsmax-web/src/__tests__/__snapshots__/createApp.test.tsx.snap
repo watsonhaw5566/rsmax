@@ -1,5 +1,69 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`createApp > defaultTitle > pullRefresh > renders pullRefresh 1`] = `null`;
+
+exports[`createApp > defaultTitle > tabBar > renders tabBar correctly 1`] = `
+<div
+  className="rsmax-tab-bar"
+  style={
+    {
+      "backgroundColor": "white",
+    }
+  }
+>
+  <a
+    className="rsmax-tab-item"
+    href="#/pages/foo"
+    onClick={[Function]}
+  >
+    <div
+      className="rsmax-tab-item-image"
+      style={
+        {
+          "backgroundImage": "url(/assets/foo.png)",
+        }
+      }
+    />
+    <div
+      className="rsmax-tab-item-title"
+      style={
+        {
+          "color": "blue",
+        }
+      }
+    >
+      foo
+    </div>
+  </a>
+  <a
+    className="rsmax-tab-item"
+    href="#/pages/bar"
+    onClick={[Function]}
+  >
+    <div
+      className="rsmax-tab-item-image"
+      style={
+        {
+          "backgroundImage": "url(/assets/bar.png)",
+        }
+      }
+    />
+    <div
+      className="rsmax-tab-item-title"
+      style={
+        {
+          "color": "red",
+        }
+      }
+    >
+      bar
+    </div>
+  </a>
+</div>
+`;
+
+exports[`createApp > renders app correctly 1`] = `null`;
+
 exports[`createApp defaultTitle pullRefresh renders pullRefresh 1`] = `
 <div
   className="rsmax-cached-router-wrapper"

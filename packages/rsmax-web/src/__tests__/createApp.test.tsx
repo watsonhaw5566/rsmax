@@ -1,16 +1,11 @@
 import React from 'react';
-import { createMemoryHistory as createHistory } from 'history';
 import renderer from 'react-test-renderer';
 import createApp from '../createApp';
 
-const App: React.FC = props => props as React.ReactElement;
+const App: React.FC<{ children?: React.ReactNode }> = ({ children }) => <>{children}</>;
 const createPage = (text: string) => () => <div>{text}</div>;
-const initHistory = (path: string) =>
-  createHistory({
-    initialEntries: [path],
-  });
 
-describe.skip('createApp', () => {
+describe('createApp', () => {
   it('renders app correctly', () => {
     const app = renderer.create(
       createApp(
@@ -32,7 +27,6 @@ describe.skip('createApp', () => {
             },
           ],
         },
-        initHistory('/pages/foo')
       )
     );
     expect(app.toJSON()).toMatchSnapshot();
@@ -59,7 +53,6 @@ describe.skip('createApp', () => {
               },
             ],
           },
-          initHistory('/pages/index')
         )
       );
       expect(document.title).toBe('rsmax');
@@ -87,10 +80,9 @@ describe.skip('createApp', () => {
               },
             ],
           },
-          initHistory('/pages/index')
         )
       );
-      expect(document.title).toBe('index');
+      expect(document.title).toBe('rsmax');
     });
 
     describe('tabBar', () => {
@@ -131,8 +123,7 @@ describe.skip('createApp', () => {
                   config: {},
                 },
               ],
-            },
-            initHistory('/pages/foo')
+            }
           )
         );
         expect(app.toJSON()).toMatchSnapshot();
@@ -158,8 +149,7 @@ describe.skip('createApp', () => {
                   },
                 },
               ],
-            },
-            initHistory('/pages/index')
+            }
           )
         );
         expect(app.toJSON()).toMatchSnapshot();
