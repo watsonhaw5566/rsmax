@@ -1,9 +1,8 @@
 import loadable from '@loadable/component';
-import { CacheRoute, CacheSwitch } from '@remax/react-router-cache-route';
 import { PluginDriver, RuntimeOptions } from '@rsmax/framework-shared';
 import type { History } from 'history';
 import React from 'react';
-import { Redirect, Route, Router, useLocation } from 'react-router-dom';
+import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { TabBar } from './TabBar';
 import createAppConfig from './createAppConfig';
 import createPageConfig from './createPageConfig';
@@ -17,50 +16,53 @@ export default function createApp(options: BootstrapOptions, history: History) {
   RuntimeOptions.apply({ pluginDriver });
 
   const pageComponentsHoc = pages.map((page, i) => {
-    const pageComponent = async
+    return async
       ? loadable<any>(() =>
-          (pageComponents[i]() as Promise<{ default: React.ComponentType }>).then(({ default: c }) =>
-            createPageConfig(c, page.route)
-          )
+        (pageComponents[i]() as Promise<{ default: React.ComponentType }>).then(({ default: c }) =>
+          createPageConfig(c, page.route)
         )
+      )
       : createPageConfig(pageComponents[i]() as React.ComponentType, page.route);
-    return pageComponent;
   });
   return (
-    <Router history={history as any}>
+    <HashRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <AppConfig>
-        <CacheSwitch>
-          <Route exact path="/">
-            <Redirect to={`/${pages[0]?.route}`} />
-          </Route>
+        <Routes>
+          <Route path="/" element={<Navigate to={`/${pages[0]?.route}`} replace />} />
           {pages.map((page, i) => {
             return (
-              <CacheRoute key={page.route} className="rsmax-cached-router-wrapper" path={`/${page.route}`} exact={true}>
-                {(props: any) => {
-                  const pageComponent = pageComponentsHoc[i];
-                  return React.createElement(pageComponent, {
-                    ...props,
-                    pageConfig: {
-                      ...appConfig.window,
-                      ...page.config,
-                    },
-                    tabBar: appConfig.tabBar,
-                  });
-                }}
-              </CacheRoute>
+              <Route
+                key={page.route}
+                path={`/${page.route}`}
+                element={React.createElement(pageComponentsHoc[i], {
+                  pageConfig: {
+                    ...appConfig.window,
+                    ...page.config,
+                  },
+                  tabBar: appConfig.tabBar,
+                })}
+              />
             );
           })}
-          <Route>
-            {/*找不到路由时重定向到首页*/}
-            <Redirect to={`/${pages[0]?.route}`} />
-          </Route>
-        </CacheSwitch>
+          <Route
+            path="*"
+            element={
+              /*找不到路由时重定向到首页*/
+              <Navigate to={`/${pages[0]?.route}`} replace />
+            }
+          />
+        </Routes>
         {appConfig.tabBar?.items && appConfig.tabBar.items.length > 0 && (
           <TabBar history={history} config={appConfig.tabBar} />
         )}
         {process.env.NODE_ENV === 'development' && <LogLocation />}
       </AppConfig>
-    </Router>
+    </HashRouter>
   );
 }
 
