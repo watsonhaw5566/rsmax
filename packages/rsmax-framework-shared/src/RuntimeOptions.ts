@@ -1,5 +1,4 @@
 import type { HostComponent, Platform } from '@rsmax/types';
-import { NavigateFunction } from 'react-router-dom';
 import PluginDriver from './PluginDriver';
 
 interface RuntimeOptions {
@@ -10,7 +9,7 @@ interface RuntimeOptions {
   pluginDriver: PluginDriver;
   pageEvents: Record<string, string[]>;
   appEvents: string[];
-  navigate: NavigateFunction;
+  navigate: any;
   mpa: boolean;
 }
 
@@ -21,7 +20,7 @@ const defaultRuntimeOptions: RuntimeOptions = {
   appEvents: [],
   pageEvents: {},
   pluginDriver: new PluginDriver([]),
-  navigate: () => {},
+  navigate: {},
   mpa: false,
 };
 
