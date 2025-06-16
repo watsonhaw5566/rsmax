@@ -32,6 +32,10 @@
     "rmc-pull-to-refresh": "^1.0.12",
     "umi-hd": "^5.0.1"
   },
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
+  },
   "devDependencies": {
     "@types/loadable__component": "^5.10.0",
     "@types/qs": "^6.9.3",

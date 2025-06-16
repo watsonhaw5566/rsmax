@@ -20,7 +20,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "react-is": "^18.3.0"
+    "react-is": "^18.3.0",
+    "react-router-dom": "^6.30.0"
   },
   "devDependencies": {
     "@rsmax/types": "workspace:*",
