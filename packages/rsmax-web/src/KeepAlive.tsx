@@ -55,6 +55,13 @@ export const KeepAlive: React.FC<KeepAliveProps> = ({ cacheKey, children }) => {
   React.useEffect(() => {
     // 更新组件引用
     componentRef.current = children;
+    setCache(prev => {
+      const next = new Map(prev);
+      if (next.has(cacheKey)) {
+        next.set(cacheKey, { ...next.get(cacheKey)!, component: children });
+      }
+      return next;
+    });
   }, [children]);
 
   React.useEffect(() => {
