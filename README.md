@@ -12,9 +12,9 @@ BugFix
 
 由于 remax npm 包已存在，为避免之前项目正常运行，故更名为 rsmax 包, 感谢 Remax 原团队所有成员辛勤付出。
 
-#### 已知问题
+#### 特别感谢
 
-由于支付宝小程序平台使用了新的 Component2 ，我个人能力暂时无法适配(希望能有支付宝的童鞋协助我一下), 所以当前只支持 微信小程序、字节（抖音）小程序、Web 平台
+感谢 Rspack 团队 [hardfist](https://github.com/hardfist) / [chenjiahan](https://github.com/chenjiahan) / [SyMind](https://github.com/SyMind) / [stormslowly](https://github.com/stormslowly) / [nilptr](https://github.com/nilptr) 的答疑解惑，才得以让 Rsmax 在适配 Rspack 上如鱼得水。
 
 ### 快速开始
 
