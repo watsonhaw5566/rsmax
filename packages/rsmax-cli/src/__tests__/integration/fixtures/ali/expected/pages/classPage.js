@@ -2,18 +2,18 @@ require('./../rsmax-vendors.js');
 require('./../runtime.js');
 "use strict";
 (my["webpackChunk"] = my["webpackChunk"] || []).push([["2"], {
-63: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+64: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_classPage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_classPage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
 
 
 Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_classPage_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/classPage'));
 
 
 }),
-64: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+65: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
   "default": () => (ClassPage)
@@ -160,7 +160,7 @@ module.exports = require("rsmax");
 },function(__webpack_require__) {
 var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 __webpack_require__.O(0, ["5",], function() {
-        return __webpack_exec__(63);
+        return __webpack_exec__(64);
       });
 var __webpack_exports__ = __webpack_require__.O();
 

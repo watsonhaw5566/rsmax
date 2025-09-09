@@ -3,3 +3,7 @@
   background-color: aliceblue;
 }
 
+.b {
+  background-color: white;
+}
+

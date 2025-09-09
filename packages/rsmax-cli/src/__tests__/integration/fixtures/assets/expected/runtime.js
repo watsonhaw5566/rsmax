@@ -107,7 +107,7 @@ __webpack_require__.p = "/";
 })();
 // webpack/runtime/rspack_version
 (() => {
-__webpack_require__.rv = () => ("1.3.15")
+__webpack_require__.rv = () => ("1.5.2")
 })();
 // webpack/runtime/jsonp_chunk_loading
 (() => {
@@ -152,7 +152,7 @@ chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.pus
 })();
 // webpack/runtime/rspack_unique_id
 (() => {
-__webpack_require__.ruid = "bundler=rspack@1.3.15";
+__webpack_require__.ruid = "bundler=rspack@1.5.2";
 
 })();
 /************************************************************************/

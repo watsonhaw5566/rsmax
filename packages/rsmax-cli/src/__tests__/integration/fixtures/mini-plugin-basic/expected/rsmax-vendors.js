@@ -1263,7 +1263,7 @@ var defaultRuntimeOptions = {
     appEvents: [],
     pageEvents: {},
     pluginDriver: new _PluginDriver__WEBPACK_IMPORTED_MODULE_0__["default"]([]),
-    history: {},
+    navigate: {},
     mpa: false
 };
 var runtimeOptions = defaultRuntimeOptions;
@@ -1275,7 +1275,7 @@ function merge() {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
-        acc.history = (_c = option.history) !== null && _c !== void 0 ? _c : acc.history;
+        acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
         Object.keys((_d = option.hostComponents) !== null && _d !== void 0 ? _d : {}).forEach(function(k) {
             var _a, _b, _c, _d, _e, _f, _g;
             var inputHostComponent = (_a = option.hostComponents) === null || _a === void 0 ? void 0 : _a[k];
@@ -3234,7 +3234,7 @@ function createPageConfig(Page, name) {
                 return result;
             }
             var callback = (0, framework_shared_1.callbackName)(lifecycle);
-            if ((_a = this.wrapperRef.current) === null || _a === void 0 ? void 0 : _a[callback]) {
+            if (this.wrapperRef && ((_a = this.wrapperRef.current) === null || _a === void 0 ? void 0 : _a[callback])) {
                 var _this$wrapperRef$curr;
                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
             }

@@ -1,10 +1,5 @@
 require('./runtime.js');
 (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
-3: (function () {
-App({});
-
-
-}),
 0: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -26,6 +21,11 @@ rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.RuntimeOptions.apply({
     pageEvents: _rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1__.pageEvents,
     appEvents: _rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1__.appEvents
 });
+
+
+}),
+3: (function () {
+App({});
 
 
 }),

@@ -2,17 +2,6 @@ require('./rsmax-vendors.js');
 require('./runtime.js');
 "use strict";
 (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
-7: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-__webpack_require__.r(__webpack_exports__);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_with_jsx_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
-
-
-App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_with_jsx_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
-
-
-}),
 0: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 /* ESM import */var rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
@@ -120,6 +109,17 @@ function _toPrimitive(t, r) {
         });
     }
 });
+
+
+}),
+7: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_with_jsx_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
+
+
+App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_with_jsx_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 
 }),

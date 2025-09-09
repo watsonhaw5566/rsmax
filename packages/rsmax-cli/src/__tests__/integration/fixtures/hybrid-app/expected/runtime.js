@@ -103,7 +103,7 @@ __webpack_require__.O = (result, chunkIds, fn, priority) => {
 })();
 // webpack/runtime/rspack_version
 (() => {
-__webpack_require__.rv = () => ("1.3.15")
+__webpack_require__.rv = () => ("1.5.2")
 })();
 // webpack/runtime/jsonp_chunk_loading
 (() => {
@@ -111,7 +111,7 @@ __webpack_require__.rv = () => ("1.3.15")
       // object to store loaded and loading chunks
       // undefined = chunk not loaded, null = chunk preloaded/prefetched
       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-      var installedChunks = {"3": 0,};
+      var installedChunks = {"6": 0,};
       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
 // install a JSONP callback for chunk loading
 var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
@@ -148,7 +148,7 @@ chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.pus
 })();
 // webpack/runtime/rspack_unique_id
 (() => {
-__webpack_require__.ruid = "bundler=rspack@1.3.15";
+__webpack_require__.ruid = "bundler=rspack@1.5.2";
 
 })();
 /************************************************************************/
