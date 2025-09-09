@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { slash } from '@rsmax/shared';
-import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
+import { rspack } from '@rspack/core';
 
 export default (_: any, { cwd, rootDir }: { cwd: string; rootDir: string }) => {
   const searchCustomErrorFile = () => {
@@ -23,8 +23,8 @@ export default (_: any, { cwd, rootDir }: { cwd: string; rootDir: string }) => {
   }
   const errorBoundaryFile = path.resolve(__dirname, './ErrorBoundary.js');
 
-  const virtualModules = new RspackVirtualModulePlugin({
-    '@rsmax/plugin-error-screen/runtime.js': `
+  const virtualModules = new rspack.experiments.VirtualModulesPlugin({
+    'node_modules/@rsmax/plugin-error-screen/runtime.js': `
         import React from 'react';
         import { View } from 'rsmax/one';
         import ErrorScreen from '${slash(errorScreenFile)}';

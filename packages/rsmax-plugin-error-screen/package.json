@@ -23,9 +23,9 @@
     "clean": "rimraf lib tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@rspack/core": "^1.5.0",
     "@rsmax/redbox-react": "^1.0.4",
-    "@rsmax/shared": "workspace:*",
-    "rspack-plugin-virtual-module": "^1.0.1"
+    "@rsmax/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.0"
