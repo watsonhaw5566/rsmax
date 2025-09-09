@@ -13,7 +13,6 @@ import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
 import ejs from 'ejs';
 import { logger } from 'rslog';
 import Config from 'rspack-chain';
-import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
 import NativeEntry from '../entries/NativeEntry';
@@ -178,7 +177,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     path.resolve(__dirname, '../../../template/app-runtime-options.js.ejs'),
     'utf-8'
   );
-  const runtimeOptionsPath = slash('@rsmax/apply-runtime-options.js');
+  const runtimeOptionsPath = slash('node_modules/@rsmax/apply-runtime-options.js');
 
   entries.forEach(entry => {
     if (!(entry instanceof NativeEntry)) {
@@ -196,7 +195,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     appEvents: '[]',
   };
 
-  const virtualModules = new RspackVirtualModulePlugin({
+  const virtualModules = new rspack.experiments.VirtualModulesPlugin({
     [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
   });
   config.plugin('rspack-virtual-modules').use(virtualModules);

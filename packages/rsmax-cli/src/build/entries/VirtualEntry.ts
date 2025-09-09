@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { type Compilation, type Compiler, EntryPlugin } from '@rspack/core';
-import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module';
+import { type Compilation, type Compiler, EntryPlugin, rspack } from '@rspack/core';
 import type Builder from '../Builder';
 import { replaceExtension } from '../utils/paths';
 import NormalEntry from './NormalEntry';
@@ -17,7 +16,7 @@ export default class VirtualEntry extends NormalEntry {
     this.virtualPath = path.resolve(
       replaceExtension(this.filename, this.filename.endsWith('.ts') ? '.entry.ts' : '.entry.js')
     );
-    this.virtualModule = new RspackVirtualModulePlugin({
+    this.virtualModule = new rspack.experiments.VirtualModulesPlugin({
       [this.virtualPath]: this.outputSource(),
     });
   }
