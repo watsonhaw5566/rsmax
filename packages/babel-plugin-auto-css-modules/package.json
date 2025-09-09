@@ -20,7 +20,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "vitest run"
+    "test": "rstest run"
   },
   "dependencies": {
     "@babel/plugin-syntax-top-level-await": "^7.14.5",

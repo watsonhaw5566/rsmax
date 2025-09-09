@@ -1,4 +1,5 @@
 import { promisify } from '../promisify';
+import { rs } from '@rstest/core'
 
 describe('promisify', () => {
   it('promisify api and resolve when succeed', () => {
@@ -18,7 +19,7 @@ describe('promisify', () => {
     }
 
     const promisifyAPI = promisify(api);
-    const success = vi.fn();
+    const success = rs.fn();
 
     await promisifyAPI({
       success,
@@ -44,7 +45,7 @@ describe('promisify', () => {
     }
 
     const promisifyAPI = promisify(api);
-    const fail = vi.fn();
+    const fail = rs.fn();
 
     await promisifyAPI({
       fail,

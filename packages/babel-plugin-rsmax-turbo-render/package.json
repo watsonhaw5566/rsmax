@@ -21,7 +21,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "vitest run"
+    "test": "rstest run"
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.10.4",
@@ -32,7 +32,6 @@
   "devDependencies": {
     "@babel/core": "^7.11.0",
     "@rsmax/build-store": "workspace:*",
-    "@types/jest": "^26.0.8",
     "babel-plugin-tester": "^9.2.0"
   },
   "publishConfig": {

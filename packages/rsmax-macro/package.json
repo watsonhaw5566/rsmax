@@ -17,8 +17,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "pretest": "npm run build",
-    "test": "vitest run"
+    "pretest": "npm run build"
   },
   "dependencies": {
     "@rsmax/shared": "workspace:*"

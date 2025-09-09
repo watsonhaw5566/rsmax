@@ -12,7 +12,7 @@
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
     "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
-    "test": "vitest run"
+    "test": "rstest run"
   },
   "dependencies": {
     "@rsmax/shared": "workspace:*",

@@ -1,6 +1,7 @@
 import { createCallbackProxy } from '../SyntheticEvent/createCallbackProxy';
 import VNode from '../VNode';
 import Container from '../Container';
+import { rs } from '@rstest/core'
 
 class SyntheticEventTester {
   callbacks: Array<((...params: any) => void) | null> = [];
@@ -59,9 +60,9 @@ describe('synthetic event', () => {
       expect(catchTap).toBe(newCatchTap);
     });
     it('normal', () => {
-      const first = vi.fn();
-      const second = vi.fn();
-      const third = vi.fn();
+      const first = rs.fn();
+      const second = rs.fn();
+      const third = rs.fn();
       const callbacks = [
         [first, 'onClick'],
         [second, 'onClick'],
@@ -91,9 +92,9 @@ describe('synthetic event', () => {
     });
 
     it('each type works independent', () => {
-      const first = vi.fn();
-      const second = vi.fn();
-      const third = vi.fn();
+      const first = rs.fn();
+      const second = rs.fn();
+      const third = rs.fn();
       const callbacks = [
         [
           (e: any) => {
@@ -122,9 +123,9 @@ describe('synthetic event', () => {
     });
 
     it('stop at first', () => {
-      const first = vi.fn();
-      const second = vi.fn();
-      const third = vi.fn();
+      const first = rs.fn();
+      const second = rs.fn();
+      const third = rs.fn();
       const callbacks = [
         [
           (e: any) => {
@@ -153,9 +154,9 @@ describe('synthetic event', () => {
     });
 
     it('stop at middle', () => {
-      const first = vi.fn();
-      const second = vi.fn();
-      const third = vi.fn();
+      const first = rs.fn();
+      const second = rs.fn();
+      const third = rs.fn();
       const callbacks = [
         [first, 'onClick'],
         [null, 'onClick'],
@@ -187,9 +188,9 @@ describe('synthetic event', () => {
     });
 
     it('stop at last', () => {
-      const first = vi.fn();
-      const second = vi.fn();
-      const third = vi.fn();
+      const first = rs.fn();
+      const second = rs.fn();
+      const third = rs.fn();
       const callbacks = [
         [first, 'onClick'],
         [null, 'onClick'],
