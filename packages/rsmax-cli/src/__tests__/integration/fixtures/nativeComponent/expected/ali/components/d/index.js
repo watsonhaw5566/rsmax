@@ -1,6 +1,6 @@
 require('./../../runtime.js');
 (my["webpackChunk"] = my["webpackChunk"] || []).push([["6"], {
-97: (function () {
+84: (function () {
 Component({});
 
 
@@ -8,7 +8,7 @@ Component({});
 
 },function(__webpack_require__) {
 var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-var __webpack_exports__ = (__webpack_exec__(97));
+var __webpack_exports__ = (__webpack_exec__(84));
 
 }
 ]);

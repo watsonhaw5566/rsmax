@@ -3,7 +3,6 @@ import hd from 'umi-hd';
 import createApp from './createApp';
 import type { BootstrapOptions } from './types';
 
-
 export default function bootstrap(options: BootstrapOptions) {
   hd();
   const container = document.getElementById('rsmax-app');

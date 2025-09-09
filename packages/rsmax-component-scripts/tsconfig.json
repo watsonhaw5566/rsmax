@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "types": ["@types/node", "vitest/globals"]
+    "types": ["@types/node"]
   },
   "exclude": ["tests", "lib", "src/tests"]
 }

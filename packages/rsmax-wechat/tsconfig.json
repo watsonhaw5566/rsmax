@@ -6,7 +6,7 @@
     "lib": ["ES2015", "DOM"],
     "declaration": true,
     "jsx": "react",
-    "types": ["@types/node", "miniprogram-api-typings", "vitest/globals"],
+    "types": ["@types/node", "miniprogram-api-typings", "@rstest/core/globals"],
     "downlevelIteration": true
   },
   "include": ["src/**/*"]

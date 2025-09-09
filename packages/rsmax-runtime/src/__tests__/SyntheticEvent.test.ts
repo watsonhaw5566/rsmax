@@ -1,7 +1,6 @@
 import { createCallbackProxy } from '../SyntheticEvent/createCallbackProxy';
 import VNode from '../VNode';
 import Container from '../Container';
-import { rs } from '@rstest/core'
 
 class SyntheticEventTester {
   callbacks: Array<((...params: any) => void) | null> = [];

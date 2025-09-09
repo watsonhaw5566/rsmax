@@ -1,5 +1,5 @@
 import * as path from 'node:path';
-import pluginTester from 'babel-plugin-tester';
+import { pluginTester } from 'babel-plugin-tester';
 import fixRegeneratorRuntime from '../src';
 
 pluginTester({

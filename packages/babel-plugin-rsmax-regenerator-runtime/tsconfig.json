@@ -6,20 +6,11 @@
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib",
-    "types": [
-      "@types/node",
-      "@rstest/core/globals"
-    ],
+    "types": ["@types/node"],
     "jsx": "preserve",
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src",
-    "typings"
-  ],
-  "exclude": [
-    "tests",
-    "lib"
-  ]
+  "include": ["src", "typings"],
+  "exclude": ["tests", "lib"]
 }
