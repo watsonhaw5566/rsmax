@@ -2,17 +2,6 @@ require('./../rsmax-vendors.js');
 require('./../runtime.js');
 "use strict";
 (my["webpackChunk"] = my["webpackChunk"] || []).push([["2"], {
-53: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-__webpack_require__.r(__webpack_exports__);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_turbo_pages_basic_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
-
-
-Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_turbo_pages_basic_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
-
-
-}),
 56: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -22,6 +11,17 @@ __webpack_require__.d(__webpack_exports__, {
 /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
 
 /* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createNativeComponent)('native-component-index-f24c316'));
+
+
+}),
+53: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_turbo_pages_basic_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
+
+
+Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_turbo_pages_basic_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
 
 
 }),
@@ -162,8 +162,8 @@ function ReactComp(_ref) {
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_2__.View, {
                     children: "View inside Expression"
                 }),
-                react__WEBPACK_IMPORTED_MODULE_1__.Children.map(children, function(child, index) {
-                    return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__.cloneElement(child, {
+                react__WEBPACK_IMPORTED_MODULE_1___default().Children.map(children, function(child, index) {
+                    return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1___default().cloneElement(child, {
                         id: 'reactComp' + index
                     });
                 })
@@ -172,12 +172,12 @@ function ReactComp(_ref) {
     });
 }
 function Index() {
-    var _React$useState = react__WEBPACK_IMPORTED_MODULE_1__.useState(1), _React$useState2 = _slicedToArray(_React$useState, 1), count = _React$useState2[0];
+    var _React$useState = react__WEBPACK_IMPORTED_MODULE_1___default().useState(1), _React$useState2 = _slicedToArray(_React$useState, 1), count = _React$useState2[0];
     var props = {
         id: 'spreadId'
     };
-    var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_1__.useState(true), _React$useState4 = _slicedToArray(_React$useState3, 1), show = _React$useState4[0];
-    var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_1__.useState(true), _React$useState6 = _slicedToArray(_React$useState5, 1), showPlainText = _React$useState6[0];
+    var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_1___default().useState(true), _React$useState4 = _slicedToArray(_React$useState3, 1), show = _React$useState4[0];
+    var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_1___default().useState(true), _React$useState6 = _slicedToArray(_React$useState5, 1), showPlainText = _React$useState6[0];
     var plainText = 'plain-text-leaf';
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_2__.View, {
         entry: true,
@@ -208,7 +208,7 @@ function Index() {
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                     children: "Fragment"
                 }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), {
                     children: "React.Fragment"
                 }),
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DDD, {}),
@@ -241,14 +241,14 @@ function Index() {
                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_2__.View, {
                     children: "custom view"
                 }),
-                /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__.createElement('view', {
+                /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1___default().createElement('view', {
                     id: 'view'
                 }, [
                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_2__.View, {
                         __key: "1",
                         children: "create element children 1"
                     }, "1"),
-                    /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__.createElement('view', {
+                    /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1___default().createElement('view', {
                         key: '2'
                     })
                 ]),
