@@ -238,7 +238,7 @@ exports.shouldSuspend=function(){return!1};exports.updateContainer=function(a,b,
 
 
 }),
-26: (function (__unused_webpack_module, exports) {
+21: (function (__unused_webpack_module, exports) {
 "use strict";
 /**
  * @license React
@@ -442,11 +442,11 @@ if (true) {
 
 
 }),
-25: (function (module, __unused_webpack_exports, __webpack_require__) {
+20: (function (module, __unused_webpack_exports, __webpack_require__) {
 "use strict";
 
 if (false) {} else {
-    module.exports = __webpack_require__(26);
+    module.exports = __webpack_require__(21);
 }
 
 
@@ -1005,7 +1005,7 @@ __webpack_require__.d(__webpack_exports__, {
 
 
 }),
-21: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+16: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1026,7 +1026,7 @@ var AppInstanceContext = {
 
 
 }),
-23: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+18: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1040,7 +1040,7 @@ var ComponentInstanceContext = /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__.
 
 
 }),
-22: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+17: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1054,7 +1054,7 @@ var PageInstanceContext = /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__.creat
 
 
 }),
-20: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+15: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1205,7 +1205,7 @@ var PluginDriver = /*#__PURE__*/ function() {
 
 
 }),
-19: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+14: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1213,7 +1213,7 @@ __webpack_require__.d(__webpack_exports__, {
   get: () => (get),
   reset: () => (reset)
 });
-/* ESM import */var _PluginDriver__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
+/* ESM import */var _PluginDriver__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
 function _toConsumableArray(r) {
     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
 }
@@ -1246,7 +1246,7 @@ var defaultRuntimeOptions = {
     appEvents: [],
     pageEvents: {},
     pluginDriver: new _PluginDriver__WEBPACK_IMPORTED_MODULE_0__["default"]([]),
-    history: {},
+    navigate: {},
     mpa: false
 };
 var runtimeOptions = defaultRuntimeOptions;
@@ -1258,7 +1258,7 @@ function merge() {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
-        acc.history = (_c = option.history) !== null && _c !== void 0 ? _c : acc.history;
+        acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
         Object.keys((_d = option.hostComponents) !== null && _d !== void 0 ? _d : {}).forEach(function(k) {
             var _a, _b, _c, _d, _e, _f, _g;
             var inputHostComponent = (_a = option.hostComponents) === null || _a === void 0 ? void 0 : _a[k];
@@ -1287,7 +1287,7 @@ function reset() {
 
 
 }),
-24: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+19: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1295,11 +1295,11 @@ __webpack_require__.d(__webpack_exports__, {
 });
 /* ESM import */var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* ESM import */var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var react_is__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
-/* ESM import */var _utils_isClassComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
-/* ESM import */var _lifecycle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(28);
-/* ESM import */var _PageInstanceContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(22);
-/* ESM import */var _RuntimeOptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19);
+/* ESM import */var react_is__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* ESM import */var _PageInstanceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+/* ESM import */var _RuntimeOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+/* ESM import */var _lifecycle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(22);
+/* ESM import */var _utils_isClassComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(25);
 function _typeof(o) {
     "@babel/helpers - typeof";
     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -1385,7 +1385,7 @@ function _setPrototypeOf(t, e) {
 
 
 function createPageWrapper(Page, name) {
-    var WrappedPage = _RuntimeOptions__WEBPACK_IMPORTED_MODULE_5__.get('pluginDriver').onPageComponent({
+    var WrappedPage = _RuntimeOptions__WEBPACK_IMPORTED_MODULE_3__.get('pluginDriver').onPageComponent({
         component: Page,
         page: name
     });
@@ -1399,8 +1399,8 @@ function createPageWrapper(Page, name) {
             // 页面组件的实例
             _this.pageComponentInstance = null;
             _this.callbacks = new Map();
-            Object.keys(_lifecycle__WEBPACK_IMPORTED_MODULE_3__.Lifecycle).forEach(function(phase) {
-                var callback = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_3__.callbackName)(phase);
+            Object.keys(_lifecycle__WEBPACK_IMPORTED_MODULE_4__.Lifecycle).forEach(function(phase) {
+                var callback = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_4__.callbackName)(phase);
                 _this[callback] = function() {
                     var _this2;
                     for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
@@ -1418,7 +1418,7 @@ function createPageWrapper(Page, name) {
             {
                 key: "callLifecycle",
                 value: function callLifecycle(phase) {
-                    var callback = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_3__.callbackName)(phase);
+                    var callback = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_4__.callbackName)(phase);
                     if (this.pageComponentInstance && typeof this.pageComponentInstance[callback] === 'function') {
                         var _this$pageComponentIn;
                         for(var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++){
@@ -1437,12 +1437,12 @@ function createPageWrapper(Page, name) {
                             query: this.props.query || {}
                         }
                     };
-                    if ((0,_utils_isClassComponent__WEBPACK_IMPORTED_MODULE_2__["default"])(Page) || Page.$$typeof === react_is__WEBPACK_IMPORTED_MODULE_1__.ForwardRef) {
+                    if ((0,_utils_isClassComponent__WEBPACK_IMPORTED_MODULE_5__["default"])(Page) || Page.$$typeof === react_is__WEBPACK_IMPORTED_MODULE_1__.ForwardRef) {
                         props.ref = function(node) {
                             return _this3.pageComponentInstance = node;
                         };
                     }
-                    return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PageInstanceContext__WEBPACK_IMPORTED_MODULE_4__["default"].Provider, {
+                    return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PageInstanceContext__WEBPACK_IMPORTED_MODULE_2__["default"].Provider, {
                         value: this.props.page
                     }, /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__.createElement(WrappedPage, props));
                 }
@@ -1453,7 +1453,7 @@ function createPageWrapper(Page, name) {
 
 
 }),
-32: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+27: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1469,7 +1469,7 @@ function formatDisplayName(name) {
 
 
 }),
-31: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+26: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1480,40 +1480,40 @@ __webpack_require__.d(__webpack_exports__, {
 });
 /* ESM import */var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* ESM import */var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var _lifecycle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
-/* ESM import */var _PageInstanceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22);
-/* ESM import */var _ComponentInstanceContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
-/* ESM import */var _AppInstanceContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(21);
+/* ESM import */var _AppInstanceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* ESM import */var _ComponentInstanceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
+/* ESM import */var _PageInstanceContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
+/* ESM import */var _lifecycle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(22);
 
 
 
 
 
 function usePageEvent(eventName, callback) {
-    var pageInstance = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PageInstanceContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
-    var lifeCycle = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_1__.lifeCycleName)(eventName);
+    var pageInstance = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PageInstanceContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
+    var lifeCycle = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_4__.lifeCycleName)(eventName);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function() {
-        return (0,_lifecycle__WEBPACK_IMPORTED_MODULE_1__.registerLifecycle)(pageInstance, lifeCycle, callback);
+        return (0,_lifecycle__WEBPACK_IMPORTED_MODULE_4__.registerLifecycle)(pageInstance, lifeCycle, callback);
     });
 }
 function useComponentInstance() {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_ComponentInstanceContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_ComponentInstanceContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
 }
 function usePageInstance() {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PageInstanceContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PageInstanceContext__WEBPACK_IMPORTED_MODULE_3__["default"]);
 }
 /**
  * App Hooks
  */ function useAppEvent(eventName, callback) {
-    var lifeCycle = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_1__.lifeCycleName)(eventName);
+    var lifeCycle = (0,_lifecycle__WEBPACK_IMPORTED_MODULE_4__.lifeCycleName)(eventName);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function() {
-        return (0,_lifecycle__WEBPACK_IMPORTED_MODULE_1__.registerLifecycle)(_AppInstanceContext__WEBPACK_IMPORTED_MODULE_4__["default"], lifeCycle, callback);
+        return (0,_lifecycle__WEBPACK_IMPORTED_MODULE_4__.registerLifecycle)(_AppInstanceContext__WEBPACK_IMPORTED_MODULE_1__["default"], lifeCycle, callback);
     });
 }
 
 
 }),
-18: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+13: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1538,18 +1538,18 @@ __webpack_require__.d(__webpack_exports__, {
   usePageEvent: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_8__.usePageEvent),
   usePageInstance: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_8__.usePageInstance)
 });
-/* ESM import */var _RuntimeOptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
-/* ESM import */var _AppInstanceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21);
-/* ESM import */var _PageInstanceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22);
-/* ESM import */var _ComponentInstanceContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
-/* ESM import */var _createPageWrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(24);
-/* ESM import */var _PluginDriver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20);
-/* ESM import */var _utils_isClassComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(27);
-/* ESM import */var _lifecycle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(28);
-/* ESM import */var _hooks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(31);
-/* ESM import */var _formatDisplayName__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(32);
-/* ESM import */var _promisify__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(33);
-/* ESM import */var _shim__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(34);
+/* ESM import */var _RuntimeOptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
+/* ESM import */var _AppInstanceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* ESM import */var _PageInstanceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+/* ESM import */var _ComponentInstanceContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
+/* ESM import */var _createPageWrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
+/* ESM import */var _PluginDriver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
+/* ESM import */var _utils_isClassComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25);
+/* ESM import */var _lifecycle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(22);
+/* ESM import */var _hooks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(26);
+/* ESM import */var _formatDisplayName__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(27);
+/* ESM import */var _promisify__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(28);
+/* ESM import */var _shim__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(29);
 
 
 
@@ -1566,7 +1566,7 @@ __webpack_require__.d(__webpack_exports__, {
 
 
 }),
-28: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+22: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1576,8 +1576,8 @@ __webpack_require__.d(__webpack_exports__, {
   lifeCycleName: () => (lifeCycleName),
   registerLifecycle: () => (registerLifecycle)
 });
-/* ESM import */var _utils_capitalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
-/* ESM import */var _utils_lowercase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* ESM import */var _utils_capitalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(23);
+/* ESM import */var _utils_lowercase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(24);
 
 
 var Lifecycle;
@@ -1623,7 +1623,7 @@ function callbackName(name) {
     if (name.startsWith('before')) {
         return name;
     }
-    return 'on' + (0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_0__["default"])(name);
+    return "on".concat((0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_0__["default"])(name));
 }
 function registerLifecycle(instance, method, callback) {
     return instance.registerLifecycle(method, callback);
@@ -1631,14 +1631,13 @@ function registerLifecycle(instance, method, callback) {
 
 
 }),
-33: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+28: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
   promisify: () => (promisify)
 });
 function promisify(api) {
-    //  todo 补充类型注释
     // @ts-ignore
     return function() {
         var arg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -1664,7 +1663,7 @@ function promisify(api) {
 
 
 }),
-34: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+29: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1691,7 +1690,7 @@ function includes(list, searchElement) {
 
 
 }),
-29: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+23: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1703,7 +1702,7 @@ function capitalize(str) {
 
 
 }),
-27: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+25: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1715,7 +1714,7 @@ function isClassComponent(Component) {
 
 
 }),
-30: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+24: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -1774,8 +1773,8 @@ var __importDefault = this && this.__importDefault || function(mod) {
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-var VNode_1 = __importDefault(__webpack_require__(14));
-var instanceId_1 = __webpack_require__(13);
+var VNode_1 = __importDefault(__webpack_require__(12));
+var instanceId_1 = __webpack_require__(37);
 var AppContainer = /*#__PURE__*/ function() {
     function AppContainer() {
         _classCallCheck(this, AppContainer);
@@ -1833,7 +1832,7 @@ exports["default"] = AppContainer;
 
 
 }),
-44: (function (__unused_webpack_module, exports, __webpack_require__) {
+43: (function (__unused_webpack_module, exports, __webpack_require__) {
 "use strict";
 
 function _typeof(o) {
@@ -1912,11 +1911,11 @@ var __importDefault = this && this.__importDefault || function(mod) {
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-var VNode_1 = __importDefault(__webpack_require__(14));
-var instanceId_1 = __webpack_require__(13);
-var nativeEffect_1 = __importDefault(__webpack_require__(45));
-var framework_shared_1 = __webpack_require__(18);
+var framework_shared_1 = __webpack_require__(13);
+var VNode_1 = __importDefault(__webpack_require__(12));
 var index_1 = __webpack_require__(5);
+var instanceId_1 = __webpack_require__(37);
+var nativeEffect_1 = __importDefault(__webpack_require__(44));
 var Container = /*#__PURE__*/ function() {
     function Container(context) {
         var rootKey = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'root';
@@ -2072,14 +2071,14 @@ exports["default"] = Container;
 
 
 }),
-46: (function (__unused_webpack_module, exports, __webpack_require__) {
+45: (function (__unused_webpack_module, exports, __webpack_require__) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 exports.createPortal = void 0;
-var react_is_1 = __webpack_require__(25);
+var react_is_1 = __webpack_require__(20);
 function createPortal(children, containerInfo, key) {
     return {
         // This tag allow us to uniquely identify this as a React Portal
@@ -2094,7 +2093,7 @@ exports.createPortal = createPortal;
 
 
 }),
-37: (function (__unused_webpack_module, exports) {
+31: (function (__unused_webpack_module, exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({
@@ -2114,7 +2113,7 @@ exports.SYNTHETIC_TYPES = [
 
 
 }),
-35: (function (__unused_webpack_module, exports, __webpack_require__) {
+30: (function (__unused_webpack_module, exports, __webpack_require__) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
@@ -2154,9 +2153,9 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 exports.createCallbackProxy = void 0;
-var framework_shared_1 = __webpack_require__(18);
-var stopPropagation_1 = __importStar(__webpack_require__(36));
-var constants_1 = __webpack_require__(37);
+var framework_shared_1 = __webpack_require__(13);
+var constants_1 = __webpack_require__(31);
+var stopPropagation_1 = __importStar(__webpack_require__(32));
 function isSyntheticType(inputType) {
     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
         console.warn("DEPRECATION: remax \u5DF2\u652F\u6301\u5728 onClick \u4E8B\u4EF6\u4E2D\u4F7F\u7528 stopPropagation \u963B\u6B62\u4E8B\u4EF6\u5192\u6CE1\uFF0C\u8BF7\u5C3D\u91CF\u4E0D\u8981\u4F7F\u7528 catchClick");
@@ -2197,14 +2196,14 @@ exports.createCallbackProxy = createCallbackProxy;
 
 
 }),
-36: (function (__unused_webpack_module, exports, __webpack_require__) {
+32: (function (__unused_webpack_module, exports, __webpack_require__) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 exports.validate = exports.isPropagationStopped = void 0;
-var constants_1 = __webpack_require__(37);
+var constants_1 = __webpack_require__(31);
 exports.isPropagationStopped = {};
 constants_1.SYNTHETIC_TYPES.forEach(function(type) {
     exports.isPropagationStopped[type] = false;
@@ -2236,7 +2235,7 @@ exports["default"] = stopPropagation;
 
 
 }),
-14: (function (__unused_webpack_module, exports, __webpack_require__) {
+12: (function (__unused_webpack_module, exports, __webpack_require__) {
 "use strict";
 
 function _typeof(o) {
@@ -2365,10 +2364,10 @@ var __importStar = this && this.__importStar || function(mod) {
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-var propsAlias_1 = __importStar(__webpack_require__(15));
-var constants_1 = __webpack_require__(12);
-var framework_shared_1 = __webpack_require__(18);
-var createCallbackProxy_1 = __webpack_require__(35);
+var framework_shared_1 = __webpack_require__(13);
+var createCallbackProxy_1 = __webpack_require__(30);
+var constants_1 = __webpack_require__(33);
+var propsAlias_1 = __importStar(__webpack_require__(34));
 function toRawNode(node) {
     if (node.type === constants_1.TYPE_TEXT) {
         return {
@@ -2670,7 +2669,7 @@ exports["default"] = VNode;
 
 
 }),
-12: (function (__unused_webpack_module, exports) {
+33: (function (__unused_webpack_module, exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({
@@ -2806,11 +2805,11 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 __webpack_require__(40);
+var framework_shared_1 = __webpack_require__(13);
 var React = __importStar(__webpack_require__(8));
-var react_is_1 = __webpack_require__(25);
-var render_1 = __importDefault(__webpack_require__(6));
+var react_is_1 = __webpack_require__(20);
 var AppContainer_1 = __importDefault(__webpack_require__(41));
-var framework_shared_1 = __webpack_require__(18);
+var render_1 = __importDefault(__webpack_require__(6));
 var DefaultAppComponent = /*#__PURE__*/ function(_React$Component) {
     function DefaultAppComponent() {
         _classCallCheck(this, DefaultAppComponent);
@@ -2843,6 +2842,7 @@ function createAppConfig(App) {
                 for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
                     args[_key - 1] = arguments[_key];
                 }
+                var _a;
                 var callbacks = framework_shared_1.AppInstanceContext.lifecycleCallback[lifecycle] || [];
                 var result;
                 callbacks.forEach(function(callback) {
@@ -2852,7 +2852,7 @@ function createAppConfig(App) {
                     return result;
                 }
                 var callback = (0, framework_shared_1.callbackName)(lifecycle);
-                if (this._instance.current && this._instance.current[callback]) {
+                if ((_a = this._instance.current) === null || _a === void 0 ? void 0 : _a[callback]) {
                     var _this$_instance$curre;
                     return (_this$_instance$curre = this._instance.current)[callback].apply(_this$_instance$curre, args);
                 }
@@ -2964,9 +2964,9 @@ var __importDefault = this && this.__importDefault || function(mod) {
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
+var framework_shared_1 = __webpack_require__(13);
 var React = __importStar(__webpack_require__(8));
-var framework_shared_1 = __webpack_require__(18);
-var Container_1 = __importDefault(__webpack_require__(44));
+var Container_1 = __importDefault(__webpack_require__(43));
 var render_1 = __importDefault(__webpack_require__(6));
 function createComponentConfig(Component) {
     var config = {
@@ -3024,8 +3024,8 @@ var __importDefault = this && this.__importDefault || function(mod) {
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
+var framework_shared_1 = __webpack_require__(13);
 var react_1 = __importDefault(__webpack_require__(8));
-var framework_shared_1 = __webpack_require__(18);
 function createHostComponent(name, component) {
     if (component) {
         return component;
@@ -3109,17 +3109,17 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 exports.resetPageId = void 0;
+var framework_shared_1 = __webpack_require__(13);
 var react_1 = __importDefault(__webpack_require__(8));
-var framework_shared_1 = __webpack_require__(18);
-var stopPullDownRefresh_1 = __importDefault(__webpack_require__(43));
-var Container_1 = __importDefault(__webpack_require__(44));
-var ReactPortal_1 = __webpack_require__(46);
-var render_1 = __importDefault(__webpack_require__(6));
+var Container_1 = __importDefault(__webpack_require__(43));
+var ReactPortal_1 = __webpack_require__(45);
 var index_1 = __webpack_require__(5);
+var render_1 = __importDefault(__webpack_require__(6));
+var stopPullDownRefresh_1 = __importDefault(__webpack_require__(46));
 var idCounter = 0;
 function generatePageId() {
     var id = idCounter;
-    var pageId = 'page_' + id;
+    var pageId = "page_".concat(id);
     idCounter += 1;
     return pageId;
 }
@@ -3168,7 +3168,7 @@ function createPageConfig(Page, name) {
                 modalContainer: this.modalContainer,
                 ref: this.wrapperRef
             });
-            if (app && app._mount) {
+            if (app === null || app === void 0 ? void 0 : app._mount) {
                 this.element = (0, ReactPortal_1.createPortal)(pageElement, this.container, this.pageId);
                 app._mount(this);
             } else {
@@ -3204,6 +3204,7 @@ function createPageConfig(Page, name) {
             for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
                 args[_key - 1] = arguments[_key];
             }
+            var _a;
             var callbacks = this.lifecycleCallback[lifecycle] || [];
             var result;
             // 生命周期中可能改变 state 导致 callbacks 发生变化
@@ -3216,7 +3217,7 @@ function createPageConfig(Page, name) {
                 return result;
             }
             var callback = (0, framework_shared_1.callbackName)(lifecycle);
-            if (this.wrapperRef.current && this.wrapperRef.current[callback]) {
+            if (this.wrapperRef && ((_a = this.wrapperRef.current) === null || _a === void 0 ? void 0 : _a[callback])) {
                 var _this$wrapperRef$curr;
                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
             }
@@ -3311,7 +3312,7 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 exports.useQuery = exports.useNativeEffect = exports.useComponentInstance = exports.usePageInstance = exports.useAppEvent = exports.usePageEvent = void 0;
-var framework_shared_1 = __webpack_require__(18);
+var framework_shared_1 = __webpack_require__(13);
 Object.defineProperty(exports, "usePageEvent", ({
     enumerable: true,
     get: function get() {
@@ -3365,7 +3366,7 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 var react_1 = __webpack_require__(8);
-var nativeEffect_1 = __importDefault(__webpack_require__(45));
+var nativeEffect_1 = __importDefault(__webpack_require__(44));
 function useNativeEffect(listener, deps) {
     (0, react_1.useLayoutEffect)(function() {
         return nativeEffect_1.default.connect(listener, !!deps);
@@ -3381,8 +3382,8 @@ exports["default"] = useNativeEffect;
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
+var framework_shared_1 = __webpack_require__(13);
 var react_1 = __webpack_require__(8);
-var framework_shared_1 = __webpack_require__(18);
 function useQuery() {
     var pageInstance = (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
     return pageInstance.query;
@@ -3397,7 +3398,7 @@ exports["default"] = useQuery;
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-var framework_shared_1 = __webpack_require__(18);
+var framework_shared_1 = __webpack_require__(13);
 var STYLE = [
     'style',
     'placeholderStyle'
@@ -3468,7 +3469,7 @@ function diffProperties(lastRawProps, nextRawProps) {
             }
         } else if (propKey === CHILDREN) {
             if (lastProp !== nextProp && (typeof nextProp === 'string' || typeof nextProp === 'number')) {
-                updatePayload.push(propKey, '' + nextProp);
+                updatePayload.push(propKey, "".concat(nextProp));
             }
         } else {
             // For any other property we always add it to the queue and then we
@@ -3501,9 +3502,9 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 var scheduler_1 = __importDefault(__webpack_require__(9));
-var constants_1 = __webpack_require__(12);
-var instanceId_1 = __webpack_require__(13);
-var VNode_1 = __importDefault(__webpack_require__(14));
+var VNode_1 = __importDefault(__webpack_require__(12));
+var constants_1 = __webpack_require__(33);
+var instanceId_1 = __webpack_require__(37);
 var diffProperties_1 = __importDefault(__webpack_require__(38));
 var _scheduler_1$default = scheduler_1.default, scheduleDeferredCallback = _scheduler_1$default.unstable_scheduleCallback, cancelDeferredCallback = _scheduler_1$default.unstable_cancelCallback, shouldYield = _scheduler_1$default.unstable_shouldYield, now = _scheduler_1$default.unstable_now;
 var DOM_TAG_MAP = {
@@ -3731,14 +3732,14 @@ Object.defineProperty(exports, "createHostComponent", ({
         return __importDefault(createHostComponent_1).default;
     }
 }));
-var ReactPortal_1 = __webpack_require__(46);
+var ReactPortal_1 = __webpack_require__(45);
 Object.defineProperty(exports, "createPortal", ({
     enumerable: true,
     get: function get() {
         return ReactPortal_1.createPortal;
     }
 }));
-var framework_shared_1 = __webpack_require__(18);
+var framework_shared_1 = __webpack_require__(13);
 Object.defineProperty(exports, "RuntimeOptions", ({
     enumerable: true,
     get: function get() {
@@ -3760,7 +3761,7 @@ exports["default"] = {
 
 
 }),
-13: (function (__unused_webpack_module, exports) {
+37: (function (__unused_webpack_module, exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({
@@ -3781,7 +3782,7 @@ exports.generate = generate;
 
 
 }),
-45: (function (__unused_webpack_module, exports) {
+44: (function (__unused_webpack_module, exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({
@@ -3876,7 +3877,7 @@ if (typeof Function.prototype.call === 'undefined') {
 
 
 }),
-15: (function (__unused_webpack_module, exports, __webpack_require__) {
+34: (function (__unused_webpack_module, exports, __webpack_require__) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function(mod) {
@@ -3888,8 +3889,8 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 exports.propAlias = exports.getAlias = void 0;
-var plainStyle_1 = __importDefault(__webpack_require__(16));
-var framework_shared_1 = __webpack_require__(18);
+var framework_shared_1 = __webpack_require__(13);
+var plainStyle_1 = __importDefault(__webpack_require__(35));
 function getAlias(prop, type) {
     var _a, _b;
     var hostComponent = framework_shared_1.RuntimeOptions.get('hostComponents')[type];
@@ -3976,7 +3977,7 @@ exports["default"] = render;
 
 
 }),
-43: (function (__unused_webpack_module, exports) {
+46: (function (__unused_webpack_module, exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({
@@ -3986,7 +3987,7 @@ exports["default"] = my.stopPullDownRefresh;
 
 
 }),
-17: (function (__unused_webpack_module, exports) {
+36: (function (__unused_webpack_module, exports) {
 "use strict";
 
 // https://github.com/facebook/react/blob/master/packages/react-dom/src/shared/CSSProperty.js
@@ -4069,7 +4070,7 @@ for(var prop in exports.isUnitlessNumber){
 
 
 }),
-16: (function (__unused_webpack_module, exports, __webpack_require__) {
+35: (function (__unused_webpack_module, exports, __webpack_require__) {
 "use strict";
 
 function _toConsumableArray(r) {
@@ -4099,8 +4100,8 @@ function _arrayLikeToArray(r, a) {
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-var CSSProperty_1 = __webpack_require__(17);
-var framework_shared_1 = __webpack_require__(18);
+var framework_shared_1 = __webpack_require__(13);
+var CSSProperty_1 = __webpack_require__(36);
 var vendorPrefixes = [
     'webkit',
     'moz',
@@ -4113,7 +4114,7 @@ var transformReactStyleKey = function transformReactStyleKey(key) {
         return key;
     }
     var styleValue = key.replace(/\.?([A-Z]+)/g, function(_x, y) {
-        return '-' + y.toLowerCase();
+        return "-".concat(y.toLowerCase());
     });
     // vendor prefix
     if (styleValue === null || styleValue === void 0 ? void 0 : styleValue.startsWith('-')) {
@@ -4124,7 +4125,7 @@ var transformReactStyleKey = function transformReactStyleKey(key) {
         if ((0, framework_shared_1.find)(vendorPrefixes, function(prefix) {
             return prefix === firstWord;
         })) {
-            styleValue = '-' + styleValue;
+            styleValue = "-".concat(styleValue);
         }
     }
     return styleValue;
@@ -4143,7 +4144,7 @@ var plainStyle = function plainStyle(style) {
     return Object.keys(style).reduce(function(acc, key) {
         var value = style[key];
         if (!Number.isNaN(Number(value)) && !CSSProperty_1.isUnitlessNumber[key] && !(key === null || key === void 0 ? void 0 : key.startsWith('--'))) {
-            value = value + 'rpx';
+            value = "".concat(value, "rpx");
         }
         return [].concat(_toConsumableArray(acc), [
             "".concat(transformReactStyleKey(key), ":").concat(framework_shared_1.RuntimeOptions.get('pxToRpx') ? transformPx(value) : value, ";")

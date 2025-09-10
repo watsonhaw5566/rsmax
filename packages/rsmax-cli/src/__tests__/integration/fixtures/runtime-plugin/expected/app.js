@@ -27,17 +27,6 @@ rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.RuntimeOptions.apply({
 
 
 }),
-4: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-__webpack_require__.r(__webpack_exports__);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(53);
-
-
-App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
-
-
-}),
 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -53,6 +42,17 @@ __webpack_require__.d(__webpack_exports__, {
         return config;
     }
 });
+
+
+}),
+4: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(53);
+
+
+App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_runtime_plugin_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 
 }),

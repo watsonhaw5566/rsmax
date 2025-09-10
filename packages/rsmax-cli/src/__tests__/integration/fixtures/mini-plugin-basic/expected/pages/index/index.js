@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_plugin_basic_src_pages_index_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(53);
+__webpack_require__(58);
 
 
 Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_plugin_basic_src_pages_index_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index/index'));

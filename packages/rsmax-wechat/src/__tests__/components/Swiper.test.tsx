@@ -10,7 +10,7 @@ describe('Swiper', () => {
   });
 
   it('change correctly', () => {
-    const handleChange = vi.fn();
+    const handleChange = rs.fn();
 
     const component: TestRenderer.ReactTestRenderer = TestRenderer.create(
       <Swiper onChange={handleChange} current={0} />

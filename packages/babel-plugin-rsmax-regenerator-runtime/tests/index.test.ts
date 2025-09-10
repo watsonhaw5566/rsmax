@@ -1,9 +1,9 @@
-import * as path from 'path';
-import pluginTester from 'babel-plugin-tester';
+import * as path from 'node:path';
+import { pluginTester } from 'babel-plugin-tester';
 import fixRegeneratorRuntime from '../src';
 
 pluginTester({
-  plugin: fixRegeneratorRuntime(),
+  plugin: fixRegeneratorRuntime,
   pluginName: 'fix-regenerator-runtime',
   snapshot: true,
   fixtures: path.join(__dirname, 'fixtures'),

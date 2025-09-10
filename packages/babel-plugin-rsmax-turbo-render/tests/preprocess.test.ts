@@ -1,5 +1,5 @@
 import * as path from 'path';
-import pluginTester from 'babel-plugin-tester';
+import { pluginTester } from 'babel-plugin-tester';
 import preprocess from '../src/preprocess';
 
 pluginTester({

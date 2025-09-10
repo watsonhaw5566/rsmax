@@ -25,7 +25,7 @@
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
     "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
-    "test": "vitest run"
+    "test": "rstest run"
   },
   "dependencies": {
     "@rsmax/framework-shared": "workspace:*",

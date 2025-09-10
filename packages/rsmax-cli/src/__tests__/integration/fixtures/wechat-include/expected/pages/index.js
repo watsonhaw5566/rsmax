@@ -2,17 +2,6 @@ require('./../rsmax-vendors.js');
 require('./../runtime.js');
 "use strict";
 (wx["webpackChunk"] = wx["webpackChunk"] || []).push([["2"], {
-53: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-__webpack_require__.r(__webpack_exports__);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
-
-
-Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
-
-
-}),
 56: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -22,6 +11,17 @@ __webpack_require__.d(__webpack_exports__, {
 /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
 
 /* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createNativeComponent)('foo-index-c994585'));
+
+
+}),
+53: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
+
+
+Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
 
 
 }),

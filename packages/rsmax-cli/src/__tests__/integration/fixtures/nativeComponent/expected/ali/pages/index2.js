@@ -2,17 +2,6 @@ require('./../rsmax-vendors.js');
 require('./../runtime.js');
 "use strict";
 (my["webpackChunk"] = my["webpackChunk"] || []).push([["15"], {
-68: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-__webpack_require__.r(__webpack_exports__);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_nativeComponent_src_pages_index2_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
-
-
-Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_nativeComponent_src_pages_index2_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index2'));
-
-
-}),
 72: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
@@ -75,6 +64,17 @@ __webpack_require__.d(__webpack_exports__, {
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Hello__WEBPACK_IMPORTED_MODULE_2__["default"], {})
     });
 };
+
+
+}),
+68: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+__webpack_require__.r(__webpack_exports__);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_nativeComponent_src_pages_index2_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
+
+
+Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_nativeComponent_src_pages_index2_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index2'));
 
 
 }),

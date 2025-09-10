@@ -16,7 +16,7 @@
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
     "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
-    "test": "vitest run"
+    "test": "rstest run"
   },
   "dependencies": {
     "@babel/parser": "^7.11.4",

@@ -6,7 +6,7 @@
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@types/node", "vitest/globals"],
+    "types": ["@types/node", "@rstest/core/globals"],
     "jsx": "preserve",
     "skipLibCheck": true,
     "resolveJsonModule": true
