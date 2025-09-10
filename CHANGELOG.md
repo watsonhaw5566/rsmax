@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.14](https://github.com/watsonhaw5566/rsmax/compare/v1.3.13...v1.3.14) (2025-09-10)
+
+### Bug Fixes
+
+- 修复 this.wrapperRef.current 丢失问题 ([#35](https://github.com/watsonhaw5566/rsmax/issues/35)) ([41cfea6](https://github.com/watsonhaw5566/rsmax/commit/41cfea657e714eab3587f1455cef75b37bc9ca7b))
+
 ## [1.3.13](https://github.com/watsonhaw5566/rsmax/compare/v1.3.12...v1.3.13) (2025-06-16)
 
 ### Bug Fixes
