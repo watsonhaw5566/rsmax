@@ -120,7 +120,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       }
 
       const callback = callbackName(lifecycle);
-      if (this.wrapperRef && this.wrapperRef.current?.[callback]) {
+      if (this.wrapperRef?.current?.[callback]) {
         return this.wrapperRef.current[callback](...args);
       }
     },
