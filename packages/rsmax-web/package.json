@@ -19,8 +19,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
-    "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
-    "test": "rstest run"
+    "clean": "rimraf cjs esm tsconfig.tsbuildinfo"
   },
   "dependencies": {
     "@loadable/component": "^5.12.0",
