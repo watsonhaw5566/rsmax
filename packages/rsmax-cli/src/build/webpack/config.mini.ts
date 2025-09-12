@@ -255,7 +255,7 @@ export default function webpackConfig(builder: Builder): Configuration {
       }).then(r => {
         logger.success('已生成分析报告');
       });
-    }, 3000);
+    }, 5000);
   }
 
   const context = {

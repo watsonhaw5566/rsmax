@@ -104,7 +104,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
       }).then(r => {
         logger.success('已生成分析报告');
       });
-    }, 3000);
+    }, 5000);
   }
 
   if (!builder.options.watch) {
