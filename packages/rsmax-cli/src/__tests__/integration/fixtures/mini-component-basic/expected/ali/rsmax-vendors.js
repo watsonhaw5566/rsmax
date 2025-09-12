@@ -3189,7 +3189,7 @@ function createPageConfig(Page, name) {
             for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
                 args[_key - 1] = arguments[_key];
             }
-            var _a;
+            var _a, _b;
             var callbacks = this.lifecycleCallback[lifecycle] || [];
             var result;
             // 生命周期中可能改变 state 导致 callbacks 发生变化
@@ -3202,7 +3202,7 @@ function createPageConfig(Page, name) {
                 return result;
             }
             var callback = (0, framework_shared_1.callbackName)(lifecycle);
-            if (this.wrapperRef && ((_a = this.wrapperRef.current) === null || _a === void 0 ? void 0 : _a[callback])) {
+            if ((_b = (_a = this.wrapperRef) === null || _a === void 0 ? void 0 : _a.current) === null || _b === void 0 ? void 0 : _b[callback]) {
                 var _this$wrapperRef$curr;
                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
             }

@@ -44,7 +44,6 @@ export default class VirtualEntry extends NormalEntry {
       const dep = EntryPlugin.createDependency(this.virtualPath);
       compilation.addEntry('', dep, { name: this.name }, err => {
         if (err) {
-          console.error(err);
           reject(err);
         }
         resolve();
