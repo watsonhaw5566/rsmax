@@ -1,6 +1,8 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import fs from 'node:fs';
+import path from 'node:path';
 import type { Options } from '@rsmax/types';
+import dotenv from 'dotenv';
+import dotenvExpand from 'dotenv-expand';
 
 type Env = Record<string, string | undefined>;
 
@@ -27,11 +29,7 @@ export default function getEnvironment(options: Options, target: string) {
   // https://github.com/motdotla/dotenv-expand
   dotenvFiles.forEach(dotenvFile => {
     if (fs.existsSync(dotenvFile)) {
-      require('dotenv-expand')(
-        require('dotenv').config({
-          path: dotenvFile,
-        })
-      );
+      dotenvExpand.expand(dotenv.config({ path: dotenvFile }));
     }
   });
 
@@ -43,12 +41,16 @@ export default function getEnvironment(options: Options, target: string) {
     RSMAX_PLATFORM: target,
   };
 
+  console.log(process.env);
+
   const raw = Object.keys(process.env)
     .filter(key => RSMAX_APP.test(key))
     .reduce((env: Env, key) => {
       env[key] = process.env[key] as string;
       return env;
     }, builtiEnv);
+
+  console.log(raw);
 
   const stringified = {
     ...Object.keys(raw).reduce((env: Env, key) => {
