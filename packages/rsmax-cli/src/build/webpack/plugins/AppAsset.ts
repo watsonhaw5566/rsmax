@@ -1,4 +1,4 @@
-import { type Compilation, type Compiler, sources } from '@rspack/core';
+import { Compilation, Compiler, sources } from '@rspack/core';
 import SourceCache from '../../../SourceCache';
 import type Builder from '../../Builder';
 
@@ -13,11 +13,16 @@ export default class AppAssetPlugin {
   }
 
   apply(compiler: Compiler) {
-    compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
-      // app.json
-      setTimeout(() => {
-        this.createManifest(compilation);
-      }, 500);
+    compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation: Compilation) => {
+      compilation.hooks.processAssets.tap(
+        {
+          name: PLUGIN_NAME,
+          stage: Compilation.PROCESS_ASSETS_STAGE_PRE_PROCESS
+        },
+        () => {
+          this.createManifest(compilation);
+        }
+      );
     });
   }
 
