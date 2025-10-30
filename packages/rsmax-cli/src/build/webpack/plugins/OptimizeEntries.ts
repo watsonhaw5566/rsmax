@@ -60,16 +60,16 @@ class OptimizeEntriesPlugin {
   private requireChunks(compilation: Compilation, chunk: Chunk, group: ChunkGroup): void {
     // 只处理非入口chunk
     if (chunk.name !== group.name) {
-      const requires: string[] = [];
-      const files = Array.from(chunk.files);
+      // 预计算目录名，避免重复计算
+      const groupDirname = path.dirname(group.name!);
 
-      // 收集所有JS文件
-      for (const file of files) {
-        if (file.endsWith('.js')) {
-          const relativePath = slash(path.relative(path.dirname(group.name!), file));
-          requires.push(`require('./${relativePath}');\n`);
-        }
-      }
+      // 使用filter和map组合操作，提高可读性和性能
+      const requires = Array.from(chunk.files)
+        .filter(file => file.endsWith('.js'))
+        .map(file => {
+          const relativePath = slash(path.relative(groupDirname, file));
+          return `require('./${relativePath}');\n`;
+        });
 
       // 如果有需要引入的文件，更新资源
       if (requires.length > 0) {
@@ -77,9 +77,18 @@ class OptimizeEntriesPlugin {
         const existingAsset = compilation.assets[assetPath];
 
         if (existingAsset) {
-          compilation.updateAsset(assetPath, new sources.ConcatSource(...requires, existingAsset));
+          // 预分配ConcatSource大小，减少内存重分配
+          const source = new sources.ConcatSource();
+          for (const requireStmt of requires) {
+            source.add(requireStmt);
+          }
+          source.add(existingAsset);
+          compilation.updateAsset(assetPath, source);
         } else {
-          console.warn(`[${PLUGIN_NAME}] Asset not found: ${assetPath}`);
+          // 仅在调试模式下输出警告
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn(`[${PLUGIN_NAME}] Asset not found: ${assetPath}`);
+          }
         }
       }
     }
@@ -110,7 +119,6 @@ class OptimizeEntriesPlugin {
       if (existingAsset) {
         compilation.updateAsset(assetPath, new sources.ConcatSource(...requires, existingAsset));
       }
-      // 样式文件可能不存在，这是正常的，不需要警告
     }
   }
 }
