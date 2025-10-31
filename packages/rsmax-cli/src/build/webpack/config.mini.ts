@@ -78,6 +78,8 @@ export default function webpackConfig(builder: Builder): Configuration {
     },
   });
   config.optimization.minimize(builder.options.minimize ?? true);
+  config.optimization.moduleIds('deterministic');
+  config.optimization.chunkIds('deterministic');
 
   if (builder.options.turboRenders) {
     const options = {

@@ -54,6 +54,8 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.output.publicPath('/');
   config.output.libraryTarget('commonjs2');
   config.optimization.runtimeChunk({ name: 'runtime' });
+  config.optimization.moduleIds('deterministic');
+  config.optimization.chunkIds('deterministic');
   config.optimization.splitChunks({
     cacheGroups: {
       rsmaxVendors: {

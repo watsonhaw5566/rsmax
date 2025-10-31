@@ -15,6 +15,8 @@ export default function webBaseConfig(config: Config, builder: Builder) {
   config.optimization.runtimeChunk({
     name: 'runtime',
   });
+  config.optimization.moduleIds('deterministic');
+  config.optimization.chunkIds('deterministic');
 
   config.module
     .rule('swc')
