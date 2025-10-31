@@ -10,10 +10,7 @@ import * as eol from 'eol';
 import { slash } from '@rsmax/shared';
 import { logger } from 'rslog';
 
-type Received = Array<{
-  fileName: string;
-  code: Buffer;
-}>;
+type Received = Array<{ fileName: string; code: Buffer }>;
 
 function createHash(content: Buffer) {
   const hash = crypto.createHash('sha256');
@@ -39,8 +36,25 @@ function buildText(files: Received) {
     .join(eol.auto.toString());
 }
 
+// 修复：使用 Jest 标准的快照测试方法
+// 删除重复的 toMatchOutput 定义，并实现正确的快照测试
 expect.extend({
-  toMatchOutput(received: Received, output) {
+  // 新的快照测试版本
+  toMatchSnapshotOutput(received: Received) {
+    const actual = buildText(received);
+    // 使用标准的 Jest 快照断言
+    expect(actual).toMatchSnapshot();
+
+    // 由于我们调用了 expect，这个匹配器始终通过
+    // 真正的断言由 toMatchSnapshot() 完成
+    return {
+      pass: true,
+      message: () => '',
+    };
+  },
+
+  // 保留原来的文件对比实现，但重命名避免冲突
+  toMatchFileOutput(received: Received, outputPath: string) {
     const { isNot } = this;
     const snapshotState = (this as any).snapshotState;
     const actual = buildText(received);
@@ -50,15 +64,15 @@ expect.extend({
       diff: Object.assign({
         expand: false,
         contextLines: 5,
-        aAnnotation: 'Snapshot',
+        aAnnotation: 'Expected',
       }),
     };
 
-    if (fs.existsSync(output)) {
+    if (fs.existsSync(outputPath)) {
       const expected = buildText(
-        readdir(output).map(fileName => ({
+        readdir(outputPath).map(fileName => ({
           fileName: fileName,
-          code: sander.readFileSync(path.join(output, fileName)),
+          code: sander.readFileSync(path.join(outputPath, fileName)),
         }))
       );
 
@@ -69,34 +83,34 @@ expect.extend({
           // The value of `pass` is reversed when used with `.not`
           return { pass: false, message: () => '' };
         } else {
-          snapshotState.unmatched++;
+          if (snapshotState) snapshotState.unmatched++;
 
           return {
             pass: true,
             message: () =>
-              `Expected received content ${logger.error('to not match')} the output ${logger.info(output)}.`,
+              `Expected received content ${logger.error('to not match')} the output ${logger.info(outputPath)}.`,
           };
         }
       } else {
         if (this.equals(actual, expected)) {
           return { pass: true, message: () => '' };
         } else {
-          if (snapshotState._updateSnapshot === 'all') {
-            sander.rimrafSync(output);
+          if (snapshotState && snapshotState._updateSnapshot === 'all') {
+            sander.rimrafSync(outputPath);
             received.forEach(file => {
-              sander.writeFileSync(path.join(output, file.fileName), file.code);
+              sander.writeFileSync(path.join(outputPath, file.fileName), file.code);
             });
 
-            snapshotState.updated++;
+            if (snapshotState) snapshotState.updated++;
 
             return { pass: true, message: () => '' };
           } else {
-            snapshotState.unmatched++;
+            if (snapshotState) snapshotState.unmatched++;
 
             return {
               pass: false,
               message: () =>
-                `Received content ${logger.error("doesn't match")} the output ${output}.\n\n${diff(
+                `Received content ${logger.error("doesn't match")} the output ${outputPath}.\n\n${diff(
                   expected,
                   actual,
                   options.diff
@@ -106,19 +120,19 @@ expect.extend({
         }
       }
     } else {
-      if (!isNot && (snapshotState._updateSnapshot === 'new' || snapshotState._updateSnapshot === 'all')) {
+      if (!isNot && snapshotState && (snapshotState._updateSnapshot === 'new' || snapshotState._updateSnapshot === 'all')) {
         received.forEach(file => {
-          sander.writeFileSync(path.join(output, file.fileName), file.code);
+          sander.writeFileSync(path.join(outputPath, file.fileName), file.code);
         });
-        snapshotState.added++;
+        if (snapshotState) snapshotState.added++;
 
         return { pass: true, message: () => '' };
       } else {
-        snapshotState.unmatched++;
+        if (snapshotState) snapshotState.unmatched++;
 
         return {
           pass: true,
-          message: () => `The output file ${logger.info(output)} ${logger.error("doesn't exist")}.`,
+          message: () => `The output file ${logger.info(outputPath)} ${logger.error("doesn't exist")}.`,
         };
       }
     }

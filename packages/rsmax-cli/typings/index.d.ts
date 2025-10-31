@@ -13,5 +13,6 @@ declare module 'babel-plugin-module-resolver';
 declare namespace jest {
   interface Matchers<R, T> {
     toMatchOutput: (output: string) => R;
+    toMatchSnapshotOutput: () => R;
   }
 }

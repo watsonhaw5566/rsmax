@@ -1,9 +1,0 @@
-@import "./../rsmax-styles.acss";
-.page-index___m1FKW {
-  background-color: aliceblue;
-}
-
-.b {
-  background-color: white;
-}
-

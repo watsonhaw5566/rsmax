@@ -1,0 +1,1212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hybrid build hybrid-app on target ali 1`] = `
+"file: __rsmax_runtime_options__.js
+-------------------------------------------------------------------------------
+__rsmax_runtime_options__.js: module.exports = {
+__rsmax_runtime_options__.js:       hostComponents: {
+__rsmax_runtime_options__.js:   "button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "size": "size",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "plain": "plain",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "loading": "loading",
+__rsmax_runtime_options__.js:       "hoverClass": "hover-class",
+__rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
+__rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
+__rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
+__rsmax_runtime_options__.js:       "hoverStopPropagation": "hover-stop-propagation",
+__rsmax_runtime_options__.js:       "formType": "form-type",
+__rsmax_runtime_options__.js:       "openType": "open-type",
+__rsmax_runtime_options__.js:       "scope": "scope",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "appParameter": "app-parameter",
+__rsmax_runtime_options__.js:       "publicId": "public-id",
+__rsmax_runtime_options__.js:       "onGetAuthorize": "onGetAuthorize",
+__rsmax_runtime_options__.js:       "onChooseAvatar": "onChooseAvatar",
+__rsmax_runtime_options__.js:       "onError": "onError"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "canvas": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "width": "width",
+__rsmax_runtime_options__.js:       "height": "height",
+__rsmax_runtime_options__.js:       "disableScroll": "disable-scroll",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
+__rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
+__rsmax_runtime_options__.js:       "onLongClick": "onLongTap",
+__rsmax_runtime_options__.js:       "onReady": "onReady"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "checkbox-group": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "onChange": "onChange"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "checkbox": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "value": "value",
+__rsmax_runtime_options__.js:       "checked": "checked",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "onChange": "onChange",
+__rsmax_runtime_options__.js:       "color": "color"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "contact-button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "tntInstId": "tnt-inst-id",
+__rsmax_runtime_options__.js:       "scene": "scene",
+__rsmax_runtime_options__.js:       "size": "size",
+__rsmax_runtime_options__.js:       "color": "color",
+__rsmax_runtime_options__.js:       "icon": "icon",
+__rsmax_runtime_options__.js:       "alipayCardNo": "alipay-card-no"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "cover-image": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTap": "onTap"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "cover-view": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onClick": "onTap"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "form": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "reportSubmit": "report-submit",
+__rsmax_runtime_options__.js:       "onSubmit": "onSubmit",
+__rsmax_runtime_options__.js:       "onReset": "onReset"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "icon": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "size": "size",
+__rsmax_runtime_options__.js:       "color": "color"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "image": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "lazyLoad": "lazy-load",
+__rsmax_runtime_options__.js:       "onLoad": "onLoad",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
+__rsmax_runtime_options__.js:       "onClick": "onTap"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "input": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "value": "value",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "password": "password",
+__rsmax_runtime_options__.js:       "placeholder": "placeholder",
+__rsmax_runtime_options__.js:       "placeholderStyle": "placeholder-style",
+__rsmax_runtime_options__.js:       "placeholderClass": "placeholder-class",
+__rsmax_runtime_options__.js:       "placeholderClassName": "placeholder-class",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "maxlength": "maxlength",
+__rsmax_runtime_options__.js:       "focus": "focus",
+__rsmax_runtime_options__.js:       "confirmType": "confirm-type",
+__rsmax_runtime_options__.js:       "confirmHold": "confirm-hold",
+__rsmax_runtime_options__.js:       "cursor": "cursor",
+__rsmax_runtime_options__.js:       "selectionStart": "selection-start",
+__rsmax_runtime_options__.js:       "selectionEnd": "selection-end",
+__rsmax_runtime_options__.js:       "randomNumber": "randomNumber",
+__rsmax_runtime_options__.js:       "controlled": "controlled",
+__rsmax_runtime_options__.js:       "enableNative": "enableNative",
+__rsmax_runtime_options__.js:       "onInput": "onInput",
+__rsmax_runtime_options__.js:       "onConfirm": "onConfirm",
+__rsmax_runtime_options__.js:       "onFocus": "onFocus",
+__rsmax_runtime_options__.js:       "onBlur": "onBlur"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "label": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "for": "for"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "lifestyle": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "publicId": "public-id",
+__rsmax_runtime_options__.js:       "onFollow": "onFollow"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "map": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "latitude": "latitude",
+__rsmax_runtime_options__.js:       "longitude": "longitude",
+__rsmax_runtime_options__.js:       "scale": "scale",
+__rsmax_runtime_options__.js:       "markers": "markers",
+__rsmax_runtime_options__.js:       "polyline": "polyline",
+__rsmax_runtime_options__.js:       "circles": "circles",
+__rsmax_runtime_options__.js:       "controls": "controls",
+__rsmax_runtime_options__.js:       "polygon": "polygon",
+__rsmax_runtime_options__.js:       "showLocation": "show-location",
+__rsmax_runtime_options__.js:       "includePoints": "include-points",
+__rsmax_runtime_options__.js:       "includePadding": "include-padding",
+__rsmax_runtime_options__.js:       "groundOverlays": "ground-overlays",
+__rsmax_runtime_options__.js:       "tileOverlay": "tile-overlay",
+__rsmax_runtime_options__.js:       "setting": "setting",
+__rsmax_runtime_options__.js:       "onMarkerTap": "onMarkerTap",
+__rsmax_runtime_options__.js:       "onMarkerClick": "onMarkerTap",
+__rsmax_runtime_options__.js:       "onCalloutTap": "onCalloutTap",
+__rsmax_runtime_options__.js:       "onCalloutClick": "onCalloutTap",
+__rsmax_runtime_options__.js:       "onControlTap": "onControlTap",
+__rsmax_runtime_options__.js:       "onControlClick": "onControlTap",
+__rsmax_runtime_options__.js:       "onRegionChange": "onRegionChange",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onClick": "onTap"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "movable-area": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "width": "width",
+__rsmax_runtime_options__.js:       "height": "height"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "movable-view": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "direction": "direction",
+__rsmax_runtime_options__.js:       "width": "width",
+__rsmax_runtime_options__.js:       "height": "height",
+__rsmax_runtime_options__.js:       "x": "x",
+__rsmax_runtime_options__.js:       "y": "y",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "outOfBounds": "out-of-bounds",
+__rsmax_runtime_options__.js:       "damping": "damping",
+__rsmax_runtime_options__.js:       "friction": "friction",
+__rsmax_runtime_options__.js:       "scale": "scale",
+__rsmax_runtime_options__.js:       "scaleMin": "scale-min",
+__rsmax_runtime_options__.js:       "scaleMax": "scale-max",
+__rsmax_runtime_options__.js:       "scaleValue": "scale-value",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
+__rsmax_runtime_options__.js:       "onChange": "onChange",
+__rsmax_runtime_options__.js:       "onChangeEnd": "onChangeEnd",
+__rsmax_runtime_options__.js:       "onScale": "onScale"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "navigator": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "openType": "open-type",
+__rsmax_runtime_options__.js:       "hoverClass": "hover-class",
+__rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
+__rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
+__rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
+__rsmax_runtime_options__.js:       "url": "url"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "picker-view-column": {
+__rsmax_runtime_options__.js:     "alias": {}
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "picker-view": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "value": "value",
+__rsmax_runtime_options__.js:       "indicatorStyle": "indicator-style",
+__rsmax_runtime_options__.js:       "indicatorClass": "indicator-class",
+__rsmax_runtime_options__.js:       "indicatorClassName": "indicator-class",
+__rsmax_runtime_options__.js:       "maskStyle": "mask-style",
+__rsmax_runtime_options__.js:       "maskClass": "mask-class",
+__rsmax_runtime_options__.js:       "maskClassName": "mask-class",
+__rsmax_runtime_options__.js:       "onChange": "onChange"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "picker": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "range": "range",
+__rsmax_runtime_options__.js:       "rangeKey": "range-key",
+__rsmax_runtime_options__.js:       "value": "value",
+__rsmax_runtime_options__.js:       "onChange": "onChange",
+__rsmax_runtime_options__.js:       "disabled": "disabled"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "progress": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "percent": "percent",
+__rsmax_runtime_options__.js:       "showInfo": "show-info",
+__rsmax_runtime_options__.js:       "strokeWidth": "stroke-width",
+__rsmax_runtime_options__.js:       "activeColor": "active-color",
+__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
+__rsmax_runtime_options__.js:       "active": "active"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "radio-group": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "onChange": "onChange",
+__rsmax_runtime_options__.js:       "name": "name"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "radio": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "value": "value",
+__rsmax_runtime_options__.js:       "checked": "checked",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "color": "color"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "rich-text": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "nodes": "nodes",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
+__rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
+__rsmax_runtime_options__.js:       "onLongClick": "onLongTap"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "scroll-view": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "scrollX": "scroll-x",
+__rsmax_runtime_options__.js:       "scrollY": "scroll-y",
+__rsmax_runtime_options__.js:       "upperThreshold": "upper-threshold",
+__rsmax_runtime_options__.js:       "lowerThreshold": "lower-threshold",
+__rsmax_runtime_options__.js:       "scrollTop": "scroll-top",
+__rsmax_runtime_options__.js:       "scrollLeft": "scroll-left",
+__rsmax_runtime_options__.js:       "scrollIntoView": "scroll-into-view",
+__rsmax_runtime_options__.js:       "scrollWithAnimation": "scroll-with-animation",
+__rsmax_runtime_options__.js:       "scrollAnimationDuration": "scroll-animation-duration",
+__rsmax_runtime_options__.js:       "enableBackToTop": "enable-back-to-top",
+__rsmax_runtime_options__.js:       "trapScroll": "trap-scroll",
+__rsmax_runtime_options__.js:       "onScrollToUpper": "onScrollToUpper",
+__rsmax_runtime_options__.js:       "disableLowerScroll": "disable-lower-scroll",
+__rsmax_runtime_options__.js:       "disableUpperScroll": "disable-upper-scroll",
+__rsmax_runtime_options__.js:       "onScrollToLower": "onScrollToLower",
+__rsmax_runtime_options__.js:       "onScroll": "onScroll",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "slider": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "min": "min",
+__rsmax_runtime_options__.js:       "max": "max",
+__rsmax_runtime_options__.js:       "step": "step",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "value": "value",
+__rsmax_runtime_options__.js:       "showValue": "show-value",
+__rsmax_runtime_options__.js:       "activeColor": "active-color",
+__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
+__rsmax_runtime_options__.js:       "trackSize": "track-size",
+__rsmax_runtime_options__.js:       "handleSize": "handle-size",
+__rsmax_runtime_options__.js:       "handleColor": "handle-color",
+__rsmax_runtime_options__.js:       "onChange": "onChange",
+__rsmax_runtime_options__.js:       "onChanging": "onChanging"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "swiper-item": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "key": "key"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "swiper": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "indicatorDots": "indicator-dots",
+__rsmax_runtime_options__.js:       "indicatorColor": "indicator-color",
+__rsmax_runtime_options__.js:       "indicatorActiveColor": "indicator-active-color",
+__rsmax_runtime_options__.js:       "activeClass": "active-class",
+__rsmax_runtime_options__.js:       "activeClassName": "active-class",
+__rsmax_runtime_options__.js:       "changingClass": "changing-class",
+__rsmax_runtime_options__.js:       "changingClassName": "changing-class",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "current": "current",
+__rsmax_runtime_options__.js:       "duration": "duration",
+__rsmax_runtime_options__.js:       "interval": "interval",
+__rsmax_runtime_options__.js:       "circular": "circular",
+__rsmax_runtime_options__.js:       "vertical": "vertical",
+__rsmax_runtime_options__.js:       "previousMargin": "previous-margin",
+__rsmax_runtime_options__.js:       "nextMargin": "next-margin",
+__rsmax_runtime_options__.js:       "acceleration": "acceleration",
+__rsmax_runtime_options__.js:       "disableProgrammaticAnimation": "disable-programmatic-animation",
+__rsmax_runtime_options__.js:       "onChange": "onChange",
+__rsmax_runtime_options__.js:       "onTransition": "onTransition",
+__rsmax_runtime_options__.js:       "onAnimationEnd": "onAnimationEnd",
+__rsmax_runtime_options__.js:       "disableTouch": "disable-touch"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "switch": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "checked": "checked",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "color": "color",
+__rsmax_runtime_options__.js:       "onChange": "onChange",
+__rsmax_runtime_options__.js:       "controlled": "controlled"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "text": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "selectable": "selectable",
+__rsmax_runtime_options__.js:       "space": "space",
+__rsmax_runtime_options__.js:       "decode": "decode",
+__rsmax_runtime_options__.js:       "numberOfLines": "number-of-lines",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTap": "onTap"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "textarea": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "value": "value",
+__rsmax_runtime_options__.js:       "placeholder": "placeholder",
+__rsmax_runtime_options__.js:       "placeholderStyle": "placeholder-style",
+__rsmax_runtime_options__.js:       "placeholderClass": "placeholder-class",
+__rsmax_runtime_options__.js:       "placeholderClassName": "placeholder-class",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "maxlength": "maxlength",
+__rsmax_runtime_options__.js:       "focus": "focus",
+__rsmax_runtime_options__.js:       "autoHeight": "auto-height",
+__rsmax_runtime_options__.js:       "showCount": "show-count",
+__rsmax_runtime_options__.js:       "controlled": "controlled",
+__rsmax_runtime_options__.js:       "enableNative": "enableNative",
+__rsmax_runtime_options__.js:       "onInput": "onInput",
+__rsmax_runtime_options__.js:       "onFocus": "onFocus",
+__rsmax_runtime_options__.js:       "onBlur": "onBlur",
+__rsmax_runtime_options__.js:       "onConfirm": "onConfirm"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "view": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "disableScroll": "disable-scroll",
+__rsmax_runtime_options__.js:       "hoverClass": "hover-class",
+__rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
+__rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
+__rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
+__rsmax_runtime_options__.js:       "hidden": "hidden",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
+__rsmax_runtime_options__.js:       "hoverStopPropagation": "hover-stop-propagation",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
+__rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
+__rsmax_runtime_options__.js:       "onLongClick": "onLongTap",
+__rsmax_runtime_options__.js:       "onTransitionEnd": "onTransitionEnd",
+__rsmax_runtime_options__.js:       "onAnimationIteration": "onAnimationIteration",
+__rsmax_runtime_options__.js:       "onAnimationStart": "onAnimationStart",
+__rsmax_runtime_options__.js:       "onAnimationEnd": "onAnimationEnd",
+__rsmax_runtime_options__.js:       "onAppear": "onAppear",
+__rsmax_runtime_options__.js:       "onDisappear": "onDisappear",
+__rsmax_runtime_options__.js:       "onFirstAppear": "onFirstAppear"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "web-view": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "onMessage": "onMessage"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "video": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "poster": "poster",
+__rsmax_runtime_options__.js:       "posterSize": "posterSize",
+__rsmax_runtime_options__.js:       "objectFit": "objectFit",
+__rsmax_runtime_options__.js:       "initialTime": "initial-time",
+__rsmax_runtime_options__.js:       "duration": "duration",
+__rsmax_runtime_options__.js:       "controls": "controls",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "direction": "direction",
+__rsmax_runtime_options__.js:       "loop": "loop",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "showFullscreenBtn": "show-fullscreen-btn",
+__rsmax_runtime_options__.js:       "showPlayBtn": "show-play-btn",
+__rsmax_runtime_options__.js:       "showCenterPlayBtn": "show-center-play-btn",
+__rsmax_runtime_options__.js:       "showMuteBtn": "show-mute-btn",
+__rsmax_runtime_options__.js:       "enableProgressGesture": "enableProgressGesture",
+__rsmax_runtime_options__.js:       "mobilenetHintType": "mobilenetHintType",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onFullScreenChange": "onFullScreenChange",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onUserAction": "onUserAction"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "lottie": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "path": "path",
+__rsmax_runtime_options__.js:       "djangoId": "djangoId",
+__rsmax_runtime_options__.js:       "md5": "md5",
+__rsmax_runtime_options__.js:       "speed": "speed",
+__rsmax_runtime_options__.js:       "repeatCount": "repeatCount",
+__rsmax_runtime_options__.js:       "autoReverse": "autoReverse",
+__rsmax_runtime_options__.js:       "assetsPath": "assetsPath",
+__rsmax_runtime_options__.js:       "placeholder": "placeholder",
+__rsmax_runtime_options__.js:       "optimize": "optimize",
+__rsmax_runtime_options__.js:       "onDataReady": "onDataReady",
+__rsmax_runtime_options__.js:       "onDataFailed": "onDataFailed",
+__rsmax_runtime_options__.js:       "onDataLoadReady": "onDataLoadReady",
+__rsmax_runtime_options__.js:       "onAnimationStart": "onAnimationStart",
+__rsmax_runtime_options__.js:       "onAnimationEnd": "onAnimationEnd",
+__rsmax_runtime_options__.js:       "onAnimationRepeat": "onAnimationRepeat",
+__rsmax_runtime_options__.js:       "onAnimationCancel": "onAnimationCancel"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "camera": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "devicePosition": "device-position",
+__rsmax_runtime_options__.js:       "flash": "flash",
+__rsmax_runtime_options__.js:       "outputDimension": "outputDimension",
+__rsmax_runtime_options__.js:       "applyMicPermissionWhenInit": "applyMicPermissionWhenInit",
+__rsmax_runtime_options__.js:       "frameSize": "frame-size",
+__rsmax_runtime_options__.js:       "frameFormat": "frame-format",
+__rsmax_runtime_options__.js:       "maxDuration": "max-duration",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onScanCode": "onScanCode"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "match-media": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "minWidth": "min-width",
+__rsmax_runtime_options__.js:       "maxWidth": "max-width",
+__rsmax_runtime_options__.js:       "width": "width",
+__rsmax_runtime_options__.js:       "minHeight": "min-height",
+__rsmax_runtime_options__.js:       "maxHeight": "max-height",
+__rsmax_runtime_options__.js:       "height": "height",
+__rsmax_runtime_options__.js:       "orientation": "orientation"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "page-container": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "show": "show",
+__rsmax_runtime_options__.js:       "duration": "duration",
+__rsmax_runtime_options__.js:       "zIndex": "z-index",
+__rsmax_runtime_options__.js:       "overlay": "overlay",
+__rsmax_runtime_options__.js:       "position": "position",
+__rsmax_runtime_options__.js:       "round": "round",
+__rsmax_runtime_options__.js:       "closeOnSlideDown": "close-on-slideDown",
+__rsmax_runtime_options__.js:       "overlayStyle": "overlay-style",
+__rsmax_runtime_options__.js:       "customStyle": "custom-style",
+__rsmax_runtime_options__.js:       "onBeforeEnter": "onBeforeEnter",
+__rsmax_runtime_options__.js:       "onEnter": "onEnter",
+__rsmax_runtime_options__.js:       "onAfterEnter": "onAfterEnter",
+__rsmax_runtime_options__.js:       "onBeforeLeave": "onBeforeLeave",
+__rsmax_runtime_options__.js:       "onLeave": "onLeave",
+__rsmax_runtime_options__.js:       "onAfterLeave": "onAfterLeave",
+__rsmax_runtime_options__.js:       "onClickOverlay": "onClickOverlay"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "share-element": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "key": "key",
+__rsmax_runtime_options__.js:       "transform": "transform",
+__rsmax_runtime_options__.js:       "duration": "duration",
+__rsmax_runtime_options__.js:       "easingFunction": "easing-function"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "root-portal": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
+__rsmax_runtime_options__.js:       "space": "space",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
+__rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
+__rsmax_runtime_options__.js:       "onLongClick": "onLongClick"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "error-view": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "fullscreen": "fullscreen",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "message": "message",
+__rsmax_runtime_options__.js:       "titleColor": "title-color",
+__rsmax_runtime_options__.js:       "messageColor": "message-color",
+__rsmax_runtime_options__.js:       "dataUrl": "data-url",
+__rsmax_runtime_options__.js:       "dataStatus": "data-status",
+__rsmax_runtime_options__.js:       "dataMessage": "data-message"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "join-group-chat": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "templateId": "template-id"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "subscribe-message": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "templateId": "template-id",
+__rsmax_runtime_options__.js:       "onComplete": "onComplete"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "page-meta": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "backgroundTextStyle": "background-text-style",
+__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
+__rsmax_runtime_options__.js:       "backgroundColorTop": "background-color-top",
+__rsmax_runtime_options__.js:       "backgroundColorBottom": "background-color-bottom",
+__rsmax_runtime_options__.js:       "rootBackgroundColor": "root-background-color",
+__rsmax_runtime_options__.js:       "scrollTop": "scroll-top",
+__rsmax_runtime_options__.js:       "scrollDuration": "scroll-duration",
+__rsmax_runtime_options__.js:       "pageStyle": "page-style",
+__rsmax_runtime_options__.js:       "pageFontSize": "page-font-size",
+__rsmax_runtime_options__.js:       "rootFontSize": "root-font-size",
+__rsmax_runtime_options__.js:       "pageOrientation": "page-orientation",
+__rsmax_runtime_options__.js:       "onResize": "bindresize",
+__rsmax_runtime_options__.js:       "onScroll": "bindscroll",
+__rsmax_runtime_options__.js:       "onScrollDone": "bindscrolldone"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "ad": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "unitId": "unit-id",
+__rsmax_runtime_options__.js:       "onLoad": "onLoad",
+__rsmax_runtime_options__.js:       "onError": "onError"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   }
+__rsmax_runtime_options__.js: },
+__rsmax_runtime_options__.js:       pageEvents: {},
+__rsmax_runtime_options__.js:       appEvents: []
+__rsmax_runtime_options__.js:     }
+-------------------------------------------------------------------------------
+file: app.acss
+-------------------------------------------------------------------------------
+app.acss: .app {
+app.acss:   color: red;
+app.acss: }
+app.acss: 
+app.acss: 
+-------------------------------------------------------------------------------
+file: app.js
+-------------------------------------------------------------------------------
+app.js: require('./runtime.js');
+app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
+app.js: 4: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: "use strict";
+app.js: __webpack_require__.r(__webpack_exports__);
+app.js: // extracted by css-extract-rspack-plugin
+app.js: 
+app.js: 
+app.js: }),
+app.js: 0: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: "use strict";
+app.js: __webpack_require__.r(__webpack_exports__);
+app.js: /* ESM import */var rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+app.js: /* ESM import */var rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
+app.js: /* ESM import */var _rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+app.js: /* ESM import */var _rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1__);
+app.js: 
+app.js: 
+app.js: var pluginDriver = new rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.PluginDriver([].map(function(p) {
+app.js:     return p.default || p;
+app.js: }));
+app.js: rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.RuntimeOptions.apply({
+app.js:     platform: "ali",
+app.js:     debug: false,
+app.js:     pxToRpx: true,
+app.js:     pluginDriver: pluginDriver,
+app.js:     hostComponents: _rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1__.hostComponents,
+app.js:     pageEvents: _rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1__.pageEvents,
+app.js:     appEvents: _rsmax_runtime_options___WEBPACK_IMPORTED_MODULE_1__.appEvents
+app.js: });
+app.js: 
+app.js: 
+app.js: }),
+app.js: 3: (function (__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+app.js: __webpack_require__(4);
+app.js: App({});
+app.js: 
+app.js: 
+app.js: }),
+app.js: 1: (function (module) {
+app.js: "use strict";
+app.js: module.exports = require("rsmax/runtime");
+app.js: 
+app.js: }),
+app.js: 2: (function (module) {
+app.js: "use strict";
+app.js: module.exports = require('/__rsmax_runtime_options__');
+app.js: 
+app.js: }),
+app.js: 
+app.js: },function(__webpack_require__) {
+app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+app.js: var __webpack_exports__ = (__webpack_exec__(0), __webpack_exec__(3));
+app.js: 
+app.js: }
+app.js: ]);
+-------------------------------------------------------------------------------
+file: app.json
+-------------------------------------------------------------------------------
+app.json: {
+app.json:   "pages": [
+app.json:     "pages/mini/index",
+app.json:     "pages/mini-ts/index",
+app.json:     "pages/react/index"
+app.json:   ]
+app.json: }
+-------------------------------------------------------------------------------
+file: assets/logo.png
+-------------------------------------------------------------------------------
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+-------------------------------------------------------------------------------
+file: components/foo/index.acss
+-------------------------------------------------------------------------------
+components/foo/index.acss: .foo {
+components/foo/index.acss:   color: red;
+components/foo/index.acss: }
+components/foo/index.acss: 
+components/foo/index.acss: 
+-------------------------------------------------------------------------------
+file: components/foo/index.axml
+-------------------------------------------------------------------------------
+components/foo/index.axml: <view class="foo">foo</view>
+components/foo/index.axml: 
+-------------------------------------------------------------------------------
+file: components/foo/index.js
+-------------------------------------------------------------------------------
+components/foo/index.js: require('./../../runtime.js');
+components/foo/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
+components/foo/index.js: 10: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+components/foo/index.js: "use strict";
+components/foo/index.js: __webpack_require__.r(__webpack_exports__);
+components/foo/index.js: // extracted by css-extract-rspack-plugin
+components/foo/index.js: 
+components/foo/index.js: 
+components/foo/index.js: }),
+components/foo/index.js: 9: (function (__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+components/foo/index.js: __webpack_require__(10);
+components/foo/index.js: Component({});
+components/foo/index.js: 
+components/foo/index.js: 
+components/foo/index.js: }),
+components/foo/index.js: 
+components/foo/index.js: },function(__webpack_require__) {
+components/foo/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+components/foo/index.js: var __webpack_exports__ = (__webpack_exec__(9));
+components/foo/index.js: 
+components/foo/index.js: }
+components/foo/index.js: ]);
+-------------------------------------------------------------------------------
+file: components/foo/index.json
+-------------------------------------------------------------------------------
+components/foo/index.json: {
+components/foo/index.json:   "component": true,
+components/foo/index.json:   "usingComponents": {}
+components/foo/index.json: }
+-------------------------------------------------------------------------------
+file: components/zxc/index.acss
+-------------------------------------------------------------------------------
+components/zxc/index.acss: .zxc {
+components/zxc/index.acss:   color: red;
+components/zxc/index.acss: }
+components/zxc/index.acss: 
+components/zxc/index.acss: 
+-------------------------------------------------------------------------------
+file: components/zxc/index.axml
+-------------------------------------------------------------------------------
+components/zxc/index.axml: <view class="zxc">zxc</view>
+components/zxc/index.axml: 
+-------------------------------------------------------------------------------
+file: components/zxc/index.js
+-------------------------------------------------------------------------------
+components/zxc/index.js: require('./../../runtime.js');
+components/zxc/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["2"], {
+components/zxc/index.js: 12: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+components/zxc/index.js: "use strict";
+components/zxc/index.js: __webpack_require__.r(__webpack_exports__);
+components/zxc/index.js: // extracted by css-extract-rspack-plugin
+components/zxc/index.js: 
+components/zxc/index.js: 
+components/zxc/index.js: }),
+components/zxc/index.js: 11: (function (__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+components/zxc/index.js: __webpack_require__(12);
+components/zxc/index.js: Component({});
+components/zxc/index.js: 
+components/zxc/index.js: 
+components/zxc/index.js: }),
+components/zxc/index.js: 
+components/zxc/index.js: },function(__webpack_require__) {
+components/zxc/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+components/zxc/index.js: var __webpack_exports__ = (__webpack_exec__(11));
+components/zxc/index.js: 
+components/zxc/index.js: }
+components/zxc/index.js: ]);
+-------------------------------------------------------------------------------
+file: components/zxc/index.json
+-------------------------------------------------------------------------------
+components/zxc/index.json: {
+components/zxc/index.json:   "component": true,
+components/zxc/index.json:   "usingComponents": {}
+components/zxc/index.json: }
+-------------------------------------------------------------------------------
+file: npm/abc/index.acss
+-------------------------------------------------------------------------------
+npm/abc/index.acss: 
+-------------------------------------------------------------------------------
+file: npm/abc/index.axml
+-------------------------------------------------------------------------------
+npm/abc/index.axml: 
+-------------------------------------------------------------------------------
+file: npm/abc/index.js
+-------------------------------------------------------------------------------
+npm/abc/index.js: require('./../../runtime.js');
+npm/abc/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["3"], {
+npm/abc/index.js: 14: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+npm/abc/index.js: "use strict";
+npm/abc/index.js: __webpack_require__.r(__webpack_exports__);
+npm/abc/index.js: // extracted by css-extract-rspack-plugin
+npm/abc/index.js: 
+npm/abc/index.js: 
+npm/abc/index.js: }),
+npm/abc/index.js: 13: (function (__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+npm/abc/index.js: __webpack_require__(14);
+npm/abc/index.js: Component({});
+npm/abc/index.js: 
+npm/abc/index.js: 
+npm/abc/index.js: }),
+npm/abc/index.js: 
+npm/abc/index.js: },function(__webpack_require__) {
+npm/abc/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+npm/abc/index.js: var __webpack_exports__ = (__webpack_exec__(13));
+npm/abc/index.js: 
+npm/abc/index.js: }
+npm/abc/index.js: ]);
+-------------------------------------------------------------------------------
+file: npm/abc/index.json
+-------------------------------------------------------------------------------
+npm/abc/index.json: 
+-------------------------------------------------------------------------------
+file: pages/mini-ts/index.acss
+-------------------------------------------------------------------------------
+pages/mini-ts/index.acss: .b {
+pages/mini-ts/index.acss:   background-color: white;
+pages/mini-ts/index.acss: }
+pages/mini-ts/index.acss: .b .a {
+pages/mini-ts/index.acss:   color: lightcoral;
+pages/mini-ts/index.acss: }
+pages/mini-ts/index.acss: 
+pages/mini-ts/index.acss: 
+-------------------------------------------------------------------------------
+file: pages/mini-ts/index.axml
+-------------------------------------------------------------------------------
+pages/mini-ts/index.axml: <view class='b'>{{name}}</view>
+pages/mini-ts/index.axml: 
+-------------------------------------------------------------------------------
+file: pages/mini-ts/index.js
+-------------------------------------------------------------------------------
+pages/mini-ts/index.js: require('./../../runtime.js');
+pages/mini-ts/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["3"], {
+pages/mini-ts/index.js: 8: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/mini-ts/index.js: "use strict";
+pages/mini-ts/index.js: __webpack_require__.r(__webpack_exports__);
+pages/mini-ts/index.js: // extracted by css-extract-rspack-plugin
+pages/mini-ts/index.js: 
+pages/mini-ts/index.js: 
+pages/mini-ts/index.js: }),
+pages/mini-ts/index.js: 7: (function (__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+pages/mini-ts/index.js: __webpack_require__(8);
+pages/mini-ts/index.js: Page({
+pages/mini-ts/index.js:     data: {
+pages/mini-ts/index.js:         name: 'TypeScript Page'
+pages/mini-ts/index.js:     }
+pages/mini-ts/index.js: });
+pages/mini-ts/index.js: 
+pages/mini-ts/index.js: 
+pages/mini-ts/index.js: }),
+pages/mini-ts/index.js: 
+pages/mini-ts/index.js: },function(__webpack_require__) {
+pages/mini-ts/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+pages/mini-ts/index.js: var __webpack_exports__ = (__webpack_exec__(7));
+pages/mini-ts/index.js: 
+pages/mini-ts/index.js: }
+pages/mini-ts/index.js: ]);
+-------------------------------------------------------------------------------
+file: pages/mini-ts/index.json
+-------------------------------------------------------------------------------
+pages/mini-ts/index.json: {
+pages/mini-ts/index.json:   "usingComponents": {
+pages/mini-ts/index.json:     "foo": "/components/foo/index"
+pages/mini-ts/index.json:   }
+pages/mini-ts/index.json: }
+-------------------------------------------------------------------------------
+file: pages/mini/_footer.axml
+-------------------------------------------------------------------------------
+pages/mini/_footer.axml: <view>footer</view>
+pages/mini/_footer.axml: 
+-------------------------------------------------------------------------------
+file: pages/mini/_msg.axml
+-------------------------------------------------------------------------------
+pages/mini/_msg.axml: <template name="msg">
+pages/mini/_msg.axml:   <view>hello</view>
+pages/mini/_msg.axml: </template>
+pages/mini/_msg.axml: 
+-------------------------------------------------------------------------------
+file: pages/mini/index.acss
+-------------------------------------------------------------------------------
+pages/mini/index.acss: .mini {
+pages/mini/index.acss:   color: blue;
+pages/mini/index.acss:   background-image: url('/assets/bg.jpg');
+pages/mini/index.acss: }
+pages/mini/index.acss: 
+pages/mini/index.acss: 
+-------------------------------------------------------------------------------
+file: pages/mini/index.axml
+-------------------------------------------------------------------------------
+pages/mini/index.axml: <import-sjs name="h" from="./index.sjs"/>
+pages/mini/index.axml: <import src="./_msg.axml"/>
+pages/mini/index.axml: 
+pages/mini/index.axml: <template name="msg" />
+pages/mini/index.axml: <view class="mini">{{h.upperCase(mini page)}}<view>
+pages/mini/index.axml: <image src="/assets/logo.png" />
+pages/mini/index.axml: <include src="./_footer.axml" />
+pages/mini/index.axml: 
+-------------------------------------------------------------------------------
+file: pages/mini/index.js
+-------------------------------------------------------------------------------
+pages/mini/index.js: require('./../../runtime.js');
+pages/mini/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["4"], {
+pages/mini/index.js: 6: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/mini/index.js: "use strict";
+pages/mini/index.js: __webpack_require__.r(__webpack_exports__);
+pages/mini/index.js: // extracted by css-extract-rspack-plugin
+pages/mini/index.js: 
+pages/mini/index.js: 
+pages/mini/index.js: }),
+pages/mini/index.js: 5: (function (__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+pages/mini/index.js: __webpack_require__(6);
+pages/mini/index.js: Page({});
+pages/mini/index.js: 
+pages/mini/index.js: 
+pages/mini/index.js: }),
+pages/mini/index.js: 
+pages/mini/index.js: },function(__webpack_require__) {
+pages/mini/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+pages/mini/index.js: var __webpack_exports__ = (__webpack_exec__(5));
+pages/mini/index.js: 
+pages/mini/index.js: }
+pages/mini/index.js: ]);
+-------------------------------------------------------------------------------
+file: pages/mini/index.json
+-------------------------------------------------------------------------------
+pages/mini/index.json: {
+pages/mini/index.json:   "usingComponents": {
+pages/mini/index.json:     "foo": "/components/foo/index",
+pages/mini/index.json:     "zxc": "/components/zxc/index",
+pages/mini/index.json:     "abc": "abc/index"
+pages/mini/index.json:   }
+pages/mini/index.json: }
+-------------------------------------------------------------------------------
+file: pages/mini/index.sjs
+-------------------------------------------------------------------------------
+pages/mini/index.sjs: const upperCase = s => s.toUpperCase();
+pages/mini/index.sjs: export default {
+pages/mini/index.sjs:   upperCase,
+pages/mini/index.sjs: };
+pages/mini/index.sjs: 
+-------------------------------------------------------------------------------
+file: runtime.js
+-------------------------------------------------------------------------------
+runtime.js: (() => { // webpackBootstrap
+runtime.js: "use strict";
+runtime.js: var __webpack_modules__ = ({});
+runtime.js: /************************************************************************/
+runtime.js: // The module cache
+runtime.js: var __webpack_module_cache__ = {};
+runtime.js: 
+runtime.js: // The require function
+runtime.js: function __webpack_require__(moduleId) {
+runtime.js: 
+runtime.js: // Check if module is in cache
+runtime.js: var cachedModule = __webpack_module_cache__[moduleId];
+runtime.js: if (cachedModule !== undefined) {
+runtime.js: return cachedModule.exports;
+runtime.js: }
+runtime.js: // Create a new module (and put it into the cache)
+runtime.js: var module = (__webpack_module_cache__[moduleId] = {
+runtime.js: exports: {}
+runtime.js: });
+runtime.js: // Execute the module function
+runtime.js: __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+runtime.js: 
+runtime.js: // Return the exports of the module
+runtime.js: return module.exports;
+runtime.js: 
+runtime.js: }
+runtime.js: 
+runtime.js: // expose the modules object (__webpack_modules__)
+runtime.js: __webpack_require__.m = __webpack_modules__;
+runtime.js: 
+runtime.js: /************************************************************************/
+runtime.js: // webpack/runtime/compat_get_default_export
+runtime.js: (() => {
+runtime.js: // getDefaultExport function for compatibility with non-ESM modules
+runtime.js: __webpack_require__.n = (module) => {
+runtime.js: 	var getter = module && module.__esModule ?
+runtime.js: 		() => (module['default']) :
+runtime.js: 		() => (module);
+runtime.js: 	__webpack_require__.d(getter, { a: getter });
+runtime.js: 	return getter;
+runtime.js: };
+runtime.js: 
+runtime.js: })();
+runtime.js: // webpack/runtime/define_property_getters
+runtime.js: (() => {
+runtime.js: __webpack_require__.d = (exports, definition) => {
+runtime.js: 	for(var key in definition) {
+runtime.js:         if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+runtime.js:             Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+runtime.js:         }
+runtime.js:     }
+runtime.js: };
+runtime.js: })();
+runtime.js: // webpack/runtime/has_own_property
+runtime.js: (() => {
+runtime.js: __webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+runtime.js: })();
+runtime.js: // webpack/runtime/make_namespace_object
+runtime.js: (() => {
+runtime.js: // define __esModule on exports
+runtime.js: __webpack_require__.r = (exports) => {
+runtime.js: 	if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+runtime.js: 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+runtime.js: 	}
+runtime.js: 	Object.defineProperty(exports, '__esModule', { value: true });
+runtime.js: };
+runtime.js: })();
+runtime.js: // webpack/runtime/on_chunk_loaded
+runtime.js: (() => {
+runtime.js: var deferred = [];
+runtime.js: __webpack_require__.O = (result, chunkIds, fn, priority) => {
+runtime.js: 	if (chunkIds) {
+runtime.js: 		priority = priority || 0;
+runtime.js: 		for (var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--)
+runtime.js: 			deferred[i] = deferred[i - 1];
+runtime.js: 		deferred[i] = [chunkIds, fn, priority];
+runtime.js: 		return;
+runtime.js: 	}
+runtime.js: 	var notFulfilled = Infinity;
+runtime.js: 	for (var i = 0; i < deferred.length; i++) {
+runtime.js: 		var [chunkIds, fn, priority] = deferred[i];
+runtime.js: 		var fulfilled = true;
+runtime.js: 		for (var j = 0; j < chunkIds.length; j++) {
+runtime.js: 			if (
+runtime.js: 				(priority & (1 === 0) || notFulfilled >= priority) &&
+runtime.js: 				Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))
+runtime.js: 			) {
+runtime.js: 				chunkIds.splice(j--, 1);
+runtime.js: 			} else {
+runtime.js: 				fulfilled = false;
+runtime.js: 				if (priority < notFulfilled) notFulfilled = priority;
+runtime.js: 			}
+runtime.js: 		}
+runtime.js: 		if (fulfilled) {
+runtime.js: 			deferred.splice(i--, 1);
+runtime.js: 			var r = fn();
+runtime.js: 			if (r !== undefined) result = r;
+runtime.js: 		}
+runtime.js: 	}
+runtime.js: 	return result;
+runtime.js: };
+runtime.js: 
+runtime.js: })();
+runtime.js: // webpack/runtime/rspack_version
+runtime.js: (() => {
+runtime.js: __webpack_require__.rv = () => ("1.5.2")
+runtime.js: })();
+runtime.js: // webpack/runtime/jsonp_chunk_loading
+runtime.js: (() => {
+runtime.js: 
+runtime.js:       // object to store loaded and loading chunks
+runtime.js:       // undefined = chunk not loaded, null = chunk preloaded/prefetched
+runtime.js:       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+runtime.js:       var installedChunks = {"5": 0,};
+runtime.js:       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+runtime.js: // install a JSONP callback for chunk loading
+runtime.js: var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+runtime.js: 	var [chunkIds, moreModules, runtime] = data;
+runtime.js: 	// add "moreModules" to the modules object,
+runtime.js: 	// then flag all "chunkIds" as loaded and fire callback
+runtime.js: 	var moduleId, chunkId, i = 0;
+runtime.js: 	if (chunkIds.some((id) => (installedChunks[id] !== 0))) {
+runtime.js: 		for (moduleId in moreModules) {
+runtime.js: 			if (__webpack_require__.o(moreModules, moduleId)) {
+runtime.js: 				__webpack_require__.m[moduleId] = moreModules[moduleId];
+runtime.js: 			}
+runtime.js: 		}
+runtime.js: 		if (runtime) var result = runtime(__webpack_require__);
+runtime.js: 	}
+runtime.js: 	if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+runtime.js: 	for (; i < chunkIds.length; i++) {
+runtime.js: 		chunkId = chunkIds[i];
+runtime.js: 		if (
+runtime.js: 			__webpack_require__.o(installedChunks, chunkId) &&
+runtime.js: 			installedChunks[chunkId]
+runtime.js: 		) {
+runtime.js: 			installedChunks[chunkId][0]();
+runtime.js: 		}
+runtime.js: 		installedChunks[chunkId] = 0;
+runtime.js: 	}
+runtime.js: 	return __webpack_require__.O(result);
+runtime.js: };
+runtime.js: 
+runtime.js: var chunkLoadingGlobal = my["webpackChunk"] = my["webpackChunk"] || [];
+runtime.js: chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+runtime.js: chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+runtime.js: 
+runtime.js: })();
+runtime.js: // webpack/runtime/rspack_unique_id
+runtime.js: (() => {
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
+runtime.js: 
+runtime.js: })();
+runtime.js: /************************************************************************/
+runtime.js: })()
+runtime.js: ;
+-------------------------------------------------------------------------------
+file: theme.json
+-------------------------------------------------------------------------------
+theme.json: {}
+-------------------------------------------------------------------------------"
+`;

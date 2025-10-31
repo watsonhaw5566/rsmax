@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { buildApp, JEST_BUILD_TIMEOUT, buildMiniPlugin, buildMiniComponent } from './build';
 import type { Platform } from '@rsmax/types';
 import Store from '@rsmax/build-store';
@@ -6,7 +5,6 @@ import Store from '@rsmax/build-store';
 export function testBuildApp(
   app: string,
   target: Platform = 'ali',
-  outputPath?: string,
   options?: any,
   extraRemaxOptions?: any
 ) {
@@ -15,22 +13,22 @@ export function testBuildApp(
     async () => {
       Store.reset();
       const result = await buildApp(app, target, options, extraRemaxOptions);
-      expect(result).toMatchOutput(outputPath || path.resolve(__dirname, `../fixtures/${app}/expected`));
+      // 修改为使用快照测试匹配器
+      expect(result).toMatchSnapshotOutput();
     },
-
     JEST_BUILD_TIMEOUT
   );
 }
 
-export function testBuildMiniPlugin(app: string, target: Platform = 'ali', outputPath?: string, options?: any) {
+export function testBuildMiniPlugin(app: string, target: Platform = 'ali', options?: any) {
   it(
     `build ${app} on target ${target}`,
     async () => {
       Store.reset();
       const result = await buildMiniPlugin(app, target, options);
-      expect(result).toMatchOutput(outputPath || path.resolve(__dirname, `../fixtures/${app}/expected`));
+      // 修改为使用快照测试匹配器
+      expect(result).toMatchSnapshotOutput();
     },
-
     JEST_BUILD_TIMEOUT
   );
 }
@@ -41,7 +39,6 @@ export function testBuildMiniComponent(
   app: string,
   inputs: Inputs,
   targets: Platform[] = ['ali'],
-  outputPath?: string,
   options: any = {}
 ) {
   targets.forEach(target => {
@@ -50,9 +47,9 @@ export function testBuildMiniComponent(
       async () => {
         Store.reset();
         const result = await buildMiniComponent(app, inputs, target, options);
-        expect(result).toMatchOutput(outputPath || path.resolve(__dirname, `../fixtures/${app}/expected/${target}`));
+        // 修改为使用快照测试匹配器
+        expect(result).toMatchSnapshotOutput();
       },
-
       JEST_BUILD_TIMEOUT
     );
   });

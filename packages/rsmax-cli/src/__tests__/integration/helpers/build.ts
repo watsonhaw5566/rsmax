@@ -102,17 +102,9 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
         });
       }
 
-      const exclude = options.exclude || ['node_modules'];
-      const include = options.include || [];
-      const includeRegExp = new RegExp(`(${include.join('|')})`);
-      const excludeRegExp = new RegExp(`(${exclude.join('|')})`);
       const outputDir = path.join(remaxOptions.cwd, remaxOptions.output);
-
-      const output = getFilesInDir(outputDir + '/', outputDir).filter(
-        c =>
-          (include.length > 0 && includeRegExp.test(c.fileName)) ||
-          (exclude.length > 0 && !excludeRegExp.test(c.fileName))
-      );
+      // 简化output处理，移除include和exclude过滤
+      const output = getFilesInDir(outputDir + '/', outputDir);
 
       resolve(output);
     });
@@ -280,4 +272,4 @@ export function buildMiniComponent(
   });
 }
 
-export const JEST_BUILD_TIMEOUT = 8 * 1000;
+export const JEST_BUILD_TIMEOUT = 5 * 1000;
