@@ -19,6 +19,12 @@ function createHash(content: Buffer) {
 }
 
 function buildText(files: Received) {
+  // 获取当前项目的根目录
+  const projectRoot = path.resolve(__dirname, '..');
+
+  // 创建正则表达式以匹配项目绝对路径
+  const rootPathRegex = new RegExp(path.normalize(projectRoot).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+
   return sortBy(
     files.map(f => ({
       ...f,
@@ -27,9 +33,13 @@ function buildText(files: Received) {
     ['fileName']
   )
     .reduce((acc: string[], f) => {
+      // 处理文件内容，将绝对路径替换为相对路径或占位符
+      const content = f.code.toString();
+      const normalizedContent = content.replace(rootPathRegex, '<PROJECT_ROOT>');
+
       const text = /\.(png|jpg)$/.test(f.fileName)
         ? [createHash(f.code)]
-        : eol.split(f.code.toString()).map(l => `${f.fileName}: ${l}`);
+        : eol.split(normalizedContent).map(l => `${f.fileName}: ${l}`);
       acc.push(`file: ${f.fileName}`, Array(80).join('-'), ...text, Array(80).join('-'));
       return acc;
     }, [])
