@@ -1669,10 +1669,10 @@ components/greet/index.js: 59: (function (__unused_webpack_module, __webpack_exp
 components/greet/index.js: __webpack_require__.r(__webpack_exports__);
 components/greet/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 components/greet/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-components/greet/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_plugin_basic_src_components_greet_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
+components/greet/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(55);
 components/greet/index.js: 
 components/greet/index.js: 
-components/greet/index.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_plugin_basic_src_components_greet_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+components/greet/index.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(<WEBPACK_MODULE>["default"]));
 components/greet/index.js: 
 components/greet/index.js: 
 components/greet/index.js: }),
@@ -2671,11 +2671,11 @@ pages/index/index.js: 4: (function (__unused_webpack_module, __webpack_exports__
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 pages/index/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-pages/index/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_plugin_basic_src_pages_index_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(53);
+pages/index/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(53);
 pages/index/index.js: __webpack_require__(58);
 pages/index/index.js: 
 pages/index/index.js: 
-pages/index/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_plugin_basic_src_pages_index_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index/index'));
+pages/index/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'pages/index/index'));
 pages/index/index.js: 
 pages/index/index.js: 
 pages/index/index.js: }),

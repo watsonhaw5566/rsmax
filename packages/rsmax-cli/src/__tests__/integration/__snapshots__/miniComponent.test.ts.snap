@@ -5133,10 +5133,10 @@ greet.js: 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_
 greet.js: __webpack_require__.r(__webpack_exports__);
 greet.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 greet.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-greet.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+greet.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(52);
 greet.js: 
 greet.js: 
-greet.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+greet.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(<WEBPACK_MODULE>["default"]));
 greet.js: 
 greet.js: 
 greet.js: }),
@@ -6134,10 +6134,10 @@ greet2.js: 55: (function (__unused_webpack_module, __webpack_exports__, __webpac
 greet2.js: __webpack_require__.r(__webpack_exports__);
 greet2.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 greet2.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-greet2.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet2_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
+greet2.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(56);
 greet2.js: 
 greet2.js: 
-greet2.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet2_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+greet2.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(<WEBPACK_MODULE>["default"]));
 greet2.js: 
 greet2.js: 
 greet2.js: }),
@@ -15939,10 +15939,10 @@ greet.js: 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_
 greet.js: __webpack_require__.r(__webpack_exports__);
 greet.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 greet.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-greet.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+greet.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(52);
 greet.js: 
 greet.js: 
-greet.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+greet.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(<WEBPACK_MODULE>["default"]));
 greet.js: 
 greet.js: 
 greet.js: }),
@@ -16940,10 +16940,10 @@ greet2.js: 55: (function (__unused_webpack_module, __webpack_exports__, __webpac
 greet2.js: __webpack_require__.r(__webpack_exports__);
 greet2.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 greet2.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-greet2.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet2_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
+greet2.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(56);
 greet2.js: 
 greet2.js: 
-greet2.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_mini_component_basic_src_components_greet2_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+greet2.js: Component((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(<WEBPACK_MODULE>["default"]));
 greet2.js: 
 greet2.js: 
 greet2.js: }),

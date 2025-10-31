@@ -766,11 +766,11 @@ app.js: 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_re
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-app.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+app.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(52);
 app.js: __webpack_require__(53);
 app.js: 
 app.js: 
-app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(<WEBPACK_MODULE>["default"]));
 app.js: 
 app.js: 
 app.js: }),
@@ -1923,11 +1923,11 @@ packageA/pages/index.js: 66: (function (__unused_webpack_module, __webpack_expor
 packageA/pages/index.js: __webpack_require__.r(__webpack_exports__);
 packageA/pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 packageA/pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-packageA/pages/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_packageA_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
+packageA/pages/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(67);
 packageA/pages/index.js: __webpack_require__(68);
 packageA/pages/index.js: 
 packageA/pages/index.js: 
-packageA/pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_packageA_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'packageA/pages/index'));
+packageA/pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'packageA/pages/index'));
 packageA/pages/index.js: 
 packageA/pages/index.js: 
 packageA/pages/index.js: }),
@@ -2981,10 +2981,10 @@ pages/classPage.js: 64: (function (__unused_webpack_module, __webpack_exports__,
 pages/classPage.js: __webpack_require__.r(__webpack_exports__);
 pages/classPage.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 pages/classPage.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-pages/classPage.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_classPage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
+pages/classPage.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(65);
 pages/classPage.js: 
 pages/classPage.js: 
-pages/classPage.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_classPage_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/classPage'));
+pages/classPage.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'pages/classPage'));
 pages/classPage.js: 
 pages/classPage.js: 
 pages/classPage.js: }),
@@ -4103,11 +4103,11 @@ pages/index.js: 55: (function (__unused_webpack_module, __webpack_exports__, __w
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
+pages/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(56);
 pages/index.js: __webpack_require__(63);
 pages/index.js: 
 pages/index.js: 
-pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
+pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'pages/index'));
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -9639,10 +9639,10 @@ app.js: 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_re
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-app.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_component_recursion_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+app.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(52);
 app.js: 
 app.js: 
-app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_component_recursion_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(<WEBPACK_MODULE>["default"]));
 app.js: 
 app.js: 
 app.js: }),
@@ -10770,10 +10770,10 @@ pages/index.js: 53: (function (__unused_webpack_module, __webpack_exports__, __w
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_component_recursion_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
+pages/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(54);
 pages/index.js: 
 pages/index.js: 
-pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_component_recursion_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
+pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'pages/index'));
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -15868,10 +15868,10 @@ app.js: 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_re
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-app.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_resolve_platform_ext_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+app.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(52);
 app.js: 
 app.js: 
-app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_resolve_platform_ext_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(<WEBPACK_MODULE>["default"]));
 app.js: 
 app.js: 
 app.js: }),
@@ -16841,10 +16841,10 @@ pages/index.js: 53: (function (__unused_webpack_module, __webpack_exports__, __w
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_resolve_platform_ext_src_pages_index_ali_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
+pages/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(54);
 pages/index.js: 
 pages/index.js: 
-pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_resolve_platform_ext_src_pages_index_ali_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
+pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'pages/index'));
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -21929,11 +21929,11 @@ app.js: 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_re
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-app.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_toutiao_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+app.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(52);
 app.js: __webpack_require__(53);
 app.js: 
 app.js: 
-app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_toutiao_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(<WEBPACK_MODULE>["default"]));
 app.js: 
 app.js: 
 app.js: }),
@@ -22944,11 +22944,11 @@ pages/index/index.js: 54: (function (__unused_webpack_module, __webpack_exports_
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 pages/index/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-pages/index/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_toutiao_src_pages_index_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
+pages/index/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(55);
 pages/index/index.js: __webpack_require__(59);
 pages/index/index.js: 
 pages/index/index.js: 
-pages/index/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_toutiao_src_pages_index_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index/index'));
+pages/index/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'pages/index/index'));
 pages/index/index.js: 
 pages/index/index.js: 
 pages/index/index.js: }),
@@ -28430,10 +28430,10 @@ app.js: 3: (function (__unused_webpack_module, __webpack_exports__, __webpack_re
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 app.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-app.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+app.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(52);
 app.js: 
 app.js: 
-app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_app_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+app.js: App((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createAppConfig)(<WEBPACK_MODULE>["default"]));
 app.js: 
 app.js: 
 app.js: }),
@@ -32228,10 +32228,10 @@ pages/index.js: 53: (function (__unused_webpack_module, __webpack_exports__, __w
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 pages/index.js: /* ESM import */var _rsmax_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
+pages/index.js: /* ESM import */var <WEBPACK_MODULE> = __webpack_require__(54);
 pages/index.js: 
 pages/index.js: 
-pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_wechat_include_src_pages_index_js__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
+pages/index.js: Page((0,_rsmax_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(<WEBPACK_MODULE>["default"], 'pages/index'));
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),

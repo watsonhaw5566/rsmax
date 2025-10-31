@@ -25,6 +25,10 @@ function buildText(files: Received) {
   // 创建正则表达式以匹配项目绝对路径
   const rootPathRegex = new RegExp(path.normalize(projectRoot).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
 
+  // 创建正则表达式以匹配webpack模块标识符中的绝对路径
+  // 匹配格式如：_Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_ali_src_pages_index_js
+  const webpackIdentifierRegex = /_Users_[\w_]+/g;
+
   return sortBy(
     files.map(f => ({
       ...f,
@@ -34,8 +38,13 @@ function buildText(files: Received) {
   )
     .reduce((acc: string[], f) => {
       // 处理文件内容，将绝对路径替换为相对路径或占位符
-      const content = f.code.toString();
-      const normalizedContent = content.replace(rootPathRegex, '<PROJECT_ROOT>');
+      let content = f.code.toString();
+
+      // 首先替换项目根路径
+      let normalizedContent = content.replace(rootPathRegex, '<PROJECT_ROOT>');
+
+      // 然后替换webpack模块标识符中的绝对路径
+      normalizedContent = normalizedContent.replace(webpackIdentifierRegex, '<WEBPACK_MODULE>');
 
       const text = /\.(png|jpg)$/.test(f.fileName)
         ? [createHash(f.code)]
