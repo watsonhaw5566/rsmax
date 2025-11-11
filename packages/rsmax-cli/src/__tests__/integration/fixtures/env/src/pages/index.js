@@ -9,8 +9,8 @@ export default () => {
   return (
     <View>
       <Text>{process.env.NODE_ENV}</Text>
-      <Text>{process.env.REMAX_APP_HELLO}</Text>
-      <Text>{process.env.REMAX_APP_MESSAGE}</Text>
+      <Text>{process.env.RSMAX_APP_HELLO}</Text>
+      <Text>{process.env.RSMAX_APP_MESSAGE}</Text>
     </View>
   );
 };

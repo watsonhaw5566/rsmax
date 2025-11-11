@@ -7,7 +7,12 @@ import getEnvironment from '../utils/env';
 
 export default function baseConfig(config: Config, builder: Builder) {
   config.resolveLoader.modules
-    .merge(['node_modules', path.join(__dirname, './loaders')])
+    .merge([
+      // 优先使用已编译的 JS loader，避免在测试环境加载 .ts
+      path.resolve(__dirname, '../../../lib/build/webpack/loaders'),
+      'node_modules',
+      path.join(__dirname, './loaders'),
+    ])
     .end()
     .extensions.merge(['.js', '.ts']);
 

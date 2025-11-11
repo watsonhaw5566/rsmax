@@ -11,7 +11,7 @@ import MiniPluginBuilder from '../../../build/MiniPluginBuilder';
 import WebBuilder from '../../../build/WebBuilder';
 import MiniComponentBuilder from '../../../build/MiniComponentBuilder';
 
-interface OutputFile {
+export interface OutputFile {
   fileName: string;
   code: Buffer;
 }
@@ -41,7 +41,12 @@ interface Options {
   externalsIgnore: string[];
 }
 
-export async function buildApp(app: string, target: Platform, options: Partial<Options> = {}, extraRemaxOptions?: any) {
+export async function buildApp(
+  app: string,
+  target: Platform,
+  options: Partial<Options> = {},
+  extraRemaxOptions?: any
+): Promise<OutputFile[]> {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
   process.env.NODE_ENV = 'test';
@@ -74,7 +79,8 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
         .end()
         .end()
         .externals([...(context.config.get('externals') || []), ...externals])
-        .optimization.minimize(false);
+        .optimization.moduleIds('deterministic')
+        .minimize(false);
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
       }
@@ -124,7 +130,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
   });
 }
 
-export async function buildMiniPlugin(app: string, target: Platform, options: Partial<Options> = {}) {
+export async function buildMiniPlugin(app: string, target: Platform = 'ali', options: Partial<Options> = {}): Promise<OutputFile[]> {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
   process.env.NODE_ENV = 'test';
@@ -151,7 +157,8 @@ export async function buildMiniPlugin(app: string, target: Platform, options: Pa
         .plugins.delete('rspackbar')
         .end()
         .externals([...context.config.get('externals'), ...externals])
-        .optimization.minimize(false);
+        .optimization.moduleIds('deterministic')
+        .minimize(false);
 
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
@@ -204,7 +211,7 @@ export function buildMiniComponent(
   inputs: { [k: string]: string },
   target: Platform,
   options: Partial<Options> = {}
-) {
+): Promise<OutputFile[]> {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
   process.env.NODE_ENV = 'test';
@@ -232,7 +239,8 @@ export function buildMiniComponent(
         .plugins.delete('rspackbar')
         .end()
         .externals([...context.config.get('externals'), ...externals])
-        .optimization.minimize(false);
+        .optimization.moduleIds('deterministic')
+        .minimize(false);
 
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
@@ -280,4 +288,4 @@ export function buildMiniComponent(
   });
 }
 
-export const JEST_BUILD_TIMEOUT = 8 * 1000;
+export const JEST_BUILD_TIMEOUT = 5 * 1000;

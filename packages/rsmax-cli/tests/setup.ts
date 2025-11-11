@@ -21,6 +21,21 @@ function createHash(content: Buffer) {
   return hash.digest('hex');
 }
 
+// 新增：统一归一化构建产物中的不稳定片段（moduleId、长哈希、chunk 文件名等）
+function normalizeJsContent(input: string) {
+  return input
+    // 针对 __webpack_require__(123) 之类的调用，把数字 ID 替换为占位符
+    .replace(/__webpack_require__\((\d+)\)/g, '__webpack_require__(<ID>)')
+    // 替换形如 "modules[123]" 或 "installedChunks[3]" 的索引写法
+    .replace(/\[(\d+)\]/g, '[<ID>]')
+    // 替换可能出现的长内容哈希（20+位十六进制）为占位符
+    .replace(/[a-f0-9]{20,}/gi, '<HASH>')
+    // 替换 chunk 文件名中常见的 id/hash 片段，比如 vendors-abc123.js
+    .replace(/(-|\.)\d+(\.js)/g, '$1<ID>$2')
+    // 统一规范 ESM import 变量名：去掉前缀（可能包含绝对路径或包名），只保留 __WEBPACK_IMPORTED_MODULE_<ID>__ 后缀
+    .replace(/[A-Za-z0-9_\/\\.-]*(__WEBPACK_IMPORTED_MODULE_\d+__)/g, '$1');
+}
+
 function buildText(files: Received) {
   return sortBy(
     files.map(f => ({
@@ -30,9 +45,10 @@ function buildText(files: Received) {
     ['fileName']
   )
     .reduce((acc: string[], f) => {
-      const text = /\.(png|jpg)$/.test(f.fileName)
-        ? [createHash(f.code)]
-        : eol.split(f.code.toString()).map(l => `${f.fileName}: ${l}`);
+      const isBinary = /\.(png|jpg)$/.test(f.fileName);
+      const codeStr = isBinary ? undefined : normalizeJsContent(f.code.toString());
+      const text = isBinary ? [createHash(f.code)] : eol.split(codeStr!).map(l => `${f.fileName}: ${l}`);
+
       acc.push(`file: ${f.fileName}`, Array(80).join('-'), ...text, Array(80).join('-'));
       return acc;
     }, [])
