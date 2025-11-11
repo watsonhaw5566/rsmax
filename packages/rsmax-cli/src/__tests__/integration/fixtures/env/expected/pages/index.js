@@ -35,10 +35,10 @@ __webpack_require__.d(__webpack_exports__, {
                 children: "test"
             }),
             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                children: process.env.REMAX_APP_HELLO
+                children: "hello"
             }),
             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(rsmax__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                children: process.env.REMAX_APP_MESSAGE
+                children: "hello world"
             })
         ]
     });
