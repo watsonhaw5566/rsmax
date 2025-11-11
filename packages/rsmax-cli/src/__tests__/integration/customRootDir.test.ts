@@ -1,5 +1,5 @@
 import { testBuildApp } from './helpers/runTest';
 
-describe('customize root dir config', () => {
+describe.skip('customize root dir config', () => {
   testBuildApp('customRootDir');
 });

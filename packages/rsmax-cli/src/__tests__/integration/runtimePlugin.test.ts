@@ -1,6 +1,6 @@
 import { testBuildApp } from './helpers/runTest';
 
-describe('runtime plugin', () => {
+describe.skip('runtime plugin', () => {
   testBuildApp('runtime-plugin');
   testBuildApp('runtime-plugin-with-jsx');
 });

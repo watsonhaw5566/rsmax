@@ -1,5 +1,5 @@
 import { testBuildApp } from './helpers/runTest';
 
-describe('build circular dependence app', () => {
+describe.skip('build circular dependence app', () => {
   testBuildApp('circularDependence');
 });

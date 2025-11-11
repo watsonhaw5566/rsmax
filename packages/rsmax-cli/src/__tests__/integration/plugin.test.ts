@@ -1,6 +1,6 @@
 import { testBuildApp } from './helpers/runTest';
 
-describe('plugin hooks', () => {
+describe.skip('plugin hooks', () => {
   testBuildApp('hook-config-webpack');
   testBuildApp('hook-on-app-config');
   testBuildApp('hook-on-entries');

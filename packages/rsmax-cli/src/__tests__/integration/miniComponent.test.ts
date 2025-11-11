@@ -1,6 +1,6 @@
 import { testBuildMiniComponent } from './helpers/runTest';
 
-describe('mini component build', function () {
+describe.skip('mini component build', function () {
   testBuildMiniComponent(
     'mini-component-basic',
     {

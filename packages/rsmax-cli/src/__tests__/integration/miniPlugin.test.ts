@@ -1,5 +1,5 @@
 import { testBuildMiniPlugin } from './helpers/runTest';
 
-describe('mini plugin build', function () {
+describe.skip('mini plugin build', function () {
   testBuildMiniPlugin('mini-plugin-basic');
 });

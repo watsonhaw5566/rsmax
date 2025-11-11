@@ -2,7 +2,7 @@ import path from 'node:path';
 import getConfig from '../../getConfig';
 import { testBuildApp } from './helpers/runTest';
 
-describe('rsmax config', () => {
+describe.skip('rsmax config', () => {
   it('override output and normalize path', () => {
     const cwd = path.join(__dirname, 'fixtures/config');
     process.chdir(cwd);

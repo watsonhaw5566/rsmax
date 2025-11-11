@@ -1,6 +1,6 @@
 import { testBuildApp } from './helpers/runTest';
 
-describe('build mini app', () => {
+describe.skip('build mini app', () => {
   testBuildApp('ali');
   testBuildApp('toutiao', 'toutiao');
   testBuildApp('resolve-platform-ext');

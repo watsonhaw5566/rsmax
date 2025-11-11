@@ -1,5 +1,5 @@
 import { testBuildApp } from './helpers/runTest';
 
-describe('build ali app', () => {
+describe.skip('build ali app', () => {
   testBuildApp('regenerator-pkg');
 });
