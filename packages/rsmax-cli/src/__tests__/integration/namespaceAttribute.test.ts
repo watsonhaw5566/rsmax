@@ -1,5 +1,5 @@
 import { testBuildApp } from './helpers/runTest';
 
-describe.skip('support namespace attribute', () => {
+describe('support namespace attribute', () => {
   testBuildApp('namespaceAttribute');
 });

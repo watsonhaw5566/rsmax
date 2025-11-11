@@ -1,12 +1,12 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["2"], {
-196: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+3772: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
-/* ESM import */var _rsmax_web_assets_normalize_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* ESM import */var _rsmax_web_assets_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* ESM import */var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_web_src_pages_index_index2_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(197);
-/* ESM import */var _rsmax_web__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* ESM import */var _rsmax_web_assets_normalize_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3351);
+/* ESM import */var _rsmax_web_assets_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4135);
+/* ESM import */var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7389);
+/* ESM import */var _Users_wangjue_WebstormProjects_rspack_rsmax_packages_rsmax_cli_src_tests_integration_fixtures_web_src_pages_index_index2_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2070);
+/* ESM import */var _rsmax_web__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3555);
 
 
 
@@ -34,17 +34,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 }),
-197: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+2070: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 });
-/* ESM import */var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
+/* ESM import */var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2015);
 /* ESM import */var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9887);
 /* ESM import */var rsmax__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rsmax__WEBPACK_IMPORTED_MODULE_1__);
-/* ESM import */var _index_css_modules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* ESM import */var _index_css_modules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(965);
+/* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8732);
 /* ESM import */var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
 
@@ -81,15 +81,15 @@ __webpack_require__.d(__webpack_exports__, {
 
 
 }),
-15: (function (module) {
+2015: (function (module) {
 module.exports = require("react");
 
 }),
-8: (function (module) {
+8732: (function (module) {
 module.exports = require("react/jsx-runtime");
 
 }),
-6: (function (module) {
+9887: (function (module) {
 module.exports = require("rsmax");
 
 }),
@@ -97,7 +97,7 @@ module.exports = require("rsmax");
 },function(__webpack_require__) {
 var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 __webpack_require__.O(0, ["0",], function() {
-        return __webpack_exec__(196);
+        return __webpack_exec__(3772);
       });
 var __webpack_exports__ = __webpack_require__.O();
 
