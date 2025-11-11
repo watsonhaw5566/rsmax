@@ -47,6 +47,8 @@ const Store = {
   } as { id: string; props: string[] },
 
   extractedTemplates: new Map() as Map<string, ExtractedTemplate>,
+  // 渐进式层级统计：每个宿主组件的实际最大层级（1 + 祖先链出现次数）
+  componentDepth: new Map() as Map<string, number>,
 
   templateId: 1,
 
@@ -113,6 +115,8 @@ const Store = {
     this.appEvents.clear();
     this.pageEvents.clear();
     this.templateId = 1;
+    // 清空层级统计
+    this.componentDepth.clear();
   },
 };
 
