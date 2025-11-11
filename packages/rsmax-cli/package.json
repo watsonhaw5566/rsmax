@@ -95,7 +95,7 @@
     "@types/semver": "^7.1.0",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-loop-optimizer": "^1.4.1",
-    "caniuse-lite": "^1.0.30001650",
+    "caniuse-lite": "^1.0.30001754",
     "cross-env": "^6.0.3",
     "eol": "^0.9.1",
     "fs-readdir-recursive": "^1.1.0",
