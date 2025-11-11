@@ -1,4 +1,5 @@
 import { type Compilation, type Compiler, sources } from '@rspack/core';
+import fs from 'node:fs';
 import SourceCache from '../../../SourceCache';
 import type Builder from '../../Builder';
 
@@ -14,7 +15,10 @@ export default class ThemeAssetPlugin {
 
   apply(compiler: Compiler) {
     compiler.hooks.compilation.tap(PLUGIN_NAME, async compilation => {
-      // theme.json
+      const themeConfigJs = this.builder.projectPath.themeConfigFile();
+      if (!fs.existsSync(themeConfigJs)) {
+        return;
+      }
       this.createManifest(compilation);
     });
   }
