@@ -304,14 +304,14 @@ export default function hostComponent(options: Options) {
       visitor: {
         JSXElement: (path: NodePath<t.JSXElement>, state: any) => {
           const hostComponentName = getHostComponentName(path);
-    
+
           if (hostComponentName) {
             registerHostComponentManifest(hostComponentName, path.node);
             // 渐进式层级统计：计算当前元素祖先链中同名宿主组件出现次数
             const ancestry = path.getAncestry();
             let sameCount = 0;
             for (const ap of ancestry) {
-              if ((ap as any).isJSXElement && (ap as any).isJSXElement()) {
+              if (ap.isJSXElement?.()) {
                 const ancestorName = getHostComponentName(ap as NodePath<t.JSXElement>);
                 if (ancestorName === hostComponentName) {
                   sameCount += 1;
@@ -325,7 +325,7 @@ export default function hostComponent(options: Options) {
             }
             return;
           }
-    
+
           collectCompositionComponents(path, slash(state.file.opts.filename));
         },
         CallExpression: {
