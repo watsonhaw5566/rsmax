@@ -28,6 +28,31 @@
     "react": "^18.3.0",
     "react-test-renderer": "^18.3.0"
   },
+  "sideEffects": false,
+  "exports": {
+    "./types": {
+      "types": "./esm/types/index.d.ts",
+      "import": "./esm/types/index.js",
+      "require": "./cjs/types/index.js"
+    },
+    "./component": {
+      "types": "./esm/hostComponents/index.d.ts",
+      "import": "./esm/hostComponents/index.js",
+      "require": "./cjs/hostComponents/index.js"
+    },
+    "./node": {
+      "types": "./esm/node/index.d.ts",
+      "import": "./esm/node/index.js",
+      "require": "./cjs/node/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "types": ["esm/types/index.d.ts"],
+      "component": ["esm/hostComponents/index.d.ts"],
+      "node": ["esm/node/index.d.ts"]
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
