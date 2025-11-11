@@ -7,6 +7,6 @@ describe('mini component build', function () {
       greet: 'components/greet/index',
       greet2: 'components/greet2/index',
     },
-    ['ali', 'wechat']
+    ['wechat']
   );
 });

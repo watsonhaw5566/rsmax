@@ -74,7 +74,8 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
         .end()
         .end()
         .externals([...(context.config.get('externals') || []), ...externals])
-        .optimization.minimize(false);
+        .optimization.moduleIds('deterministic')
+        .minimize(false);
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
       }
@@ -151,7 +152,8 @@ export async function buildMiniPlugin(app: string, target: Platform, options: Pa
         .plugins.delete('rspackbar')
         .end()
         .externals([...context.config.get('externals'), ...externals])
-        .optimization.minimize(false);
+        .optimization.moduleIds('deterministic')
+        .minimize(false);
 
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
@@ -232,7 +234,8 @@ export function buildMiniComponent(
         .plugins.delete('rspackbar')
         .end()
         .externals([...context.config.get('externals'), ...externals])
-        .optimization.minimize(false);
+        .optimization.moduleIds('deterministic')
+        .minimize(false);
 
       if (typeof config.configWebpack === 'function') {
         config.configWebpack(context);
