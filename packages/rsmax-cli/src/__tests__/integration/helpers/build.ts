@@ -11,7 +11,7 @@ import MiniPluginBuilder from '../../../build/MiniPluginBuilder';
 import WebBuilder from '../../../build/WebBuilder';
 import MiniComponentBuilder from '../../../build/MiniComponentBuilder';
 
-interface OutputFile {
+export interface OutputFile {
   fileName: string;
   code: Buffer;
 }
@@ -41,7 +41,12 @@ interface Options {
   externalsIgnore: string[];
 }
 
-export async function buildApp(app: string, target: Platform, options: Partial<Options> = {}, extraRemaxOptions?: any) {
+export async function buildApp(
+  app: string,
+  target: Platform,
+  options: Partial<Options> = {},
+  extraRemaxOptions?: any
+): Promise<OutputFile[]> {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
   process.env.NODE_ENV = 'test';
@@ -125,7 +130,7 @@ export async function buildApp(app: string, target: Platform, options: Partial<O
   });
 }
 
-export async function buildMiniPlugin(app: string, target: Platform, options: Partial<Options> = {}) {
+export async function buildMiniPlugin(app: string, target: Platform = 'ali', options: Partial<Options> = {}): Promise<OutputFile[]> {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
   process.env.NODE_ENV = 'test';
@@ -206,7 +211,7 @@ export function buildMiniComponent(
   inputs: { [k: string]: string },
   target: Platform,
   options: Partial<Options> = {}
-) {
+): Promise<OutputFile[]> {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
   process.env.NODE_ENV = 'test';
