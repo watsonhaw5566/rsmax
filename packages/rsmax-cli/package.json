@@ -22,7 +22,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -U"
   },
   "dependencies": {
     "@babel/core": "^7.7.4",
