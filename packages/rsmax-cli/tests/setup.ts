@@ -31,7 +31,9 @@ function normalizeJsContent(input: string) {
     // 替换可能出现的长内容哈希（20+位十六进制）为占位符
     .replace(/[a-f0-9]{20,}/gi, '<HASH>')
     // 替换 chunk 文件名中常见的 id/hash 片段，比如 vendors-abc123.js
-    .replace(/(-|\.)\d+(\.js)/g, '$1<ID>$2');
+    .replace(/(-|\.)\d+(\.js)/g, '$1<ID>$2')
+    // 统一规范 ESM import 变量名：去掉前缀（可能包含绝对路径或包名），只保留 __WEBPACK_IMPORTED_MODULE_<ID>__ 后缀
+    .replace(/[A-Za-z0-9_\/\\.-]*(__WEBPACK_IMPORTED_MODULE_\d+__)/g, '$1');
 }
 
 function buildText(files: Received) {
