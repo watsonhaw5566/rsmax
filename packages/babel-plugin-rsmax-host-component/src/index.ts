@@ -304,12 +304,28 @@ export default function hostComponent(options: Options) {
       visitor: {
         JSXElement: (path: NodePath<t.JSXElement>, state: any) => {
           const hostComponentName = getHostComponentName(path);
-
+    
           if (hostComponentName) {
             registerHostComponentManifest(hostComponentName, path.node);
+            // 渐进式层级统计：计算当前元素祖先链中同名宿主组件出现次数
+            const ancestry = path.getAncestry();
+            let sameCount = 0;
+            for (const ap of ancestry) {
+              if ((ap as any).isJSXElement && (ap as any).isJSXElement()) {
+                const ancestorName = getHostComponentName(ap as NodePath<t.JSXElement>);
+                if (ancestorName === hostComponentName) {
+                  sameCount += 1;
+                }
+              }
+            }
+            const neededDepth = 1 + sameCount;
+            const prev = Store.componentDepth.get(hostComponentName) || 1;
+            if (neededDepth > prev) {
+              Store.componentDepth.set(hostComponentName, neededDepth);
+            }
             return;
           }
-
+    
           collectCompositionComponents(path, slash(state.file.opts.filename));
         },
         CallExpression: {

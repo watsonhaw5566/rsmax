@@ -12,7 +12,8 @@ import PageEntry from '../../../entries/PageEntry';
 import { getUsingComponents } from '../getUsingComponents';
 
 export function createRenderOptions(page: string, compilation: Compilation, options: Options, filter = true) {
-  const components = new Map(Store.getCollectedComponents());
+  // 启用筛选时，仅包含“已使用的宿主组件”；关闭筛选时包含全部宿主组件
+  const components = filter ? new Map(Store.collectedComponents) : new Map(Store.getCollectedComponents());
 
   if (filter) {
     getUsingComponents(page, compilation, options).forEach(component => {
@@ -33,6 +34,17 @@ export function createRenderOptions(page: string, compilation: Compilation, opti
   };
 }
 
+// 将默认层级与统计层级合并：finalDepth[id] = min(默认值, 实际使用值)
+function computeFinalDepth(options: Options) {
+  const base = ensureDepth(options.UNSAFE_wechatTemplateDepth) as Record<string, number>;
+  const finalDepth: Record<string, number> = { ...base };
+  Store.componentDepth.forEach((used, id) => {
+    // 有默认值时按需收敛；没有默认值时直接使用统计值
+    finalDepth[id] = Math.min(base[id] ?? used, used);
+  });
+  return finalDepth;
+}
+
 export default async function createPageTemplate(
   api: API,
   options: Options,
@@ -47,6 +59,7 @@ export default async function createPageTemplate(
     ...createRenderOptions(page.filename, compilation, options),
     baseTemplate: `/base${meta.template.extension}`,
     sortBy,
+    depth: computeFinalDepth(options),
   };
 
   if (meta.jsHelper) {
@@ -80,7 +93,8 @@ export async function createBaseTemplate(
     return null;
   }
 
-  const components = new Map(Store.getCollectedComponents());
+  // 仅聚合“已使用的宿主组件 + 各页面实际使用的原生/插件组件”
+  const components = new Map(Store.collectedComponents);
 
   pages.forEach(page => {
     if (page instanceof PageEntry) {
@@ -105,7 +119,7 @@ export async function createBaseTemplate(
       skipComponents: Store.skipHostComponents,
       slotView,
       sortBy,
-      depth: ensureDepth(options.UNSAFE_wechatTemplateDepth),
+      depth: computeFinalDepth(options),
     },
     {
       rmWhitespace: options.compressTemplate,
