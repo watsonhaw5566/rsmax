@@ -5,24 +5,40 @@
 </template>
 
 <wxs module="_h">
-    var elements = {};
+    var __cache = {};
+
     module.exports = {
-    v: function(value) {
-    return value!== undefined ? value : '';
-    },
-    tid: function (type, ancestor) {
-    var items = ancestor.split(',');
-    var depth = 1;
+        v: function (value) {
+            return value == null ? '' : value;
+        },
 
-    for (var i = 0; i < items.length; i++) {
-    if (type === items[i]) {
-    depth = depth + 1;
-    }
-    }
+        tid: function (type, ancestor) {
+            var chain = ancestor || '';
+            var key = type + '::' + chain;
 
-    var id = 'REMAX_TPL_' + depth + '_' + type;
-    return id;
-    }
+            var cached = __cache[key];
+            if (cached) {
+                return cached;
+            }
+
+            var count = 0;
+            if (chain) {
+                var items = chain.split(',');
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i] === type) {
+                        count = count + 1;
+                    }
+                }
+            }
+
+            var id = 'REMAX_TPL_' + (1 + count) + '_' + type;
+            __cache[key] = id;
+            return id;
+        }
+        
+        container: function (tid) {
+            return 'REMAX_TPL_' + (tid + 1) + '_CONTAINER';
+        }
     };
 </wxs>
 
