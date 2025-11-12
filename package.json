@@ -16,6 +16,7 @@
     "readme:copy": "lerna exec 'cp ../../README.md' . --scope rsmax --scope @rsmax/cli",
     "prerelease": "./scripts/prerelease",
     "release": "lerna publish",
+    "postinstall": "simple-git-hooks",
     "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
     "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
     "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
