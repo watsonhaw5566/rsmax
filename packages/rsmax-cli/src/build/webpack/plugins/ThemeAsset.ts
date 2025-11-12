@@ -1,5 +1,5 @@
-import { type Compilation, type Compiler, sources } from '@rspack/core';
 import fs from 'node:fs';
+import { type Compilation, type Compiler, sources } from '@rspack/core';
 import SourceCache from '../../../SourceCache';
 import type Builder from '../../Builder';
 
