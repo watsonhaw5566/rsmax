@@ -242,6 +242,9 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);
   config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
+  if (builder.target === 'wechat') {
+    config.plugin('rsmax-wechat-recompile-plugin').use(RsmaxPlugins.WeChatRecompile, [builder]);
+  }
 
   if (builder.options.analyze) {
     config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
