@@ -726,7 +726,7 @@ app.js: require('./rsmax-vendors.js');
 app.js: require('./runtime.js');
 app.js: "use strict";
 app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
-app.js: 8222: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: 3676: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: // extracted by css-extract-rspack-plugin
 app.js: 
@@ -3189,7 +3189,7 @@ rsmax-vendors.js: var constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn("DEPRECATION: remax \\u5DF2\\u652F\\u6301\\u5728 onClick \\u4E8B\\u4EF6\\u4E2D\\u4F7F\\u7528 stopPropagation \\u963B\\u6B62\\u4E8B\\u4EF6\\u5192\\u6CE1\\uFF0C\\u8BF7\\u5C3D\\u91CF\\u4E0D\\u8981\\u4F7F\\u7528 catchClick");
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, function(type) {
 rsmax-vendors.js:         return type === inputType;
@@ -5296,7 +5296,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.6.1")
+runtime.js: __webpack_require__.rv = () => ("1.5.2")
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -5341,7 +5341,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.1";
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
 runtime.js: 
 runtime.js: })();
 runtime.js: /************************************************************************/

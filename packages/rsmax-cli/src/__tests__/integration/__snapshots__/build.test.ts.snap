@@ -729,7 +729,7 @@ app.js: require('./rsmax-vendors.js');
 app.js: require('./runtime.js');
 app.js: "use strict";
 app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
-app.js: 8222: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: 3676: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: // extracted by css-extract-rspack-plugin
 app.js: 
@@ -1071,7 +1071,7 @@ packageA/pages/index.js: require('./../../rsmax-vendors.js');
 packageA/pages/index.js: require('./../../runtime.js');
 packageA/pages/index.js: "use strict";
 packageA/pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
-packageA/pages/index.js: 3898: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+packageA/pages/index.js: 2860: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 packageA/pages/index.js: __webpack_require__.r(__webpack_exports__);
 packageA/pages/index.js: // extracted by css-extract-rspack-plugin
 packageA/pages/index.js: 
@@ -1558,7 +1558,7 @@ pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
 pages/index.js: "use strict";
 pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["3"], {
-pages/index.js: 9074: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 6400: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -1567,7 +1567,7 @@ pages/index.js: // extracted by css-extract-rspack-plugin
 pages/index.js: /* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"page-index":"page-index___m1FKW"});
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 5742: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 132: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: // extracted by css-extract-rspack-plugin
 pages/index.js: 
@@ -2037,7 +2037,7 @@ file: rsmax-styles.js
 -------------------------------------------------------------------------------
 rsmax-styles.js: "use strict";
 rsmax-styles.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["4"], {
-rsmax-styles.js: 7040: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+rsmax-styles.js: 5394: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-styles.js: __webpack_require__.r(__webpack_exports__);
 rsmax-styles.js: // extracted by css-extract-rspack-plugin
 rsmax-styles.js: 
@@ -4203,7 +4203,7 @@ rsmax-vendors.js: var constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn("DEPRECATION: remax \\u5DF2\\u652F\\u6301\\u5728 onClick \\u4E8B\\u4EF6\\u4E2D\\u4F7F\\u7528 stopPropagation \\u963B\\u6B62\\u4E8B\\u4EF6\\u5192\\u6CE1\\uFF0C\\u8BF7\\u5C3D\\u91CF\\u4E0D\\u8981\\u4F7F\\u7528 catchClick");
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, function(type) {
 rsmax-vendors.js:         return type === inputType;
@@ -6310,7 +6310,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.6.1")
+runtime.js: __webpack_require__.rv = () => ("1.5.2")
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -6355,7 +6355,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.1";
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
 runtime.js: 
 runtime.js: })();
 runtime.js: /************************************************************************/
@@ -9544,7 +9544,7 @@ rsmax-vendors.js: var constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn("DEPRECATION: remax \\u5DF2\\u652F\\u6301\\u5728 onClick \\u4E8B\\u4EF6\\u4E2D\\u4F7F\\u7528 stopPropagation \\u963B\\u6B62\\u4E8B\\u4EF6\\u5192\\u6CE1\\uFF0C\\u8BF7\\u5C3D\\u91CF\\u4E0D\\u8981\\u4F7F\\u7528 catchClick");
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, function(type) {
 rsmax-vendors.js:         return type === inputType;
@@ -11651,7 +11651,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.6.1")
+runtime.js: __webpack_require__.rv = () => ("1.5.2")
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -11696,7 +11696,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.1";
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
 runtime.js: 
 runtime.js: })();
 runtime.js: /************************************************************************/
@@ -14749,7 +14749,7 @@ rsmax-vendors.js: var constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn("DEPRECATION: remax \\u5DF2\\u652F\\u6301\\u5728 onClick \\u4E8B\\u4EF6\\u4E2D\\u4F7F\\u7528 stopPropagation \\u963B\\u6B62\\u4E8B\\u4EF6\\u5192\\u6CE1\\uFF0C\\u8BF7\\u5C3D\\u91CF\\u4E0D\\u8981\\u4F7F\\u7528 catchClick");
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, function(type) {
 rsmax-vendors.js:         return type === inputType;
@@ -16856,7 +16856,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.6.1")
+runtime.js: __webpack_require__.rv = () => ("1.5.2")
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -16901,7 +16901,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.1";
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
 runtime.js: 
 runtime.js: })();
 runtime.js: /************************************************************************/
@@ -17613,7 +17613,7 @@ app.js: require('./rsmax-vendors.js');
 app.js: require('./runtime.js');
 app.js: "use strict";
 app.js: (tt["webpackChunk"] = tt["webpackChunk"] || []).push([["0"], {
-app.js: 8222: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: 3676: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: // extracted by css-extract-rspack-plugin
 app.js: 
@@ -17836,7 +17836,7 @@ pages/index/index.js: require('./../../rsmax-vendors.js');
 pages/index/index.js: require('./../../runtime.js');
 pages/index/index.js: "use strict";
 pages/index/index.js: (tt["webpackChunk"] = tt["webpackChunk"] || []).push([["1"], {
-pages/index/index.js: 9747: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index/index.js: 965: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -17845,7 +17845,7 @@ pages/index/index.js: // extracted by css-extract-rspack-plugin
 pages/index/index.js: /* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"app":"app___R9oSF","logo":"logo___sf5Qy","logo-spin":"logo-spin___wJPgS","text":"text___LlNuW","header":"header___SYloc"});
 pages/index/index.js: 
 pages/index/index.js: }),
-pages/index/index.js: 1411: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index/index.js: 2369: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: // extracted by css-extract-rspack-plugin
 pages/index/index.js: 
@@ -20138,7 +20138,7 @@ rsmax-vendors.js: var constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn("DEPRECATION: remax \\u5DF2\\u652F\\u6301\\u5728 onClick \\u4E8B\\u4EF6\\u4E2D\\u4F7F\\u7528 stopPropagation \\u963B\\u6B62\\u4E8B\\u4EF6\\u5192\\u6CE1\\uFF0C\\u8BF7\\u5C3D\\u91CF\\u4E0D\\u8981\\u4F7F\\u7528 catchClick");
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, function(type) {
 rsmax-vendors.js:         return type === inputType;
@@ -22245,7 +22245,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.6.1")
+runtime.js: __webpack_require__.rv = () => ("1.5.2")
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -22290,7 +22290,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.1";
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
 runtime.js: 
 runtime.js: })();
 runtime.js: /************************************************************************/
@@ -25928,7 +25928,7 @@ rsmax-vendors.js: var constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn("DEPRECATION: remax \\u5DF2\\u652F\\u6301\\u5728 onClick \\u4E8B\\u4EF6\\u4E2D\\u4F7F\\u7528 stopPropagation \\u963B\\u6B62\\u4E8B\\u4EF6\\u5192\\u6CE1\\uFF0C\\u8BF7\\u5C3D\\u91CF\\u4E0D\\u8981\\u4F7F\\u7528 catchClick");
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, function(type) {
 rsmax-vendors.js:         return type === inputType;
@@ -28047,7 +28047,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.6.1")
+runtime.js: __webpack_require__.rv = () => ("1.5.2")
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -28092,7 +28092,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.1";
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
 runtime.js: 
 runtime.js: })();
 runtime.js: /************************************************************************/
