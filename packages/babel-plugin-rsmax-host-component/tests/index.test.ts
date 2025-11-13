@@ -1,9 +1,10 @@
 import * as babel from '@babel/core';
-import hostComponents from '@rsmax/ali/cjs/hostComponents/node';
+import plugin from '@rsmax/ali/node';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 import component from '../src';
 
+const { hostComponents } = plugin();
 const currentFilename = slash(__filename);
 
 function transform(code: string, filename?: string) {
