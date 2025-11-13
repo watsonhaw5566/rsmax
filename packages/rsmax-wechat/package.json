@@ -30,6 +30,11 @@
   },
   "sideEffects": false,
   "exports": {
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
+    },
     "./types": {
       "types": "./esm/types/index.d.ts",
       "import": "./esm/types/index.js",
