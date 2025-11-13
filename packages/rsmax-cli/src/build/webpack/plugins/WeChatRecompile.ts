@@ -38,8 +38,17 @@ export default class WeChatRecompile {
         file = path.join(outDir, candidates[0]);
       }
       try {
-        fs.appendFileSync(file, `\n/* rsmax touch ${Date.now()} */\n`);
-      } catch {}
+        const now = new Date();
+        fs.utimesSync(file, now, now);
+      } catch (e) {
+        try {
+          const content = fs.readFileSync(file, 'utf-8');
+          const withoutTouch = content.replace(/\n\/\* rsmax touch \d+ \*\/\n?$/, '');
+          fs.writeFileSync(file, `${withoutTouch}\n/* rsmax touch ${Date.now()} */\n`);
+        } catch (err) {
+          console.error(`Failed to touch ${file}:`, err);
+        }
+      }
     });
   }
 }
