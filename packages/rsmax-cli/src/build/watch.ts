@@ -1,3 +1,4 @@
+import path from 'node:path';
 import chokidar from 'chokidar';
 import type Builder from './Builder';
 
@@ -7,9 +8,17 @@ export default function watch(builder: Builder, watcher: any, addEntry = false) 
   // 监听额外的文件
   const { entries } = builder.entryCollection;
   chokidar
-    .watch([`${builder.options.rootDir}/app.config.{js,ts}`, `${builder.options.rootDir}/theme.config.{js,ts}`], {
-      cwd: builder.options.cwd,
-    })
+    .watch(
+      [
+        `${builder.options.rootDir}/app.config.js`,
+        `${builder.options.rootDir}/app.config.ts`,
+        `${builder.options.rootDir}/theme.config.js`,
+        `${builder.options.rootDir}/theme.config.ts`,
+      ],
+      {
+        cwd: builder.options.cwd,
+      }
+    )
     .on('change', () => {
       if (isRunning) return;
       if (addEntry) {
@@ -28,12 +37,16 @@ export default function watch(builder: Builder, watcher: any, addEntry = false) 
     });
 
   chokidar
-    .watch(
-      [`${builder.options.rootDir}/**/!(app).config.{js,ts}`, `${builder.options.rootDir}/**/!(theme).config.{js,ts}`],
-      {
-        cwd: builder.options.cwd,
-      }
-    )
+    .watch(builder.options.rootDir, {
+      cwd: builder.options.cwd,
+      ignored: (p, s) => {
+        const name = path.basename(p);
+        if (s?.isDirectory()) return false;
+        const isConfig = /\.config\.(js|ts)$/.test(name);
+        const isExcluded = /^app\.config\.(js|ts)$/.test(name) || /^theme\.config\.(js|ts)$/.test(name);
+        return !(isConfig && !isExcluded);
+      },
+    })
     .on('all', () => {
       if (isRunning) return;
       watcher.invalidate();

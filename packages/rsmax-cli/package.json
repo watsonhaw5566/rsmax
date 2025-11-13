@@ -51,7 +51,7 @@
     "babel-plugin-rsmax-regenerator-runtime": "workspace:*",
     "babel-plugin-rsmax-turbo-render": "workspace:*",
     "babel-preset-rsmax": "workspace:*",
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.0",
     "css-loader": "^6.7.0",
     "detect-port": "^2.1.0",
     "dotenv": "^17.0.0",

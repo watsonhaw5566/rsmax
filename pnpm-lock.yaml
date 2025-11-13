@@ -435,8 +435,8 @@ importers:
         specifier: workspace:*
         version: link:../babel-preset-rsmax
       chokidar:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^4.0.0
+        version: 4.0.3
       css-loader:
         specifier: ^6.7.0
         version: 6.11.0(@rspack/core@1.5.2(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
