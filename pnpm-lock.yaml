@@ -288,9 +288,6 @@ importers:
 
   packages/rsmax:
     dependencies:
-      '@rsmax/ali':
-        specifier: workspace:*
-        version: link:../rsmax-ali
       '@rsmax/cli':
         specifier: workspace:*
         version: link:../rsmax-cli
@@ -303,18 +300,12 @@ importers:
       '@rsmax/runtime':
         specifier: workspace:*
         version: link:../rsmax-runtime
-      '@rsmax/toutiao':
-        specifier: workspace:*
-        version: link:../rsmax-toutiao
       '@rsmax/types':
         specifier: workspace:*
         version: link:../rsmax-types
       '@rsmax/web':
         specifier: workspace:*
         version: link:../rsmax-web
-      '@rsmax/wechat':
-        specifier: workspace:*
-        version: link:../rsmax-wechat
 
   packages/rsmax-ali:
     dependencies:
