@@ -19,7 +19,7 @@
     "@rsmax/framework-shared": "workspace:*",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/shared": "workspace:*",
-    "miniprogram-api-typings": "^4.0.7"
+    "miniprogram-api-typings": "^4.1.0"
   },
   "devDependencies": {
     "@rsmax/types": "workspace:*",
@@ -48,9 +48,15 @@
   },
   "typesVersions": {
     "*": {
-      "types": ["esm/types/index.d.ts"],
-      "component": ["esm/hostComponents/index.d.ts"],
-      "node": ["esm/node/index.d.ts"]
+      "types": [
+        "esm/types/index.d.ts"
+      ],
+      "component": [
+        "esm/hostComponents/index.d.ts"
+      ],
+      "node": [
+        "esm/node/index.d.ts"
+      ]
     }
   },
   "publishConfig": {
