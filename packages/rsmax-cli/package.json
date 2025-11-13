@@ -40,7 +40,7 @@
     "@rsmax/runtime": "workspace:*",
     "@rsmax/shared": "workspace:*",
     "@rsmax/web": "workspace:*",
-    "@rspack/core": "^1.5.0",
+    "@rspack/core": "^1.6.0",
     "@rspack/dev-server": "^1.1.2",
     "@swc-node/register": "^1.10.10",
     "@swc/core": "^1.11.29",
