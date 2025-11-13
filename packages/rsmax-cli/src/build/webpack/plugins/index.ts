@@ -7,3 +7,4 @@ export { default as RuntimeOptions } from './RuntimeOptions';
 export { default as CoverageIgnore } from './CoverageIgnore';
 export { default as PluginAsset } from './PluginAsset';
 export { default as NativeAsset } from './NativeAsset';
+export { default as WeChatRecompile } from './WeChatRecompile';

@@ -716,13 +716,13 @@ file: app.js
 -------------------------------------------------------------------------------
 app.js: require('./runtime.js');
 app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
-app.js: 5360: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: 5895: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: "use strict";
 app.js: __webpack_require__.r(__webpack_exports__);
-app.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-app.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
-app.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-app.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
+app.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+app.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
+app.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
+app.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
 app.js: 
 app.js: 
 app.js: var pluginDriver = new __WEBPACK_IMPORTED_MODULE_0__.PluginDriver([].map(function(p) {
@@ -740,7 +740,7 @@ app.js: });
 app.js: 
 app.js: 
 app.js: }),
-app.js: 3854: (function () {
+app.js: 2803: (function () {
 app.js: App({});
 app.js: 
 app.js: 
@@ -758,7 +758,7 @@ app.js: }),
 app.js: 
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-app.js: var __webpack_exports__ = (__webpack_exec__(5360), __webpack_exec__(3854));
+app.js: var __webpack_exports__ = (__webpack_exec__(5895), __webpack_exec__(2803));
 app.js: 
 app.js: }
 app.js: ]);
@@ -1066,7 +1066,7 @@ pages/index.js: };
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3810: (function (__unused_webpack_module, exports) {
+pages/index.js: 7287: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: /**
 pages/index.js:  * @license React
@@ -1270,7 +1270,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6358: (function (module, __unused_webpack_exports, __webpack_require__) {
+pages/index.js: 2753: (function (module, __unused_webpack_exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: if (false) {} else {
@@ -1279,7 +1279,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6129: (function (__unused_webpack_module, exports) {
+pages/index.js: 6830: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: /**
 pages/index.js:  * @license React
@@ -1792,7 +1792,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 2266: (function (module, __unused_webpack_exports, __webpack_require__) {
+pages/index.js: 3177: (function (module, __unused_webpack_exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: if (false) {} else {
@@ -1801,31 +1801,31 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6078: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 6683: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 pages/index.js: 
 pages/index.js: 
 pages/index.js: Page((0,__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3404: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 4697: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
 pages/index.js: 
 pages/index.js: 
-pages/index.js: /* ESM default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+pages/index.js: /* export default */ function __WEBPACK_DEFAULT_EXPORT__() {
 pages/index.js:     return /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_1__.jsx)(__WEBPACK_IMPORTED_MODULE_0__.View, {
 pages/index.js:         children: "foo"
 pages/index.js:     });
@@ -1833,7 +1833,7 @@ pages/index.js: };
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 9100: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 963: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -1850,39 +1850,39 @@ pages/index.js:             _this.lifecycleCallback[lifecycle].splice(_this.life
 pages/index.js:         };
 pages/index.js:     }
 pages/index.js: };
-pages/index.js: /* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppInstanceContext);
+pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (AppInstanceContext);
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3160: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 763: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: 
 pages/index.js: var ComponentInstanceContext = /*#__PURE__*/ __WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-pages/index.js: /* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ComponentInstanceContext);
+pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (ComponentInstanceContext);
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 1116: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 5558: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: 
 pages/index.js: var PageInstanceContext = /*#__PURE__*/ __WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-pages/index.js: /* ESM default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PageInstanceContext);
+pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (PageInstanceContext);
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 5814: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 5373: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2033,7 +2033,7 @@ pages/index.js:
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6713: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 8850: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2041,7 +2041,7 @@ pages/index.js:   apply: () => (apply),
 pages/index.js:   get: () => (get),
 pages/index.js:   reset: () => (reset)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: function _toConsumableArray(r) {
 pages/index.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
 pages/index.js: }
@@ -2115,19 +2115,19 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3389: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 4116: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (createPageWrapper)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(<ID>);
 pages/index.js: function _typeof(o) {
 pages/index.js:     "@babel/helpers - typeof";
 pages/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -2281,7 +2281,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 2963: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 2302: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2297,7 +2297,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 4343: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 6026: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2306,12 +2306,12 @@ pages/index.js:   useComponentInstance: () => (useComponentInstance),
 pages/index.js:   usePageEvent: () => (usePageEvent),
 pages/index.js:   usePageInstance: () => (usePageInstance)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
 pages/index.js: 
 pages/index.js: 
 pages/index.js: 
@@ -2341,7 +2341,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 4623: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 8046: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2366,18 +2366,18 @@ pages/index.js:   useComponentInstance: () => (/* reexport safe */ __WEBPACK_IMP
 pages/index.js:   usePageEvent: () => (/* reexport safe */ __WEBPACK_IMPORTED_MODULE_8__.usePageEvent),
 pages/index.js:   usePageInstance: () => (/* reexport safe */ __WEBPACK_IMPORTED_MODULE_8__.usePageInstance)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(<ID>);
 pages/index.js: 
 pages/index.js: 
 pages/index.js: 
@@ -2394,7 +2394,7 @@ pages/index.js:
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 7343: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 4354: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2404,8 +2404,8 @@ pages/index.js:   callbackName: () => (callbackName),
 pages/index.js:   lifeCycleName: () => (lifeCycleName),
 pages/index.js:   registerLifecycle: () => (registerLifecycle)
 pages/index.js: });
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: /* ESM import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
+pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 pages/index.js: 
 pages/index.js: 
 pages/index.js: var Lifecycle;
@@ -2459,7 +2459,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3507: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 3082: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2491,7 +2491,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 2254: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 9657: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2518,7 +2518,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 4675: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 9112: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2530,7 +2530,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 9230: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 7893: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2542,7 +2542,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 4880: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 1641: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -2554,7 +2554,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3042: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 8671: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: function _typeof(o) {
@@ -2660,7 +2660,7 @@ pages/index.js: exports["default"] = AppContainer;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 7589: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 1966: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: function _typeof(o) {
@@ -2899,7 +2899,7 @@ pages/index.js: exports["default"] = Container;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 7759: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 92: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -2921,7 +2921,7 @@ pages/index.js: exports.createPortal = createPortal;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 2291: (function (__unused_webpack_module, exports) {
+pages/index.js: 3666: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -2941,7 +2941,7 @@ pages/index.js: ];
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 635: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 3630: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
@@ -2986,7 +2986,7 @@ pages/index.js: var constants_1 = __webpack_require__(<ID>);
 pages/index.js: var stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 pages/index.js: function isSyntheticType(inputType) {
 pages/index.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-pages/index.js:         console.warn("DEPRECATION: remax \\u5DF2\\u652F\\u6301\\u5728 onClick \\u4E8B\\u4EF6\\u4E2D\\u4F7F\\u7528 stopPropagation \\u963B\\u6B62\\u4E8B\\u4EF6\\u5192\\u6CE1\\uFF0C\\u8BF7\\u5C3D\\u91CF\\u4E0D\\u8981\\u4F7F\\u7528 catchClick");
+pages/index.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 pages/index.js:     }
 pages/index.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, function(type) {
 pages/index.js:         return type === inputType;
@@ -3024,7 +3024,7 @@ pages/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 5236: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 9613: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -3063,7 +3063,7 @@ pages/index.js: exports["default"] = stopPropagation;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 2248: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 1371: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: function _typeof(o) {
@@ -3497,7 +3497,7 @@ pages/index.js: exports["default"] = VNode;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 7279: (function (__unused_webpack_module, exports) {
+pages/index.js: 9564: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -3510,7 +3510,7 @@ pages/index.js: exports.TYPE_TEXT = 'plain-text';
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 8891: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 9072: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: function _typeof(o) {
@@ -3748,7 +3748,7 @@ pages/index.js: exports["default"] = createAppConfig;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3491: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 6728: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
@@ -3841,7 +3841,7 @@ pages/index.js: exports["default"] = createComponentConfig;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 5267: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 7936: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
@@ -3872,7 +3872,7 @@ pages/index.js: exports["default"] = createHostComponent;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3944: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 9671: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
@@ -3901,7 +3901,7 @@ pages/index.js: exports["default"] = createNativeComponent;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 9133: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 4912: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: function _toConsumableArray(r) {
@@ -4128,7 +4128,7 @@ pages/index.js: exports["default"] = createPageConfig;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 5065: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 7178: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
@@ -4182,7 +4182,7 @@ pages/index.js: }));
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 8156: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 2859: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
@@ -4204,7 +4204,7 @@ pages/index.js: exports["default"] = useNativeEffect;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 5232: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 5697: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -4220,7 +4220,7 @@ pages/index.js: exports["default"] = useQuery;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6965: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 1238: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -4318,7 +4318,7 @@ pages/index.js: exports["default"] = diffProperties;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 5695: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 8874: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
@@ -4487,7 +4487,7 @@ pages/index.js: };
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 2350: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 3045: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
@@ -4589,7 +4589,7 @@ pages/index.js: };
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6762: (function (__unused_webpack_module, exports) {
+pages/index.js: 4635: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -4610,7 +4610,7 @@ pages/index.js: exports.generate = generate;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 646: (function (__unused_webpack_module, exports) {
+pages/index.js: 8087: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -4649,7 +4649,7 @@ pages/index.js: };
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6033: (function () {
+pages/index.js: 4208: (function () {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: /* eslint-disable prefer-rest-params */ /* istanbul ignore next */ function _toConsumableArray(r) {
@@ -4705,7 +4705,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 8614: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 2831: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
@@ -4767,7 +4767,7 @@ pages/index.js: exports["default"] = propsAlias;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 6336: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 6805: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
@@ -4805,7 +4805,7 @@ pages/index.js: exports["default"] = render;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 1185: (function (__unused_webpack_module, exports) {
+pages/index.js: 8326: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
@@ -4815,7 +4815,7 @@ pages/index.js: exports["default"] = my.stopPullDownRefresh;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 9090: (function (__unused_webpack_module, exports) {
+pages/index.js: 5999: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: // https://github.com/facebook/react/blob/master/packages/react-dom/src/shared/CSSProperty.js
@@ -4898,7 +4898,7 @@ pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 3776: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: 2085: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
 pages/index.js: function _toConsumableArray(r) {
@@ -5001,7 +5001,7 @@ pages/index.js: }),
 pages/index.js: 
 pages/index.js: },function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/index.js: var __webpack_exports__ = (__webpack_exec__(6078));
+pages/index.js: var __webpack_exports__ = (__webpack_exec__(6683));
 pages/index.js: 
 pages/index.js: }
 pages/index.js: ]);
@@ -5014,10 +5014,9 @@ pages/index.json: }
 -------------------------------------------------------------------------------
 file: runtime.js
 -------------------------------------------------------------------------------
-runtime.js: (() => { // webpackBootstrap
+runtime.js: (() => {
 runtime.js: "use strict";
 runtime.js: var __webpack_modules__ = ({});
-runtime.js: /************************************************************************/
 runtime.js: // The module cache
 runtime.js: var __webpack_module_cache__ = {};
 runtime.js: 
@@ -5044,7 +5043,6 @@ runtime.js:
 runtime.js: // expose the modules object (__webpack_modules__)
 runtime.js: __webpack_require__.m = __webpack_modules__;
 runtime.js: 
-runtime.js: /************************************************************************/
 runtime.js: // webpack/runtime/compat_get_default_export
 runtime.js: (() => {
 runtime.js: // getDefaultExport function for compatibility with non-ESM modules
@@ -5119,7 +5117,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.5.2")
+runtime.js: __webpack_require__.rv = () => ("1.6.3")
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -5164,10 +5162,9 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.5.2";
+runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.3";
 runtime.js: 
 runtime.js: })();
-runtime.js: /************************************************************************/
 runtime.js: })()
 runtime.js: ;
 -------------------------------------------------------------------------------"
