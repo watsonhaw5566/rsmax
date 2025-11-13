@@ -1,3 +1,2 @@
-export * from './hostComponents';
-export * from './types';
-export * from './api';
+export * as component from './hostComponents';
+export * as type from './types';
