@@ -1012,8 +1012,8 @@ importers:
         specifier: workspace:*
         version: link:../rsmax-shared
       miniprogram-api-typings:
-        specifier: ^4.0.7
-        version: 4.0.7
+        specifier: ^4.1.0
+        version: 4.1.0
     devDependencies:
       '@rsmax/types':
         specifier: workspace:*
@@ -7217,8 +7217,8 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
-  miniprogram-api-typings@4.0.7:
-    resolution: {integrity: sha512-sUxqpA1+JxnDWYjO6ihiLWNJl94WzjlhnDpozfBeC+w8Mpejjsc8JuxyC3Xisimj/gp5OYaJ7nd4fM6wepzhEQ==}
+  miniprogram-api-typings@4.1.0:
+    resolution: {integrity: sha512-4RBsz27nBKyRkVGoNkRaPx24/KeJBw3zaaIlXDR8s/WBh2PbcUAc+q7wLLbp7Qsmb3bLzzUu7tqAti+B06kmjg==}
 
   minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
@@ -13587,7 +13587,7 @@ snapshots:
       '@rsmax/framework-shared': 1.3.13
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
       '@rsmax/shared': 1.3.13(react@16.14.0)
-      miniprogram-api-typings: 4.0.7
+      miniprogram-api-typings: 4.1.0
     transitivePeerDependencies:
       - react
       - react-dom
@@ -13598,7 +13598,7 @@ snapshots:
       '@rsmax/framework-shared': 1.3.13
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rsmax/shared': 1.3.13(react@18.3.1)
-      miniprogram-api-typings: 4.0.7
+      miniprogram-api-typings: 4.1.0
     transitivePeerDependencies:
       - react
       - react-dom
@@ -13609,7 +13609,7 @@ snapshots:
       '@rsmax/framework-shared': 1.3.14
       '@rsmax/runtime': 1.3.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rsmax/shared': 1.3.14(react@18.3.1)
-      miniprogram-api-typings: 4.0.7
+      miniprogram-api-typings: 4.1.0
     transitivePeerDependencies:
       - react
       - react-dom
@@ -18522,7 +18522,7 @@ snapshots:
 
   minipass@7.1.2: {}
 
-  miniprogram-api-typings@4.0.7: {}
+  miniprogram-api-typings@4.1.0: {}
 
   minizlib@2.1.2:
     dependencies:

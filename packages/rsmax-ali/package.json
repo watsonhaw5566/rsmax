@@ -7,6 +7,23 @@
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "typings": "./esm/index.d.ts",
+  "exports": {
+    "./types": {
+      "types": "./esm/types/index.d.ts",
+      "import": "./esm/types/index.js",
+      "require": "./cjs/types/index.js"
+    },
+    "./component": {
+      "types": "./esm/hostComponents/index.d.ts",
+      "import": "./esm/hostComponents/index.js",
+      "require": "./cjs/hostComponents/index.js"
+    },
+    "./node": {
+      "types": "./esm/node/index.d.ts",
+      "import": "./esm/node/index.js",
+      "require": "./cjs/node/index.js"
+    }
+  },
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
@@ -30,6 +47,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "esnext": "./esm/index.js",
   "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }
