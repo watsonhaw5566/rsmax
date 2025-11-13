@@ -49,6 +49,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "esnext": "./esm/index.js",
   "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }
