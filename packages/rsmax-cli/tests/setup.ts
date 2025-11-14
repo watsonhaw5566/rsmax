@@ -1,11 +1,11 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as sander from 'sander';
-import * as crypto from 'crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+
+import crypto from 'crypto';
 import fg from 'fast-glob';
 import { diff } from 'jest-diff';
 import { sortBy } from 'lodash';
-import * as eol from 'eol';
+import eol from 'eol';
 import { slash } from '@rsmax/shared';
 import { logger } from 'rslog';
 
@@ -73,7 +73,7 @@ expect.extend({
       const expected = buildText(
         fg.sync('**/*', { cwd: output, dot: true, onlyFiles: true }).map(fileName => ({
           fileName,
-          code: sander.readFileSync(path.join(output, fileName)),
+          code: fs.readFileSync(path.join(output, fileName)),
         }))
       );
 
@@ -97,9 +97,11 @@ expect.extend({
           return { pass: true, message: () => '' };
         } else {
           if (snapshotState._updateSnapshot === 'all') {
-            sander.rimrafSync(output);
+            fs.rmSync(output, { recursive: true, force: true });
             received.forEach(file => {
-              sander.writeFileSync(path.join(output, file.fileName), file.code);
+              const target = path.join(output, file.fileName);
+              fs.mkdirSync(path.dirname(target), { recursive: true });
+              fs.writeFileSync(target, file.code);
             });
 
             snapshotState.updated++;
@@ -123,7 +125,9 @@ expect.extend({
     } else {
       if (!isNot && (snapshotState._updateSnapshot === 'new' || snapshotState._updateSnapshot === 'all')) {
         received.forEach(file => {
-          sander.writeFileSync(path.join(output, file.fileName), file.code);
+          const target = path.join(output, file.fileName);
+          fs.mkdirSync(path.dirname(target), { recursive: true });
+          fs.writeFileSync(target, file.code);
         });
         snapshotState.added++;
 

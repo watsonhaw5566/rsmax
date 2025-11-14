@@ -6,7 +6,7 @@ declare module 'postcss-url';
 declare module 'postcss-preset-env';
 declare module '@babel/helper-module-imports';
 declare module 'scheduler';
-declare module 'sander';
+
 declare module 'webpack-node-externals';
 declare module 'babel-plugin-module-resolver';
 

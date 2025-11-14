@@ -97,7 +97,6 @@
     "postcss-url": "^8.0.0",
     "react": "^18.3.0",
     "react-reconciler": "0.29.0",
-    "sander": "^0.6.0",
     "webpack-node-externals": "^3.0.0"
   },
   "publishConfig": {
