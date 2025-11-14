@@ -8,11 +8,14 @@ interface Alias {
 
 const resolveReact = (options: Options): string => {
   let react: string;
+  const isSilent = process.env.NODE_ENV === 'test' || process.env.RSMAX_SILENT === 'true';
   try {
     react = require.resolve(`${options.cwd}/node_modules/react/`);
   } catch (e) {
     react = require.resolve('react');
-    console.warn(`Can't resolve react in ${options.cwd}!`);
+    if (!isSilent) {
+      console.warn(`Can't resolve react in ${options.cwd}!`);
+    }
   }
   return path.dirname(slash(react));
 };
