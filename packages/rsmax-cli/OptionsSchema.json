@@ -1,57 +1,29 @@
 {
   "type": "object",
   "properties": {
-    "one": {
-      "type": "boolean"
-    },
-    "turboRenders": {
-      "type": "boolean"
-    },
-    "notify": {
-      "type": "boolean"
-    },
-    "pxToRpx": {
-      "type": "boolean"
-    },
-    "port": {
-      "type": "number"
-    },
-    "cwd": {
-      "type": "string"
-    },
-    "progress": {
-      "type": "boolean"
-    },
-    "compressTemplate": {
-      "type": "boolean"
-    },
-    "input": {
-      "type": ["string", "array", "object"]
-    },
-    "output": {
-      "type": "string"
-    },
-    "rootDir": {
-      "type": "string"
-    },
-    "configWebpack": {
-      "anyOf": [{ "instanceof": "Function" }]
-    },
-    "plugins": {
-      "type": "array"
-    },
+    "turboRenders": { "type": "boolean" },
+    "pxToRpx": { "type": "boolean" },
+    "port": { "type": "number" },
+    "cwd": { "type": "string" },
+    "progress": { "type": "boolean" },
+    "compressTemplate": { "type": "boolean" },
+    "input": { "type": ["string", "array", "object"] },
+    "output": { "type": "string" },
+    "rootDir": { "type": "string" },
+    "configWebpack": { "anyOf": [{ "instanceof": "Function" }] },
+    "plugins": { "type": "array" },
     "web": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "mpa": { "type": "boolean" },
+        "excludeNodeModulesTransform": { "type": "boolean" }
+      },
+      "additionalProperties": false
     },
-    "errorScreen": {
-      "type": ["boolean", "object"]
-    },
-    "tracert": {
-      "type": ["boolean", "object"]
-    },
-    "UNSAFE_wechatTemplateDepth": {
-      "type": ["number", "object"]
-    }
+    "errorScreen": { "type": ["boolean", "object"] },
+    "UNSAFE_wechatTemplateDepth": { "type": ["number", "object"] },
+    "analyze": { "type": "boolean" },
+    "spm": { "type": "boolean" }
   },
   "additionalProperties": false
 }
