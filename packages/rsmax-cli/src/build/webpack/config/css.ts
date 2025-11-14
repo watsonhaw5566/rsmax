@@ -35,13 +35,16 @@ export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean
       .loader(require.resolve('css-loader'))
       .options({
         importLoaders: ruleConfig.loader ? 2 : 1,
+        esModule: true,
         modules: cssModules
           ? {
               localIdentName: '[local]___[hash:base64:5]',
+              namedExport: false,
             }
           : {
-              auto: (resourcePath: string) => /\.module\.(css|less|sass|scss|stylus|styl)$/.test(resourcePath),
+              auto: (resourcePath: string) => /\.modules?\.(css|less|sass|scss|stylus|styl)$/.test(resourcePath),
               localIdentName: '[local]___[hash:base64:5]',
+              namedExport: false,
             },
         url: {
           filter: (url: string) => {
@@ -78,7 +81,6 @@ export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean
     }
   }
 
-  applyLoaders(rule.oneOf('modules').resourceQuery(/modules/), true);
   applyLoaders(rule.oneOf('normal'), false);
 }
 

@@ -729,7 +729,7 @@ app.js: require('./rsmax-vendors.js');
 app.js: require('./runtime.js');
 app.js: "use strict";
 app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
-app.js: 1834: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: 338: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: // extracted by css-extract-rspack-plugin
 app.js: 
@@ -1071,7 +1071,7 @@ packageA/pages/index.js: require('./../../rsmax-vendors.js');
 packageA/pages/index.js: require('./../../runtime.js');
 packageA/pages/index.js: "use strict";
 packageA/pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
-packageA/pages/index.js: 5462: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+packageA/pages/index.js: 2958: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 packageA/pages/index.js: __webpack_require__.r(__webpack_exports__);
 packageA/pages/index.js: // extracted by css-extract-rspack-plugin
 packageA/pages/index.js: 
@@ -1558,19 +1558,19 @@ pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
 pages/index.js: "use strict";
 pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["3"], {
-pages/index.js: 4762: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 898: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: // extracted by css-extract-rspack-plugin
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 874: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 162: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 pages/index.js: });
 pages/index.js: // extracted by css-extract-rspack-plugin
-pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = ({"page-index":"page-index___m1FKW"});
+pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = ({"pageIndex":"page-index___m1FKW"});
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: 3466: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -2037,7 +2037,7 @@ file: rsmax-styles.js
 -------------------------------------------------------------------------------
 rsmax-styles.js: "use strict";
 rsmax-styles.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["4"], {
-rsmax-styles.js: 8484: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+rsmax-styles.js: 6508: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-styles.js: __webpack_require__.r(__webpack_exports__);
 rsmax-styles.js: // extracted by css-extract-rspack-plugin
 rsmax-styles.js: 
@@ -17604,7 +17604,7 @@ app.js: require('./rsmax-vendors.js');
 app.js: require('./runtime.js');
 app.js: "use strict";
 app.js: (tt["webpackChunk"] = tt["webpackChunk"] || []).push([["0"], {
-app.js: 1834: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: 338: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: // extracted by css-extract-rspack-plugin
 app.js: 
@@ -17827,16 +17827,13 @@ pages/index/index.js: require('./../../rsmax-vendors.js');
 pages/index/index.js: require('./../../runtime.js');
 pages/index/index.js: "use strict";
 pages/index/index.js: (tt["webpackChunk"] = tt["webpackChunk"] || []).push([["1"], {
-pages/index/index.js: 2813: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index/index.js: 2135: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
-pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-pages/index/index.js: });
 pages/index/index.js: // extracted by css-extract-rspack-plugin
-pages/index/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = ({"app":"app___R9oSF","logo":"logo___sf5Qy","logo-spin":"logo-spin___wJPgS","text":"text___LlNuW","header":"header___SYloc"});
+pages/index/index.js: 
 pages/index/index.js: 
 pages/index/index.js: }),
-pages/index/index.js: 2335: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index/index.js: 6150: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: // extracted by css-extract-rspack-plugin
 pages/index/index.js: 
@@ -17934,30 +17931,30 @@ pages/index/index.ttml:
 -------------------------------------------------------------------------------
 file: pages/index/index.ttss
 -------------------------------------------------------------------------------
-pages/index/index.ttss: .app___R9oSF {
+pages/index/index.ttss: .app {
 pages/index/index.ttss:   text-align: center;
 pages/index/index.ttss:   padding: 0 24rpx;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: .logo___sf5Qy {
-pages/index/index.ttss:   animation: logo-spin___wJPgS infinite 20s linear;
+pages/index/index.ttss: .logo {
+pages/index/index.ttss:   animation: logo-spin infinite 20s linear;
 pages/index/index.ttss:   height: 240rpx;
 pages/index/index.ttss:   width: 240rpx;
 pages/index/index.ttss:   pointer-events: none;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: .text___LlNuW {
+pages/index/index.ttss: .text {
 pages/index/index.ttss:   margin-top: 64rpx;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: .header___SYloc {
+pages/index/index.ttss: .header {
 pages/index/index.ttss:   padding-top: 30%;
 pages/index/index.ttss:   background-color: #282c34;
 pages/index/index.ttss:   font-size: 40rpx;
 pages/index/index.ttss:   color: white;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: @keyframes logo-spin___wJPgS {
+pages/index/index.ttss: @keyframes logo-spin {
 pages/index/index.ttss:   from {
 pages/index/index.ttss:     transform: rotate(0deg);
 pages/index/index.ttss:   }

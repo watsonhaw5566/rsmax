@@ -1837,7 +1837,7 @@ pages/index/index.js: require('./../../rsmax-vendors.js');
 pages/index/index.js: require('./../../runtime.js');
 pages/index/index.js: "use strict";
 pages/index/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["2"], {
-pages/index/index.js: 2611: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index/index.js: 4727: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: // extracted by css-extract-rspack-plugin
 pages/index/index.js: 

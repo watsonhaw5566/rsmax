@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'rsmax/toutiao';
-import styles from './index.css?modules';
+import styles from './index.css?module';
 
 export default () => {
   return (

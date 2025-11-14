@@ -1042,7 +1042,7 @@ pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
 pages/index.js: "use strict";
 pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
-pages/index.js: 4762: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 898: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: // extracted by css-extract-rspack-plugin
 pages/index.js: 

@@ -890,7 +890,7 @@ app.json: }
 -------------------------------------------------------------------------------
 file: pages/index.acss
 -------------------------------------------------------------------------------
-pages/index.acss: .hello___yLbew {
+pages/index.acss: .hello {
 pages/index.acss:   color: red;
 pages/index.acss: }
 pages/index.acss: 
@@ -959,16 +959,13 @@ pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
 pages/index.js: "use strict";
 pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
-pages/index.js: 5472: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 9434: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
-pages/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-pages/index.js: });
 pages/index.js: // extracted by css-extract-rspack-plugin
-pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = ({"hello":"hello___yLbew"});
+pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 4234: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 2044: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: // extracted by css-extract-rspack-plugin
 pages/index.js: 
@@ -11507,7 +11504,7 @@ app.json: }
 -------------------------------------------------------------------------------
 file: pages/foo.acss
 -------------------------------------------------------------------------------
-pages/foo.acss: .hello___NxFGX {
+pages/foo.acss: .hello {
 pages/foo.acss:   color: red;
 pages/foo.acss: }
 pages/foo.acss: 
@@ -11576,16 +11573,13 @@ pages/foo.js: require('./../rsmax-vendors.js');
 pages/foo.js: require('./../runtime.js');
 pages/foo.js: "use strict";
 pages/foo.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
-pages/foo.js: 2456: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/foo.js: 898: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/foo.js: __webpack_require__.r(__webpack_exports__);
-pages/foo.js: __webpack_require__.d(__webpack_exports__, {
-pages/foo.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-pages/foo.js: });
 pages/foo.js: // extracted by css-extract-rspack-plugin
-pages/foo.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = ({"hello":"hello___NxFGX"});
+pages/foo.js: 
 pages/foo.js: 
 pages/foo.js: }),
-pages/foo.js: 4762: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/foo.js: 389: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/foo.js: __webpack_require__.r(__webpack_exports__);
 pages/foo.js: // extracted by css-extract-rspack-plugin
 pages/foo.js: 
