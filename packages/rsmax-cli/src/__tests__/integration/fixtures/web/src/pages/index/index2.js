@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image } from 'rsmax';
-import styles from './index.css';
+import styles from './index.css?modules';
 
 export default props => {
   console.log(props);

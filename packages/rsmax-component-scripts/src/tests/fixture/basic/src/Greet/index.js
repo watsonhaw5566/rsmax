@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'rsmax/one';
-import styles from './index.scss';
+import styles from './index.scss?modules';
 
 export default ({ name }) => {
   return (

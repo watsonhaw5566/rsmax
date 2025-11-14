@@ -43,7 +43,6 @@ function preset(api: any, presetOption: PresetOption) {
           declarations: [{ default: 'regeneratorRuntime', path: 'regenerator-runtime' }],
         },
       ],
-      require.resolve('@rsmax/babel-plugin-auto-css-modules'),
     ],
   };
 }

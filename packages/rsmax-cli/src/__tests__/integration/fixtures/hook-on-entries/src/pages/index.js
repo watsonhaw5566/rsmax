@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'rsmax';
-import styles from './index.css';
+import styles from './index.css?modules';
 
 function timesTwo(arr) {
   return arr.map(n => n * 2);

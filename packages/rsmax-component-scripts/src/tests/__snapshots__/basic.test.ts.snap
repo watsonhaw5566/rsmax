@@ -32,7 +32,7 @@ exports[`test basic > build esm 2`] = `
 **/
 import React from "react";
 import { View, Text, Image } from 'rsmax/one';
-import styles from './index.scss';
+import styles from './index.scss?modules';
 export default (function (_ref) {
   var name = _ref.name;
   return /*#__PURE__*/React.createElement(View, {

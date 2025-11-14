@@ -16,9 +16,7 @@
     {
       "path": "./packages/babel-preset-rsmax"
     },
-    {
-      "path": "./packages/babel-plugin-auto-css-modules"
-    },
+
     {
       "path": "./packages/babel-plugin-rsmax-host-component"
     },
