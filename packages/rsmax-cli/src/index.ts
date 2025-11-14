@@ -56,12 +56,6 @@ export default class RsmaxCLI {
               type: 'string',
               default: 'ali',
             })
-            .option('notify', {
-              describe: '编译错误提醒',
-              alias: 'n',
-              type: 'boolean',
-              default: false,
-            })
             .option('port', {
               describe: '指定端口号',
               alias: 'p',
@@ -78,17 +72,6 @@ export default class RsmaxCLI {
               alias: 'a',
               type: 'boolean',
               default: false,
-            })
-            // .option('devtools', {
-            //   describe: '启动 react-devtools 调试',
-            //   alias: 'd',
-            //   type: 'boolean',
-            //   default: true,
-            // })
-            .option('loglevel', {
-              describe: '展示日志级别',
-              type: 'string',
-              default: 'verbose',
             });
         },
         (argv: any) => {
