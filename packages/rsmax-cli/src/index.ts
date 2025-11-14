@@ -5,7 +5,7 @@ import API from './API';
 import { buildMiniPlugin, internalBuildApp } from './build';
 import getConfig from './getConfig';
 
-export * from './legacyExport';
+export { getDefaultOptions } from './defaultOptions';
 
 export { buildMiniComponent } from './build';
 
