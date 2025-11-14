@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { execute } from '@rsdoctor/cli';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
@@ -11,7 +10,6 @@ import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
 import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
 import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
 import ejs from 'ejs';
-import { logger } from 'rslog';
 import Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
@@ -230,13 +228,7 @@ export default function webpackConfig(builder: Builder): Configuration {
         disableClientServer: true,
       },
     ]);
-    setTimeout(() => {
-      execute('analyze', {
-        profile: `./${builder.options.output}/.rsdoctor/manifest.json`,
-      }).then(r => {
-        logger.success('已生成分析报告');
-      });
-    }, 5000);
+    config.plugin('rsmax-auto-analyze').use(RsmaxPlugins.AutoAnalyze, [builder]);
   }
 
   const context = {

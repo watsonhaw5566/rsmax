@@ -1,12 +1,11 @@
 import fs from 'node:fs';
-import { execute } from '@rsdoctor/cli';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { rspack } from '@rspack/core';
-import { logger } from 'rslog';
 import type Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
 import { type RuleConfig, addCSSRule, cssConfig } from './config/css';
+import * as RsmaxPlugins from './plugins';
 
 export default function webBaseConfig(config: Config, builder: Builder) {
   config.devtool(process.env.NODE_ENV === 'development' ? 'cheap-source-map' : false);
@@ -98,13 +97,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
         disableClientServer: true,
       },
     ]);
-    setTimeout(() => {
-      execute('analyze', {
-        profile: `./${builder.options.output}/.rsdoctor/manifest.json`,
-      }).then(r => {
-        logger.success('已生成分析报告');
-      });
-    }, 5000);
+    config.plugin('rsmax-auto-analyze').use(RsmaxPlugins.AutoAnalyze, [builder]);
   }
 
   if (!builder.options.watch) {
