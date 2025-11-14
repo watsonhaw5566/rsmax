@@ -2,8 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as sander from 'sander';
 import * as crypto from 'crypto';
-// @ts-expect-error
-import readdir from 'fs-readdir-recursive';
+import fg from 'fast-glob';
 import { diff } from 'jest-diff';
 import { sortBy } from 'lodash';
 import * as eol from 'eol';
@@ -72,8 +71,8 @@ expect.extend({
 
     if (fs.existsSync(output)) {
       const expected = buildText(
-        readdir(output).map(fileName => ({
-          fileName: fileName,
+        fg.sync('**/*', { cwd: output, dot: true, onlyFiles: true }).map(fileName => ({
+          fileName,
           code: sander.readFileSync(path.join(output, fileName)),
         }))
       );
