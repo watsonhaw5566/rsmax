@@ -165,8 +165,12 @@ export default class API {
   }
 
   loadBuiltinPlugins(options: Options) {
-    const plugins = builtinPlugins(options).reduce((acc: Plugin[], plugin) => {
-      acc.push(plugin.init({}, options));
+    const plugins = builtinPlugins(options).reduce((acc: Plugin[], p) => {
+      const enabled: any = (options as any)[p.optionKey];
+      if (enabled) {
+        const initOptions = typeof enabled === 'object' ? enabled : {};
+        acc.push(p.init(initOptions, options));
+      }
       return acc;
     }, []);
     this.registerPlugins(plugins);
