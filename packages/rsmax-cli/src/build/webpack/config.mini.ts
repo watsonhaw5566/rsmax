@@ -5,7 +5,7 @@ import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
 import { type Configuration, rspack } from '@rspack/core';
-import moduleResolver from 'babel-plugin-module-resolver';
+
 import hostComponent from 'babel-plugin-rsmax-host-component';
 import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
 import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
@@ -160,15 +160,6 @@ export default function webpackConfig(builder: Builder): Configuration {
           includeProps: [TurboRender.TEMPLATE_ID],
         }),
         fixRegeneratorRuntime(),
-        [
-          moduleResolver,
-          {
-            root: [`./${builder.options.rootDir}`],
-            alias: {
-              '/': './',
-            },
-          },
-        ],
       ],
       reactPreset: true,
       api: builder.api,

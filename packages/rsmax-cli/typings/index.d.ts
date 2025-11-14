@@ -8,7 +8,6 @@ declare module '@babel/helper-module-imports';
 declare module 'scheduler';
 
 declare module 'webpack-node-externals';
-declare module 'babel-plugin-module-resolver';
 
 declare namespace jest {
   interface Matchers<R, T> {
