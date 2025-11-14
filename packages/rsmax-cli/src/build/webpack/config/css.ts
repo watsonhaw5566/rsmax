@@ -39,11 +39,12 @@ export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean
           ? {
               localIdentName: '[local]___[hash:base64:5]',
             }
-          : false,
+          : {
+              auto: (resourcePath: string) => /\.module\.(css|less|sass|scss|stylus|styl)$/.test(resourcePath),
+              localIdentName: '[local]___[hash:base64:5]',
+            },
         url: {
           filter: (url: string) => {
-            // Don't parse absolute URLs
-            // ref: https://github.com/webpack-contrib/css-loader#url
             return !url.startsWith('/');
           },
         },

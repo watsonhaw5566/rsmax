@@ -15,6 +15,10 @@ function processPresets(presets: ConfigItem[], babel: any, react: boolean) {
     preset.file?.resolved.includes(`${path.sep}babel-preset-rsmax${path.sep}`)
   );
 
+  if (!react) {
+    return presets;
+  }
+
   const defaultOptions = {
     react,
     targets: {},
