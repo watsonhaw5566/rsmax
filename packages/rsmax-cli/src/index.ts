@@ -1,5 +1,6 @@
 import type { Options } from '@rsmax/types';
-import yargs from 'yargs';
+import type { ParseCallback } from 'yargs';
+import yargs from 'yargs/yargs';
 import API from './API';
 import { buildMiniPlugin, internalBuildApp } from './build';
 import getConfig from './getConfig';
@@ -12,14 +13,21 @@ export default class RsmaxCLI {
   options?: Options;
   api?: API;
 
-  run(args: any, callback?: yargs.ParseCallback) {
-    const argv: any = require('yargs-parser')(args);
-    process.env.RSMAX_PLATFORM = argv.t || argv.target || 'ali';
+  run(args: any, callback?: ParseCallback) {
+    const pre = yargs(args)
+      .help(false)
+      .version(false)
+      .parserConfiguration({ 'boolean-negation': true })
+      .option('target', { alias: 't', type: 'string', default: 'ali' })
+      .option('minimize', { alias: 'm', type: 'boolean', default: false })
+      .parse();
+
+    process.env.RSMAX_PLATFORM = pre.target;
 
     this.options = getConfig();
-    this.options.compressTemplate = this.options.compressTemplate ?? argv.minimize;
+    this.options.compressTemplate = this.options.compressTemplate ?? pre.minimize;
     this.api = new API();
-    const cli = this.initCLI();
+    const cli = this.initCLI(args);
     this.api.registerPlugins(this.options.plugins);
     this.api.extendCLI(cli);
     if (args.length === 0) {
@@ -28,8 +36,8 @@ export default class RsmaxCLI {
     return cli.parse(args, callback);
   }
 
-  initCLI() {
-    return yargs
+  initCLI(args: any) {
+    return yargs(args)
       .scriptName('rsmax')
       .usage('Usage: $0 <command> [options]')
       .command<any>(
