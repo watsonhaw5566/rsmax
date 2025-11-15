@@ -6,7 +6,7 @@ import stopPropagation, { validate as validatePropagation, isPropagationStopped 
 function isSyntheticType(inputType: string) {
   if (DEPRECATED_CATCH_TYPE === inputType) {
     console.warn(
-      'DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick'
+      'DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick'
     );
   }
 

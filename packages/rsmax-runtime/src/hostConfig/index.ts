@@ -1,3 +1,4 @@
+import { RuntimeOptions } from '@rsmax/framework-shared';
 import scheduler from 'scheduler';
 import type Container from '../Container';
 import VNode from '../VNode';
@@ -78,7 +79,7 @@ export default {
     const id = generate();
     const node = new VNode({
       id,
-      type: DOM_TAG_MAP[type] ?? type,
+      type: RuntimeOptions.get('tagMap')?.[type] ?? DOM_TAG_MAP[type] ?? type,
       props: {},
       container,
     });

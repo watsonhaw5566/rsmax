@@ -70,40 +70,79 @@ export default class Container {
       }
 
       $batchedUpdates(() => {
-        this.updateQueue.map((update, index) => {
-          let callback = undefined;
-          if (index + 1 === this.updateQueue.length) {
-            callback = () => {
+        if (RuntimeOptions.get('mergeSpliceData')) {
+          const splicePayload: Record<string, any[]> = {};
+          const setPayload: Record<string, any> = {};
+
+          this.updateQueue.forEach(update => {
+            if (update.type === 'splice') {
+              splicePayload[this.normalizeUpdatePath([...update.path, 'children'])] = [
+                update.start,
+                update.deleteCount,
+                ...update.items,
+              ];
+            } else if (update.type === 'set') {
+              setPayload[this.normalizeUpdatePath([...update.path, update.name])] = update.value;
+            }
+          });
+
+          const hasSplice = Object.keys(splicePayload).length > 0;
+          const hasSet = Object.keys(setPayload).length > 0;
+          const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+          let done = 0;
+          const doneCallback = () => {
+            done += 1;
+            if (done === total) {
               nativeEffector.run();
               /* istanbul ignore next */
               if (RuntimeOptions.get('debug')) {
                 console.log(`setData => 回调时间：${new Date().getTime() - startTime}ms`);
               }
-            };
-          }
+            }
+          };
 
-          if (update.type === 'splice') {
-            this.context.$spliceData(
-              {
-                [this.normalizeUpdatePath([...update.path, 'children'])]: [
-                  update.start,
-                  update.deleteCount,
-                  ...update.items,
-                ],
-              },
-              callback
-            );
+          if (hasSplice) {
+            this.context.$spliceData(splicePayload, doneCallback);
           }
+          if (hasSet) {
+            this.context.setData(setPayload, doneCallback);
+          }
+        } else {
+          this.updateQueue.map((update, index) => {
+            let callback = undefined;
+            if (index + 1 === this.updateQueue.length) {
+              callback = () => {
+                nativeEffector.run();
+                /* istanbul ignore next */
+                if (RuntimeOptions.get('debug')) {
+                  console.log(`setData => 回调时间：${new Date().getTime() - startTime}ms`);
+                }
+              };
+            }
 
-          if (update.type === 'set') {
-            this.context.setData(
-              {
-                [this.normalizeUpdatePath([...update.path, update.name])]: update.value,
-              },
-              callback
-            );
-          }
-        });
+            if (update.type === 'splice') {
+              this.context.$spliceData(
+                {
+                  [this.normalizeUpdatePath([...update.path, 'children'])]: [
+                    update.start,
+                    update.deleteCount,
+                    ...update.items,
+                  ],
+                },
+                callback
+              );
+            }
+
+            if (update.type === 'set') {
+              this.context.setData(
+                {
+                  [this.normalizeUpdatePath([...update.path, update.name])]: update.value,
+                },
+                callback
+              );
+            }
+          });
+        }
       });
 
       this.updateQueue = [];
@@ -127,13 +166,33 @@ export default class Container {
       return acc;
     }, {});
 
-    this.context.setData(updatePayload, () => {
-      nativeEffector.run();
-      /* istanbul ignore next */
-      if (RuntimeOptions.get('debug')) {
-        console.log(`setData => 回调时间：${new Date().getTime() - startTime}ms`, updatePayload);
+    const chunkSize = RuntimeOptions.get('setDataChunkSize');
+    const entries = Object.entries(updatePayload);
+
+    if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+      for (let i = 0; i < entries.length; i += chunkSize) {
+        const slice = entries.slice(i, i + chunkSize);
+        const payloadChunk = Object.fromEntries(slice);
+        const isLast = i + chunkSize >= entries.length;
+        this.context.setData(payloadChunk, () => {
+          if (isLast) {
+            nativeEffector.run();
+            /* istanbul ignore next */
+            if (RuntimeOptions.get('debug')) {
+              console.log(`setData => 回调时间：${new Date().getTime() - startTime}ms`, payloadChunk);
+            }
+          }
+        });
       }
-    });
+    } else {
+      this.context.setData(updatePayload, () => {
+        nativeEffector.run();
+        /* istanbul ignore next */
+        if (RuntimeOptions.get('debug')) {
+          console.log(`setData => 回调时间：${new Date().getTime() - startTime}ms`, updatePayload);
+        }
+      });
+    }
 
     this.updateQueue = [];
   }

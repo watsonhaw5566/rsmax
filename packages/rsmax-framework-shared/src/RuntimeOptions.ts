@@ -11,6 +11,10 @@ interface RuntimeOptions {
   appEvents: string[];
   navigate: any;
   mpa: boolean;
+  concurrent?: boolean;
+  mergeSpliceData?: boolean;
+  setDataChunkSize?: number;
+  tagMap?: Record<string, string>;
 }
 
 const defaultRuntimeOptions: RuntimeOptions = {
@@ -22,6 +26,10 @@ const defaultRuntimeOptions: RuntimeOptions = {
   pluginDriver: new PluginDriver([]),
   navigate: {},
   mpa: false,
+  concurrent: false,
+  mergeSpliceData: false,
+  setDataChunkSize: 0,
+  tagMap: {},
 };
 
 let runtimeOptions = defaultRuntimeOptions;
@@ -47,6 +55,10 @@ function merge(...options: Array<Partial<RuntimeOptions>>) {
     acc.platform = option.platform ?? acc.platform;
     acc.pxToRpx = option.pxToRpx ?? acc.pxToRpx;
     acc.mpa = option.mpa ?? acc.mpa;
+    acc.concurrent = option.concurrent ?? acc.concurrent;
+    acc.mergeSpliceData = option.mergeSpliceData ?? acc.mergeSpliceData;
+    acc.setDataChunkSize = option.setDataChunkSize ?? acc.setDataChunkSize;
+    acc.tagMap = option.tagMap ?? acc.tagMap;
 
     return acc;
   }, runtimeOptions);

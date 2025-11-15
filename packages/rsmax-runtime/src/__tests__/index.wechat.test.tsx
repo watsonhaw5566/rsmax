@@ -6,6 +6,8 @@ import render from '../render';
 import { reset as resetInstanceId } from '../instanceId';
 import Container from '../Container';
 import { useNativeEffect } from '../hooks';
+import { RuntimeOptions } from '@rsmax/framework-shared';
+import createComponentConfig from '../createComponentConfig.wechat';
 
 function delay(ms: number): Promise<void> {
   if (typeof ms !== 'number') {
@@ -405,19 +407,76 @@ describe('wechat remax render', () => {
 
     newHandleClick({});
     newHandleAnimationStart({});
+
+    const view2 = React.createRef<any>();
+    const handleCancel = (event: any) => {
+      expect(event.stopPropagation).not.toBeUndefined();
+    };
+    class Page2 extends React.Component {
+      render() {
+        return <View ref={view2} onTouchCancel={handleCancel} />;
+      }
+    }
+    const container2 = new Container(p);
+    render(<Page2 />, container2);
+    const cancelFn = (() => {
+      const fnKeys = Object.keys(view2.current.container.context);
+      const fnKey = fnKeys.find(key => key.indexOf('onTouchCancel') !== -1) || '';
+      return view2.current.container.context[fnKey];
+    })();
+    cancelFn({});
   });
 
-  // it('useEffect works', done => {
-  //   const Page = () => {
-  //     React.useEffect(() => {
-  //       done();
-  //     });
-  //
-  //     return <View>app</View>;
-  //   };
-  //   const container = new Container(p);
-  //   render(<Page />, container);
-  // });
+  it('setData chunking by setDataChunkSize', () => {
+    const calls: any[] = [];
+    const ctx = {
+      setData(payload: any, callback?: () => void) {
+        calls.push(payload);
+        if (typeof callback === 'function') callback();
+      },
+    };
+    RuntimeOptions.apply({ platform: 'wechat', setDataChunkSize: 1 });
+    const container = new Container(ctx);
+    const Page = () => <View className="a" style={{ width: 100, height: 100 }} />;
+    render(<Page />, container);
+    expect(calls.length).toBeGreaterThan(1);
+    RuntimeOptions.reset();
+  });
+
+  it('tagMap remaps host tag', () => {
+    RuntimeOptions.apply({ tagMap: { foo: 'bar' } });
+    const container = new Container({ setData() {} });
+    const Foo = () => React.createElement('foo', null);
+    render(<Foo />, container);
+    const first: any = (container.root as any).firstChild;
+    expect(first.type).toBe('bar');
+    RuntimeOptions.reset();
+  });
+
+  it('wechat observers trigger render on props change', () => {
+    const Comp = ({ value }: any) => React.createElement('view', null, value);
+    const cfg: any = createComponentConfig(Comp);
+    const ctx: any = { properties: { value: 'a' } };
+    ctx.setData = (_payload: any, cb?: () => void) => { if (typeof cb === 'function') cb(); };
+    ctx.render = rstest.fn(cfg.methods.render.bind(ctx));
+    cfg.methods.init.call(ctx);
+    expect(ctx.render).toHaveBeenCalledTimes(1);
+    cfg.observers['**'].call(ctx, { value: 'b' });
+    expect(ctx.render).toHaveBeenCalledTimes(2);
+  });
+
+  it('useEffect works', async () => {
+    await new Promise<void>(resolve => {
+      const Page = () => {
+        React.useEffect(() => {
+          resolve();
+        });
+        return <View>app</View>;
+      };
+      const container = new Container(p);
+      render(<Page />, container);
+    });
+  });
 
   it.skip('pure rerender when props changed', done => {
     const payload: any[] = [];

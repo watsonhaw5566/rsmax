@@ -16,6 +16,17 @@ export default function createComponentConfig(Component: React.ComponentType<any
       },
     },
 
+    observers: {
+      '**'(
+        this: { container?: Container; properties?: Record<string, any>; render: () => void },
+        nextProps: Record<string, any>
+      ) {
+        if (this.container && this.properties !== nextProps) {
+          this.render();
+        }
+      },
+    },
+
     attached: function () {
       // 在组件实例进入页面节点树时执行
       if (!this.container) {
@@ -27,23 +38,6 @@ export default function createComponentConfig(Component: React.ComponentType<any
       this.container.clearUpdate();
       render(null, this.container);
     },
-
-    /*
-    TODO: 当前微信无对应语法支持监听props
-          且必须显示设定 properties，才能在组件中使用 this.properties.name
-          所以当前的实现不支持在微信端 props
-    eg:
-    properties: {
-      name: String
-    },
-
-    didUpdate(prevProps: any, prevData: any) {
-      if (prevData !== this.data) {
-        return;
-      }
-
-      this.render();
-    },*/
 
     methods: {
       init(this: any) {

@@ -7,4 +7,5 @@ export const SYNTHETIC_TYPES = [
   'onTouchMove',
   'onTouchStart',
   'onTouchEnd',
+  'onTouchCancel',
 ];

@@ -1,6 +1,7 @@
 import { createCallbackProxy } from '../SyntheticEvent/createCallbackProxy';
 import VNode from '../VNode';
 import Container from '../Container';
+import { rstest } from '@rstest/core';
 
 class SyntheticEventTester {
   callbacks: Array<((...params: any) => void) | null> = [];
@@ -53,10 +54,13 @@ describe('synthetic event', () => {
 
       expect(onTap).not.toBe(newOnTap);
 
+      const warn = rstest.spyOn(console, 'warn').mockImplementation(() => {});
       const catchTap = () => void 0;
       const newCatchTap = createCallbackProxy('catchClick', node, catchTap);
 
       expect(catchTap).toBe(newCatchTap);
+      expect(warn).toHaveBeenCalled();
+      warn.mockRestore();
     });
     it('normal', () => {
       const first = rs.fn();
