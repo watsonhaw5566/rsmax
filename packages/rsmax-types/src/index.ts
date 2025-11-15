@@ -40,7 +40,7 @@ export interface BuildOptions {
   type?: BuildType;
   component?: any;
   web?: WebOptions;
-  minimize?: boolean;
+
   loglevel?: LogLevel;
 }
 

@@ -19,13 +19,11 @@ export default class RsmaxCLI {
       .version(false)
       .parserConfiguration({ 'boolean-negation': true })
       .option('target', { alias: 't', type: 'string', default: 'ali' })
-      .option('minimize', { alias: 'm', type: 'boolean', default: false })
       .parse();
 
     process.env.RSMAX_PLATFORM = pre.target;
 
     this.options = getConfig();
-    this.options.compressTemplate = this.options.compressTemplate ?? pre.minimize;
     this.api = new API();
     const cli = this.initCLI(args);
     this.api.registerPlugins(this.options.plugins);
@@ -60,12 +58,6 @@ export default class RsmaxCLI {
               describe: '指定端口号',
               alias: 'p',
               type: 'number',
-            })
-            .option('minimize', {
-              describe: '最小化文件',
-              alias: 'm',
-              type: 'boolean',
-              default: false,
             });
         },
         (argv: any) => {
