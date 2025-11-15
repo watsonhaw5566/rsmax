@@ -27,11 +27,6 @@ export default function baseConfig(config: Config, builder: Builder) {
   const env = getEnvironment(builder.options, builder.target);
 
   config.plugin('rspack-define-plugin').use(rspack.DefinePlugin, [env.stringified]);
-  config.plugin('provide-regeneratorRuntime').use(rspack.ProvidePlugin, [
-    {
-      regeneratorRuntime: 'regenerator-runtime',
-    },
-  ]);
 
   if (process.env.NODE_ENV === 'production') {
     config.output.clear();

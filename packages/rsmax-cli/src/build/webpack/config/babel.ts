@@ -5,7 +5,6 @@ import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
 import hostComponent from 'babel-plugin-rsmax-host-component';
 import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
-import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
 import type Builder from '../../Builder';
 
 export function resolveBabelConfig(options: Options) {
@@ -18,11 +17,7 @@ export function resolveBabelConfig(options: Options) {
 export function getBabelLoaderOptions(builder: Builder, includeAppLifecycle: boolean) {
   const appEntry = builder.entryCollection.appEntry;
   const srcRoot = builder.projectPath.srcDir();
-  const usePlugins: any[] = [
-    require.resolve('@babel/plugin-syntax-jsx'),
-    require.resolve('babel-plugin-macros'),
-    fixRegeneratorRuntime(),
-  ];
+  const usePlugins: any[] = [require.resolve('@babel/plugin-syntax-jsx'), require.resolve('babel-plugin-macros')];
   if (includeAppLifecycle && appEntry) {
     usePlugins.push(
       Lifecycle.app({

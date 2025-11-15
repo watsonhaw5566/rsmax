@@ -22,7 +22,6 @@ const resolveReact = (options: Options): string => {
 
 export default (options: Options, target: Platform) => {
   const config: Alias = {
-    'regenerator-runtime': require.resolve('regenerator-runtime'),
     // 防止 link 开发时加载多个 React
     '@': path.resolve(options.cwd, options.rootDir),
     react: resolveReact(options),
