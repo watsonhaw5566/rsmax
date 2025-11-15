@@ -44,7 +44,6 @@
     "babel-plugin-rsmax-host-component": "workspace:*",
     "babel-plugin-rsmax-lifecycle": "workspace:*",
     "babel-plugin-rsmax-regenerator-runtime": "workspace:*",
-    "babel-preset-rsmax": "workspace:*",
     "chokidar": "^4.0.0",
     "css-loader": "^7.0.0",
     "detect-port": "^2.1.0",

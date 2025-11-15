@@ -208,34 +208,6 @@ importers:
         specifier: ^12.0.0
         version: 12.0.0(@babel/core@7.27.1)
 
-  packages/babel-preset-rsmax:
-    dependencies:
-      '@babel/helper-plugin-utils':
-        specifier: ^7.24.7
-        version: 7.27.1
-      '@babel/preset-env':
-        specifier: ^7.24.7
-        version: 7.27.2(@babel/core@7.27.1)
-      '@babel/preset-react':
-        specifier: ^7.24.7
-        version: 7.27.1(@babel/core@7.27.1)
-      '@babel/preset-typescript':
-        specifier: ^7.24.7
-        version: 7.27.1(@babel/core@7.27.1)
-      babel-plugin-auto-import:
-        specifier: ^1.0.5
-        version: 1.1.0
-      babel-plugin-macros:
-        specifier: ^3.1.0
-        version: 3.1.0
-      lodash:
-        specifier: ^4.17.15
-        version: 4.17.21
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.7.4
-        version: 7.27.1
-
   packages/postcss-rsmax-tag:
     devDependencies:
       postcss:
@@ -372,9 +344,6 @@ importers:
       babel-plugin-rsmax-regenerator-runtime:
         specifier: workspace:*
         version: link:../babel-plugin-rsmax-regenerator-runtime
-      babel-preset-rsmax:
-        specifier: workspace:*
-        version: link:../babel-preset-rsmax
       chokidar:
         specifier: ^4.0.0
         version: 4.0.3
