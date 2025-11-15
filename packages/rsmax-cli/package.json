@@ -22,7 +22,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "rstest run -u"
+    "test": "rstest run"
   },
   "dependencies": {
     "@babel/core": "^7.7.4",
