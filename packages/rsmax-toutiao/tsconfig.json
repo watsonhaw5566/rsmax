@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "esm",
-    "lib": ["es2015", "dom"],
+    "lib": ["es2017", "dom"],
     "declaration": true,
     "jsx": "react",
     "types": ["@types/node", "@douyin-microapp/typings", "@rstest/core/globals"],

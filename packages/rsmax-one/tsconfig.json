@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "esm",
-    "lib": ["es2015", "DOM"],
+    "lib": ["es2017", "DOM"],
     "declaration": true,
     "jsx": "react",
     "types": ["@types/node", "@rstest/core/globals"],

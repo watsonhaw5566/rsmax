@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["es2015", "DOM"],
+    "lib": ["es2017", "DOM"],
     "declaration": true,
     "jsx": "react",
     "types": ["@types/node", "@mini-types/alipay", "@rstest/core/globals"],
