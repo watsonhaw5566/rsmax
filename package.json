@@ -24,10 +24,10 @@
     "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
   },
   "simple-git-hooks": {
-    "sort-package-json": "pnpm sort-package-json",
     "pre-commit": "pnpm exec nano-staged"
   },
   "nano-staged": {
+    "**/package.json": "pnpx sort-package-json",
     "*.{md,mdx,json,css,less,scss}": "prettier --write",
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
       "biome check --write --formatter-enabled=false --linter-enabled=false --no-errors-on-unmatched",
