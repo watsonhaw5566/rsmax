@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2017",
-    "sourceMap": false,
-    "jsx": "preserve"
-  },
-  "exclude": ["node_modules"]
-}
