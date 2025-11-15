@@ -1847,41 +1847,6 @@ pages/index/index.js: 1503: (function (module, __unused_webpack_exports, __webpa
 pages/index/index.js: module.exports = __webpack_require__.p + "ae668fec285d0da4.jpg";
 pages/index/index.js: 
 pages/index/index.js: }),
-pages/index/index.js: 7860: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index/index.js: __webpack_require__.r(__webpack_exports__);
-pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index/index.js:   _: () => (_async_to_generator)
-pages/index/index.js: });
-pages/index/index.js: function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-pages/index/index.js:     try {
-pages/index/index.js:         var info = gen[key](arg);
-pages/index/index.js:         var value = info.value;
-pages/index/index.js:     } catch (error) {
-pages/index/index.js:         reject(error);
-pages/index/index.js:         return;
-pages/index/index.js:     }
-pages/index/index.js:     if (info.done) resolve(value);
-pages/index/index.js:     else Promise.resolve(value).then(_next, _throw);
-pages/index/index.js: }
-pages/index/index.js: function _async_to_generator(fn) {
-pages/index/index.js:     return function() {
-pages/index/index.js:         var self = this, args = arguments;
-pages/index/index.js:         return new Promise(function(resolve, reject) {
-pages/index/index.js:             var gen = fn.apply(self, args);
-pages/index/index.js:             function _next(value) {
-pages/index/index.js:                 asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-pages/index/index.js:             }
-pages/index/index.js:             function _throw(err) {
-pages/index/index.js:                 asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-pages/index/index.js:             }
-pages/index/index.js:             _next(undefined);
-pages/index/index.js:         });
-pages/index/index.js:     };
-pages/index/index.js: }
-pages/index/index.js: 
-pages/index/index.js: 
-pages/index/index.js: 
-pages/index/index.js: }),
 pages/index/index.js: 9097: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -1919,7 +1884,6 @@ pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 pages/index/index.js: });
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(<ID>);
-pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(<ID>);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
@@ -1929,7 +1893,6 @@ pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2___default = /*
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(<ID>);
-pages/index/index.js: 
 pages/index/index.js: 
 pages/index/index.js: 
 pages/index/index.js: 
@@ -1950,15 +1913,13 @@ pages/index/index.js:     };
 pages/index/index.js:     const [obj, setObj] = __WEBPACK_IMPORTED_MODULE_1___default().useState({});
 pages/index/index.js:     const [touched, setTouched] = __WEBPACK_IMPORTED_MODULE_1___default().useState(false);
 pages/index/index.js:     // CASE: regenerator runtime
-pages/index/index.js:     function handleClick() {
-pages/index/index.js:         return (0,__WEBPACK_IMPORTED_MODULE_6__._)(function*() {
-pages/index/index.js:             yield Promise.resolve(1);
-pages/index/index.js:             setObj({
-pages/index/index.js:                 a: {
-pages/index/index.js:                     b: 'valueIn:obj.a.b'
-pages/index/index.js:                 }
-pages/index/index.js:             });
-pages/index/index.js:         })();
+pages/index/index.js:     async function handleClick() {
+pages/index/index.js:         await Promise.resolve(1);
+pages/index/index.js:         setObj({
+pages/index/index.js:             a: {
+pages/index/index.js:                 b: 'valueIn:obj.a.b'
+pages/index/index.js:             }
+pages/index/index.js:         });
 pages/index/index.js:     }
 pages/index/index.js:     function handleTouchStart() {
 pages/index/index.js:         setTouched(true);
@@ -1967,7 +1928,7 @@ pages/index/index.js:     // CASE: 新语法
 pages/index/index.js:     const didTouched =  true ? undefined : 0;
 pages/index/index.js:     return /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_0__.jsxs)(__WEBPACK_IMPORTED_MODULE_2__.View, {
 pages/index/index.js:         children: [
-pages/index/index.js:             /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_0__.jsxs)(__WEBPACK_IMPORTED_MODULE_2__.View, (0,__WEBPACK_IMPORTED_MODULE_7__._)({
+pages/index/index.js:             /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_0__.jsxs)(__WEBPACK_IMPORTED_MODULE_2__.View, (0,__WEBPACK_IMPORTED_MODULE_6__._)({
 pages/index/index.js:                 onClick: handleClick,
 pages/index/index.js:                 onTouchStart: handleTouchStart,
 pages/index/index.js:                 id: "view",
