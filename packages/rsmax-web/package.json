@@ -12,8 +12,22 @@
   },
   "license": "MIT",
   "author": "Wei Zhu <yesmeck@gmail.com>",
+  "exports": {
+    "./types": {
+      "types": "./esm/types/index.d.ts",
+      "import": "./esm/types/index.js",
+      "require": "./cjs/types/index.js"
+    }
+  },
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
+  "typesVersions": {
+    "*": {
+      "types": [
+        "esm/types/index.d.ts"
+      ]
+    }
+  },
   "typings": "./esm/index.d.ts",
   "scripts": {
     "prebuild": "npm run clean",

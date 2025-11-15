@@ -34,8 +34,7 @@
     "@rsmax/macro": "workspace:*",
     "@rsmax/one": "workspace:*",
     "@rsmax/runtime": "workspace:*",
-    "@rsmax/types": "workspace:*",
-    "@rsmax/web": "workspace:*"
+    "@rsmax/types": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

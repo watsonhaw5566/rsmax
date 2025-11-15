@@ -212,9 +212,6 @@ importers:
       '@rsmax/types':
         specifier: workspace:*
         version: link:../rsmax-types
-      '@rsmax/web':
-        specifier: workspace:*
-        version: link:../rsmax-web
 
   packages/rsmax-ali:
     dependencies:
