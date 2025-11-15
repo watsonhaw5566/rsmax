@@ -4,6 +4,7 @@ import { rspack } from '@rspack/core';
 import type Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
+import { getBabelLoaderOptions } from './config/babel';
 import { type RuleConfig, addCSSRule, cssConfig } from './config/css';
 
 export default function webBaseConfig(config: Config, builder: Builder) {
@@ -33,6 +34,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
         transform: {
           react: {
             runtime: 'automatic',
+            throwIfNamespace: false,
           },
         },
         target: 'es2015',
@@ -61,6 +63,7 @@ export default function webBaseConfig(config: Config, builder: Builder) {
         transform: {
           react: {
             runtime: 'automatic',
+            throwIfNamespace: false,
           },
         },
         target: 'es2015',
@@ -78,9 +81,8 @@ export default function webBaseConfig(config: Config, builder: Builder) {
     .use('babel')
     .loader('babel')
     .options({
-      reactPreset: true,
-      api: builder.api,
-      compact: process.env.NODE_ENV === 'production',
+      ...getBabelLoaderOptions(builder, false),
+      reactPreset: false,
     });
 
   if (builder.options?.web?.excludeNodeModulesTransform) {

@@ -1,7 +1,5 @@
-import path from 'node:path';
 import type { ConfigItem, PartialConfig } from '@babel/core';
 import babelLoader from 'babel-loader';
-import { merge } from 'lodash';
 import type API from '../../../API';
 
 interface CustomOptions {
@@ -11,34 +9,6 @@ interface CustomOptions {
 }
 
 function processPresets(presets: ConfigItem[], babel: any, react: boolean) {
-  const remaxPresetIndex = presets.findIndex(preset =>
-    preset.file?.resolved.includes(`${path.sep}babel-preset-rsmax${path.sep}`)
-  );
-
-  if (!react) {
-    return presets;
-  }
-
-  const defaultOptions = {
-    react,
-    targets: {},
-  };
-
-  const existOptions = remaxPresetIndex !== -1 ? presets[remaxPresetIndex].options : {};
-
-  const remaxPreset = babel.createConfigItem(
-    [require.resolve('babel-preset-rsmax'), merge({}, defaultOptions, existOptions)],
-    {
-      type: 'preset',
-    }
-  );
-
-  if (remaxPresetIndex === -1) {
-    presets.unshift(remaxPreset);
-  } else {
-    presets[remaxPresetIndex] = remaxPreset;
-  }
-
   return presets;
 }
 

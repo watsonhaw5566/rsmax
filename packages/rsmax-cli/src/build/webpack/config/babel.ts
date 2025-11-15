@@ -18,7 +18,11 @@ export function resolveBabelConfig(options: Options) {
 export function getBabelLoaderOptions(builder: Builder, includeAppLifecycle: boolean) {
   const appEntry = builder.entryCollection.appEntry;
   const srcRoot = builder.projectPath.srcDir();
-  const usePlugins: any[] = [];
+  const usePlugins: any[] = [
+    require.resolve('@babel/plugin-syntax-jsx'),
+    require.resolve('babel-plugin-macros'),
+    fixRegeneratorRuntime(),
+  ];
   if (includeAppLifecycle && appEntry) {
     usePlugins.push(
       Lifecycle.app({
@@ -30,8 +34,7 @@ export function getBabelLoaderOptions(builder: Builder, includeAppLifecycle: boo
     Lifecycle.page({
       test: (file: string) => {
         const importer = slash(file);
-        const root = srcRoot;
-        return importer.startsWith(root);
+        return importer.startsWith(srcRoot);
       },
     })
   );
@@ -44,7 +47,6 @@ export function getBabelLoaderOptions(builder: Builder, includeAppLifecycle: boo
       includeProps: [],
     })
   );
-  usePlugins.push(fixRegeneratorRuntime());
   return {
     babelrc: false,
     configFile: resolveBabelConfig(builder.options),

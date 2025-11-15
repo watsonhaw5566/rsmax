@@ -84,6 +84,7 @@ export default function webpackConfig(builder: Builder): Configuration {
         transform: {
           react: {
             runtime: 'automatic',
+            throwIfNamespace: false,
           },
         },
         target: 'es2015',
@@ -112,6 +113,7 @@ export default function webpackConfig(builder: Builder): Configuration {
         transform: {
           react: {
             runtime: 'automatic',
+            throwIfNamespace: false,
           },
         },
         target: 'es2015',
@@ -128,7 +130,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     .end()
     .use('babel')
     .loader('babel')
-    .options(getBabelLoaderOptions(builder, true))
+    .options({ ...getBabelLoaderOptions(builder, true), reactPreset: false })
     .end()
     .use('native-component')
     .loader('nativeComponent')

@@ -60,7 +60,7 @@ export async function buildApp(
   const externals: any = [
     nodeExternals({
       modulesDir: path.resolve(__dirname, '../../../../../../node_modules'),
-      allowlist: options.externalsIgnore,
+      allowlist: [...(options.externalsIgnore || []), /@swc\/helpers.*/],
     }),
   ];
 
