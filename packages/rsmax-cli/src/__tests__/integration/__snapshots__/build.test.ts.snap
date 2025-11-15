@@ -1318,41 +1318,6 @@ pages/index.js: // extracted by css-extract-rspack-plugin
 pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = ({"pageIndex":"page-index___m1FKW"});
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: 1074: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index.js: __webpack_require__.r(__webpack_exports__);
-pages/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index.js:   _: () => (_async_to_generator)
-pages/index.js: });
-pages/index.js: function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-pages/index.js:     try {
-pages/index.js:         var info = gen[key](arg);
-pages/index.js:         var value = info.value;
-pages/index.js:     } catch (error) {
-pages/index.js:         reject(error);
-pages/index.js:         return;
-pages/index.js:     }
-pages/index.js:     if (info.done) resolve(value);
-pages/index.js:     else Promise.resolve(value).then(_next, _throw);
-pages/index.js: }
-pages/index.js: function _async_to_generator(fn) {
-pages/index.js:     return function() {
-pages/index.js:         var self = this, args = arguments;
-pages/index.js:         return new Promise(function(resolve, reject) {
-pages/index.js:             var gen = fn.apply(self, args);
-pages/index.js:             function _next(value) {
-pages/index.js:                 asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-pages/index.js:             }
-pages/index.js:             function _throw(err) {
-pages/index.js:                 asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-pages/index.js:             }
-pages/index.js:             _next(undefined);
-pages/index.js:         });
-pages/index.js:     };
-pages/index.js: }
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: }),
 pages/index.js: 6262: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
@@ -1371,7 +1336,6 @@ pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 pages/index.js: });
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(<ID>);
-pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
@@ -1383,17 +1347,14 @@ pages/index.js:
 pages/index.js: 
 pages/index.js: 
 pages/index.js: 
-pages/index.js: 
 pages/index.js: // 测试引用 json 模块
 pages/index.js: 
 pages/index.js: 
 pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (()=>{
 pages/index.js:     const props = {};
 pages/index.js:     const TextElement = React.cloneElement(/*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_0__.jsx)(__WEBPACK_IMPORTED_MODULE_1__.Text, {}));
-pages/index.js:     function handleClick() {
-pages/index.js:         return (0,__WEBPACK_IMPORTED_MODULE_5__._)(function*() {
-pages/index.js:             yield Promise.resolve(1);
-pages/index.js:         })();
+pages/index.js:     async function handleClick() {
+pages/index.js:         await Promise.resolve(1);
 pages/index.js:     }
 pages/index.js:     function handleTouchStart() {}
 pages/index.js:     var _ref;
@@ -1404,7 +1365,7 @@ pages/index.js:         children: [
 pages/index.js:             /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_0__.jsx)(__WEBPACK_IMPORTED_MODULE_2__["default"], {
 pages/index.js:                 className: "b"
 pages/index.js:             }),
-pages/index.js:             /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_0__.jsxs)(__WEBPACK_IMPORTED_MODULE_1__.View, (0,__WEBPACK_IMPORTED_MODULE_6__._)({
+pages/index.js:             /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_0__.jsxs)(__WEBPACK_IMPORTED_MODULE_1__.View, (0,__WEBPACK_IMPORTED_MODULE_5__._)({
 pages/index.js:                 onClick: handleClick,
 pages/index.js:                 onTouchStart: handleTouchStart,
 pages/index.js:                 id: "view",
@@ -2640,12 +2601,16 @@ rsmax-vendors.js:     appEvents: [],
 rsmax-vendors.js:     pageEvents: {},
 rsmax-vendors.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 rsmax-vendors.js:     navigate: {},
-rsmax-vendors.js:     mpa: false
+rsmax-vendors.js:     mpa: false,
+rsmax-vendors.js:     concurrent: false,
+rsmax-vendors.js:     mergeSpliceData: false,
+rsmax-vendors.js:     setDataChunkSize: 0,
+rsmax-vendors.js:     tagMap: {}
 rsmax-vendors.js: };
 rsmax-vendors.js: let runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: function merge(...options) {
 rsmax-vendors.js:     return options.reduce((acc, option)=>{
-rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 rsmax-vendors.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 rsmax-vendors.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 rsmax-vendors.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -2667,6 +2632,10 @@ rsmax-vendors.js:         acc.pageEvents = (_f = option.pageEvents) !== null && 
 rsmax-vendors.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 rsmax-vendors.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 rsmax-vendors.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+rsmax-vendors.js:         acc.concurrent = (_k = option.concurrent) !== null && _k !== void 0 ? _k : acc.concurrent;
+rsmax-vendors.js:         acc.mergeSpliceData = (_l = option.mergeSpliceData) !== null && _l !== void 0 ? _l : acc.mergeSpliceData;
+rsmax-vendors.js:         acc.setDataChunkSize = (_m = option.setDataChunkSize) !== null && _m !== void 0 ? _m : acc.setDataChunkSize;
+rsmax-vendors.js:         acc.tagMap = (_o = option.tagMap) !== null && _o !== void 0 ? _o : acc.tagMap;
 rsmax-vendors.js:         return acc;
 rsmax-vendors.js:     }, runtimeOptions);
 rsmax-vendors.js: }
@@ -3103,37 +3072,78 @@ rsmax-vendors.js:             if (typeof this.context.$batchedUpdates === 'funct
 rsmax-vendors.js:                 $batchedUpdates = this.context.$batchedUpdates;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             $batchedUpdates(()=>{
-rsmax-vendors.js:                 this.updateQueue.map((update, index)=>{
-rsmax-vendors.js:                     let callback = undefined;
-rsmax-vendors.js:                     if (index + 1 === this.updateQueue.length) {
-rsmax-vendors.js:                         callback = ()=>{
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('mergeSpliceData')) {
+rsmax-vendors.js:                     const splicePayload = {};
+rsmax-vendors.js:                     const setPayload = {};
+rsmax-vendors.js:                     this.updateQueue.forEach((update)=>{
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             splicePayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 'children'
+rsmax-vendors.js:                             ])] = [
+rsmax-vendors.js:                                 update.start,
+rsmax-vendors.js:                                 update.deleteCount,
+rsmax-vendors.js:                                 ...update.items
+rsmax-vendors.js:                             ];
+rsmax-vendors.js:                         } else if (update.type === 'set') {
+rsmax-vendors.js:                             setPayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 update.name
+rsmax-vendors.js:                             ])] = update.value;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                     const hasSplice = Object.keys(splicePayload).length > 0;
+rsmax-vendors.js:                     const hasSet = Object.keys(setPayload).length > 0;
+rsmax-vendors.js:                     const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+rsmax-vendors.js:                     let done = 0;
+rsmax-vendors.js:                     const doneCallback = ()=>{
+rsmax-vendors.js:                         done += 1;
+rsmax-vendors.js:                         if (done === total) {
 rsmax-vendors.js:                             nativeEffect_1.default.run();
 rsmax-vendors.js:                             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
 rsmax-vendors.js:                                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
 rsmax-vendors.js:                             }
-rsmax-vendors.js:                         };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                     if (hasSplice) {
+rsmax-vendors.js:                         this.context.$spliceData(splicePayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'splice') {
-rsmax-vendors.js:                         this.context.$spliceData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 'children'
-rsmax-vendors.js:                             ])]: [
-rsmax-vendors.js:                                 update.start,
-rsmax-vendors.js:                                 update.deleteCount,
-rsmax-vendors.js:                                 ...update.items
-rsmax-vendors.js:                             ]
-rsmax-vendors.js:                         }, callback);
+rsmax-vendors.js:                     if (hasSet) {
+rsmax-vendors.js:                         this.context.setData(setPayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'set') {
-rsmax-vendors.js:                         this.context.setData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 update.name
-rsmax-vendors.js:                             ])]: update.value
-rsmax-vendors.js:                         }, callback);
-rsmax-vendors.js:                     }
-rsmax-vendors.js:                 });
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     this.updateQueue.map((update, index)=>{
+rsmax-vendors.js:                         let callback = undefined;
+rsmax-vendors.js:                         if (index + 1 === this.updateQueue.length) {
+rsmax-vendors.js:                             callback = ()=>{
+rsmax-vendors.js:                                 nativeEffect_1.default.run();
+rsmax-vendors.js:                                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
+rsmax-vendors.js:                                 }
+rsmax-vendors.js:                             };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             this.context.$spliceData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     'children'
+rsmax-vendors.js:                                 ])]: [
+rsmax-vendors.js:                                     update.start,
+rsmax-vendors.js:                                     update.deleteCount,
+rsmax-vendors.js:                                     ...update.items
+rsmax-vendors.js:                                 ]
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'set') {
+rsmax-vendors.js:                             this.context.setData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     update.name
+rsmax-vendors.js:                                 ])]: update.value
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             });
 rsmax-vendors.js:             this.updateQueue = [];
 rsmax-vendors.js:             return;
@@ -3162,12 +3172,30 @@ rsmax-vendors.js:                 ])] = update.value;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             return acc;
 rsmax-vendors.js:         }, {});
-rsmax-vendors.js:         this.context.setData(updatePayload, ()=>{
-rsmax-vendors.js:             nativeEffect_1.default.run();
-rsmax-vendors.js:             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
-rsmax-vendors.js:                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:         const chunkSize = framework_shared_1.RuntimeOptions.get('setDataChunkSize');
+rsmax-vendors.js:         const entries = Object.entries(updatePayload);
+rsmax-vendors.js:         if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+rsmax-vendors.js:             for(let i = 0; i < entries.length; i += chunkSize){
+rsmax-vendors.js:                 const slice = entries.slice(i, i + chunkSize);
+rsmax-vendors.js:                 const payloadChunk = Object.fromEntries(slice);
+rsmax-vendors.js:                 const isLast = i + chunkSize >= entries.length;
+rsmax-vendors.js:                 this.context.setData(payloadChunk, ()=>{
+rsmax-vendors.js:                     if (isLast) {
+rsmax-vendors.js:                         nativeEffect_1.default.run();
+rsmax-vendors.js:                         /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                             console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, payloadChunk);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
-rsmax-vendors.js:         });
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             this.context.setData(updatePayload, ()=>{
+rsmax-vendors.js:                 nativeEffect_1.default.run();
+rsmax-vendors.js:                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             });
+rsmax-vendors.js:         }
 rsmax-vendors.js:         this.updateQueue = [];
 rsmax-vendors.js:     }
 rsmax-vendors.js:     clearUpdate() {
@@ -3246,7 +3274,8 @@ rsmax-vendors.js:     'onLongClick',
 rsmax-vendors.js:     'onLongTap',
 rsmax-vendors.js:     'onTouchMove',
 rsmax-vendors.js:     'onTouchStart',
-rsmax-vendors.js:     'onTouchEnd'
+rsmax-vendors.js:     'onTouchEnd',
+rsmax-vendors.js:     'onTouchCancel'
 rsmax-vendors.js: ];
 rsmax-vendors.js: 
 rsmax-vendors.js: 
@@ -3296,7 +3325,7 @@ rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn('DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, (type)=>type === inputType);
 rsmax-vendors.js: }
@@ -4381,6 +4410,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const scheduler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const VNode_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
@@ -4437,11 +4467,11 @@ rsmax-vendors.js:     getChildHostContext: ()=>{
 rsmax-vendors.js:         return childHostContext;
 rsmax-vendors.js:     },
 rsmax-vendors.js:     createInstance (type, newProps, container) {
-rsmax-vendors.js:         var _a;
+rsmax-vendors.js:         var _a, _b, _c;
 rsmax-vendors.js:         const id = (0, instanceId_1.generate)();
 rsmax-vendors.js:         const node = new VNode_1.default({
 rsmax-vendors.js:             id,
-rsmax-vendors.js:             type: (_a = DOM_TAG_MAP[type]) !== null && _a !== void 0 ? _a : type,
+rsmax-vendors.js:             type: (_c = (_b = (_a = framework_shared_1.RuntimeOptions.get('tagMap')) === null || _a === void 0 ? void 0 : _a[type]) !== null && _b !== void 0 ? _b : DOM_TAG_MAP[type]) !== null && _c !== void 0 ? _c : type,
 rsmax-vendors.js:             props: {},
 rsmax-vendors.js:             container
 rsmax-vendors.js:         });
@@ -4802,6 +4832,7 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.ReactReconcilerInst = void 0;
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -4814,10 +4845,8 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return containerFiber.child.stateNode;
 rsmax-vendors.js: }
 rsmax-vendors.js: function render(rootElement, container) {
-rsmax-vendors.js:     // Create a root Container if it doesnt exist
 rsmax-vendors.js:     if (!container._rootContainer) {
-rsmax-vendors.js:         // eslint-disable-next-line @typescript-eslint/no-empty-function
-rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, 0, null, false, null, '', ()=>{}, null);
+rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, framework_shared_1.RuntimeOptions.get('concurrent') ? 1 : 0, null, false, null, '', ()=>{}, null);
 rsmax-vendors.js:     }
 rsmax-vendors.js:     exports.ReactReconcilerInst.updateContainer(rootElement, container._rootContainer, null, ()=>{
 rsmax-vendors.js:     // ignore
@@ -7210,12 +7239,16 @@ rsmax-vendors.js:     appEvents: [],
 rsmax-vendors.js:     pageEvents: {},
 rsmax-vendors.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 rsmax-vendors.js:     navigate: {},
-rsmax-vendors.js:     mpa: false
+rsmax-vendors.js:     mpa: false,
+rsmax-vendors.js:     concurrent: false,
+rsmax-vendors.js:     mergeSpliceData: false,
+rsmax-vendors.js:     setDataChunkSize: 0,
+rsmax-vendors.js:     tagMap: {}
 rsmax-vendors.js: };
 rsmax-vendors.js: let runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: function merge(...options) {
 rsmax-vendors.js:     return options.reduce((acc, option)=>{
-rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 rsmax-vendors.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 rsmax-vendors.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 rsmax-vendors.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -7237,6 +7270,10 @@ rsmax-vendors.js:         acc.pageEvents = (_f = option.pageEvents) !== null && 
 rsmax-vendors.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 rsmax-vendors.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 rsmax-vendors.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+rsmax-vendors.js:         acc.concurrent = (_k = option.concurrent) !== null && _k !== void 0 ? _k : acc.concurrent;
+rsmax-vendors.js:         acc.mergeSpliceData = (_l = option.mergeSpliceData) !== null && _l !== void 0 ? _l : acc.mergeSpliceData;
+rsmax-vendors.js:         acc.setDataChunkSize = (_m = option.setDataChunkSize) !== null && _m !== void 0 ? _m : acc.setDataChunkSize;
+rsmax-vendors.js:         acc.tagMap = (_o = option.tagMap) !== null && _o !== void 0 ? _o : acc.tagMap;
 rsmax-vendors.js:         return acc;
 rsmax-vendors.js:     }, runtimeOptions);
 rsmax-vendors.js: }
@@ -7673,37 +7710,78 @@ rsmax-vendors.js:             if (typeof this.context.$batchedUpdates === 'funct
 rsmax-vendors.js:                 $batchedUpdates = this.context.$batchedUpdates;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             $batchedUpdates(()=>{
-rsmax-vendors.js:                 this.updateQueue.map((update, index)=>{
-rsmax-vendors.js:                     let callback = undefined;
-rsmax-vendors.js:                     if (index + 1 === this.updateQueue.length) {
-rsmax-vendors.js:                         callback = ()=>{
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('mergeSpliceData')) {
+rsmax-vendors.js:                     const splicePayload = {};
+rsmax-vendors.js:                     const setPayload = {};
+rsmax-vendors.js:                     this.updateQueue.forEach((update)=>{
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             splicePayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 'children'
+rsmax-vendors.js:                             ])] = [
+rsmax-vendors.js:                                 update.start,
+rsmax-vendors.js:                                 update.deleteCount,
+rsmax-vendors.js:                                 ...update.items
+rsmax-vendors.js:                             ];
+rsmax-vendors.js:                         } else if (update.type === 'set') {
+rsmax-vendors.js:                             setPayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 update.name
+rsmax-vendors.js:                             ])] = update.value;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                     const hasSplice = Object.keys(splicePayload).length > 0;
+rsmax-vendors.js:                     const hasSet = Object.keys(setPayload).length > 0;
+rsmax-vendors.js:                     const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+rsmax-vendors.js:                     let done = 0;
+rsmax-vendors.js:                     const doneCallback = ()=>{
+rsmax-vendors.js:                         done += 1;
+rsmax-vendors.js:                         if (done === total) {
 rsmax-vendors.js:                             nativeEffect_1.default.run();
 rsmax-vendors.js:                             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
 rsmax-vendors.js:                                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
 rsmax-vendors.js:                             }
-rsmax-vendors.js:                         };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                     if (hasSplice) {
+rsmax-vendors.js:                         this.context.$spliceData(splicePayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'splice') {
-rsmax-vendors.js:                         this.context.$spliceData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 'children'
-rsmax-vendors.js:                             ])]: [
-rsmax-vendors.js:                                 update.start,
-rsmax-vendors.js:                                 update.deleteCount,
-rsmax-vendors.js:                                 ...update.items
-rsmax-vendors.js:                             ]
-rsmax-vendors.js:                         }, callback);
+rsmax-vendors.js:                     if (hasSet) {
+rsmax-vendors.js:                         this.context.setData(setPayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'set') {
-rsmax-vendors.js:                         this.context.setData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 update.name
-rsmax-vendors.js:                             ])]: update.value
-rsmax-vendors.js:                         }, callback);
-rsmax-vendors.js:                     }
-rsmax-vendors.js:                 });
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     this.updateQueue.map((update, index)=>{
+rsmax-vendors.js:                         let callback = undefined;
+rsmax-vendors.js:                         if (index + 1 === this.updateQueue.length) {
+rsmax-vendors.js:                             callback = ()=>{
+rsmax-vendors.js:                                 nativeEffect_1.default.run();
+rsmax-vendors.js:                                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
+rsmax-vendors.js:                                 }
+rsmax-vendors.js:                             };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             this.context.$spliceData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     'children'
+rsmax-vendors.js:                                 ])]: [
+rsmax-vendors.js:                                     update.start,
+rsmax-vendors.js:                                     update.deleteCount,
+rsmax-vendors.js:                                     ...update.items
+rsmax-vendors.js:                                 ]
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'set') {
+rsmax-vendors.js:                             this.context.setData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     update.name
+rsmax-vendors.js:                                 ])]: update.value
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             });
 rsmax-vendors.js:             this.updateQueue = [];
 rsmax-vendors.js:             return;
@@ -7732,12 +7810,30 @@ rsmax-vendors.js:                 ])] = update.value;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             return acc;
 rsmax-vendors.js:         }, {});
-rsmax-vendors.js:         this.context.setData(updatePayload, ()=>{
-rsmax-vendors.js:             nativeEffect_1.default.run();
-rsmax-vendors.js:             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
-rsmax-vendors.js:                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:         const chunkSize = framework_shared_1.RuntimeOptions.get('setDataChunkSize');
+rsmax-vendors.js:         const entries = Object.entries(updatePayload);
+rsmax-vendors.js:         if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+rsmax-vendors.js:             for(let i = 0; i < entries.length; i += chunkSize){
+rsmax-vendors.js:                 const slice = entries.slice(i, i + chunkSize);
+rsmax-vendors.js:                 const payloadChunk = Object.fromEntries(slice);
+rsmax-vendors.js:                 const isLast = i + chunkSize >= entries.length;
+rsmax-vendors.js:                 this.context.setData(payloadChunk, ()=>{
+rsmax-vendors.js:                     if (isLast) {
+rsmax-vendors.js:                         nativeEffect_1.default.run();
+rsmax-vendors.js:                         /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                             console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, payloadChunk);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
-rsmax-vendors.js:         });
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             this.context.setData(updatePayload, ()=>{
+rsmax-vendors.js:                 nativeEffect_1.default.run();
+rsmax-vendors.js:                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             });
+rsmax-vendors.js:         }
 rsmax-vendors.js:         this.updateQueue = [];
 rsmax-vendors.js:     }
 rsmax-vendors.js:     clearUpdate() {
@@ -7816,7 +7912,8 @@ rsmax-vendors.js:     'onLongClick',
 rsmax-vendors.js:     'onLongTap',
 rsmax-vendors.js:     'onTouchMove',
 rsmax-vendors.js:     'onTouchStart',
-rsmax-vendors.js:     'onTouchEnd'
+rsmax-vendors.js:     'onTouchEnd',
+rsmax-vendors.js:     'onTouchCancel'
 rsmax-vendors.js: ];
 rsmax-vendors.js: 
 rsmax-vendors.js: 
@@ -7866,7 +7963,7 @@ rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn('DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, (type)=>type === inputType);
 rsmax-vendors.js: }
@@ -8951,6 +9048,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const scheduler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const VNode_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
@@ -9007,11 +9105,11 @@ rsmax-vendors.js:     getChildHostContext: ()=>{
 rsmax-vendors.js:         return childHostContext;
 rsmax-vendors.js:     },
 rsmax-vendors.js:     createInstance (type, newProps, container) {
-rsmax-vendors.js:         var _a;
+rsmax-vendors.js:         var _a, _b, _c;
 rsmax-vendors.js:         const id = (0, instanceId_1.generate)();
 rsmax-vendors.js:         const node = new VNode_1.default({
 rsmax-vendors.js:             id,
-rsmax-vendors.js:             type: (_a = DOM_TAG_MAP[type]) !== null && _a !== void 0 ? _a : type,
+rsmax-vendors.js:             type: (_c = (_b = (_a = framework_shared_1.RuntimeOptions.get('tagMap')) === null || _a === void 0 ? void 0 : _a[type]) !== null && _b !== void 0 ? _b : DOM_TAG_MAP[type]) !== null && _c !== void 0 ? _c : type,
 rsmax-vendors.js:             props: {},
 rsmax-vendors.js:             container
 rsmax-vendors.js:         });
@@ -9372,6 +9470,7 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.ReactReconcilerInst = void 0;
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -9384,10 +9483,8 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return containerFiber.child.stateNode;
 rsmax-vendors.js: }
 rsmax-vendors.js: function render(rootElement, container) {
-rsmax-vendors.js:     // Create a root Container if it doesnt exist
 rsmax-vendors.js:     if (!container._rootContainer) {
-rsmax-vendors.js:         // eslint-disable-next-line @typescript-eslint/no-empty-function
-rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, 0, null, false, null, '', ()=>{}, null);
+rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, framework_shared_1.RuntimeOptions.get('concurrent') ? 1 : 0, null, false, null, '', ()=>{}, null);
 rsmax-vendors.js:     }
 rsmax-vendors.js:     exports.ReactReconcilerInst.updateContainer(rootElement, container._rootContainer, null, ()=>{
 rsmax-vendors.js:     // ignore
@@ -11728,12 +11825,16 @@ rsmax-vendors.js:     appEvents: [],
 rsmax-vendors.js:     pageEvents: {},
 rsmax-vendors.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 rsmax-vendors.js:     navigate: {},
-rsmax-vendors.js:     mpa: false
+rsmax-vendors.js:     mpa: false,
+rsmax-vendors.js:     concurrent: false,
+rsmax-vendors.js:     mergeSpliceData: false,
+rsmax-vendors.js:     setDataChunkSize: 0,
+rsmax-vendors.js:     tagMap: {}
 rsmax-vendors.js: };
 rsmax-vendors.js: let runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: function merge(...options) {
 rsmax-vendors.js:     return options.reduce((acc, option)=>{
-rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 rsmax-vendors.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 rsmax-vendors.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 rsmax-vendors.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -11755,6 +11856,10 @@ rsmax-vendors.js:         acc.pageEvents = (_f = option.pageEvents) !== null && 
 rsmax-vendors.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 rsmax-vendors.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 rsmax-vendors.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+rsmax-vendors.js:         acc.concurrent = (_k = option.concurrent) !== null && _k !== void 0 ? _k : acc.concurrent;
+rsmax-vendors.js:         acc.mergeSpliceData = (_l = option.mergeSpliceData) !== null && _l !== void 0 ? _l : acc.mergeSpliceData;
+rsmax-vendors.js:         acc.setDataChunkSize = (_m = option.setDataChunkSize) !== null && _m !== void 0 ? _m : acc.setDataChunkSize;
+rsmax-vendors.js:         acc.tagMap = (_o = option.tagMap) !== null && _o !== void 0 ? _o : acc.tagMap;
 rsmax-vendors.js:         return acc;
 rsmax-vendors.js:     }, runtimeOptions);
 rsmax-vendors.js: }
@@ -12191,37 +12296,78 @@ rsmax-vendors.js:             if (typeof this.context.$batchedUpdates === 'funct
 rsmax-vendors.js:                 $batchedUpdates = this.context.$batchedUpdates;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             $batchedUpdates(()=>{
-rsmax-vendors.js:                 this.updateQueue.map((update, index)=>{
-rsmax-vendors.js:                     let callback = undefined;
-rsmax-vendors.js:                     if (index + 1 === this.updateQueue.length) {
-rsmax-vendors.js:                         callback = ()=>{
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('mergeSpliceData')) {
+rsmax-vendors.js:                     const splicePayload = {};
+rsmax-vendors.js:                     const setPayload = {};
+rsmax-vendors.js:                     this.updateQueue.forEach((update)=>{
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             splicePayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 'children'
+rsmax-vendors.js:                             ])] = [
+rsmax-vendors.js:                                 update.start,
+rsmax-vendors.js:                                 update.deleteCount,
+rsmax-vendors.js:                                 ...update.items
+rsmax-vendors.js:                             ];
+rsmax-vendors.js:                         } else if (update.type === 'set') {
+rsmax-vendors.js:                             setPayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 update.name
+rsmax-vendors.js:                             ])] = update.value;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                     const hasSplice = Object.keys(splicePayload).length > 0;
+rsmax-vendors.js:                     const hasSet = Object.keys(setPayload).length > 0;
+rsmax-vendors.js:                     const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+rsmax-vendors.js:                     let done = 0;
+rsmax-vendors.js:                     const doneCallback = ()=>{
+rsmax-vendors.js:                         done += 1;
+rsmax-vendors.js:                         if (done === total) {
 rsmax-vendors.js:                             nativeEffect_1.default.run();
 rsmax-vendors.js:                             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
 rsmax-vendors.js:                                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
 rsmax-vendors.js:                             }
-rsmax-vendors.js:                         };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                     if (hasSplice) {
+rsmax-vendors.js:                         this.context.$spliceData(splicePayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'splice') {
-rsmax-vendors.js:                         this.context.$spliceData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 'children'
-rsmax-vendors.js:                             ])]: [
-rsmax-vendors.js:                                 update.start,
-rsmax-vendors.js:                                 update.deleteCount,
-rsmax-vendors.js:                                 ...update.items
-rsmax-vendors.js:                             ]
-rsmax-vendors.js:                         }, callback);
+rsmax-vendors.js:                     if (hasSet) {
+rsmax-vendors.js:                         this.context.setData(setPayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'set') {
-rsmax-vendors.js:                         this.context.setData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 update.name
-rsmax-vendors.js:                             ])]: update.value
-rsmax-vendors.js:                         }, callback);
-rsmax-vendors.js:                     }
-rsmax-vendors.js:                 });
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     this.updateQueue.map((update, index)=>{
+rsmax-vendors.js:                         let callback = undefined;
+rsmax-vendors.js:                         if (index + 1 === this.updateQueue.length) {
+rsmax-vendors.js:                             callback = ()=>{
+rsmax-vendors.js:                                 nativeEffect_1.default.run();
+rsmax-vendors.js:                                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
+rsmax-vendors.js:                                 }
+rsmax-vendors.js:                             };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             this.context.$spliceData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     'children'
+rsmax-vendors.js:                                 ])]: [
+rsmax-vendors.js:                                     update.start,
+rsmax-vendors.js:                                     update.deleteCount,
+rsmax-vendors.js:                                     ...update.items
+rsmax-vendors.js:                                 ]
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'set') {
+rsmax-vendors.js:                             this.context.setData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     update.name
+rsmax-vendors.js:                                 ])]: update.value
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             });
 rsmax-vendors.js:             this.updateQueue = [];
 rsmax-vendors.js:             return;
@@ -12250,12 +12396,30 @@ rsmax-vendors.js:                 ])] = update.value;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             return acc;
 rsmax-vendors.js:         }, {});
-rsmax-vendors.js:         this.context.setData(updatePayload, ()=>{
-rsmax-vendors.js:             nativeEffect_1.default.run();
-rsmax-vendors.js:             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
-rsmax-vendors.js:                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:         const chunkSize = framework_shared_1.RuntimeOptions.get('setDataChunkSize');
+rsmax-vendors.js:         const entries = Object.entries(updatePayload);
+rsmax-vendors.js:         if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+rsmax-vendors.js:             for(let i = 0; i < entries.length; i += chunkSize){
+rsmax-vendors.js:                 const slice = entries.slice(i, i + chunkSize);
+rsmax-vendors.js:                 const payloadChunk = Object.fromEntries(slice);
+rsmax-vendors.js:                 const isLast = i + chunkSize >= entries.length;
+rsmax-vendors.js:                 this.context.setData(payloadChunk, ()=>{
+rsmax-vendors.js:                     if (isLast) {
+rsmax-vendors.js:                         nativeEffect_1.default.run();
+rsmax-vendors.js:                         /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                             console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, payloadChunk);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
-rsmax-vendors.js:         });
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             this.context.setData(updatePayload, ()=>{
+rsmax-vendors.js:                 nativeEffect_1.default.run();
+rsmax-vendors.js:                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             });
+rsmax-vendors.js:         }
 rsmax-vendors.js:         this.updateQueue = [];
 rsmax-vendors.js:     }
 rsmax-vendors.js:     clearUpdate() {
@@ -12334,7 +12498,8 @@ rsmax-vendors.js:     'onLongClick',
 rsmax-vendors.js:     'onLongTap',
 rsmax-vendors.js:     'onTouchMove',
 rsmax-vendors.js:     'onTouchStart',
-rsmax-vendors.js:     'onTouchEnd'
+rsmax-vendors.js:     'onTouchEnd',
+rsmax-vendors.js:     'onTouchCancel'
 rsmax-vendors.js: ];
 rsmax-vendors.js: 
 rsmax-vendors.js: 
@@ -12384,7 +12549,7 @@ rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn('DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, (type)=>type === inputType);
 rsmax-vendors.js: }
@@ -13469,6 +13634,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const scheduler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const VNode_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
@@ -13525,11 +13691,11 @@ rsmax-vendors.js:     getChildHostContext: ()=>{
 rsmax-vendors.js:         return childHostContext;
 rsmax-vendors.js:     },
 rsmax-vendors.js:     createInstance (type, newProps, container) {
-rsmax-vendors.js:         var _a;
+rsmax-vendors.js:         var _a, _b, _c;
 rsmax-vendors.js:         const id = (0, instanceId_1.generate)();
 rsmax-vendors.js:         const node = new VNode_1.default({
 rsmax-vendors.js:             id,
-rsmax-vendors.js:             type: (_a = DOM_TAG_MAP[type]) !== null && _a !== void 0 ? _a : type,
+rsmax-vendors.js:             type: (_c = (_b = (_a = framework_shared_1.RuntimeOptions.get('tagMap')) === null || _a === void 0 ? void 0 : _a[type]) !== null && _b !== void 0 ? _b : DOM_TAG_MAP[type]) !== null && _c !== void 0 ? _c : type,
 rsmax-vendors.js:             props: {},
 rsmax-vendors.js:             container
 rsmax-vendors.js:         });
@@ -13890,6 +14056,7 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.ReactReconcilerInst = void 0;
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -13902,10 +14069,8 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return containerFiber.child.stateNode;
 rsmax-vendors.js: }
 rsmax-vendors.js: function render(rootElement, container) {
-rsmax-vendors.js:     // Create a root Container if it doesnt exist
 rsmax-vendors.js:     if (!container._rootContainer) {
-rsmax-vendors.js:         // eslint-disable-next-line @typescript-eslint/no-empty-function
-rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, 0, null, false, null, '', ()=>{}, null);
+rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, framework_shared_1.RuntimeOptions.get('concurrent') ? 1 : 0, null, false, null, '', ()=>{}, null);
 rsmax-vendors.js:     }
 rsmax-vendors.js:     exports.ReactReconcilerInst.updateContainer(rootElement, container._rootContainer, null, ()=>{
 rsmax-vendors.js:     // ignore
@@ -16393,12 +16558,16 @@ rsmax-vendors.js:     appEvents: [],
 rsmax-vendors.js:     pageEvents: {},
 rsmax-vendors.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 rsmax-vendors.js:     navigate: {},
-rsmax-vendors.js:     mpa: false
+rsmax-vendors.js:     mpa: false,
+rsmax-vendors.js:     concurrent: false,
+rsmax-vendors.js:     mergeSpliceData: false,
+rsmax-vendors.js:     setDataChunkSize: 0,
+rsmax-vendors.js:     tagMap: {}
 rsmax-vendors.js: };
 rsmax-vendors.js: let runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: function merge(...options) {
 rsmax-vendors.js:     return options.reduce((acc, option)=>{
-rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 rsmax-vendors.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 rsmax-vendors.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 rsmax-vendors.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -16420,6 +16589,10 @@ rsmax-vendors.js:         acc.pageEvents = (_f = option.pageEvents) !== null && 
 rsmax-vendors.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 rsmax-vendors.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 rsmax-vendors.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+rsmax-vendors.js:         acc.concurrent = (_k = option.concurrent) !== null && _k !== void 0 ? _k : acc.concurrent;
+rsmax-vendors.js:         acc.mergeSpliceData = (_l = option.mergeSpliceData) !== null && _l !== void 0 ? _l : acc.mergeSpliceData;
+rsmax-vendors.js:         acc.setDataChunkSize = (_m = option.setDataChunkSize) !== null && _m !== void 0 ? _m : acc.setDataChunkSize;
+rsmax-vendors.js:         acc.tagMap = (_o = option.tagMap) !== null && _o !== void 0 ? _o : acc.tagMap;
 rsmax-vendors.js:         return acc;
 rsmax-vendors.js:     }, runtimeOptions);
 rsmax-vendors.js: }
@@ -16856,37 +17029,78 @@ rsmax-vendors.js:             if (typeof this.context.$batchedUpdates === 'funct
 rsmax-vendors.js:                 $batchedUpdates = this.context.$batchedUpdates;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             $batchedUpdates(()=>{
-rsmax-vendors.js:                 this.updateQueue.map((update, index)=>{
-rsmax-vendors.js:                     let callback = undefined;
-rsmax-vendors.js:                     if (index + 1 === this.updateQueue.length) {
-rsmax-vendors.js:                         callback = ()=>{
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('mergeSpliceData')) {
+rsmax-vendors.js:                     const splicePayload = {};
+rsmax-vendors.js:                     const setPayload = {};
+rsmax-vendors.js:                     this.updateQueue.forEach((update)=>{
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             splicePayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 'children'
+rsmax-vendors.js:                             ])] = [
+rsmax-vendors.js:                                 update.start,
+rsmax-vendors.js:                                 update.deleteCount,
+rsmax-vendors.js:                                 ...update.items
+rsmax-vendors.js:                             ];
+rsmax-vendors.js:                         } else if (update.type === 'set') {
+rsmax-vendors.js:                             setPayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 update.name
+rsmax-vendors.js:                             ])] = update.value;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                     const hasSplice = Object.keys(splicePayload).length > 0;
+rsmax-vendors.js:                     const hasSet = Object.keys(setPayload).length > 0;
+rsmax-vendors.js:                     const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+rsmax-vendors.js:                     let done = 0;
+rsmax-vendors.js:                     const doneCallback = ()=>{
+rsmax-vendors.js:                         done += 1;
+rsmax-vendors.js:                         if (done === total) {
 rsmax-vendors.js:                             nativeEffect_1.default.run();
 rsmax-vendors.js:                             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
 rsmax-vendors.js:                                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
 rsmax-vendors.js:                             }
-rsmax-vendors.js:                         };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                     if (hasSplice) {
+rsmax-vendors.js:                         this.context.$spliceData(splicePayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'splice') {
-rsmax-vendors.js:                         this.context.$spliceData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 'children'
-rsmax-vendors.js:                             ])]: [
-rsmax-vendors.js:                                 update.start,
-rsmax-vendors.js:                                 update.deleteCount,
-rsmax-vendors.js:                                 ...update.items
-rsmax-vendors.js:                             ]
-rsmax-vendors.js:                         }, callback);
+rsmax-vendors.js:                     if (hasSet) {
+rsmax-vendors.js:                         this.context.setData(setPayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'set') {
-rsmax-vendors.js:                         this.context.setData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 update.name
-rsmax-vendors.js:                             ])]: update.value
-rsmax-vendors.js:                         }, callback);
-rsmax-vendors.js:                     }
-rsmax-vendors.js:                 });
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     this.updateQueue.map((update, index)=>{
+rsmax-vendors.js:                         let callback = undefined;
+rsmax-vendors.js:                         if (index + 1 === this.updateQueue.length) {
+rsmax-vendors.js:                             callback = ()=>{
+rsmax-vendors.js:                                 nativeEffect_1.default.run();
+rsmax-vendors.js:                                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
+rsmax-vendors.js:                                 }
+rsmax-vendors.js:                             };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             this.context.$spliceData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     'children'
+rsmax-vendors.js:                                 ])]: [
+rsmax-vendors.js:                                     update.start,
+rsmax-vendors.js:                                     update.deleteCount,
+rsmax-vendors.js:                                     ...update.items
+rsmax-vendors.js:                                 ]
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'set') {
+rsmax-vendors.js:                             this.context.setData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     update.name
+rsmax-vendors.js:                                 ])]: update.value
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             });
 rsmax-vendors.js:             this.updateQueue = [];
 rsmax-vendors.js:             return;
@@ -16915,12 +17129,30 @@ rsmax-vendors.js:                 ])] = update.value;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             return acc;
 rsmax-vendors.js:         }, {});
-rsmax-vendors.js:         this.context.setData(updatePayload, ()=>{
-rsmax-vendors.js:             nativeEffect_1.default.run();
-rsmax-vendors.js:             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
-rsmax-vendors.js:                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:         const chunkSize = framework_shared_1.RuntimeOptions.get('setDataChunkSize');
+rsmax-vendors.js:         const entries = Object.entries(updatePayload);
+rsmax-vendors.js:         if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+rsmax-vendors.js:             for(let i = 0; i < entries.length; i += chunkSize){
+rsmax-vendors.js:                 const slice = entries.slice(i, i + chunkSize);
+rsmax-vendors.js:                 const payloadChunk = Object.fromEntries(slice);
+rsmax-vendors.js:                 const isLast = i + chunkSize >= entries.length;
+rsmax-vendors.js:                 this.context.setData(payloadChunk, ()=>{
+rsmax-vendors.js:                     if (isLast) {
+rsmax-vendors.js:                         nativeEffect_1.default.run();
+rsmax-vendors.js:                         /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                             console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, payloadChunk);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
-rsmax-vendors.js:         });
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             this.context.setData(updatePayload, ()=>{
+rsmax-vendors.js:                 nativeEffect_1.default.run();
+rsmax-vendors.js:                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             });
+rsmax-vendors.js:         }
 rsmax-vendors.js:         this.updateQueue = [];
 rsmax-vendors.js:     }
 rsmax-vendors.js:     clearUpdate() {
@@ -16999,7 +17231,8 @@ rsmax-vendors.js:     'onLongClick',
 rsmax-vendors.js:     'onLongTap',
 rsmax-vendors.js:     'onTouchMove',
 rsmax-vendors.js:     'onTouchStart',
-rsmax-vendors.js:     'onTouchEnd'
+rsmax-vendors.js:     'onTouchEnd',
+rsmax-vendors.js:     'onTouchCancel'
 rsmax-vendors.js: ];
 rsmax-vendors.js: 
 rsmax-vendors.js: 
@@ -17049,7 +17282,7 @@ rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn('DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, (type)=>type === inputType);
 rsmax-vendors.js: }
@@ -18134,6 +18367,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const scheduler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const VNode_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
@@ -18190,11 +18424,11 @@ rsmax-vendors.js:     getChildHostContext: ()=>{
 rsmax-vendors.js:         return childHostContext;
 rsmax-vendors.js:     },
 rsmax-vendors.js:     createInstance (type, newProps, container) {
-rsmax-vendors.js:         var _a;
+rsmax-vendors.js:         var _a, _b, _c;
 rsmax-vendors.js:         const id = (0, instanceId_1.generate)();
 rsmax-vendors.js:         const node = new VNode_1.default({
 rsmax-vendors.js:             id,
-rsmax-vendors.js:             type: (_a = DOM_TAG_MAP[type]) !== null && _a !== void 0 ? _a : type,
+rsmax-vendors.js:             type: (_c = (_b = (_a = framework_shared_1.RuntimeOptions.get('tagMap')) === null || _a === void 0 ? void 0 : _a[type]) !== null && _b !== void 0 ? _b : DOM_TAG_MAP[type]) !== null && _c !== void 0 ? _c : type,
 rsmax-vendors.js:             props: {},
 rsmax-vendors.js:             container
 rsmax-vendors.js:         });
@@ -18555,6 +18789,7 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.ReactReconcilerInst = void 0;
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -18567,10 +18802,8 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return containerFiber.child.stateNode;
 rsmax-vendors.js: }
 rsmax-vendors.js: function render(rootElement, container) {
-rsmax-vendors.js:     // Create a root Container if it doesnt exist
 rsmax-vendors.js:     if (!container._rootContainer) {
-rsmax-vendors.js:         // eslint-disable-next-line @typescript-eslint/no-empty-function
-rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, 0, null, false, null, '', ()=>{}, null);
+rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, framework_shared_1.RuntimeOptions.get('concurrent') ? 1 : 0, null, false, null, '', ()=>{}, null);
 rsmax-vendors.js:     }
 rsmax-vendors.js:     exports.ReactReconcilerInst.updateContainer(rootElement, container._rootContainer, null, ()=>{
 rsmax-vendors.js:     // ignore
@@ -21412,12 +21645,16 @@ rsmax-vendors.js:     appEvents: [],
 rsmax-vendors.js:     pageEvents: {},
 rsmax-vendors.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 rsmax-vendors.js:     navigate: {},
-rsmax-vendors.js:     mpa: false
+rsmax-vendors.js:     mpa: false,
+rsmax-vendors.js:     concurrent: false,
+rsmax-vendors.js:     mergeSpliceData: false,
+rsmax-vendors.js:     setDataChunkSize: 0,
+rsmax-vendors.js:     tagMap: {}
 rsmax-vendors.js: };
 rsmax-vendors.js: let runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: function merge(...options) {
 rsmax-vendors.js:     return options.reduce((acc, option)=>{
-rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 rsmax-vendors.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 rsmax-vendors.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 rsmax-vendors.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -21439,6 +21676,10 @@ rsmax-vendors.js:         acc.pageEvents = (_f = option.pageEvents) !== null && 
 rsmax-vendors.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 rsmax-vendors.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 rsmax-vendors.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+rsmax-vendors.js:         acc.concurrent = (_k = option.concurrent) !== null && _k !== void 0 ? _k : acc.concurrent;
+rsmax-vendors.js:         acc.mergeSpliceData = (_l = option.mergeSpliceData) !== null && _l !== void 0 ? _l : acc.mergeSpliceData;
+rsmax-vendors.js:         acc.setDataChunkSize = (_m = option.setDataChunkSize) !== null && _m !== void 0 ? _m : acc.setDataChunkSize;
+rsmax-vendors.js:         acc.tagMap = (_o = option.tagMap) !== null && _o !== void 0 ? _o : acc.tagMap;
 rsmax-vendors.js:         return acc;
 rsmax-vendors.js:     }, runtimeOptions);
 rsmax-vendors.js: }
@@ -21875,37 +22116,78 @@ rsmax-vendors.js:             if (typeof this.context.$batchedUpdates === 'funct
 rsmax-vendors.js:                 $batchedUpdates = this.context.$batchedUpdates;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             $batchedUpdates(()=>{
-rsmax-vendors.js:                 this.updateQueue.map((update, index)=>{
-rsmax-vendors.js:                     let callback = undefined;
-rsmax-vendors.js:                     if (index + 1 === this.updateQueue.length) {
-rsmax-vendors.js:                         callback = ()=>{
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('mergeSpliceData')) {
+rsmax-vendors.js:                     const splicePayload = {};
+rsmax-vendors.js:                     const setPayload = {};
+rsmax-vendors.js:                     this.updateQueue.forEach((update)=>{
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             splicePayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 'children'
+rsmax-vendors.js:                             ])] = [
+rsmax-vendors.js:                                 update.start,
+rsmax-vendors.js:                                 update.deleteCount,
+rsmax-vendors.js:                                 ...update.items
+rsmax-vendors.js:                             ];
+rsmax-vendors.js:                         } else if (update.type === 'set') {
+rsmax-vendors.js:                             setPayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 update.name
+rsmax-vendors.js:                             ])] = update.value;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                     const hasSplice = Object.keys(splicePayload).length > 0;
+rsmax-vendors.js:                     const hasSet = Object.keys(setPayload).length > 0;
+rsmax-vendors.js:                     const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+rsmax-vendors.js:                     let done = 0;
+rsmax-vendors.js:                     const doneCallback = ()=>{
+rsmax-vendors.js:                         done += 1;
+rsmax-vendors.js:                         if (done === total) {
 rsmax-vendors.js:                             nativeEffect_1.default.run();
 rsmax-vendors.js:                             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
 rsmax-vendors.js:                                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
 rsmax-vendors.js:                             }
-rsmax-vendors.js:                         };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                     if (hasSplice) {
+rsmax-vendors.js:                         this.context.$spliceData(splicePayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'splice') {
-rsmax-vendors.js:                         this.context.$spliceData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 'children'
-rsmax-vendors.js:                             ])]: [
-rsmax-vendors.js:                                 update.start,
-rsmax-vendors.js:                                 update.deleteCount,
-rsmax-vendors.js:                                 ...update.items
-rsmax-vendors.js:                             ]
-rsmax-vendors.js:                         }, callback);
+rsmax-vendors.js:                     if (hasSet) {
+rsmax-vendors.js:                         this.context.setData(setPayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'set') {
-rsmax-vendors.js:                         this.context.setData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 update.name
-rsmax-vendors.js:                             ])]: update.value
-rsmax-vendors.js:                         }, callback);
-rsmax-vendors.js:                     }
-rsmax-vendors.js:                 });
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     this.updateQueue.map((update, index)=>{
+rsmax-vendors.js:                         let callback = undefined;
+rsmax-vendors.js:                         if (index + 1 === this.updateQueue.length) {
+rsmax-vendors.js:                             callback = ()=>{
+rsmax-vendors.js:                                 nativeEffect_1.default.run();
+rsmax-vendors.js:                                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
+rsmax-vendors.js:                                 }
+rsmax-vendors.js:                             };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             this.context.$spliceData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     'children'
+rsmax-vendors.js:                                 ])]: [
+rsmax-vendors.js:                                     update.start,
+rsmax-vendors.js:                                     update.deleteCount,
+rsmax-vendors.js:                                     ...update.items
+rsmax-vendors.js:                                 ]
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'set') {
+rsmax-vendors.js:                             this.context.setData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     update.name
+rsmax-vendors.js:                                 ])]: update.value
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             });
 rsmax-vendors.js:             this.updateQueue = [];
 rsmax-vendors.js:             return;
@@ -21934,12 +22216,30 @@ rsmax-vendors.js:                 ])] = update.value;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             return acc;
 rsmax-vendors.js:         }, {});
-rsmax-vendors.js:         this.context.setData(updatePayload, ()=>{
-rsmax-vendors.js:             nativeEffect_1.default.run();
-rsmax-vendors.js:             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
-rsmax-vendors.js:                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:         const chunkSize = framework_shared_1.RuntimeOptions.get('setDataChunkSize');
+rsmax-vendors.js:         const entries = Object.entries(updatePayload);
+rsmax-vendors.js:         if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+rsmax-vendors.js:             for(let i = 0; i < entries.length; i += chunkSize){
+rsmax-vendors.js:                 const slice = entries.slice(i, i + chunkSize);
+rsmax-vendors.js:                 const payloadChunk = Object.fromEntries(slice);
+rsmax-vendors.js:                 const isLast = i + chunkSize >= entries.length;
+rsmax-vendors.js:                 this.context.setData(payloadChunk, ()=>{
+rsmax-vendors.js:                     if (isLast) {
+rsmax-vendors.js:                         nativeEffect_1.default.run();
+rsmax-vendors.js:                         /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                             console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, payloadChunk);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
-rsmax-vendors.js:         });
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             this.context.setData(updatePayload, ()=>{
+rsmax-vendors.js:                 nativeEffect_1.default.run();
+rsmax-vendors.js:                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             });
+rsmax-vendors.js:         }
 rsmax-vendors.js:         this.updateQueue = [];
 rsmax-vendors.js:     }
 rsmax-vendors.js:     clearUpdate() {
@@ -22018,7 +22318,8 @@ rsmax-vendors.js:     'onLongClick',
 rsmax-vendors.js:     'onLongTap',
 rsmax-vendors.js:     'onTouchMove',
 rsmax-vendors.js:     'onTouchStart',
-rsmax-vendors.js:     'onTouchEnd'
+rsmax-vendors.js:     'onTouchEnd',
+rsmax-vendors.js:     'onTouchCancel'
 rsmax-vendors.js: ];
 rsmax-vendors.js: 
 rsmax-vendors.js: 
@@ -22068,7 +22369,7 @@ rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn('DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, (type)=>type === inputType);
 rsmax-vendors.js: }
@@ -22658,6 +22959,13 @@ rsmax-vendors.js:             root: {
 rsmax-vendors.js:                 children: []
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
+rsmax-vendors.js:         observers: {
+rsmax-vendors.js:             '**' (nextProps) {
+rsmax-vendors.js:                 if (this.container && this.properties !== nextProps) {
+rsmax-vendors.js:                     this.render();
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
 rsmax-vendors.js:         attached: function() {
 rsmax-vendors.js:             // 在组件实例进入页面节点树时执行
 rsmax-vendors.js:             if (!this.container) {
@@ -22669,20 +22977,7 @@ rsmax-vendors.js:             // 在组件实例被从页面节点树移除时�
 rsmax-vendors.js:             this.container.clearUpdate();
 rsmax-vendors.js:             (0, render_1.default)(null, this.container);
 rsmax-vendors.js:         },
-rsmax-vendors.js:         /*
-rsmax-vendors.js:     TODO: 当前微信无对应语法支持监听props
-rsmax-vendors.js:           且必须显示设定 properties，才能在组件中使用 this.properties.name
-rsmax-vendors.js:           所以当前的实现不支持在微信端 props
-rsmax-vendors.js:     eg:
-rsmax-vendors.js:     properties: {
-rsmax-vendors.js:       name: String
-rsmax-vendors.js:     },
-rsmax-vendors.js:          didUpdate(prevProps: any, prevData: any) {
-rsmax-vendors.js:       if (prevData !== this.data) {
-rsmax-vendors.js:         return;
-rsmax-vendors.js:       }
-rsmax-vendors.js:            this.render();
-rsmax-vendors.js:     },*/ methods: {
+rsmax-vendors.js:         methods: {
 rsmax-vendors.js:             init () {
 rsmax-vendors.js:                 this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
 rsmax-vendors.js:                     component: Component,
@@ -23165,6 +23460,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const scheduler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const VNode_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
@@ -23221,11 +23517,11 @@ rsmax-vendors.js:     getChildHostContext: ()=>{
 rsmax-vendors.js:         return childHostContext;
 rsmax-vendors.js:     },
 rsmax-vendors.js:     createInstance (type, newProps, container) {
-rsmax-vendors.js:         var _a;
+rsmax-vendors.js:         var _a, _b, _c;
 rsmax-vendors.js:         const id = (0, instanceId_1.generate)();
 rsmax-vendors.js:         const node = new VNode_1.default({
 rsmax-vendors.js:             id,
-rsmax-vendors.js:             type: (_a = DOM_TAG_MAP[type]) !== null && _a !== void 0 ? _a : type,
+rsmax-vendors.js:             type: (_c = (_b = (_a = framework_shared_1.RuntimeOptions.get('tagMap')) === null || _a === void 0 ? void 0 : _a[type]) !== null && _b !== void 0 ? _b : DOM_TAG_MAP[type]) !== null && _c !== void 0 ? _c : type,
 rsmax-vendors.js:             props: {},
 rsmax-vendors.js:             container
 rsmax-vendors.js:         });
@@ -23586,6 +23882,7 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.ReactReconcilerInst = void 0;
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -23598,10 +23895,8 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return containerFiber.child.stateNode;
 rsmax-vendors.js: }
 rsmax-vendors.js: function render(rootElement, container) {
-rsmax-vendors.js:     // Create a root Container if it doesnt exist
 rsmax-vendors.js:     if (!container._rootContainer) {
-rsmax-vendors.js:         // eslint-disable-next-line @typescript-eslint/no-empty-function
-rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, 0, null, false, null, '', ()=>{}, null);
+rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, framework_shared_1.RuntimeOptions.get('concurrent') ? 1 : 0, null, false, null, '', ()=>{}, null);
 rsmax-vendors.js:     }
 rsmax-vendors.js:     exports.ReactReconcilerInst.updateContainer(rootElement, container._rootContainer, null, ()=>{
 rsmax-vendors.js:     // ignore

@@ -1967,12 +1967,16 @@ pages/index.js:     appEvents: [],
 pages/index.js:     pageEvents: {},
 pages/index.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 pages/index.js:     navigate: {},
-pages/index.js:     mpa: false
+pages/index.js:     mpa: false,
+pages/index.js:     concurrent: false,
+pages/index.js:     mergeSpliceData: false,
+pages/index.js:     setDataChunkSize: 0,
+pages/index.js:     tagMap: {}
 pages/index.js: };
 pages/index.js: let runtimeOptions = defaultRuntimeOptions;
 pages/index.js: function merge(...options) {
 pages/index.js:     return options.reduce((acc, option)=>{
-pages/index.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+pages/index.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 pages/index.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 pages/index.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 pages/index.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -1994,6 +1998,10 @@ pages/index.js:         acc.pageEvents = (_f = option.pageEvents) !== null && _f
 pages/index.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 pages/index.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 pages/index.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+pages/index.js:         acc.concurrent = (_k = option.concurrent) !== null && _k !== void 0 ? _k : acc.concurrent;
+pages/index.js:         acc.mergeSpliceData = (_l = option.mergeSpliceData) !== null && _l !== void 0 ? _l : acc.mergeSpliceData;
+pages/index.js:         acc.setDataChunkSize = (_m = option.setDataChunkSize) !== null && _m !== void 0 ? _m : acc.setDataChunkSize;
+pages/index.js:         acc.tagMap = (_o = option.tagMap) !== null && _o !== void 0 ? _o : acc.tagMap;
 pages/index.js:         return acc;
 pages/index.js:     }, runtimeOptions);
 pages/index.js: }
@@ -2430,37 +2438,78 @@ pages/index.js:             if (typeof this.context.$batchedUpdates === 'functio
 pages/index.js:                 $batchedUpdates = this.context.$batchedUpdates;
 pages/index.js:             }
 pages/index.js:             $batchedUpdates(()=>{
-pages/index.js:                 this.updateQueue.map((update, index)=>{
-pages/index.js:                     let callback = undefined;
-pages/index.js:                     if (index + 1 === this.updateQueue.length) {
-pages/index.js:                         callback = ()=>{
+pages/index.js:                 if (framework_shared_1.RuntimeOptions.get('mergeSpliceData')) {
+pages/index.js:                     const splicePayload = {};
+pages/index.js:                     const setPayload = {};
+pages/index.js:                     this.updateQueue.forEach((update)=>{
+pages/index.js:                         if (update.type === 'splice') {
+pages/index.js:                             splicePayload[this.normalizeUpdatePath([
+pages/index.js:                                 ...update.path,
+pages/index.js:                                 'children'
+pages/index.js:                             ])] = [
+pages/index.js:                                 update.start,
+pages/index.js:                                 update.deleteCount,
+pages/index.js:                                 ...update.items
+pages/index.js:                             ];
+pages/index.js:                         } else if (update.type === 'set') {
+pages/index.js:                             setPayload[this.normalizeUpdatePath([
+pages/index.js:                                 ...update.path,
+pages/index.js:                                 update.name
+pages/index.js:                             ])] = update.value;
+pages/index.js:                         }
+pages/index.js:                     });
+pages/index.js:                     const hasSplice = Object.keys(splicePayload).length > 0;
+pages/index.js:                     const hasSet = Object.keys(setPayload).length > 0;
+pages/index.js:                     const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+pages/index.js:                     let done = 0;
+pages/index.js:                     const doneCallback = ()=>{
+pages/index.js:                         done += 1;
+pages/index.js:                         if (done === total) {
 pages/index.js:                             nativeEffect_1.default.run();
 pages/index.js:                             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
 pages/index.js:                                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
 pages/index.js:                             }
-pages/index.js:                         };
+pages/index.js:                         }
+pages/index.js:                     };
+pages/index.js:                     if (hasSplice) {
+pages/index.js:                         this.context.$spliceData(splicePayload, doneCallback);
 pages/index.js:                     }
-pages/index.js:                     if (update.type === 'splice') {
-pages/index.js:                         this.context.$spliceData({
-pages/index.js:                             [this.normalizeUpdatePath([
-pages/index.js:                                 ...update.path,
-pages/index.js:                                 'children'
-pages/index.js:                             ])]: [
-pages/index.js:                                 update.start,
-pages/index.js:                                 update.deleteCount,
-pages/index.js:                                 ...update.items
-pages/index.js:                             ]
-pages/index.js:                         }, callback);
+pages/index.js:                     if (hasSet) {
+pages/index.js:                         this.context.setData(setPayload, doneCallback);
 pages/index.js:                     }
-pages/index.js:                     if (update.type === 'set') {
-pages/index.js:                         this.context.setData({
-pages/index.js:                             [this.normalizeUpdatePath([
-pages/index.js:                                 ...update.path,
-pages/index.js:                                 update.name
-pages/index.js:                             ])]: update.value
-pages/index.js:                         }, callback);
-pages/index.js:                     }
-pages/index.js:                 });
+pages/index.js:                 } else {
+pages/index.js:                     this.updateQueue.map((update, index)=>{
+pages/index.js:                         let callback = undefined;
+pages/index.js:                         if (index + 1 === this.updateQueue.length) {
+pages/index.js:                             callback = ()=>{
+pages/index.js:                                 nativeEffect_1.default.run();
+pages/index.js:                                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+pages/index.js:                                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
+pages/index.js:                                 }
+pages/index.js:                             };
+pages/index.js:                         }
+pages/index.js:                         if (update.type === 'splice') {
+pages/index.js:                             this.context.$spliceData({
+pages/index.js:                                 [this.normalizeUpdatePath([
+pages/index.js:                                     ...update.path,
+pages/index.js:                                     'children'
+pages/index.js:                                 ])]: [
+pages/index.js:                                     update.start,
+pages/index.js:                                     update.deleteCount,
+pages/index.js:                                     ...update.items
+pages/index.js:                                 ]
+pages/index.js:                             }, callback);
+pages/index.js:                         }
+pages/index.js:                         if (update.type === 'set') {
+pages/index.js:                             this.context.setData({
+pages/index.js:                                 [this.normalizeUpdatePath([
+pages/index.js:                                     ...update.path,
+pages/index.js:                                     update.name
+pages/index.js:                                 ])]: update.value
+pages/index.js:                             }, callback);
+pages/index.js:                         }
+pages/index.js:                     });
+pages/index.js:                 }
 pages/index.js:             });
 pages/index.js:             this.updateQueue = [];
 pages/index.js:             return;
@@ -2489,12 +2538,30 @@ pages/index.js:                 ])] = update.value;
 pages/index.js:             }
 pages/index.js:             return acc;
 pages/index.js:         }, {});
-pages/index.js:         this.context.setData(updatePayload, ()=>{
-pages/index.js:             nativeEffect_1.default.run();
-pages/index.js:             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
-pages/index.js:                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+pages/index.js:         const chunkSize = framework_shared_1.RuntimeOptions.get('setDataChunkSize');
+pages/index.js:         const entries = Object.entries(updatePayload);
+pages/index.js:         if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+pages/index.js:             for(let i = 0; i < entries.length; i += chunkSize){
+pages/index.js:                 const slice = entries.slice(i, i + chunkSize);
+pages/index.js:                 const payloadChunk = Object.fromEntries(slice);
+pages/index.js:                 const isLast = i + chunkSize >= entries.length;
+pages/index.js:                 this.context.setData(payloadChunk, ()=>{
+pages/index.js:                     if (isLast) {
+pages/index.js:                         nativeEffect_1.default.run();
+pages/index.js:                         /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+pages/index.js:                             console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, payloadChunk);
+pages/index.js:                         }
+pages/index.js:                     }
+pages/index.js:                 });
 pages/index.js:             }
-pages/index.js:         });
+pages/index.js:         } else {
+pages/index.js:             this.context.setData(updatePayload, ()=>{
+pages/index.js:                 nativeEffect_1.default.run();
+pages/index.js:                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+pages/index.js:                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+pages/index.js:                 }
+pages/index.js:             });
+pages/index.js:         }
 pages/index.js:         this.updateQueue = [];
 pages/index.js:     }
 pages/index.js:     clearUpdate() {
@@ -2573,7 +2640,8 @@ pages/index.js:     'onLongClick',
 pages/index.js:     'onLongTap',
 pages/index.js:     'onTouchMove',
 pages/index.js:     'onTouchStart',
-pages/index.js:     'onTouchEnd'
+pages/index.js:     'onTouchEnd',
+pages/index.js:     'onTouchCancel'
 pages/index.js: ];
 pages/index.js: 
 pages/index.js: 
@@ -2623,7 +2691,7 @@ pages/index.js: const constants_1 = __webpack_require__(<ID>);
 pages/index.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 pages/index.js: function isSyntheticType(inputType) {
 pages/index.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-pages/index.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+pages/index.js:         console.warn('DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 pages/index.js:     }
 pages/index.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, (type)=>type === inputType);
 pages/index.js: }
@@ -3708,6 +3776,7 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const scheduler_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: const VNode_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: const constants_1 = __webpack_require__(<ID>);
@@ -3764,11 +3833,11 @@ pages/index.js:     getChildHostContext: ()=>{
 pages/index.js:         return childHostContext;
 pages/index.js:     },
 pages/index.js:     createInstance (type, newProps, container) {
-pages/index.js:         var _a;
+pages/index.js:         var _a, _b, _c;
 pages/index.js:         const id = (0, instanceId_1.generate)();
 pages/index.js:         const node = new VNode_1.default({
 pages/index.js:             id,
-pages/index.js:             type: (_a = DOM_TAG_MAP[type]) !== null && _a !== void 0 ? _a : type,
+pages/index.js:             type: (_c = (_b = (_a = framework_shared_1.RuntimeOptions.get('tagMap')) === null || _a === void 0 ? void 0 : _a[type]) !== null && _b !== void 0 ? _b : DOM_TAG_MAP[type]) !== null && _c !== void 0 ? _c : type,
 pages/index.js:             props: {},
 pages/index.js:             container
 pages/index.js:         });
@@ -4129,6 +4198,7 @@ pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
 pages/index.js: exports.ReactReconcilerInst = void 0;
+pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -4141,10 +4211,8 @@ pages/index.js:     }
 pages/index.js:     return containerFiber.child.stateNode;
 pages/index.js: }
 pages/index.js: function render(rootElement, container) {
-pages/index.js:     // Create a root Container if it doesnt exist
 pages/index.js:     if (!container._rootContainer) {
-pages/index.js:         // eslint-disable-next-line @typescript-eslint/no-empty-function
-pages/index.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, 0, null, false, null, '', ()=>{}, null);
+pages/index.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, framework_shared_1.RuntimeOptions.get('concurrent') ? 1 : 0, null, false, null, '', ()=>{}, null);
 pages/index.js:     }
 pages/index.js:     exports.ReactReconcilerInst.updateContainer(rootElement, container._rootContainer, null, ()=>{
 pages/index.js:     // ignore

@@ -876,714 +876,26 @@ file: pages/index.js
 -------------------------------------------------------------------------------
 pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
+pages/index.js: "use strict";
 pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
-pages/index.js: 1074: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index.js: "use strict";
-pages/index.js: __webpack_require__.r(__webpack_exports__);
-pages/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index.js:   _: () => (_async_to_generator)
-pages/index.js: });
-pages/index.js: function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-pages/index.js:     try {
-pages/index.js:         var info = gen[key](arg);
-pages/index.js:         var value = info.value;
-pages/index.js:     } catch (error) {
-pages/index.js:         reject(error);
-pages/index.js:         return;
-pages/index.js:     }
-pages/index.js:     if (info.done) resolve(value);
-pages/index.js:     else Promise.resolve(value).then(_next, _throw);
-pages/index.js: }
-pages/index.js: function _async_to_generator(fn) {
-pages/index.js:     return function() {
-pages/index.js:         var self = this, args = arguments;
-pages/index.js:         return new Promise(function(resolve, reject) {
-pages/index.js:             var gen = fn.apply(self, args);
-pages/index.js:             function _next(value) {
-pages/index.js:                 asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-pages/index.js:             }
-pages/index.js:             function _throw(err) {
-pages/index.js:                 asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-pages/index.js:             }
-pages/index.js:             _next(undefined);
-pages/index.js:         });
-pages/index.js:     };
-pages/index.js: }
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: }),
-pages/index.js: 9304: (function (module, __unused_webpack_exports, __webpack_require__) {
-pages/index.js: /* provided dependency */ var regeneratorRuntime = __webpack_require__(<ID>);
-pages/index.js: /**
-pages/index.js:  * Copyright (c) 2014-present, Facebook, Inc.
-pages/index.js:  *
-pages/index.js:  * This source code is licensed under the MIT license found in the
-pages/index.js:  * LICENSE file in the root directory of this source tree.
-pages/index.js:  */ var runtime = function(exports) {
-pages/index.js:     "use strict";
-pages/index.js:     var Op = Object.prototype;
-pages/index.js:     var hasOwn = Op.hasOwnProperty;
-pages/index.js:     var defineProperty = Object.defineProperty || function(obj, key, desc) {
-pages/index.js:         obj[key] = desc.value;
-pages/index.js:     };
-pages/index.js:     var undefined; // More compressible than void 0.
-pages/index.js:     var $Symbol = typeof Symbol === "function" ? Symbol : {};
-pages/index.js:     var iteratorSymbol = $Symbol.iterator || "@@iterator";
-pages/index.js:     var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-pages/index.js:     var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-pages/index.js:     function define(obj, key, value) {
-pages/index.js:         Object.defineProperty(obj, key, {
-pages/index.js:             value: value,
-pages/index.js:             enumerable: true,
-pages/index.js:             configurable: true,
-pages/index.js:             writable: true
-pages/index.js:         });
-pages/index.js:         return obj[key];
-pages/index.js:     }
-pages/index.js:     try {
-pages/index.js:         // IE 8 has a broken Object.defineProperty that only works on DOM objects.
-pages/index.js:         define({}, "");
-pages/index.js:     } catch (err) {
-pages/index.js:         define = function(obj, key, value) {
-pages/index.js:             return obj[key] = value;
-pages/index.js:         };
-pages/index.js:     }
-pages/index.js:     function wrap(innerFn, outerFn, self, tryLocsList) {
-pages/index.js:         // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-pages/index.js:         var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-pages/index.js:         var generator = Object.create(protoGenerator.prototype);
-pages/index.js:         var context = new Context(tryLocsList || []);
-pages/index.js:         // The ._invoke method unifies the implementations of the .next,
-pages/index.js:         // .throw, and .return methods.
-pages/index.js:         defineProperty(generator, "_invoke", {
-pages/index.js:             value: makeInvokeMethod(innerFn, self, context)
-pages/index.js:         });
-pages/index.js:         return generator;
-pages/index.js:     }
-pages/index.js:     exports.wrap = wrap;
-pages/index.js:     // Try/catch helper to minimize deoptimizations. Returns a completion
-pages/index.js:     // record like context.tryEntries[i].completion. This interface could
-pages/index.js:     // have been (and was previously) designed to take a closure to be
-pages/index.js:     // invoked without arguments, but in all the cases we care about we
-pages/index.js:     // already have an existing method we want to call, so there's no need
-pages/index.js:     // to create a new function object. We can even get away with assuming
-pages/index.js:     // the method takes exactly one argument, since that happens to be true
-pages/index.js:     // in every case, so we don't have to touch the arguments object. The
-pages/index.js:     // only additional allocation required is the completion record, which
-pages/index.js:     // has a stable shape and so hopefully should be cheap to allocate.
-pages/index.js:     function tryCatch(fn, obj, arg) {
-pages/index.js:         try {
-pages/index.js:             return {
-pages/index.js:                 type: "normal",
-pages/index.js:                 arg: fn.call(obj, arg)
-pages/index.js:             };
-pages/index.js:         } catch (err) {
-pages/index.js:             return {
-pages/index.js:                 type: "throw",
-pages/index.js:                 arg: err
-pages/index.js:             };
-pages/index.js:         }
-pages/index.js:     }
-pages/index.js:     var GenStateSuspendedStart = "suspendedStart";
-pages/index.js:     var GenStateSuspendedYield = "suspendedYield";
-pages/index.js:     var GenStateExecuting = "executing";
-pages/index.js:     var GenStateCompleted = "completed";
-pages/index.js:     // Returning this object from the innerFn has the same effect as
-pages/index.js:     // breaking out of the dispatch switch statement.
-pages/index.js:     var ContinueSentinel = {};
-pages/index.js:     // Dummy constructor functions that we use as the .constructor and
-pages/index.js:     // .constructor.prototype properties for functions that return Generator
-pages/index.js:     // objects. For full spec compliance, you may wish to configure your
-pages/index.js:     // minifier not to mangle the names of these two functions.
-pages/index.js:     function Generator() {}
-pages/index.js:     function GeneratorFunction() {}
-pages/index.js:     function GeneratorFunctionPrototype() {}
-pages/index.js:     // This is a polyfill for %IteratorPrototype% for environments that
-pages/index.js:     // don't natively support it.
-pages/index.js:     var IteratorPrototype = {};
-pages/index.js:     define(IteratorPrototype, iteratorSymbol, function() {
-pages/index.js:         return this;
-pages/index.js:     });
-pages/index.js:     var getProto = Object.getPrototypeOf;
-pages/index.js:     var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-pages/index.js:     if (NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-pages/index.js:         // This environment has a native %IteratorPrototype%; use it instead
-pages/index.js:         // of the polyfill.
-pages/index.js:         IteratorPrototype = NativeIteratorPrototype;
-pages/index.js:     }
-pages/index.js:     var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
-pages/index.js:     GeneratorFunction.prototype = GeneratorFunctionPrototype;
-pages/index.js:     defineProperty(Gp, "constructor", {
-pages/index.js:         value: GeneratorFunctionPrototype,
-pages/index.js:         configurable: true
-pages/index.js:     });
-pages/index.js:     defineProperty(GeneratorFunctionPrototype, "constructor", {
-pages/index.js:         value: GeneratorFunction,
-pages/index.js:         configurable: true
-pages/index.js:     });
-pages/index.js:     GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction");
-pages/index.js:     // Helper for defining the .next, .throw, and .return methods of the
-pages/index.js:     // Iterator interface in terms of a single ._invoke method.
-pages/index.js:     function defineIteratorMethods(prototype) {
-pages/index.js:         [
-pages/index.js:             "next",
-pages/index.js:             "throw",
-pages/index.js:             "return"
-pages/index.js:         ].forEach(function(method) {
-pages/index.js:             define(prototype, method, function(arg) {
-pages/index.js:                 return this._invoke(method, arg);
-pages/index.js:             });
-pages/index.js:         });
-pages/index.js:     }
-pages/index.js:     exports.isGeneratorFunction = function(genFun) {
-pages/index.js:         var ctor = typeof genFun === "function" && genFun.constructor;
-pages/index.js:         return ctor ? ctor === GeneratorFunction || // For the native GeneratorFunction constructor, the best we can
-pages/index.js:         // do is to check its .name property.
-pages/index.js:         (ctor.displayName || ctor.name) === "GeneratorFunction" : false;
-pages/index.js:     };
-pages/index.js:     exports.mark = function(genFun) {
-pages/index.js:         if (Object.setPrototypeOf) {
-pages/index.js:             Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-pages/index.js:         } else {
-pages/index.js:             genFun.__proto__ = GeneratorFunctionPrototype;
-pages/index.js:             define(genFun, toStringTagSymbol, "GeneratorFunction");
-pages/index.js:         }
-pages/index.js:         genFun.prototype = Object.create(Gp);
-pages/index.js:         return genFun;
-pages/index.js:     };
-pages/index.js:     // Within the body of any async function, \`await x\` is transformed to
-pages/index.js:     // \`yield regeneratorRuntime.awrap(x)\`, so that the runtime can test
-pages/index.js:     // \`hasOwn.call(value, "__await")\` to determine if the yielded value is
-pages/index.js:     // meant to be awaited.
-pages/index.js:     exports.awrap = function(arg) {
-pages/index.js:         return {
-pages/index.js:             __await: arg
-pages/index.js:         };
-pages/index.js:     };
-pages/index.js:     function AsyncIterator(generator, PromiseImpl) {
-pages/index.js:         function invoke(method, arg, resolve, reject) {
-pages/index.js:             var record = tryCatch(generator[method], generator, arg);
-pages/index.js:             if (record.type === "throw") {
-pages/index.js:                 reject(record.arg);
-pages/index.js:             } else {
-pages/index.js:                 var result = record.arg;
-pages/index.js:                 var value = result.value;
-pages/index.js:                 if (value && typeof value === "object" && hasOwn.call(value, "__await")) {
-pages/index.js:                     return PromiseImpl.resolve(value.__await).then(function(value) {
-pages/index.js:                         invoke("next", value, resolve, reject);
-pages/index.js:                     }, function(err) {
-pages/index.js:                         invoke("throw", err, resolve, reject);
-pages/index.js:                     });
-pages/index.js:                 }
-pages/index.js:                 return PromiseImpl.resolve(value).then(function(unwrapped) {
-pages/index.js:                     // When a yielded Promise is resolved, its final value becomes
-pages/index.js:                     // the .value of the Promise<{value,done}> result for the
-pages/index.js:                     // current iteration.
-pages/index.js:                     result.value = unwrapped;
-pages/index.js:                     resolve(result);
-pages/index.js:                 }, function(error) {
-pages/index.js:                     // If a rejected Promise was yielded, throw the rejection back
-pages/index.js:                     // into the async generator function so it can be handled there.
-pages/index.js:                     return invoke("throw", error, resolve, reject);
-pages/index.js:                 });
-pages/index.js:             }
-pages/index.js:         }
-pages/index.js:         var previousPromise;
-pages/index.js:         function enqueue(method, arg) {
-pages/index.js:             function callInvokeWithMethodAndArg() {
-pages/index.js:                 return new PromiseImpl(function(resolve, reject) {
-pages/index.js:                     invoke(method, arg, resolve, reject);
-pages/index.js:                 });
-pages/index.js:             }
-pages/index.js:             return previousPromise = // If enqueue has been called before, then we want to wait until
-pages/index.js:             // all previous Promises have been resolved before calling invoke,
-pages/index.js:             // so that results are always delivered in the correct order. If
-pages/index.js:             // enqueue has not been called before, then it is important to
-pages/index.js:             // call invoke immediately, without waiting on a callback to fire,
-pages/index.js:             // so that the async generator function has the opportunity to do
-pages/index.js:             // any necessary setup in a predictable way. This predictability
-pages/index.js:             // is why the Promise constructor synchronously invokes its
-pages/index.js:             // executor callback, and why async functions synchronously
-pages/index.js:             // execute code before the first await. Since we implement simple
-pages/index.js:             // async functions in terms of async generators, it is especially
-pages/index.js:             // important to get this right, even though it requires care.
-pages/index.js:             previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, // Avoid propagating failures to Promises returned by later
-pages/index.js:             // invocations of the iterator.
-pages/index.js:             callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
-pages/index.js:         }
-pages/index.js:         // Define the unified helper method that is used to implement .next,
-pages/index.js:         // .throw, and .return (see defineIteratorMethods).
-pages/index.js:         defineProperty(this, "_invoke", {
-pages/index.js:             value: enqueue
-pages/index.js:         });
-pages/index.js:     }
-pages/index.js:     defineIteratorMethods(AsyncIterator.prototype);
-pages/index.js:     define(AsyncIterator.prototype, asyncIteratorSymbol, function() {
-pages/index.js:         return this;
-pages/index.js:     });
-pages/index.js:     exports.AsyncIterator = AsyncIterator;
-pages/index.js:     // Note that simple async functions are implemented on top of
-pages/index.js:     // AsyncIterator objects; they just return a Promise for the value of
-pages/index.js:     // the final result produced by the iterator.
-pages/index.js:     exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
-pages/index.js:         if (PromiseImpl === void 0) PromiseImpl = Promise;
-pages/index.js:         var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl);
-pages/index.js:         return exports.isGeneratorFunction(outerFn) ? iter // If outerFn is a generator, return the full iterator.
-pages/index.js:          : iter.next().then(function(result) {
-pages/index.js:             return result.done ? result.value : iter.next();
-pages/index.js:         });
-pages/index.js:     };
-pages/index.js:     function makeInvokeMethod(innerFn, self, context) {
-pages/index.js:         var state = GenStateSuspendedStart;
-pages/index.js:         return function invoke(method, arg) {
-pages/index.js:             if (state === GenStateExecuting) {
-pages/index.js:                 throw new Error("Generator is already running");
-pages/index.js:             }
-pages/index.js:             if (state === GenStateCompleted) {
-pages/index.js:                 if (method === "throw") {
-pages/index.js:                     throw arg;
-pages/index.js:                 }
-pages/index.js:                 // Be forgiving, per GeneratorResume behavior specified since ES2015:
-pages/index.js:                 // ES2015 spec, step 3: https://262.ecma-international.org/6.0/#sec-generatorresume
-pages/index.js:                 // Latest spec, step 2: https://tc39.es/ecma262/#sec-generatorresume
-pages/index.js:                 return doneResult();
-pages/index.js:             }
-pages/index.js:             context.method = method;
-pages/index.js:             context.arg = arg;
-pages/index.js:             while(true){
-pages/index.js:                 var delegate = context.delegate;
-pages/index.js:                 if (delegate) {
-pages/index.js:                     var delegateResult = maybeInvokeDelegate(delegate, context);
-pages/index.js:                     if (delegateResult) {
-pages/index.js:                         if (delegateResult === ContinueSentinel) continue;
-pages/index.js:                         return delegateResult;
-pages/index.js:                     }
-pages/index.js:                 }
-pages/index.js:                 if (context.method === "next") {
-pages/index.js:                     // Setting context._sent for legacy support of Babel's
-pages/index.js:                     // function.sent implementation.
-pages/index.js:                     context.sent = context._sent = context.arg;
-pages/index.js:                 } else if (context.method === "throw") {
-pages/index.js:                     if (state === GenStateSuspendedStart) {
-pages/index.js:                         state = GenStateCompleted;
-pages/index.js:                         throw context.arg;
-pages/index.js:                     }
-pages/index.js:                     context.dispatchException(context.arg);
-pages/index.js:                 } else if (context.method === "return") {
-pages/index.js:                     context.abrupt("return", context.arg);
-pages/index.js:                 }
-pages/index.js:                 state = GenStateExecuting;
-pages/index.js:                 var record = tryCatch(innerFn, self, context);
-pages/index.js:                 if (record.type === "normal") {
-pages/index.js:                     // If an exception is thrown from innerFn, we leave state ===
-pages/index.js:                     // GenStateExecuting and loop back for another invocation.
-pages/index.js:                     state = context.done ? GenStateCompleted : GenStateSuspendedYield;
-pages/index.js:                     if (record.arg === ContinueSentinel) {
-pages/index.js:                         continue;
-pages/index.js:                     }
-pages/index.js:                     return {
-pages/index.js:                         value: record.arg,
-pages/index.js:                         done: context.done
-pages/index.js:                     };
-pages/index.js:                 } else if (record.type === "throw") {
-pages/index.js:                     state = GenStateCompleted;
-pages/index.js:                     // Dispatch the exception by looping back around to the
-pages/index.js:                     // context.dispatchException(context.arg) call above.
-pages/index.js:                     context.method = "throw";
-pages/index.js:                     context.arg = record.arg;
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:         };
-pages/index.js:     }
-pages/index.js:     // Call delegate.iterator[context.method](context.arg) and handle the
-pages/index.js:     // result, either by returning a { value, done } result from the
-pages/index.js:     // delegate iterator, or by modifying context.method and context.arg,
-pages/index.js:     // setting context.delegate to null, and returning the ContinueSentinel.
-pages/index.js:     function maybeInvokeDelegate(delegate, context) {
-pages/index.js:         var methodName = context.method;
-pages/index.js:         var method = delegate.iterator[methodName];
-pages/index.js:         if (method === undefined) {
-pages/index.js:             // A .throw or .return when the delegate iterator has no .throw
-pages/index.js:             // method, or a missing .next method, always terminate the
-pages/index.js:             // yield* loop.
-pages/index.js:             context.delegate = null;
-pages/index.js:             // Note: ["return"] must be used for ES3 parsing compatibility.
-pages/index.js:             if (methodName === "throw" && delegate.iterator["return"]) {
-pages/index.js:                 // If the delegate iterator has a return method, give it a
-pages/index.js:                 // chance to clean up.
-pages/index.js:                 context.method = "return";
-pages/index.js:                 context.arg = undefined;
-pages/index.js:                 maybeInvokeDelegate(delegate, context);
-pages/index.js:                 if (context.method === "throw") {
-pages/index.js:                     // If maybeInvokeDelegate(context) changed context.method from
-pages/index.js:                     // "return" to "throw", let that override the TypeError below.
-pages/index.js:                     return ContinueSentinel;
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:             if (methodName !== "return") {
-pages/index.js:                 context.method = "throw";
-pages/index.js:                 context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method");
-pages/index.js:             }
-pages/index.js:             return ContinueSentinel;
-pages/index.js:         }
-pages/index.js:         var record = tryCatch(method, delegate.iterator, context.arg);
-pages/index.js:         if (record.type === "throw") {
-pages/index.js:             context.method = "throw";
-pages/index.js:             context.arg = record.arg;
-pages/index.js:             context.delegate = null;
-pages/index.js:             return ContinueSentinel;
-pages/index.js:         }
-pages/index.js:         var info = record.arg;
-pages/index.js:         if (!info) {
-pages/index.js:             context.method = "throw";
-pages/index.js:             context.arg = new TypeError("iterator result is not an object");
-pages/index.js:             context.delegate = null;
-pages/index.js:             return ContinueSentinel;
-pages/index.js:         }
-pages/index.js:         if (info.done) {
-pages/index.js:             // Assign the result of the finished delegate to the temporary
-pages/index.js:             // variable specified by delegate.resultName (see delegateYield).
-pages/index.js:             context[delegate.resultName] = info.value;
-pages/index.js:             // Resume execution at the desired location (see delegateYield).
-pages/index.js:             context.next = delegate.nextLoc;
-pages/index.js:             // If context.method was "throw" but the delegate handled the
-pages/index.js:             // exception, let the outer generator proceed normally. If
-pages/index.js:             // context.method was "next", forget context.arg since it has been
-pages/index.js:             // "consumed" by the delegate iterator. If context.method was
-pages/index.js:             // "return", allow the original .return call to continue in the
-pages/index.js:             // outer generator.
-pages/index.js:             if (context.method !== "return") {
-pages/index.js:                 context.method = "next";
-pages/index.js:                 context.arg = undefined;
-pages/index.js:             }
-pages/index.js:         } else {
-pages/index.js:             // Re-yield the result returned by the delegate method.
-pages/index.js:             return info;
-pages/index.js:         }
-pages/index.js:         // The delegate iterator is finished, so forget it and continue with
-pages/index.js:         // the outer generator.
-pages/index.js:         context.delegate = null;
-pages/index.js:         return ContinueSentinel;
-pages/index.js:     }
-pages/index.js:     // Define Generator.prototype.{next,throw,return} in terms of the
-pages/index.js:     // unified ._invoke helper method.
-pages/index.js:     defineIteratorMethods(Gp);
-pages/index.js:     define(Gp, toStringTagSymbol, "Generator");
-pages/index.js:     // A Generator should always return itself as the iterator object when the
-pages/index.js:     // @@iterator function is called on it. Some browsers' implementations of the
-pages/index.js:     // iterator prototype chain incorrectly implement this, causing the Generator
-pages/index.js:     // object to not be returned from this call. This ensures that doesn't happen.
-pages/index.js:     // See https://github.com/facebook/regenerator/issues/274 for more details.
-pages/index.js:     define(Gp, iteratorSymbol, function() {
-pages/index.js:         return this;
-pages/index.js:     });
-pages/index.js:     define(Gp, "toString", function() {
-pages/index.js:         return "[object Generator]";
-pages/index.js:     });
-pages/index.js:     function pushTryEntry(locs) {
-pages/index.js:         var entry = {
-pages/index.js:             tryLoc: locs[<ID>]
-pages/index.js:         };
-pages/index.js:         if (1 in locs) {
-pages/index.js:             entry.catchLoc = locs[<ID>];
-pages/index.js:         }
-pages/index.js:         if (2 in locs) {
-pages/index.js:             entry.finallyLoc = locs[<ID>];
-pages/index.js:             entry.afterLoc = locs[<ID>];
-pages/index.js:         }
-pages/index.js:         this.tryEntries.push(entry);
-pages/index.js:     }
-pages/index.js:     function resetTryEntry(entry) {
-pages/index.js:         var record = entry.completion || {};
-pages/index.js:         record.type = "normal";
-pages/index.js:         delete record.arg;
-pages/index.js:         entry.completion = record;
-pages/index.js:     }
-pages/index.js:     function Context(tryLocsList) {
-pages/index.js:         // The root entry object (effectively a try statement without a catch
-pages/index.js:         // or a finally block) gives us a place to store values thrown from
-pages/index.js:         // locations where there is no enclosing try statement.
-pages/index.js:         this.tryEntries = [
-pages/index.js:             {
-pages/index.js:                 tryLoc: "root"
-pages/index.js:             }
-pages/index.js:         ];
-pages/index.js:         tryLocsList.forEach(pushTryEntry, this);
-pages/index.js:         this.reset(true);
-pages/index.js:     }
-pages/index.js:     exports.keys = function(val) {
-pages/index.js:         var object = Object(val);
-pages/index.js:         var keys = [];
-pages/index.js:         for(var key in object){
-pages/index.js:             keys.push(key);
-pages/index.js:         }
-pages/index.js:         keys.reverse();
-pages/index.js:         // Rather than returning an object with a next method, we keep
-pages/index.js:         // things simple and return the next function itself.
-pages/index.js:         return function next() {
-pages/index.js:             while(keys.length){
-pages/index.js:                 var key = keys.pop();
-pages/index.js:                 if (key in object) {
-pages/index.js:                     next.value = key;
-pages/index.js:                     next.done = false;
-pages/index.js:                     return next;
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:             // To avoid creating an additional object, we just hang the .value
-pages/index.js:             // and .done properties off the next function object itself. This
-pages/index.js:             // also ensures that the minifier will not anonymize the function.
-pages/index.js:             next.done = true;
-pages/index.js:             return next;
-pages/index.js:         };
-pages/index.js:     };
-pages/index.js:     function values(iterable) {
-pages/index.js:         if (iterable != null) {
-pages/index.js:             var iteratorMethod = iterable[iteratorSymbol];
-pages/index.js:             if (iteratorMethod) {
-pages/index.js:                 return iteratorMethod.call(iterable);
-pages/index.js:             }
-pages/index.js:             if (typeof iterable.next === "function") {
-pages/index.js:                 return iterable;
-pages/index.js:             }
-pages/index.js:             if (!isNaN(iterable.length)) {
-pages/index.js:                 var i = -1, next = function next() {
-pages/index.js:                     while(++i < iterable.length){
-pages/index.js:                         if (hasOwn.call(iterable, i)) {
-pages/index.js:                             next.value = iterable[i];
-pages/index.js:                             next.done = false;
-pages/index.js:                             return next;
-pages/index.js:                         }
-pages/index.js:                     }
-pages/index.js:                     next.value = undefined;
-pages/index.js:                     next.done = true;
-pages/index.js:                     return next;
-pages/index.js:                 };
-pages/index.js:                 return next.next = next;
-pages/index.js:             }
-pages/index.js:         }
-pages/index.js:         throw new TypeError(typeof iterable + " is not iterable");
-pages/index.js:     }
-pages/index.js:     exports.values = values;
-pages/index.js:     function doneResult() {
-pages/index.js:         return {
-pages/index.js:             value: undefined,
-pages/index.js:             done: true
-pages/index.js:         };
-pages/index.js:     }
-pages/index.js:     Context.prototype = {
-pages/index.js:         constructor: Context,
-pages/index.js:         reset: function(skipTempReset) {
-pages/index.js:             this.prev = 0;
-pages/index.js:             this.next = 0;
-pages/index.js:             // Resetting context._sent for legacy support of Babel's
-pages/index.js:             // function.sent implementation.
-pages/index.js:             this.sent = this._sent = undefined;
-pages/index.js:             this.done = false;
-pages/index.js:             this.delegate = null;
-pages/index.js:             this.method = "next";
-pages/index.js:             this.arg = undefined;
-pages/index.js:             this.tryEntries.forEach(resetTryEntry);
-pages/index.js:             if (!skipTempReset) {
-pages/index.js:                 for(var name in this){
-pages/index.js:                     // Not sure about the optimal order of these conditions:
-pages/index.js:                     if (name.charAt(0) === "t" && hasOwn.call(this, name) && !isNaN(+name.slice(1))) {
-pages/index.js:                         this[name] = undefined;
-pages/index.js:                     }
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:         },
-pages/index.js:         stop: function() {
-pages/index.js:             this.done = true;
-pages/index.js:             var rootEntry = this.tryEntries[<ID>];
-pages/index.js:             var rootRecord = rootEntry.completion;
-pages/index.js:             if (rootRecord.type === "throw") {
-pages/index.js:                 throw rootRecord.arg;
-pages/index.js:             }
-pages/index.js:             return this.rval;
-pages/index.js:         },
-pages/index.js:         dispatchException: function(exception) {
-pages/index.js:             if (this.done) {
-pages/index.js:                 throw exception;
-pages/index.js:             }
-pages/index.js:             var context = this;
-pages/index.js:             function handle(loc, caught) {
-pages/index.js:                 record.type = "throw";
-pages/index.js:                 record.arg = exception;
-pages/index.js:                 context.next = loc;
-pages/index.js:                 if (caught) {
-pages/index.js:                     // If the dispatched exception was caught by a catch block,
-pages/index.js:                     // then let that catch block handle the exception normally.
-pages/index.js:                     context.method = "next";
-pages/index.js:                     context.arg = undefined;
-pages/index.js:                 }
-pages/index.js:                 return !!caught;
-pages/index.js:             }
-pages/index.js:             for(var i = this.tryEntries.length - 1; i >= 0; --i){
-pages/index.js:                 var entry = this.tryEntries[i];
-pages/index.js:                 var record = entry.completion;
-pages/index.js:                 if (entry.tryLoc === "root") {
-pages/index.js:                     // Exception thrown outside of any try block that could handle
-pages/index.js:                     // it, so set the completion value of the entire function to
-pages/index.js:                     // throw the exception.
-pages/index.js:                     return handle("end");
-pages/index.js:                 }
-pages/index.js:                 if (entry.tryLoc <= this.prev) {
-pages/index.js:                     var hasCatch = hasOwn.call(entry, "catchLoc");
-pages/index.js:                     var hasFinally = hasOwn.call(entry, "finallyLoc");
-pages/index.js:                     if (hasCatch && hasFinally) {
-pages/index.js:                         if (this.prev < entry.catchLoc) {
-pages/index.js:                             return handle(entry.catchLoc, true);
-pages/index.js:                         } else if (this.prev < entry.finallyLoc) {
-pages/index.js:                             return handle(entry.finallyLoc);
-pages/index.js:                         }
-pages/index.js:                     } else if (hasCatch) {
-pages/index.js:                         if (this.prev < entry.catchLoc) {
-pages/index.js:                             return handle(entry.catchLoc, true);
-pages/index.js:                         }
-pages/index.js:                     } else if (hasFinally) {
-pages/index.js:                         if (this.prev < entry.finallyLoc) {
-pages/index.js:                             return handle(entry.finallyLoc);
-pages/index.js:                         }
-pages/index.js:                     } else {
-pages/index.js:                         throw new Error("try statement without catch or finally");
-pages/index.js:                     }
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:         },
-pages/index.js:         abrupt: function(type, arg) {
-pages/index.js:             for(var i = this.tryEntries.length - 1; i >= 0; --i){
-pages/index.js:                 var entry = this.tryEntries[i];
-pages/index.js:                 if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
-pages/index.js:                     var finallyEntry = entry;
-pages/index.js:                     break;
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:             if (finallyEntry && (type === "break" || type === "continue") && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc) {
-pages/index.js:                 // Ignore the finally entry if control is not jumping to a
-pages/index.js:                 // location outside the try/catch block.
-pages/index.js:                 finallyEntry = null;
-pages/index.js:             }
-pages/index.js:             var record = finallyEntry ? finallyEntry.completion : {};
-pages/index.js:             record.type = type;
-pages/index.js:             record.arg = arg;
-pages/index.js:             if (finallyEntry) {
-pages/index.js:                 this.method = "next";
-pages/index.js:                 this.next = finallyEntry.finallyLoc;
-pages/index.js:                 return ContinueSentinel;
-pages/index.js:             }
-pages/index.js:             return this.complete(record);
-pages/index.js:         },
-pages/index.js:         complete: function(record, afterLoc) {
-pages/index.js:             if (record.type === "throw") {
-pages/index.js:                 throw record.arg;
-pages/index.js:             }
-pages/index.js:             if (record.type === "break" || record.type === "continue") {
-pages/index.js:                 this.next = record.arg;
-pages/index.js:             } else if (record.type === "return") {
-pages/index.js:                 this.rval = this.arg = record.arg;
-pages/index.js:                 this.method = "return";
-pages/index.js:                 this.next = "end";
-pages/index.js:             } else if (record.type === "normal" && afterLoc) {
-pages/index.js:                 this.next = afterLoc;
-pages/index.js:             }
-pages/index.js:             return ContinueSentinel;
-pages/index.js:         },
-pages/index.js:         finish: function(finallyLoc) {
-pages/index.js:             for(var i = this.tryEntries.length - 1; i >= 0; --i){
-pages/index.js:                 var entry = this.tryEntries[i];
-pages/index.js:                 if (entry.finallyLoc === finallyLoc) {
-pages/index.js:                     this.complete(entry.completion, entry.afterLoc);
-pages/index.js:                     resetTryEntry(entry);
-pages/index.js:                     return ContinueSentinel;
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:         },
-pages/index.js:         "catch": function(tryLoc) {
-pages/index.js:             for(var i = this.tryEntries.length - 1; i >= 0; --i){
-pages/index.js:                 var entry = this.tryEntries[i];
-pages/index.js:                 if (entry.tryLoc === tryLoc) {
-pages/index.js:                     var record = entry.completion;
-pages/index.js:                     if (record.type === "throw") {
-pages/index.js:                         var thrown = record.arg;
-pages/index.js:                         resetTryEntry(entry);
-pages/index.js:                     }
-pages/index.js:                     return thrown;
-pages/index.js:                 }
-pages/index.js:             }
-pages/index.js:             // The context.catch method must only be called with a location
-pages/index.js:             // argument that corresponds to a known catch block.
-pages/index.js:             throw new Error("illegal catch attempt");
-pages/index.js:         },
-pages/index.js:         delegateYield: function(iterable, resultName, nextLoc) {
-pages/index.js:             this.delegate = {
-pages/index.js:                 iterator: values(iterable),
-pages/index.js:                 resultName: resultName,
-pages/index.js:                 nextLoc: nextLoc
-pages/index.js:             };
-pages/index.js:             if (this.method === "next") {
-pages/index.js:                 // Deliberately forget the last sent value so that we don't
-pages/index.js:                 // accidentally pass it on to the delegate.
-pages/index.js:                 this.arg = undefined;
-pages/index.js:             }
-pages/index.js:             return ContinueSentinel;
-pages/index.js:         }
-pages/index.js:     };
-pages/index.js:     // Regardless of whether this script is executing as a CommonJS module
-pages/index.js:     // or not, return the runtime object so that we can declare the variable
-pages/index.js:     // regeneratorRuntime in the outer scope, which allows this module to be
-pages/index.js:     // injected easily by \`bin/regenerator --include-runtime script.js\`.
-pages/index.js:     return exports;
-pages/index.js: }(// If this script is executing as a CommonJS module, use module.exports
-pages/index.js: // as the regeneratorRuntime namespace. Otherwise create a new empty
-pages/index.js: // object. Either way, the resulting object will be used to initialize
-pages/index.js: // the regeneratorRuntime variable at the top of this file.
-pages/index.js:  true ? module.exports : 0);
-pages/index.js: try {
-pages/index.js:     regeneratorRuntime = runtime;
-pages/index.js: } catch (accidentalStrictMode) {
-pages/index.js:     // This module should not be running in strict mode, so the above
-pages/index.js:     // assignment should always work unless something is misconfigured. Just
-pages/index.js:     // in case runtime.js accidentally runs in strict mode, in modern engines
-pages/index.js:     // we can explicitly access globalThis. In older engines we can escape
-pages/index.js:     // strict mode using a global Function call. This could conceivably fail
-pages/index.js:     // if a Content Security Policy forbids using Function, but in that case
-pages/index.js:     // the proper solution is to fix the accidental strict mode problem. If
-pages/index.js:     // you've misconfigured your bundler to force strict mode and applied a
-pages/index.js:     // CSP to forbid Function, and you're not willing to fix either of those
-pages/index.js:     // problems, please detail your unique predicament in a GitHub issue.
-pages/index.js:     if (typeof globalThis === "object") {
-pages/index.js:         globalThis.regeneratorRuntime = runtime;
-pages/index.js:     } else {}
-pages/index.js: }
-pages/index.js: 
-pages/index.js: 
-pages/index.js: }),
 pages/index.js: 5182: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   index: () => (index)
 pages/index.js: });
-pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
-pages/index.js: 
-pages/index.js: function index() {
-pages/index.js:     return (0,__WEBPACK_IMPORTED_MODULE_0__._)(function*() {
-pages/index.js:         yield Promise.resolve('111');
-pages/index.js:         return 111;
-pages/index.js:     })();
+pages/index.js: async function index() {
+pages/index.js:     await Promise.resolve('111');
+pages/index.js:     return 111;
 pages/index.js: }
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: 1510: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   foo: () => (foo),
 pages/index.js:   index2: () => (index2)
 pages/index.js: });
-pages/index.js: /* provided dependency */ var regeneratorRuntime = __webpack_require__(<ID>);
 pages/index.js: function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
 pages/index.js:     try {
 pages/index.js:         var info = gen[key](arg);
@@ -1639,7 +951,6 @@ pages/index.js:
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: 6262: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
@@ -1651,12 +962,10 @@ pages/index.js:
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: 6660: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 pages/index.js: });
-pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
@@ -1670,13 +979,10 @@ pages/index.js:
 pages/index.js: 
 pages/index.js: 
 pages/index.js: 
-pages/index.js: 
-pages/index.js: function run() {
-pages/index.js:     return (0,__WEBPACK_IMPORTED_MODULE_5__._)(function*() {
-pages/index.js:         yield (0,__WEBPACK_IMPORTED_MODULE_3__.index)();
-pages/index.js:         yield (0,__WEBPACK_IMPORTED_MODULE_4__.index2)();
-pages/index.js:         return __WEBPACK_IMPORTED_MODULE_4__.foo;
-pages/index.js:     })();
+pages/index.js: async function run() {
+pages/index.js:     await (0,__WEBPACK_IMPORTED_MODULE_3__.index)();
+pages/index.js:     await (0,__WEBPACK_IMPORTED_MODULE_4__.index2)();
+pages/index.js:     return __WEBPACK_IMPORTED_MODULE_4__.foo;
 pages/index.js: }
 pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (()=>{
 pages/index.js:     __WEBPACK_IMPORTED_MODULE_1___default().useState(()=>{
@@ -1702,17 +1008,14 @@ pages/index.js:
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: 2015: (function (module) {
-pages/index.js: "use strict";
 pages/index.js: module.exports = require("react");
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: 8732: (function (module) {
-pages/index.js: "use strict";
 pages/index.js: module.exports = require("react/jsx-runtime");
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: 9887: (function (module) {
-pages/index.js: "use strict";
 pages/index.js: module.exports = require("rsmax");
 pages/index.js: 
 pages/index.js: }),
@@ -2847,12 +2150,16 @@ rsmax-vendors.js:     appEvents: [],
 rsmax-vendors.js:     pageEvents: {},
 rsmax-vendors.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 rsmax-vendors.js:     navigate: {},
-rsmax-vendors.js:     mpa: false
+rsmax-vendors.js:     mpa: false,
+rsmax-vendors.js:     concurrent: false,
+rsmax-vendors.js:     mergeSpliceData: false,
+rsmax-vendors.js:     setDataChunkSize: 0,
+rsmax-vendors.js:     tagMap: {}
 rsmax-vendors.js: };
 rsmax-vendors.js: let runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: function merge(...options) {
 rsmax-vendors.js:     return options.reduce((acc, option)=>{
-rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 rsmax-vendors.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 rsmax-vendors.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 rsmax-vendors.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -2874,6 +2181,10 @@ rsmax-vendors.js:         acc.pageEvents = (_f = option.pageEvents) !== null && 
 rsmax-vendors.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 rsmax-vendors.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 rsmax-vendors.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+rsmax-vendors.js:         acc.concurrent = (_k = option.concurrent) !== null && _k !== void 0 ? _k : acc.concurrent;
+rsmax-vendors.js:         acc.mergeSpliceData = (_l = option.mergeSpliceData) !== null && _l !== void 0 ? _l : acc.mergeSpliceData;
+rsmax-vendors.js:         acc.setDataChunkSize = (_m = option.setDataChunkSize) !== null && _m !== void 0 ? _m : acc.setDataChunkSize;
+rsmax-vendors.js:         acc.tagMap = (_o = option.tagMap) !== null && _o !== void 0 ? _o : acc.tagMap;
 rsmax-vendors.js:         return acc;
 rsmax-vendors.js:     }, runtimeOptions);
 rsmax-vendors.js: }
@@ -3310,37 +2621,78 @@ rsmax-vendors.js:             if (typeof this.context.$batchedUpdates === 'funct
 rsmax-vendors.js:                 $batchedUpdates = this.context.$batchedUpdates;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             $batchedUpdates(()=>{
-rsmax-vendors.js:                 this.updateQueue.map((update, index)=>{
-rsmax-vendors.js:                     let callback = undefined;
-rsmax-vendors.js:                     if (index + 1 === this.updateQueue.length) {
-rsmax-vendors.js:                         callback = ()=>{
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('mergeSpliceData')) {
+rsmax-vendors.js:                     const splicePayload = {};
+rsmax-vendors.js:                     const setPayload = {};
+rsmax-vendors.js:                     this.updateQueue.forEach((update)=>{
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             splicePayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 'children'
+rsmax-vendors.js:                             ])] = [
+rsmax-vendors.js:                                 update.start,
+rsmax-vendors.js:                                 update.deleteCount,
+rsmax-vendors.js:                                 ...update.items
+rsmax-vendors.js:                             ];
+rsmax-vendors.js:                         } else if (update.type === 'set') {
+rsmax-vendors.js:                             setPayload[this.normalizeUpdatePath([
+rsmax-vendors.js:                                 ...update.path,
+rsmax-vendors.js:                                 update.name
+rsmax-vendors.js:                             ])] = update.value;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                     const hasSplice = Object.keys(splicePayload).length > 0;
+rsmax-vendors.js:                     const hasSet = Object.keys(setPayload).length > 0;
+rsmax-vendors.js:                     const total = (hasSplice ? 1 : 0) + (hasSet ? 1 : 0);
+rsmax-vendors.js:                     let done = 0;
+rsmax-vendors.js:                     const doneCallback = ()=>{
+rsmax-vendors.js:                         done += 1;
+rsmax-vendors.js:                         if (done === total) {
 rsmax-vendors.js:                             nativeEffect_1.default.run();
 rsmax-vendors.js:                             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
 rsmax-vendors.js:                                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
 rsmax-vendors.js:                             }
-rsmax-vendors.js:                         };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                     if (hasSplice) {
+rsmax-vendors.js:                         this.context.$spliceData(splicePayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'splice') {
-rsmax-vendors.js:                         this.context.$spliceData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 'children'
-rsmax-vendors.js:                             ])]: [
-rsmax-vendors.js:                                 update.start,
-rsmax-vendors.js:                                 update.deleteCount,
-rsmax-vendors.js:                                 ...update.items
-rsmax-vendors.js:                             ]
-rsmax-vendors.js:                         }, callback);
+rsmax-vendors.js:                     if (hasSet) {
+rsmax-vendors.js:                         this.context.setData(setPayload, doneCallback);
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     if (update.type === 'set') {
-rsmax-vendors.js:                         this.context.setData({
-rsmax-vendors.js:                             [this.normalizeUpdatePath([
-rsmax-vendors.js:                                 ...update.path,
-rsmax-vendors.js:                                 update.name
-rsmax-vendors.js:                             ])]: update.value
-rsmax-vendors.js:                         }, callback);
-rsmax-vendors.js:                     }
-rsmax-vendors.js:                 });
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     this.updateQueue.map((update, index)=>{
+rsmax-vendors.js:                         let callback = undefined;
+rsmax-vendors.js:                         if (index + 1 === this.updateQueue.length) {
+rsmax-vendors.js:                             callback = ()=>{
+rsmax-vendors.js:                                 nativeEffect_1.default.run();
+rsmax-vendors.js:                                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`);
+rsmax-vendors.js:                                 }
+rsmax-vendors.js:                             };
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'splice') {
+rsmax-vendors.js:                             this.context.$spliceData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     'children'
+rsmax-vendors.js:                                 ])]: [
+rsmax-vendors.js:                                     update.start,
+rsmax-vendors.js:                                     update.deleteCount,
+rsmax-vendors.js:                                     ...update.items
+rsmax-vendors.js:                                 ]
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                         if (update.type === 'set') {
+rsmax-vendors.js:                             this.context.setData({
+rsmax-vendors.js:                                 [this.normalizeUpdatePath([
+rsmax-vendors.js:                                     ...update.path,
+rsmax-vendors.js:                                     update.name
+rsmax-vendors.js:                                 ])]: update.value
+rsmax-vendors.js:                             }, callback);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     });
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             });
 rsmax-vendors.js:             this.updateQueue = [];
 rsmax-vendors.js:             return;
@@ -3369,12 +2721,30 @@ rsmax-vendors.js:                 ])] = update.value;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             return acc;
 rsmax-vendors.js:         }, {});
-rsmax-vendors.js:         this.context.setData(updatePayload, ()=>{
-rsmax-vendors.js:             nativeEffect_1.default.run();
-rsmax-vendors.js:             /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
-rsmax-vendors.js:                 console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:         const chunkSize = framework_shared_1.RuntimeOptions.get('setDataChunkSize');
+rsmax-vendors.js:         const entries = Object.entries(updatePayload);
+rsmax-vendors.js:         if (chunkSize && chunkSize > 0 && entries.length > chunkSize) {
+rsmax-vendors.js:             for(let i = 0; i < entries.length; i += chunkSize){
+rsmax-vendors.js:                 const slice = entries.slice(i, i + chunkSize);
+rsmax-vendors.js:                 const payloadChunk = Object.fromEntries(slice);
+rsmax-vendors.js:                 const isLast = i + chunkSize >= entries.length;
+rsmax-vendors.js:                 this.context.setData(payloadChunk, ()=>{
+rsmax-vendors.js:                     if (isLast) {
+rsmax-vendors.js:                         nativeEffect_1.default.run();
+rsmax-vendors.js:                         /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                             console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, payloadChunk);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
-rsmax-vendors.js:         });
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             this.context.setData(updatePayload, ()=>{
+rsmax-vendors.js:                 nativeEffect_1.default.run();
+rsmax-vendors.js:                 /* istanbul ignore next */ if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log(\`setData => 回调时间：\${new Date().getTime() - startTime}ms\`, updatePayload);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             });
+rsmax-vendors.js:         }
 rsmax-vendors.js:         this.updateQueue = [];
 rsmax-vendors.js:     }
 rsmax-vendors.js:     clearUpdate() {
@@ -3453,7 +2823,8 @@ rsmax-vendors.js:     'onLongClick',
 rsmax-vendors.js:     'onLongTap',
 rsmax-vendors.js:     'onTouchMove',
 rsmax-vendors.js:     'onTouchStart',
-rsmax-vendors.js:     'onTouchEnd'
+rsmax-vendors.js:     'onTouchEnd',
+rsmax-vendors.js:     'onTouchCancel'
 rsmax-vendors.js: ];
 rsmax-vendors.js: 
 rsmax-vendors.js: 
@@ -3503,7 +2874,7 @@ rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: function isSyntheticType(inputType) {
 rsmax-vendors.js:     if (constants_1.DEPRECATED_CATCH_TYPE === inputType) {
-rsmax-vendors.js:         console.warn('DEPRECATION: remax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
+rsmax-vendors.js:         console.warn('DEPRECATION: rsmax 已支持在 onClick 事件中使用 stopPropagation 阻止事件冒泡，请尽量不要使用 catchClick');
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return !!(0, framework_shared_1.find)(constants_1.SYNTHETIC_TYPES, (type)=>type === inputType);
 rsmax-vendors.js: }
@@ -4588,6 +3959,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const scheduler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const VNode_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
@@ -4644,11 +4016,11 @@ rsmax-vendors.js:     getChildHostContext: ()=>{
 rsmax-vendors.js:         return childHostContext;
 rsmax-vendors.js:     },
 rsmax-vendors.js:     createInstance (type, newProps, container) {
-rsmax-vendors.js:         var _a;
+rsmax-vendors.js:         var _a, _b, _c;
 rsmax-vendors.js:         const id = (0, instanceId_1.generate)();
 rsmax-vendors.js:         const node = new VNode_1.default({
 rsmax-vendors.js:             id,
-rsmax-vendors.js:             type: (_a = DOM_TAG_MAP[type]) !== null && _a !== void 0 ? _a : type,
+rsmax-vendors.js:             type: (_c = (_b = (_a = framework_shared_1.RuntimeOptions.get('tagMap')) === null || _a === void 0 ? void 0 : _a[type]) !== null && _b !== void 0 ? _b : DOM_TAG_MAP[type]) !== null && _c !== void 0 ? _c : type,
 rsmax-vendors.js:             props: {},
 rsmax-vendors.js:             container
 rsmax-vendors.js:         });
@@ -5009,6 +4381,7 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.ReactReconcilerInst = void 0;
+rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -5021,10 +4394,8 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return containerFiber.child.stateNode;
 rsmax-vendors.js: }
 rsmax-vendors.js: function render(rootElement, container) {
-rsmax-vendors.js:     // Create a root Container if it doesnt exist
 rsmax-vendors.js:     if (!container._rootContainer) {
-rsmax-vendors.js:         // eslint-disable-next-line @typescript-eslint/no-empty-function
-rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, 0, null, false, null, '', ()=>{}, null);
+rsmax-vendors.js:         container._rootContainer = exports.ReactReconcilerInst.createContainer(container, framework_shared_1.RuntimeOptions.get('concurrent') ? 1 : 0, null, false, null, '', ()=>{}, null);
 rsmax-vendors.js:     }
 rsmax-vendors.js:     exports.ReactReconcilerInst.updateContainer(rootElement, container._rootContainer, null, ()=>{
 rsmax-vendors.js:     // ignore
