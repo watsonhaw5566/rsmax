@@ -41,7 +41,6 @@
     "@rsmax/framework-shared": "workspace:*",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/types": "workspace:*",
-    "@rsmax/wechat": "workspace:*",
     "@types/react": "^18.3.0",
     "@types/react-test-renderer": "^18.3.0",
     "react": "^18.3.0",

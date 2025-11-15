@@ -1,5 +1,17 @@
-import type { BaseEvent } from '@rsmax/wechat/esm/types/component';
 import type * as React from 'react';
+
+interface Target {
+  id: string;
+  dataset: any;
+}
+
+export interface BaseEvent {
+  type: string;
+  timeStamp: number;
+  target: Target;
+  currentTarget: Target;
+  mark: any;
+}
 
 /**
  * 头条内置共有属性
