@@ -4,9 +4,7 @@
   "description": "Rsmax for Toutiao",
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "typings": "./esm/index.d.ts",
+  "sideEffects": false,
   "exports": {
     "./types": {
       "types": "./esm/types/index.d.ts",
@@ -24,6 +22,9 @@
       "require": "./cjs/node/index.js"
     }
   },
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "typings": "./esm/index.d.ts",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
@@ -49,7 +50,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": false,
   "esnext": "./esm/index.js",
   "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
 }

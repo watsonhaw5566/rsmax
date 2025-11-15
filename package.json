@@ -9,6 +9,7 @@
     "clean": "lerna clean",
     "clean:packages": "lerna run clean",
     "format": "prettier --write .",
+    "postinstall": "simple-git-hooks",
     "lint": "biome check . --diagnostic-level=warn",
     "prepack": "pnpm run readme:copy",
     "postpack": "pnpm run readme:clean",
@@ -16,7 +17,6 @@
     "readme:copy": "lerna exec 'cp ../../README.md' . --scope rsmax --scope @rsmax/cli",
     "prerelease": "./scripts/prerelease",
     "release": "lerna publish",
-    "postinstall": "simple-git-hooks",
     "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
     "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
     "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
@@ -24,6 +24,7 @@
     "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
   },
   "simple-git-hooks": {
+    "sort-package-json": "pnpm sort-package-json",
     "pre-commit": "pnpm exec nano-staged"
   },
   "nano-staged": {
@@ -37,9 +38,9 @@
     "@babel/types": "^7.7.4",
     "@biomejs/biome": "1.9.4",
     "@rstest/core": "^0.6.4",
-    "@types/babel-plugin-tester": "^9.0.0",
     "@types/babel__core": "^7.7.4",
     "@types/babel__traverse": "^7.0.8",
+    "@types/babel-plugin-tester": "^9.0.0",
     "@types/express": "^4.17.4",
     "@types/jest": "^27.5.2",
     "@types/lodash": "^4.14.135",
