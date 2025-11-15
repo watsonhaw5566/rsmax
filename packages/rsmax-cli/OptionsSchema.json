@@ -22,7 +22,7 @@
     },
     "errorScreen": { "type": ["boolean", "object"] },
     "UNSAFE_wechatTemplateDepth": { "type": ["number", "object"] },
-    "analyze": { "type": "boolean" },
+
     "spm": { "type": "boolean" }
   },
   "additionalProperties": false

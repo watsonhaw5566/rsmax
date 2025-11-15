@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
@@ -233,15 +233,6 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
   if (builder.target === 'wechat') {
     config.plugin('rsmax-wechat-recompile-plugin').use(RsmaxPlugins.WeChatRecompile, [builder]);
-  }
-
-  if (builder.options.analyze) {
-    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
-      {
-        disableClientServer: true,
-      },
-    ]);
-    config.plugin('rsmax-auto-analyze').use(RsmaxPlugins.AutoAnalyze, [builder]);
   }
 
   const context = {

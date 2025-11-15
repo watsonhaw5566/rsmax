@@ -35,7 +35,7 @@ export interface BuildOptions {
   notify?: boolean;
   watch?: boolean;
   target?: Platform;
-  analyze?: boolean;
+
   devtools?: boolean;
   type?: BuildType;
   component?: any;

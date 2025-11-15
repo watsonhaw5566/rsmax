@@ -1,11 +1,10 @@
 import fs from 'node:fs';
-import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+
 import { rspack } from '@rspack/core';
 import type Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
 import { type RuleConfig, addCSSRule, cssConfig } from './config/css';
-import * as RsmaxPlugins from './plugins';
 
 export default function webBaseConfig(config: Config, builder: Builder) {
   config.devtool(process.env.NODE_ENV === 'development' ? 'cheap-source-map' : false);
@@ -90,15 +89,6 @@ export default function webBaseConfig(config: Config, builder: Builder) {
   }
 
   config.plugin('rspackbar').use(rspack.ProgressPlugin);
-
-  if (builder.options.analyze) {
-    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
-      {
-        disableClientServer: true,
-      },
-    ]);
-    config.plugin('rsmax-auto-analyze').use(RsmaxPlugins.AutoAnalyze, [builder]);
-  }
 
   if (!builder.options.watch) {
     config.plugin('mini-css-extract-plugin').use(rspack.CssExtractRspackPlugin, [

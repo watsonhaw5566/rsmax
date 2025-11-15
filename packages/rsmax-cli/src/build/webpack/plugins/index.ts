@@ -8,4 +8,3 @@ export { default as CoverageIgnore } from './CoverageIgnore';
 export { default as PluginAsset } from './PluginAsset';
 export { default as NativeAsset } from './NativeAsset';
 export { default as WeChatRecompile } from './WeChatRecompile';
-export { default as AutoAnalyze } from './AutoAnalyze';

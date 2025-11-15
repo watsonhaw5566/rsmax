@@ -29,8 +29,6 @@
     "@babel/helper-module-imports": "^7.7.4",
     "@babel/parser": "^7.7.4",
     "@babel/types": "^7.7.4",
-    "@rsdoctor/cli": "^1.2.3",
-    "@rsdoctor/rspack-plugin": "^1.1.2",
     "@rsmax/build-store": "workspace:*",
     "@rsmax/macro": "workspace:*",
     "@rsmax/postcss-px2units": "^0.2.0",

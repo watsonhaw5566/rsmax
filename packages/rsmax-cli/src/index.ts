@@ -66,12 +66,6 @@ export default class RsmaxCLI {
               alias: 'm',
               type: 'boolean',
               default: false,
-            })
-            .option('analyze', {
-              describe: '编译分析',
-              alias: 'a',
-              type: 'boolean',
-              default: false,
             });
         },
         (argv: any) => {
