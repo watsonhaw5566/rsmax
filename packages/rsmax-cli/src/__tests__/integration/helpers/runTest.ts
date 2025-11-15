@@ -77,11 +77,11 @@ function normalizeJsContent(input: string) {
     // 统一 __webpack_require__(123) 的数字 ID
     .replace(/__webpack_require__\((\d+)\)/g, '__webpack_require__(<ID>)')
     // 统一 [123] 这类索引
-    .replace(/\[(\d+)\]/g, '[<ID>]')
+    .replace(/\[(\d+)]/g, '[<ID>]')
     // 统一长哈希为占位符
     .replace(/[a-f0-9]{20,}/gi, '<HASH>')
     // 统一 chunk 文件名中的数字片段
-    .replace(/(-|\.)\d+(\.js)/g, '$1<ID>$2')
+    .replace(/([-.])\d+(\.js)/g, '$1<ID>$2')
     // 统一 ESM import 变量名：去掉可能包含绝对路径/包名前缀，只保留 __WEBPACK_IMPORTED_MODULE_<ID>__
     .replace(/[A-Za-z0-9_\/\\.-]*(__WEBPACK_IMPORTED_MODULE_\d+__)/g, '$1');
 }
