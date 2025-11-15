@@ -20,7 +20,7 @@
     "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
     "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
     "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
-    "test:e2e-web": "yarn --cwd e2e/app test:web",
+    "test:e2e-web": "pnpm --cwd e2e/app test:web",
     "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
   },
   "simple-git-hooks": {
