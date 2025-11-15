@@ -6,7 +6,7 @@
     "port": { "type": "number" },
     "cwd": { "type": "string" },
     "progress": { "type": "boolean" },
-    "compressTemplate": { "type": "boolean" },
+
     "input": { "type": ["string", "array", "object"] },
     "output": { "type": "string" },
     "rootDir": { "type": "string" },

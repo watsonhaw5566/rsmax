@@ -2,8 +2,6 @@ import type { Compiler } from '@rspack/core';
 import SourceCache from '../../../../SourceCache';
 import type Builder from '../../../Builder';
 import ComponentEntry from '../../../entries/ComponentEntry';
-import getModules from '../../../utils/modules';
-import createTurboTemplate from '../PageAsset/createTurboTemplate';
 import createManifest from './createManifest';
 import createTemplate from './createTemplate';
 
@@ -29,21 +27,9 @@ export default class ComponentAssetPlugin {
             if (!(component instanceof ComponentEntry)) {
               return Promise.resolve();
             }
-            const chunk = Array.from(compilation.chunks).find(c => {
-              return c.name === component.name;
-            });
-            const modules = [...getModules(chunk!, compilation), component.filename];
-
-            let templatePromise;
-            if (options.turboRenders) {
-              // turbo page
-              templatePromise = createTurboTemplate(this.builder.api, options, component, modules, meta, compilation);
-            } else {
-              templatePromise = createTemplate(component, options, meta, compilation, this.cache);
-            }
 
             await Promise.all([
-              await templatePromise,
+              await createTemplate(component, options, meta, compilation, this.cache),
               createManifest(this.builder, component, compilation, this.cache),
             ]);
           })

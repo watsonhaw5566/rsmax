@@ -208,31 +208,6 @@ importers:
         specifier: ^12.0.0
         version: 12.0.0(@babel/core@7.27.1)
 
-  packages/babel-plugin-rsmax-turbo-render:
-    dependencies:
-      '@babel/helper-plugin-utils':
-        specifier: ^7.10.4
-        version: 7.27.1
-      '@babel/traverse':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@babel/types':
-        specifier: ^7.11.0
-        version: 7.27.1
-      lodash:
-        specifier: ^4.17.11
-        version: 4.17.21
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@rsmax/build-store':
-        specifier: workspace:*
-        version: link:../rsmax-build-store
-      babel-plugin-tester:
-        specifier: ^12.0.0
-        version: 12.0.0(@babel/core@7.27.1)
-
   packages/babel-preset-rsmax:
     dependencies:
       '@babel/helper-plugin-utils':
@@ -388,9 +363,6 @@ importers:
       babel-plugin-rsmax-regenerator-runtime:
         specifier: workspace:*
         version: link:../babel-plugin-rsmax-regenerator-runtime
-      babel-plugin-rsmax-turbo-render:
-        specifier: workspace:*
-        version: link:../babel-plugin-rsmax-turbo-render
       babel-preset-rsmax:
         specifier: workspace:*
         version: link:../babel-preset-rsmax

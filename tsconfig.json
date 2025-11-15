@@ -21,9 +21,6 @@
       "path": "./packages/babel-plugin-rsmax-host-component"
     },
     {
-      "path": "./packages/babel-plugin-rsmax-turbo-render"
-    },
-    {
       "path": "./packages/babel-plugin-rsmax-lifecycle"
     },
     {

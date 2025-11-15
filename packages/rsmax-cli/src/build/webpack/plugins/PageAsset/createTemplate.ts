@@ -67,15 +67,10 @@ export default async function createPageTemplate(
   }
 
   let source: string = await ejs.renderFile(meta.ejs.page, ejsOptions, {
-    rmWhitespace: options.compressTemplate,
+    rmWhitespace: false,
   });
 
   source = api.onPageTemplate({ template: source, page: page.name });
-
-  /* istanbul ignore next */
-  if (options.compressTemplate) {
-    source = source.replace(/^\s*$(?:\r\n?|\n)/gm, '').replace(/\r\n|\n/g, ' ');
-  }
 
   cache.invalid(fileName, source, () => {
     compilation.assets[fileName] = new sources.RawSource(source);
@@ -122,14 +117,9 @@ export async function createBaseTemplate(
       depth: computeFinalDepth(options),
     },
     {
-      rmWhitespace: options.compressTemplate,
+      rmWhitespace: false,
     }
   );
-
-  /* istanbul ignore next */
-  if (options.compressTemplate) {
-    source = source.replace(/^\s*$(?:\r\n?|\n)/gm, '').replace(/\r\n|\n/g, ' ');
-  }
 
   const fileName = `base${meta.template.extension}`;
 

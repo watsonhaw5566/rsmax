@@ -20,14 +20,13 @@ export interface PluginOptions {
 }
 
 export interface BuildOptions {
-  turboRenders?: boolean;
   pxToRpx: boolean;
   cwd: string;
   progress: boolean;
   input?: string[] | string | { [key: string]: string };
   output: string;
   rootDir: string;
-  compressTemplate?: boolean;
+
   UNSAFE_wechatTemplateDepth: number | { [key: string]: number };
   configWebpack?: (params: { config: WebpackConfig; rspack: any }) => void;
   plugins: Plugin[];

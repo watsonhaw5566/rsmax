@@ -8,7 +8,7 @@ import { type Configuration, rspack } from '@rspack/core';
 import hostComponent from 'babel-plugin-rsmax-host-component';
 import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
 import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
-import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
+
 import ejs from 'ejs';
 import Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
@@ -65,32 +65,6 @@ export default function webpackConfig(builder: Builder): Configuration {
   });
   config.optimization.minimize(false);
 
-  if (builder.options.turboRenders) {
-    const options = {
-      isHostComponentPackage: (pkg: string) => pkg.startsWith('rsmax'),
-    };
-    // turbo pages
-    config.module
-      .rule('turbo-page')
-      .pre()
-      .test(moduleMatcher)
-      .exclude.add(/react-reconciler/)
-      .end()
-      .use('turbo-page-render')
-      .loader('babel')
-      .options({
-        usePlugins: [TurboRender.extractTemplate(options)],
-        reactPreset: false,
-      })
-      .end()
-      .use('turbo-page-preprocess')
-      .loader('babel')
-      .options({
-        usePlugins: [TurboRender.preprocess(options)],
-        reactPreset: false,
-      });
-  }
-
   config.module
     .rule('swc')
     .type('javascript/auto')
@@ -141,8 +115,8 @@ export default function webpackConfig(builder: Builder): Configuration {
           target: builder.target,
           hostComponents: Store.registeredHostComponents,
           skipHostComponents: Store.skipHostComponents,
-          skipProps: [TurboRender.LEAF, TurboRender.ENTRY],
-          includeProps: [TurboRender.TEMPLATE_ID],
+          skipProps: [],
+          includeProps: [],
         }),
         fixRegeneratorRuntime(),
       ],

@@ -2,12 +2,9 @@ import { type Compiler, EntryPlugin } from '@rspack/core';
 import SourceCache from '../../../../SourceCache';
 import type Builder from '../../../Builder';
 import PageEntry from '../../../entries/PageEntry';
-import getModules from '../../../utils/modules';
 import { clearComponentsCache } from '../getUsingComponents';
-import createIsolatedTemplate from './createIsolatedTemplate';
 import createManifest from './createManifest';
 import createPageTemplate, { createBaseTemplate } from './createTemplate';
-import createTurboTemplate from './createTurboTemplate';
 
 const PLUGIN_NAME = 'RsmaxPageAssetPlugin';
 
@@ -51,21 +48,9 @@ export default class PageAssetPlugin {
             if (!(page instanceof PageEntry)) {
               return Promise.resolve();
             }
-            const chunk = Array.from(compilation.chunks).find(c => {
-              return c.name === page.name;
-            });
 
-            const modules = [...getModules(chunk!, compilation), page.filename];
             createManifest(this.builder, page, compilation, this.cache);
-
-            if (options.turboRenders) {
-              // turbo page
-              await createTurboTemplate(this.builder.api, options, page, modules, meta, compilation);
-              await createIsolatedTemplate(meta, compilation);
-            } else {
-              // page template
-              await createPageTemplate(this.builder.api, options, page, meta, compilation, this.cache);
-            }
+            await createPageTemplate(this.builder.api, options, page, meta, compilation, this.cache);
           })
         ).then(() => {
           callback();
