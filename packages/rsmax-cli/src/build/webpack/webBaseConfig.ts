@@ -15,9 +15,37 @@ export default function webBaseConfig(config: Config, builder: Builder) {
   });
 
   config.module
-    .rule('swc')
+    .rule('swc-js')
     .type('javascript/auto')
-    .test(moduleMatcher)
+    .test(/\.(js|jsx|mjs)$/)
+    .exclude.add(/react-reconciler/)
+    .end()
+    .use('swc-loader')
+    .loader('builtin:swc-loader')
+    .options({
+      jsc: {
+        parser: {
+          syntax: 'ecmascript',
+          jsx: true,
+          decorators: true,
+          dynamicImport: true,
+        },
+        transform: {
+          react: {
+            runtime: 'automatic',
+          },
+        },
+        target: 'es2015',
+        loose: true,
+        externalHelpers: true,
+        keepClassNames: true,
+      },
+    });
+
+  config.module
+    .rule('swc-ts')
+    .type('javascript/auto')
+    .test(/\.(ts|tsx)$/)
     .exclude.add(/react-reconciler/)
     .end()
     .use('swc-loader')

@@ -1,29 +1,18 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import Store from '@rsmax/build-store';
-import { slash } from '@rsmax/shared';
-import type { Options } from '@rsmax/types';
 import { type Configuration, rspack } from '@rspack/core';
-import hostComponent from 'babel-plugin-rsmax-host-component';
-import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
-import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
 
+import { slash } from '@rsmax/shared';
 import ejs from 'ejs';
 import Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
 import NativeEntry from '../entries/NativeEntry';
 import baseConfig from './baseConfig';
+import { getBabelLoaderOptions } from './config/babel';
 import { type RuleConfig, addCSSRule, cssConfig } from './config/css';
 import * as RsmaxPlugins from './plugins';
-
-function resolveBabelConfig(options: Options) {
-  if (fs.existsSync(path.join(options.cwd, 'babel.config.js'))) {
-    return path.join(options.cwd, 'babel.config.js');
-  }
-  return false;
-}
 
 export default function webpackConfig(builder: Builder): Configuration {
   const config = new Config();
@@ -62,9 +51,37 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.optimization.minimize(false);
 
   config.module
-    .rule('swc')
+    .rule('swc-js')
     .type('javascript/auto')
-    .test(moduleMatcher)
+    .test(/\.(js|jsx|mjs)$/)
+    .exclude.add(/react-reconciler/)
+    .end()
+    .use('swc-loader')
+    .loader('builtin:swc-loader')
+    .options({
+      jsc: {
+        parser: {
+          syntax: 'ecmascript',
+          jsx: true,
+          decorators: true,
+          dynamicImport: true,
+        },
+        transform: {
+          react: {
+            runtime: 'automatic',
+          },
+        },
+        target: 'es2015',
+        loose: true,
+        externalHelpers: true,
+        keepClassNames: true,
+      },
+    });
+
+  config.module
+    .rule('swc-ts')
+    .type('javascript/auto')
+    .test(/\.(ts|tsx)$/)
     .exclude.add(/react-reconciler/)
     .end()
     .use('swc-loader')
@@ -96,30 +113,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     .end()
     .use('babel')
     .loader('babel')
-    .options({
-      babelrc: false,
-      configFile: resolveBabelConfig(builder.options),
-      usePlugins: [
-        Lifecycle.page({
-          test: (file: any) => {
-            const importer = slash(file);
-            const root = builder.projectPath.srcDir();
-            return importer.startsWith(root);
-          },
-        }),
-        hostComponent({
-          target: builder.target,
-          hostComponents: Store.registeredHostComponents,
-          skipHostComponents: Store.skipHostComponents,
-          skipProps: [],
-          includeProps: [],
-        }),
-        fixRegeneratorRuntime(),
-      ],
-      reactPreset: true,
-      api: builder.api,
-      compact: process.env.NODE_ENV === 'production',
-    });
+    .options(getBabelLoaderOptions(builder, false));
 
   config.module.rule('native-component').test(moduleMatcher).use('native-component').loader('nativeComponent').options({
     builder,
