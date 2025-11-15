@@ -1,5 +1,5 @@
 import { View, Text, Image, Checkbox, Label, Swiper, SwiperItem } from 'rsmax';
-import styles from './index.css?module';
+import styles from './index.module.css';
 
 const arr = [1, 2, 3, 4];
 

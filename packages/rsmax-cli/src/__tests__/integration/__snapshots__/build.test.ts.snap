@@ -17827,16 +17827,13 @@ pages/index/index.js: require('./../../rsmax-vendors.js');
 pages/index/index.js: require('./../../runtime.js');
 pages/index/index.js: "use strict";
 pages/index/index.js: (tt["webpackChunk"] = tt["webpackChunk"] || []).push([["1"], {
-pages/index/index.js: 2135: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index/index.js: 1633: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
+pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
+pages/index/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+pages/index/index.js: });
 pages/index/index.js: // extracted by css-extract-rspack-plugin
-pages/index/index.js: 
-pages/index/index.js: 
-pages/index/index.js: }),
-pages/index/index.js: 6150: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-pages/index/index.js: __webpack_require__.r(__webpack_exports__);
-pages/index/index.js: // extracted by css-extract-rspack-plugin
-pages/index/index.js: 
+pages/index/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = ({"app":"app___ODM51","logo":"logo___yN1mB","logoSpin":"logo-spin___tIhZR","text":"text___jfoeE","header":"header___mbefx"});
 pages/index/index.js: 
 pages/index/index.js: }),
 pages/index/index.js: 9701: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -17844,7 +17841,6 @@ pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-pages/index/index.js: __webpack_require__(<ID>);
 pages/index/index.js: 
 pages/index/index.js: 
 pages/index/index.js: Page((0,__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index/index'));
@@ -17931,62 +17927,30 @@ pages/index/index.ttml:
 -------------------------------------------------------------------------------
 file: pages/index/index.ttss
 -------------------------------------------------------------------------------
-pages/index/index.ttss: .app {
+pages/index/index.ttss: .app___ODM51 {
 pages/index/index.ttss:   text-align: center;
 pages/index/index.ttss:   padding: 0 24rpx;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: .logo {
-pages/index/index.ttss:   animation: logo-spin infinite 20s linear;
+pages/index/index.ttss: .logo___yN1mB {
+pages/index/index.ttss:   animation: logo-spin___tIhZR infinite 20s linear;
 pages/index/index.ttss:   height: 240rpx;
 pages/index/index.ttss:   width: 240rpx;
 pages/index/index.ttss:   pointer-events: none;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: .text {
+pages/index/index.ttss: .text___jfoeE {
 pages/index/index.ttss:   margin-top: 64rpx;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: .header {
+pages/index/index.ttss: .header___mbefx {
 pages/index/index.ttss:   padding-top: 30%;
 pages/index/index.ttss:   background-color: #282c34;
 pages/index/index.ttss:   font-size: 40rpx;
 pages/index/index.ttss:   color: white;
 pages/index/index.ttss: }
 pages/index/index.ttss: 
-pages/index/index.ttss: @keyframes logo-spin {
-pages/index/index.ttss:   from {
-pages/index/index.ttss:     transform: rotate(0deg);
-pages/index/index.ttss:   }
-pages/index/index.ttss:   to {
-pages/index/index.ttss:     transform: rotate(360deg);
-pages/index/index.ttss:   }
-pages/index/index.ttss: }
-pages/index/index.ttss: 
-pages/index/index.ttss: .app {
-pages/index/index.ttss:   text-align: center;
-pages/index/index.ttss:   padding: 0 24rpx;
-pages/index/index.ttss: }
-pages/index/index.ttss: 
-pages/index/index.ttss: .logo {
-pages/index/index.ttss:   animation: logo-spin infinite 20s linear;
-pages/index/index.ttss:   height: 240rpx;
-pages/index/index.ttss:   width: 240rpx;
-pages/index/index.ttss:   pointer-events: none;
-pages/index/index.ttss: }
-pages/index/index.ttss: 
-pages/index/index.ttss: .text {
-pages/index/index.ttss:   margin-top: 64rpx;
-pages/index/index.ttss: }
-pages/index/index.ttss: 
-pages/index/index.ttss: .header {
-pages/index/index.ttss:   padding-top: 30%;
-pages/index/index.ttss:   background-color: #282c34;
-pages/index/index.ttss:   font-size: 40rpx;
-pages/index/index.ttss:   color: white;
-pages/index/index.ttss: }
-pages/index/index.ttss: 
-pages/index/index.ttss: @keyframes logo-spin {
+pages/index/index.ttss: @keyframes logo-spin___tIhZR {
 pages/index/index.ttss:   from {
 pages/index/index.ttss:     transform: rotate(0deg);
 pages/index/index.ttss:   }
