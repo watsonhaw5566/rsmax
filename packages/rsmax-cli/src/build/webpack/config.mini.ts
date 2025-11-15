@@ -44,25 +44,49 @@ export default function webpackConfig(builder: Builder): Configuration {
   config.output.globalObject(meta.global);
   config.output.publicPath(publicPath);
   config.optimization.runtimeChunk({ name: 'runtime' });
-  config.optimization.splitChunks({
-    cacheGroups: {
-      rsmaxStyles: {
-        name: 'rsmax-styles',
-        test: new RegExp(`(.css|.less|.sass|.scss|.stylus|.styl|${builder.api.meta.style})$`),
-        chunks: 'initial',
-        minChunks: 2,
-        minSize: 0,
-      },
-      rsmaxVendors: {
-        name: 'rsmax-vendors',
-        test: moduleMatcher,
-        chunks: 'initial',
-        minChunks: 2,
-        minSize: 0,
-        priority: 2,
-      },
+
+  const subPackages = (builder.projectConfig as any).subPackages ?? (builder.projectConfig as any).subpackages ?? [];
+  const cacheGroups: Record<string, any> = {
+    rsmaxStyles: {
+      name: 'rsmax-styles',
+      test: new RegExp(`(.css|.less|.sass|.scss|.stylus|.styl|${meta.style})$`),
+      chunks: 'initial',
+      minChunks: 2,
+      minSize: 0,
     },
+    rsmaxVendors: {
+      name: 'rsmax-vendors',
+      test: moduleMatcher,
+      chunks: 'initial',
+      minChunks: 2,
+      minSize: 0,
+      priority: 2,
+    },
+  };
+
+  subPackages.forEach((pack: { root: string }) => {
+    const root = slash(pack.root).replace(/\/+$/, '');
+    cacheGroups[`rsmaxSubVendors_${root}`] = {
+      name: `${root}/rsmax-vendors`,
+      test: moduleMatcher,
+      chunks: (chunk: any) => typeof chunk.name === 'string' && chunk.name.startsWith(`${root}/`),
+      minChunks: 2,
+      minSize: 0,
+      enforce: true,
+      priority: 20,
+    };
+    cacheGroups[`rsmaxSubStyles_${root}`] = {
+      name: `${root}/rsmax-styles`,
+      test: new RegExp(`(.css|.less|.sass|.scss|.stylus|.styl|${meta.style})$`),
+      chunks: (chunk: any) => typeof chunk.name === 'string' && chunk.name.startsWith(`${root}/`),
+      minChunks: 2,
+      minSize: 0,
+      enforce: true,
+      priority: 20,
+    };
   });
+
+  config.optimization.splitChunks({ cacheGroups });
   config.optimization.minimize(false);
 
   config.module
