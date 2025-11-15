@@ -33,8 +33,6 @@
     "@rsdoctor/rspack-plugin": "^1.1.2",
     "@rsmax/build-store": "workspace:*",
     "@rsmax/macro": "workspace:*",
-    "@rsmax/plugin-devtools": "workspace:*",
-    "@rsmax/plugin-error-screen": "workspace:*",
     "@rsmax/postcss-px2units": "^0.2.0",
     "@rsmax/postcss-tag": "workspace:*",
     "@rsmax/runtime": "workspace:*",

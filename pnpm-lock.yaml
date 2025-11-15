@@ -361,12 +361,6 @@ importers:
       '@rsmax/macro':
         specifier: workspace:*
         version: link:../rsmax-macro
-      '@rsmax/plugin-devtools':
-        specifier: workspace:*
-        version: link:../rsmax-plugin-devtools
-      '@rsmax/plugin-error-screen':
-        specifier: workspace:*
-        version: link:../rsmax-plugin-error-screen
       '@rsmax/postcss-px2units':
         specifier: ^0.2.0
         version: 0.2.1
@@ -705,18 +699,6 @@ importers:
       react-test-renderer:
         specifier: ^18.3.0
         version: 18.3.1(react@18.3.1)
-
-  packages/rsmax-plugin-devtools:
-    dependencies:
-      '@remax/react-devtools-core':
-        specifier: ^4.7.1
-        version: 4.7.1
-      '@rsmax/shared':
-        specifier: workspace:*
-        version: link:../rsmax-shared
-      webpack-inject-plugin:
-        specifier: ^1.5.4
-        version: 1.5.5(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
 
   packages/rsmax-plugin-error-screen:
     dependencies:
