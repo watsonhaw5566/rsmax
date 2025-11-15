@@ -47,10 +47,6 @@
     {
       "path": "./packages/rsmax-macro"
     },
-
-    {
-      "path": "./packages/rsmax-plugin-error-screen"
-    },
     {
       "path": "./packages/rsmax-cli"
     },
