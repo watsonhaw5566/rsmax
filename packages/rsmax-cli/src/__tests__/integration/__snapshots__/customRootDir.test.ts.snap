@@ -2609,7 +2609,7 @@ pages/index.js:
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: exports.createPortal = void 0;
+pages/index.js: exports.createPortal = createPortal;
 pages/index.js: const react_is_1 = __webpack_require__(<ID>);
 pages/index.js: function createPortal(children, containerInfo, key) {
 pages/index.js:     return {
@@ -2621,7 +2621,6 @@ pages/index.js:         containerInfo,
 pages/index.js:         implementation: null
 pages/index.js:     };
 pages/index.js: }
-pages/index.js: exports.createPortal = createPortal;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -2673,19 +2672,29 @@ pages/index.js:     });
 pages/index.js: } : function(o, v) {
 pages/index.js:     o["default"] = v;
 pages/index.js: });
-pages/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index.js:     if (mod && mod.__esModule) return mod;
-pages/index.js:     var result = {};
-pages/index.js:     if (mod != null) {
-pages/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index.js:     }
-pages/index.js:     __setModuleDefault(result, mod);
-pages/index.js:     return result;
-pages/index.js: };
+pages/index.js: var __importStar = this && this.__importStar || function() {
+pages/index.js:     var ownKeys = function(o) {
+pages/index.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index.js:             var ar = [];
+pages/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index.js:             return ar;
+pages/index.js:         };
+pages/index.js:         return ownKeys(o);
+pages/index.js:     };
+pages/index.js:     return function(mod) {
+pages/index.js:         if (mod && mod.__esModule) return mod;
+pages/index.js:         var result = {};
+pages/index.js:         if (mod != null) {
+pages/index.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index.js:         }
+pages/index.js:         __setModuleDefault(result, mod);
+pages/index.js:         return result;
+pages/index.js:     };
+pages/index.js: }();
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: exports.createCallbackProxy = void 0;
+pages/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const constants_1 = __webpack_require__(<ID>);
 pages/index.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
@@ -2718,7 +2727,6 @@ pages/index.js:         }
 pages/index.js:         return callback(syntheticEvent, ...restParams);
 pages/index.js:     };
 pages/index.js: }
-pages/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -2728,7 +2736,9 @@ pages/index.js:
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: exports.validate = exports.isPropagationStopped = void 0;
+pages/index.js: exports.isPropagationStopped = void 0;
+pages/index.js: exports.validate = validate;
+pages/index.js: exports["default"] = stopPropagation;
 pages/index.js: const constants_1 = __webpack_require__(<ID>);
 pages/index.js: exports.isPropagationStopped = {};
 pages/index.js: constants_1.SYNTHETIC_TYPES.forEach((type)=>{
@@ -2752,12 +2762,10 @@ pages/index.js:         return;
 pages/index.js:     }
 pages/index.js:     validate(parent, eventType);
 pages/index.js: }
-pages/index.js: exports.validate = validate;
 pages/index.js: function stopPropagation(node, eventType) {
 pages/index.js:     exports.isPropagationStopped[eventType] = true;
 pages/index.js:     validate(node, eventType);
 pages/index.js: }
-pages/index.js: exports["default"] = stopPropagation;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -2788,15 +2796,25 @@ pages/index.js:     });
 pages/index.js: } : function(o, v) {
 pages/index.js:     o["default"] = v;
 pages/index.js: });
-pages/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index.js:     if (mod && mod.__esModule) return mod;
-pages/index.js:     var result = {};
-pages/index.js:     if (mod != null) {
-pages/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index.js:     }
-pages/index.js:     __setModuleDefault(result, mod);
-pages/index.js:     return result;
-pages/index.js: };
+pages/index.js: var __importStar = this && this.__importStar || function() {
+pages/index.js:     var ownKeys = function(o) {
+pages/index.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index.js:             var ar = [];
+pages/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index.js:             return ar;
+pages/index.js:         };
+pages/index.js:         return ownKeys(o);
+pages/index.js:     };
+pages/index.js:     return function(mod) {
+pages/index.js:         if (mod && mod.__esModule) return mod;
+pages/index.js:         var result = {};
+pages/index.js:         if (mod != null) {
+pages/index.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index.js:         }
+pages/index.js:         __setModuleDefault(result, mod);
+pages/index.js:         return result;
+pages/index.js:     };
+pages/index.js: }();
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
@@ -3106,15 +3124,25 @@ pages/index.js:     });
 pages/index.js: } : function(o, v) {
 pages/index.js:     o["default"] = v;
 pages/index.js: });
-pages/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index.js:     if (mod && mod.__esModule) return mod;
-pages/index.js:     var result = {};
-pages/index.js:     if (mod != null) {
-pages/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index.js:     }
-pages/index.js:     __setModuleDefault(result, mod);
-pages/index.js:     return result;
-pages/index.js: };
+pages/index.js: var __importStar = this && this.__importStar || function() {
+pages/index.js:     var ownKeys = function(o) {
+pages/index.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index.js:             var ar = [];
+pages/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index.js:             return ar;
+pages/index.js:         };
+pages/index.js:         return ownKeys(o);
+pages/index.js:     };
+pages/index.js:     return function(mod) {
+pages/index.js:         if (mod && mod.__esModule) return mod;
+pages/index.js:         var result = {};
+pages/index.js:         if (mod != null) {
+pages/index.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index.js:         }
+pages/index.js:         __setModuleDefault(result, mod);
+pages/index.js:         return result;
+pages/index.js:     };
+pages/index.js: }();
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/index.js:     return mod && mod.__esModule ? mod : {
 pages/index.js:         "default": mod
@@ -3123,6 +3151,7 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: exports["default"] = createAppConfig;
 pages/index.js: __webpack_require__(<ID>);
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const React = __importStar(__webpack_require__(<ID>));
@@ -3218,7 +3247,6 @@ pages/index.js:         return framework_shared_1.RuntimeOptions.get('pluginDriv
 pages/index.js:     };
 pages/index.js:     return createConfig(WrappedApp);
 pages/index.js: }
-pages/index.js: exports["default"] = createAppConfig;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -3249,15 +3277,25 @@ pages/index.js:     });
 pages/index.js: } : function(o, v) {
 pages/index.js:     o["default"] = v;
 pages/index.js: });
-pages/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index.js:     if (mod && mod.__esModule) return mod;
-pages/index.js:     var result = {};
-pages/index.js:     if (mod != null) {
-pages/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index.js:     }
-pages/index.js:     __setModuleDefault(result, mod);
-pages/index.js:     return result;
-pages/index.js: };
+pages/index.js: var __importStar = this && this.__importStar || function() {
+pages/index.js:     var ownKeys = function(o) {
+pages/index.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index.js:             var ar = [];
+pages/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index.js:             return ar;
+pages/index.js:         };
+pages/index.js:         return ownKeys(o);
+pages/index.js:     };
+pages/index.js:     return function(mod) {
+pages/index.js:         if (mod && mod.__esModule) return mod;
+pages/index.js:         var result = {};
+pages/index.js:         if (mod != null) {
+pages/index.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index.js:         }
+pages/index.js:         __setModuleDefault(result, mod);
+pages/index.js:         return result;
+pages/index.js:     };
+pages/index.js: }();
 pages/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/index.js:     return mod && mod.__esModule ? mod : {
 pages/index.js:         "default": mod
@@ -3266,6 +3304,7 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: exports["default"] = createComponentConfig;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const React = __importStar(__webpack_require__(<ID>));
 pages/index.js: const Container_1 = __importDefault(__webpack_require__(<ID>));
@@ -3311,7 +3350,6 @@ pages/index.js:         }
 pages/index.js:     };
 pages/index.js:     return config;
 pages/index.js: }
-pages/index.js: exports["default"] = createComponentConfig;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -3326,6 +3364,7 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: exports["default"] = createHostComponent;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const react_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: function createHostComponent(name, component) {
@@ -3342,7 +3381,6 @@ pages/index.js:     });
 pages/index.js:     Component.displayName = name;
 pages/index.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponent(Component);
 pages/index.js: }
-pages/index.js: exports["default"] = createHostComponent;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -3357,6 +3395,7 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: exports["default"] = createNativeComponent;
 pages/index.js: const react_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: function createNativeComponent(name) {
 pages/index.js:     const Component = react_1.default.forwardRef((props, ref)=>{
@@ -3371,7 +3410,6 @@ pages/index.js:     });
 pages/index.js:     Component.displayName = name;
 pages/index.js:     return Component;
 pages/index.js: }
-pages/index.js: exports["default"] = createNativeComponent;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -3386,7 +3424,8 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: exports.resetPageId = void 0;
+pages/index.js: exports.resetPageId = resetPageId;
+pages/index.js: exports["default"] = createPageConfig;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const react_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: const Container_1 = __importDefault(__webpack_require__(<ID>));
@@ -3405,7 +3444,6 @@ pages/index.js: // for testing
 pages/index.js: function resetPageId() {
 pages/index.js:     idCounter = 0;
 pages/index.js: }
-pages/index.js: exports.resetPageId = resetPageId;
 pages/index.js: function createPageConfig(Page, name) {
 pages/index.js:     var _a;
 pages/index.js:     let app;
@@ -3571,7 +3609,6 @@ pages/index.js:         config,
 pages/index.js:         page: name
 pages/index.js:     });
 pages/index.js: }
-pages/index.js: exports["default"] = createPageConfig;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -3640,6 +3677,7 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: exports["default"] = useNativeEffect;
 pages/index.js: const react_1 = __webpack_require__(<ID>);
 pages/index.js: const nativeEffect_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: function useNativeEffect(listener, deps) {
@@ -3647,7 +3685,6 @@ pages/index.js:     (0, react_1.useLayoutEffect)(()=>{
 pages/index.js:         return nativeEffect_1.default.connect(listener, !!deps);
 pages/index.js:     }, deps);
 pages/index.js: }
-pages/index.js: exports["default"] = useNativeEffect;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -3657,13 +3694,13 @@ pages/index.js:
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: exports["default"] = useQuery;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const react_1 = __webpack_require__(<ID>);
 pages/index.js: function useQuery() {
 pages/index.js:     const pageInstance = (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
 pages/index.js:     return pageInstance.query;
 pages/index.js: }
-pages/index.js: exports["default"] = useQuery;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -3673,6 +3710,7 @@ pages/index.js:
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
+pages/index.js: exports["default"] = diffProperties;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const STYLE = [
 pages/index.js:     'style',
@@ -3761,7 +3799,6 @@ pages/index.js:         }
 pages/index.js:     }
 pages/index.js:     return updatePayload.length ? updatePayload : null;
 pages/index.js: }
-pages/index.js: exports["default"] = diffProperties;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -4042,18 +4079,17 @@ pages/index.js:
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: exports.generate = exports.reset = void 0;
+pages/index.js: exports.reset = reset;
+pages/index.js: exports.generate = generate;
 pages/index.js: let instanceId = 0;
 pages/index.js: function reset() {
 pages/index.js:     instanceId = 0;
 pages/index.js: }
-pages/index.js: exports.reset = reset;
 pages/index.js: function generate() {
 pages/index.js:     const id = instanceId;
 pages/index.js:     instanceId += 1;
 pages/index.js:     return id;
 pages/index.js: }
-pages/index.js: exports.generate = generate;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -4135,7 +4171,9 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: exports.propAlias = exports.getAlias = void 0;
+pages/index.js: exports.getAlias = getAlias;
+pages/index.js: exports.propAlias = propAlias;
+pages/index.js: exports["default"] = propsAlias;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const plainStyle_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: function getAlias(prop, type) {
@@ -4148,7 +4186,6 @@ pages/index.js:         return prop.replace(new RegExp(\`^\${prefix}\`), '');
 pages/index.js:     }
 pages/index.js:     return (_b = (_a = hostComponent === null || hostComponent === void 0 ? void 0 : hostComponent.alias) === null || _a === void 0 ? void 0 : _a[prop]) !== null && _b !== void 0 ? _b : prop;
 pages/index.js: }
-pages/index.js: exports.getAlias = getAlias;
 pages/index.js: function getValue(prop, value) {
 pages/index.js:     if (prop.toLowerCase().endsWith('style') && Object.prototype.toString.call(value) === '[object Object]') {
 pages/index.js:         return (0, plainStyle_1.default)(value);
@@ -4161,7 +4198,6 @@ pages/index.js:         getAlias(prop, type),
 pages/index.js:         getValue(prop, value)
 pages/index.js:     ];
 pages/index.js: }
-pages/index.js: exports.propAlias = propAlias;
 pages/index.js: function propsAlias(props, type) {
 pages/index.js:     if (!props) {
 pages/index.js:         return props;
@@ -4182,7 +4218,6 @@ pages/index.js:         }
 pages/index.js:     }
 pages/index.js:     return aliasProps;
 pages/index.js: }
-pages/index.js: exports["default"] = propsAlias;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
@@ -4198,6 +4233,7 @@ pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
 pages/index.js: exports.ReactReconcilerInst = void 0;
+pages/index.js: exports["default"] = render;
 pages/index.js: const framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
@@ -4219,7 +4255,6 @@ pages/index.js:     // ignore
 pages/index.js:     });
 pages/index.js:     return getPublicRootInstance(container._rootContainer);
 pages/index.js: }
-pages/index.js: exports["default"] = render;
 pages/index.js: 
 pages/index.js: 
 pages/index.js: }),

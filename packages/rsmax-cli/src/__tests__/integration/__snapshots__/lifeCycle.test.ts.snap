@@ -733,7 +733,7 @@ app.js: require('./rsmax-vendors.js');
 app.js: require('./runtime.js');
 app.js: "use strict";
 app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
-app.js: 7986: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+app.js: 4489: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: // extracted by css-extract-rspack-plugin
 app.js: 
@@ -1050,7 +1050,7 @@ pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
 pages/index.js: "use strict";
 pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["2"], {
-pages/index.js: 5042: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+pages/index.js: 4097: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: // extracted by css-extract-rspack-plugin
 pages/index.js: 
@@ -2910,7 +2910,7 @@ rsmax-vendors.js:
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports.createPortal = void 0;
+rsmax-vendors.js: exports.createPortal = createPortal;
 rsmax-vendors.js: const react_is_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: function createPortal(children, containerInfo, key) {
 rsmax-vendors.js:     return {
@@ -2922,7 +2922,6 @@ rsmax-vendors.js:         containerInfo,
 rsmax-vendors.js:         implementation: null
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.createPortal = createPortal;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -2974,19 +2973,29 @@ rsmax-vendors.js:     });
 rsmax-vendors.js: } : function(o, v) {
 rsmax-vendors.js:     o["default"] = v;
 rsmax-vendors.js: });
-rsmax-vendors.js: var __importStar = this && this.__importStar || function(mod) {
-rsmax-vendors.js:     if (mod && mod.__esModule) return mod;
-rsmax-vendors.js:     var result = {};
-rsmax-vendors.js:     if (mod != null) {
-rsmax-vendors.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-rsmax-vendors.js:     }
-rsmax-vendors.js:     __setModuleDefault(result, mod);
-rsmax-vendors.js:     return result;
-rsmax-vendors.js: };
+rsmax-vendors.js: var __importStar = this && this.__importStar || function() {
+rsmax-vendors.js:     var ownKeys = function(o) {
+rsmax-vendors.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+rsmax-vendors.js:             var ar = [];
+rsmax-vendors.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+rsmax-vendors.js:             return ar;
+rsmax-vendors.js:         };
+rsmax-vendors.js:         return ownKeys(o);
+rsmax-vendors.js:     };
+rsmax-vendors.js:     return function(mod) {
+rsmax-vendors.js:         if (mod && mod.__esModule) return mod;
+rsmax-vendors.js:         var result = {};
+rsmax-vendors.js:         if (mod != null) {
+rsmax-vendors.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+rsmax-vendors.js:         }
+rsmax-vendors.js:         __setModuleDefault(result, mod);
+rsmax-vendors.js:         return result;
+rsmax-vendors.js:     };
+rsmax-vendors.js: }();
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports.createCallbackProxy = void 0;
+rsmax-vendors.js: exports.createCallbackProxy = createCallbackProxy;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const stopPropagation_1 = __importStar(__webpack_require__(<ID>));
@@ -3019,7 +3028,6 @@ rsmax-vendors.js:         }
 rsmax-vendors.js:         return callback(syntheticEvent, ...restParams);
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.createCallbackProxy = createCallbackProxy;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3029,7 +3037,9 @@ rsmax-vendors.js:
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports.validate = exports.isPropagationStopped = void 0;
+rsmax-vendors.js: exports.isPropagationStopped = void 0;
+rsmax-vendors.js: exports.validate = validate;
+rsmax-vendors.js: exports["default"] = stopPropagation;
 rsmax-vendors.js: const constants_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: exports.isPropagationStopped = {};
 rsmax-vendors.js: constants_1.SYNTHETIC_TYPES.forEach((type)=>{
@@ -3053,12 +3063,10 @@ rsmax-vendors.js:         return;
 rsmax-vendors.js:     }
 rsmax-vendors.js:     validate(parent, eventType);
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.validate = validate;
 rsmax-vendors.js: function stopPropagation(node, eventType) {
 rsmax-vendors.js:     exports.isPropagationStopped[eventType] = true;
 rsmax-vendors.js:     validate(node, eventType);
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = stopPropagation;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3089,15 +3097,25 @@ rsmax-vendors.js:     });
 rsmax-vendors.js: } : function(o, v) {
 rsmax-vendors.js:     o["default"] = v;
 rsmax-vendors.js: });
-rsmax-vendors.js: var __importStar = this && this.__importStar || function(mod) {
-rsmax-vendors.js:     if (mod && mod.__esModule) return mod;
-rsmax-vendors.js:     var result = {};
-rsmax-vendors.js:     if (mod != null) {
-rsmax-vendors.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-rsmax-vendors.js:     }
-rsmax-vendors.js:     __setModuleDefault(result, mod);
-rsmax-vendors.js:     return result;
-rsmax-vendors.js: };
+rsmax-vendors.js: var __importStar = this && this.__importStar || function() {
+rsmax-vendors.js:     var ownKeys = function(o) {
+rsmax-vendors.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+rsmax-vendors.js:             var ar = [];
+rsmax-vendors.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+rsmax-vendors.js:             return ar;
+rsmax-vendors.js:         };
+rsmax-vendors.js:         return ownKeys(o);
+rsmax-vendors.js:     };
+rsmax-vendors.js:     return function(mod) {
+rsmax-vendors.js:         if (mod && mod.__esModule) return mod;
+rsmax-vendors.js:         var result = {};
+rsmax-vendors.js:         if (mod != null) {
+rsmax-vendors.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+rsmax-vendors.js:         }
+rsmax-vendors.js:         __setModuleDefault(result, mod);
+rsmax-vendors.js:         return result;
+rsmax-vendors.js:     };
+rsmax-vendors.js: }();
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
@@ -3407,15 +3425,25 @@ rsmax-vendors.js:     });
 rsmax-vendors.js: } : function(o, v) {
 rsmax-vendors.js:     o["default"] = v;
 rsmax-vendors.js: });
-rsmax-vendors.js: var __importStar = this && this.__importStar || function(mod) {
-rsmax-vendors.js:     if (mod && mod.__esModule) return mod;
-rsmax-vendors.js:     var result = {};
-rsmax-vendors.js:     if (mod != null) {
-rsmax-vendors.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-rsmax-vendors.js:     }
-rsmax-vendors.js:     __setModuleDefault(result, mod);
-rsmax-vendors.js:     return result;
-rsmax-vendors.js: };
+rsmax-vendors.js: var __importStar = this && this.__importStar || function() {
+rsmax-vendors.js:     var ownKeys = function(o) {
+rsmax-vendors.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+rsmax-vendors.js:             var ar = [];
+rsmax-vendors.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+rsmax-vendors.js:             return ar;
+rsmax-vendors.js:         };
+rsmax-vendors.js:         return ownKeys(o);
+rsmax-vendors.js:     };
+rsmax-vendors.js:     return function(mod) {
+rsmax-vendors.js:         if (mod && mod.__esModule) return mod;
+rsmax-vendors.js:         var result = {};
+rsmax-vendors.js:         if (mod != null) {
+rsmax-vendors.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+rsmax-vendors.js:         }
+rsmax-vendors.js:         __setModuleDefault(result, mod);
+rsmax-vendors.js:         return result;
+rsmax-vendors.js:     };
+rsmax-vendors.js: }();
 rsmax-vendors.js: var __importDefault = this && this.__importDefault || function(mod) {
 rsmax-vendors.js:     return mod && mod.__esModule ? mod : {
 rsmax-vendors.js:         "default": mod
@@ -3424,6 +3452,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: exports["default"] = createAppConfig;
 rsmax-vendors.js: __webpack_require__(<ID>);
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const React = __importStar(__webpack_require__(<ID>));
@@ -3519,7 +3548,6 @@ rsmax-vendors.js:         return framework_shared_1.RuntimeOptions.get('pluginDr
 rsmax-vendors.js:     };
 rsmax-vendors.js:     return createConfig(WrappedApp);
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = createAppConfig;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3550,15 +3578,25 @@ rsmax-vendors.js:     });
 rsmax-vendors.js: } : function(o, v) {
 rsmax-vendors.js:     o["default"] = v;
 rsmax-vendors.js: });
-rsmax-vendors.js: var __importStar = this && this.__importStar || function(mod) {
-rsmax-vendors.js:     if (mod && mod.__esModule) return mod;
-rsmax-vendors.js:     var result = {};
-rsmax-vendors.js:     if (mod != null) {
-rsmax-vendors.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-rsmax-vendors.js:     }
-rsmax-vendors.js:     __setModuleDefault(result, mod);
-rsmax-vendors.js:     return result;
-rsmax-vendors.js: };
+rsmax-vendors.js: var __importStar = this && this.__importStar || function() {
+rsmax-vendors.js:     var ownKeys = function(o) {
+rsmax-vendors.js:         ownKeys = Object.getOwnPropertyNames || function(o) {
+rsmax-vendors.js:             var ar = [];
+rsmax-vendors.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+rsmax-vendors.js:             return ar;
+rsmax-vendors.js:         };
+rsmax-vendors.js:         return ownKeys(o);
+rsmax-vendors.js:     };
+rsmax-vendors.js:     return function(mod) {
+rsmax-vendors.js:         if (mod && mod.__esModule) return mod;
+rsmax-vendors.js:         var result = {};
+rsmax-vendors.js:         if (mod != null) {
+rsmax-vendors.js:             for(var k = ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+rsmax-vendors.js:         }
+rsmax-vendors.js:         __setModuleDefault(result, mod);
+rsmax-vendors.js:         return result;
+rsmax-vendors.js:     };
+rsmax-vendors.js: }();
 rsmax-vendors.js: var __importDefault = this && this.__importDefault || function(mod) {
 rsmax-vendors.js:     return mod && mod.__esModule ? mod : {
 rsmax-vendors.js:         "default": mod
@@ -3567,6 +3605,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: exports["default"] = createComponentConfig;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const React = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: const Container_1 = __importDefault(__webpack_require__(<ID>));
@@ -3612,7 +3651,6 @@ rsmax-vendors.js:         }
 rsmax-vendors.js:     };
 rsmax-vendors.js:     return config;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = createComponentConfig;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3627,6 +3665,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: exports["default"] = createHostComponent;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: function createHostComponent(name, component) {
@@ -3643,7 +3682,6 @@ rsmax-vendors.js:     });
 rsmax-vendors.js:     Component.displayName = name;
 rsmax-vendors.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponent(Component);
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = createHostComponent;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3658,6 +3696,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: exports["default"] = createNativeComponent;
 rsmax-vendors.js: const react_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: function createNativeComponent(name) {
 rsmax-vendors.js:     const Component = react_1.default.forwardRef((props, ref)=>{
@@ -3672,7 +3711,6 @@ rsmax-vendors.js:     });
 rsmax-vendors.js:     Component.displayName = name;
 rsmax-vendors.js:     return Component;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = createNativeComponent;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3687,7 +3725,8 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports.resetPageId = void 0;
+rsmax-vendors.js: exports.resetPageId = resetPageId;
+rsmax-vendors.js: exports["default"] = createPageConfig;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const Container_1 = __importDefault(__webpack_require__(<ID>));
@@ -3706,7 +3745,6 @@ rsmax-vendors.js: // for testing
 rsmax-vendors.js: function resetPageId() {
 rsmax-vendors.js:     idCounter = 0;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.resetPageId = resetPageId;
 rsmax-vendors.js: function createPageConfig(Page, name) {
 rsmax-vendors.js:     var _a;
 rsmax-vendors.js:     let app;
@@ -3872,7 +3910,6 @@ rsmax-vendors.js:         config,
 rsmax-vendors.js:         page: name
 rsmax-vendors.js:     });
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = createPageConfig;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3941,6 +3978,7 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: exports["default"] = useNativeEffect;
 rsmax-vendors.js: const react_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const nativeEffect_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: function useNativeEffect(listener, deps) {
@@ -3948,7 +3986,6 @@ rsmax-vendors.js:     (0, react_1.useLayoutEffect)(()=>{
 rsmax-vendors.js:         return nativeEffect_1.default.connect(listener, !!deps);
 rsmax-vendors.js:     }, deps);
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = useNativeEffect;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3958,13 +3995,13 @@ rsmax-vendors.js:
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: exports["default"] = useQuery;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: function useQuery() {
 rsmax-vendors.js:     const pageInstance = (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
 rsmax-vendors.js:     return pageInstance.query;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = useQuery;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -3974,6 +4011,7 @@ rsmax-vendors.js:
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
+rsmax-vendors.js: exports["default"] = diffProperties;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const STYLE = [
 rsmax-vendors.js:     'style',
@@ -4062,7 +4100,6 @@ rsmax-vendors.js:         }
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return updatePayload.length ? updatePayload : null;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = diffProperties;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -4343,18 +4380,17 @@ rsmax-vendors.js:
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports.generate = exports.reset = void 0;
+rsmax-vendors.js: exports.reset = reset;
+rsmax-vendors.js: exports.generate = generate;
 rsmax-vendors.js: let instanceId = 0;
 rsmax-vendors.js: function reset() {
 rsmax-vendors.js:     instanceId = 0;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.reset = reset;
 rsmax-vendors.js: function generate() {
 rsmax-vendors.js:     const id = instanceId;
 rsmax-vendors.js:     instanceId += 1;
 rsmax-vendors.js:     return id;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.generate = generate;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -4436,7 +4472,9 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports.propAlias = exports.getAlias = void 0;
+rsmax-vendors.js: exports.getAlias = getAlias;
+rsmax-vendors.js: exports.propAlias = propAlias;
+rsmax-vendors.js: exports["default"] = propsAlias;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const plainStyle_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: function getAlias(prop, type) {
@@ -4449,7 +4487,6 @@ rsmax-vendors.js:         return prop.replace(new RegExp(\`^\${prefix}\`), '');
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return (_b = (_a = hostComponent === null || hostComponent === void 0 ? void 0 : hostComponent.alias) === null || _a === void 0 ? void 0 : _a[prop]) !== null && _b !== void 0 ? _b : prop;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.getAlias = getAlias;
 rsmax-vendors.js: function getValue(prop, value) {
 rsmax-vendors.js:     if (prop.toLowerCase().endsWith('style') && Object.prototype.toString.call(value) === '[object Object]') {
 rsmax-vendors.js:         return (0, plainStyle_1.default)(value);
@@ -4462,7 +4499,6 @@ rsmax-vendors.js:         getAlias(prop, type),
 rsmax-vendors.js:         getValue(prop, value)
 rsmax-vendors.js:     ];
 rsmax-vendors.js: }
-rsmax-vendors.js: exports.propAlias = propAlias;
 rsmax-vendors.js: function propsAlias(props, type) {
 rsmax-vendors.js:     if (!props) {
 rsmax-vendors.js:         return props;
@@ -4483,7 +4519,6 @@ rsmax-vendors.js:         }
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return aliasProps;
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = propsAlias;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -4499,6 +4534,7 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.ReactReconcilerInst = void 0;
+rsmax-vendors.js: exports["default"] = render;
 rsmax-vendors.js: const framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: const react_reconciler_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: const hostConfig_1 = __importDefault(__webpack_require__(<ID>));
@@ -4520,7 +4556,6 @@ rsmax-vendors.js:     // ignore
 rsmax-vendors.js:     });
 rsmax-vendors.js:     return getPublicRootInstance(container._rootContainer);
 rsmax-vendors.js: }
-rsmax-vendors.js: exports["default"] = render;
 rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
