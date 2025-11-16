@@ -5,7 +5,8 @@
     "outDir": "esm",
     "declaration": true,
     "skipLibCheck": true,
-    "jsx": "react"
+    "jsx": "react",
+    "types": ["@types/node", "@rstest/core/globals"]
   },
   "exclude": ["cjs", "esm"]
 }

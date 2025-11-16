@@ -1,6 +1,6 @@
 import { Compilation, type Compiler, sources } from '@rspack/core';
 
-const { ConcatSource, RawSource } = sources;
+const { ConcatSource } = sources;
 
 const PLUGIN_NAME = 'RsmaxCoverageIgnorePlugin';
 
@@ -21,18 +21,8 @@ class CoverageIgnorePlugin {
         assets => {
           // 遍历所有资源
           for (const [filename, asset] of Object.entries(assets)) {
-            // 检查是否是 node_modules 中的文件
             if (filename.includes('node_modules')) {
-              // 获取原始源代码
-              const originalSource = asset.source();
-
-              // 创建新的源代码，添加覆盖率忽略注释
-              const newSource = new ConcatSource(
-                '/* istanbul ignore next */\n',
-                originalSource instanceof Buffer ? new RawSource(originalSource) : originalSource
-              );
-
-              // 更新资源
+              const newSource = new ConcatSource('/* istanbul ignore next */\n', asset as any);
               compilation.updateAsset(filename, newSource);
             }
           }

@@ -6,7 +6,7 @@
     "lib": ["es2017", "dom"],
     "declaration": true,
     "jsx": "react",
-    "types": ["@types/jest", "@types/node", "@rstest/core/globals"],
+    "types": ["@types/node", "@rstest/core/globals"],
     "skipLibCheck": true,
     "downlevelIteration": true
   },

@@ -6,7 +6,7 @@
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@types/jest"],
+    "types": ["@rstest/core/globals"],
     "jsx": "preserve",
     "skipLibCheck": true,
     "resolveJsonModule": true
