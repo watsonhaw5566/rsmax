@@ -478,7 +478,7 @@ describe('wechat remax render', () => {
     });
   });
 
-  it.skip('pure rerender when props changed', done => {
+  it.skip('pure rerender when props changed', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -512,18 +512,20 @@ describe('wechat remax render', () => {
 
     page.current.setValue('bar');
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload[1]).toMatchInlineSnapshot(`
-        Object {
-          "root.nodes.2.nodes.1.props.value": "bar",
-        }
-      `);
-      done();
-    }, 5);
+    await new Promise<void>(resolve => {
+      setTimeout(() => {
+        expect(payload).toHaveLength(2);
+        expect(payload[1]).toMatchInlineSnapshot(`
+          Object {
+            "root.nodes.2.nodes.1.props.value": "bar",
+          }
+        `);
+        resolve();
+      }, 5);
+    });
   });
 
-  it.skip('pure rerender when props delete', done => {
+  it.skip('pure rerender when props delete', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -555,56 +557,61 @@ describe('wechat remax render', () => {
 
     page.current.setValue(undefined);
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload).toMatchInlineSnapshot(`
-        Array [
-          Object {
-            "root.children": Array [
-              2,
-            ],
-            "root.nodes.2": Object {
-              "children": Array [
-                1,
+    await new Promise<void>(resolve => {
+      setTimeout(() => {
+        expect(payload).toHaveLength(2);
+        expect(payload).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "root.children": Array [
+                2,
               ],
-              "id": 2,
-              "nodes": Object {
-                "1": Object {
-                  "children": Array [],
-                  "id": 1,
-                  "props": Object {
-                    "value": "foo",
+              "root.nodes.2": Object {
+                "children": Array [
+                  1,
+                ],
+                "id": 2,
+                "nodes": Object {
+                  "1": Object {
+                    "children": Array [],
+                    "id": 1,
+                    "props": Object {
+                      "value": "foo",
+                    },
+                    "text": undefined,
+                    "type": "input",
                   },
-                  "text": undefined,
-                  "type": "input",
                 },
+                "props": Object {
+                  "style": "width:32rpx;",
+                },
+                "text": undefined,
+                "type": "view",
               },
-              "props": Object {
-                "style": "width:32rpx;",
-              },
-              "text": undefined,
-              "type": "view",
             },
-          },
-          Object {
-            "root.nodes.2.nodes.1.props.value": null,
-          },
-        ]
-      `);
-      done();
-    }, 5);
+            Object {
+              "root.nodes.2.nodes.1.props.value": null,
+            },
+          ]
+        `);
+        resolve();
+      }, 5);
+    });
   });
 
-  it.skip('useNativeEffect once works', done => {
+  it.skip('useNativeEffect once works', async () => {
     let count = 0;
+    let resolveDone!: () => void;
+    const donePromise = new Promise<void>(resolve => {
+      resolveDone = resolve;
+    });
     const Page = () => {
       const [width, setWidth] = React.useState(0);
       useNativeEffect(() => {
         count += 1;
-
         setTimeout(() => {
           if (count === 1) {
-            done();
+            resolveDone();
           }
         }, 500);
       }, []);
@@ -618,6 +625,7 @@ describe('wechat remax render', () => {
     };
     const container = new Container(p);
     render(<Page />, container);
+    await donePromise;
   });
 
   // it.skip('useNativeEffect deps works', done => {

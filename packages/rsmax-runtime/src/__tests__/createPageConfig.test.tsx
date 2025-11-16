@@ -58,14 +58,13 @@ describe('page query hook', () => {
     expect(page2.config.pageId).toBe('page_1');
   });
 
-  it('onPullDownRefresh can handle promise returned by callback', done => {
+  it('onPullDownRefresh can handle promise returned by callback', async () => {
+    let resolveHook!: () => void;
+    const hookPromise = new Promise<void>(resolve => {
+      resolveHook = resolve;
+    });
     const TestPage = () => {
-      usePageEvent('onPullDownRefresh', (): Promise<void> => {
-        return new Promise(resolve => {
-          resolve();
-          done();
-        });
-      });
+      usePageEvent('onPullDownRefresh', () => hookPromise);
       return <div />;
     };
 
@@ -73,6 +72,8 @@ describe('page query hook', () => {
 
     page.load();
     page.pullDownRefresh();
+    resolveHook();
+    await hookPromise;
   });
 
   it('register event correctly', () => {

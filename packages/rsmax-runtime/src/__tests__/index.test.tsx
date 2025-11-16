@@ -449,7 +449,7 @@ describe.skip('flatten update', () => {
     RuntimeOptions.reset();
   });
 
-  it('pure rerender when props changed', done => {
+  it('pure rerender when props changed', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -482,18 +482,20 @@ describe.skip('flatten update', () => {
 
     page.current.setValue('bar');
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload[1]).toMatchInlineSnapshot(`
-        {
-          "root.nodes.7.nodes.6.props.value": "bar",
-        }
-      `);
-      done();
-    }, 5);
+    await new Promise<void>(resolve => {
+      setTimeout(() => {
+        expect(payload).toHaveLength(2);
+        expect(payload[1]).toMatchInlineSnapshot(`
+          {
+            "root.nodes.7.nodes.6.props.value": "bar",
+          }
+        `);
+        resolve();
+      }, 5);
+    });
   });
 
-  it('pure rerender when props delete', done => {
+  it('pure rerender when props delete', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -524,28 +526,33 @@ describe.skip('flatten update', () => {
 
     page.current.setValue(undefined);
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload[1]).toMatchInlineSnapshot(`
-        {
-          "root.nodes.10.nodes.9.props.value": null,
-        }
-      `);
-      done();
-    }, 5);
+    await new Promise<void>(resolve => {
+      setTimeout(() => {
+        expect(payload).toHaveLength(2);
+        expect(payload[1]).toMatchInlineSnapshot(`
+          {
+            "root.nodes.10.nodes.9.props.value": null,
+          }
+        `);
+        resolve();
+      }, 5);
+    });
   });
 });
 
-it('useNativeEffect once works', done => {
+it('useNativeEffect once works', async () => {
   let count = 0;
+  let resolveDone!: () => void;
+  const donePromise = new Promise<void>(resolve => {
+    resolveDone = resolve;
+  });
   const Page = () => {
     const [width, setWidth] = React.useState(0);
     useNativeEffect(() => {
       count += 1;
-
       setTimeout(() => {
         if (count === 1) {
-          done();
+          resolveDone();
         }
       }, 500);
     }, []);
@@ -559,18 +566,22 @@ it('useNativeEffect once works', done => {
   };
   const container = new Container(p);
   render(<Page />, container);
+  await donePromise;
 });
 
-it('useNativeEffect deps works', done => {
+it('useNativeEffect deps works', async () => {
   let count = 0;
+  let resolveDone!: () => void;
+  const donePromise = new Promise<void>(resolve => {
+    resolveDone = resolve;
+  });
   const Page = () => {
     const [width, setWidth] = React.useState(0);
     const [height, setheight] = React.useState(0);
     useNativeEffect(() => {
       count += 1;
-
       if (count === 2) {
-        done();
+        resolveDone();
       }
     }, [width]);
     React.useEffect(() => {
@@ -589,6 +600,7 @@ it('useNativeEffect deps works', done => {
   };
   const container = new Container(p);
   render(<Page />, container);
+  await donePromise;
 });
 
 describe('Remax Suspense placeholder', () => {
