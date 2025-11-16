@@ -45,15 +45,15 @@
         },
         "noParameterAssign": "off",
         "noArguments": "off",
-        "useImportType": "off"
+        "useImportType": "warn"
       },
       "complexity": {
         "noForEach": "off"
       },
       "suspicious": {
-        "noExplicitAny": "off",
-        "noConfusingVoidType": "off",
-        "noImplicitAnyLet": "off",
+        "noExplicitAny": "warn",
+        "noConfusingVoidType": "warn",
+        "noImplicitAnyLet": "warn",
         "noShadowRestrictedNames": "off",
         "noAssignInExpressions": "off"
       },
@@ -62,7 +62,7 @@
         "noLabelWithoutControl": "off"
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "warn"
       },
       "performance": {
         "noDelete": "off",
