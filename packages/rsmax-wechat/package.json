@@ -43,7 +43,6 @@
     "build": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
     "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
-    "dev": "rslib build",
     "test": "rstest run"
   },
   "dependencies": {
