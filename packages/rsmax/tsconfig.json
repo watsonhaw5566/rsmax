@@ -9,5 +9,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
+  "include": ["modules/**/*.ts"],
   "exclude": ["cjs", "esm"]
 }
