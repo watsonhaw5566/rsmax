@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 import type { EntryInfo, Meta, Options } from '@rsmax/types';
@@ -66,6 +68,30 @@ export default async function createPageTemplate(
     ejsOptions.jsHelper = `./${page.name}_helper${meta.jsHelper.extension}`;
   }
 
+  try {
+    const pageDir = path.dirname(page.filename);
+    const skeletonWxml = path.join(pageDir, `page.skeleton${meta.template.extension}`);
+    const skeletonWxss = path.join(pageDir, `page.skeleton${meta.style}`);
+    if (fs.existsSync(skeletonWxml)) {
+      ejsOptions.skeleton = {
+        importSrc: `./page.skeleton${meta.template.extension}`,
+        templateName: 'skeleton',
+      };
+
+      if (fs.existsSync(skeletonWxss)) {
+        const cssName = slash(`${page.name}${meta.style}`);
+        const cssSource = fs.readFileSync(skeletonWxss, 'utf-8');
+        const existing = compilation.assets[cssName]?.source().toString() || '';
+        const merged = `${existing}\n/* skeleton */\n${cssSource}`;
+        cache.invalid(cssName, merged, () => {
+          compilation.assets[cssName] = new sources.RawSource(merged);
+        });
+      }
+    }
+  } catch (_e) {
+    // ignore
+  }
+
   let source: string = await ejs.renderFile(meta.ejs.page, ejsOptions, {
     rmWhitespace: false,
   });
@@ -107,7 +133,7 @@ export async function createBaseTemplate(
     props: [...new Set(Store.slotView.props || [])].sort(),
   };
 
-  let source: string = await ejs.renderFile(
+  const source: string = await ejs.renderFile(
     meta.ejs.base,
     {
       components,

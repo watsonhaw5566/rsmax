@@ -1,0 +1,3 @@
+<template name="skeleton">
+  <view class="sk" />
+</template>

@@ -6,4 +6,5 @@ describe('build mini app', () => {
   testBuildApp('resolve-platform-ext');
   testBuildApp('component-recursion');
   testBuildApp('wechat-include', 'wechat');
+  testBuildApp('wechat-skeleton', 'wechat');
 });
