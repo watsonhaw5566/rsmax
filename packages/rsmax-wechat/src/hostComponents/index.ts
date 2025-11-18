@@ -53,3 +53,8 @@ export * from './AdCustom';
 export * from './PageMeta';
 export * from './NavigationBar';
 export * from './Selection';
+export * from './OfficialAccountPublish';
+export * from './StoreCoupon';
+export * from './StoreGift';
+export * from './StoreHome';
+export * from './StoreProduct';
