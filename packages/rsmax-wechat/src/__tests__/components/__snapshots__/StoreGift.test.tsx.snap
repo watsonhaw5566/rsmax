@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`StoreGift > render correctly 1`] = `
-<store-gift
-  showGiftCard={true}
-/>
-`;

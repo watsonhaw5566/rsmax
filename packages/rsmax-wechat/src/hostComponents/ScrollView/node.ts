@@ -3,6 +3,7 @@ export const alias = {
   className: 'class',
   style: 'style',
   animation: 'animation',
+  type: 'type',
   scrollX: 'scroll-x',
   scrollY: 'scroll-y',
   upperThreshold: 'upper-threshold',

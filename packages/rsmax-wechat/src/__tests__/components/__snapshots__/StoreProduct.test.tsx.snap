@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`StoreProduct > render correctly 1`] = `
-<store-product
-  customContent={false}
-  logoPosition="bottom-left"
-  openPage="product-detail"
-/>
-`;

@@ -1,0 +1,16 @@
+// Rstest Snapshot v1
+
+exports[`StickyHeader > render correctly 1`] = `
+<sticky-header
+  allowOverlapping={false}
+  offsetTop={0}
+  padding={
+    [
+      0,
+      0,
+      0,
+      0,
+    ]
+  }
+/>
+`;

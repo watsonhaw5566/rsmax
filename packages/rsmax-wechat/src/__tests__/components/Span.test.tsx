@@ -1,11 +1,10 @@
 import * as React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { StoreProduct } from '../../hostComponents';
+import { Span } from '../../hostComponents';
 
-describe('StoreProduct', () => {
+describe('Span', () => {
   it('render correctly', () => {
-    const testRenderer = TestRenderer.create(<StoreProduct />);
-
+    const testRenderer = TestRenderer.create(<Span />);
     expect(testRenderer.toJSON()).toMatchSnapshot();
   });
 });

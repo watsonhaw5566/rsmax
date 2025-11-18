@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`NestedScrollBody > render correctly 1`] = `
+<nested-scroll-body
+  offsetTop={10}
+/>
+`;

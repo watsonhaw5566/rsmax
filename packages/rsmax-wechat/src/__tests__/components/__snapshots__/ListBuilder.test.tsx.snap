@@ -1,0 +1,31 @@
+// Rstest Snapshot v1
+
+exports[`ListBuilder > render correctly 1`] = `
+<list-builder
+  childCount={3}
+  childHeight={
+    [
+      100,
+      100,
+      100,
+    ]
+  }
+  initialChildCount={1}
+  list={
+    [
+      1,
+      2,
+      3,
+    ]
+  }
+  padding={
+    [
+      0,
+      0,
+      0,
+      0,
+    ]
+  }
+  type="static"
+/>
+`;

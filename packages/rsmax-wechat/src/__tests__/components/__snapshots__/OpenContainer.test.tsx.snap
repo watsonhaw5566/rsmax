@@ -1,0 +1,10 @@
+// Rstest Snapshot v1
+
+exports[`OpenContainer > render correctly 1`] = `
+<open-container
+  closedColor="white"
+  openColor="white"
+  transitionDuration={300}
+  transitionType="fade"
+/>
+`;

@@ -1,3 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`StoreCoupon > render correctly 1`] = `<store-coupon />`;

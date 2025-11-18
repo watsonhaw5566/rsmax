@@ -1,0 +1,11 @@
+// Rstest Snapshot v1
+
+exports[`DraggableSheet > render correctly 1`] = `
+<draggable-sheet
+  initialChildSize={0.5}
+  maxChildSize={1}
+  minChildSize={0.25}
+  snap={false}
+  snapSizes={[]}
+/>
+`;

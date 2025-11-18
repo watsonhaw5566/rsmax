@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`StickySection > render correctly 1`] = `<sticky-section />`;

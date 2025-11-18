@@ -1,0 +1,26 @@
+// Rstest Snapshot v1
+
+exports[`GridBuilder > render correctly 1`] = `
+<grid-builder
+  childCount={3}
+  crossAxisCount={2}
+  crossAxisGap={8}
+  list={
+    [
+      1,
+      2,
+      3,
+    ]
+  }
+  mainAxisGap={8}
+  padding={
+    [
+      0,
+      0,
+      0,
+      0,
+    ]
+  }
+  type="aligned"
+/>
+`;

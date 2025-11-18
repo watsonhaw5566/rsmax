@@ -1,11 +1,10 @@
 import * as React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { StoreHome } from '../../hostComponents';
+import { StickySection } from '../../hostComponents';
 
-describe('StoreHome', () => {
+describe('StickySection', () => {
   it('render correctly', () => {
-    const testRenderer = TestRenderer.create(<StoreHome />);
-
+    const testRenderer = TestRenderer.create(<StickySection />);
     expect(testRenderer.toJSON()).toMatchSnapshot();
   });
 });

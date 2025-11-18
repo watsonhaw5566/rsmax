@@ -1,0 +1,14 @@
+// Rstest Snapshot v1
+
+exports[`ListView > render correctly 1`] = `
+<list-view
+  padding={
+    [
+      0,
+      0,
+      0,
+      0,
+    ]
+  }
+/>
+`;
