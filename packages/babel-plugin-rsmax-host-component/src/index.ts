@@ -86,13 +86,14 @@ export default function hostComponent(options: Options) {
         props.push(propName);
       });
 
-      return (
-        props
-          // 无需收集 slot 字段
-          .filter(p => p !== 'slot')
-          .map(prop => aliasProp(prop, options.hostComponents.get('view')))
-          .sort()
-      );
+      return Array.from(
+        new Set(
+          props
+            // 无需收集 slot 字段
+            .filter(p => p !== 'slot')
+            .map(prop => aliasProp(prop, options.hostComponents.get('view')))
+        )
+      ).sort();
     }
 
     function isSlotView(componentName: string, node?: t.JSXElement) {
@@ -168,6 +169,7 @@ export default function hostComponent(options: Options) {
           props
             // 静态编译辅助字段
             .filter(p => !options.skipProps.includes(p))
+            .filter(p => p !== 'ref')
             .filter(Boolean)
             .map(prop => aliasProp(prop, hostComponent))
         )
