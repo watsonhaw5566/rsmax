@@ -27,15 +27,15 @@ export interface ChannelVideoProps extends BaseProps {
   feedToken?: string;
   autoplay?: boolean;
   loop?: boolean;
-  muted?: 'contain' | 'fill' | 'cover';
-  objectFit?: boolean;
+  muted?: boolean;
+  objectFit?: 'contain' | 'fill' | 'cover';
 }
 
 /**
  * @see https://developers.weixin.qq.com/miniprogram/dev/component/checkbox.html
  */
 export const ChannelVideo: React.ComponentType<ChannelVideoProps> =
-  createHostComponent<ChannelVideoProps>('channel-live');
+  createHostComponent<ChannelVideoProps>('channel-video');
 
 ChannelVideo.defaultProps = {
   feedId: '',
@@ -43,5 +43,6 @@ ChannelVideo.defaultProps = {
   feedToken: '',
   autoplay: true,
   loop: false,
-  muted: 'contain',
+  muted: false,
+  objectFit: 'contain',
 };
