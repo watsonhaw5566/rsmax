@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import Store from '@rsmax/build-store';
-import { isNativeComponent, slash } from '@rsmax/shared';
+import { slash } from '@rsmax/shared';
 import type { LoaderContext } from '@rspack/core';
 import { cssExtensions } from '../../../extensions';
 import NativeEntry from '../../entries/NativeEntry';
@@ -63,4 +63,18 @@ export default createNativeComponent('${id}')
   }
 
   callback(null, finalSource);
+}
+
+function isNativeComponent(sourcePath: string | null): boolean {
+  if (!sourcePath) {
+    return false;
+  }
+  if (path.extname(sourcePath) !== '.js') {
+    return false;
+  }
+  const sourceJsonPath = sourcePath.replace(/\.js$/, '.json');
+  if (!fs.existsSync(sourceJsonPath)) {
+    return false;
+  }
+  return require(sourceJsonPath).component;
 }
