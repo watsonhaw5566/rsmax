@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`NestedScrollHeader > render correctly 1`] = `<nested-scroll-header />`;

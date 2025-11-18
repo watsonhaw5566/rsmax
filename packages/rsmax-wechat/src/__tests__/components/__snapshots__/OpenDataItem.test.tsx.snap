@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`OpenDataItem > render correctly 1`] = `<open-data-item />`;

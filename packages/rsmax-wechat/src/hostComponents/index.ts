@@ -66,6 +66,8 @@ export * from './GridView';
 export * from './OpenContainer';
 export * from './NestedScrollBody';
 export * from './OpenDataList';
+export * from './OpenDataItem';
 export * from './StickyHeader';
 export * from './StickySection';
 export * from './Span';
+export * from './NestedScrollHeader';
