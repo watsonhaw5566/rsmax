@@ -4,7 +4,7 @@ import { EditorPortal } from '../../hostComponents';
 
 describe('EditorPortal', () => {
   it('render correctly', () => {
-    const testRenderer = TestRenderer.create(<EditorPortal key={'key'} />);
+    const testRenderer = TestRenderer.create(<EditorPortal portalKey={'key'} />);
 
     expect(testRenderer.toJSON()).toMatchSnapshot();
   });

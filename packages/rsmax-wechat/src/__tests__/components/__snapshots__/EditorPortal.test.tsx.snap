@@ -1,3 +1,7 @@
 // Rstest Snapshot v1
 
-exports[`EditorPortal > render correctly 1`] = `<editor-portal />`;
+exports[`EditorPortal > render correctly 1`] = `
+<editor-portal
+  portalKey="key"
+/>
+`;
