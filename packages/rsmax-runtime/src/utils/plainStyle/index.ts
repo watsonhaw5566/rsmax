@@ -1,4 +1,4 @@
-import { RuntimeOptions, find } from '@rsmax/framework-shared';
+import { RuntimeOptions } from '@rsmax/framework-shared';
 import { isUnitlessNumber } from './CSSProperty';
 
 const vendorPrefixes = ['webkit', 'moz', 'ms', 'o'];
@@ -16,7 +16,7 @@ const transformReactStyleKey = (key: string) => {
     const firstWord = styleValue.split('-').filter(s => s)[0];
     styleValue = styleValue.replace(/^-/, '');
 
-    if (find(vendorPrefixes, prefix => prefix === firstWord)) {
+    if (vendorPrefixes.includes(firstWord)) {
       styleValue = `-${styleValue}`;
     }
   }
@@ -37,17 +37,19 @@ const transformPx = (value: string) => {
 };
 
 const plainStyle = (style: Record<string, string | number>) => {
-  return Object.keys(style)
-    .reduce((acc: string[], key) => {
-      let value = (style as any)[key];
+  const acc: string[] = [];
+  const keys = Object.keys(style);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    let value = (style as any)[key];
 
-      if (!Number.isNaN(Number(value)) && !isUnitlessNumber[key] && !key?.startsWith('--')) {
-        value = `${value}rpx`;
-      }
+    if (!Number.isNaN(Number(value)) && !isUnitlessNumber[key] && !key?.startsWith('--')) {
+      value = `${value}rpx`;
+    }
 
-      return [...acc, `${transformReactStyleKey(key)}:${RuntimeOptions.get('pxToRpx') ? transformPx(value) : value};`];
-    }, [])
-    .join('');
+    acc.push(`${transformReactStyleKey(key)}:${RuntimeOptions.get('pxToRpx') ? transformPx(value) : value};`);
+  }
+  return acc.join('');
 };
 
 export default plainStyle;

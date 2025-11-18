@@ -293,21 +293,18 @@ export default class VNode {
 
       const { children = [], currentNode } = stackItem;
 
-      for (let i = children.length - 1; i >= 0; i--) {
+      for (let i = 0; i < children.length; i++) {
         const currentVNode = children[i];
         const currentRawNode = toRawNode(currentVNode);
-
-        if (RuntimeOptions.get('platform') !== 'ali') {
-          currentNode.children!.unshift(currentRawNode.id);
-        } else {
-          currentNode.children!.unshift(currentRawNode);
-        }
 
         if (RuntimeOptions.get('platform') !== 'ali') {
           if (!currentNode.nodes) {
             currentNode.nodes = {};
           }
+          currentNode.children!.push(currentRawNode.id);
           currentNode.nodes[currentRawNode.id] = currentRawNode;
+        } else {
+          currentNode.children!.push(currentRawNode);
         }
 
         stack.push({

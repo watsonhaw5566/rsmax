@@ -1,4 +1,3 @@
-import { find } from '@rsmax/framework-shared';
 import type VNode from '../VNode';
 import { DEPRECATED_CATCH_TYPE, SYNTHETIC_TYPES } from './constants';
 import stopPropagation, { validate as validatePropagation, isPropagationStopped } from './stopPropagation';
@@ -10,7 +9,7 @@ function isSyntheticType(inputType: string) {
     );
   }
 
-  return !!find(SYNTHETIC_TYPES, type => type === inputType);
+  return SYNTHETIC_TYPES.includes(inputType);
 }
 
 function createBaseSyntheticEvent(node: VNode, eventType: string, nativeEvent: any) {
