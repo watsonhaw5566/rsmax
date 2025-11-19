@@ -51,7 +51,7 @@
         "noForEach": "off"
       },
       "suspicious": {
-        "noExplicitAny": "warn",
+        "noExplicitAny": "off",
         "noConfusingVoidType": "error",
         "noImplicitAnyLet": "error",
         "noShadowRestrictedNames": "off",
