@@ -16,7 +16,7 @@ if (typeof Function.prototype.apply === 'undefined') {
   Function.prototype.apply = function (context) {
     context = context || window;
     context.fn = this;
-    let result;
+    let result: any;
 
     if (arguments[1]) {
       result = context.fn(...arguments[1]);

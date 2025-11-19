@@ -19,7 +19,7 @@ export interface InputProps extends BaseProps {
   placeholderClassName?: string;
   disabled?: boolean;
   cursorSpacing?: number;
-  onInput?: (e: any) => void | string;
+  onInput?: (e: any) => void;
   onClick?: (e: any) => void;
   onFocus?: (e: any) => void;
   onBlur?: (e: any) => void;

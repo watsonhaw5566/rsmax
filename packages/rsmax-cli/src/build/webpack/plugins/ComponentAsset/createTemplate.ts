@@ -52,7 +52,7 @@ export default async function createComponentTemplate(
     sortBy,
   };
 
-  let source: string = await ejs.renderFile(meta.ejs.page, ejsOptions, {
+  const source: string = await ejs.renderFile(meta.ejs.page, ejsOptions, {
     rmWhitespace: false,
   });
 

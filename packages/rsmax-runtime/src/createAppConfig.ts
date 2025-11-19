@@ -37,7 +37,7 @@ export default function createAppConfig(this: any, App: any) {
 
       callLifecycle(lifecycle: AppLifecycle, ...args: any[]) {
         const callbacks = AppInstanceContext.lifecycleCallback[lifecycle] || [];
-        let result;
+        let result: any;
         callbacks.forEach((callback: any) => {
           result = callback(...args);
         });

@@ -108,7 +108,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
 
     callLifecycle(lifecycle: Lifecycle, ...args: any[]) {
       const callbacks = this.lifecycleCallback[lifecycle] || [];
-      let result;
+      let result: any;
       // 生命周期中可能改变 state 导致 callbacks 发生变化
       [...callbacks].map((callback: any) => {
         result = unstable_batchedUpdates(args => {

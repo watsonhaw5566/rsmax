@@ -127,7 +127,7 @@ function getUsingComponents(page: string, compilation: any, options: any, prefix
       const mod = compilation.moduleGraph.getModule(dep);
       if (!mod) return;
 
-      let depModule;
+      let depModule: NormalModule;
       if (mod.resource) {
         depModule = mod;
       } else if (mod.rootModule) {

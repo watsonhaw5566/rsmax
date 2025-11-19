@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Configuration, rspack } from '@rspack/core';
+import { type Configuration, rspack } from '@rspack/core';
 import Config from 'rspack-chain';
 import type Builder from '../Builder';
 import FallbackEntry from '../entries/FallbackEntry';

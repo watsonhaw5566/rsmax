@@ -1,4 +1,4 @@
-import { Compilation, Compiler, sources } from '@rspack/core';
+import { Compilation, type Compiler, sources } from '@rspack/core';
 import SourceCache from '../../../SourceCache';
 import type Builder from '../../Builder';
 
@@ -17,7 +17,7 @@ export default class AppAssetPlugin {
       compilation.hooks.processAssets.tap(
         {
           name: PLUGIN_NAME,
-          stage: Compilation.PROCESS_ASSETS_STAGE_PRE_PROCESS
+          stage: Compilation.PROCESS_ASSETS_STAGE_PRE_PROCESS,
         },
         () => {
           this.createManifest(compilation);

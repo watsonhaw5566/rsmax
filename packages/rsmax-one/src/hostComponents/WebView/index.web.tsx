@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import * as React from 'react';
+import React from 'react';
 import { filterProps } from '../../utils/isPlatformSpecifyProp';
 
 export interface WebViewProps extends React.AriaAttributes {
@@ -22,7 +22,7 @@ const WebView: React.ForwardRefRenderFunction<any, WebViewProps> = (props, ref) 
     window.addEventListener('message', listener, false);
 
     return () => window.removeEventListener('message', listener);
-  }, []);
+  }, [onMessage]);
 
   return <iframe {...restProps} className={clsx('remax-web-view', props.className)} ref={ref} />;
 };

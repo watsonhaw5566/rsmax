@@ -116,7 +116,7 @@ export default class EntryCollection {
       if (!p.filename) {
         return;
       }
-      let entry;
+      let entry: MpaEntry | PageEntry | NativeEntry;
       if (this.builder.target === 'web' && this.builder.options.web?.mpa) {
         entry = new MpaEntry(this.builder, p.name, p.filename);
       } else {

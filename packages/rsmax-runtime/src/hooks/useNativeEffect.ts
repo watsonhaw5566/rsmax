@@ -1,8 +1,11 @@
-import { type DependencyList, useLayoutEffect } from 'react';
+import { type DependencyList, useEffect, useLayoutEffect } from 'react';
 import nativeEffect, { type Listener } from '../nativeEffect';
 
+// 创建服务端安全的effect hook
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export default function useNativeEffect(listener: Listener, deps?: DependencyList) {
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     return nativeEffect.connect(listener, !!deps);
   }, deps);
 }

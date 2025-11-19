@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { type Compiler } from '@rspack/core';
+import type { Compiler } from '@rspack/core';
 import type Builder from '../../Builder';
 
 const PLUGIN_NAME = 'RsmaxWeChatRecompilePlugin';
