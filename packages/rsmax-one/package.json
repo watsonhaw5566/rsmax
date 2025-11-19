@@ -2,7 +2,7 @@
   "name": "@rsmax/one",
   "version": "1.3.14",
   "description": "Rsmax 小程序多端方案",
-  "repository": "git+https://github.com/remaxjs/remax.git",
+  "repository": "git+https://github.com/watsonhaw5566/rsmax.git",
   "license": "MIT",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",

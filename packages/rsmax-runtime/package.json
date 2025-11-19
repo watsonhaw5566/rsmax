@@ -10,11 +10,11 @@
   ],
   "homepage": "https://remax.wdchiphop.cn",
   "bugs": {
-    "url": "https://github.com/remaxjs/remax/issues"
+    "url": "https://github.com/watsonhaw5566/rsmax/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remaxjs/remax.git"
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git"
   },
   "license": "MIT",
   "main": "./cjs/index.js",

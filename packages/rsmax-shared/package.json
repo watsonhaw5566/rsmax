@@ -5,7 +5,7 @@
   "homepage": "https://remax.wdchiphop.cn",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remaxjs/remax.git"
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git"
   },
   "license": "MIT",
   "main": "cjs/index.js",
