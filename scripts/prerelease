@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-
-printf "pnpm build:\n"
-
-pnpm lint && pnpm build && pnpm simple-git-hooks

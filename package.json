@@ -14,7 +14,7 @@
     "postpack": "pnpm run readme:clean",
     "readme:clean": "lerna exec 'rm README.md' --scope rsmax --scope @rsmax/cli",
     "readme:copy": "lerna exec 'cp ../../README.md' . --scope rsmax --scope @rsmax/cli",
-    "prerelease": "./scripts/prerelease",
+    "prerelease": "pnpm lint && pnpm build && pnpm build && pnpm simple-git-hooks",
     "release": "lerna publish",
     "postinstall": "simple-git-hooks",
     "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
