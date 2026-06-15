@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-tnpm sync $(npx lerna list | xargs echo)
