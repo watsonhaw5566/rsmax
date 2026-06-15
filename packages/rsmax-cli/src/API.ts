@@ -6,8 +6,6 @@ import { merge } from 'lodash';
 import type Config from 'rspack-chain';
 import type yargs from 'yargs';
 import type { RuleConfig } from './build/webpack/config/css';
-import { builtinPlugins } from './builtinPlugins';
-
 export default class API {
   public plugins: Plugin[] = [];
   public adapter = {
@@ -162,14 +160,6 @@ export default class API {
         }
       })
       .filter(Boolean);
-  }
-
-  loadBuiltinPlugins(options: Options) {
-    const plugins = builtinPlugins(options).reduce((acc: Plugin[], plugin) => {
-      acc.push(plugin.init({}, options));
-      return acc;
-    }, []);
-    this.registerPlugins(plugins);
   }
 
   public registerAdapterPlugins(targetName: Platform) {

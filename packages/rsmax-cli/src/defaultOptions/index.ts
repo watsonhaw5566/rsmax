@@ -16,7 +16,5 @@ export function getDefaultOptions(): Options {
       mpa: false,
       excludeNodeModulesTransform: false,
     },
-    errorScreen: false,
-    spm: false,
   };
 }

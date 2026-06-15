@@ -40,9 +40,6 @@
     "web": {
       "type": "object"
     },
-    "errorScreen": {
-      "type": ["boolean", "object"]
-    },
     "tracert": {
       "type": ["boolean", "object"]
     },
