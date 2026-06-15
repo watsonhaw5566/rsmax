@@ -14,13 +14,9 @@ export type WebOptions = {
   excludeNodeModulesTransform: boolean;
 };
 
-export interface PluginOptions {
-  errorScreen: boolean;
-  spm: boolean;
-}
+export interface PluginOptions {}
 
 export interface BuildOptions {
-  turboRenders?: boolean;
   pxToRpx: boolean;
   cwd: string;
   progress: boolean;

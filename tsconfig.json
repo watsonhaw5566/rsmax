@@ -17,19 +17,10 @@
       "path": "./packages/babel-preset-rsmax"
     },
     {
-      "path": "./packages/babel-plugin-auto-css-modules"
-    },
-    {
       "path": "./packages/babel-plugin-rsmax-host-component"
     },
     {
-      "path": "./packages/babel-plugin-rsmax-turbo-render"
-    },
-    {
       "path": "./packages/babel-plugin-rsmax-lifecycle"
-    },
-    {
-      "path": "./packages/babel-plugin-rsmax-regenerator-runtime"
     },
     {
       "path": "./packages/rsmax-runtime"
@@ -53,16 +44,7 @@
       "path": "./packages/rsmax-macro"
     },
     {
-      "path": "./packages/rsmax-plugin-devtools"
-    },
-    {
-      "path": "./packages/rsmax-plugin-error-screen"
-    },
-    {
       "path": "./packages/rsmax-cli"
-    },
-    {
-      "path": "./packages/rsmax-component-scripts"
     },
     {
       "path": "./packages/rsmax"

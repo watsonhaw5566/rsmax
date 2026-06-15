@@ -3,7 +3,6 @@ import UNSAFE_wechatTemplateDepth from './UNSAFE_wechatTemplateDepth';
 
 export function getDefaultOptions(): Options {
   return {
-    turboRenders: false,
     pxToRpx: true,
     cwd: process.cwd(),
     progress: true,
@@ -17,7 +16,5 @@ export function getDefaultOptions(): Options {
       mpa: false,
       excludeNodeModulesTransform: false,
     },
-    errorScreen: false,
-    spm: false,
   };
 }

@@ -4,9 +4,6 @@
     "one": {
       "type": "boolean"
     },
-    "turboRenders": {
-      "type": "boolean"
-    },
     "notify": {
       "type": "boolean"
     },
@@ -42,9 +39,6 @@
     },
     "web": {
       "type": "object"
-    },
-    "errorScreen": {
-      "type": ["boolean", "object"]
     },
     "tracert": {
       "type": ["boolean", "object"]
