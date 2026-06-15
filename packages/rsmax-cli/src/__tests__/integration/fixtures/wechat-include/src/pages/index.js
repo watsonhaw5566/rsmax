@@ -1,4 +1,4 @@
-import { View } from '@rsmax/wechat/component';
+import { View } from '@rsmax/wechat';
 import Foo from './foo/index';
 
 export default function Index() {
