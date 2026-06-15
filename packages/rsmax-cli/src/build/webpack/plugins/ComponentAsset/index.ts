@@ -27,7 +27,7 @@ export default class ComponentAssetPlugin {
             if (!(component instanceof ComponentEntry)) {
               return Promise.resolve();
             }
-            let templatePromise = createTemplate(component, options, meta, compilation, this.cache);
+            const templatePromise = createTemplate(component, options, meta, compilation, this.cache);
 
             await Promise.all([
               await templatePromise,
