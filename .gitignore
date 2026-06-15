@@ -78,4 +78,4 @@ tsconfig.tsbuildinfo
 cjs
 esm
 
-.umi/
+.npmrc
