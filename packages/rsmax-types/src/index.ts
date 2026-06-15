@@ -20,7 +20,6 @@ export interface PluginOptions {
 }
 
 export interface BuildOptions {
-  turboRenders?: boolean;
   pxToRpx: boolean;
   cwd: string;
   progress: boolean;

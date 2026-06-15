@@ -4,9 +4,6 @@
     "one": {
       "type": "boolean"
     },
-    "turboRenders": {
-      "type": "boolean"
-    },
     "notify": {
       "type": "boolean"
     },

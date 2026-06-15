@@ -48,7 +48,6 @@
     "babel-plugin-module-resolver": "^5.0.2",
     "babel-plugin-rsmax-host-component": "workspace:*",
     "babel-plugin-rsmax-lifecycle": "workspace:*",
-    "babel-plugin-rsmax-turbo-render": "workspace:*",
     "babel-preset-rsmax": "workspace:*",
     "chokidar": "^4.0.0",
     "css-loader": "^6.7.0",

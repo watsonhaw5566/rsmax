@@ -387,9 +387,6 @@ importers:
       babel-plugin-rsmax-lifecycle:
         specifier: workspace:*
         version: link:../babel-plugin-rsmax-lifecycle
-      babel-plugin-rsmax-turbo-render:
-        specifier: workspace:*
-        version: link:../babel-plugin-rsmax-turbo-render
       babel-preset-rsmax:
         specifier: workspace:*
         version: link:../babel-preset-rsmax
