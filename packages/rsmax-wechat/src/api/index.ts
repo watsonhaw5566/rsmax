@@ -215,10 +215,10 @@ export const createGlobalPayment = wx.createGlobalPayment;
 export const setStorageSync = wx.setStorageSync;
 export const setStorage = promisify(wx.setStorage);
 export const revokeBufferURL = wx.revokeBufferURL;
-export const removeStorageSync = promisify(wx.removeStorageSync);
+export const removeStorageSync = wx.removeStorageSync;
 export const removeStorage = promisify(wx.removeStorage);
 export const getStorageSync = wx.getStorageSync;
-export const getStorageInfoSync = promisify(wx.getStorageInfoSync);
+export const getStorageInfoSync = wx.getStorageInfoSync;
 export const getStorageInfo = promisify(wx.getStorageInfo);
 export const getStorage = promisify(wx.getStorage);
 export const createBufferURL = wx.createBufferURL;
@@ -341,7 +341,7 @@ export const chooseLocation = promisify(wx.chooseLocation);
 // 文件
 export const saveFileToDisk = wx.saveFileToDisk;
 export const openDocument = promisify(wx.openDocument);
-export const getFileSystemManager = promisify(wx.getFileSystemManager);
+export const getFileSystemManager = wx.getFileSystemManager;
 // 开放接口 - 登录
 export const pluginLogin = wx.pluginLogin;
 export const login = wx.login;
@@ -446,7 +446,7 @@ export const closeBLEConnection = promisify(wx.closeBLEConnection);
 // 设备 - 蓝牙 - 低功耗外围设备
 export const onBLEPeripheralConnectionStateChanged = wx.onBLEPeripheralConnectionStateChanged;
 export const offBLEPeripheralConnectionStateChanged = wx.offBLEPeripheralConnectionStateChanged;
-export const createBLEPeripheralServer = promisify(wx.createBLEPeripheralServer);
+export const createBLEPeripheralServer = wx.createBLEPeripheralServer;
 // 设备 - 蓝牙 - 信标
 export const stopBeaconDiscovery = promisify(wx.stopBeaconDiscovery);
 export const startBeaconDiscovery = promisify(wx.startBeaconDiscovery);
@@ -480,7 +480,7 @@ export const checkIsOpenAccessibility = promisify(wx.checkIsOpenAccessibility);
 // 设备 - 电量
 export const onBatteryInfoChange = wx.onBatteryInfoChange;
 export const offBatteryInfoChange = wx.offBatteryInfoChange;
-export const getBatteryInfoSync = promisify(wx.getBatteryInfoSync);
+export const getBatteryInfoSync = wx.getBatteryInfoSync;
 export const getBatteryInfo = promisify(wx.getBatteryInfo);
 // 设备 - 剪贴板
 export const setClipboardData = promisify(wx.setClipboardData);

@@ -92,7 +92,7 @@ export const regionPicker = promisify(my.regionPicker);
 // 界面 - 选择日期
 export const datePicker = promisify(my.datePicker);
 // 界面 - 动画
-export const createAnimation = promisify(my.createAnimation);
+export const createAnimation = my.createAnimation;
 // 界面 - 地图
 export const getMapInfo = promisify(my.getMapInfo);
 export const createMapContext = my.createMapContext;
@@ -210,8 +210,8 @@ export const getAppBaseInfo = my.getAppBaseInfo;
 export const getAppAuthorizeSetting = my.getAppAuthorizeSetting;
 // 设备 - 网络状态
 export const getNetworkType = promisify(my.getNetworkType);
-export const onNetworkStatusChange = promisify(my.onNetworkStatusChange);
-export const offNetworkStatusChange = promisify(my.offNetworkStatusChange);
+export const onNetworkStatusChange = my.onNetworkStatusChange;
+export const offNetworkStatusChange = my.offNetworkStatusChange;
 // 设备 - 截屏
 export const setVisualEffectOnCapture = promisify(my.setVisualEffectOnCapture);
 // 设备 - 剪贴板
@@ -355,9 +355,9 @@ export const onNeedPrivacyAuthorization = my.onNeedPrivacyAuthorization;
 // @ts-ignore
 export const getPrivacySetting = promisify(my.getPrivacySetting);
 // 小程序广告
-export const createRewardedAd = promisify(my.createRewardedAd);
+export const createRewardedAd = my.createRewardedAd;
 // @ts-ignore
-export const createInterstitialAd = promisify(my.createInterstitialAd);
+export const createInterstitialAd = my.createInterstitialAd;
 /**
  * 开放能力 API
  */
