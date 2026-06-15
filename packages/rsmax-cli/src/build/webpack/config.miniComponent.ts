@@ -8,7 +8,6 @@ import type { Options } from '@rsmax/types';
 import { type Configuration, rspack } from '@rspack/core';
 import hostComponent from 'babel-plugin-rsmax-host-component';
 import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
-import fixRegeneratorRuntime from 'babel-plugin-rsmax-regenerator-runtime';
 import * as TurboRender from 'babel-plugin-rsmax-turbo-render';
 import ejs from 'ejs';
 import { logger } from 'rslog';
@@ -142,7 +141,6 @@ export default function webpackConfig(builder: Builder): Configuration {
           skipProps: [TurboRender.LEAF, TurboRender.ENTRY],
           includeProps: [TurboRender.TEMPLATE_ID],
         }),
-        fixRegeneratorRuntime(),
       ],
       reactPreset: true,
       api: builder.api,

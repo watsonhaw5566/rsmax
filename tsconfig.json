@@ -26,9 +26,6 @@
       "path": "./packages/babel-plugin-rsmax-lifecycle"
     },
     {
-      "path": "./packages/babel-plugin-rsmax-regenerator-runtime"
-    },
-    {
       "path": "./packages/rsmax-runtime"
     },
     {
