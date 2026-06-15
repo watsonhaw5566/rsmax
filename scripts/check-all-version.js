@@ -1,18 +1,28 @@
-const request = require('request');
 const fs = require('node:fs');
 const path = require('node:path');
 
 const readDir = fs.readdirSync(path.join(__dirname, '../packages'));
 
 const packages = readDir.map(s => {
-  return require(path.join(__dirname, '../packages', s, 'package.json')).name;
+  const pkg = require(path.join(__dirname, '../packages', s, 'package.json'));
+  return { dir: s, name: pkg.name };
 });
 
-function getPackageVersion(packageName) {
+async function getPackageVersion(packageName) {
   const url = `https://registry.npmjs.com/${packageName}/latest`;
-  request.get(url, (err, resp, body) => {
-    console.log(packageName, JSON.parse(body).version);
-  });
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.log(packageName, '(未发布)');
+      return;
+    }
+    const data = await res.json();
+    console.log(packageName, data.version);
+  } catch (err) {
+    console.log(packageName, `(查询失败: ${err.message})`);
+  }
 }
 
-packages.forEach(getPackageVersion);
+(async () => {
+  await Promise.all(packages.map(pkg => getPackageVersion(pkg.name)));
+})();
