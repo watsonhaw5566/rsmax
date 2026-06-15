@@ -21,7 +21,7 @@
     "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
     "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
     "test:e2e-web": "yarn --cwd e2e/app test:web",
-    "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
+    "watch": "tsc -b && tsc -b -w & pnpm -r --parallel --filter=./packages/* run build:cjs --watch"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec nano-staged"
