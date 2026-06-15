@@ -47,9 +47,6 @@ importers:
       '@types/react-test-renderer':
         specifier: ^18.3.0
         version: 18.3.1
-      '@types/yargs':
-        specifier: ^15.0.0
-        version: 15.0.19
       lerna:
         specifier: ^8.0.0
         version: 8.1.8(@swc-node/register@1.10.10(@swc/core@1.11.29(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@4.9.5))(@swc/core@1.11.29(@swc/helpers@0.5.17))(babel-plugin-macros@3.1.0)(encoding@0.1.13)
@@ -474,6 +471,9 @@ importers:
       '@types/semver':
         specifier: ^7.1.0
         version: 7.7.0
+      '@types/yargs':
+        specifier: ^16.0.0
+        version: 16.0.9
       babel-plugin-import:
         specifier: ^1.13.0
         version: 1.13.8
@@ -775,8 +775,8 @@ importers:
         specifier: ^18.3.0
         version: 18.3.21
       '@types/yargs':
-        specifier: ^15.0.0
-        version: 15.0.19
+        specifier: ^16.0.0
+        version: 16.0.9
       rspack-chain:
         specifier: ^1.2.4
         version: 1.2.4
