@@ -77,7 +77,7 @@ export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean
     }
   }
 
-  applyLoaders(rule.oneOf('modules').resourceQuery(/modules/), true);
+  applyLoaders(rule.oneOf('modules').test(/\.module\.(css|less|sass|scss|stylus|styl)$/i), true);
   applyLoaders(rule.oneOf('normal'), false);
 }
 
