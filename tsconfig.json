@@ -53,9 +53,6 @@
       "path": "./packages/rsmax-cli"
     },
     {
-      "path": "./packages/rsmax-component-scripts"
-    },
-    {
       "path": "./packages/rsmax"
     }
   ]
