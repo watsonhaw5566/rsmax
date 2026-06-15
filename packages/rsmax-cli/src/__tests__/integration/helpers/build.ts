@@ -41,6 +41,13 @@ interface Options {
   externalsIgnore: string[];
 }
 
+function cleanOutput(cwd: string, outputDir: string) {
+  const target = path.join(cwd, outputDir);
+  if (fs.existsSync(target)) {
+    fs.rmSync(target, { recursive: true, force: true });
+  }
+}
+
 export async function buildApp(
   app: string,
   target: Platform,
@@ -53,6 +60,8 @@ export async function buildApp(
   process.env.RSMAX_PLATFORM = target;
 
   const config = getConfig();
+  cleanOutput(cwd, config.output || 'dist');
+
   const api = new API();
 
   api.registerPlugins(config.plugins);
@@ -137,6 +146,8 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
   process.env.RSMAX_PLATFORM = target;
 
   const config = getConfig();
+  cleanOutput(cwd, config.output || 'dist');
+
   const api = new API();
 
   api.registerPlugins(config.plugins);
@@ -218,6 +229,8 @@ export function buildMiniComponent(
   process.env.RSMAX_PLATFORM = target;
 
   const config = getConfig();
+  cleanOutput(cwd, config.output || 'dist');
+
   const api = new API();
 
   api.registerPlugins(config.plugins);
