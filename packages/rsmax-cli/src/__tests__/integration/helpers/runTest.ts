@@ -74,6 +74,9 @@ function createHash(content: Buffer) {
 
 function normalizeJsContent(input: string) {
   return input
+    // 统一 webpack/rspack 输出中模块 ID 作为对象属性键 `1834: (function ...` / `2015: (module)` / `92: function(..`
+    // 这些 ID 随构建环境/版本变化，导致快照不稳定。必须匹配：数字+`: `+空格+`(` 或 `function`，避免误伤 case 语句
+    .replace(/(^|[\s,;])(\d+):(\s+(?:\(|function\b))/gm, '$1<ID>:$3')
     // 统一 __webpack_require__(123) 的数字 ID
     .replace(/__webpack_require__\((\d+)\)/g, '__webpack_require__(<ID>)')
     // 统一 [123] 这类索引

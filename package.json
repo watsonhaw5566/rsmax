@@ -14,14 +14,15 @@
     "postpack": "pnpm run readme:clean",
     "readme:clean": "lerna exec 'rm README.md' --scope rsmax --scope @rsmax/cli",
     "readme:copy": "lerna exec 'cp ../../README.md' . --scope rsmax --scope @rsmax/cli",
-    "prerelease": "./scripts/prerelease",
+    "prerelease": "pnpm lint && pnpm build && pnpm simple-git-hooks",
     "release": "lerna publish",
+    "release:canary": "lerna publish --canary --dist-tag canary --preid canary",
     "postinstall": "simple-git-hooks",
     "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
     "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
     "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
-    "test:e2e-web": "yarn --cwd e2e/app test:web",
-    "watch": "pnpm -r --parallel --filter=./packages/* run build:cjs && tsc -b -w"
+    "test:e2e-web": "pnpm --cwd e2e/app test:web",
+    "watch": "tsc -b && tsc -b -w & pnpm -r --parallel --filter=./packages/* run build:cjs --watch"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec nano-staged"
@@ -47,7 +48,6 @@
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@types/react-test-renderer": "^18.3.0",
-    "@types/yargs": "^15.0.0",
     "lerna": "^8.0.0",
     "nano-staged": "^0.8.0",
     "prettier": "^3.5.3",

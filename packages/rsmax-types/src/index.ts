@@ -14,7 +14,8 @@ export type WebOptions = {
   excludeNodeModulesTransform: boolean;
 };
 
-export interface PluginOptions {}
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
+export type PluginOptions = {};
 
 export interface BuildOptions {
   pxToRpx: boolean;
