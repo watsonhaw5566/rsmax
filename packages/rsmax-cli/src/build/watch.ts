@@ -28,7 +28,7 @@ export default function watch(builder: Builder, watcher: any, addEntry = false) 
         const nextEntries = builder.entryCollection.entries;
         nextEntries.forEach(entry => {
           if (!entries.get(entry.filename)) {
-            entry.virtualModule.apply(builder.webpackCompiler);
+            entry.virtualModule.apply(builder.rspackCompiler);
             entry.updateSource(true);
           }
         });
@@ -52,11 +52,11 @@ export default function watch(builder: Builder, watcher: any, addEntry = false) 
       watcher.invalidate();
     });
 
-  builder.webpackCompiler.hooks.watchRun.tap('watchRun', () => {
+  builder.rspackCompiler.hooks.watchRun.tap('watchRun', () => {
     isRunning = true;
   });
 
-  builder.webpackCompiler.hooks.done.tap('done', () => {
+  builder.rspackCompiler.hooks.done.tap('done', () => {
     isRunning = false;
   });
 

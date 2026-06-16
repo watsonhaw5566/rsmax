@@ -5,7 +5,7 @@ import type { HostComponent, Meta, Options, Platform, Plugin } from '@rsmax/type
 import { merge } from 'lodash';
 import type Config from 'rspack-chain';
 import type yargs from 'yargs';
-import type { RuleConfig } from './build/webpack/config/css';
+import type { RuleConfig } from './build/rspack/config/css';
 export default class API {
   public plugins: Plugin[] = [];
   public adapter = {
@@ -119,10 +119,10 @@ export default class API {
     }, entries);
   }
 
-  configWebpack(params: { config: Config; rspack: any; addCSSRule: (ruleConfig: RuleConfig) => void }) {
+  configRspack(params: { config: Config; rspack: any; addCSSRule: (ruleConfig: RuleConfig) => void }) {
     this.plugins.forEach(plugin => {
-      if (typeof plugin.configWebpack === 'function') {
-        plugin.configWebpack(params);
+      if (typeof plugin.configRspack === 'function') {
+        plugin.configRspack(params);
       }
     });
   }

@@ -921,7 +921,7 @@ app.js:
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 app.js: __webpack_require__.O(0, ["5",], function() {
-app.js:         return __webpack_exec__(5895), __webpack_exec__(938);
+app.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 app.js:       });
 app.js: var __webpack_exports__ = __webpack_require__.O();
 app.js: 
@@ -1200,7 +1200,7 @@ packageA/pages/index.js:
 packageA/pages/index.js: },function(__webpack_require__) {
 packageA/pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 packageA/pages/index.js: __webpack_require__.O(0, ["4","5",], function() {
-packageA/pages/index.js:         return __webpack_exec__(942);
+packageA/pages/index.js:         return __webpack_exec__(<ID>);
 packageA/pages/index.js:       });
 packageA/pages/index.js: var __webpack_exports__ = __webpack_require__.O();
 packageA/pages/index.js: 
@@ -1451,7 +1451,7 @@ pages/classPage.js:
 pages/classPage.js: },function(__webpack_require__) {
 pages/classPage.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/classPage.js: __webpack_require__.O(0, ["5",], function() {
-pages/classPage.js:         return __webpack_exec__(297);
+pages/classPage.js:         return __webpack_exec__(<ID>);
 pages/classPage.js:       });
 pages/classPage.js: var __webpack_exports__ = __webpack_require__.O();
 pages/classPage.js: 
@@ -1606,7 +1606,7 @@ pages/index.js:         return o && "function" == typeof Symbol && o.constructor
 pages/index.js:     }, _typeof(o);
 pages/index.js: }
 pages/index.js: function _regeneratorRuntime() {
-pages/index.js:     "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ 
+pages/index.js:     "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
 pages/index.js:     _regeneratorRuntime = function _regeneratorRuntime() {
 pages/index.js:         return r;
 pages/index.js:     };
@@ -2010,7 +2010,7 @@ pages/index.js:
 pages/index.js: },function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/index.js: __webpack_require__.O(0, ["4","5",], function() {
-pages/index.js:         return __webpack_exec__(3466);
+pages/index.js:         return __webpack_exec__(<ID>);
 pages/index.js:       });
 pages/index.js: var __webpack_exports__ = __webpack_require__.O();
 pages/index.js: 
@@ -2297,7 +2297,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -2510,7 +2510,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -7234,7 +7234,7 @@ app.js:
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 app.js: __webpack_require__.O(0, ["3",], function() {
-app.js:         return __webpack_exec__(5895), __webpack_exec__(938);
+app.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 app.js:       });
 app.js: var __webpack_exports__ = __webpack_require__.O();
 app.js: 
@@ -7266,7 +7266,7 @@ pages/foo/index.js: }),
 pages/foo/index.js: 
 pages/foo/index.js: },function(__webpack_require__) {
 pages/foo/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/foo/index.js: var __webpack_exports__ = (__webpack_exec__(8489));
+pages/foo/index.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
 pages/foo/index.js: 
 pages/foo/index.js: }
 pages/foo/index.js: ]);
@@ -7399,7 +7399,7 @@ pages/index.js:
 pages/index.js: },function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/index.js: __webpack_require__.O(0, ["3",], function() {
-pages/index.js:         return __webpack_exec__(3466);
+pages/index.js:         return __webpack_exec__(<ID>);
 pages/index.js:       });
 pages/index.js: var __webpack_exports__ = __webpack_require__.O();
 pages/index.js: 
@@ -7663,7 +7663,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -7876,7 +7876,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -12478,7 +12478,7 @@ app.js:
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 app.js: __webpack_require__.O(0, ["2",], function() {
-app.js:         return __webpack_exec__(5895), __webpack_exec__(938);
+app.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 app.js:       });
 app.js: var __webpack_exports__ = __webpack_require__.O();
 app.js: 
@@ -12601,7 +12601,7 @@ pages/index.js:
 pages/index.js: },function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/index.js: __webpack_require__.O(0, ["2",], function() {
-pages/index.js:         return __webpack_exec__(4536);
+pages/index.js:         return __webpack_exec__(<ID>);
 pages/index.js:       });
 pages/index.js: var __webpack_exports__ = __webpack_require__.O();
 pages/index.js: 
@@ -12865,7 +12865,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -13078,7 +13078,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -17675,7 +17675,7 @@ app.js:
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 app.js: __webpack_require__.O(0, ["2",], function() {
-app.js:         return __webpack_exec__(5895), __webpack_exec__(938);
+app.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 app.js:       });
 app.js: var __webpack_exports__ = __webpack_require__.O();
 app.js: 
@@ -17905,7 +17905,7 @@ pages/index/index.js:
 pages/index/index.js: },function(__webpack_require__) {
 pages/index/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/index/index.js: __webpack_require__.O(0, ["2",], function() {
-pages/index/index.js:         return __webpack_exec__(9701);
+pages/index/index.js:         return __webpack_exec__(<ID>);
 pages/index/index.js:       });
 pages/index/index.js: var __webpack_exports__ = __webpack_require__.O();
 pages/index/index.js: 
@@ -18212,7 +18212,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -18425,7 +18425,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -23414,7 +23414,7 @@ app.js:
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 app.js: __webpack_require__.O(0, ["3",], function() {
-app.js:         return __webpack_exec__(5895), __webpack_exec__(938);
+app.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 app.js:       });
 app.js: var __webpack_exports__ = __webpack_require__.O();
 app.js: 
@@ -23468,7 +23468,7 @@ base.wxml:             var id = 'REMAX_TPL_' + (1 + count) + '_' + type;
 base.wxml:             __cache[key] = id;
 base.wxml:             return id;
 base.wxml:         }
-base.wxml:         
+base.wxml: 
 base.wxml:         container: function (tid) {
 base.wxml:             return 'REMAX_TPL_' + (tid + 1) + '_CONTAINER';
 base.wxml:         }
@@ -23631,7 +23631,7 @@ pages/foo/index.js: }),
 pages/foo/index.js: 
 pages/foo/index.js: },function(__webpack_require__) {
 pages/foo/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/foo/index.js: var __webpack_exports__ = (__webpack_exec__(8489));
+pages/foo/index.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
 pages/foo/index.js: 
 pages/foo/index.js: }
 pages/foo/index.js: ]);
@@ -23729,7 +23729,7 @@ pages/index.js:
 pages/index.js: },function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/index.js: __webpack_require__.O(0, ["3",], function() {
-pages/index.js:         return __webpack_exec__(3466);
+pages/index.js:         return __webpack_exec__(<ID>);
 pages/index.js:       });
 pages/index.js: var __webpack_exports__ = __webpack_require__.O();
 pages/index.js: 
@@ -23999,7 +23999,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -24212,7 +24212,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {

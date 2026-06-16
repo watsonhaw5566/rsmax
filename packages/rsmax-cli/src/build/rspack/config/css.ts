@@ -20,9 +20,9 @@ function resolvePostcssConfig(options: Options) {
   return slash(path.resolve(__dirname, '../../../..'));
 }
 
-export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean, ruleConfig: RuleConfig) {
+export function addCSSRule(rspackConfig: Config, builder: Builder, web: boolean, ruleConfig: RuleConfig) {
   const { options } = builder;
-  const rule = webpackConfig.module.rule(ruleConfig.name).test(ruleConfig.test);
+  const rule = rspackConfig.module.rule(ruleConfig.name).test(ruleConfig.test);
 
   function applyLoaders(rule: Config.Rule<Config.Rule<Config.Module>>, cssModules: boolean) {
     if (options.watch && web) {
@@ -81,15 +81,15 @@ export function addCSSRule(webpackConfig: Config, builder: Builder, web: boolean
   applyLoaders(rule.oneOf('normal'), false);
 }
 
-export function cssConfig(webpackConfig: Config, builder: Builder, web: boolean) {
-  addCSSRule(webpackConfig, builder, web, {
+export function cssConfig(rspackConfig: Config, builder: Builder, web: boolean) {
+  addCSSRule(rspackConfig, builder, web, {
     name: 'css',
     test: /\.css$/i,
   });
 
   if (!web) {
     const { style } = builder.api.getMeta();
-    webpackConfig.module
+    rspackConfig.module
       .rule(style)
       .test(file => file.endsWith(style))
       .use('mini-css-extract-loader')

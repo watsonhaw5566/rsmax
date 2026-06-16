@@ -962,7 +962,7 @@ app.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 app.js:  *
 app.js:  * This source code is licensed under the MIT license found in the
 app.js:  * LICENSE file in the root directory of this source tree.
-app.js:  */ 
+app.js:  */
 app.js: function _typeof(o) {
 app.js:     "@babel/helpers - typeof";
 app.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -1175,7 +1175,7 @@ app.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 app.js:  *
 app.js:  * This source code is licensed under the MIT license found in the
 app.js:  * LICENSE file in the root directory of this source tree.
-app.js:  */ 
+app.js:  */
 app.js: function _typeof(o) {
 app.js:     "@babel/helpers - typeof";
 app.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -4997,7 +4997,7 @@ app.js: }),
 app.js: 
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-app.js: var __webpack_exports__ = (__webpack_exec__(5895), __webpack_exec__(938));
+app.js: var __webpack_exports__ = (__webpack_exec__(<ID>), __webpack_exec__(<ID>));
 app.js: 
 app.js: }
 app.js: ]);
@@ -6118,7 +6118,7 @@ app.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 app.js:  *
 app.js:  * This source code is licensed under the MIT license found in the
 app.js:  * LICENSE file in the root directory of this source tree.
-app.js:  */ 
+app.js:  */
 app.js: function _typeof(o) {
 app.js:     "@babel/helpers - typeof";
 app.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -6331,7 +6331,7 @@ app.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 app.js:  *
 app.js:  * This source code is licensed under the MIT license found in the
 app.js:  * LICENSE file in the root directory of this source tree.
-app.js:  */ 
+app.js:  */
 app.js: function _typeof(o) {
 app.js:     "@babel/helpers - typeof";
 app.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -10153,7 +10153,7 @@ app.js: }),
 app.js: 
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-app.js: var __webpack_exports__ = (__webpack_exec__(5895), __webpack_exec__(938));
+app.js: var __webpack_exports__ = (__webpack_exec__(<ID>), __webpack_exec__(<ID>));
 app.js: 
 app.js: }
 app.js: ]);
@@ -11668,7 +11668,7 @@ app.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 app.js:  *
 app.js:  * This source code is licensed under the MIT license found in the
 app.js:  * LICENSE file in the root directory of this source tree.
-app.js:  */ 
+app.js:  */
 app.js: function _typeof(o) {
 app.js:     "@babel/helpers - typeof";
 app.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -11881,7 +11881,7 @@ app.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 app.js:  *
 app.js:  * This source code is licensed under the MIT license found in the
 app.js:  * LICENSE file in the root directory of this source tree.
-app.js:  */ 
+app.js:  */
 app.js: function _typeof(o) {
 app.js:     "@babel/helpers - typeof";
 app.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -15715,7 +15715,7 @@ app.js: }),
 app.js: 
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-app.js: var __webpack_exports__ = (__webpack_exec__(5895), __webpack_exec__(938));
+app.js: var __webpack_exports__ = (__webpack_exec__(<ID>), __webpack_exec__(<ID>));
 app.js: 
 app.js: }
 app.js: ]);
@@ -15770,7 +15770,7 @@ base.wxml:             var id = 'REMAX_TPL_' + (1 + count) + '_' + type;
 base.wxml:             __cache[key] = id;
 base.wxml:             return id;
 base.wxml:         }
-base.wxml:         
+base.wxml: 
 base.wxml:         container: function (tid) {
 base.wxml:             return 'REMAX_TPL_' + (tid + 1) + '_CONTAINER';
 base.wxml:         }

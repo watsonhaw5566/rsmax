@@ -8,7 +8,7 @@ import type VirtualEntry from '../entries/VirtualEntry';
 import baseConfig from './baseConfig';
 import webBaseConfig from './webBaseConfig';
 
-export default function webpackConfig(builder: Builder): Configuration {
+export default function rspackConfig(builder: Builder): Configuration {
   const config = new Config();
 
   baseConfig(config, builder);
@@ -16,7 +16,7 @@ export default function webpackConfig(builder: Builder): Configuration {
   const addEntry = (entry: VirtualEntry) => {
     config.entry(entry.name).add(entry.virtualPath);
     config.plugin(`rspack-virtual-modules${entry.name}`).use(entry.virtualModule);
-    config.plugin(`html-webpack-plugin${entry.name}`).use(rspack.HtmlRspackPlugin, [
+    config.plugin(`html-rspack-plugin${entry.name}`).use(rspack.HtmlRspackPlugin, [
       {
         filename: `${entry.name}.html`,
         chunks: [entry.name],

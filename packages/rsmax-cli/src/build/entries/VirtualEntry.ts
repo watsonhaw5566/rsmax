@@ -34,7 +34,7 @@ export default class VirtualEntry extends NormalEntry {
     this.virtualModule.writeModule(this.virtualPath, this.outputSource());
   }
 
-  addToWebpack(compiler: Compiler, compilation: Compilation) {
+  addToRspack(compiler: Compiler, compilation: Compilation) {
     return new Promise<void>((resolve, reject) => {
       if (!this.virtualModule._compiler) {
         this.virtualModule.apply(compiler);

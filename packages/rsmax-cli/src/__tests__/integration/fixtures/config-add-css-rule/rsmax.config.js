@@ -1,5 +1,5 @@
 module.exports = {
-  configWebpack(ctx) {
+  configRspack(ctx) {
     ctx.addCSSRule({
       name: 'scss',
       test: /\.scss(\?.*)?$/,

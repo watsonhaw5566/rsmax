@@ -123,10 +123,10 @@ export default function webBaseConfig(config: Config, builder: Builder) {
     },
   };
 
-  if (typeof builder.options.configWebpack === 'function') {
-    builder.options.configWebpack(context);
+  if (typeof builder.options.configRspack === 'function') {
+    builder.options.configRspack(context);
   }
-  builder.api.configWebpack(context);
+  builder.api.configRspack(context);
 
   return config;
 }

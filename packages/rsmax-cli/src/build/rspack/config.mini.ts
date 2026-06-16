@@ -37,7 +37,7 @@ function resolveBabelConfig(options: Options) {
   return false;
 }
 
-export default function webpackConfig(builder: Builder): Configuration {
+export default function rspackConfig(builder: Builder): Configuration {
   const config = new Config();
 
   baseConfig(config, builder);
@@ -240,10 +240,10 @@ export default function webpackConfig(builder: Builder): Configuration {
     },
   };
 
-  if (typeof builder.options.configWebpack === 'function') {
-    builder.options.configWebpack(context);
+  if (typeof builder.options.configRspack === 'function') {
+    builder.options.configRspack(context);
   }
-  builder.api.configWebpack(context);
+  builder.api.configRspack(context);
 
   const externals = config.get('externals');
 
