@@ -1,4 +1,4 @@
-import type { AppConfig, BuildType, MiniPluginConfig, Options, Platform } from '@rsmax/types';
+import type { AppConfig, BuildType, MiniPluginConfig, Options, Platform, ThemeConfig } from '@rsmax/types';
 import type { Compiler, Configuration } from '@rspack/core';
 import { rspack } from '@rspack/core';
 import type API from '../API';
@@ -12,7 +12,7 @@ abstract class Builder {
   target: Platform;
   projectPath: ProjectPath;
   projectConfig: AppConfig | MiniPluginConfig;
-  projectThemeConfig: any;
+  projectThemeConfig: ThemeConfig;
   entryCollection: EntryCollection;
   webpackCompiler: Compiler;
   buildType: BuildType;
@@ -61,11 +61,16 @@ abstract class Builder {
     return this.projectConfig;
   }
 
-  fetchProjectThemeConfig() {
+  fetchProjectThemeConfig(): ThemeConfig {
     const configFile =
       this.buildType === 'miniplugin' ? this.projectPath.pluginConfigFile() : this.projectPath.themeConfigFile();
     const config = readManifest(configFile, this.target, false);
-    this.projectThemeConfig = ['miniapp'].includes(this.buildType) ? this.api.onThemeConfig(config) : config;
+    const themeConfig: ThemeConfig = {
+      light: config.light || {},
+      dark: config.dark || {},
+      ...config,
+    };
+    this.projectThemeConfig = ['miniapp'].includes(this.buildType) ? this.api.onThemeConfig(themeConfig) : themeConfig;
     return this.projectThemeConfig;
   }
 
