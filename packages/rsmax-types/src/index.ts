@@ -29,7 +29,6 @@ export interface BuildOptions {
   configWebpack?: (params: { config: WebpackConfig; rspack: any }) => void;
   plugins: Plugin[];
   port?: number;
-  notify?: boolean;
   watch?: boolean;
   target?: Platform;
   analyze?: boolean;

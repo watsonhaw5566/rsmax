@@ -48,12 +48,6 @@ export default class RsmaxCLI {
               type: 'string',
               default: 'ali',
             })
-            .option('notify', {
-              describe: '编译错误提醒',
-              alias: 'n',
-              type: 'boolean',
-              default: false,
-            })
             .option('port', {
               describe: '指定端口号',
               alias: 'p',
