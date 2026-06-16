@@ -62,7 +62,6 @@
     "postcss-noop": "^1.0.1",
     "postcss-preset-env": "^10.0.0",
     "regenerator-runtime": "^0.14.1",
-    "remax-stats": "^0.1.1",
     "resolve": "^1.12.0",
     "rslog": "^1.2.3",
     "rspack-chain": "^1.2.4",
