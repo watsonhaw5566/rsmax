@@ -1,7 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { execute } from '@rsdoctor/cli';
-import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
@@ -10,7 +8,6 @@ import moduleResolver from 'babel-plugin-module-resolver';
 import hostComponent from 'babel-plugin-rsmax-host-component';
 import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
 import ejs from 'ejs';
-import { logger } from 'rslog';
 import Config from 'rspack-chain';
 import type API from '../../API';
 import { moduleMatcher, targetExtensions } from '../../extensions';
@@ -218,18 +215,7 @@ export default function rspackConfig(builder: Builder): Configuration {
   }
 
   if (builder.options.analyze) {
-    config.plugin('rspack-bundle-analyzer').use(RsdoctorRspackPlugin, [
-      {
-        disableClientServer: true,
-      },
-    ]);
-    setTimeout(() => {
-      execute('analyze', {
-        profile: `./${builder.options.output}/.rsdoctor/manifest.json`,
-      }).then(r => {
-        logger.success('已生成分析报告');
-      });
-    }, 5000);
+    config.plugin('rsmax-rsdoctor-plugin').use(RsmaxPlugins.RsdoctorAnalyze, [{ output: builder.options.output }]);
   }
 
   const context = {
