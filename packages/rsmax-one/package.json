@@ -24,7 +24,7 @@
     "@rsmax/wechat": "workspace:*",
     "clsx": "^2.1.1",
     "memoize-one": "^5.1.1",
-    "react-autosize-textarea": "^7.0.0"
+    "react-textarea-autosize": "^8.5.3"
   },
   "devDependencies": {
     "@rsmax/types": "workspace:*",

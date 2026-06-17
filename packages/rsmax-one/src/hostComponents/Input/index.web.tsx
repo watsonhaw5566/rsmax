@@ -7,18 +7,18 @@ import type { InputWebProps } from './props';
 export type InputProps = InputWebProps;
 
 const Input: React.ForwardRefRenderFunction<any, InputWebProps> = (props, ref) => {
-  const { password, type, onConfirm, onKeyPress, placeholderStyle, className, ...restProps } = filterProps(props);
+  const { password, type, onConfirm, onKeyDown, placeholderStyle, className, ...restProps } = filterProps(props);
   const [placeholderStyleClassName] = useWebPlaceholderStyle(placeholderStyle);
 
   const inputType = password ? 'password' : type;
 
-  function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter' && typeof onConfirm === 'function') {
       onConfirm(e);
     }
 
-    if (typeof onKeyPress === 'function') {
-      onKeyPress(e);
+    if (typeof onKeyDown === 'function') {
+      onKeyDown(e);
     }
   }
 
@@ -27,7 +27,7 @@ const Input: React.ForwardRefRenderFunction<any, InputWebProps> = (props, ref) =
       {...restProps}
       ref={ref}
       type={inputType}
-      onKeyPress={handleKeyPress}
+      onKeyDown={handleKeyDown}
       className={clsx('remax-input', className, placeholderStyleClassName)}
     />
   );
