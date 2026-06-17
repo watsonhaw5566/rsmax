@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/watsonhaw5566/rsmax/compare/v1.3.14...v1.4.0) (2026-06-17)
+
+### Bug Fixes
+
+- 修复 biome lint ([#53](https://github.com/watsonhaw5566/rsmax/issues/53)) ([e749dc5](https://github.com/watsonhaw5566/rsmax/commit/e749dc59d44233e836efe0f8760d6323952cf1aa))
+- 修复 lint 问题 ([02cf892](https://github.com/watsonhaw5566/rsmax/commit/02cf892b2415206bf174dcd74cfce6f2c226d23e))
+- 修复 test:e2e-web 的时候使用的是 yarn ([72f6919](https://github.com/watsonhaw5566/rsmax/commit/72f69195b23502e9411b42873066360b759cbed2))
+- 修复 watch 模式下构建问题 ([7867a1f](https://github.com/watsonhaw5566/rsmax/commit/7867a1f1d1a025086e963044ef970afd95541965))
+
+### Features
+
+- **wechat:** 添加微信组件模块的基础导出 ([#52](https://github.com/watsonhaw5566/rsmax/issues/52)) ([e162748](https://github.com/watsonhaw5566/rsmax/commit/e162748f6f28e58bc91ec6f701eb5037dc5cd8e2))
+- 新增插件以适配新版微信小程序开发者工具 ([#64](https://github.com/watsonhaw5566/rsmax/issues/64)) ([72e9e34](https://github.com/watsonhaw5566/rsmax/commit/72e9e34d255b6bad46e7abab0154ddb257342f05))
+
+### Reverts
+
+- **wechat:** 渐进式引入树摇 ([fc23bdc](https://github.com/watsonhaw5566/rsmax/commit/fc23bdc8125c07f56aaa98b77b26bfd97789637c))
+
 ## [1.3.14](https://github.com/watsonhaw5566/rsmax/compare/v1.3.13...v1.3.14) (2025-09-10)
 
 ### Bug Fixes

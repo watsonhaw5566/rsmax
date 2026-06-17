@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/remaxjs/remax/compare/v1.3.14...v1.4.0) (2026-06-17)
+
+### Features
+
+- **wechat:** 添加微信组件模块的基础导出 ([#52](https://github.com/remaxjs/remax/issues/52)) ([e162748](https://github.com/remaxjs/remax/commit/e162748f6f28e58bc91ec6f701eb5037dc5cd8e2))
+- 新增插件以适配新版微信小程序开发者工具 ([#64](https://github.com/remaxjs/remax/issues/64)) ([72e9e34](https://github.com/remaxjs/remax/commit/72e9e34d255b6bad46e7abab0154ddb257342f05))
+
+### Reverts
+
+- **wechat:** 渐进式引入树摇 ([fc23bdc](https://github.com/remaxjs/remax/commit/fc23bdc8125c07f56aaa98b77b26bfd97789637c))
+
 ## [1.3.14](https://github.com/remaxjs/remax/compare/v1.3.13...v1.3.14) (2025-09-10)
 
 **Note:** Version bump only for package rsmax

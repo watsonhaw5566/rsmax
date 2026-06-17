@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/watsonhaw5566/rsmax/compare/v1.3.14...v1.4.0) (2026-06-17)
+
+### Bug Fixes
+
+- 修复 lint 问题 ([02cf892](https://github.com/watsonhaw5566/rsmax/commit/02cf892b2415206bf174dcd74cfce6f2c226d23e))
+
 ## [1.3.14](https://github.com/watsonhaw5566/rsmax/compare/v1.3.13...v1.3.14) (2025-09-10)
 
 **Note:** Version bump only for package @rsmax/types

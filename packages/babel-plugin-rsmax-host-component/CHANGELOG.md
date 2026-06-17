@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/watsonhaw5566/rsmax/compare/v1.3.14...v1.4.0) (2026-06-17)
+
+### Bug Fixes
+
+- 修复 biome lint ([#53](https://github.com/watsonhaw5566/rsmax/issues/53)) ([e749dc5](https://github.com/watsonhaw5566/rsmax/commit/e749dc59d44233e836efe0f8760d6323952cf1aa))
+
 ## [1.3.14](https://github.com/watsonhaw5566/rsmax/compare/v1.3.13...v1.3.14) (2025-09-10)
 
 **Note:** Version bump only for package babel-plugin-rsmax-host-component

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/remaxjs/remax/compare/v1.3.14...v1.4.0) (2026-06-17)
+
+**Note:** Version bump only for package @rsmax/ali
+
 ## [1.3.14](https://github.com/remaxjs/remax/compare/v1.3.13...v1.3.14) (2025-09-10)
 
 **Note:** Version bump only for package @rsmax/ali

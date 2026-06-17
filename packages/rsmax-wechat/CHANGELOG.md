@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/remaxjs/remax/compare/v1.3.14...v1.4.0) (2026-06-17)
+
+### Reverts
+
+- **wechat:** 渐进式引入树摇 ([fc23bdc](https://github.com/remaxjs/remax/commit/fc23bdc8125c07f56aaa98b77b26bfd97789637c))
+
 ## [1.3.14](https://github.com/remaxjs/remax/compare/v1.3.13...v1.3.14) (2025-09-10)
 
 **Note:** Version bump only for package @rsmax/wechat
