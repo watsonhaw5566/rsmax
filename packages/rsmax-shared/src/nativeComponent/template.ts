@@ -5,7 +5,7 @@ import { getPath } from './helpers';
 
 export function walk(platformConfig: Meta, filePath: string, templatePaths: Set<string>, options: Options) {
   if (!fs.existsSync(filePath)) {
-    console.error(`文件 ${filePath} 不存在`, options.notify);
+    console.error(`文件 ${filePath} 不存在`);
     return;
   }
   const { tag, src } = platformConfig.template;

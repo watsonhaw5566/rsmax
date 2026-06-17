@@ -11,7 +11,6 @@ export function getDefaultOptions(): Options {
     compressTemplate: process.env.NODE_ENV === 'production',
     UNSAFE_wechatTemplateDepth,
     plugins: [],
-    notify: false,
     web: {
       mpa: false,
       excludeNodeModulesTransform: false,

@@ -383,9 +383,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      node-notifier:
-        specifier: ^8.0.0
-        version: 8.0.2
       postcss:
         specifier: ^8.4.41
         version: 8.5.3
@@ -401,9 +398,6 @@ importers:
       regenerator-runtime:
         specifier: ^0.14.1
         version: 0.14.1
-      remax-stats:
-        specifier: ^0.1.1
-        version: 0.1.9
       resolve:
         specifier: ^1.12.0
         version: 1.22.10
@@ -459,9 +453,6 @@ importers:
       '@types/node':
         specifier: ^18
         version: 18.19.100
-      '@types/node-notifier':
-        specifier: ^6.0.0
-        version: 6.0.1
       '@types/react':
         specifier: ^18.3.0
         version: 18.3.21
@@ -2915,14 +2906,8 @@ packages:
   '@types/node-forge@1.3.11':
     resolution: {integrity: sha512-FQx220y22OKNTqaByeBGqHWYz4cl94tpcxeFdvBo3wjG6XPBuZ0BNgNZRV5J5TFmmcsJ4IzsLkmGRiQbnYsBEQ==}
 
-  '@types/node-notifier@6.0.1':
-    resolution: {integrity: sha512-PBkKwgjxu2aA24zh5Rng8FlL03R4zopZbTtzeKbWLfF+AMeHBMk3Ls12K/yZchYhe/riuiarPXcRJGUBLGb15w==}
-
   '@types/node@18.19.100':
     resolution: {integrity: sha512-ojmMP8SZBKprc3qGrGk8Ujpo80AXkrP7G2tOT4VWr5jlr5DHjsJF+emXJz+Wm0glmy4Js62oKMdZZ6B9Y+tEcA==}
-
-  '@types/node@25.9.3':
-    resolution: {integrity: sha512-603BddQMv3pUcr4U2dhujk83N2tTDVr/34wII2B6bJy6g+8WD6yUb11jszNs0gdi4PesVWl7ABt8nYMVpnLUcg==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -7081,9 +7066,6 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
-  undici-types@7.24.6:
-    resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
-
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==}
     engines: {node: '>=4'}
@@ -10760,17 +10742,9 @@ snapshots:
     dependencies:
       '@types/node': 18.19.100
 
-  '@types/node-notifier@6.0.1':
-    dependencies:
-      '@types/node': 18.19.100
-
   '@types/node@18.19.100':
     dependencies:
       undici-types: 5.26.5
-
-  '@types/node@25.9.3':
-    dependencies:
-      undici-types: 7.24.6
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -13073,7 +13047,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 25.9.3
+      '@types/node': 18.19.100
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -15526,8 +15500,6 @@ snapshots:
       through: 2.3.8
 
   undici-types@5.26.5: {}
-
-  undici-types@7.24.6: {}
 
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 

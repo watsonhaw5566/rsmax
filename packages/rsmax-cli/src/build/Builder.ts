@@ -1,4 +1,4 @@
-import type { AppConfig, BuildType, MiniPluginConfig, Options, Platform } from '@rsmax/types';
+import type { AppConfig, BuildType, MiniPluginConfig, Options, Platform, ThemeConfig } from '@rsmax/types';
 import type { Compiler, Configuration } from '@rspack/core';
 import { rspack } from '@rspack/core';
 import type API from '../API';
@@ -12,11 +12,11 @@ abstract class Builder {
   target: Platform;
   projectPath: ProjectPath;
   projectConfig: AppConfig | MiniPluginConfig;
-  projectThemeConfig: any;
+  projectThemeConfig: ThemeConfig;
   entryCollection: EntryCollection;
-  rspackCompiler: Compiler;
+  webpackCompiler: Compiler;
   buildType: BuildType;
-  rspackConfig: any;
+  webpackConfig: any;
 
   protected constructor(api: API, options: Options, buildType: BuildType) {
     this.api = api;
@@ -33,8 +33,8 @@ abstract class Builder {
     this.projectThemeConfig = this.fetchProjectThemeConfig();
     this.entryCollection = new EntryCollection(this);
     this.entryCollection.init();
-    this.rspackConfig = this.createRspackConfig();
-    this.rspackCompiler = this.createRspackCompiler();
+    this.webpackConfig = this.createWebpackConfig();
+    this.webpackCompiler = this.createWebpackCompiler();
   }
 
   abstract run(): Compiler;
@@ -43,7 +43,7 @@ abstract class Builder {
 
   abstract watch(): void;
 
-  abstract createRspackConfig(): Configuration;
+  abstract createWebpackConfig(): Configuration;
 
   fetchProjectConfig() {
     const configFile =
@@ -61,25 +61,15 @@ abstract class Builder {
     return this.projectConfig;
   }
 
-  fetchProjectThemeConfig() {
-    const configFile =
-      this.buildType === 'miniplugin' ? this.projectPath.pluginConfigFile() : this.projectPath.themeConfigFile();
-    const config = readManifest(configFile, this.target, false);
-    this.projectThemeConfig = ['miniapp'].includes(this.buildType) ? this.api.onThemeConfig(config) : config;
+  fetchProjectThemeConfig(): ThemeConfig {
+    const configFile = this.projectPath.themeConfigFile();
+    this.projectThemeConfig = readManifest(configFile, this.target, false);
     return this.projectThemeConfig;
   }
 
-  createRspackCompiler(): Compiler {
-    const cfg = this.rspackConfig;
-
-    const index = cfg.plugins.findIndex((e: any) => e.constructor.name === 'CssExtractRspackPlugin');
-    const cssPlugin = cfg.plugins[index];
-
-    if (cssPlugin) {
-      cfg.plugins[index] = cssPlugin;
-    }
-    // @ts-expect-error
-    return rspack(cfg);
+  createWebpackCompiler(): Compiler {
+    // @ts-expect-error rspack 类型兼容问题
+    return rspack(this.webpackConfig);
   }
 }
 
