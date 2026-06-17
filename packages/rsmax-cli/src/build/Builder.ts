@@ -14,9 +14,9 @@ abstract class Builder {
   projectConfig: AppConfig | MiniPluginConfig;
   projectThemeConfig: ThemeConfig;
   entryCollection: EntryCollection;
-  webpackCompiler: Compiler;
+  rspackCompiler: Compiler;
   buildType: BuildType;
-  webpackConfig: any;
+  rspackConfig: Configuration;
 
   protected constructor(api: API, options: Options, buildType: BuildType) {
     this.api = api;
@@ -33,8 +33,8 @@ abstract class Builder {
     this.projectThemeConfig = this.fetchProjectThemeConfig();
     this.entryCollection = new EntryCollection(this);
     this.entryCollection.init();
-    this.webpackConfig = this.createWebpackConfig();
-    this.webpackCompiler = this.createWebpackCompiler();
+    this.rspackConfig = this.createRspackConfig();
+    this.rspackCompiler = this.createRspackCompiler();
   }
 
   abstract run(): Compiler;
@@ -43,7 +43,7 @@ abstract class Builder {
 
   abstract watch(): void;
 
-  abstract createWebpackConfig(): Configuration;
+  abstract createRspackConfig(): Configuration;
 
   fetchProjectConfig() {
     const configFile =
@@ -67,9 +67,8 @@ abstract class Builder {
     return this.projectThemeConfig;
   }
 
-  createWebpackCompiler(): Compiler {
-    // @ts-expect-error rspack 类型兼容问题
-    return rspack(this.webpackConfig);
+  createRspackCompiler(): Compiler {
+    return rspack(this.rspackConfig);
   }
 }
 
