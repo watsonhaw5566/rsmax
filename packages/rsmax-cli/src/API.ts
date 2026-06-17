@@ -100,15 +100,6 @@ export default class API {
     }, config);
   }
 
-  onThemeConfig(config: any) {
-    return this.plugins.reduce((acc, plugin) => {
-      if (typeof plugin.onAppConfig === 'function') {
-        acc = plugin.onAppConfig({ config: acc });
-      }
-      return acc;
-    }, config);
-  }
-
   // 修改 remax 最终的 entry, 用于自定义目录结构等诉求
   _onEntries(entries: any) {
     return this.plugins.reduce((acc, plugin) => {

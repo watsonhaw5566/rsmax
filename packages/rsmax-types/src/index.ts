@@ -88,6 +88,21 @@ export interface MiniPluginConfig {
   main: string;
 }
 
+/**
+ * 微信小程序主题配置
+ * 参考 https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/theme.html
+ */
+export interface ThemeConfig {
+  /** 浅色主题 */
+  light: {
+    [key: string]: string;
+  };
+  /** 深色主题 */
+  dark: {
+    [key: string]: string;
+  };
+}
+
 export type Meta = {
   global: string;
   template: {
