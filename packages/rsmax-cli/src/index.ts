@@ -48,12 +48,6 @@ export default class RsmaxCLI {
               type: 'string',
               default: 'ali',
             })
-            .option('notify', {
-              describe: '编译错误提醒',
-              alias: 'n',
-              type: 'boolean',
-              default: false,
-            })
             .option('port', {
               describe: '指定端口号',
               alias: 'p',
@@ -85,11 +79,6 @@ export default class RsmaxCLI {
         },
         (argv: any) => {
           internalBuildApp({ ...this.options, ...argv }, this.api!);
-          try {
-            require('remax-stats').run({ type: 'remax' });
-          } catch (e) {
-            // ignore
-          }
         }
       )
       .command<any>('mini-plugin', '插件相关命令', y => {
@@ -110,11 +99,6 @@ export default class RsmaxCLI {
           },
           (argv: any) => {
             buildMiniPlugin({ ...this.options, ...argv });
-            try {
-              require('rsmax-stats').run({ type: 'rsmax' });
-            } catch (e) {
-              // ignore
-            }
           }
         );
       })
