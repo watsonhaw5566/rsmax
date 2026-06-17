@@ -28,6 +28,31 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
     app = null;
   }
 
+  const events: any = {
+    // 页面返回时触发
+    onBack(this: any, e: any) {
+      return this.callLifecycle(Lifecycle.back, e);
+    },
+
+    // 键盘高度变化时触发
+    onKeyboardHeight(this: any, e: any) {
+      return this.callLifecycle(Lifecycle.keyboardHeight, e);
+    },
+
+    onTabItemTap(this: any, e: any) {
+      return this.callLifecycle(Lifecycle.tabItemTap, e);
+    },
+
+    // 点击但切换tabItem前触发
+    beforeTabItemTap(this: any) {
+      return this.callLifecycle(Lifecycle.beforeTabItemTap);
+    },
+
+    onResize(this: any, e: any) {
+      return this.callLifecycle(Lifecycle.resize, e);
+    },
+  };
+
   const config: any = {
     data: {
       root: {
@@ -38,15 +63,14 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       },
     },
 
-    wrapperRef: React.createRef<any>(),
-
-    lifecycleCallback: {},
-
     onLoad(this: any, query: any) {
       const PageWrapper = createPageWrapper(Page, name);
       this.pageId = generatePageId();
 
+      // 在 onLoad 中初始化非简单值，避免微信小程序把它们当成 data 进行深克隆
+      this.wrapperRef = React.createRef<any>();
       this.lifecycleCallback = {};
+      this.events = events;
       this.data = {
         root: {
           children: [],
@@ -123,31 +147,6 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       if (this.wrapperRef?.current?.[callback]) {
         return this.wrapperRef.current[callback](...args);
       }
-    },
-
-    events: {
-      // 页面返回时触发
-      onBack(this: any, e: any) {
-        return this.callLifecycle(Lifecycle.back, e);
-      },
-
-      // 键盘高度变化时触发
-      onKeyboardHeight(this: any, e: any) {
-        return this.callLifecycle(Lifecycle.keyboardHeight, e);
-      },
-
-      onTabItemTap(this: any, e: any) {
-        return this.callLifecycle(Lifecycle.tabItemTap, e);
-      },
-
-      // 点击但切换tabItem前触发
-      beforeTabItemTap(this: any) {
-        return this.callLifecycle(Lifecycle.beforeTabItemTap);
-      },
-
-      onResize(this: any, e: any) {
-        return this.callLifecycle(Lifecycle.resize, e);
-      },
     },
 
     onShow() {

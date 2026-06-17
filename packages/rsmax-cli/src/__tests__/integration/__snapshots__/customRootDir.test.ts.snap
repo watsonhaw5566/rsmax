@@ -3964,6 +3964,26 @@ pages/index.js:         app = getApp();
 pages/index.js:     } catch (e) {
 pages/index.js:         app = null;
 pages/index.js:     }
+pages/index.js:     var events = {
+pages/index.js:         // 页面返回时触发
+pages/index.js:         onBack: function onBack(e) {
+pages/index.js:             return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
+pages/index.js:         },
+pages/index.js:         // 键盘高度变化时触发
+pages/index.js:         onKeyboardHeight: function onKeyboardHeight(e) {
+pages/index.js:             return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
+pages/index.js:         },
+pages/index.js:         onTabItemTap: function onTabItemTap(e) {
+pages/index.js:             return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
+pages/index.js:         },
+pages/index.js:         // 点击但切换tabItem前触发
+pages/index.js:         beforeTabItemTap: function beforeTabItemTap() {
+pages/index.js:             return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
+pages/index.js:         },
+pages/index.js:         onResize: function onResize(e) {
+pages/index.js:             return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
+pages/index.js:         }
+pages/index.js:     };
 pages/index.js:     var config = {
 pages/index.js:         data: {
 pages/index.js:             root: {
@@ -3973,12 +3993,13 @@ pages/index.js:             modalRoot: {
 pages/index.js:                 children: []
 pages/index.js:             }
 pages/index.js:         },
-pages/index.js:         wrapperRef: react_1.default.createRef(),
-pages/index.js:         lifecycleCallback: {},
 pages/index.js:         onLoad: function onLoad(query) {
 pages/index.js:             var PageWrapper = (0, framework_shared_1.createPageWrapper)(Page, name);
 pages/index.js:             this.pageId = generatePageId();
+pages/index.js:             // 在 onLoad 中初始化非简单值，避免微信小程序把它们当成 data 进行深克隆
+pages/index.js:             this.wrapperRef = react_1.default.createRef();
 pages/index.js:             this.lifecycleCallback = {};
+pages/index.js:             this.events = events;
 pages/index.js:             this.data = {
 pages/index.js:                 root: {
 pages/index.js:                     children: []
@@ -4048,26 +4069,6 @@ pages/index.js:             var callback = (0, framework_shared_1.callbackName)(
 pages/index.js:             if ((_b = (_a = this.wrapperRef) === null || _a === void 0 ? void 0 : _a.current) === null || _b === void 0 ? void 0 : _b[callback]) {
 pages/index.js:                 var _this$wrapperRef$curr;
 pages/index.js:                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
-pages/index.js:             }
-pages/index.js:         },
-pages/index.js:         events: {
-pages/index.js:             // 页面返回时触发
-pages/index.js:             onBack: function onBack(e) {
-pages/index.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
-pages/index.js:             },
-pages/index.js:             // 键盘高度变化时触发
-pages/index.js:             onKeyboardHeight: function onKeyboardHeight(e) {
-pages/index.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
-pages/index.js:             },
-pages/index.js:             onTabItemTap: function onTabItemTap(e) {
-pages/index.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
-pages/index.js:             },
-pages/index.js:             // 点击但切换tabItem前触发
-pages/index.js:             beforeTabItemTap: function beforeTabItemTap() {
-pages/index.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
-pages/index.js:             },
-pages/index.js:             onResize: function onResize(e) {
-pages/index.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
 pages/index.js:             }
 pages/index.js:         },
 pages/index.js:         onShow: function onShow() {

@@ -5181,6 +5181,26 @@ rsmax-vendors.js:         app = getApp();
 rsmax-vendors.js:     } catch (e) {
 rsmax-vendors.js:         app = null;
 rsmax-vendors.js:     }
+rsmax-vendors.js:     var events = {
+rsmax-vendors.js:         // 页面返回时触发
+rsmax-vendors.js:         onBack: function onBack(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 键盘高度变化时触发
+rsmax-vendors.js:         onKeyboardHeight: function onKeyboardHeight(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onTabItemTap: function onTabItemTap(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 点击但切换tabItem前触发
+rsmax-vendors.js:         beforeTabItemTap: function beforeTabItemTap() {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onResize: function onResize(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
 rsmax-vendors.js:     var config = {
 rsmax-vendors.js:         data: {
 rsmax-vendors.js:             root: {
@@ -5190,12 +5210,13 @@ rsmax-vendors.js:             modalRoot: {
 rsmax-vendors.js:                 children: []
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
-rsmax-vendors.js:         wrapperRef: react_1.default.createRef(),
-rsmax-vendors.js:         lifecycleCallback: {},
 rsmax-vendors.js:         onLoad: function onLoad(query) {
 rsmax-vendors.js:             var PageWrapper = (0, framework_shared_1.createPageWrapper)(Page, name);
 rsmax-vendors.js:             this.pageId = generatePageId();
+rsmax-vendors.js:             // 在 onLoad 中初始化非简单值，避免微信小程序把它们当成 data 进行深克隆
+rsmax-vendors.js:             this.wrapperRef = react_1.default.createRef();
 rsmax-vendors.js:             this.lifecycleCallback = {};
+rsmax-vendors.js:             this.events = events;
 rsmax-vendors.js:             this.data = {
 rsmax-vendors.js:                 root: {
 rsmax-vendors.js:                     children: []
@@ -5265,26 +5286,6 @@ rsmax-vendors.js:             var callback = (0, framework_shared_1.callbackName
 rsmax-vendors.js:             if ((_b = (_a = this.wrapperRef) === null || _a === void 0 ? void 0 : _a.current) === null || _b === void 0 ? void 0 : _b[callback]) {
 rsmax-vendors.js:                 var _this$wrapperRef$curr;
 rsmax-vendors.js:                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
-rsmax-vendors.js:             }
-rsmax-vendors.js:         },
-rsmax-vendors.js:         events: {
-rsmax-vendors.js:             // 页面返回时触发
-rsmax-vendors.js:             onBack: function onBack(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 键盘高度变化时触发
-rsmax-vendors.js:             onKeyboardHeight: function onKeyboardHeight(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onTabItemTap: function onTabItemTap(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 点击但切换tabItem前触发
-rsmax-vendors.js:             beforeTabItemTap: function beforeTabItemTap() {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onResize: function onResize(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         onShow: function onShow() {
@@ -10519,6 +10520,26 @@ rsmax-vendors.js:         app = getApp();
 rsmax-vendors.js:     } catch (e) {
 rsmax-vendors.js:         app = null;
 rsmax-vendors.js:     }
+rsmax-vendors.js:     var events = {
+rsmax-vendors.js:         // 页面返回时触发
+rsmax-vendors.js:         onBack: function onBack(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 键盘高度变化时触发
+rsmax-vendors.js:         onKeyboardHeight: function onKeyboardHeight(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onTabItemTap: function onTabItemTap(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 点击但切换tabItem前触发
+rsmax-vendors.js:         beforeTabItemTap: function beforeTabItemTap() {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onResize: function onResize(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
 rsmax-vendors.js:     var config = {
 rsmax-vendors.js:         data: {
 rsmax-vendors.js:             root: {
@@ -10528,12 +10549,13 @@ rsmax-vendors.js:             modalRoot: {
 rsmax-vendors.js:                 children: []
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
-rsmax-vendors.js:         wrapperRef: react_1.default.createRef(),
-rsmax-vendors.js:         lifecycleCallback: {},
 rsmax-vendors.js:         onLoad: function onLoad(query) {
 rsmax-vendors.js:             var PageWrapper = (0, framework_shared_1.createPageWrapper)(Page, name);
 rsmax-vendors.js:             this.pageId = generatePageId();
+rsmax-vendors.js:             // 在 onLoad 中初始化非简单值，避免微信小程序把它们当成 data 进行深克隆
+rsmax-vendors.js:             this.wrapperRef = react_1.default.createRef();
 rsmax-vendors.js:             this.lifecycleCallback = {};
+rsmax-vendors.js:             this.events = events;
 rsmax-vendors.js:             this.data = {
 rsmax-vendors.js:                 root: {
 rsmax-vendors.js:                     children: []
@@ -10603,26 +10625,6 @@ rsmax-vendors.js:             var callback = (0, framework_shared_1.callbackName
 rsmax-vendors.js:             if ((_b = (_a = this.wrapperRef) === null || _a === void 0 ? void 0 : _a.current) === null || _b === void 0 ? void 0 : _b[callback]) {
 rsmax-vendors.js:                 var _this$wrapperRef$curr;
 rsmax-vendors.js:                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
-rsmax-vendors.js:             }
-rsmax-vendors.js:         },
-rsmax-vendors.js:         events: {
-rsmax-vendors.js:             // 页面返回时触发
-rsmax-vendors.js:             onBack: function onBack(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 键盘高度变化时触发
-rsmax-vendors.js:             onKeyboardHeight: function onKeyboardHeight(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onTabItemTap: function onTabItemTap(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 点击但切换tabItem前触发
-rsmax-vendors.js:             beforeTabItemTap: function beforeTabItemTap() {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onResize: function onResize(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         onShow: function onShow() {
@@ -15721,6 +15723,26 @@ rsmax-vendors.js:         app = getApp();
 rsmax-vendors.js:     } catch (e) {
 rsmax-vendors.js:         app = null;
 rsmax-vendors.js:     }
+rsmax-vendors.js:     var events = {
+rsmax-vendors.js:         // 页面返回时触发
+rsmax-vendors.js:         onBack: function onBack(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 键盘高度变化时触发
+rsmax-vendors.js:         onKeyboardHeight: function onKeyboardHeight(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onTabItemTap: function onTabItemTap(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 点击但切换tabItem前触发
+rsmax-vendors.js:         beforeTabItemTap: function beforeTabItemTap() {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onResize: function onResize(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
 rsmax-vendors.js:     var config = {
 rsmax-vendors.js:         data: {
 rsmax-vendors.js:             root: {
@@ -15730,12 +15752,13 @@ rsmax-vendors.js:             modalRoot: {
 rsmax-vendors.js:                 children: []
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
-rsmax-vendors.js:         wrapperRef: react_1.default.createRef(),
-rsmax-vendors.js:         lifecycleCallback: {},
 rsmax-vendors.js:         onLoad: function onLoad(query) {
 rsmax-vendors.js:             var PageWrapper = (0, framework_shared_1.createPageWrapper)(Page, name);
 rsmax-vendors.js:             this.pageId = generatePageId();
+rsmax-vendors.js:             // 在 onLoad 中初始化非简单值，避免微信小程序把它们当成 data 进行深克隆
+rsmax-vendors.js:             this.wrapperRef = react_1.default.createRef();
 rsmax-vendors.js:             this.lifecycleCallback = {};
+rsmax-vendors.js:             this.events = events;
 rsmax-vendors.js:             this.data = {
 rsmax-vendors.js:                 root: {
 rsmax-vendors.js:                     children: []
@@ -15805,26 +15828,6 @@ rsmax-vendors.js:             var callback = (0, framework_shared_1.callbackName
 rsmax-vendors.js:             if ((_b = (_a = this.wrapperRef) === null || _a === void 0 ? void 0 : _a.current) === null || _b === void 0 ? void 0 : _b[callback]) {
 rsmax-vendors.js:                 var _this$wrapperRef$curr;
 rsmax-vendors.js:                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
-rsmax-vendors.js:             }
-rsmax-vendors.js:         },
-rsmax-vendors.js:         events: {
-rsmax-vendors.js:             // 页面返回时触发
-rsmax-vendors.js:             onBack: function onBack(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 键盘高度变化时触发
-rsmax-vendors.js:             onKeyboardHeight: function onKeyboardHeight(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onTabItemTap: function onTabItemTap(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 点击但切换tabItem前触发
-rsmax-vendors.js:             beforeTabItemTap: function beforeTabItemTap() {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onResize: function onResize(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         onShow: function onShow() {
@@ -21068,6 +21071,26 @@ rsmax-vendors.js:         app = getApp();
 rsmax-vendors.js:     } catch (e) {
 rsmax-vendors.js:         app = null;
 rsmax-vendors.js:     }
+rsmax-vendors.js:     var events = {
+rsmax-vendors.js:         // 页面返回时触发
+rsmax-vendors.js:         onBack: function onBack(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 键盘高度变化时触发
+rsmax-vendors.js:         onKeyboardHeight: function onKeyboardHeight(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onTabItemTap: function onTabItemTap(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 点击但切换tabItem前触发
+rsmax-vendors.js:         beforeTabItemTap: function beforeTabItemTap() {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onResize: function onResize(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
 rsmax-vendors.js:     var config = {
 rsmax-vendors.js:         data: {
 rsmax-vendors.js:             root: {
@@ -21077,12 +21100,13 @@ rsmax-vendors.js:             modalRoot: {
 rsmax-vendors.js:                 children: []
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
-rsmax-vendors.js:         wrapperRef: react_1.default.createRef(),
-rsmax-vendors.js:         lifecycleCallback: {},
 rsmax-vendors.js:         onLoad: function onLoad(query) {
 rsmax-vendors.js:             var PageWrapper = (0, framework_shared_1.createPageWrapper)(Page, name);
 rsmax-vendors.js:             this.pageId = generatePageId();
+rsmax-vendors.js:             // 在 onLoad 中初始化非简单值，避免微信小程序把它们当成 data 进行深克隆
+rsmax-vendors.js:             this.wrapperRef = react_1.default.createRef();
 rsmax-vendors.js:             this.lifecycleCallback = {};
+rsmax-vendors.js:             this.events = events;
 rsmax-vendors.js:             this.data = {
 rsmax-vendors.js:                 root: {
 rsmax-vendors.js:                     children: []
@@ -21152,26 +21176,6 @@ rsmax-vendors.js:             var callback = (0, framework_shared_1.callbackName
 rsmax-vendors.js:             if ((_b = (_a = this.wrapperRef) === null || _a === void 0 ? void 0 : _a.current) === null || _b === void 0 ? void 0 : _b[callback]) {
 rsmax-vendors.js:                 var _this$wrapperRef$curr;
 rsmax-vendors.js:                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
-rsmax-vendors.js:             }
-rsmax-vendors.js:         },
-rsmax-vendors.js:         events: {
-rsmax-vendors.js:             // 页面返回时触发
-rsmax-vendors.js:             onBack: function onBack(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 键盘高度变化时触发
-rsmax-vendors.js:             onKeyboardHeight: function onKeyboardHeight(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onTabItemTap: function onTabItemTap(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 点击但切换tabItem前触发
-rsmax-vendors.js:             beforeTabItemTap: function beforeTabItemTap() {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onResize: function onResize(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         onShow: function onShow() {
@@ -26867,6 +26871,26 @@ rsmax-vendors.js:         app = getApp();
 rsmax-vendors.js:     } catch (e) {
 rsmax-vendors.js:         app = null;
 rsmax-vendors.js:     }
+rsmax-vendors.js:     var events = {
+rsmax-vendors.js:         // 页面返回时触发
+rsmax-vendors.js:         onBack: function onBack(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 键盘高度变化时触发
+rsmax-vendors.js:         onKeyboardHeight: function onKeyboardHeight(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onTabItemTap: function onTabItemTap(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         // 点击但切换tabItem前触发
+rsmax-vendors.js:         beforeTabItemTap: function beforeTabItemTap() {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         onResize: function onResize(e) {
+rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
 rsmax-vendors.js:     var config = {
 rsmax-vendors.js:         data: {
 rsmax-vendors.js:             root: {
@@ -26876,12 +26900,13 @@ rsmax-vendors.js:             modalRoot: {
 rsmax-vendors.js:                 children: []
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
-rsmax-vendors.js:         wrapperRef: react_1.default.createRef(),
-rsmax-vendors.js:         lifecycleCallback: {},
 rsmax-vendors.js:         onLoad: function onLoad(query) {
 rsmax-vendors.js:             var PageWrapper = (0, framework_shared_1.createPageWrapper)(Page, name);
 rsmax-vendors.js:             this.pageId = generatePageId();
+rsmax-vendors.js:             // 在 onLoad 中初始化非简单值，避免微信小程序把它们当成 data 进行深克隆
+rsmax-vendors.js:             this.wrapperRef = react_1.default.createRef();
 rsmax-vendors.js:             this.lifecycleCallback = {};
+rsmax-vendors.js:             this.events = events;
 rsmax-vendors.js:             this.data = {
 rsmax-vendors.js:                 root: {
 rsmax-vendors.js:                     children: []
@@ -26951,26 +26976,6 @@ rsmax-vendors.js:             var callback = (0, framework_shared_1.callbackName
 rsmax-vendors.js:             if ((_b = (_a = this.wrapperRef) === null || _a === void 0 ? void 0 : _a.current) === null || _b === void 0 ? void 0 : _b[callback]) {
 rsmax-vendors.js:                 var _this$wrapperRef$curr;
 rsmax-vendors.js:                 return (_this$wrapperRef$curr = this.wrapperRef.current)[callback].apply(_this$wrapperRef$curr, args);
-rsmax-vendors.js:             }
-rsmax-vendors.js:         },
-rsmax-vendors.js:         events: {
-rsmax-vendors.js:             // 页面返回时触发
-rsmax-vendors.js:             onBack: function onBack(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.back, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 键盘高度变化时触发
-rsmax-vendors.js:             onKeyboardHeight: function onKeyboardHeight(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.keyboardHeight, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onTabItemTap: function onTabItemTap(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.tabItemTap, e);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             // 点击但切换tabItem前触发
-rsmax-vendors.js:             beforeTabItemTap: function beforeTabItemTap() {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.beforeTabItemTap);
-rsmax-vendors.js:             },
-rsmax-vendors.js:             onResize: function onResize(e) {
-rsmax-vendors.js:                 return this.callLifecycle(framework_shared_1.Lifecycle.resize, e);
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         onShow: function onShow() {
