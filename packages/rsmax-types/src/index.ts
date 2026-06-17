@@ -208,11 +208,6 @@ export interface Plugin {
   onPageConfig?: (params: { config: any; page: string }) => any;
 
   /**
-   * 修改主题配置
-   */
-  onThemeConfig?: (params: { config: ThemeConfig }) => ThemeConfig;
-
-  /**
    * 修改页面输出的 template
    */
   onPageTemplate?: (params: { template: string; page: string }) => string;

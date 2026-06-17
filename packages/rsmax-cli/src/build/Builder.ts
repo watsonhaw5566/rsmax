@@ -62,15 +62,8 @@ abstract class Builder {
   }
 
   fetchProjectThemeConfig(): ThemeConfig {
-    const configFile =
-      this.buildType === 'miniplugin' ? this.projectPath.pluginConfigFile() : this.projectPath.themeConfigFile();
-    const config = readManifest(configFile, this.target, false);
-    const themeConfig: ThemeConfig = {
-      light: config.light || {},
-      dark: config.dark || {},
-      ...config,
-    };
-    this.projectThemeConfig = ['miniapp'].includes(this.buildType) ? this.api.onThemeConfig(themeConfig) : themeConfig;
+    const configFile = this.projectPath.themeConfigFile();
+    this.projectThemeConfig = readManifest(configFile, this.target, false);
     return this.projectThemeConfig;
   }
 

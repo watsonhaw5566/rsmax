@@ -1,7 +1,7 @@
 import type * as t from '@babel/types';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
-import type { HostComponent, Meta, Options, Platform, Plugin, ThemeConfig } from '@rsmax/types';
+import type { HostComponent, Meta, Options, Platform, Plugin } from '@rsmax/types';
 import { merge } from 'lodash';
 import type Config from 'rspack-chain';
 import type yargs from 'yargs';
@@ -95,15 +95,6 @@ export default class API {
     return this.plugins.reduce((acc, plugin) => {
       if (typeof plugin.onPageConfig === 'function') {
         acc = plugin.onPageConfig({ page, config: acc });
-      }
-      return acc;
-    }, config);
-  }
-
-  onThemeConfig(config: ThemeConfig): ThemeConfig {
-    return this.plugins.reduce((acc, plugin) => {
-      if (typeof plugin.onThemeConfig === 'function') {
-        acc = plugin.onThemeConfig({ config: acc });
       }
       return acc;
     }, config);
