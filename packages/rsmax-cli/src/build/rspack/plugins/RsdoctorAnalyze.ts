@@ -56,11 +56,7 @@ export default class RsdoctorAnalyzePlugin implements RspackPluginInstance {
       });
     };
 
-    if (typeof compiler.hooks?.done?.tap === 'function') {
-      compiler.hooks.done.tap(PLUGIN_NAME, onDone);
-    } else if (typeof (compiler as any).plugin === 'function') {
-      (compiler as any).plugin('done', onDone);
-    }
+    compiler.hooks.done.tap(PLUGIN_NAME, onDone);
   }
 
   private waitForManifest(manifestPath: string): Promise<boolean> {
