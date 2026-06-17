@@ -1,6 +1,6 @@
 import type * as t from '@babel/types';
 import type React from 'react';
-import type WebpackConfig from 'rspack-chain';
+import type RspackChainConfig from 'rspack-chain';
 import type yargs from 'yargs';
 
 export type LogLevel = 'debug' | 'verbose' | 'info' | 'warn' | 'error' | 'silent';
@@ -26,7 +26,7 @@ export interface BuildOptions {
   rootDir: string;
   compressTemplate?: boolean;
   UNSAFE_wechatTemplateDepth: number | { [key: string]: number };
-  configWebpack?: (params: { config: WebpackConfig; rspack: any }) => void;
+  configRspack?: (params: { config: RspackChainConfig; rspack: any }) => void;
   plugins: Plugin[];
   port?: number;
   watch?: boolean;
@@ -182,9 +182,9 @@ export interface Plugin {
   onBuildStart?: (params: { config: Options }) => void;
 
   /**
-   * 修改 webpack 配置
+   * 修改 rspack 配置
    */
-  configWebpack?: (params: { config: WebpackConfig }) => void;
+  configRspack?: (params: { config: RspackChainConfig }) => void;
 
   /**
    * 修改 babel 配置

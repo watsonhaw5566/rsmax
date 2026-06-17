@@ -758,7 +758,7 @@ app.js: }),
 app.js: 
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-app.js: var __webpack_exports__ = (__webpack_exec__(5895), __webpack_exec__(2803));
+app.js: var __webpack_exports__ = (__webpack_exec__(<ID>), __webpack_exec__(<ID>));
 app.js: 
 app.js: }
 app.js: ]);
@@ -1076,7 +1076,7 @@ pages/index.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 pages/index.js:  *
 pages/index.js:  * This source code is licensed under the MIT license found in the
 pages/index.js:  * LICENSE file in the root directory of this source tree.
-pages/index.js:  */ 
+pages/index.js:  */
 pages/index.js: function _typeof(o) {
 pages/index.js:     "@babel/helpers - typeof";
 pages/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -1289,7 +1289,7 @@ pages/index.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 pages/index.js:  *
 pages/index.js:  * This source code is licensed under the MIT license found in the
 pages/index.js:  * LICENSE file in the root directory of this source tree.
-pages/index.js:  */ 
+pages/index.js:  */
 pages/index.js: function _typeof(o) {
 pages/index.js:     "@babel/helpers - typeof";
 pages/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -5001,7 +5001,7 @@ pages/index.js: }),
 pages/index.js: 
 pages/index.js: },function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/index.js: var __webpack_exports__ = (__webpack_exec__(6683));
+pages/index.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
 pages/index.js: 
 pages/index.js: }
 pages/index.js: ]);

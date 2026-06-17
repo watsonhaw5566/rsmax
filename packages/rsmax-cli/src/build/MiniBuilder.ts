@@ -3,16 +3,16 @@ import type { Configuration } from '@rspack/core';
 import { logger } from 'rslog';
 import type API from '../API';
 import BaseBuilder from './Builder';
+import rspackConfig from './rspack/config.mini';
 import watch from './watch';
-import webpackConfig from './webpack/config.mini';
 
 export default class MiniBuilder extends BaseBuilder {
   constructor(api: API, options: Options) {
     super(api, options, 'miniapp');
   }
 
-  createWebpackConfig(): Configuration {
-    return webpackConfig(this);
+  createRspackConfig(): Configuration {
+    return rspackConfig(this);
   }
 
   run() {
@@ -21,11 +21,11 @@ export default class MiniBuilder extends BaseBuilder {
     } else {
       this.build();
     }
-    return this.webpackCompiler;
+    return this.rspackCompiler;
   }
 
   build() {
-    this.webpackCompiler.run((error, stats) => {
+    this.rspackCompiler.run((error, stats) => {
       if (error) {
         logger.error(error.message);
         throw error;
@@ -50,7 +50,7 @@ export default class MiniBuilder extends BaseBuilder {
   }
 
   watch() {
-    const watcher = this.webpackCompiler.watch({}, (error, stats) => {
+    const watcher = this.rspackCompiler.watch({}, (error, stats) => {
       if (error) {
         logger.error(error.message);
         throw error;

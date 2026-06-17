@@ -1,5 +1,5 @@
 const less = () => ({
-  configWebpack({ config, addCSSRule }) {
+  configRspack({ config, addCSSRule }) {
     addCSSRule({
       name: 'less',
       test: /\.less(\?.*)?$/,

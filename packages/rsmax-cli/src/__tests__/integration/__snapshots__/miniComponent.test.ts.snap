@@ -1042,7 +1042,7 @@ base.wxml:             var id = 'REMAX_TPL_' + (1 + count) + '_' + type;
 base.wxml:             __cache[key] = id;
 base.wxml:             return id;
 base.wxml:         }
-base.wxml:         
+base.wxml: 
 base.wxml:         container: function (tid) {
 base.wxml:             return 'REMAX_TPL_' + (tid + 1) + '_CONTAINER';
 base.wxml:         }
@@ -1254,7 +1254,7 @@ greet.js:
 greet.js: },function(__webpack_require__) {
 greet.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 greet.js: __webpack_require__.O(0, ["2",], function() {
-greet.js:         return __webpack_exec__(7091), __webpack_exec__(8340);
+greet.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 greet.js:       });
 greet.js: var __webpack_exports__ = __webpack_require__.O();
 greet.js: module.exports = __webpack_exports__;
@@ -1344,7 +1344,7 @@ greet2.js:
 greet2.js: },function(__webpack_require__) {
 greet2.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 greet2.js: __webpack_require__.O(0, ["2",], function() {
-greet2.js:         return __webpack_exec__(7091), __webpack_exec__(2770);
+greet2.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 greet2.js:       });
 greet2.js: var __webpack_exports__ = __webpack_require__.O();
 greet2.js: module.exports = __webpack_exports__;
@@ -1616,7 +1616,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -1829,7 +1829,7 @@ rsmax-vendors.js:  * Copyright (c) Facebook, Inc. and its affiliates.
 rsmax-vendors.js:  *
 rsmax-vendors.js:  * This source code is licensed under the MIT license found in the
 rsmax-vendors.js:  * LICENSE file in the root directory of this source tree.
-rsmax-vendors.js:  */ 
+rsmax-vendors.js:  */
 rsmax-vendors.js: function _typeof(o) {
 rsmax-vendors.js:     "@babel/helpers - typeof";
 rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {

@@ -76,7 +76,7 @@ export async function buildApp(
   const remaxOptions = {
     ...config,
     target,
-    configWebpack(context: any) {
+    configRspack(context: any) {
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
@@ -90,8 +90,8 @@ export async function buildApp(
         .externals([...(context.config.get('externals') || []), ...externals])
         .optimization.moduleIds('deterministic')
         .minimize(false);
-      if (typeof config.configWebpack === 'function') {
-        config.configWebpack(context);
+      if (typeof config.configRspack === 'function') {
+        config.configRspack(context);
       }
     },
     ...extraRemaxOptions,
@@ -162,7 +162,7 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
   const remaxOptions = {
     ...config,
     target,
-    configWebpack(context: { config: Config; rspack: any }) {
+    configRspack(context: { config: Config; rspack: any }) {
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
@@ -171,8 +171,8 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
         .optimization.moduleIds('deterministic')
         .minimize(false);
 
-      if (typeof config.configWebpack === 'function') {
-        config.configWebpack(context);
+      if (typeof config.configRspack === 'function') {
+        config.configRspack(context);
       }
     },
   };
@@ -246,7 +246,7 @@ export function buildMiniComponent(
     ...config,
     input: inputs,
     target,
-    configWebpack(context: { config: Config; rspack: any }) {
+    configRspack(context: { config: Config; rspack: any }) {
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
@@ -255,8 +255,8 @@ export function buildMiniComponent(
         .optimization.moduleIds('deterministic')
         .minimize(false);
 
-      if (typeof config.configWebpack === 'function') {
-        config.configWebpack(context);
+      if (typeof config.configRspack === 'function') {
+        config.configRspack(context);
       }
     },
   };

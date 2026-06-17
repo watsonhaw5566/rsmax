@@ -79,6 +79,8 @@ function normalizeJsContent(input: string) {
     .replace(/(^|[\s,;])(\d+):(\s+(?:\(|function\b))/gm, '$1<ID>:$3')
     // 统一 __webpack_require__(123) 的数字 ID
     .replace(/__webpack_require__\((\d+)\)/g, '__webpack_require__(<ID>)')
+    // 统一 __webpack_exec__(123) 的数字 ID
+    .replace(/__webpack_exec__\((\d+)\)/g, '__webpack_exec__(<ID>)')
     // 统一 [123] 这类索引
     .replace(/\[(\d+)\]/g, '[<ID>]')
     // 统一长哈希为占位符
@@ -86,7 +88,13 @@ function normalizeJsContent(input: string) {
     // 统一 chunk 文件名中的数字片段
     .replace(/(-|\.)\d+(\.js)/g, '$1<ID>$2')
     // 统一 ESM import 变量名：去掉可能包含绝对路径/包名前缀，只保留 __WEBPACK_IMPORTED_MODULE_<ID>__
-    .replace(/[A-Za-z0-9_\/\\.-]*(__WEBPACK_IMPORTED_MODULE_\d+__)/g, '$1');
+    .replace(/[A-Za-z0-9_\/\\.-]*(__WEBPACK_IMPORTED_MODULE_\d+__)/g, '$1')
+    // 统一 `})()\n;` 为 `})();`（rspack 输出会把尾部分号拆到下一行）
+    .replace(/\}\)\(\n;/g, '})();')
+    // 去除每行的尾部空格，并将仅含空白字符的行统一为空行
+    .split(/\r?\n/)
+    .map(line => line.replace(/[ \t]+$/g, ''))
+    .join('\n');
 }
 
 function buildSnapshotText(files: Received) {

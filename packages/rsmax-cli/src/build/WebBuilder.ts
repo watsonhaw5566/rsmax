@@ -5,17 +5,17 @@ import detect from 'detect-port';
 import { logger } from 'rslog';
 import type API from '../API';
 import Builder from './Builder';
+import rspackConfig from './rspack/config.web';
+import mpaRspackConfig from './rspack/config.web.mpa';
 import watch from './watch';
-import webpackConfig from './webpack/config.web';
-import mpaWebpackConfig from './webpack/config.web.mpa';
 
 export default class WebBuilder extends Builder {
   constructor(api: API, options: Options) {
     super(api, options, 'webapp');
   }
 
-  createWebpackConfig(): Configuration {
-    return this.options.web?.mpa ? mpaWebpackConfig(this) : webpackConfig(this);
+  createRspackConfig(): Configuration {
+    return this.options.web?.mpa ? mpaRspackConfig(this) : rspackConfig(this);
   }
 
   run() {
@@ -24,7 +24,7 @@ export default class WebBuilder extends Builder {
     } else {
       this.build();
     }
-    return this.webpackCompiler;
+    return this.rspackCompiler;
   }
 
   watch() {
@@ -40,9 +40,9 @@ export default class WebBuilder extends Builder {
         logger.warn(` 端口: ${designatedPort} 被占用，系统已分配另一个可用端口：${port}`);
       }
 
-      const server = new RspackDevServer({ port }, this.webpackCompiler);
+      const server = new RspackDevServer({ port }, this.rspackCompiler);
 
-      this.webpackCompiler.hooks.done.tap('web-dev', stats => {
+      this.rspackCompiler.hooks.done.tap('web-dev', stats => {
         console.log(
           stats.toString({
             colors: true,
@@ -65,7 +65,7 @@ export default class WebBuilder extends Builder {
   }
 
   build() {
-    this.webpackCompiler.run((error, stats) => {
+    this.rspackCompiler.run((error, stats) => {
       if (error) {
         logger.error(error.message);
         throw error;

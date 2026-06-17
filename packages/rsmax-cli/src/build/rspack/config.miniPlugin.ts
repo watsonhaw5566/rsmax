@@ -25,7 +25,7 @@ function resolveBabelConfig(options: Options) {
   return false;
 }
 
-export default function webpackConfig(builder: Builder): Configuration {
+export default function rspackConfig(builder: Builder): Configuration {
   const config = new Config();
 
   baseConfig(config, builder);
@@ -223,12 +223,12 @@ export default function webpackConfig(builder: Builder): Configuration {
     },
   };
 
-  if (typeof builder.options.configWebpack === 'function') {
+  if (typeof builder.options.configRspack === 'function') {
     // @ts-ignore
-    builder.options.configWebpack(context);
+    builder.options.configRspack(context);
   }
   // @ts-ignore
-  builder.api.configWebpack(context);
+  builder.api.configRspack(context);
 
   return config.toConfig();
 }

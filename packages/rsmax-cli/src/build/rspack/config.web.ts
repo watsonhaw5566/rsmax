@@ -7,7 +7,7 @@ import SpaEntry from '../entries/SpaEntry';
 import baseConfig from './baseConfig';
 import webBaseConfig from './webBaseConfig';
 
-export default function webpackConfig(builder: Builder): Configuration {
+export default function rspackConfig(builder: Builder): Configuration {
   const config = new Config();
 
   config.output.publicPath('/');
@@ -30,7 +30,7 @@ export default function webpackConfig(builder: Builder): Configuration {
     },
   });
 
-  config.plugin('html-webpack-plugin').use(rspack.HtmlRspackPlugin, [
+  config.plugin('html-rspack-plugin').use(rspack.HtmlRspackPlugin, [
     {
       template: fs.existsSync(path.join(builder.projectPath.publicDir(), '/index.html'))
         ? path.join(builder.projectPath.publicDir(), '/index.html')
