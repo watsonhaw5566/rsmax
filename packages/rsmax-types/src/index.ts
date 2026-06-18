@@ -3,6 +3,8 @@ import type React from 'react';
 import type RspackChainConfig from 'rspack-chain';
 import type yargs from 'yargs';
 
+// ==================== 基础构建类型 ====================
+
 export type LogLevel = 'debug' | 'verbose' | 'info' | 'warn' | 'error' | 'silent';
 
 export type Platform = 'web' | 'wechat' | 'ali' | 'toutiao';
@@ -26,7 +28,7 @@ export interface BuildOptions {
   rootDir: string;
   compressTemplate?: boolean;
   UNSAFE_wechatTemplateDepth: number | { [key: string]: number };
-  configRspack?: (params: { config: RspackChainConfig; rspack: any }) => void;
+  configRspack?: (params: { config: RspackChainConfig; rspack: unknown }) => void;
   plugins: Plugin[];
   port?: number;
   watch?: boolean;
@@ -34,7 +36,7 @@ export interface BuildOptions {
   analyze?: boolean;
   devtools?: boolean;
   type?: BuildType;
-  component?: any;
+  component?: HostComponent;
   web?: WebOptions;
   minimize?: boolean;
   loglevel?: LogLevel;
@@ -43,6 +45,8 @@ export interface BuildOptions {
 export type Options = BuildOptions & PluginOptions;
 
 export type Config = Partial<Options>;
+
+// ==================== 入口信息 ====================
 
 export interface EntryInfo {
   name: string;
@@ -55,6 +59,8 @@ export interface Entries {
   pages: EntryInfo[];
 }
 
+// ==================== 通用应用配置类型 ====================
+
 export interface AppConfigPlugins {
   [key: string]: {
     version: string;
@@ -62,24 +68,109 @@ export interface AppConfigPlugins {
   };
 }
 
+export interface SubPackage {
+  root: string;
+  name?: string;
+  pages: string[];
+  plugins?: AppConfigPlugins;
+  independent?: boolean;
+}
+
+export interface TabBarItem {
+  pagePath: string;
+  text: string;
+  iconPath?: string;
+  selectedIconPath?: string;
+  icon?: string;
+  activeIcon?: string;
+}
+
+export interface TabBar {
+  color: string;
+  selectedColor: string;
+  backgroundColor: string;
+  borderStyle?: 'black' | 'white';
+  list?: TabBarItem[];
+  items?: TabBarItem[];
+  position?: 'bottom' | 'top';
+  custom?: boolean;
+  textColor?: string;
+}
+
+export interface WindowConfig {
+  navigationBarBackgroundColor?: string;
+  navigationBarTextStyle?: 'black' | 'white';
+  navigationBarTitleText?: string;
+  navigationStyle?: 'default' | 'custom';
+  backgroundColor?: string;
+  backgroundTextStyle?: 'dark' | 'light';
+  backgroundColorTop?: string;
+  backgroundColorBottom?: string;
+  enablePullDownRefresh?: boolean;
+  onReachBottomDistance?: number;
+  pageOrientation?: 'auto' | 'portrait' | 'landscape';
+  disableScroll?: boolean;
+  transparentTitle?: 'none' | 'always' | 'auto';
+  titlePenetrate?: 'YES' | 'NO';
+  showTitleLoading?: 'YES' | 'NO';
+  titleImage?: string;
+  titleBarColor?: string;
+  backgroundImageColor?: string;
+  backgroundImageUrl?: string;
+  gestureBack?: 'YES' | 'NO';
+  enableScrollBar?: 'YES' | 'NO';
+  defaultTitle?: string;
+  pullRefresh?: 'NO' | 'YES';
+  allowsBounceVertical?: 'YES' | 'NO';
+  disableSwipeBack?: boolean;
+  entryPagePath?: string;
+}
+
 export interface AppConfig {
   pages: string[];
-  subpackages?: Array<{
-    root: string;
-    pages: string[];
-    plugins?: AppConfigPlugins;
-  }>;
-  subPackages?: Array<{
-    root: string;
-    pages: string[];
-    plugins?: AppConfigPlugins;
-  }>;
-  tabBar?: {
-    items?: Array<{ icon: string; activeIcon: string }>;
-    list?: Array<{ iconPath: string; selectedIconPath: string }>;
-  };
+  window?: WindowConfig;
+  subpackages?: SubPackage[];
+  subPackages?: SubPackage[];
+  tabBar?: TabBar;
   plugins?: AppConfigPlugins;
+  networkTimeout?: {
+    request?: number;
+    connectSocket?: number;
+    uploadFile?: number;
+    downloadFile?: number;
+  };
+  debug?: boolean;
+  functionalPages?: boolean;
+  workers?: string;
+  requiredBackgroundModes?: string[];
+  preloadRule?: Record<string, unknown>;
+  resizable?: boolean;
+  navigateToMiniProgramAppIdList?: string[];
+  usingComponents?: Record<string, unknown>;
+  permission?: Record<string, unknown>;
+  sitemapLocation?: string;
+  style?: string;
+  useExtendedLib?: Record<string, unknown>;
+  cloud?: boolean;
+  entranceDeclare?: Record<string, unknown>;
+  darkmode?: boolean;
+  themeLocation?: string;
+  lazyCodeLoading?: string;
+  singlePage?: {
+    navigationBarFit?: 'float' | 'squeezed';
+  };
+  optionMenu?: Record<string, unknown>;
+  barButtonTheme?: 'default' | 'light';
 }
+
+export interface PageConfig extends WindowConfig {
+  usingComponents?: Record<string, unknown>;
+  disableSwipeBack?: boolean;
+  optionMenu?: Record<string, unknown>;
+  barButtonTheme?: 'default' | 'light';
+}
+
+// ==================== 插件配置 ====================
 
 export interface MiniPluginConfig {
   pages: string[];
@@ -87,6 +178,8 @@ export interface MiniPluginConfig {
   publicPages: { [key: string]: string };
   main: string;
 }
+
+// ==================== 主题配置 ====================
 
 /**
  * 微信小程序主题配置
@@ -102,6 +195,8 @@ export interface ThemeConfig {
     [key: string]: string;
   };
 }
+
+// ==================== 模板/插件元信息 ====================
 
 export type Meta = {
   global: string;
@@ -133,6 +228,183 @@ export type MetaOptions = {
   remaxOptions: Options;
 };
 
+// ==================== 事件类型 ====================
+
+/**
+ * 通用事件目标
+ * 用于描述事件触发源的属性信息
+ */
+export interface EventTarget {
+  /** 元素 ID */
+  id: string;
+  /** 左偏移量 */
+  offsetLeft?: number;
+  /** 顶部偏移量 */
+  offsetTop?: number;
+  /** data 对象 */
+  dataset: {
+    [key: string]: unknown;
+  };
+  value?: unknown;
+}
+
+/**
+ * 当前事件目标（用于事件冒泡阶段）
+ */
+export interface EventCurrentTarget {
+  /** 元素 ID */
+  id?: string;
+  /** 左偏移量 */
+  offsetLeft?: number;
+  /** 顶部偏移量 */
+  offsetTop?: number;
+  /** data 对象 */
+  dataset: {
+    [key: string]: unknown;
+  };
+}
+
+/**
+ * 触摸点信息
+ */
+export interface Touch {
+  /** 触点相对于可见视区左边沿的的 X 坐标。不包括任何滚动偏移 */
+  clientX: number;
+  /** 触点相对于可见视区上边沿的的 Y 坐标。不包括任何滚动偏移 */
+  clientY: number;
+  /** 触点相对于页面左边沿的的 X 坐标。当存在水平滚动的偏移时, 这个值包含了水平滚动的偏移 */
+  pageX: number;
+  /** 触点相对于页面上边沿的的 Y 坐标。当存在垂直滚动的偏移时, 这个值包含了垂直滚动的偏移 */
+  pageY: number;
+  /** 一次触摸动作在平面上移动的整个过程中, 该标识符不变。可以根据它来判断跟踪的是否是同一次触摸过程 */
+  identifier: number;
+}
+
+/**
+ * 基础事件对象
+ * 所有小程序平台事件的通用属性
+ */
+export interface BaseEvent {
+  /** 事件类型 */
+  type: string;
+  /** 页面打开到触发事件所经过的毫秒数 */
+  timeStamp?: number;
+  /** 触发事件的源组件 */
+  target: EventTarget;
+  /** 当前组件的一些属性值集合 */
+  currentTarget: EventCurrentTarget;
+  /** 事件标记数据 */
+  mark?: Record<string, unknown>;
+  /** 原始事件（内部使用） */
+  originalEvent?: unknown;
+  /** 原生事件（内部使用） */
+  nativeEvent?: unknown;
+  /** 阻止事件冒泡 */
+  stopPropagation?: () => void;
+}
+
+/**
+ * 自定义事件对象
+ * @template Detail 事件详情类型
+ */
+export interface GenericEvent<Detail = unknown> extends BaseEvent {
+  /** 额外的信息 */
+  detail: Detail;
+}
+
+/**
+ * 触摸事件对象
+ * @template T 触摸点类型
+ */
+export interface TouchEvent<T = Touch> extends BaseEvent {
+  /** 触摸事件，当前停留在屏幕中的触摸点信息的数组 */
+  touches: T[];
+  /** 触摸事件，当前变化的触摸点信息的数组 */
+  changedTouches: T[];
+}
+
+/** 触摸开始事件 */
+export type TouchStartEvent = TouchEvent;
+/** 触摸移动事件 */
+export type TouchMoveEvent = TouchEvent;
+/** 触摸结束事件 */
+export type TouchEndEvent = TouchEvent;
+/** 触摸取消事件 */
+export type TouchCancelEvent = TouchEvent;
+
+/** 点击事件 */
+export interface TapEvent extends BaseEvent {
+  stopPropagation: () => void;
+}
+
+/** 图片加载事件 */
+export type ImageLoadEvent = BaseEvent;
+/** 图片错误事件 */
+export type ImageErrorEvent = BaseEvent;
+
+/** 输入事件 */
+export type InputEvent = BaseEvent;
+/** 表单事件 */
+export type FormEvent = BaseEvent;
+
+// ==================== 组件属性类型 ====================
+
+/**
+ * 小程序内置组件公共属性
+ * 所有小程序平台组件的通用属性
+ */
+export interface BaseProps {
+  children?: React.ReactNode;
+  /** 自定义属性: 组件上触发的事件时，会发送给事件处理函数 */
+  readonly dataset?: DOMStringMap;
+  /** 组件的唯一标示: 保持整个页面唯一 */
+  id?: string;
+  /** 组件的样式类: 在对应的样式文件中定义的样式类 */
+  className?: string;
+  /** 组件的内联样式: 可以动态设置的内联样式 */
+  style?: React.CSSProperties;
+  /** 组件是否显示: 所有组件默认显示 */
+  hidden?: boolean;
+  /** 动画对象: 由平台 createAnimation 创建 */
+  animation?: Array<Record<string, unknown>>;
+}
+
+/**
+ * 包含常用事件的组件公共属性
+ */
+export interface CommonProps extends BaseProps {
+  /** 点击时触发 */
+  onTap?: (event: TouchEvent) => void;
+  /** 点击时触发 */
+  onClick?: (event: TouchEvent) => void;
+  /** 手指触摸动作开始 */
+  onTouchStart?: (event: TouchEvent) => void;
+  /** 手指触摸后移动 */
+  onTouchMove?: (event: TouchEvent) => void;
+  /** 手指触摸动作被打断，如来电提醒，弹窗 */
+  onTouchCancel?: (event: TouchEvent) => void;
+  /** 手指触摸动作结束 */
+  onTouchEnd?: (event: TouchEvent) => void;
+  /** 手指触摸后，超过350ms再离开，如果指定了事件回调函数并触发了这个事件，tap事件将不被触发 */
+  onLongPress?: (event: TouchEvent) => void;
+  /** 手指触摸后，超过350ms再离开（推荐使用longpress事件代替） */
+  onLongTap?: (event: TouchEvent) => void;
+  /** 会在过渡或动画结束后触发 */
+  onTransitionEnd?: (event: GenericEvent) => void;
+  /** 会在动画开始时触发 */
+  onAnimationStart?: (event: GenericEvent) => void;
+  /** 会在动画一次迭代结束时触发 */
+  onAnimationiteration?: (event: GenericEvent) => void;
+  /** 会在动画完成时触发 */
+  onAnimationEnd?: (event: GenericEvent) => void;
+  /** 在支持 3D Touch 的设备，重按时会触发 */
+  onTouchForceChange?: (event: TouchEvent) => void;
+  /** 点击时触发同时阻止事件冒泡 */
+  catchClick?: (event: unknown) => unknown;
+}
+
+// ==================== 组件注册相关 ====================
+
 export type ProcessPropsOptions = {
   componentName: string;
   props: string[];
@@ -159,23 +431,18 @@ export interface ComponentManifest {
   type?: string;
 }
 
+// ==================== 插件接口 ====================
+
 export interface Plugin {
   /** 插件名称 */
   meta?: Meta;
   hostComponents?: Map<string, HostComponent>;
   /**
    * 自定义组件属性
-   * options.componentName 组件名称
-   * options.props 组件属性
-   * options.node 组件 babel JSXElement
-   * options.additional 是否用户额外创建的 host 组件
    */
   processProps?: (options: ProcessPropsOptions) => string[];
   /**
    * 是否注册组件
-   * options.componentName 组件名称
-   * options.additional 是否是额外定义的组件
-   * options.phase 组件被引入的阶段，import | jsx | extra
    */
   shouldHostComponentRegister?: (options: ShouldHostComponentRegister) => boolean;
 
@@ -189,7 +456,7 @@ export interface Plugin {
   /**
    * 修改 babel 配置
    */
-  configBabel?: (params: { config: any }) => void;
+  configBabel?: (params: { config: unknown }) => void;
 
   /**
    * 注册运行时插件
@@ -199,49 +466,94 @@ export interface Plugin {
   /**
    * 修改应用配置
    */
-  onAppConfig?: (params: { config: any }) => any;
+  onAppConfig?: (params: { config: unknown }) => unknown;
 
   /**
    * 修改页面配置
    */
-  onPageConfig?: (params: { config: any; page: string }) => any;
+  onPageConfig?: (params: { config: unknown; page: string }) => unknown;
 
   /**
    * 修改页面输出的 template
    */
   onPageTemplate?: (params: { template: string; page: string }) => string;
 
-  unstable_onEntries?: (params: { entries: any }) => any;
+  unstable_onEntries?: (params: { entries: unknown }) => unknown;
   /**
    * 扩展命令行
    */
-  extendCLI?: (params: { cli: yargs.Argv }) => any;
+  extendCLI?: (params: { cli: yargs.Argv }) => unknown;
 }
 
-export type PluginConstructor = (options?: any) => Plugin;
+export type PluginConstructor = <T = unknown>(options?: T) => Plugin;
+
+// ==================== 运行时插件 ====================
 
 export interface RuntimePlugin {
-  onAppConfig?: ({ config }: { config: any }) => any;
-  onPageConfig?: ({ config, page }: { config: any; page: string }) => any;
-  onAppComponent?: ({ component }: { component: React.ComponentType<any> }) => React.ComponentType<any>;
+  onAppConfig?: ({ config }: { config: unknown }) => unknown;
+  onPageConfig?: ({ config, page }: { config: unknown; page: string }) => unknown;
+  onAppComponent?: ({ component }: { component: React.ComponentType<unknown> }) => React.ComponentType<unknown>;
   onPageComponent?: ({
     component,
     page,
   }: {
-    component: React.ComponentType<any>;
+    component: React.ComponentType<unknown>;
     page: string;
-  }) => React.ComponentType<any>;
+  }) => React.ComponentType<unknown>;
   onMiniComponent?: ({
     component,
     context,
   }: {
-    component: React.ComponentType<any>;
-    context: any;
-  }) => React.ComponentType<any>;
+    component: React.ComponentType<unknown>;
+    context: unknown;
+  }) => React.ComponentType<unknown>;
   onCreateHostComponent?: ({
     component,
   }: {
-    component: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
-  }) => React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
-  onCreateHostComponentElement?: ({ element }: { element: React.ReactElement<any> }) => React.ReactElement<any>;
+    component: React.ForwardRefExoticComponent<unknown> | React.ComponentType<unknown>;
+  }) => React.ForwardRefExoticComponent<unknown> | React.ComponentType<unknown>;
+  onCreateHostComponentElement?: ({ element }: { element: React.ReactElement<unknown> }) => React.ReactElement<unknown>;
 }
+
+// ==================== 页面/组件实例类型 ====================
+
+/**
+ * 小程序页面实例
+ */
+export interface PageInstance {
+  /** 页面配置 */
+  config?: PageConfig;
+  /** 页面组件 */
+  component: React.ComponentType<unknown>;
+}
+
+/**
+ * 自定义组件实例
+ */
+export interface ComponentInstance {
+  /** 组件配置 */
+  config?: Record<string, unknown>;
+  /** 组件 */
+  component: React.ComponentType<unknown>;
+}
+
+// ==================== 工具类型 ====================
+
+/**
+ * 从对象类型中提取可选字段
+ */
+export type OptionalKeys<T> = {
+  [K in keyof T]-?: object extends Pick<T, K> ? K : never;
+}[keyof T];
+
+/**
+ * 从对象类型中提取必填字段
+ */
+export type RequiredKeys<T> = {
+  [K in keyof T]-?: object extends Pick<T, K> ? never : K;
+}[keyof T];
+
+/**
+ * 简化 React 组件的 props 类型（用于从平台组件向 web 组件转换）
+ */
+export type Simplify<T> = { [P in keyof T]: T[P] } & unknown;
