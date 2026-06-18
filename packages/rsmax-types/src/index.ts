@@ -233,8 +233,9 @@ export type MetaOptions = {
 /**
  * 通用事件目标
  * 用于描述事件触发源的属性信息
+ * @template Value 事件目标 value 的类型，默认为 unknown（可根据具体组件指定为 string/number 等）
  */
-export interface EventTarget {
+export interface EventTarget<Value = unknown> {
   /** 元素 ID */
   id: string;
   /** 左偏移量 */
@@ -245,7 +246,8 @@ export interface EventTarget {
   dataset: {
     [key: string]: unknown;
   };
-  value?: unknown;
+  /** 事件目标的值，类型取决于触发事件的组件 */
+  value?: Value;
 }
 
 /**
@@ -283,14 +285,15 @@ export interface Touch {
 /**
  * 基础事件对象
  * 所有小程序平台事件的通用属性
+ * @template Value target.value 的类型，默认为 unknown
  */
-export interface BaseEvent {
+export interface BaseEvent<Value = unknown> {
   /** 事件类型 */
   type: string;
   /** 页面打开到触发事件所经过的毫秒数 */
   timeStamp?: number;
   /** 触发事件的源组件 */
-  target: EventTarget;
+  target: EventTarget<Value>;
   /** 当前组件的一些属性值集合 */
   currentTarget: EventCurrentTarget;
   /** 事件标记数据 */
@@ -306,8 +309,9 @@ export interface BaseEvent {
 /**
  * 自定义事件对象
  * @template Detail 事件详情类型
+ * @template Value target.value 的类型，默认为 unknown
  */
-export interface GenericEvent<Detail = unknown> extends BaseEvent {
+export interface GenericEvent<Detail = unknown, Value = unknown> extends BaseEvent<Value> {
   /** 额外的信息 */
   detail: Detail;
 }
@@ -342,10 +346,14 @@ export type ImageLoadEvent = BaseEvent;
 /** 图片错误事件 */
 export type ImageErrorEvent = BaseEvent;
 
-/** 输入事件 */
-export type InputEvent = BaseEvent;
-/** 表单事件 */
-export type FormEvent = BaseEvent;
+/** 输入事件（value 必为 string） */
+export interface InputEvent extends BaseEvent {
+  target: EventTarget<string> & { value: string };
+}
+/** 表单事件（value 必为 string） */
+export interface FormEvent extends BaseEvent {
+  target: EventTarget<string> & { value: string };
+}
 
 // ==================== 组件属性类型 ====================
 
@@ -365,8 +373,8 @@ export interface BaseProps {
   style?: React.CSSProperties;
   /** 组件是否显示: 所有组件默认显示 */
   hidden?: boolean;
-  /** 动画对象: 由平台 createAnimation 创建 */
-  animation?: Array<Record<string, unknown>>;
+  /** 动画对象: 由平台 createAnimation 创建（部分平台支持 boolean 控制是否启用动画） */
+  animation?: Array<Record<string, unknown>> | boolean;
 }
 
 /**
@@ -466,12 +474,12 @@ export interface Plugin {
   /**
    * 修改应用配置
    */
-  onAppConfig?: (params: { config: unknown }) => unknown;
+  onAppConfig?: (params: { config: any }) => any;
 
   /**
    * 修改页面配置
    */
-  onPageConfig?: (params: { config: unknown; page: string }) => unknown;
+  onPageConfig?: (params: { config: any; page: string }) => any;
 
   /**
    * 修改页面输出的 template
@@ -489,30 +497,35 @@ export type PluginConstructor = <T = unknown>(options?: T) => Plugin;
 
 // ==================== 运行时插件 ====================
 
+/**
+ * 运行时插件接口
+ * 注意：这里使用 `any` 而不是 `unknown`，因为插件机制接收/返回任意组件类型，
+ * 由调用方（PluginDriver）通过泛型进行类型约束。
+ */
 export interface RuntimePlugin {
-  onAppConfig?: ({ config }: { config: unknown }) => unknown;
-  onPageConfig?: ({ config, page }: { config: unknown; page: string }) => unknown;
-  onAppComponent?: ({ component }: { component: React.ComponentType<unknown> }) => React.ComponentType<unknown>;
+  onAppConfig?: ({ config }: { config: any }) => any;
+  onPageConfig?: ({ config, page }: { config: any; page: string }) => any;
+  onAppComponent?: ({ component }: { component: React.ComponentType<any> }) => React.ComponentType<any>;
   onPageComponent?: ({
     component,
     page,
   }: {
-    component: React.ComponentType<unknown>;
+    component: React.ComponentType<any>;
     page: string;
-  }) => React.ComponentType<unknown>;
+  }) => React.ComponentType<any>;
   onMiniComponent?: ({
     component,
     context,
   }: {
-    component: React.ComponentType<unknown>;
+    component: React.ComponentType<any>;
     context: unknown;
-  }) => React.ComponentType<unknown>;
+  }) => React.ComponentType<any>;
   onCreateHostComponent?: ({
     component,
   }: {
-    component: React.ForwardRefExoticComponent<unknown> | React.ComponentType<unknown>;
-  }) => React.ForwardRefExoticComponent<unknown> | React.ComponentType<unknown>;
-  onCreateHostComponentElement?: ({ element }: { element: React.ReactElement<unknown> }) => React.ReactElement<unknown>;
+    component: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
+  }) => React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
+  onCreateHostComponentElement?: ({ element }: { element: React.ReactElement<any> }) => React.ReactElement<any>;
 }
 
 // ==================== 页面/组件实例类型 ====================

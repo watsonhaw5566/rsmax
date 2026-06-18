@@ -1,41 +1,40 @@
 import * as React from 'react';
+import type { RuntimePlugin } from '@rsmax/types';
 import PluginDriver from '../PluginDriver';
 
 describe('PluginDriver', () => {
   it('onAppConfig', () => {
-    const pluginDriver = new PluginDriver([
-      {
-        onAppConfig({ config }) {
-          config.foo = 1;
-          return config;
-        },
+    const plugin1: RuntimePlugin = {
+      onAppConfig({ config }) {
+        (config as { [key: string]: unknown }).foo = 1;
+        return config;
       },
-      {
-        onAppConfig({ config }) {
-          config.bar = 1;
-          return config;
-        },
+    };
+    const plugin2: RuntimePlugin = {
+      onAppConfig({ config }) {
+        (config as { [key: string]: unknown }).bar = 1;
+        return config;
       },
-    ]);
+    };
+    const pluginDriver = new PluginDriver([plugin1, plugin2]);
 
     expect(pluginDriver.onAppConfig({})).toEqual({ foo: 1, bar: 1 });
   });
 
   it('onPageConfig', () => {
-    const pluginDriver = new PluginDriver([
-      {
-        onPageConfig({ config }) {
-          config.foo = 1;
-          return config;
-        },
+    const plugin1: RuntimePlugin = {
+      onPageConfig({ config }) {
+        (config as { [key: string]: unknown }).foo = 1;
+        return config;
       },
-      {
-        onPageConfig({ config, page }) {
-          config.page = page;
-          return config;
-        },
+    };
+    const plugin2: RuntimePlugin = {
+      onPageConfig({ config, page }) {
+        (config as { [key: string]: unknown }).page = page;
+        return config;
       },
-    ]);
+    };
+    const pluginDriver = new PluginDriver([plugin1, plugin2]);
 
     expect(pluginDriver.onPageConfig({ config: {}, page: 'pages/foo' })).toEqual({ foo: 1, page: 'pages/foo' });
   });
