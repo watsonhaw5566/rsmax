@@ -1935,7 +1935,7 @@ pages/index.js:             key: "onAppConfig",
 pages/index.js:             value: function onAppConfig(config) {
 pages/index.js:                 return this.plugins.reduce(function(acc, plugin) {
 pages/index.js:                     if (typeof plugin.onAppConfig === 'function') {
-pages/index.js:                         acc = plugin.onAppConfig({
+pages/index.js:                         return plugin.onAppConfig({
 pages/index.js:                             config: acc
 pages/index.js:                         });
 pages/index.js:                     }
@@ -1949,7 +1949,7 @@ pages/index.js:             value: function onPageConfig(_ref) {
 pages/index.js:                 var config = _ref.config, page = _ref.page;
 pages/index.js:                 return this.plugins.reduce(function(acc, plugin) {
 pages/index.js:                     if (typeof plugin.onPageConfig === 'function') {
-pages/index.js:                         acc = plugin.onPageConfig({
+pages/index.js:                         return plugin.onPageConfig({
 pages/index.js:                             config: acc,
 pages/index.js:                             page: page
 pages/index.js:                         });
@@ -1963,7 +1963,7 @@ pages/index.js:             key: "onAppComponent",
 pages/index.js:             value: function onAppComponent(component) {
 pages/index.js:                 return this.plugins.reduce(function(acc, plugin) {
 pages/index.js:                     if (typeof plugin.onAppComponent === 'function') {
-pages/index.js:                         acc = plugin.onAppComponent({
+pages/index.js:                         return plugin.onAppComponent({
 pages/index.js:                             component: acc
 pages/index.js:                         });
 pages/index.js:                     }
@@ -1977,7 +1977,7 @@ pages/index.js:             value: function onPageComponent(_ref2) {
 pages/index.js:                 var component = _ref2.component, page = _ref2.page;
 pages/index.js:                 return this.plugins.reduce(function(acc, plugin) {
 pages/index.js:                     if (typeof plugin.onPageComponent === 'function') {
-pages/index.js:                         acc = plugin.onPageComponent({
+pages/index.js:                         return plugin.onPageComponent({
 pages/index.js:                             component: acc,
 pages/index.js:                             page: page
 pages/index.js:                         });
@@ -1992,7 +1992,7 @@ pages/index.js:             value: function onMiniComponent(_ref3) {
 pages/index.js:                 var component = _ref3.component, context = _ref3.context;
 pages/index.js:                 return this.plugins.reduce(function(acc, plugin) {
 pages/index.js:                     if (typeof plugin.onMiniComponent === 'function') {
-pages/index.js:                         acc = plugin.onMiniComponent({
+pages/index.js:                         return plugin.onMiniComponent({
 pages/index.js:                             component: acc,
 pages/index.js:                             context: context
 pages/index.js:                         });
@@ -2006,7 +2006,7 @@ pages/index.js:             key: "onCreateHostComponent",
 pages/index.js:             value: function onCreateHostComponent(component) {
 pages/index.js:                 return this.plugins.reduce(function(acc, plugin) {
 pages/index.js:                     if (typeof plugin.onCreateHostComponent === 'function') {
-pages/index.js:                         acc = plugin.onCreateHostComponent({
+pages/index.js:                         return plugin.onCreateHostComponent({
 pages/index.js:                             component: acc
 pages/index.js:                         });
 pages/index.js:                     }
@@ -2019,7 +2019,7 @@ pages/index.js:             key: "onCreateHostComponentElement",
 pages/index.js:             value: function onCreateHostComponentElement(element) {
 pages/index.js:                 return this.plugins.reduce(function(acc, plugin) {
 pages/index.js:                     if (typeof plugin.onCreateHostComponentElement === 'function') {
-pages/index.js:                         acc = plugin.onCreateHostComponentElement({
+pages/index.js:                         return plugin.onCreateHostComponentElement({
 pages/index.js:                             element: acc
 pages/index.js:                         });
 pages/index.js:                     }
