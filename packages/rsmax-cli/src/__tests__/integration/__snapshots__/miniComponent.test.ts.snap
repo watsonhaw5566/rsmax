@@ -2461,7 +2461,7 @@ rsmax-vendors.js:             key: "onAppConfig",
 rsmax-vendors.js:             value: function onAppConfig(config) {
 rsmax-vendors.js:                 return this.plugins.reduce(function(acc, plugin) {
 rsmax-vendors.js:                     if (typeof plugin.onAppConfig === 'function') {
-rsmax-vendors.js:                         acc = plugin.onAppConfig({
+rsmax-vendors.js:                         return plugin.onAppConfig({
 rsmax-vendors.js:                             config: acc
 rsmax-vendors.js:                         });
 rsmax-vendors.js:                     }
@@ -2475,7 +2475,7 @@ rsmax-vendors.js:             value: function onPageConfig(_ref) {
 rsmax-vendors.js:                 var config = _ref.config, page = _ref.page;
 rsmax-vendors.js:                 return this.plugins.reduce(function(acc, plugin) {
 rsmax-vendors.js:                     if (typeof plugin.onPageConfig === 'function') {
-rsmax-vendors.js:                         acc = plugin.onPageConfig({
+rsmax-vendors.js:                         return plugin.onPageConfig({
 rsmax-vendors.js:                             config: acc,
 rsmax-vendors.js:                             page: page
 rsmax-vendors.js:                         });
@@ -2489,7 +2489,7 @@ rsmax-vendors.js:             key: "onAppComponent",
 rsmax-vendors.js:             value: function onAppComponent(component) {
 rsmax-vendors.js:                 return this.plugins.reduce(function(acc, plugin) {
 rsmax-vendors.js:                     if (typeof plugin.onAppComponent === 'function') {
-rsmax-vendors.js:                         acc = plugin.onAppComponent({
+rsmax-vendors.js:                         return plugin.onAppComponent({
 rsmax-vendors.js:                             component: acc
 rsmax-vendors.js:                         });
 rsmax-vendors.js:                     }
@@ -2503,7 +2503,7 @@ rsmax-vendors.js:             value: function onPageComponent(_ref2) {
 rsmax-vendors.js:                 var component = _ref2.component, page = _ref2.page;
 rsmax-vendors.js:                 return this.plugins.reduce(function(acc, plugin) {
 rsmax-vendors.js:                     if (typeof plugin.onPageComponent === 'function') {
-rsmax-vendors.js:                         acc = plugin.onPageComponent({
+rsmax-vendors.js:                         return plugin.onPageComponent({
 rsmax-vendors.js:                             component: acc,
 rsmax-vendors.js:                             page: page
 rsmax-vendors.js:                         });
@@ -2518,7 +2518,7 @@ rsmax-vendors.js:             value: function onMiniComponent(_ref3) {
 rsmax-vendors.js:                 var component = _ref3.component, context = _ref3.context;
 rsmax-vendors.js:                 return this.plugins.reduce(function(acc, plugin) {
 rsmax-vendors.js:                     if (typeof plugin.onMiniComponent === 'function') {
-rsmax-vendors.js:                         acc = plugin.onMiniComponent({
+rsmax-vendors.js:                         return plugin.onMiniComponent({
 rsmax-vendors.js:                             component: acc,
 rsmax-vendors.js:                             context: context
 rsmax-vendors.js:                         });
@@ -2532,7 +2532,7 @@ rsmax-vendors.js:             key: "onCreateHostComponent",
 rsmax-vendors.js:             value: function onCreateHostComponent(component) {
 rsmax-vendors.js:                 return this.plugins.reduce(function(acc, plugin) {
 rsmax-vendors.js:                     if (typeof plugin.onCreateHostComponent === 'function') {
-rsmax-vendors.js:                         acc = plugin.onCreateHostComponent({
+rsmax-vendors.js:                         return plugin.onCreateHostComponent({
 rsmax-vendors.js:                             component: acc
 rsmax-vendors.js:                         });
 rsmax-vendors.js:                     }
@@ -2545,7 +2545,7 @@ rsmax-vendors.js:             key: "onCreateHostComponentElement",
 rsmax-vendors.js:             value: function onCreateHostComponentElement(element) {
 rsmax-vendors.js:                 return this.plugins.reduce(function(acc, plugin) {
 rsmax-vendors.js:                     if (typeof plugin.onCreateHostComponentElement === 'function') {
-rsmax-vendors.js:                         acc = plugin.onCreateHostComponentElement({
+rsmax-vendors.js:                         return plugin.onCreateHostComponentElement({
 rsmax-vendors.js:                             element: acc
 rsmax-vendors.js:                         });
 rsmax-vendors.js:                     }

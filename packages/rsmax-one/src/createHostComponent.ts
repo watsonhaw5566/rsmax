@@ -12,14 +12,14 @@ import type {
   TouchEvent,
 } from './types';
 
-export function createTarget(target: any, detail: any): EventTarget {
+export function createTarget<Value = unknown>(target: any, detail: any): EventTarget<Value> {
   return {
     id: target.id,
     offsetLeft: target.offsetLeft,
     offsetTop: target.offsetTop,
     dataset: target.targetDataset || target.dataset,
     value: detail?.value,
-  };
+  } as EventTarget<Value>;
 }
 
 export function createCurrentTarget(currentTarget: any): EventCurrentTarget {
@@ -69,7 +69,9 @@ export function createCallback(fn: ((event: any) => void) | undefined, eventCrea
 
 export const createInputEvent = (originalEvent: any): InputEvent => ({
   type: originalEvent.type,
-  target: createTarget(originalEvent.target, originalEvent.detail),
+  target: createTarget(originalEvent.target, originalEvent.detail) as EventTarget<string> & {
+    value: string;
+  },
   currentTarget: createCurrentTarget(originalEvent.currentTarget),
   originalEvent,
   nativeEvent: originalEvent,
@@ -77,7 +79,9 @@ export const createInputEvent = (originalEvent: any): InputEvent => ({
 
 export const createFormEvent = (originalEvent: any): FormEvent => ({
   type: originalEvent.type,
-  target: createTarget(originalEvent.target, originalEvent.detail),
+  target: createTarget(originalEvent.target, originalEvent.detail) as EventTarget<string> & {
+    value: string;
+  },
   currentTarget: createCurrentTarget(originalEvent.currentTarget),
   originalEvent,
   nativeEvent: originalEvent,
