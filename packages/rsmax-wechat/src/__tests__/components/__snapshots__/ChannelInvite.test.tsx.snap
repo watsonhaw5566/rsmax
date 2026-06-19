@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`ChannelInvite > render correctly 1`] = `
+<channel-invite
+  buttonText="邀请好友"
+/>
+`;

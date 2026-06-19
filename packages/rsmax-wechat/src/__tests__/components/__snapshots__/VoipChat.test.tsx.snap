@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`VoipChat > render correctly 1`] = `
+<voip-chat
+  roomId="id"
+/>
+`;

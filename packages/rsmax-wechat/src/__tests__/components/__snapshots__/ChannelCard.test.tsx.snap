@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`ChannelCard > render correctly 1`] = `
+<channel-card
+  feedId="id"
+  feedType="video"
+  finderUserName="xxx"
+/>
+`;

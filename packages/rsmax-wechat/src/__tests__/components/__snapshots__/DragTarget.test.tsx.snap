@@ -1,0 +1,8 @@
+// Rstest Snapshot v1
+
+exports[`DragTarget > render correctly 1`] = `
+<drag-target
+  droppable={true}
+  tag="test"
+/>
+`;

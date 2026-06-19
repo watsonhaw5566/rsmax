@@ -1,0 +1,13 @@
+// Rstest Snapshot v1
+
+exports[`ShortVideo > render correctly 1`] = `
+<short-video
+  autoplay={false}
+  controls={true}
+  feedId="id"
+  finderUserName="xxx"
+  loop={false}
+  muted={false}
+  previewDuration={5}
+/>
+`;

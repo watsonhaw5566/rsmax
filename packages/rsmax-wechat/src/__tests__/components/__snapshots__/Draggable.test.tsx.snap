@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`Draggable > render correctly 1`] = `
+<draggable
+  dragType="move"
+  draggable={true}
+  tag="test"
+/>
+`;
