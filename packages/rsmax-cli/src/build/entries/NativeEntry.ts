@@ -8,7 +8,9 @@ import { getNativeAssetOutputPath, replaceExtension } from '../utils/paths';
 import VirtualEntry from './VirtualEntry';
 
 interface Manifest {
-  usingComponents?: Record<string, string>;
+  // JSON 中 usingComponents 的值在运行时可能为 null/number/object，
+  // 因此在此处声明为 unknown，由调用点进行类型检查而非依赖静态类型
+  usingComponents?: Record<string, unknown>;
 }
 
 function normalizeName(name: string) {
@@ -40,8 +42,17 @@ export default class NativeEntry extends VirtualEntry {
   getDependentEntries() {
     const { usingComponents = {} } = this.readRawManifest();
     return Object.keys(usingComponents).reduce((acc: Map<string, NativeEntry>, name: string) => {
-      const request: string = usingComponents[name];
-      if (request?.startsWith('plugin://')) {
+      const rawRequest = usingComponents[name];
+      // JSON 中的值可能不是字符串（例如 null/number/object），
+      // 在调用 startsWith 前必须进行类型检查，避免清单格式问题导致构建崩溃
+      if (typeof rawRequest !== 'string') {
+        logger.warn(
+          `Invalid usingComponents value for "${name}" in ${this.name}: expected string, got ${typeof rawRequest}`
+        );
+        return acc;
+      }
+      const request: string = rawRequest;
+      if (request.startsWith('plugin://')) {
         return acc;
       }
       // 1) 裸模块名 (如 "moduleC")：先尝试用 resolve.sync 直接解析，
