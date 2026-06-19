@@ -173,6 +173,12 @@ export const setWindowSize = wx.setWindowSize;
 export const onWindowResize = wx.onWindowResize;
 export const offWindowResize = wx.offWindowResize;
 export const checkIsPictureInPictureActive = wx.checkIsPictureInPictureActive;
+// @ts-expect-error
+export const exitPictureInPicture = promisify(wx.exitPictureInPicture);
+// @ts-expect-error
+export const onPictureInPictureStateChange = wx.onPictureInPictureStateChange;
+// @ts-expect-error
+export const offPictureInPictureStateChange = wx.offPictureInPictureStateChange;
 // 界面 - worklet 动画
 export const worklet = wx.worklet;
 // 网络
@@ -244,6 +250,8 @@ export const getExptInfoSync = wx.getExptInfoSync;
 export const getCommonConfig = wx.getCommonConfig;
 // 画布
 export const createOffscreenCanvas = wx.createOffscreenCanvas;
+// @ts-expect-error
+export const createCanvas = wx.createCanvas;
 // 从基础库 2.9.0 开始，本接口停止维护，请使用 Canvas 代替
 export const createCanvasContext = wx.createCanvasContext;
 export const canvasToTempFilePath = promisify(wx.canvasToTempFilePath);
@@ -295,6 +303,10 @@ export const getBackgroundAudioManager = wx.getBackgroundAudioManager;
 // 媒体 - 实时音视频
 export const createLivePlayerContext = wx.createLivePlayerContext;
 export const createLivePusherContext = wx.createLivePusherContext;
+// @ts-expect-error
+export const getLivePlayerInstance = wx.getLivePlayerInstance;
+// @ts-expect-error
+export const getVideoPlayerInstance = wx.getVideoPlayerInstance;
 // 媒体 - 录音
 // 从基础库 1.6.0 开始，本接口停止维护，请使用 wx.getRecorderManager 代替
 export const stopRecord = promisify(wx.stopRecord);
@@ -351,6 +363,12 @@ export const getAccountInfoSync = wx.getAccountInfoSync;
 // 开放接口 - 用户信息 用户头像昵称获取规则已调整 https://developers.weixin.qq.com/community/develop/doc/00022c683e8a80b29bed2142b56c01
 export const getUserProfile = promisify(wx.getUserProfile);
 export const getUserInfo = promisify(wx.getUserInfo);
+// @ts-expect-error
+export const chooseAvatar = promisify(wx.chooseAvatar);
+// @ts-expect-error
+export const getOpenUserInfo = wx.getOpenUserInfo;
+// @ts-expect-error
+export const getPhoneNumber = wx.getPhoneNumber;
 // 开放接口 - 授权
 export const authorizeForMiniProgram = wx.authorizeForMiniProgram;
 export const authorize = promisify(wx.authorize);
@@ -362,10 +380,10 @@ export const chooseAddress = promisify(wx.chooseAddress);
 // 开放接口 - 卡卷
 export const openCard = promisify(wx.openCard);
 export const addCard = promisify(wx.addCard);
-// 开发接口 -  发票
+// 开放接口 - 发票
 export const chooseInvoiceTitle = promisify(wx.chooseInvoiceTitle);
 export const chooseInvoice = promisify(wx.chooseInvoice);
-// 开发接口 -  生物认证
+// 开放接口 - 生物认证
 export const startSoterAuthentication = promisify(wx.startSoterAuthentication);
 export const checkIsSupportSoterAuthentication = promisify(wx.checkIsSupportSoterAuthentication);
 export const checkIsSoterEnrolledInDevice = promisify(wx.checkIsSoterEnrolledInDevice);
@@ -375,6 +393,10 @@ export const getWeRunData = promisify(wx.getWeRunData);
 // 开放接口 - 订阅消息
 export const requestSubscribeMessage = promisify(wx.requestSubscribeMessage);
 export const requestSubscribeDeviceMessage = promisify(wx.requestSubscribeDeviceMessage);
+// @ts-expect-error
+export const getSubscribeInfoSetting = promisify(wx.getSubscribeInfoSetting);
+// @ts-expect-error
+export const requestSubscribeSystemMessage = promisify(wx.requestSubscribeSystemMessage);
 // 开放接口 - 微信红包
 export const showRedPackage = promisify(wx.showRedPackage);
 // 开放接口 - 微信小店
@@ -396,6 +418,10 @@ export const openChannelsActivity = wx.openChannelsActivity;
 export const getChannelsShareKey = wx.getChannelsShareKey;
 export const getChannelsLiveNoticeInfo = wx.getChannelsLiveNoticeInfo;
 export const getChannelsLiveInfo = wx.getChannelsLiveInfo;
+// @ts-expect-error
+export const openChannelsShop = wx.openChannelsShop;
+// @ts-expect-error
+export const openChannelsFinderLive = wx.openChannelsFinderLive;
 // 开放接口 - 音视频通话
 export const requestDeviceVoIP = wx.requestDeviceVoIP;
 export const getDeviceVoIPList = wx.getDeviceVoIPList;
@@ -494,6 +520,7 @@ export const offHCEMessage = wx.offHCEMessage;
 export const getHCEState = promisify(wx.getHCEState);
 // 设备 - 网络
 export const onNetworkWeakChange = wx.onNetworkWeakChange;
+export const offNetworkWeakChange = wx.offNetworkWeakChange;
 export const onNetworkStatusChange = wx.onNetworkStatusChange;
 export const offNetworkStatusChange = wx.offNetworkStatusChange;
 export const getNetworkType = promisify(wx.getNetworkType);
@@ -566,6 +593,10 @@ export const createWorker = wx.createWorker;
 // WXML
 export const createSelectorQuery = wx.createSelectorQuery;
 export const createIntersectionObserver = wx.createIntersectionObserver;
+// @ts-expect-error
+export const createMediaQueryObserver = wx.createMediaQueryObserver;
+// @ts-expect-error
+export const matchMedia = wx.matchMedia;
 // 第三方平台
 export const getExtConfigSync = wx.getExtConfigSync;
 export const getExtConfig = promisify(wx.getExtConfig);
@@ -573,3 +604,7 @@ export const getExtConfig = promisify(wx.getExtConfig);
 export const getShowSplashAdStatus = wx.getShowSplashAdStatus;
 export const createRewardedVideoAd = wx.createRewardedVideoAd;
 export const createInterstitialAd = wx.createInterstitialAd;
+// @ts-expect-error
+export const createBannerAd = wx.createBannerAd;
+// @ts-expect-error
+export const createFullScreenVideoAd = wx.createFullScreenVideoAd;
