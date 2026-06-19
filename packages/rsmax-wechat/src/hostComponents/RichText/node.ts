@@ -8,6 +8,7 @@ export const alias = {
   onClick: 'bindtap',
   space: 'space',
   userSelect: 'user-select',
+  mode: 'mode',
   onTouchStart: 'bindtouchstart',
   onTouchMove: 'bindtouchmove',
   onTouchEnd: 'bindtouchend',

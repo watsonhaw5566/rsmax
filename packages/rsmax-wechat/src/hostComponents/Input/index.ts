@@ -40,7 +40,7 @@ export interface InputProps extends BaseProps {
    * idcard	身份证输入键盘
    * digit	带小数点的数字键盘
    */
-  type?: 'text' | 'number' | 'idcard' | 'digit';
+  type?: 'text' | 'number' | 'idcard' | 'digit' | 'safe-password' | 'nickname';
   /**
    * 1.1.0
    * 设置键盘右下角按钮的文字，仅在type='text'时生效
@@ -108,6 +108,41 @@ export interface InputProps extends BaseProps {
    */
   cursorSpacing?: number;
   /**
+   * 3.1.0
+   * 光标颜色。iOS 支持十六进制，安卓仅 default/green，Skyline 无限制
+   */
+  cursorColor?: string;
+  /**
+   * 2.18.0
+   * 安全键盘加密公钥路径（鸿蒙 OS 暂不支持）
+   */
+  safePasswordCertPath?: string;
+  /**
+   * 2.18.0
+   * 安全键盘输入密码长度（鸿蒙 OS 暂不支持）
+   */
+  safePasswordLength?: number;
+  /**
+   * 2.18.0
+   * 安全键盘加密时间戳（鸿蒙 OS 暂不支持）
+   */
+  safePasswordTimeStamp?: number;
+  /**
+   * 2.18.0
+   * 安全键盘加密盐值（鸿蒙 OS 暂不支持）
+   */
+  safePasswordNonce?: string;
+  /**
+   * 2.18.0
+   * 安全键盘计算 hash 盐值（鸿蒙 OS 暂不支持）
+   */
+  safePasswordSalt?: string;
+  /**
+   * 2.18.0
+   * 安全键盘计算 hash 的算法表达式（鸿蒙 OS 暂不支持）
+   */
+  safePasswordCustomHash?: string;
+  /**
    * 1.0.0
    * 键盘输入时触发，event.detail = {value, cursor, keyCode}，keyCode 为键值，
    * 2.1.0 起支持，处理函数可以直接 return 一个字符串，将替换输入框的内容。
@@ -133,6 +168,16 @@ export interface InputProps extends BaseProps {
    * 键盘高度发生变化的时候触发此事件，event.detail = {height: height, duration: duration}
    */
   onKeyboardHeightChange?: (event: GenericEvent) => any;
+  /**
+   * 1.0.0
+   * 键盘非聚焦状态内容改变时触发
+   */
+  onChange?: (event: GenericEvent) => any;
+  /**
+   * 2.29.1
+   * 用户昵称审核完毕后触发，仅 type 为 "nickname" 时有效
+   */
+  onNicknameReview?: (event: GenericEvent) => any;
 }
 
 /**

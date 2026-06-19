@@ -19,6 +19,8 @@ export interface NavigatorProps extends BaseProps {
   extraData?: any;
   /** (default: release) 当target="miniProgram"时有效，要打开的小程序版本 2.0.7 */
   version?: 'develop' | 'trial' | 'release';
+  /** 当target="miniProgram"时有效，传递该参数后可不传 app-id 和 path 2.18.1 */
+  shortLink?: string;
   /** (default: navigator-hover) 指定点击时的样式类，当hover-class="none"时，没有点击态效果 1.0.0 */
   hoverClassName?: string;
   /** (default: false) 指定是否阻止本节点的祖先节点出现点击态 1.5.0 */

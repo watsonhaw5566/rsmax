@@ -75,6 +75,8 @@ export interface ScrollViewProps extends BaseProps {
   onDragging?: (event: GenericEvent) => void;
   /** 滑动结束事件 (同时开启 enhanced 属性后生效) detail { scrollTop, scrollLeft, velocity } 2.12.0 */
   onDragEnd?: (event: GenericEvent) => void;
+  /** (default: false) 使 scroll-view 下的 position: sticky 特性生效 2.29.0 */
+  usingSticky?: boolean;
 }
 
 export const ScrollView: React.ComponentType<ScrollViewProps> = createHostComponent<ScrollViewProps>('scroll-view');
@@ -98,4 +100,5 @@ ScrollView.defaultProps = {
   showScrollbar: true,
   pagingEnabled: false,
   fastDeceleration: false,
+  usingSticky: false,
 };

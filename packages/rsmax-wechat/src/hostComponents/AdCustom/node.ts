@@ -7,7 +7,6 @@ export const alias = {
   adIntervals: 'ad-intervals',
   onLoad: 'bindload',
   onError: 'binderror',
-  onClose: 'bindclose',
 };
 
 export const props = Object.values(alias);

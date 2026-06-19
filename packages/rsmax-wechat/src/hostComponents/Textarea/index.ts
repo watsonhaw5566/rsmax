@@ -36,7 +36,10 @@ export interface TextareaProps extends BaseProps {
   confirmHold?: boolean;
   /** 是否去掉 iOS 下的默认内边距 2.10.0 */
   disableDefaultPadding?: boolean;
-
+  /** 键盘对齐位置 2.16.1 */
+  adjustKeyboardTo?: 'cursor' | 'bottom';
+  /** 输入框行数变化时调用，event.detail = {height: 0, heightRpx: 0, lineCount: 0} 1.0.0 */
+  onLineChange?: (event: GenericEvent) => any;
   onInput?: (event: GenericEvent) => void;
   onFocus?: (event: GenericEvent) => void;
   onBlur?: (event: GenericEvent) => void;

@@ -48,6 +48,13 @@ export const alias = {
   onPoiTap: 'bindpoitap',
   onPoiClick: 'bindpoitap',
   onAnchorPointTap: 'bindanchorpointtap',
+  enableAutoMaxOverlooking: 'enable-auto-max-overlooking',
+  onPolylineTap: 'bindpolylinetap',
+  onLabelTap: 'bindlabeltap',
+  onAbilitySuccess: 'bindabilitysuccess',
+  onAbilityFail: 'bindabilityfail',
+  onAuthSuccess: 'bindauthsuccess',
+  onInterpolatePoint: 'bindinterpolatepoint',
 };
 
 export const props = Object.values(alias);

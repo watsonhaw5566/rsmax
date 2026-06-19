@@ -103,6 +103,34 @@ export interface VideoProps extends BaseProps {
   onLeavePictureInPicture?: (event: GenericEvent) => any;
   /** seek 完成时触发 (position iOS 单位 s, Android 单位 ms) 2.12.0 */
   onSeekComplete?: (event: GenericEvent) => any;
+  /** 视频前贴广告单元ID 2.8.1 */
+  adUnitId?: string;
+  /** 是否展示底部进度条 2.8.0 */
+  showBottomProgress?: boolean;
+  /** 小窗模式下小窗的初始显示位置 3.3.0 */
+  pictureInPictureInitPosition?: string;
+  /** 是否支持 iOS 系统画中画 3.15.1 */
+  enableSystemPip?: boolean;
+  /** 格式固定为 https://servicewechat.com/{appid}/{version}/page-frame.html 2.13.0 */
+  referrerPolicy?: 'origin' | 'no-referrer';
+  /** 是否为 DRM 视频源 2.19.3 */
+  isDrm?: boolean;
+  /** 是否为直播源 2.28.1 */
+  isLive?: boolean;
+  /** DRM 设备身份认证 url (Android) 2.19.3 */
+  provisionUrl?: string;
+  /** DRM 设备身份认证 url (iOS) 2.19.3 */
+  certificateUrl?: string;
+  /** DRM 获取加密信息 url 2.19.3 */
+  licenseUrl?: string;
+  /** 指定码率上界，单位为比特每秒 2.26.0 */
+  preferredPeakBitRate?: number;
+  /** 用户选择投屏设备时触发 2.32.0 */
+  onCastingUserSelect?: (event: GenericEvent) => any;
+  /** 投屏成功/失败时触发 2.32.0 */
+  onCastingStateChange?: (event: GenericEvent) => any;
+  /** 投屏被中断时触发 2.32.0 */
+  onCastingInterrupt?: (event: GenericEvent) => any;
 }
 
 const VideoRender: React.ForwardRefRenderFunction<any, VideoProps> = (props, ref) => {

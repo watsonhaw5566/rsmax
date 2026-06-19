@@ -39,6 +39,19 @@ export const alias = {
   onBgmStart: 'bindbgmstart',
   onBgmProgress: 'bindbgmprogress',
   onBgmComplete: 'bindbgmcomplete',
+  pictureInPictureMode: 'picture-in-picture-mode',
+  enableVideoCustomRender: 'enableVideoCustomRender',
+  voiceChangerType: 'voice-changer-type',
+  customEffect: 'custom-effect',
+  skinWhiteness: 'skin-whiteness',
+  skinSmoothness: 'skin-smoothness',
+  faceThinness: 'face-thinness',
+  eyeBigness: 'eye-bigness',
+  fps: 'fps',
+  muteOnAudioConflict: 'mute-on-audio-conflict',
+  onAudioVolumeNotify: 'bindaudiovolumenotify',
+  onEnterPictureInPicture: 'bindenterpictureinpicture',
+  onLeavePictureInPicture: 'bindleavepictureinpicture',
 };
 
 export const props = Object.values(alias);

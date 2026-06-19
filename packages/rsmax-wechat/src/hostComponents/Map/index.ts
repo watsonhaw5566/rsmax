@@ -75,6 +75,20 @@ export interface MapProps extends BaseProps {
   onPoiTap?: (event: GenericEvent) => any;
   /** 点击定位标时触发，e.detail = {longitude, latitude} 2.13.0 */
   onAnchorPointTap?: (event: GenericEvent) => any;
+  /** 开启最大俯视角，俯视角度从 45 度拓展到 75 度 2.26.0 */
+  enableAutoMaxOverlooking?: boolean;
+  /** 点击地图路线时触发，e.detail = {longitude, latitude} 3.1.0 */
+  onPolylineTap?: (event: GenericEvent) => any;
+  /** 点击label时触发，e.detail = {markerId} 2.9.0 */
+  onLabelTap?: (event: GenericEvent) => any;
+  /** 地图能力生效时触发 */
+  onAbilitySuccess?: (event: GenericEvent) => any;
+  /** 地图能力失败时触发 */
+  onAbilityFail?: (event: GenericEvent) => any;
+  /** 地图鉴权结果成功时触发 */
+  onAuthSuccess?: (event: GenericEvent) => any;
+  /** MapContext.moveAlong 插值动画时触发 3.1.0 */
+  onInterpolatePoint?: (event: GenericEvent) => any;
 }
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/component/map.html

@@ -57,6 +57,20 @@ export interface ImageProps extends BaseProps {
    */
   showMenuByLongpress?: boolean;
   /**
+   * Skyline 特有：是否渐显
+   */
+  fadeIn?: boolean;
+  /**
+   * 3.15.0
+   * Skyline 特有：是否预加载图片，设置 src 时就触发下载和解码
+   */
+  preload?: boolean;
+  /**
+   * 3.9.1
+   * WebView 特有：自动将 http 链接替换为 https 链接
+   */
+  forceHttps?: boolean;
+  /**
    * 1.0.0
    * 当错误发生时触发，，event.detail = {errMsg}
    */

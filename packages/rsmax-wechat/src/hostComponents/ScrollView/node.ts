@@ -15,6 +15,7 @@ export const alias = {
   enableBackToTop: 'enable-back-to-top',
   enablePassive: 'enable-passive',
   enableFlex: 'enable-flex',
+  usingSticky: 'using-sticky',
   onScrollToUpper: 'bindscrolltoupper',
   onScrollToLower: 'bindscrolltolower',
   onScroll: 'bindscroll',

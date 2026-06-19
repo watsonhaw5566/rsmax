@@ -15,8 +15,6 @@ export const alias = {
   focus: 'focus',
   fixed: 'fixed',
   autoHeight: 'auto-height',
-  showCount: 'show-count',
-  controlled: 'controlled',
   cursorSpacing: 'cursor-spacing',
   cursor: 'cursor',
   showConfirmBar: 'show-confirm-bar',
@@ -24,15 +22,16 @@ export const alias = {
   selectionEnd: 'selection-end',
   adjustPosition: 'adjust-position',
   holdKeyboard: 'hold-keyboard',
+  disableDefaultPadding: 'disable-default-padding',
+  confirmType: 'confirm-type',
+  confirmHold: 'confirm-hold',
+  adjustKeyboardTo: 'adjust-keyboard-to',
   onFocus: 'bindfocus',
   onBlur: 'bindblur',
   onLineChange: 'bindlinechange',
   onInput: 'bindinput',
   onConfirm: 'bindconfirm',
   onKeyboardHeightChange: 'bindkeyboardheightchange',
-  confirmType: 'confirm-type',
-  confirmHold: 'confirm-hold',
-  disableDefaultPadding: 'disable-default-padding',
 };
 
 export const props = Object.values(alias);

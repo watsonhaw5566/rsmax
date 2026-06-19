@@ -1,6 +1,6 @@
 import { createHostComponent } from '@rsmax/runtime';
 import type React from 'react';
-import type { BaseProps } from '../../types/component';
+import type { BaseProps, GenericEvent } from '../../types/component';
 
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/component/channel-video.html
@@ -27,8 +27,13 @@ export interface ChannelVideoProps extends BaseProps {
   feedToken?: string;
   autoplay?: boolean;
   loop?: boolean;
-  muted?: 'contain' | 'fill' | 'cover';
-  objectFit?: boolean;
+  muted?: boolean;
+  objectFit?: 'contain' | 'fill' | 'cover';
+  controls?: boolean;
+  /** 视频加载成功时触发 */
+  onLoad?: (event: GenericEvent) => any;
+  /** 视频加载失败时触发 */
+  onError?: (event: GenericEvent) => any;
 }
 
 /**
@@ -43,5 +48,6 @@ ChannelVideo.defaultProps = {
   feedToken: '',
   autoplay: true,
   loop: false,
-  muted: 'contain',
+  muted: false,
+  objectFit: 'contain',
 };

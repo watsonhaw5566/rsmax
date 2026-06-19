@@ -15,6 +15,7 @@ export const alias = {
   path: 'path',
   extraData: 'extra-data',
   version: 'version',
+  shortLink: 'short-link',
   hoverStopPropagation: 'hover-stop-propagation',
   onSuccess: 'bindsuccess',
   onFail: 'bindfail',

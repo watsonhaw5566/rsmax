@@ -13,6 +13,12 @@ export interface EditorProps extends BaseProps {
   showImgToolbar?: boolean;
   /** 点击图片时显示修改尺寸控件 2.7.0  */
   showImgResize?: boolean;
+  /** 编辑器允许的名单内的格式（可选值：bold、italic、underline） 3.2.2 */
+  enableFormats?: string[];
+  /** 定义虚拟键盘回车键的操作标签 3.7.11 */
+  enterkeyhint?: string;
+  /** 点击键盘回车键时是否保持键盘不收起 3.7.11 */
+  confirmHold?: boolean;
   /** 编辑器初始化完成时触发 2.7.0  */
   onReady?: (event: GenericEvent) => any;
   /** 编辑器聚焦时触发，event.detail = {html, text, delta} 2.7.0  */

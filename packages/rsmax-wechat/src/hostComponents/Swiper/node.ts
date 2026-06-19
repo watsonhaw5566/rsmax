@@ -17,6 +17,7 @@ export const alias = {
   displayMultipleItems: 'display-multiple-items',
   skipHiddenItemLayout: 'skip-hidden-item-layout',
   easingFunction: 'easing-function',
+  direction: 'direction',
   onChange: 'bindchange',
   onTransition: 'bindtransition',
   onAnimationFinish: 'bindanimationfinish',

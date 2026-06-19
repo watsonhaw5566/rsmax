@@ -15,6 +15,7 @@ export const alias = {
   end: 'end',
   fields: 'fields',
   customItem: 'custom-item',
+  level: 'level',
   disabled: 'disabled',
   onClick: 'bindtap',
   onTap: 'bindtap',

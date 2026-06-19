@@ -12,6 +12,11 @@ export interface RichTextProps extends BaseProps {
    * 文本是否可选，该属性会使节点显示为 block
    */
   userSelect?: boolean;
+  /**
+   * Skyline 特有：布局兼容模式
+   * default | compat | aggressive | inline-block | web | web-static
+   */
+  mode?: 'default' | 'compat' | 'aggressive' | 'inline-block' | 'web' | 'web-static';
 }
 
 /**

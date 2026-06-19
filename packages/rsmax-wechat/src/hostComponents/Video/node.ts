@@ -52,6 +52,20 @@ export const alias = {
   onEnterPictureInPicture: 'bindenterpictureinpicture',
   onLeavePictureInPicture: 'bindleavepictureinpicture',
   onSeekComplete: 'bindseekcomplete',
+  adUnitId: 'ad-unit-id',
+  showBottomProgress: 'show-bottom-progress',
+  pictureInPictureInitPosition: 'picture-in-picture-init-position',
+  enableSystemPip: 'enable-system-pip',
+  referrerPolicy: 'referrer-policy',
+  isDrm: 'is-drm',
+  isLive: 'is-live',
+  provisionUrl: 'provision-url',
+  certificateUrl: 'certificate-url',
+  licenseUrl: 'license-url',
+  preferredPeakBitRate: 'preferred-peak-bit-rate',
+  onCastingUserSelect: 'bindcastinguserselect',
+  onCastingStateChange: 'bindcastingstatechange',
+  onCastingInterrupt: 'bindcastinginterrupt',
 };
 
 export const props = Object.values(alias);

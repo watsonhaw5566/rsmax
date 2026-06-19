@@ -26,7 +26,9 @@ export interface LivePusherProps extends BaseProps {
   mode?: string;
   /** (default: false) 自动推流 1.7.0  */
   autopush?: boolean;
-  /** (default: false) 是否静音 1.7.0  */
+  /** 自定义渲染，允许开发者自行处理所采集的视频帧 2.29.0 */
+  enableVideoCustomRender?: boolean;
+  /** (default: false) 是否静音（已废弃，请使用 enableMic） 1.7.0  */
   muted?: boolean;
   /** (default: true) 开启摄像头 1.7.0  */
   enableCamera?: boolean;
@@ -74,9 +76,9 @@ export interface LivePusherProps extends BaseProps {
   zoom?: boolean;
   /** (default: front) 前置或后置，值为front, back 2.3.0 */
   devicePosition?: string;
-  /** (default: false) 进入后台时是否静音 1.7.0 */
+  /** (default: false) 进入后台时是否静音（已废弃） 1.7.0 */
   backgroundMute?: boolean;
-  /** (default: false) 设置推流画面是否镜像，产生的效果在 live-player 反应到 2.7.0 */
+  /** (default: false) 设置推流画面是否镜像（即将废弃，请使用 remoteMirror） 2.7.0 */
   mirror?: boolean;
   /** (default: false) 同 mirror 属性，后续 mirror 将废弃	2.10.0 */
   remoteMirror?: boolean;
@@ -90,12 +92,30 @@ export interface LivePusherProps extends BaseProps {
   enableAgc?: boolean;
   /** (default: false) 是否开启音频噪声抑制	2.10.0 */
   enableAns?: boolean;
-  /** (default: voicecall) 音量类型	2.10.0 */
-  audioVolumeType?: 'media' | 'voicecall';
+  /** (default: auto) 音量类型	2.10.0 */
+  audioVolumeType?: 'auto' | 'media' | 'voicecall';
   /** (default: 360) 上推的视频流的分辨率宽度	2.10.0 */
   videoWidth?: number;
   /** (default: 640) 上推的视频流的分辨率高度	2.10.0 */
   videoHeight?: number;
+  /** 设置小窗模式 2.25.0 */
+  pictureInPictureMode?: string | string[];
+  /** 变声类型 2.31.0 */
+  voiceChangerType?: number;
+  /** 是否启动自定义特效 2.29.1 */
+  customEffect?: boolean;
+  /** 自定义特效美白效果，取值 0~1 2.29.1 */
+  skinWhiteness?: number;
+  /** 自定义特效磨皮效果，取值 0~1 2.29.1 */
+  skinSmoothness?: number;
+  /** 自定义特效瘦脸效果，取值 0~1 2.29.1 */
+  faceThinness?: number;
+  /** 自定义特效大眼效果，取值 0~1 2.29.1 */
+  eyeBigness?: number;
+  /** (default: 15) 帧率，有效值为 1~30 2.31.0 */
+  fps?: number;
+  /** 音频冲突时是否静音 3.16.2 */
+  muteOnAudioConflict?: boolean;
   /** 状态变化事件，detail = {code} 1.7.0 */
   onStateChange?: (event: GenericEvent) => any;
   /** 网络状态通知，detail = {info} 1.9.0 */
@@ -108,6 +128,12 @@ export interface LivePusherProps extends BaseProps {
   onBgmProgress?: (event: GenericEvent) => any;
   /** 背景音播放完成时触发 2.4.0 */
   onBgmComplete?: (event: GenericEvent) => any;
+  /** 返回麦克风采集的音量大小 2.12.0 */
+  onAudioVolumeNotify?: (event: GenericEvent) => any;
+  /** 进入小窗 2.25.0 */
+  onEnterPictureInPicture?: (event: GenericEvent) => any;
+  /** 退出小窗 2.25.0 */
+  onLeavePictureInPicture?: (event: GenericEvent) => any;
 }
 
 /**
@@ -119,7 +145,7 @@ LivePusher.defaultProps = {
   mode: 'RTC',
   autopush: false,
   muted: false,
-  enableCamera: false,
+  enableCamera: true,
   autoFocus: true,
   orientation: 'vertical',
   beauty: 0,
@@ -138,7 +164,7 @@ LivePusher.defaultProps = {
   enableMic: true,
   enableAgc: true,
   enableAns: false,
-  audioVolumeType: 'voicecall',
+  audioVolumeType: 'auto',
   videoWidth: 360,
   videoHeight: 640,
 };

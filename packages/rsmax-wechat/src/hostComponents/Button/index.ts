@@ -37,7 +37,7 @@ export interface ButtonProps extends BaseProps {
    * submit	提交表单
    * reset	重置表单
    */
-  formType?: 'submit' | 'reset';
+  formType?: 'submit' | 'reset' | 'submitToGroup';
   /**
    * - 微信小程序 & QQ 小程序
    * contact	打开客服会话，如果用户在会话中点击消息卡片后返回小程序，可以从 bindcontact 回调中获得具体信息	1.1.0
@@ -61,10 +61,13 @@ export interface ButtonProps extends BaseProps {
     | 'contact'
     | 'share'
     | 'getPhoneNumber'
+    | 'getRealtimePhoneNumber'
     | 'getUserInfo'
     | 'launchApp'
     | 'openSetting'
     | 'feedback'
+    | 'liveActivity'
+    | 'agreePrivacyAuthorization'
     | 'openGroupProfile'
     | 'addFriend'
     | 'addColorSign'
@@ -261,10 +264,10 @@ export interface ButtonProps extends BaseProps {
    */
   onChooseAvatar?: (event: GenericEvent) => any;
   /**2.32.3
-   * 用户同意隐私协议按钮
+   * 用户同意隐私协议事件回调
    * https://developers.weixin.qq.com/miniprogram/dev/framework/user-privacy/PrivacyAuthorize.html
    */
-  agreePrivacyAuthorization?: (event: GenericEvent) => any;
+  onAgreePrivacyAuthorization?: (event: GenericEvent) => any;
 }
 
 /**

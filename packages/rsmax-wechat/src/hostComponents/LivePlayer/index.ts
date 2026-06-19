@@ -15,7 +15,7 @@ export interface LivePlayerProps extends BaseProps {
   orientation?: 'vertical' | 'horizontal';
   /** (default: contain) 填充模式，可选值有 contain，fillCrop 1.7.0  */
   objectFit?: 'contain' | 'fillCrop';
-  /** (default: false) 进入后台时是否静音（已废弃，默认退台静音） 1.7.0  */
+  /** (default: false) 进入后台时是否静音（已废弃，默认退后台静音） 1.7.0  */
   backgroundMute?: boolean;
   /** (default: 1) 最小缓冲区，单位s（RTC 模式推荐 0.2s） 1.7.0  */
   minCache?: number;
@@ -29,6 +29,18 @@ export interface LivePlayerProps extends BaseProps {
   autoPauseIfOpenNative?: boolean;
   /** 设置小窗模式： push, pop，空字符串或通过数组形式设置多种模式（如： ["push", "pop"]） 2.10.3 */
   pictureInPictureMode?: string | string[];
+  /** 小窗初始显示位置 3.3.0 */
+  pictureInPictureInitPosition?: string;
+  /** 是否支持 iOS 系统画中画 3.14.1 */
+  enableSystemPip?: boolean;
+  /** 是否开启手机横屏时自动全屏 2.11.0 */
+  enableAutoRotation?: boolean;
+  /** 格式固定为 https://servicewechat.com/{appid}/{version}/page-frame.html 2.13.0 */
+  referrerPolicy?: 'origin' | 'no-referrer';
+  /** 是否支持投屏 2.32.0 */
+  enableCasting?: boolean;
+  /** 音频冲突时是否静音 3.16.2 */
+  muteOnAudioConflict?: boolean;
   /** 播放状态变化事件，detail = {code} 1.7.0  */
   onStateChange?: (event: GenericEvent) => any;
   /** 全屏变化事件，detail = {direction, fullScreen} 1.7.0  */
@@ -41,6 +53,12 @@ export interface LivePlayerProps extends BaseProps {
   onEnterPictureInPicture?: (event: GenericEvent) => any;
   /** 播放器退出小窗	2.11.0 */
   onLeavePictureInPicture?: (event: GenericEvent) => any;
+  /** 用户选择投屏设备时触发 2.32.0 */
+  onCastingUserSelect?: (event: GenericEvent) => any;
+  /** 投屏成功/失败时触发 2.32.0 */
+  onCastingStateChange?: (event: GenericEvent) => any;
+  /** 投屏被中断时触发 2.32.0 */
+  onCastingInterrupt?: (event: GenericEvent) => any;
 }
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/component/live-player.html

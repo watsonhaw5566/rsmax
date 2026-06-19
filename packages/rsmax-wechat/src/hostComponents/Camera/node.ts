@@ -4,6 +4,7 @@ export const alias = {
   style: 'style',
   animation: 'animation',
   mode: 'mode',
+  resolution: 'resolution',
   devicePosition: 'device-position',
   flash: 'flash',
   frameSize: 'frame-size',
