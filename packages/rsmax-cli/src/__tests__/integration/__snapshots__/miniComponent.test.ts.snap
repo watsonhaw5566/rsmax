@@ -17,6 +17,15 @@ __rsmax_runtime_options__.js:       "adType": "ad-type",
 __rsmax_runtime_options__.js:       "adTheme": "ad-theme"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "ad-custom": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "unitId": "unit-id",
+__rsmax_runtime_options__.js:       "adIntervals": "ad-intervals",
+__rsmax_runtime_options__.js:       "onLoad": "bindload",
+__rsmax_runtime_options__.js:       "onError": "binderror",
+__rsmax_runtime_options__.js:       "onClose": "bindclose"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "audio": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -129,6 +138,31 @@ __rsmax_runtime_options__.js:       "onClick": "bindtap",
 __rsmax_runtime_options__.js:       "onError": "binderror"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "channel-card": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "finderUserName": "finder-user-name",
+__rsmax_runtime_options__.js:       "feedType": "feed-type",
+__rsmax_runtime_options__.js:       "feedId": "feed-id",
+__rsmax_runtime_options__.js:       "sceneNote": "scene-note"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "channel-invite": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "buttonText": "button-text",
+__rsmax_runtime_options__.js:       "shareTitle": "share-title",
+__rsmax_runtime_options__.js:       "sharePath": "share-path",
+__rsmax_runtime_options__.js:       "shareInfo": "share-info",
+__rsmax_runtime_options__.js:       "onSuccess": "bindsuccess",
+__rsmax_runtime_options__.js:       "onError": "binderror",
+__rsmax_runtime_options__.js:       "onComplete": "bindcomplete"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "channel-live": {
+__rsmax_runtime_options__.js:     "alias": {}
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "channel-video": {
+__rsmax_runtime_options__.js:     "alias": {}
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "checkbox-group": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -179,6 +213,34 @@ __rsmax_runtime_options__.js:       "onTap": "bindtap",
 __rsmax_runtime_options__.js:       "onClick": "bindtap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "draggable": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "tag": "tag",
+__rsmax_runtime_options__.js:       "draggable": "draggable",
+__rsmax_runtime_options__.js:       "dragType": "drag-type",
+__rsmax_runtime_options__.js:       "onDragStart": "binddragstart",
+__rsmax_runtime_options__.js:       "onDragEnd": "binddragend"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "drag-target": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "tag": "tag",
+__rsmax_runtime_options__.js:       "droppable": "droppable",
+__rsmax_runtime_options__.js:       "onDragEnter": "binddragenter",
+__rsmax_runtime_options__.js:       "onDragLeave": "binddragleave",
+__rsmax_runtime_options__.js:       "onDragOver": "binddragover",
+__rsmax_runtime_options__.js:       "onDrop": "binddrop"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "editor-portal": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
+__rsmax_runtime_options__.js:       "portalKey": "key"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "editor": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -195,15 +257,6 @@ __rsmax_runtime_options__.js:       "onFocus": "bindfocus",
 __rsmax_runtime_options__.js:       "onBlur": "bindblur",
 __rsmax_runtime_options__.js:       "onInput": "bindinput",
 __rsmax_runtime_options__.js:       "onStatusChange": "bindstatuschange"
-__rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "editor-portal": {
-__rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "id": "id",
-__rsmax_runtime_options__.js:       "className": "class",
-__rsmax_runtime_options__.js:       "style": "style",
-__rsmax_runtime_options__.js:       "animation": "animation",
-__rsmax_runtime_options__.js:       "portalKey": "key"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "form": {
@@ -292,6 +345,9 @@ __rsmax_runtime_options__.js:       "onBlur": "bindblur",
 __rsmax_runtime_options__.js:       "onConfirm": "bindconfirm",
 __rsmax_runtime_options__.js:       "onKeyboardHeightChange": "bindkeyboardheightchange"
 __rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "keyboard-accessory": {
+__rsmax_runtime_options__.js:     "alias": {}
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "label": {
 __rsmax_runtime_options__.js:     "alias": {
@@ -428,6 +484,17 @@ __rsmax_runtime_options__.js:       "onPoiClick": "bindpoitap",
 __rsmax_runtime_options__.js:       "onAnchorPointTap": "bindanchorpointtap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "match-media": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "minWidth": "min-width",
+__rsmax_runtime_options__.js:       "maxWidth": "max-width",
+__rsmax_runtime_options__.js:       "width": "width",
+__rsmax_runtime_options__.js:       "minHeight": "min-height",
+__rsmax_runtime_options__.js:       "maxHeight": "max-height",
+__rsmax_runtime_options__.js:       "height": "height",
+__rsmax_runtime_options__.js:       "orientation": "orientation"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "movable-area": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "className": "class",
@@ -467,6 +534,16 @@ __rsmax_runtime_options__.js:       "hTouchMove": "htouchmove",
 __rsmax_runtime_options__.js:       "vTouchMove": "vtouchmove"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "navigation-bar": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "title": "title",
+__rsmax_runtime_options__.js:       "loading": "loading",
+__rsmax_runtime_options__.js:       "frontColor": "front-color",
+__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
+__rsmax_runtime_options__.js:       "colorAnimationDuration": "color-animation-duration",
+__rsmax_runtime_options__.js:       "colorAnimationTimingFunc": "color-animation-timing-func"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "navigator": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -502,6 +579,44 @@ __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "type": "type",
 __rsmax_runtime_options__.js:       "openGid": "open-gid",
 __rsmax_runtime_options__.js:       "lang": "lang"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "page-container": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "show": "show",
+__rsmax_runtime_options__.js:       "duration": "duration",
+__rsmax_runtime_options__.js:       "zIndex": "z-index",
+__rsmax_runtime_options__.js:       "overlay": "overlay",
+__rsmax_runtime_options__.js:       "position": "position",
+__rsmax_runtime_options__.js:       "round": "round",
+__rsmax_runtime_options__.js:       "closeOnSlideDown": "close-on-slideDown",
+__rsmax_runtime_options__.js:       "overlayStyle": "overlay-style",
+__rsmax_runtime_options__.js:       "customStyle": "custom-style",
+__rsmax_runtime_options__.js:       "onBeforeEnter": "bindbeforeenter",
+__rsmax_runtime_options__.js:       "onEnter": "bindenter",
+__rsmax_runtime_options__.js:       "onAfterEnter": "bindafterenter",
+__rsmax_runtime_options__.js:       "onBeforeLeave": "bindbeforeleave",
+__rsmax_runtime_options__.js:       "onLeave": "bindleave",
+__rsmax_runtime_options__.js:       "onAfterLeave": "bindafterleave",
+__rsmax_runtime_options__.js:       "onClickOverlay": "bindclickoverlay"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "page-meta": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "backgroundTextStyle": "background-text-style",
+__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
+__rsmax_runtime_options__.js:       "backgroundColorTop": "background-color-top",
+__rsmax_runtime_options__.js:       "backgroundColorBottom": "background-color-bottom",
+__rsmax_runtime_options__.js:       "rootBackgroundColor": "root-background-color",
+__rsmax_runtime_options__.js:       "scrollTop": "scroll-top",
+__rsmax_runtime_options__.js:       "scrollDuration": "scroll-duration",
+__rsmax_runtime_options__.js:       "pageStyle": "page-style",
+__rsmax_runtime_options__.js:       "pageFontSize": "page-font-size",
+__rsmax_runtime_options__.js:       "rootFontSize": "root-font-size",
+__rsmax_runtime_options__.js:       "pageOrientation": "page-orientation",
+__rsmax_runtime_options__.js:       "onResize": "bindresize",
+__rsmax_runtime_options__.js:       "onScroll": "bindscroll",
+__rsmax_runtime_options__.js:       "onScrollDone": "bindscrolldone"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "picker-view-column": {
@@ -612,6 +727,24 @@ __rsmax_runtime_options__.js:       "onLongTap": "bindlongtap",
 __rsmax_runtime_options__.js:       "onLongClick": "bindlongtap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "root-portal": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
+__rsmax_runtime_options__.js:       "nodes": "nodes",
+__rsmax_runtime_options__.js:       "onTap": "bindtap",
+__rsmax_runtime_options__.js:       "onClick": "bindtap",
+__rsmax_runtime_options__.js:       "space": "space",
+__rsmax_runtime_options__.js:       "onTouchStart": "bindtouchstart",
+__rsmax_runtime_options__.js:       "onTouchMove": "bindtouchmove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "bindtouchend",
+__rsmax_runtime_options__.js:       "onTouchCancel": "bindtouchcancel",
+__rsmax_runtime_options__.js:       "onLongTap": "bindlongtap",
+__rsmax_runtime_options__.js:       "onLongClick": "bindlongtap"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "scroll-view": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -659,6 +792,30 @@ __rsmax_runtime_options__.js:       "onDragging": "binddragging",
 __rsmax_runtime_options__.js:       "onDragEnd": "binddragend"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "selection": {
+__rsmax_runtime_options__.js:     "alias": {}
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "share-element": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "key": "key",
+__rsmax_runtime_options__.js:       "transform": "transform",
+__rsmax_runtime_options__.js:       "duration": "duration",
+__rsmax_runtime_options__.js:       "easingFunction": "easing-function"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "short-video": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "finderUserName": "finder-user-name",
+__rsmax_runtime_options__.js:       "feedId": "feed-id",
+__rsmax_runtime_options__.js:       "previewDuration": "preview-duration",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "loop": "loop",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "controls": "controls",
+__rsmax_runtime_options__.js:       "onLoad": "bindload",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "slider": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -682,6 +839,9 @@ __rsmax_runtime_options__.js:       "blockColor": "block-color",
 __rsmax_runtime_options__.js:       "onChange": "bindchange",
 __rsmax_runtime_options__.js:       "onChanging": "bindchanging"
 __rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "snapshot": {
+__rsmax_runtime_options__.js:     "alias": {}
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "swiper-item": {
 __rsmax_runtime_options__.js:     "alias": {
@@ -735,18 +895,10 @@ __rsmax_runtime_options__.js:       "onChange": "bindchange",
 __rsmax_runtime_options__.js:       "type": "type"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "text": {
+__rsmax_runtime_options__.js:   "text-recognizer": {
 __rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "id": "id",
-__rsmax_runtime_options__.js:       "className": "class",
-__rsmax_runtime_options__.js:       "style": "style",
-__rsmax_runtime_options__.js:       "animation": "animation",
-__rsmax_runtime_options__.js:       "selectable": "selectable",
-__rsmax_runtime_options__.js:       "userSelect": "user-select",
-__rsmax_runtime_options__.js:       "space": "space",
-__rsmax_runtime_options__.js:       "decode": "decode",
-__rsmax_runtime_options__.js:       "onTap": "bindtap",
-__rsmax_runtime_options__.js:       "onClick": "bindtap"
+__rsmax_runtime_options__.js:       "onLoad": "bindload",
+__rsmax_runtime_options__.js:       "onError": "binderror"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "textarea": {
@@ -785,6 +937,20 @@ __rsmax_runtime_options__.js:       "onKeyboardHeightChange": "bindkeyboardheigh
 __rsmax_runtime_options__.js:       "confirmType": "confirm-type",
 __rsmax_runtime_options__.js:       "confirmHold": "confirm-hold",
 __rsmax_runtime_options__.js:       "disableDefaultPadding": "disable-default-padding"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "text": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
+__rsmax_runtime_options__.js:       "selectable": "selectable",
+__rsmax_runtime_options__.js:       "userSelect": "user-select",
+__rsmax_runtime_options__.js:       "space": "space",
+__rsmax_runtime_options__.js:       "decode": "decode",
+__rsmax_runtime_options__.js:       "onTap": "bindtap",
+__rsmax_runtime_options__.js:       "onClick": "bindtap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "video": {
@@ -873,55 +1039,21 @@ __rsmax_runtime_options__.js:       "onAnimationEnd": "bindanimationend",
 __rsmax_runtime_options__.js:       "catchTouchMove": "catchtouchmove"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "web-view": {
+__rsmax_runtime_options__.js:   "voip-chat": {
 __rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "src": "src",
-__rsmax_runtime_options__.js:       "onMessage": "bindmessage",
+__rsmax_runtime_options__.js:       "windowId": "window-id",
+__rsmax_runtime_options__.js:       "roomId": "room-id",
+__rsmax_runtime_options__.js:       "roomName": "room-name",
+__rsmax_runtime_options__.js:       "nickName": "nick-name",
+__rsmax_runtime_options__.js:       "headImage": "head-image",
+__rsmax_runtime_options__.js:       "memberList": "member-list",
 __rsmax_runtime_options__.js:       "onLoad": "bindload",
-__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:       "onClose": "bindclose",
+__rsmax_runtime_options__.js:       "onError": "binderror",
+__rsmax_runtime_options__.js:       "onJoinRoom": "bindjoinroom",
+__rsmax_runtime_options__.js:       "onLeaveRoom": "bindleaveroom",
+__rsmax_runtime_options__.js:       "onSpeak": "bindspeak"
 __rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "match-media": {
-__rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "minWidth": "min-width",
-__rsmax_runtime_options__.js:       "maxWidth": "max-width",
-__rsmax_runtime_options__.js:       "width": "width",
-__rsmax_runtime_options__.js:       "minHeight": "min-height",
-__rsmax_runtime_options__.js:       "maxHeight": "max-height",
-__rsmax_runtime_options__.js:       "height": "height",
-__rsmax_runtime_options__.js:       "orientation": "orientation"
-__rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "page-container": {
-__rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "show": "show",
-__rsmax_runtime_options__.js:       "duration": "duration",
-__rsmax_runtime_options__.js:       "zIndex": "z-index",
-__rsmax_runtime_options__.js:       "overlay": "overlay",
-__rsmax_runtime_options__.js:       "position": "position",
-__rsmax_runtime_options__.js:       "round": "round",
-__rsmax_runtime_options__.js:       "closeOnSlideDown": "close-on-slideDown",
-__rsmax_runtime_options__.js:       "overlayStyle": "overlay-style",
-__rsmax_runtime_options__.js:       "customStyle": "custom-style",
-__rsmax_runtime_options__.js:       "onBeforeEnter": "bindbeforeenter",
-__rsmax_runtime_options__.js:       "onEnter": "bindenter",
-__rsmax_runtime_options__.js:       "onAfterEnter": "bindafterenter",
-__rsmax_runtime_options__.js:       "onBeforeLeave": "bindbeforeleave",
-__rsmax_runtime_options__.js:       "onLeave": "bindleave",
-__rsmax_runtime_options__.js:       "onAfterLeave": "bindafterleave",
-__rsmax_runtime_options__.js:       "onClickOverlay": "bindclickoverlay"
-__rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "share-element": {
-__rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "key": "key",
-__rsmax_runtime_options__.js:       "transform": "transform",
-__rsmax_runtime_options__.js:       "duration": "duration",
-__rsmax_runtime_options__.js:       "easingFunction": "easing-function"
-__rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "keyboard-accessory": {
-__rsmax_runtime_options__.js:     "alias": {}
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "voip-room": {
 __rsmax_runtime_options__.js:     "alias": {
@@ -931,72 +1063,13 @@ __rsmax_runtime_options__.js:       "devicePosition": "device-position",
 __rsmax_runtime_options__.js:       "onError": "binderror"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "ad-custom": {
+__rsmax_runtime_options__.js:   "web-view": {
 __rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "unitId": "unit-id",
-__rsmax_runtime_options__.js:       "adIntervals": "ad-intervals",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "onMessage": "bindmessage",
 __rsmax_runtime_options__.js:       "onLoad": "bindload",
-__rsmax_runtime_options__.js:       "onError": "binderror",
-__rsmax_runtime_options__.js:       "onClose": "bindclose"
+__rsmax_runtime_options__.js:       "onError": "binderror"
 __rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "page-meta": {
-__rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "backgroundTextStyle": "background-text-style",
-__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
-__rsmax_runtime_options__.js:       "backgroundColorTop": "background-color-top",
-__rsmax_runtime_options__.js:       "backgroundColorBottom": "background-color-bottom",
-__rsmax_runtime_options__.js:       "rootBackgroundColor": "root-background-color",
-__rsmax_runtime_options__.js:       "scrollTop": "scroll-top",
-__rsmax_runtime_options__.js:       "scrollDuration": "scroll-duration",
-__rsmax_runtime_options__.js:       "pageStyle": "page-style",
-__rsmax_runtime_options__.js:       "pageFontSize": "page-font-size",
-__rsmax_runtime_options__.js:       "rootFontSize": "root-font-size",
-__rsmax_runtime_options__.js:       "pageOrientation": "page-orientation",
-__rsmax_runtime_options__.js:       "onResize": "bindresize",
-__rsmax_runtime_options__.js:       "onScroll": "bindscroll",
-__rsmax_runtime_options__.js:       "onScrollDone": "bindscrolldone"
-__rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "navigation-bar": {
-__rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "title": "title",
-__rsmax_runtime_options__.js:       "loading": "loading",
-__rsmax_runtime_options__.js:       "frontColor": "front-color",
-__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
-__rsmax_runtime_options__.js:       "colorAnimationDuration": "color-animation-duration",
-__rsmax_runtime_options__.js:       "colorAnimationTimingFunc": "color-animation-timing-func"
-__rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "root-portal": {
-__rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "id": "id",
-__rsmax_runtime_options__.js:       "className": "class",
-__rsmax_runtime_options__.js:       "style": "style",
-__rsmax_runtime_options__.js:       "animation": "animation",
-__rsmax_runtime_options__.js:       "nodes": "nodes",
-__rsmax_runtime_options__.js:       "onTap": "bindtap",
-__rsmax_runtime_options__.js:       "onClick": "bindtap",
-__rsmax_runtime_options__.js:       "space": "space",
-__rsmax_runtime_options__.js:       "onTouchStart": "bindtouchstart",
-__rsmax_runtime_options__.js:       "onTouchMove": "bindtouchmove",
-__rsmax_runtime_options__.js:       "onTouchEnd": "bindtouchend",
-__rsmax_runtime_options__.js:       "onTouchCancel": "bindtouchcancel",
-__rsmax_runtime_options__.js:       "onLongTap": "bindlongtap",
-__rsmax_runtime_options__.js:       "onLongClick": "bindlongtap"
-__rsmax_runtime_options__.js:     }
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "channel-live": {
-__rsmax_runtime_options__.js:     "alias": {}
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "channel-video": {
-__rsmax_runtime_options__.js:     "alias": {}
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "snapshot": {
-__rsmax_runtime_options__.js:     "alias": {}
-__rsmax_runtime_options__.js:   },
-__rsmax_runtime_options__.js:   "selection": {
-__rsmax_runtime_options__.js:     "alias": {}
 __rsmax_runtime_options__.js:   }
 __rsmax_runtime_options__.js: },
 __rsmax_runtime_options__.js:       pageEvents: {},
