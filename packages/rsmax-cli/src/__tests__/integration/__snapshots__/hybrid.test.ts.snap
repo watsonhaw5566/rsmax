@@ -106,6 +106,38 @@ __rsmax_runtime_options__.js:       "onTap": "onTap",
 __rsmax_runtime_options__.js:       "onClick": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "editor": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "placeholder": "placeholder",
+__rsmax_runtime_options__.js:       "showImgSize": "show-img-size",
+__rsmax_runtime_options__.js:       "showImgToolbar": "show-img-toolbar",
+__rsmax_runtime_options__.js:       "showImgResize": "show-img-resize",
+__rsmax_runtime_options__.js:       "showKeyboard": "show-keyboard",
+__rsmax_runtime_options__.js:       "disableScroll": "disable-scroll",
+__rsmax_runtime_options__.js:       "readOnly": "read-only",
+__rsmax_runtime_options__.js:       "placeholderStyle": "placeholder-style",
+__rsmax_runtime_options__.js:       "onReady": "onReady",
+__rsmax_runtime_options__.js:       "onFocus": "onFocus",
+__rsmax_runtime_options__.js:       "onBlur": "onBlur",
+__rsmax_runtime_options__.js:       "onInput": "onInput",
+__rsmax_runtime_options__.js:       "onStatuschange": "onStatuschange",
+__rsmax_runtime_options__.js:       "onReady2": "onReady2"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "functional-page-navigator": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "target": "target",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "args": "args",
+__rsmax_runtime_options__.js:       "version": "version",
+__rsmax_runtime_options__.js:       "onSuccess": "onSuccess",
+__rsmax_runtime_options__.js:       "onFail": "onFail",
+__rsmax_runtime_options__.js:       "onCancel": "onCancel"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "form": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -174,6 +206,12 @@ __rsmax_runtime_options__.js:       "onFocus": "onFocus",
 __rsmax_runtime_options__.js:       "onBlur": "onBlur"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "keyboard-accessory": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "label": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -186,6 +224,64 @@ __rsmax_runtime_options__.js:   "lifestyle": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "publicId": "public-id",
 __rsmax_runtime_options__.js:       "onFollow": "onFollow"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-player": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "objectFit": "object-fit",
+__rsmax_runtime_options__.js:       "background": "background",
+__rsmax_runtime_options__.js:       "minCache": "min-cache",
+__rsmax_runtime_options__.js:       "maxCache": "max-cache",
+__rsmax_runtime_options__.js:       "livePause": "livePause",
+__rsmax_runtime_options__.js:       "pictureInPictureMode": "picture-in-picture-mode",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedMetaData": "onLoadedMetaData",
+__rsmax_runtime_options__.js:       "onFullScreenChange": "onFullScreenChange",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-pusher": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "enableCamera": "enable-camera",
+__rsmax_runtime_options__.js:       "autoFocus": "auto-focus",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "beauty": "beauty",
+__rsmax_runtime_options__.js:       "whiteness": "whiteness",
+__rsmax_runtime_options__.js:       "aspect": "aspect",
+__rsmax_runtime_options__.js:       "minBitrate": "min-bitrate",
+__rsmax_runtime_options__.js:       "maxBitrate": "max-bitrate",
+__rsmax_runtime_options__.js:       "audioQuality": "audio-quality",
+__rsmax_runtime_options__.js:       "waitingImage": "waiting-image",
+__rsmax_runtime_options__.js:       "zoom": "zoom",
+__rsmax_runtime_options__.js:       "onPush": "onPush",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onNetStatus": "onNetStatus",
+__rsmax_runtime_options__.js:       "onBgmStart": "onBgmStart",
+__rsmax_runtime_options__.js:       "onBgmProgress": "onBgmProgress",
+__rsmax_runtime_options__.js:       "onBgmComplete": "onBgmComplete",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "map": {
@@ -265,6 +361,16 @@ __rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
 __rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
 __rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
 __rsmax_runtime_options__.js:       "url": "url"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "open-data": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "openGid": "open-gid",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "picker-view-column": {
@@ -652,6 +758,39 @@ __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
 __rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
 __rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
 __rsmax_runtime_options__.js:       "onLongClick": "onLongClick"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "safe-area": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "audio": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "author": "author",
+__rsmax_runtime_options__.js:       "poster": "poster",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "controls": "controls",
+__rsmax_runtime_options__.js:       "loop": "loop",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "obeysMuteSwitch": "obeys-mute-switch",
+__rsmax_runtime_options__.js:       "volume": "volume",
+__rsmax_runtime_options__.js:       "onAction": "onAction",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedData": "onLoadedData"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "error-view": {
@@ -1184,6 +1323,38 @@ __rsmax_runtime_options__.js:       "onTap": "onTap",
 __rsmax_runtime_options__.js:       "onClick": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "editor": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "placeholder": "placeholder",
+__rsmax_runtime_options__.js:       "showImgSize": "show-img-size",
+__rsmax_runtime_options__.js:       "showImgToolbar": "show-img-toolbar",
+__rsmax_runtime_options__.js:       "showImgResize": "show-img-resize",
+__rsmax_runtime_options__.js:       "showKeyboard": "show-keyboard",
+__rsmax_runtime_options__.js:       "disableScroll": "disable-scroll",
+__rsmax_runtime_options__.js:       "readOnly": "read-only",
+__rsmax_runtime_options__.js:       "placeholderStyle": "placeholder-style",
+__rsmax_runtime_options__.js:       "onReady": "onReady",
+__rsmax_runtime_options__.js:       "onFocus": "onFocus",
+__rsmax_runtime_options__.js:       "onBlur": "onBlur",
+__rsmax_runtime_options__.js:       "onInput": "onInput",
+__rsmax_runtime_options__.js:       "onStatuschange": "onStatuschange",
+__rsmax_runtime_options__.js:       "onReady2": "onReady2"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "functional-page-navigator": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "target": "target",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "args": "args",
+__rsmax_runtime_options__.js:       "version": "version",
+__rsmax_runtime_options__.js:       "onSuccess": "onSuccess",
+__rsmax_runtime_options__.js:       "onFail": "onFail",
+__rsmax_runtime_options__.js:       "onCancel": "onCancel"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "form": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -1252,6 +1423,12 @@ __rsmax_runtime_options__.js:       "onFocus": "onFocus",
 __rsmax_runtime_options__.js:       "onBlur": "onBlur"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "keyboard-accessory": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "label": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -1264,6 +1441,64 @@ __rsmax_runtime_options__.js:   "lifestyle": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "publicId": "public-id",
 __rsmax_runtime_options__.js:       "onFollow": "onFollow"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-player": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "objectFit": "object-fit",
+__rsmax_runtime_options__.js:       "background": "background",
+__rsmax_runtime_options__.js:       "minCache": "min-cache",
+__rsmax_runtime_options__.js:       "maxCache": "max-cache",
+__rsmax_runtime_options__.js:       "livePause": "livePause",
+__rsmax_runtime_options__.js:       "pictureInPictureMode": "picture-in-picture-mode",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedMetaData": "onLoadedMetaData",
+__rsmax_runtime_options__.js:       "onFullScreenChange": "onFullScreenChange",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-pusher": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "enableCamera": "enable-camera",
+__rsmax_runtime_options__.js:       "autoFocus": "auto-focus",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "beauty": "beauty",
+__rsmax_runtime_options__.js:       "whiteness": "whiteness",
+__rsmax_runtime_options__.js:       "aspect": "aspect",
+__rsmax_runtime_options__.js:       "minBitrate": "min-bitrate",
+__rsmax_runtime_options__.js:       "maxBitrate": "max-bitrate",
+__rsmax_runtime_options__.js:       "audioQuality": "audio-quality",
+__rsmax_runtime_options__.js:       "waitingImage": "waiting-image",
+__rsmax_runtime_options__.js:       "zoom": "zoom",
+__rsmax_runtime_options__.js:       "onPush": "onPush",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onNetStatus": "onNetStatus",
+__rsmax_runtime_options__.js:       "onBgmStart": "onBgmStart",
+__rsmax_runtime_options__.js:       "onBgmProgress": "onBgmProgress",
+__rsmax_runtime_options__.js:       "onBgmComplete": "onBgmComplete",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "map": {
@@ -1343,6 +1578,16 @@ __rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
 __rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
 __rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
 __rsmax_runtime_options__.js:       "url": "url"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "open-data": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "openGid": "open-gid",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "picker-view-column": {
@@ -1732,6 +1977,39 @@ __rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
 __rsmax_runtime_options__.js:       "onLongClick": "onLongClick"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "safe-area": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "audio": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "author": "author",
+__rsmax_runtime_options__.js:       "poster": "poster",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "controls": "controls",
+__rsmax_runtime_options__.js:       "loop": "loop",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "obeysMuteSwitch": "obeys-mute-switch",
+__rsmax_runtime_options__.js:       "volume": "volume",
+__rsmax_runtime_options__.js:       "onAction": "onAction",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedData": "onLoadedData"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "error-view": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -1840,6 +2118,37 @@ components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{i
 components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
 components/react-greet/index.axml:     </block>
 components/react-greet/index.axml:   </ad>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_audio">
+components/react-greet/index.axml:   <audio
+components/react-greet/index.axml:     author="{{item.props['author']}}"
+components/react-greet/index.axml:     autoplay="{{item.props['autoplay']}}"
+components/react-greet/index.axml:     class="{{item.props['class']}}"
+components/react-greet/index.axml:     controls="{{item.props['controls']}}"
+components/react-greet/index.axml:     id="{{item.props['id']}}"
+components/react-greet/index.axml:     loop="{{item.props['loop']}}"
+components/react-greet/index.axml:     muted="{{item.props['muted']}}"
+components/react-greet/index.axml:     name="{{item.props['name']}}"
+components/react-greet/index.axml:     obeys-mute-switch="{{item.props['obeys-mute-switch']}}"
+components/react-greet/index.axml:     onAction="{{item.props['onAction']}}"
+components/react-greet/index.axml:     onEnded="{{item.props['onEnded']}}"
+components/react-greet/index.axml:     onError="{{item.props['onError']}}"
+components/react-greet/index.axml:     onLoadedData="{{item.props['onLoadedData']}}"
+components/react-greet/index.axml:     onLoading="{{item.props['onLoading']}}"
+components/react-greet/index.axml:     onPause="{{item.props['onPause']}}"
+components/react-greet/index.axml:     onPlay="{{item.props['onPlay']}}"
+components/react-greet/index.axml:     onStop="{{item.props['onStop']}}"
+components/react-greet/index.axml:     onTimeUpdate="{{item.props['onTimeUpdate']}}"
+components/react-greet/index.axml:     poster="{{item.props['poster']}}"
+components/react-greet/index.axml:     src="{{item.props['src']}}"
+components/react-greet/index.axml:     style="{{item.props['style']}}"
+components/react-greet/index.axml:     volume="{{item.props['volume']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </audio>
 components/react-greet/index.axml: </template>
 components/react-greet/index.axml: 
 components/react-greet/index.axml: <template name="REMAX_TPL_1_button">
@@ -1995,6 +2304,32 @@ components/react-greet/index.axml:     </block>
 components/react-greet/index.axml:   </cover-view>
 components/react-greet/index.axml: </template>
 components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_editor">
+components/react-greet/index.axml:   <editor
+components/react-greet/index.axml:     class="{{item.props['class']}}"
+components/react-greet/index.axml:     disable-scroll="{{item.props['disable-scroll']}}"
+components/react-greet/index.axml:     id="{{item.props['id']}}"
+components/react-greet/index.axml:     onBlur="{{item.props['onBlur']}}"
+components/react-greet/index.axml:     onFocus="{{item.props['onFocus']}}"
+components/react-greet/index.axml:     onInput="{{item.props['onInput']}}"
+components/react-greet/index.axml:     onReady="{{item.props['onReady']}}"
+components/react-greet/index.axml:     onReady2="{{item.props['onReady2']}}"
+components/react-greet/index.axml:     onStatuschange="{{item.props['onStatuschange']}}"
+components/react-greet/index.axml:     placeholder="{{item.props['placeholder']}}"
+components/react-greet/index.axml:     placeholder-style="{{item.props['placeholder-style']}}"
+components/react-greet/index.axml:     read-only="{{item.props['read-only']}}"
+components/react-greet/index.axml:     show-img-resize="{{item.props['show-img-resize']}}"
+components/react-greet/index.axml:     show-img-size="{{item.props['show-img-size']}}"
+components/react-greet/index.axml:     show-img-toolbar="{{item.props['show-img-toolbar']}}"
+components/react-greet/index.axml:     show-keyboard="{{item.props['show-keyboard']}}"
+components/react-greet/index.axml:     style="{{item.props['style']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </editor>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
 components/react-greet/index.axml: <template name="REMAX_TPL_1_error-view">
 components/react-greet/index.axml:   <error-view
 components/react-greet/index.axml:     class="{{item.props['class']}}"
@@ -2028,6 +2363,22 @@ components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{i
 components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
 components/react-greet/index.axml:     </block>
 components/react-greet/index.axml:   </form>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_functional-page-navigator">
+components/react-greet/index.axml:   <functional-page-navigator
+components/react-greet/index.axml:     args="{{item.props['args']}}"
+components/react-greet/index.axml:     onCancel="{{item.props['onCancel']}}"
+components/react-greet/index.axml:     onFail="{{item.props['onFail']}}"
+components/react-greet/index.axml:     onSuccess="{{item.props['onSuccess']}}"
+components/react-greet/index.axml:     target="{{item.props['target']}}"
+components/react-greet/index.axml:     url="{{item.props['url']}}"
+components/react-greet/index.axml:     version="{{item.props['version']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </functional-page-navigator>
 components/react-greet/index.axml: </template>
 components/react-greet/index.axml: 
 components/react-greet/index.axml: <template name="REMAX_TPL_1_icon">
@@ -2111,6 +2462,17 @@ components/react-greet/index.axml:     </block>
 components/react-greet/index.axml:   </join-group-chat>
 components/react-greet/index.axml: </template>
 components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_keyboard-accessory">
+components/react-greet/index.axml:   <keyboard-accessory
+components/react-greet/index.axml:     class="{{item.props['class']}}"
+components/react-greet/index.axml:     style="{{item.props['style']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </keyboard-accessory>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
 components/react-greet/index.axml: <template name="REMAX_TPL_1_label">
 components/react-greet/index.axml:   <label
 components/react-greet/index.axml:     class="{{item.props['class']}}"
@@ -2133,6 +2495,74 @@ components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{i
 components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
 components/react-greet/index.axml:     </block>
 components/react-greet/index.axml:   </lifestyle>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_live-player">
+components/react-greet/index.axml:   <live-player
+components/react-greet/index.axml:     autoplay="{{item.props['autoplay']}}"
+components/react-greet/index.axml:     background="{{item.props['background']}}"
+components/react-greet/index.axml:     class="{{item.props['class']}}"
+components/react-greet/index.axml:     id="{{item.props['id']}}"
+components/react-greet/index.axml:     livePause="{{item.props['livePause']}}"
+components/react-greet/index.axml:     max-cache="{{item.props['max-cache']}}"
+components/react-greet/index.axml:     min-cache="{{item.props['min-cache']}}"
+components/react-greet/index.axml:     mode="{{item.props['mode']}}"
+components/react-greet/index.axml:     muted="{{item.props['muted']}}"
+components/react-greet/index.axml:     object-fit="{{item.props['object-fit']}}"
+components/react-greet/index.axml:     onEnded="{{item.props['onEnded']}}"
+components/react-greet/index.axml:     onError="{{item.props['onError']}}"
+components/react-greet/index.axml:     onFullScreenChange="{{item.props['onFullScreenChange']}}"
+components/react-greet/index.axml:     onLoadedMetaData="{{item.props['onLoadedMetaData']}}"
+components/react-greet/index.axml:     onLoading="{{item.props['onLoading']}}"
+components/react-greet/index.axml:     onPause="{{item.props['onPause']}}"
+components/react-greet/index.axml:     onPictureInPictureModeChanged="{{item.props['onPictureInPictureModeChanged']}}"
+components/react-greet/index.axml:     onPlay="{{item.props['onPlay']}}"
+components/react-greet/index.axml:     onStop="{{item.props['onStop']}}"
+components/react-greet/index.axml:     onTimeUpdate="{{item.props['onTimeUpdate']}}"
+components/react-greet/index.axml:     orientation="{{item.props['orientation']}}"
+components/react-greet/index.axml:     picture-in-picture-mode="{{item.props['picture-in-picture-mode']}}"
+components/react-greet/index.axml:     src="{{item.props['src']}}"
+components/react-greet/index.axml:     style="{{item.props['style']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </live-player>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_live-pusher">
+components/react-greet/index.axml:   <live-pusher
+components/react-greet/index.axml:     aspect="{{item.props['aspect']}}"
+components/react-greet/index.axml:     audio-quality="{{item.props['audio-quality']}}"
+components/react-greet/index.axml:     auto-focus="{{item.props['auto-focus']}}"
+components/react-greet/index.axml:     autoplay="{{item.props['autoplay']}}"
+components/react-greet/index.axml:     beauty="{{item.props['beauty']}}"
+components/react-greet/index.axml:     class="{{item.props['class']}}"
+components/react-greet/index.axml:     enable-camera="{{item.props['enable-camera']}}"
+components/react-greet/index.axml:     id="{{item.props['id']}}"
+components/react-greet/index.axml:     max-bitrate="{{item.props['max-bitrate']}}"
+components/react-greet/index.axml:     min-bitrate="{{item.props['min-bitrate']}}"
+components/react-greet/index.axml:     mode="{{item.props['mode']}}"
+components/react-greet/index.axml:     muted="{{item.props['muted']}}"
+components/react-greet/index.axml:     onBgmComplete="{{item.props['onBgmComplete']}}"
+components/react-greet/index.axml:     onBgmProgress="{{item.props['onBgmProgress']}}"
+components/react-greet/index.axml:     onBgmStart="{{item.props['onBgmStart']}}"
+components/react-greet/index.axml:     onError="{{item.props['onError']}}"
+components/react-greet/index.axml:     onNetStatus="{{item.props['onNetStatus']}}"
+components/react-greet/index.axml:     onPictureInPictureModeChanged="{{item.props['onPictureInPictureModeChanged']}}"
+components/react-greet/index.axml:     onPush="{{item.props['onPush']}}"
+components/react-greet/index.axml:     onStop="{{item.props['onStop']}}"
+components/react-greet/index.axml:     orientation="{{item.props['orientation']}}"
+components/react-greet/index.axml:     style="{{item.props['style']}}"
+components/react-greet/index.axml:     url="{{item.props['url']}}"
+components/react-greet/index.axml:     waiting-image="{{item.props['waiting-image']}}"
+components/react-greet/index.axml:     whiteness="{{item.props['whiteness']}}"
+components/react-greet/index.axml:     zoom="{{item.props['zoom']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </live-pusher>
 components/react-greet/index.axml: </template>
 components/react-greet/index.axml: 
 components/react-greet/index.axml: <template name="REMAX_TPL_1_lottie">
@@ -2274,6 +2704,21 @@ components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{i
 components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
 components/react-greet/index.axml:     </block>
 components/react-greet/index.axml:   </navigator>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_open-data">
+components/react-greet/index.axml:   <open-data
+components/react-greet/index.axml:     class="{{item.props['class']}}"
+components/react-greet/index.axml:     id="{{item.props['id']}}"
+components/react-greet/index.axml:     onError="{{item.props['onError']}}"
+components/react-greet/index.axml:     open-gid="{{item.props['open-gid']}}"
+components/react-greet/index.axml:     style="{{item.props['style']}}"
+components/react-greet/index.axml:     type="{{item.props['type']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </open-data>
 components/react-greet/index.axml: </template>
 components/react-greet/index.axml: 
 components/react-greet/index.axml: <template name="REMAX_TPL_1_page-container">
@@ -2452,6 +2897,18 @@ components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{i
 components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
 components/react-greet/index.axml:     </block>
 components/react-greet/index.axml:   </root-portal>
+components/react-greet/index.axml: </template>
+components/react-greet/index.axml: 
+components/react-greet/index.axml: <template name="REMAX_TPL_1_safe-area">
+components/react-greet/index.axml:   <safe-area
+components/react-greet/index.axml:     class="{{item.props['class']}}"
+components/react-greet/index.axml:     id="{{item.props['id']}}"
+components/react-greet/index.axml:     style="{{item.props['style']}}"
+components/react-greet/index.axml:   >
+components/react-greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
+components/react-greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
+components/react-greet/index.axml:     </block>
+components/react-greet/index.axml:   </safe-area>
 components/react-greet/index.axml: </template>
 components/react-greet/index.axml: 
 components/react-greet/index.axml: <template name="REMAX_TPL_1_scroll-view">

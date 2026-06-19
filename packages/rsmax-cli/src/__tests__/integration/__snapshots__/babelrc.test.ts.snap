@@ -106,6 +106,38 @@ __rsmax_runtime_options__.js:       "onTap": "onTap",
 __rsmax_runtime_options__.js:       "onClick": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "editor": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "placeholder": "placeholder",
+__rsmax_runtime_options__.js:       "showImgSize": "show-img-size",
+__rsmax_runtime_options__.js:       "showImgToolbar": "show-img-toolbar",
+__rsmax_runtime_options__.js:       "showImgResize": "show-img-resize",
+__rsmax_runtime_options__.js:       "showKeyboard": "show-keyboard",
+__rsmax_runtime_options__.js:       "disableScroll": "disable-scroll",
+__rsmax_runtime_options__.js:       "readOnly": "read-only",
+__rsmax_runtime_options__.js:       "placeholderStyle": "placeholder-style",
+__rsmax_runtime_options__.js:       "onReady": "onReady",
+__rsmax_runtime_options__.js:       "onFocus": "onFocus",
+__rsmax_runtime_options__.js:       "onBlur": "onBlur",
+__rsmax_runtime_options__.js:       "onInput": "onInput",
+__rsmax_runtime_options__.js:       "onStatuschange": "onStatuschange",
+__rsmax_runtime_options__.js:       "onReady2": "onReady2"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "functional-page-navigator": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "target": "target",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "args": "args",
+__rsmax_runtime_options__.js:       "version": "version",
+__rsmax_runtime_options__.js:       "onSuccess": "onSuccess",
+__rsmax_runtime_options__.js:       "onFail": "onFail",
+__rsmax_runtime_options__.js:       "onCancel": "onCancel"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "form": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -174,6 +206,12 @@ __rsmax_runtime_options__.js:       "onFocus": "onFocus",
 __rsmax_runtime_options__.js:       "onBlur": "onBlur"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "keyboard-accessory": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "label": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -186,6 +224,64 @@ __rsmax_runtime_options__.js:   "lifestyle": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "publicId": "public-id",
 __rsmax_runtime_options__.js:       "onFollow": "onFollow"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-player": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "objectFit": "object-fit",
+__rsmax_runtime_options__.js:       "background": "background",
+__rsmax_runtime_options__.js:       "minCache": "min-cache",
+__rsmax_runtime_options__.js:       "maxCache": "max-cache",
+__rsmax_runtime_options__.js:       "livePause": "livePause",
+__rsmax_runtime_options__.js:       "pictureInPictureMode": "picture-in-picture-mode",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedMetaData": "onLoadedMetaData",
+__rsmax_runtime_options__.js:       "onFullScreenChange": "onFullScreenChange",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-pusher": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "enableCamera": "enable-camera",
+__rsmax_runtime_options__.js:       "autoFocus": "auto-focus",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "beauty": "beauty",
+__rsmax_runtime_options__.js:       "whiteness": "whiteness",
+__rsmax_runtime_options__.js:       "aspect": "aspect",
+__rsmax_runtime_options__.js:       "minBitrate": "min-bitrate",
+__rsmax_runtime_options__.js:       "maxBitrate": "max-bitrate",
+__rsmax_runtime_options__.js:       "audioQuality": "audio-quality",
+__rsmax_runtime_options__.js:       "waitingImage": "waiting-image",
+__rsmax_runtime_options__.js:       "zoom": "zoom",
+__rsmax_runtime_options__.js:       "onPush": "onPush",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onNetStatus": "onNetStatus",
+__rsmax_runtime_options__.js:       "onBgmStart": "onBgmStart",
+__rsmax_runtime_options__.js:       "onBgmProgress": "onBgmProgress",
+__rsmax_runtime_options__.js:       "onBgmComplete": "onBgmComplete",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "map": {
@@ -265,6 +361,16 @@ __rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
 __rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
 __rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
 __rsmax_runtime_options__.js:       "url": "url"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "open-data": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "openGid": "open-gid",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "picker-view-column": {
@@ -652,6 +758,39 @@ __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
 __rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
 __rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
 __rsmax_runtime_options__.js:       "onLongClick": "onLongClick"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "safe-area": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "audio": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "author": "author",
+__rsmax_runtime_options__.js:       "poster": "poster",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "controls": "controls",
+__rsmax_runtime_options__.js:       "loop": "loop",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "obeysMuteSwitch": "obeys-mute-switch",
+__rsmax_runtime_options__.js:       "volume": "volume",
+__rsmax_runtime_options__.js:       "onAction": "onAction",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedData": "onLoadedData"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "error-view": {
@@ -5428,6 +5567,38 @@ __rsmax_runtime_options__.js:       "onTap": "onTap",
 __rsmax_runtime_options__.js:       "onClick": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "editor": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "placeholder": "placeholder",
+__rsmax_runtime_options__.js:       "showImgSize": "show-img-size",
+__rsmax_runtime_options__.js:       "showImgToolbar": "show-img-toolbar",
+__rsmax_runtime_options__.js:       "showImgResize": "show-img-resize",
+__rsmax_runtime_options__.js:       "showKeyboard": "show-keyboard",
+__rsmax_runtime_options__.js:       "disableScroll": "disable-scroll",
+__rsmax_runtime_options__.js:       "readOnly": "read-only",
+__rsmax_runtime_options__.js:       "placeholderStyle": "placeholder-style",
+__rsmax_runtime_options__.js:       "onReady": "onReady",
+__rsmax_runtime_options__.js:       "onFocus": "onFocus",
+__rsmax_runtime_options__.js:       "onBlur": "onBlur",
+__rsmax_runtime_options__.js:       "onInput": "onInput",
+__rsmax_runtime_options__.js:       "onStatuschange": "onStatuschange",
+__rsmax_runtime_options__.js:       "onReady2": "onReady2"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "functional-page-navigator": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "target": "target",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "args": "args",
+__rsmax_runtime_options__.js:       "version": "version",
+__rsmax_runtime_options__.js:       "onSuccess": "onSuccess",
+__rsmax_runtime_options__.js:       "onFail": "onFail",
+__rsmax_runtime_options__.js:       "onCancel": "onCancel"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "form": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -5496,6 +5667,12 @@ __rsmax_runtime_options__.js:       "onFocus": "onFocus",
 __rsmax_runtime_options__.js:       "onBlur": "onBlur"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "keyboard-accessory": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "label": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
@@ -5508,6 +5685,64 @@ __rsmax_runtime_options__.js:   "lifestyle": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "publicId": "public-id",
 __rsmax_runtime_options__.js:       "onFollow": "onFollow"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-player": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "objectFit": "object-fit",
+__rsmax_runtime_options__.js:       "background": "background",
+__rsmax_runtime_options__.js:       "minCache": "min-cache",
+__rsmax_runtime_options__.js:       "maxCache": "max-cache",
+__rsmax_runtime_options__.js:       "livePause": "livePause",
+__rsmax_runtime_options__.js:       "pictureInPictureMode": "picture-in-picture-mode",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedMetaData": "onLoadedMetaData",
+__rsmax_runtime_options__.js:       "onFullScreenChange": "onFullScreenChange",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "live-pusher": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "enableCamera": "enable-camera",
+__rsmax_runtime_options__.js:       "autoFocus": "auto-focus",
+__rsmax_runtime_options__.js:       "orientation": "orientation",
+__rsmax_runtime_options__.js:       "beauty": "beauty",
+__rsmax_runtime_options__.js:       "whiteness": "whiteness",
+__rsmax_runtime_options__.js:       "aspect": "aspect",
+__rsmax_runtime_options__.js:       "minBitrate": "min-bitrate",
+__rsmax_runtime_options__.js:       "maxBitrate": "max-bitrate",
+__rsmax_runtime_options__.js:       "audioQuality": "audio-quality",
+__rsmax_runtime_options__.js:       "waitingImage": "waiting-image",
+__rsmax_runtime_options__.js:       "zoom": "zoom",
+__rsmax_runtime_options__.js:       "onPush": "onPush",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onNetStatus": "onNetStatus",
+__rsmax_runtime_options__.js:       "onBgmStart": "onBgmStart",
+__rsmax_runtime_options__.js:       "onBgmProgress": "onBgmProgress",
+__rsmax_runtime_options__.js:       "onBgmComplete": "onBgmComplete",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "map": {
@@ -5587,6 +5822,16 @@ __rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
 __rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
 __rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
 __rsmax_runtime_options__.js:       "url": "url"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "open-data": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "openGid": "open-gid",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "picker-view-column": {
@@ -5974,6 +6219,39 @@ __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
 __rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
 __rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
 __rsmax_runtime_options__.js:       "onLongClick": "onLongClick"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "safe-area": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "audio": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "src": "src",
+__rsmax_runtime_options__.js:       "name": "name",
+__rsmax_runtime_options__.js:       "author": "author",
+__rsmax_runtime_options__.js:       "poster": "poster",
+__rsmax_runtime_options__.js:       "autoplay": "autoplay",
+__rsmax_runtime_options__.js:       "controls": "controls",
+__rsmax_runtime_options__.js:       "loop": "loop",
+__rsmax_runtime_options__.js:       "muted": "muted",
+__rsmax_runtime_options__.js:       "obeysMuteSwitch": "obeys-mute-switch",
+__rsmax_runtime_options__.js:       "volume": "volume",
+__rsmax_runtime_options__.js:       "onAction": "onAction",
+__rsmax_runtime_options__.js:       "onPlay": "onPlay",
+__rsmax_runtime_options__.js:       "onPause": "onPause",
+__rsmax_runtime_options__.js:       "onStop": "onStop",
+__rsmax_runtime_options__.js:       "onEnded": "onEnded",
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
+__rsmax_runtime_options__.js:       "onLoading": "onLoading",
+__rsmax_runtime_options__.js:       "onLoadedData": "onLoadedData"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "error-view": {
