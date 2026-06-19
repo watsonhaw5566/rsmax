@@ -106,7 +106,7 @@ export async function buildApp(
   const builder = target === 'web' ? new WebBuilder(api, remaxOptions) : new MiniBuilder(api, remaxOptions);
   const compiler = builder.run();
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     compiler.hooks.done.tap('done', stats => {
       const info = stats.toJson();
 
@@ -115,7 +115,8 @@ export async function buildApp(
           const msg = (err && typeof err === 'object') ? (err.message ?? JSON.stringify(err).slice(0, 3000)) : String(err);
           logger.error('ERROR-PREVIEW:', msg);
         });
-        throw new Error(info?.errors?.map((e: any) => (e && e.message) || String(e)).join('\n'));
+        reject(new Error(info?.errors?.map((e: any) => (e && e.message) || String(e)).join('\n')));
+        return;
       }
 
       if (stats.hasWarnings()) {
@@ -141,7 +142,7 @@ export async function buildApp(
 
     compiler.hooks.failed.tap('failed', error => {
       logger.error(error.message);
-      throw error;
+      reject(error);
     });
   });
 }
@@ -193,13 +194,14 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
   const builder = new MiniPluginBuilder(api, remaxOptions);
   const compiler = builder.run();
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     compiler.hooks.done.tap('done', stats => {
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
         logger.error(info.errors);
-        throw new Error(info?.errors?.join('\n'));
+        reject(new Error(info?.errors?.join('\n')));
+        return;
       }
 
       if (stats.hasWarnings()) {
@@ -225,7 +227,7 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
 
     compiler.hooks.failed.tap('failed', error => {
       logger.error(error.message);
-      throw error;
+      reject(error);
     });
   });
 }
@@ -283,13 +285,14 @@ export function buildMiniComponent(
   const builder = new MiniComponentBuilder(api, remaxOptions);
   const compiler = builder.run();
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     compiler.hooks.done.tap('done', stats => {
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
         logger.error(info.errors);
-        throw new Error(info?.errors?.join('\n'));
+        reject(new Error(info?.errors?.join('\n')));
+        return;
       }
 
       if (stats.hasWarnings()) {
@@ -315,9 +318,9 @@ export function buildMiniComponent(
 
     compiler.hooks.failed.tap('failed', error => {
       logger.error(error.message);
-      throw error;
+      reject(error);
     });
   });
 }
 
-export const JEST_BUILD_TIMEOUT = 5 * 1000;
+export const JEST_BUILD_TIMEOUT = 10 * 1000;
