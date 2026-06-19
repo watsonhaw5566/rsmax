@@ -7,18 +7,25 @@ __rsmax_runtime_options__.js: module.exports = {
 __rsmax_runtime_options__.js:       hostComponents: {
 __rsmax_runtime_options__.js:   "ad": {
 __rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
 __rsmax_runtime_options__.js:       "unitId": "unit-id",
 __rsmax_runtime_options__.js:       "adIntervals": "ad-intervals",
+__rsmax_runtime_options__.js:       "adType": "ad-type",
+__rsmax_runtime_options__.js:       "adTheme": "ad-theme",
 __rsmax_runtime_options__.js:       "onLoad": "bindload",
 __rsmax_runtime_options__.js:       "onError": "binderror",
-__rsmax_runtime_options__.js:       "onClose": "bindclose",
-__rsmax_runtime_options__.js:       "animation": "animation",
-__rsmax_runtime_options__.js:       "adType": "ad-type",
-__rsmax_runtime_options__.js:       "adTheme": "ad-theme"
+__rsmax_runtime_options__.js:       "onClose": "bindclose"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "ad-custom": {
 __rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
 __rsmax_runtime_options__.js:       "unitId": "unit-id",
 __rsmax_runtime_options__.js:       "adIntervals": "ad-intervals",
 __rsmax_runtime_options__.js:       "onLoad": "bindload",
@@ -95,7 +102,7 @@ __rsmax_runtime_options__.js:       "onLaunchApp": "bindlaunchapp",
 __rsmax_runtime_options__.js:       "onAddFriend": "bindaddfriend",
 __rsmax_runtime_options__.js:       "onAddGroupApp": "bindaddgroupapp",
 __rsmax_runtime_options__.js:       "onChooseAvatar": "bindchooseavatar",
-__rsmax_runtime_options__.js:       "agreePrivacyAuthorization": "bindagreeprivacyauthorization",
+__rsmax_runtime_options__.js:       "onAgreePrivacyAuthorization": "bindagreeprivacyauthorization",
 __rsmax_runtime_options__.js:       "onTap": "bindtap",
 __rsmax_runtime_options__.js:       "onClick": "bindtap"
 __rsmax_runtime_options__.js:     }
@@ -140,6 +147,10 @@ __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "channel-card": {
 __rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
 __rsmax_runtime_options__.js:       "finderUserName": "finder-user-name",
 __rsmax_runtime_options__.js:       "feedType": "feed-type",
 __rsmax_runtime_options__.js:       "feedId": "feed-id",
@@ -148,6 +159,10 @@ __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "channel-invite": {
 __rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
 __rsmax_runtime_options__.js:       "buttonText": "button-text",
 __rsmax_runtime_options__.js:       "shareTitle": "share-title",
 __rsmax_runtime_options__.js:       "sharePath": "share-path",
@@ -317,7 +332,7 @@ __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "autoFocus": "auto-focus",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "focus": "focus",
-__rsmax_runtime_options__.js:       "alwayEmbed": "always-embed",
+__rsmax_runtime_options__.js:       "alwaysEmbed": "always-embed",
 __rsmax_runtime_options__.js:       "name": "name",
 __rsmax_runtime_options__.js:       "maxlength": "maxlength",
 __rsmax_runtime_options__.js:       "value": "value",
@@ -589,7 +604,7 @@ __rsmax_runtime_options__.js:       "zIndex": "z-index",
 __rsmax_runtime_options__.js:       "overlay": "overlay",
 __rsmax_runtime_options__.js:       "position": "position",
 __rsmax_runtime_options__.js:       "round": "round",
-__rsmax_runtime_options__.js:       "closeOnSlideDown": "close-on-slideDown",
+__rsmax_runtime_options__.js:       "closeOnSlideDown": "close-on-slide-down",
 __rsmax_runtime_options__.js:       "overlayStyle": "overlay-style",
 __rsmax_runtime_options__.js:       "customStyle": "custom-style",
 __rsmax_runtime_options__.js:       "onBeforeEnter": "bindbeforeenter",
@@ -733,16 +748,7 @@ __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "animation": "animation",
-__rsmax_runtime_options__.js:       "nodes": "nodes",
-__rsmax_runtime_options__.js:       "onTap": "bindtap",
-__rsmax_runtime_options__.js:       "onClick": "bindtap",
-__rsmax_runtime_options__.js:       "space": "space",
-__rsmax_runtime_options__.js:       "onTouchStart": "bindtouchstart",
-__rsmax_runtime_options__.js:       "onTouchMove": "bindtouchmove",
-__rsmax_runtime_options__.js:       "onTouchEnd": "bindtouchend",
-__rsmax_runtime_options__.js:       "onTouchCancel": "bindtouchcancel",
-__rsmax_runtime_options__.js:       "onLongTap": "bindlongtap",
-__rsmax_runtime_options__.js:       "onLongClick": "bindlongtap"
+__rsmax_runtime_options__.js:       "enable": "enable"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "scroll-view": {
@@ -805,6 +811,10 @@ __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "short-video": {
 __rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
+__rsmax_runtime_options__.js:       "animation": "animation",
 __rsmax_runtime_options__.js:       "finderUserName": "finder-user-name",
 __rsmax_runtime_options__.js:       "feedId": "feed-id",
 __rsmax_runtime_options__.js:       "previewDuration": "preview-duration",
