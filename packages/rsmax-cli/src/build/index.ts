@@ -1,6 +1,6 @@
 import type { Options } from '@rsmax/types';
 import type { Compiler } from '@rspack/core';
-import { logger } from 'rslog';
+import { logger, setupLogger } from '../logger';
 import API from '../API';
 
 const version = require('../../package.json').version;
@@ -8,6 +8,7 @@ const version = require('../../package.json').version;
 export function run(options: Options, api: API): Compiler {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+  setupLogger(options.loglevel);
   api.onBuildStart(options);
 
   if (options.target === 'web') {
@@ -30,6 +31,7 @@ export function internalBuildApp(options: Options, api: API) {
   const { target } = options;
   process.env.RSMAX_PLATFORM = target;
 
+  setupLogger(options.loglevel);
   logger.greet(`Rsmax v${version}`);
   logger.start('🚀 构建应用');
   return run(options, api);
@@ -41,6 +43,7 @@ export function buildMiniPlugin(options: Options) {
   const { target } = options;
   process.env.RSMAX_PLATFORM = target;
 
+  setupLogger(options.loglevel);
   logger.greet(`Rsmax v${version}`);
   logger.start('🔨 构建插件');
 
@@ -57,6 +60,7 @@ export function buildMiniComponent(options: Options) {
   const { target } = options;
   process.env.RSMAX_PLATFORM = target;
 
+  setupLogger(options.loglevel);
   logger.greet(`Rsmax v${version}`);
   logger.start('🔨 构建组件');
 

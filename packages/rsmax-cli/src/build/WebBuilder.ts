@@ -2,7 +2,7 @@ import type { Options } from '@rsmax/types';
 import type { Configuration } from '@rspack/core';
 import { RspackDevServer } from '@rspack/dev-server';
 import detect from 'detect-port';
-import { logger } from 'rslog';
+import { logger } from '../logger';
 import type API from '../API';
 import Builder from './Builder';
 import rspackConfig from './rspack/config.web';
@@ -43,7 +43,7 @@ export default class WebBuilder extends Builder {
       const server = new RspackDevServer({ port }, this.rspackCompiler);
 
       this.rspackCompiler.hooks.done.tap('web-dev', stats => {
-        console.log(
+        logger.log(
           stats.toString({
             colors: true,
             modules: false,
@@ -56,7 +56,7 @@ export default class WebBuilder extends Builder {
 
       server.startCallback(error => {
         if (error) {
-          console.error(error);
+          logger.error(error);
           process.exit(1);
         }
       });

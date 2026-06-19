@@ -1,5 +1,6 @@
 import { type Compiler, EntryPlugin } from '@rspack/core';
 import SourceCache from '../../../../SourceCache';
+import { logger } from '../../../../logger';
 import type Builder from '../../../Builder';
 import PageEntry from '../../../entries/PageEntry';
 import { clearComponentsCache } from '../getUsingComponents';
@@ -28,7 +29,7 @@ export default class PageAssetPlugin {
           const dep = EntryPlugin.createDependency(entry.virtualPath);
           compilation.addEntry('', dep, { name: entry.name }, err => {
             if (err) {
-              console.error(err);
+              logger.error(err);
             }
           });
         }
