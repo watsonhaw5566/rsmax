@@ -342,28 +342,28 @@ describe('ali remax render', () => {
     expect(container.root).toMatchSnapshot();
   });
 
-  // it('render native component correctly', done => {
-  //   expect.assertions(0);
-  //
-  //   const NativeComponent = ({ fooBar, onClick, className }: any) =>
-  //     React.createElement('native-component', {
-  //       fooBar,
-  //       className,
-  //       onClick,
-  //     });
-  //   const actions: any = [];
-  //   const p = {
-  //     $spliceData: (payload: any) => actions.push(payload),
-  //   };
-  //
-  //   const container = new Container(p);
-  //   render(<NativeComponent fooBar="fooBar" onClick={() => void 0} className="class" />, container);
-  //
-  //   setTimeout(() => {
-  //     expect(actions).toMatchSnapshot();
-  //     done();
-  //   }, 100);
-  // });
+  it('render native component correctly', done => {
+    expect.assertions(0);
+
+    const NativeComponent = ({ fooBar, onClick, className }: any) =>
+      React.createElement('native-component', {
+        fooBar,
+        className,
+        onClick,
+      });
+    const actions: any = [];
+    const p = {
+      $spliceData: (payload: any) => actions.push(payload),
+    };
+
+    const container = new Container(p);
+    render(<NativeComponent fooBar="fooBar" onClick={() => void 0} className="class" />, container);
+
+    setTimeout(() => {
+      expect(actions).toMatchSnapshot();
+      done();
+    }, 100);
+  });
 
   it('remove event listener when unmount', () => {
     class Page extends React.Component<{ node: any }> {
@@ -428,19 +428,19 @@ it('create proxy for onClick callback', () => {
   newHandleAnimationStart({});
 });
 
-// it('useEffect works', done => {
-//   const Page = () => {
-//     React.useEffect(() => {
-//       done();
-//     });
-//
-//     return <View>app</View>;
-//   };
-//   const container = new Container(p);
-//   render(<Page />, container);
-// });
+it('useEffect works', done => {
+  const Page = () => {
+    React.useEffect(() => {
+      done();
+    });
 
-describe.skip('flatten update', () => {
+    return <View>app</View>;
+  };
+  const container = new Container(p);
+  render(<Page />, container);
+});
+
+describe('flatten update', () => {
   beforeAll(() => {
     RuntimeOptions.apply({ platform: 'web' });
   });

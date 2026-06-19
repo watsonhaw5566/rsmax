@@ -419,7 +419,7 @@ describe('wechat remax render', () => {
   //   render(<Page />, container);
   // });
 
-  it.skip('pure rerender when props changed', done => {
+  it('pure rerender when props changed', done => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -464,7 +464,7 @@ describe('wechat remax render', () => {
     }, 5);
   });
 
-  it.skip('pure rerender when props delete', done => {
+  it('pure rerender when props delete', done => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -536,7 +536,7 @@ describe('wechat remax render', () => {
     }, 5);
   });
 
-  it.skip('useNativeEffect once works', done => {
+  it('useNativeEffect once works', done => {
     let count = 0;
     const Page = () => {
       const [width, setWidth] = React.useState(0);
@@ -561,33 +561,33 @@ describe('wechat remax render', () => {
     render(<Page />, container);
   });
 
-  // it.skip('useNativeEffect deps works', done => {
-  //   let count = 0;
-  //   const Page = () => {
-  //     const [width, setWidth] = React.useState(0);
-  //     const [height, setheight] = React.useState(0);
-  //     useNativeEffect(() => {
-  //       count += 1;
-  //
-  //       if (count === 2) {
-  //         done();
-  //       }
-  //     }, [width]);
-  //     React.useEffect(() => {
-  //       setheight(100);
-  //       setTimeout(() => {
-  //         setWidth(100);
-  //       }, 1000);
-  //     }, []);
-  //
-  //     return (
-  //       <View>
-  //         {width}
-  //         {height}
-  //       </View>
-  //     );
-  //   };
-  //   const container = new Container(p);
-  //   render(<Page />, container);
-  // });
+  it('useNativeEffect deps works', done => {
+    let count = 0;
+    const Page = () => {
+      const [width, setWidth] = React.useState(0);
+      const [height, setheight] = React.useState(0);
+      useNativeEffect(() => {
+        count += 1;
+
+        if (count === 2) {
+          done();
+        }
+      }, [width]);
+      React.useEffect(() => {
+        setheight(100);
+        setTimeout(() => {
+          setWidth(100);
+        }, 1000);
+      }, []);
+
+      return (
+        <View>
+          {width}
+          {height}
+        </View>
+      );
+    };
+    const container = new Container(p);
+    render(<Page />, container);
+  });
 });

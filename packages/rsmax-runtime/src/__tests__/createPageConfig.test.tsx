@@ -46,7 +46,7 @@ describe('page query hook', () => {
     page.onUnload();
   });
 
-  it.skip('create page id for each page instance', () => {
+  it('create page id for each page instance', () => {
     const TestPage = () => {
       return <div>hello</div>;
     };
