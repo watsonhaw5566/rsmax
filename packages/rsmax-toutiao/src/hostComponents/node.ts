@@ -1,4 +1,7 @@
 import * as ad from './Ad/node';
+import * as audio from './Audio/node';
+import * as awemeData from './AwemeData/node';
+import * as awemeUserCard from './AwemeUserCard/node';
 import * as button from './Button/node';
 import * as camera from './Camera/node';
 import * as canvas from './Canvas/node';
@@ -17,6 +20,7 @@ import * as matchMedia from './MatchMedia/node';
 import * as movableArea from './MovableArea/node';
 import * as movableView from './MovableView/node';
 import * as navigator from './Navigator/node';
+import * as openData from './OpenData/node';
 import * as picker from './Picker/node';
 import * as pickerView from './PickerView/node';
 import * as pickerViewColumn from './PickerViewColumn/node';
@@ -75,5 +79,9 @@ hostComponents.set('live-player', livePlayer);
 hostComponents.set('live-preview', livePreview);
 hostComponents.set('camera', camera);
 hostComponents.set('map', map);
+hostComponents.set('audio', audio);
+hostComponents.set('aweme-data', awemeData);
+hostComponents.set('aweme-user-card', awemeUserCard);
+hostComponents.set('open-data', openData);
 
 export default hostComponents;

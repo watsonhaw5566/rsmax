@@ -35,3 +35,7 @@ export * from './LivePlayer';
 export * from './LivePreview';
 export * from './Camera';
 export * from './Map';
+export * from './Audio';
+export * from './AwemeData';
+export * from './AwemeUserCard';
+export * from './OpenData';

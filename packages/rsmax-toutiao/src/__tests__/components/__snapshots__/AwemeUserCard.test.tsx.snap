@@ -1,0 +1,11 @@
+// Rstest Snapshot v1
+
+exports[`AwemeUserCard > render correctly 1`] = `
+<aweme-user-card
+  awemeId="test-aweme-id"
+  fixed={false}
+  height={144}
+  leftRightPadding={32}
+  width={504}
+/>
+`;

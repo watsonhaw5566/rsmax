@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`AwemeData > render correctly 1`] = `
+<aweme-data
+  awemeId="test-aweme-id"
+  disableDefault={false}
+  type="avatar"
+/>
+`;
