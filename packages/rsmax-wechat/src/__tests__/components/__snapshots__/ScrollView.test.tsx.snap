@@ -20,5 +20,6 @@ exports[`ScrollView > render correctly 1`] = `
   scrollY={false}
   showScrollbar={true}
   upperThreshold={50}
+  usingSticky={false}
 />
 `;

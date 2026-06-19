@@ -7,6 +7,7 @@ exports[`ChannelVideo > render correctly 1`] = `
   feedToken=""
   finderUserName=""
   loop={false}
-  muted="contain"
+  muted={false}
+  objectFit="contain"
 />
 `;
