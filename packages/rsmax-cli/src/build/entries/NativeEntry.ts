@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { slash } from '@rsmax/shared';
 import type { LoaderContext } from '@rspack/core';
-import { logger } from 'rslog';
+import { logger } from '../../logger';
 import type Builder from '../Builder';
 import NativeAssets from '../NativeAssets';
 import { getNativeAssetOutputPath, replaceExtension } from '../utils/paths';

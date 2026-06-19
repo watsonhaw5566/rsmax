@@ -1,6 +1,6 @@
 import type { Options } from '@rsmax/types';
 import type { Configuration } from '@rspack/core';
-import { logger } from 'rslog';
+import { logger } from '../logger';
 import type API from '../API';
 import BaseBuilder from './Builder';
 import rspackConfig from './rspack/config.mini';
@@ -43,7 +43,7 @@ export default class MiniBuilder extends BaseBuilder {
 
       if (stats?.hasWarnings()) {
         info?.warnings?.forEach(warn => {
-          console.warn(warn.message);
+          logger.warn(warn.message);
         });
       }
     });
@@ -66,7 +66,7 @@ export default class MiniBuilder extends BaseBuilder {
 
       if (stats?.hasWarnings()) {
         info?.warnings?.forEach(warn => {
-          console.warn(warn.message);
+          logger.warn(warn.message);
         });
       }
     });
