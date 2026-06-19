@@ -4,6 +4,7 @@ import nodeExternals from 'webpack-node-externals';
 import { slash } from '@rsmax/shared';
 import API from '../../../API';
 import getConfig from '../../../getConfig';
+import { logger } from '../../../logger';
 import type { Platform } from '@rsmax/types';
 import Config from 'rspack-chain';
 import MiniBuilder from '../../../build/MiniBuilder';
@@ -106,14 +107,15 @@ export async function buildApp(
 
       if (stats.hasErrors()) {
         info?.errors?.forEach(err => {
-          console.error(err.message);
+          const msg = (err && typeof err === 'object') ? (err.message ?? JSON.stringify(err).slice(0, 3000)) : String(err);
+          logger.error('ERROR-PREVIEW:', msg);
         });
-        throw new Error(info?.errors?.join('\n'));
+        throw new Error(info?.errors?.map((e: any) => (e && e.message) || String(e)).join('\n'));
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          console.warn(warning.message);
+          logger.warn(warning.message);
         });
       }
 
@@ -133,7 +135,7 @@ export async function buildApp(
     });
 
     compiler.hooks.failed.tap('failed', error => {
-      console.error(error.message);
+      logger.error(error.message);
       throw error;
     });
   });
@@ -185,13 +187,13 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
-        console.error(info.errors);
+        logger.error(info.errors);
         throw new Error(info?.errors?.join('\n'));
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          console.warn(warning);
+          logger.warn(warning);
         });
       }
 
@@ -211,7 +213,7 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
     });
 
     compiler.hooks.failed.tap('failed', error => {
-      console.error(error.message);
+      logger.error(error.message);
       throw error;
     });
   });
@@ -269,13 +271,13 @@ export function buildMiniComponent(
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
-        console.error(info.errors);
+        logger.error(info.errors);
         throw new Error(info?.errors?.join('\n'));
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          console.warn(warning);
+          logger.warn(warning);
         });
       }
 
@@ -295,7 +297,7 @@ export function buildMiniComponent(
     });
 
     compiler.hooks.failed.tap('failed', error => {
-      console.error(error.message);
+      logger.error(error.message);
       throw error;
     });
   });

@@ -29,7 +29,7 @@ function preset(api: any, presetOption: PresetOption) {
 
   return {
     presets,
-    plugins: [require.resolve('babel-plugin-macros')],
+    plugins: [],
   };
 }
 

@@ -44,13 +44,34 @@ export default class NativeEntry extends VirtualEntry {
       if (request?.startsWith('plugin://')) {
         return acc;
       }
+      // 1) 裸模块名 (如 "moduleC")：先尝试用 resolve.sync 直接解析，
+      //    让 node 标准包解析机制在 node_modules 中查找
+      // 2) 相对/绝对路径：按原逻辑尝试 request + .js / .ts
+      const isBareModule = !request.startsWith('.') && !request.startsWith('/');
+      let entry: NativeEntry | undefined;
+
+      if (isBareModule) {
+        const resolved = this.builder.projectPath.resolveAsset(request, this.filename);
+        if (resolved && fs.existsSync(resolved)) {
+          entry = this.builder.entryCollection.nativeComponentEntries.get(resolved);
+          if (entry) {
+            entry.updateSource();
+          } else {
+            const output = getNativeAssetOutputPath(replaceExtension(resolved, ''), this.builder.options);
+            entry = new NativeEntry(this.builder, output, resolved);
+          }
+          acc.set(name, entry);
+          return acc;
+        }
+      }
+
       const fileExist = ['.js', '.ts'].some(ext => {
         const filename = this.builder.projectPath.resolveAsset(request + ext, this.filename);
         if (filename && fs.existsSync(filename)) {
           if (slash(filename) === slash(this.filename)) {
             return true;
           }
-          let entry = this.builder.entryCollection.nativeComponentEntries.get(filename);
+          entry = this.builder.entryCollection.nativeComponentEntries.get(filename);
           if (entry) {
             entry.updateSource();
           } else {
