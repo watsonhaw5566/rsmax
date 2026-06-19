@@ -15,6 +15,20 @@ export const getAppIdSync = my.getAppIdSync;
 export const getRunScene = promisify(my.getRunScene);
 export const base64ToArrayBuffer = my.base64ToArrayBuffer;
 export const arrayBufferToBase64 = my.arrayBufferToBase64;
+// @ts-ignore
+export const getSystemInfoAsync = promisify(my.getSystemInfoAsync);
+// @ts-ignore
+export const reportPerformance = my.reportPerformance;
+// @ts-ignore
+export const nextTick = my.nextTick;
+// @ts-ignore
+export const reportEvent = my.reportEvent;
+// @ts-ignore
+export const reportAnalytics = my.reportAnalytics;
+// @ts-ignore
+export const getRendererUserAgent = my.getRendererUserAgent;
+// @ts-ignore
+export const getManager = my.getManager;
 // 性能
 // @ts-ignore
 export const getPerformance = my.getPerformance;
@@ -38,6 +52,14 @@ export const offComponentError = my.offComponentError;
 export const onLazyLoadError = my.onLazyLoadError;
 // @ts-ignore
 export const offLazyLoadError = my.offLazyLoadError;
+// @ts-ignore
+export const onThemeChange = my.onThemeChange;
+// @ts-ignore
+export const offThemeChange = my.offThemeChange;
+// @ts-ignore
+export const onApiCategoryChange = my.onApiCategoryChange;
+// @ts-ignore
+export const offApiCategoryChange = my.offApiCategoryChange;
 // 界面
 export const setNavigationBar = promisify(my.setNavigationBar);
 export const setNavigationBarTitle = promisify(my.setNavigationBarTitle);
@@ -58,6 +80,12 @@ export const setTabBarStyle = promisify(my.setTabBarStyle);
 export const removeTabBarBadge = promisify(my.removeTabBarBadge);
 export const showTabBarRedDot = promisify(my.showTabBarRedDot);
 export const hideTabBarRedDot = my.hideTabBarRedDot;
+// @ts-ignore
+export const switchTabEx = promisify(my.switchTabEx);
+// @ts-ignore
+export const openTabPage = promisify(my.openTabPage);
+// @ts-ignore
+export const setTabBarChecked = promisify(my.setTabBarChecked);
 // 界面 - 路由
 export const switchTab = promisify(my.switchTab);
 export const navigateTo = promisify(my.navigateTo);
@@ -93,6 +121,12 @@ export const regionPicker = promisify(my.regionPicker);
 export const datePicker = promisify(my.datePicker);
 // 界面 - 动画
 export const createAnimation = my.createAnimation;
+// @ts-ignore
+export const createCanvasContext = my.createCanvasContext;
+// @ts-ignore
+export const canvasToTempFilePath = promisify(my.canvasToTempFilePath);
+// @ts-ignore
+export const createOffscreenCanvas = my.createOffscreenCanvas;
 // 界面 - 地图
 export const getMapInfo = promisify(my.getMapInfo);
 export const createMapContext = my.createMapContext;
@@ -112,6 +146,10 @@ export const createIntersectionObserver = my.createIntersectionObserver;
 // 界面 - 选项选择器
 export const optionsSelect = promisify(my.optionsSelect);
 export const multiLevelSelect = promisify(my.multiLevelSelect);
+// @ts-ignore
+export const showDatePicker = promisify(my.showDatePicker);
+// @ts-ignore
+export const showTimePicker = promisify(my.showTimePicker);
 export const setBackgroundColor = promisify(my.setBackgroundColor);
 export const setBackgroundTextStyle = promisify(my.setBackgroundTextStyle);
 export const setCanPullDown = promisify(my.setCanPullDown);
@@ -137,11 +175,21 @@ export const getImageInfo = promisify(my.getImageInfo);
 export const saveImageToPhotosAlbum = promisify(my.saveImageToPhotosAlbum);
 export const compressImage = promisify(my.compressImage);
 export const generateImageFromCode = promisify(my.generateImageFromCode);
+// @ts-ignore
+export const editImage = promisify(my.editImage);
+// @ts-ignore
+export const cropImage = promisify(my.cropImage);
 // 多媒体 - 视频
 export const chooseVideo = promisify(my.chooseVideo);
 export const getVideoInfo = my.getVideoInfo;
 export const saveVideoToPhotosAlbum = promisify(my.saveVideoToPhotosAlbum);
 export const createVideoContext = my.createVideoContext;
+// @ts-ignore
+export const chooseMedia = promisify(my.chooseMedia);
+// @ts-ignore
+export const compressVideo = promisify(my.compressVideo);
+// @ts-ignore
+export const openVideoEditor = promisify(my.openVideoEditor);
 // 多媒体 - 音频
 export const createInnerAudioContext = my.createInnerAudioContext;
 export const onAudioInterruptionBegin = my.onAudioInterruptionBegin;
@@ -151,6 +199,16 @@ export const offAudioInterruptionEnd = my.offAudioInterruptionEnd;
 // 多媒体 - 录音
 export const getRecorderManager = my.getRecorderManager;
 export const getAvailableAudioSources = promisify(my.getAvailableAudioSources);
+// @ts-ignore
+export const createMediaRecorder = my.createMediaRecorder;
+// @ts-ignore
+export const createVideoDecoder = my.createVideoDecoder;
+// @ts-ignore
+export const createWebAudioContext = my.createWebAudioContext;
+// @ts-ignore
+export const createTCPSocket = my.createTCPSocket;
+// @ts-ignore
+export const createUDPSocket = my.createUDPSocket;
 // 多媒体 - lottie 动画
 export const createLottieContext = my.createLottieContext;
 // 多媒体 - 相机
@@ -358,6 +416,16 @@ export const getPrivacySetting = promisify(my.getPrivacySetting);
 export const createRewardedAd = my.createRewardedAd;
 // @ts-ignore
 export const createInterstitialAd = my.createInterstitialAd;
+// @ts-ignore
+export const createBannerAd = my.createBannerAd;
+// @ts-ignore
+export const createFullScreenVideoAd = my.createFullScreenVideoAd;
+// @ts-ignore
+export const addDownloadFile = promisify(my.addDownloadFile);
+// @ts-ignore
+export const matchMedia = my.matchMedia;
+// @ts-ignore
+export const createMediaQueryObserver = my.createMediaQueryObserver;
 /**
  * 开放能力 API
  */
@@ -365,10 +433,16 @@ export const createInterstitialAd = my.createInterstitialAd;
 export const tradePay = promisify(my.tradePay);
 // 用户授权
 export const getAuthCode = promisify(my.getAuthCode);
+// @ts-ignore
+export const checkAuthCode = promisify(my.checkAuthCode);
 // 会员
 export const getOpenUserInfo = promisify(my.getOpenUserInfo);
 export const getAddress = promisify(my.getAddress);
 export const getPhoneNumber = promisify(my.getPhoneNumber);
+// @ts-ignore
+export const getUserInfo = promisify(my.getUserInfo);
+// @ts-ignore
+export const chooseAlipayAccount = promisify(my.chooseAlipayAccount);
 // 周期扣款
 export const paySignCenter = promisify(my.paySignCenter);
 // 商家会员卡
