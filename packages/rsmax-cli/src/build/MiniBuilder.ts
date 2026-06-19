@@ -43,7 +43,7 @@ export default class MiniBuilder extends BaseBuilder {
 
       if (stats?.hasWarnings()) {
         info?.warnings?.forEach(warn => {
-          console.warn(warn.message);
+          logger.warn(warn.message);
         });
       }
     });
@@ -66,7 +66,7 @@ export default class MiniBuilder extends BaseBuilder {
 
       if (stats?.hasWarnings()) {
         info?.warnings?.forEach(warn => {
-          console.warn(warn.message);
+          logger.warn(warn.message);
         });
       }
     });

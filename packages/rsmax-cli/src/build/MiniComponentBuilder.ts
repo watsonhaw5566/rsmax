@@ -40,7 +40,9 @@ export default class MiniPluginBuilder extends Builder {
       }
 
       if (stats?.hasWarnings()) {
-        console.warn(info?.warnings?.join('\n'));
+        info?.warnings?.forEach(warning => {
+          logger.warn(warning);
+        });
       }
     });
   }
@@ -64,7 +66,7 @@ export default class MiniPluginBuilder extends Builder {
 
       if (stats?.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          console.warn(warning);
+          logger.warn(warning);
         });
       }
     });
