@@ -876,7 +876,7 @@ app.js: }),
 app.js: 
 app.js: },function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-app.js: __webpack_require__.O(0, ["19",], function() {
+app.js: __webpack_require__.O(0, ["20",], function() {
 app.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 app.js:       });
 app.js: var __webpack_exports__ = __webpack_require__.O();
@@ -1479,7 +1479,7 @@ npm/commonjs/index.json: {
 npm/commonjs/index.json:   "component": true,
 npm/commonjs/index.json:   "usingComponents": {
 npm/commonjs/index.json:     "moduleB": "/npm/moduleB/index",
-npm/commonjs/index.json:     "moduleC": "moduleC"
+npm/commonjs/index.json:     "moduleC": "/npm/moduleC/index"
 npm/commonjs/index.json:   }
 npm/commonjs/index.json: }
 -------------------------------------------------------------------------------
@@ -1511,6 +1511,35 @@ npm/moduleB/index.json: {
 npm/moduleB/index.json:   "component": true,
 npm/moduleB/index.json:   "usingComponents": {}
 npm/moduleB/index.json: }
+-------------------------------------------------------------------------------
+file: npm/moduleC/index.axml
+-------------------------------------------------------------------------------
+npm/moduleC/index.axml: <view>moduleC</view>
+npm/moduleC/index.axml: 
+-------------------------------------------------------------------------------
+file: npm/moduleC/index.js
+-------------------------------------------------------------------------------
+npm/moduleC/index.js: require('./../../runtime.js');
+npm/moduleC/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["14"], {
+npm/moduleC/index.js: <ID>: (function () {
+npm/moduleC/index.js: Component({});
+npm/moduleC/index.js: 
+npm/moduleC/index.js: 
+npm/moduleC/index.js: }),
+npm/moduleC/index.js: 
+npm/moduleC/index.js: },function(__webpack_require__) {
+npm/moduleC/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
+npm/moduleC/index.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
+npm/moduleC/index.js: 
+npm/moduleC/index.js: }
+npm/moduleC/index.js: ]);
+-------------------------------------------------------------------------------
+file: npm/moduleC/index.json
+-------------------------------------------------------------------------------
+npm/moduleC/index.json: {
+npm/moduleC/index.json:   "component": true,
+npm/moduleC/index.json:   "usingComponents": {}
+npm/moduleC/index.json: }
 -------------------------------------------------------------------------------
 file: pages/index.axml
 -------------------------------------------------------------------------------
@@ -1570,7 +1599,7 @@ file: pages/index.js
 pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
 pages/index.js: "use strict";
-pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["14"], {
+pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["15"], {
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
@@ -1764,7 +1793,7 @@ pages/index.js: }),
 pages/index.js: 
 pages/index.js: },function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/index.js: __webpack_require__.O(0, ["19",], function() {
+pages/index.js: __webpack_require__.O(0, ["20",], function() {
 pages/index.js:         return __webpack_exec__(<ID>);
 pages/index.js:       });
 pages/index.js: var __webpack_exports__ = __webpack_require__.O();
@@ -1836,7 +1865,7 @@ file: pages/index2.js
 pages/index2.js: require('./../rsmax-vendors.js');
 pages/index2.js: require('./../runtime.js');
 pages/index2.js: "use strict";
-pages/index2.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["15"], {
+pages/index2.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["16"], {
 pages/index2.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index2.js: __webpack_require__.r(__webpack_exports__);
 pages/index2.js: __webpack_require__.d(__webpack_exports__, {
@@ -1952,7 +1981,7 @@ pages/index2.js: }),
 pages/index2.js: 
 pages/index2.js: },function(__webpack_require__) {
 pages/index2.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/index2.js: __webpack_require__.O(0, ["19",], function() {
+pages/index2.js: __webpack_require__.O(0, ["20",], function() {
 pages/index2.js:         return __webpack_exec__(<ID>);
 pages/index2.js:       });
 pages/index2.js: var __webpack_exports__ = __webpack_require__.O();
@@ -2024,7 +2053,7 @@ file: pages/index3.js
 pages/index3.js: require('./../rsmax-vendors.js');
 pages/index3.js: require('./../runtime.js');
 pages/index3.js: "use strict";
-pages/index3.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["16"], {
+pages/index3.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["17"], {
 pages/index3.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index3.js: __webpack_require__.r(__webpack_exports__);
 pages/index3.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
@@ -2080,7 +2109,7 @@ pages/index3.js: }),
 pages/index3.js: 
 pages/index3.js: },function(__webpack_require__) {
 pages/index3.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/index3.js: __webpack_require__.O(0, ["19",], function() {
+pages/index3.js: __webpack_require__.O(0, ["20",], function() {
 pages/index3.js:         return __webpack_exec__(<ID>);
 pages/index3.js:       });
 pages/index3.js: var __webpack_exports__ = __webpack_require__.O();
@@ -2152,7 +2181,7 @@ file: pages/index4.js
 pages/index4.js: require('./../rsmax-vendors.js');
 pages/index4.js: require('./../runtime.js');
 pages/index4.js: "use strict";
-pages/index4.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["17"], {
+pages/index4.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["18"], {
 pages/index4.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index4.js: __webpack_require__.r(__webpack_exports__);
 pages/index4.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
@@ -2208,7 +2237,7 @@ pages/index4.js: }),
 pages/index4.js: 
 pages/index4.js: },function(__webpack_require__) {
 pages/index4.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/index4.js: __webpack_require__.O(0, ["19",], function() {
+pages/index4.js: __webpack_require__.O(0, ["20",], function() {
 pages/index4.js:         return __webpack_exec__(<ID>);
 pages/index4.js:       });
 pages/index4.js: var __webpack_exports__ = __webpack_require__.O();
@@ -2280,7 +2309,7 @@ file: pages/subPackage.js
 pages/subPackage.js: require('./../rsmax-vendors.js');
 pages/subPackage.js: require('./../runtime.js');
 pages/subPackage.js: "use strict";
-pages/subPackage.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["18"], {
+pages/subPackage.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["19"], {
 pages/subPackage.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/subPackage.js: __webpack_require__.r(__webpack_exports__);
 pages/subPackage.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
@@ -2339,7 +2368,7 @@ pages/subPackage.js: }),
 pages/subPackage.js: 
 pages/subPackage.js: },function(__webpack_require__) {
 pages/subPackage.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/subPackage.js: __webpack_require__.O(0, ["19",], function() {
+pages/subPackage.js: __webpack_require__.O(0, ["20",], function() {
 pages/subPackage.js:         return __webpack_exec__(<ID>);
 pages/subPackage.js:       });
 pages/subPackage.js: var __webpack_exports__ = __webpack_require__.O();
@@ -2355,7 +2384,7 @@ pages/subPackage.json: }
 -------------------------------------------------------------------------------
 file: rsmax-vendors.js
 -------------------------------------------------------------------------------
-rsmax-vendors.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["19"], {
+rsmax-vendors.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["20"], {
 rsmax-vendors.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 rsmax-vendors.js: /**
 rsmax-vendors.js:  * @license React
@@ -6724,7 +6753,7 @@ runtime.js:
 runtime.js:       // object to store loaded and loading chunks
 runtime.js:       // undefined = chunk not loaded, null = chunk preloaded/prefetched
 runtime.js:       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-runtime.js:       var installedChunks = {"20": 0,};
+runtime.js:       var installedChunks = {"21": 0,};
 runtime.js:       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
 runtime.js: // install a JSONP callback for chunk loading
 runtime.js: var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {

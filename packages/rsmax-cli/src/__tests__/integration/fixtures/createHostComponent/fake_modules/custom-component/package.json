@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "remax": ">1.6.0"
+    "rsmax": ">1.4.0"
   }
 }

@@ -78,11 +78,16 @@ export async function buildApp(
     ...config,
     target,
     configRspack(context: any) {
+      const fakeModules = path.resolve(cwd, 'fake_modules');
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
         .end()
-        .resolve.alias.merge({
+        .resolve.modules.merge(
+          fs.existsSync(fakeModules) ? [fakeModules, 'node_modules'] : ['node_modules']
+        )
+        .end()
+        .alias.merge({
           '@components': path.resolve(cwd, 'src/components'),
           '@c': path.resolve(cwd, 'src/components'),
         })
@@ -165,9 +170,15 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
     ...config,
     target,
     configRspack(context: { config: Config; rspack: any }) {
+      const fakeModules = path.resolve(cwd, 'fake_modules');
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
+        .end()
+        .resolve.modules.merge(
+          fs.existsSync(fakeModules) ? [fakeModules, 'node_modules'] : ['node_modules']
+        )
+        .end()
         .end()
         .externals([...context.config.get('externals'), ...externals])
         .optimization.moduleIds('deterministic')
@@ -249,9 +260,15 @@ export function buildMiniComponent(
     input: inputs,
     target,
     configRspack(context: { config: Config; rspack: any }) {
+      const fakeModules = path.resolve(cwd, 'fake_modules');
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
+        .end()
+        .resolve.modules.merge(
+          fs.existsSync(fakeModules) ? [fakeModules, 'node_modules'] : ['node_modules']
+        )
+        .end()
         .end()
         .externals([...context.config.get('externals'), ...externals])
         .optimization.moduleIds('deterministic')
