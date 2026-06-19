@@ -1,6 +1,6 @@
 import type { Options } from '@rsmax/types';
 import type { Configuration } from '@rspack/core';
-import { logger } from 'rslog';
+import { logger } from '../logger';
 import type API from '../API';
 import BaseBuilder from './Builder';
 import rspackConfig from './rspack/config.mini';

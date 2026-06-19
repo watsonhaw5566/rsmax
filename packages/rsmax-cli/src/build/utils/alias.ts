@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import { slash } from '@rsmax/shared';
 import type { Options, Platform } from '@rsmax/types';
-import { logger } from 'rslog';
+import { logger } from '../../logger';
 
 interface Alias {
   [key: string]: string;

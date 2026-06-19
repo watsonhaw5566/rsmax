@@ -3,7 +3,7 @@ import path from 'node:path';
 import { execute } from '@rsdoctor/cli';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import type { Compiler, RspackPluginInstance } from '@rspack/core';
-import { logger } from 'rslog';
+import { logger } from '../../../logger';
 
 const PLUGIN_NAME = 'RsmaxRsdoctorPlugin';
 
