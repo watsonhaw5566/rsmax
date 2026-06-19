@@ -419,7 +419,7 @@ describe('wechat remax render', () => {
   //   render(<Page />, container);
   // });
 
-  it('pure rerender when props changed', done => {
+  it('pure rerender when props changed', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -449,22 +449,18 @@ describe('wechat remax render', () => {
     const page = React.createRef<any>();
     render(<Page ref={page} />, container);
 
-    expect.assertions(2);
-
     page.current.setValue('bar');
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload[1]).toMatchInlineSnapshot(`
-        Object {
+    await delay(50);
+    expect(payload).toHaveLength(2);
+    expect(payload[1]).toMatchInlineSnapshot(`
+        {
           "root.nodes.2.nodes.1.props.value": "bar",
         }
       `);
-      done();
-    }, 5);
   });
 
-  it('pure rerender when props delete', done => {
+  it('pure rerender when props delete', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -492,102 +488,102 @@ describe('wechat remax render', () => {
     const page = React.createRef<any>();
     render(<Page ref={page} />, container);
 
-    expect.assertions(2);
-
     page.current.setValue(undefined);
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload).toMatchInlineSnapshot(`
-        Array [
-          Object {
-            "root.children": Array [
-              2,
+    await delay(50);
+    expect(payload).toHaveLength(2);
+    expect(payload).toMatchInlineSnapshot(`
+      [
+        {
+          "root.children": [
+            2,
+          ],
+          "root.nodes.2": {
+            "children": [
+              1,
             ],
-            "root.nodes.2": Object {
-              "children": Array [
-                1,
-              ],
-              "id": 2,
-              "nodes": Object {
-                "1": Object {
-                  "children": Array [],
-                  "id": 1,
-                  "props": Object {
-                    "value": "foo",
-                  },
-                  "text": undefined,
-                  "type": "input",
+            "id": 2,
+            "nodes": {
+              "1": {
+                "children": [],
+                "id": 1,
+                "props": {
+                  "value": "foo",
                 },
+                "text": undefined,
+                "type": "input",
               },
-              "props": Object {
-                "style": "width:32rpx;",
-              },
-              "text": undefined,
-              "type": "view",
             },
+            "props": {
+              "style": "width:32rpx;",
+            },
+            "text": undefined,
+            "type": "view",
           },
-          Object {
-            "root.nodes.2.nodes.1.props.value": null,
-          },
-        ]
-      `);
-      done();
-    }, 5);
+        },
+        {
+          "root.nodes.2.nodes.1.props.value": null,
+        },
+      ]
+    `);
   });
 
-  it('useNativeEffect once works', done => {
-    let count = 0;
-    const Page = () => {
-      const [width, setWidth] = React.useState(0);
-      useNativeEffect(() => {
-        count += 1;
+  it('useNativeEffect once works', async () => {
+    await new Promise<void>(resolve => {
+      let count = 0;
+      const Page = () => {
+        const [width, setWidth] = React.useState(0);
+        useNativeEffect(() => {
+          count += 1;
 
-        setTimeout(() => {
-          if (count === 1) {
-            done();
+          setTimeout(() => {
+            if (count === 1) {
+              resolve();
+            }
+          }, 500);
+        }, []);
+        React.useEffect(() => {
+          setTimeout(() => {
+            setWidth(100);
+          }, 100);
+        }, []);
+
+        return <View>{width}</View>;
+      };
+      const container = new Container(p);
+      render(<Page />, container);
+    });
+  });
+
+  it('useNativeEffect deps works', async () => {
+    await new Promise<void>(resolve => {
+      let count = 0;
+      const Page = () => {
+        const [width, setWidth] = React.useState(0);
+        const [height, setheight] = React.useState(0);
+        useNativeEffect(() => {
+          count += 1;
+
+          if (count === 2) {
+            resolve();
           }
-        }, 500);
-      }, []);
-      React.useEffect(() => {
-        setTimeout(() => {
-          setWidth(100);
-        }, 100);
-      }, []);
+        }, [width]);
+        React.useEffect(() => {
+          setheight(100);
+          setTimeout(() => {
+            setWidth(100);
+          }, 1000);
+        }, []);
 
-      return <View>{width}</View>;
-    };
-    const container = new Container(p);
-    render(<Page />, container);
-  });
-
-  it('useNativeEffect deps works', done => {
-    let count = 0;
-    const Page = () => {
-      const [width, setWidth] = React.useState(0);
-      const [height, setheight] = React.useState(0);
-      useNativeEffect(() => {
-        count += 1;
-
-        if (count === 2) {
-          done();
-        }
-      }, [width]);
-      React.useEffect(() => {
-        setheight(100);
-        setTimeout(() => {
-          setWidth(100);
-        }, 1000);
-      }, []);
-
-      return (
-        <View>
-          {width}
-          {height}
-        </View>
-      );
-    };
-    const container = new Container(p);
-    render(<Page />, container);
+        return (
+          <View>
+            {width}
+            {height}
+          </View>
+        );
+      };
+      const container = new Container(p);
+      render(<Page />, container);
+    });
   });
 });

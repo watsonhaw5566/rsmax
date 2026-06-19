@@ -26,7 +26,7 @@ describe('createAppConfig', () => {
   });
 
   it('does not pass ref to FC', () => {
-    const FCApp: React.FC = props => props as React.ReactElement;
+    const FCApp: React.FC = () => <React.Fragment />;
     const appConfig = createAppConfig(FCApp);
     appConfig.onLaunch({});
     expect(appConfig._instance.current).toBeNull();
