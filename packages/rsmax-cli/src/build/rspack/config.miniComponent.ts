@@ -6,6 +6,7 @@ import type { Options } from '@rsmax/types';
 import { type Configuration, rspack } from '@rspack/core';
 import hostComponent from 'babel-plugin-rsmax-host-component';
 import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
+import babelPluginMacros from 'babel-plugin-macros';
 import ejs from 'ejs';
 import Config from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
@@ -97,6 +98,7 @@ export default function rspackConfig(builder: Builder): Configuration {
       babelrc: false,
       configFile: resolveBabelConfig(builder.options),
       usePlugins: [
+        babelPluginMacros,
         Lifecycle.page({
           test: (file: any) => {
             const importer = slash(file);

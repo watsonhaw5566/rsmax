@@ -292,8 +292,11 @@ export default function hostComponent(options: Options) {
         const arg0 = bindingPath.node.init.arguments[0];
         if (t.isStringLiteral(arg0)) {
           const id = arg0.value;
-          // macro 先执行，肯定注册过了
-          const component = Array.from(Store.pluginComponents.values()).find(c => c.id === id)!;
+          // 通过 id 找到已注册的插件组件（macro 先执行注册）
+          const component = Array.from(Store.pluginComponents.values()).find(c => c.id === id);
+          if (!component) {
+            return;
+          }
           const props = getProps('', node, true) || [];
           props.forEach(component.props.add, component.props);
         }

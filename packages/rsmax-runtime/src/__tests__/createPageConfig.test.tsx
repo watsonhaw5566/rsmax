@@ -46,7 +46,7 @@ describe('page query hook', () => {
     page.onUnload();
   });
 
-  it.skip('create page id for each page instance', () => {
+  it('create page id for each page instance', () => {
     const TestPage = () => {
       return <div>hello</div>;
     };
@@ -58,21 +58,23 @@ describe('page query hook', () => {
     expect(page2.config.pageId).toBe('page_1');
   });
 
-  it('onPullDownRefresh can handle promise returned by callback', done => {
-    const TestPage = () => {
-      usePageEvent('onPullDownRefresh', (): Promise<void> => {
-        return new Promise(resolve => {
-          resolve();
-          done();
+  it('onPullDownRefresh can handle promise returned by callback', async () => {
+    await new Promise<void>(resolve => {
+      const TestPage = () => {
+        usePageEvent('onPullDownRefresh', (): Promise<void> => {
+          return new Promise(innerResolve => {
+            innerResolve();
+            resolve();
+          });
         });
-      });
-      return <div />;
-    };
+        return <div />;
+      };
 
-    const page = Page(createPageConfig(TestPage, ALL_EVENTS_PAGE));
+      const page = Page(createPageConfig(TestPage, ALL_EVENTS_PAGE));
 
-    page.load();
-    page.pullDownRefresh();
+      page.load();
+      page.pullDownRefresh();
+    });
   });
 
   it('register event correctly', () => {

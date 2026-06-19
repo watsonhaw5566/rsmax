@@ -1,7 +1,7 @@
 import { describeWithMini, goTo } from './helpers';
 import { FrameBase } from 'puppeteer';
 
-describeWithMini.skip('原生页面', () => {
+describeWithMini('原生页面', () => {
   let app: FrameBase;
 
   beforeAll(async () => {

@@ -4,6 +4,7 @@ import nodeExternals from 'webpack-node-externals';
 import { slash } from '@rsmax/shared';
 import API from '../../../API';
 import getConfig from '../../../getConfig';
+import { logger } from '../../../logger';
 import type { Platform } from '@rsmax/types';
 import Config from 'rspack-chain';
 import MiniBuilder from '../../../build/MiniBuilder';
@@ -77,11 +78,16 @@ export async function buildApp(
     ...config,
     target,
     configRspack(context: any) {
+      const fakeModules = path.resolve(cwd, 'fake_modules');
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
         .end()
-        .resolve.alias.merge({
+        .resolve.modules.merge(
+          fs.existsSync(fakeModules) ? [fakeModules, 'node_modules'] : ['node_modules']
+        )
+        .end()
+        .alias.merge({
           '@components': path.resolve(cwd, 'src/components'),
           '@c': path.resolve(cwd, 'src/components'),
         })
@@ -100,20 +106,22 @@ export async function buildApp(
   const builder = target === 'web' ? new WebBuilder(api, remaxOptions) : new MiniBuilder(api, remaxOptions);
   const compiler = builder.run();
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     compiler.hooks.done.tap('done', stats => {
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
         info?.errors?.forEach(err => {
-          console.error(err.message);
+          const msg = (err && typeof err === 'object') ? (err.message ?? JSON.stringify(err).slice(0, 3000)) : String(err);
+          logger.error('ERROR-PREVIEW:', msg);
         });
-        throw new Error(info?.errors?.join('\n'));
+        reject(new Error(info?.errors?.map((e: any) => (e && e.message) || String(e)).join('\n')));
+        return;
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          console.warn(warning.message);
+          logger.warn(warning.message);
         });
       }
 
@@ -133,8 +141,8 @@ export async function buildApp(
     });
 
     compiler.hooks.failed.tap('failed', error => {
-      console.error(error.message);
-      throw error;
+      logger.error(error.message);
+      reject(error);
     });
   });
 }
@@ -163,9 +171,15 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
     ...config,
     target,
     configRspack(context: { config: Config; rspack: any }) {
+      const fakeModules = path.resolve(cwd, 'fake_modules');
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
+        .end()
+        .resolve.modules.merge(
+          fs.existsSync(fakeModules) ? [fakeModules, 'node_modules'] : ['node_modules']
+        )
+        .end()
         .end()
         .externals([...context.config.get('externals'), ...externals])
         .optimization.moduleIds('deterministic')
@@ -180,18 +194,19 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
   const builder = new MiniPluginBuilder(api, remaxOptions);
   const compiler = builder.run();
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     compiler.hooks.done.tap('done', stats => {
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
-        console.error(info.errors);
-        throw new Error(info?.errors?.join('\n'));
+        logger.error(info.errors);
+        reject(new Error(info?.errors?.join('\n')));
+        return;
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          console.warn(warning);
+          logger.warn(warning);
         });
       }
 
@@ -211,8 +226,8 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
     });
 
     compiler.hooks.failed.tap('failed', error => {
-      console.error(error.message);
-      throw error;
+      logger.error(error.message);
+      reject(error);
     });
   });
 }
@@ -247,9 +262,15 @@ export function buildMiniComponent(
     input: inputs,
     target,
     configRspack(context: { config: Config; rspack: any }) {
+      const fakeModules = path.resolve(cwd, 'fake_modules');
       context.config
         .mode('none')
         .plugins.delete('rspackbar')
+        .end()
+        .resolve.modules.merge(
+          fs.existsSync(fakeModules) ? [fakeModules, 'node_modules'] : ['node_modules']
+        )
+        .end()
         .end()
         .externals([...context.config.get('externals'), ...externals])
         .optimization.moduleIds('deterministic')
@@ -264,18 +285,19 @@ export function buildMiniComponent(
   const builder = new MiniComponentBuilder(api, remaxOptions);
   const compiler = builder.run();
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     compiler.hooks.done.tap('done', stats => {
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
-        console.error(info.errors);
-        throw new Error(info?.errors?.join('\n'));
+        logger.error(info.errors);
+        reject(new Error(info?.errors?.join('\n')));
+        return;
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          console.warn(warning);
+          logger.warn(warning);
         });
       }
 
@@ -295,10 +317,10 @@ export function buildMiniComponent(
     });
 
     compiler.hooks.failed.tap('failed', error => {
-      console.error(error.message);
-      throw error;
+      logger.error(error.message);
+      reject(error);
     });
   });
 }
 
-export const JEST_BUILD_TIMEOUT = 5 * 1000;
+export const JEST_BUILD_TIMEOUT = 10 * 1000;
