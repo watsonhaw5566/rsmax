@@ -1,4 +1,8 @@
 export const alias = {
+  id: 'id',
+  className: 'class',
+  style: 'style',
+  animation: 'animation',
   finderUserName: 'finder-user-name',
   feedId: 'feed-id',
   previewDuration: 'preview-duration',

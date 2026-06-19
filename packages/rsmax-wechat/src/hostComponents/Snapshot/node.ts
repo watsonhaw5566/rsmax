@@ -3,12 +3,7 @@ export const alias = {
   className: 'class',
   style: 'style',
   animation: 'animation',
-  name: 'name',
-  checked: 'checked',
-  disabled: 'disabled',
-  color: 'color',
-  onChange: 'bindchange',
-  type: 'type',
+  mode: 'mode',
 };
 
 export const props = Object.values(alias);

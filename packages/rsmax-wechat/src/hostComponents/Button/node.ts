@@ -47,7 +47,7 @@ export const alias = {
   onAddFriend: 'bindaddfriend',
   onAddGroupApp: 'bindaddgroupapp',
   onChooseAvatar: 'bindchooseavatar',
-  agreePrivacyAuthorization: 'bindagreeprivacyauthorization',
+  onAgreePrivacyAuthorization: 'bindagreeprivacyauthorization',
   onTap: 'bindtap',
   onClick: 'bindtap',
 };

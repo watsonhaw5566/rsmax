@@ -1,4 +1,8 @@
 export const alias = {
+  id: 'id',
+  className: 'class',
+  style: 'style',
+  animation: 'animation',
   buttonText: 'button-text',
   shareTitle: 'share-title',
   sharePath: 'share-path',

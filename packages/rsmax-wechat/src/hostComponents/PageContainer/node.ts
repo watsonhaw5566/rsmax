@@ -5,7 +5,7 @@ export const alias = {
   overlay: 'overlay',
   position: 'position',
   round: 'round',
-  closeOnSlideDown: 'close-on-slideDown',
+  closeOnSlideDown: 'close-on-slide-down',
   overlayStyle: 'overlay-style',
   customStyle: 'custom-style',
   onBeforeEnter: 'bindbeforeenter',
