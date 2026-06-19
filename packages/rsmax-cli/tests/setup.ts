@@ -8,7 +8,9 @@ import { diff } from 'jest-diff';
 import { sortBy } from 'lodash';
 import * as eol from 'eol';
 import { slash } from '@rsmax/shared';
-import { logger } from 'rslog';
+import { logger, setupLogger } from '../src/logger';
+
+setupLogger('silent');
 
 type Received = Array<{
   fileName: string;
