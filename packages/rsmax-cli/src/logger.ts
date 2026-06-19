@@ -12,10 +12,12 @@ const LEVEL_MAP: Record<LogLevel, RslogLogLevel> = {
 
 let initialized = false;
 
-export function setupLogger(level: LogLevel = 'verbose') {
+export function setupLogger(level?: LogLevel) {
   if (initialized) return;
 
-  if (level === 'silent') {
+  const effectiveLevel: LogLevel = level ?? 'verbose';
+
+  if (effectiveLevel === 'silent') {
     rslogLogger.override({
       error: () => {},
       warn: () => {},
@@ -27,7 +29,7 @@ export function setupLogger(level: LogLevel = 'verbose') {
       debug: () => {},
     });
   } else {
-    rslogLogger.level = LEVEL_MAP[level];
+    rslogLogger.level = LEVEL_MAP[effectiveLevel];
   }
 
   initialized = true;

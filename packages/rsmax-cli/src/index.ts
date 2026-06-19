@@ -74,7 +74,6 @@ export default class RsmaxCLI {
             .option('loglevel', {
               describe: '展示日志级别',
               type: 'string',
-              default: 'verbose',
             });
         },
         (argv: any) => {
