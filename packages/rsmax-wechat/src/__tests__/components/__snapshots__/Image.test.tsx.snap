@@ -5,7 +5,7 @@ exports[`Image > render correctly 1`] = `
   className="class"
   lazyLoad={false}
   mode="scaleToFill"
-  showMenuByLongpress={false}
+  showMenuByLongPress={false}
   webp={false}
 />
 `;
