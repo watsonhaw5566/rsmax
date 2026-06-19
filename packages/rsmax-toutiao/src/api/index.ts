@@ -9,6 +9,11 @@ export const arrayBufferToBase64 = tt.arrayBufferToBase64;
 export const setPageInfo = promisify(tt.setPageInfo);
 // 基础 - 性能
 export const performance = tt.performance;
+// @ts-expect-error
+export const reportPerformance = promisify(tt.reportPerformance);
+// 基础 - 调度
+// @ts-expect-error
+export const nextTick = tt.nextTick;
 // 基础 - 线程
 export const createWorker = tt.createWorker;
 // 基础 - 窗口尺寸变化
@@ -36,14 +41,29 @@ export const onUnhandledRejection = tt.onUnhandledRejection;
 export const onAppLaunch = tt.onAppLaunch;
 // @ts-expect-error
 export const offAppLaunch = tt.offAppLaunch;
+// 基础 - 主题变化
+// @ts-expect-error
+export const onThemeChange = tt.onThemeChange;
+// @ts-expect-error
+export const offThemeChange = tt.offThemeChange;
 // 环境变量
 export const env = tt.env;
 export const getEnvInfoSync = tt.getEnvInfoSync;
+// @ts-expect-error
+export const getSystemSetting = tt.getSystemSetting;
+// @ts-expect-error
+export const getAppBaseInfo = tt.getAppBaseInfo;
+// @ts-expect-error
+export const getWindowInfo = tt.getWindowInfo;
+// @ts-expect-error
+export const getAppAuthorizeSetting = tt.getAppAuthorizeSetting;
 // TTML
 export const createSelectorQuery = tt.createSelectorQuery;
 export const createIntersectionObserver = tt.createIntersectionObserver;
 // @ts-expect-error
 export const matchMedia = tt.matchMedia;
+// @ts-expect-error
+export const createMediaQueryObserver = tt.createMediaQueryObserver;
 // 网络 - HTTP
 export const request = promisify(tt.request);
 export const downloadFile = promisify(tt.downloadFile);
@@ -133,8 +153,11 @@ export const onNetworkStatusChange = tt.onNetworkStatusChange;
 export const offNetworkStatusChange = tt.offNetworkStatusChange;
 export const getWifiList = promisify(tt.getWifiList);
 export const onGetWifiList = tt.onGetWifiList;
+export const offGetWifiList = tt.offGetWifiList;
 // @ts-expect-error
 export const onNetworkWeakChange = tt.onNetworkWeakChange;
+// @ts-expect-error
+export const offNetworkWeakChange = tt.offNetworkWeakChange;
 // 设备 - 系统信息
 export const getSystemInfo = promisify(tt.getSystemInfo);
 // @ts-expect-error
@@ -148,6 +171,20 @@ export const stopAccelerometer = promisify(tt.stopAccelerometer);
 export const onAccelerometerChange = tt.onAccelerometerChange;
 // @ts-expect-error
 export const offAccelerometerChange = tt.offAccelerometerChange;
+// 设备 - 设备方向
+// @ts-expect-error
+export const startDeviceMotionListening = promisify(tt.startDeviceMotionListening);
+// @ts-expect-error
+export const stopDeviceMotionListening = promisify(tt.stopDeviceMotionListening);
+// @ts-expect-error
+export const onDeviceMotionChange = tt.onDeviceMotionChange;
+// @ts-expect-error
+export const offDeviceMotionChange = tt.offDeviceMotionChange;
+// 设备 - 电池信息
+// @ts-expect-error
+export const getBatteryInfo = promisify(tt.getBatteryInfo);
+// @ts-expect-error
+export const getBatteryInfoSync = tt.getBatteryInfoSync;
 // 设备 - 罗盘
 export const startCompass = promisify(tt.startCompass);
 export const stopCompass = promisify(tt.stopCompass);
@@ -195,13 +232,20 @@ export const deleteCalendarEvent = promisify(tt.deleteCalendarEvent);
 // 设备 - 振动
 export const vibrateShort = promisify(tt.vibrateShort);
 export const vibrateLong = promisify(tt.vibrateLong);
+// 设备 - 联系人
+// @ts-expect-error
+export const addPhoneContact = promisify(tt.addPhoneContact);
 // 设备 - 性能
 export const onMemoryWarning = tt.onMemoryWarning;
+// @ts-expect-error
+export const offMemoryWarning = tt.offMemoryWarning;
 // 画布 v1
 export const createCanvasContext = tt.createCanvasContext;
 export const canvasToTempFilePath = tt.canvasToTempFilePath;
 // 画布 v2
 export const createOffscreenCanvas = tt.createOffscreenCanvas;
+// @ts-expect-error
+export const createCanvas = tt.createCanvas;
 // 界面 - 交互反馈
 // @ts-expect-error
 export const enableAlertBeforeUnload = promisify(tt.enableAlertBeforeUnload);
@@ -339,6 +383,15 @@ export const confirmFulfillment = tt.confirmFulfillment;
 export const createSignOrder = tt.createSignOrder;
 // @ts-expect-error
 export const sign = tt.sign;
+// 行业开放 - 电商
+// @ts-expect-error
+export const addToEcCart = promisify(tt.addToEcCart);
+// @ts-expect-error
+export const openEcCart = promisify(tt.openEcCart);
+// @ts-expect-error
+export const openEcIm = promisify(tt.openEcIm);
+// @ts-expect-error
+export const openEcOrderDetail = promisify(tt.openEcOrderDetail);
 // 第三方平台
 export const getExtConfig = promisify(tt.getExtConfig);
 export const getExtConfigSync = tt.getExtConfigSync;
