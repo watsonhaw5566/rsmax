@@ -1,0 +1,20 @@
+// Rstest Snapshot v1
+
+exports[`LivePusher > render correctly 1`] = `
+<live-pusher
+  aspect="9:16"
+  audioQuality="high"
+  autoFocus={true}
+  autoplay={false}
+  beauty={0}
+  enableCamera={true}
+  maxBitrate={1000}
+  minBitrate={200}
+  mode="HD"
+  muted={false}
+  orientation="vertical"
+  url="test"
+  whiteness={0}
+  zoom={false}
+/>
+`;

@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`FunctionalPageNavigator > render correctly 1`] = `
+<functional-page-navigator
+  version="release"
+/>
+`;

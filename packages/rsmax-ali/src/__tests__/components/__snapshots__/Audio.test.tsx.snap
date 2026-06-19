@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`Audio > render correctly 1`] = `
+<audio
+  controls={true}
+  obeysMuteSwitch={true}
+  src="test"
+/>
+`;

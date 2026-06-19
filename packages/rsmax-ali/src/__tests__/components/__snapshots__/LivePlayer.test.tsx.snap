@@ -1,0 +1,16 @@
+// Rstest Snapshot v1
+
+exports[`LivePlayer > render correctly 1`] = `
+<live-player
+  autoplay={false}
+  background="black"
+  livePause={false}
+  maxCache={3}
+  minCache={1}
+  mode="live"
+  muted={false}
+  objectFit="contain"
+  orientation="vertical"
+  src="test"
+/>
+`;

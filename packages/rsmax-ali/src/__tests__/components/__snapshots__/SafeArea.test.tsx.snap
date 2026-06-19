@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`SafeArea > render correctly 1`] = `<safe-area />`;
