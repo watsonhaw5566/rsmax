@@ -8,6 +8,7 @@ export const alias = {
   onSuccess: 'onSuccess',
   onFail: 'onFail',
   onCancel: 'onCancel',
+  extraData: 'extra-data',
 };
 
 export const props = unique(Object.values(alias));

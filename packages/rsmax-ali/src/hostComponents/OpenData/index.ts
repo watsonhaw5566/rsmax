@@ -7,7 +7,9 @@ export interface OpenDataProps {
   style?: React.CSSProperties;
   type?: string;
   openGid?: string;
+  lang?: string;
   onError?: (e: any) => void;
+  children?: React.ReactNode;
 }
 
 export const OpenData = createHostComponent<OpenDataProps>('open-data') as React.ComponentType<OpenDataProps>;

@@ -24,6 +24,10 @@ export interface AudioProps {
   onTimeUpdate?: (e: any) => void;
   onLoading?: (e: any) => void;
   onLoadedData?: (e: any) => void;
+  onWaiting?: (e: any) => void;
+  onSeeking?: (e: any) => void;
+  onSeeked?: (e: any) => void;
+  onCanplay?: (e: any) => void;
 }
 
 export const Audio = createHostComponent<AudioProps>('audio') as React.ComponentType<AudioProps>;

@@ -23,6 +23,7 @@ export interface ViewProps {
   onTouchEnd?: (e: any) => void;
   onTouchCancel?: (e: any) => void;
   onLongTap?: (e: any) => void;
+  onLongClick?: (e: any) => void;
   onTransitionEnd?: (e: any) => void;
   onAnimationIteration?: (e: any) => void;
   onAnimationStart?: (e: any) => void;

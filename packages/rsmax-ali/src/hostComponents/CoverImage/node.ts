@@ -7,6 +7,8 @@ export const alias = {
   style: 'style',
   onClick: 'onTap',
   onTap: 'onTap',
+  onLoad: 'onLoad',
+  onError: 'onError',
 };
 
 export const props = unique(Object.values(alias));

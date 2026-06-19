@@ -31,6 +31,10 @@ export const alias = {
   onTap: 'onTap',
   onClick: 'onTap',
   onUserAction: 'onUserAction',
+  onLoadingComplete: 'onLoadingComplete',
+  pictureInPictureMode: 'picture-in-picture-mode',
+  onPictureInPictureModeChanged: 'onPictureInPictureModeChanged',
+  enableNative: 'enableNative',
 };
 
 export const props = unique(Object.values(alias));

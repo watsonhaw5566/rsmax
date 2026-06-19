@@ -15,5 +15,6 @@ export const alias = {
   onLeave: 'onLeave',
   onAfterLeave: 'onAfterLeave',
   onClickOverlay: 'onClickOverlay',
+  onLeaveCancelled: 'onLeaveCancelled',
 };
 export const props = Object.values(alias);

@@ -13,7 +13,7 @@ export const alias = {
   onTouchMove: 'bindtouchmove',
   onTouchEnd: 'bindtouchend',
   onTouchCancel: 'bindtouchcancel',
-  showMenuByLongpress: 'show-menu-by-longpress',
+  showMenuByLongPress: 'show-menu-by-longpress',
   animation: 'animation',
 };
 

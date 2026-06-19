@@ -7,11 +7,13 @@ export interface TextProps {
   className?: string;
   style?: React.CSSProperties;
   selectable?: boolean;
-  space?: string;
+  space?: 'ensp' | 'emsp' | 'nbsp';
   decode?: boolean;
   numberOfLines?: number;
   onTap?: (e: any) => void;
   onClick?: (e: any) => void;
+  onLongTap?: (e: any) => void;
+  onLongClick?: (e: any) => void;
   children?: React.ReactNode;
 }
 

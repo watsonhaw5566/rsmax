@@ -4,6 +4,7 @@ import type React from 'react';
 export interface SubscribeMessageProps {
   templateId: string;
   onComplete?: (e: any) => void;
+  onError?: (e: any) => void;
 }
 
 export const SubscribeMessage = createHostComponent<SubscribeMessageProps>(

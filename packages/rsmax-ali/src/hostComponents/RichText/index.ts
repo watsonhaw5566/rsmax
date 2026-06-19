@@ -10,7 +10,20 @@ export interface RichTextNode {
 }
 
 export interface RichTextProps {
+  readonly dataset?: DOMStringMap;
+  id?: string;
+  className?: string;
+  style?: React.CSSProperties;
   nodes?: RichTextNode[];
+  space?: 'ensp' | 'emsp' | 'nbsp';
+  onTap?: (e: any) => void;
+  onClick?: (e: any) => void;
+  onTouchStart?: (e: any) => void;
+  onTouchMove?: (e: any) => void;
+  onTouchEnd?: (e: any) => void;
+  onTouchCancel?: (e: any) => void;
+  onLongTap?: (e: any) => void;
+  onLongClick?: (e: any) => void;
 }
 
 export const RichText = createHostComponent<RichTextProps>('rich-text') as React.ComponentType<RichTextProps>;

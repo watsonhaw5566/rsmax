@@ -25,6 +25,7 @@ export interface SwiperProps {
   onChange?: (e: any) => void;
   onTransition?: (e: any) => void;
   onAnimationEnd?: (e: any) => void;
+  children?: React.ReactNode;
 }
 
 export const Swiper = createHostComponent<SwiperProps>('swiper') as React.ComponentType<SwiperProps>;

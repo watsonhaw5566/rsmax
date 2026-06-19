@@ -29,7 +29,9 @@ __rsmax_runtime_options__.js:       "appParameter": "app-parameter",
 __rsmax_runtime_options__.js:       "publicId": "public-id",
 __rsmax_runtime_options__.js:       "onGetAuthorize": "onGetAuthorize",
 __rsmax_runtime_options__.js:       "onChooseAvatar": "onChooseAvatar",
-__rsmax_runtime_options__.js:       "onError": "onError"
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onContactShare": "onContactShare",
+__rsmax_runtime_options__.js:       "onFollowLifestyle": "onFollowLifestyle"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "canvas": {
@@ -49,7 +51,8 @@ __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
 __rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
 __rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
 __rsmax_runtime_options__.js:       "onLongClick": "onLongTap",
-__rsmax_runtime_options__.js:       "onReady": "onReady"
+__rsmax_runtime_options__.js:       "onReady": "onReady",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "checkbox-group": {
@@ -71,7 +74,8 @@ __rsmax_runtime_options__.js:       "value": "value",
 __rsmax_runtime_options__.js:       "checked": "checked",
 __rsmax_runtime_options__.js:       "disabled": "disabled",
 __rsmax_runtime_options__.js:       "onChange": "onChange",
-__rsmax_runtime_options__.js:       "color": "color"
+__rsmax_runtime_options__.js:       "color": "color",
+__rsmax_runtime_options__.js:       "controlled": "controlled"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "contact-button": {
@@ -84,7 +88,8 @@ __rsmax_runtime_options__.js:       "scene": "scene",
 __rsmax_runtime_options__.js:       "size": "size",
 __rsmax_runtime_options__.js:       "color": "color",
 __rsmax_runtime_options__.js:       "icon": "icon",
-__rsmax_runtime_options__.js:       "alipayCardNo": "alipay-card-no"
+__rsmax_runtime_options__.js:       "alipayCardNo": "alipay-card-no",
+__rsmax_runtime_options__.js:       "onContactShare": "onContactShare"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "cover-image": {
@@ -94,7 +99,9 @@ __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "src": "src",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "onClick": "onTap",
-__rsmax_runtime_options__.js:       "onTap": "onTap"
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onLoad": "onLoad",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "cover-view": {
@@ -103,7 +110,11 @@ __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "onTap": "onTap",
-__rsmax_runtime_options__.js:       "onClick": "onTap"
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
+__rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "editor": {
@@ -124,7 +135,9 @@ __rsmax_runtime_options__.js:       "onFocus": "onFocus",
 __rsmax_runtime_options__.js:       "onBlur": "onBlur",
 __rsmax_runtime_options__.js:       "onInput": "onInput",
 __rsmax_runtime_options__.js:       "onStatuschange": "onStatuschange",
-__rsmax_runtime_options__.js:       "onReady2": "onReady2"
+__rsmax_runtime_options__.js:       "onReady2": "onReady2",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onClick": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "functional-page-navigator": {
@@ -135,7 +148,8 @@ __rsmax_runtime_options__.js:       "args": "args",
 __rsmax_runtime_options__.js:       "version": "version",
 __rsmax_runtime_options__.js:       "onSuccess": "onSuccess",
 __rsmax_runtime_options__.js:       "onFail": "onFail",
-__rsmax_runtime_options__.js:       "onCancel": "onCancel"
+__rsmax_runtime_options__.js:       "onCancel": "onCancel",
+__rsmax_runtime_options__.js:       "extraData": "extra-data"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "form": {
@@ -166,6 +180,7 @@ __rsmax_runtime_options__.js:       "mode": "mode",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "lazyLoad": "lazy-load",
+__rsmax_runtime_options__.js:       "showMenuByLongPress": "show-menu-by-longpress",
 __rsmax_runtime_options__.js:       "onLoad": "onLoad",
 __rsmax_runtime_options__.js:       "onError": "onError",
 __rsmax_runtime_options__.js:       "onTap": "onTap",
@@ -173,7 +188,10 @@ __rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
 __rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
 __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
 __rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
-__rsmax_runtime_options__.js:       "onClick": "onTap"
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "catchTap": "catchTap",
+__rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
+__rsmax_runtime_options__.js:       "onLongClick": "onLongTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "input": {
@@ -200,6 +218,7 @@ __rsmax_runtime_options__.js:       "selectionEnd": "selection-end",
 __rsmax_runtime_options__.js:       "randomNumber": "randomNumber",
 __rsmax_runtime_options__.js:       "controlled": "controlled",
 __rsmax_runtime_options__.js:       "enableNative": "enableNative",
+__rsmax_runtime_options__.js:       "adjustPosition": "adjust-position",
 __rsmax_runtime_options__.js:       "onInput": "onInput",
 __rsmax_runtime_options__.js:       "onConfirm": "onConfirm",
 __rsmax_runtime_options__.js:       "onFocus": "onFocus",
@@ -208,6 +227,7 @@ __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "keyboard-accessory": {
 __rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style"
 __rsmax_runtime_options__.js:     }
@@ -217,13 +237,16 @@ __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
-__rsmax_runtime_options__.js:       "for": "for"
+__rsmax_runtime_options__.js:       "for": "for",
+__rsmax_runtime_options__.js:       "name": "name"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "lifestyle": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "publicId": "public-id",
-__rsmax_runtime_options__.js:       "onFollow": "onFollow"
+__rsmax_runtime_options__.js:       "onFollow": "onFollow",
+__rsmax_runtime_options__.js:       "onUnfollow": "onUnfollow",
+__rsmax_runtime_options__.js:       "onClose": "onClose"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "live-player": {
@@ -242,6 +265,8 @@ __rsmax_runtime_options__.js:       "minCache": "min-cache",
 __rsmax_runtime_options__.js:       "maxCache": "max-cache",
 __rsmax_runtime_options__.js:       "livePause": "livePause",
 __rsmax_runtime_options__.js:       "pictureInPictureMode": "picture-in-picture-mode",
+__rsmax_runtime_options__.js:       "soundMode": "sound-mode",
+__rsmax_runtime_options__.js:       "enableAutoRotation": "enable-auto-rotation",
 __rsmax_runtime_options__.js:       "onPlay": "onPlay",
 __rsmax_runtime_options__.js:       "onPause": "onPause",
 __rsmax_runtime_options__.js:       "onStop": "onStop",
@@ -251,7 +276,9 @@ __rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
 __rsmax_runtime_options__.js:       "onLoading": "onLoading",
 __rsmax_runtime_options__.js:       "onLoadedMetaData": "onLoadedMetaData",
 __rsmax_runtime_options__.js:       "onFullScreenChange": "onFullScreenChange",
-__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged"
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged",
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onTap": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "live-pusher": {
@@ -274,6 +301,7 @@ __rsmax_runtime_options__.js:       "maxBitrate": "max-bitrate",
 __rsmax_runtime_options__.js:       "audioQuality": "audio-quality",
 __rsmax_runtime_options__.js:       "waitingImage": "waiting-image",
 __rsmax_runtime_options__.js:       "zoom": "zoom",
+__rsmax_runtime_options__.js:       "devicePosition": "device-position",
 __rsmax_runtime_options__.js:       "onPush": "onPush",
 __rsmax_runtime_options__.js:       "onStop": "onStop",
 __rsmax_runtime_options__.js:       "onError": "onError",
@@ -311,7 +339,8 @@ __rsmax_runtime_options__.js:       "onControlTap": "onControlTap",
 __rsmax_runtime_options__.js:       "onControlClick": "onControlTap",
 __rsmax_runtime_options__.js:       "onRegionChange": "onRegionChange",
 __rsmax_runtime_options__.js:       "onTap": "onTap",
-__rsmax_runtime_options__.js:       "onClick": "onTap"
+__rsmax_runtime_options__.js:       "onClick": "onTap",
+__rsmax_runtime_options__.js:       "onPanelTap": "onPanelTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "movable-area": {
@@ -341,6 +370,7 @@ __rsmax_runtime_options__.js:       "scale": "scale",
 __rsmax_runtime_options__.js:       "scaleMin": "scale-min",
 __rsmax_runtime_options__.js:       "scaleMax": "scale-max",
 __rsmax_runtime_options__.js:       "scaleValue": "scale-value",
+__rsmax_runtime_options__.js:       "animation": "animation",
 __rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
 __rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
 __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
@@ -360,7 +390,10 @@ __rsmax_runtime_options__.js:       "hoverClass": "hover-class",
 __rsmax_runtime_options__.js:       "hoverClassName": "hover-class",
 __rsmax_runtime_options__.js:       "hoverStartTime": "hover-start-time",
 __rsmax_runtime_options__.js:       "hoverStayTime": "hover-stay-time",
-__rsmax_runtime_options__.js:       "url": "url"
+__rsmax_runtime_options__.js:       "url": "url",
+__rsmax_runtime_options__.js:       "hoverStopPropagation": "hover-stop-propagation",
+__rsmax_runtime_options__.js:       "target": "target",
+__rsmax_runtime_options__.js:       "delta": "delta"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "open-data": {
@@ -370,11 +403,15 @@ __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "type": "type",
 __rsmax_runtime_options__.js:       "openGid": "open-gid",
-__rsmax_runtime_options__.js:       "onError": "onError"
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "lang": "lang"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "picker-view-column": {
-__rsmax_runtime_options__.js:     "alias": {}
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style"
+__rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "picker-view": {
 __rsmax_runtime_options__.js:     "alias": {
@@ -402,7 +439,11 @@ __rsmax_runtime_options__.js:       "range": "range",
 __rsmax_runtime_options__.js:       "rangeKey": "range-key",
 __rsmax_runtime_options__.js:       "value": "value",
 __rsmax_runtime_options__.js:       "onChange": "onChange",
-__rsmax_runtime_options__.js:       "disabled": "disabled"
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "start": "start",
+__rsmax_runtime_options__.js:       "end": "end",
+__rsmax_runtime_options__.js:       "selectedColor": "selected-color"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "progress": {
@@ -415,7 +456,10 @@ __rsmax_runtime_options__.js:       "showInfo": "show-info",
 __rsmax_runtime_options__.js:       "strokeWidth": "stroke-width",
 __rsmax_runtime_options__.js:       "activeColor": "active-color",
 __rsmax_runtime_options__.js:       "backgroundColor": "background-color",
-__rsmax_runtime_options__.js:       "active": "active"
+__rsmax_runtime_options__.js:       "active": "active",
+__rsmax_runtime_options__.js:       "borderRadius": "border-radius",
+__rsmax_runtime_options__.js:       "duration": "duration",
+__rsmax_runtime_options__.js:       "onActiveEnd": "onActiveEnd"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "radio-group": {
@@ -436,7 +480,8 @@ __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "value": "value",
 __rsmax_runtime_options__.js:       "checked": "checked",
 __rsmax_runtime_options__.js:       "disabled": "disabled",
-__rsmax_runtime_options__.js:       "color": "color"
+__rsmax_runtime_options__.js:       "color": "color",
+__rsmax_runtime_options__.js:       "controlled": "controlled"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "rich-text": {
@@ -445,6 +490,7 @@ __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "nodes": "nodes",
+__rsmax_runtime_options__.js:       "space": "space",
 __rsmax_runtime_options__.js:       "onTap": "onTap",
 __rsmax_runtime_options__.js:       "onClick": "onTap",
 __rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
@@ -479,7 +525,8 @@ __rsmax_runtime_options__.js:       "onScroll": "onScroll",
 __rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
 __rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
 __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
-__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel"
+__rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
+__rsmax_runtime_options__.js:       "onTransitionEnd": "onTransitionEnd"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "slider": {
@@ -500,7 +547,8 @@ __rsmax_runtime_options__.js:       "trackSize": "track-size",
 __rsmax_runtime_options__.js:       "handleSize": "handle-size",
 __rsmax_runtime_options__.js:       "handleColor": "handle-color",
 __rsmax_runtime_options__.js:       "onChange": "onChange",
-__rsmax_runtime_options__.js:       "onChanging": "onChanging"
+__rsmax_runtime_options__.js:       "onChanging": "onChanging",
+__rsmax_runtime_options__.js:       "controlled": "controlled"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "swiper-item": {
@@ -549,7 +597,9 @@ __rsmax_runtime_options__.js:       "checked": "checked",
 __rsmax_runtime_options__.js:       "disabled": "disabled",
 __rsmax_runtime_options__.js:       "color": "color",
 __rsmax_runtime_options__.js:       "onChange": "onChange",
-__rsmax_runtime_options__.js:       "controlled": "controlled"
+__rsmax_runtime_options__.js:       "controlled": "controlled",
+__rsmax_runtime_options__.js:       "checkedColor": "checked-color",
+__rsmax_runtime_options__.js:       "uncheckedColor": "unchecked-color"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "text": {
@@ -562,7 +612,9 @@ __rsmax_runtime_options__.js:       "space": "space",
 __rsmax_runtime_options__.js:       "decode": "decode",
 __rsmax_runtime_options__.js:       "numberOfLines": "number-of-lines",
 __rsmax_runtime_options__.js:       "onClick": "onTap",
-__rsmax_runtime_options__.js:       "onTap": "onTap"
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
+__rsmax_runtime_options__.js:       "onLongClick": "onLongTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "textarea": {
@@ -583,10 +635,15 @@ __rsmax_runtime_options__.js:       "autoHeight": "auto-height",
 __rsmax_runtime_options__.js:       "showCount": "show-count",
 __rsmax_runtime_options__.js:       "controlled": "controlled",
 __rsmax_runtime_options__.js:       "enableNative": "enableNative",
+__rsmax_runtime_options__.js:       "adjustPosition": "adjust-position",
 __rsmax_runtime_options__.js:       "onInput": "onInput",
 __rsmax_runtime_options__.js:       "onFocus": "onFocus",
 __rsmax_runtime_options__.js:       "onBlur": "onBlur",
-__rsmax_runtime_options__.js:       "onConfirm": "onConfirm"
+__rsmax_runtime_options__.js:       "onConfirm": "onConfirm",
+__rsmax_runtime_options__.js:       "cursor": "cursor",
+__rsmax_runtime_options__.js:       "selectionStart": "selection-start",
+__rsmax_runtime_options__.js:       "selectionEnd": "selection-end",
+__rsmax_runtime_options__.js:       "randomNumber": "randomNumber"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "view": {
@@ -602,8 +659,11 @@ __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "animation": "animation",
 __rsmax_runtime_options__.js:       "hoverStopPropagation": "hover-stop-propagation",
+__rsmax_runtime_options__.js:       "slot": "slot",
 __rsmax_runtime_options__.js:       "onClick": "onTap",
 __rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "catchTap": "catchTap",
+__rsmax_runtime_options__.js:       "catchClick": "catchTap",
 __rsmax_runtime_options__.js:       "onTouchStart": "onTouchStart",
 __rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
 __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
@@ -623,7 +683,9 @@ __rsmax_runtime_options__.js:   "web-view": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "src": "src",
-__rsmax_runtime_options__.js:       "onMessage": "onMessage"
+__rsmax_runtime_options__.js:       "onMessage": "onMessage",
+__rsmax_runtime_options__.js:       "onLoad": "onLoad",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "video": {
@@ -657,13 +719,18 @@ __rsmax_runtime_options__.js:       "onError": "onError",
 __rsmax_runtime_options__.js:       "onFullScreenChange": "onFullScreenChange",
 __rsmax_runtime_options__.js:       "onTap": "onTap",
 __rsmax_runtime_options__.js:       "onClick": "onTap",
-__rsmax_runtime_options__.js:       "onUserAction": "onUserAction"
+__rsmax_runtime_options__.js:       "onUserAction": "onUserAction",
+__rsmax_runtime_options__.js:       "onLoadingComplete": "onLoadingComplete",
+__rsmax_runtime_options__.js:       "pictureInPictureMode": "picture-in-picture-mode",
+__rsmax_runtime_options__.js:       "onPictureInPictureModeChanged": "onPictureInPictureModeChanged",
+__rsmax_runtime_options__.js:       "enableNative": "enableNative"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "lottie": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
+__rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "autoplay": "autoplay",
 __rsmax_runtime_options__.js:       "path": "path",
 __rsmax_runtime_options__.js:       "djangoId": "djangoId",
@@ -698,7 +765,8 @@ __rsmax_runtime_options__.js:       "frameFormat": "frame-format",
 __rsmax_runtime_options__.js:       "maxDuration": "max-duration",
 __rsmax_runtime_options__.js:       "onStop": "onStop",
 __rsmax_runtime_options__.js:       "onError": "onError",
-__rsmax_runtime_options__.js:       "onScanCode": "onScanCode"
+__rsmax_runtime_options__.js:       "onScanCode": "onScanCode",
+__rsmax_runtime_options__.js:       "onCameraReady": "onCameraReady"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "match-media": {
@@ -732,7 +800,8 @@ __rsmax_runtime_options__.js:       "onAfterEnter": "onAfterEnter",
 __rsmax_runtime_options__.js:       "onBeforeLeave": "onBeforeLeave",
 __rsmax_runtime_options__.js:       "onLeave": "onLeave",
 __rsmax_runtime_options__.js:       "onAfterLeave": "onAfterLeave",
-__rsmax_runtime_options__.js:       "onClickOverlay": "onClickOverlay"
+__rsmax_runtime_options__.js:       "onClickOverlay": "onClickOverlay",
+__rsmax_runtime_options__.js:       "onLeaveCancelled": "onLeaveCancelled"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "share-element": {
@@ -757,7 +826,8 @@ __rsmax_runtime_options__.js:       "onTouchMove": "onTouchMove",
 __rsmax_runtime_options__.js:       "onTouchEnd": "onTouchEnd",
 __rsmax_runtime_options__.js:       "onTouchCancel": "onTouchCancel",
 __rsmax_runtime_options__.js:       "onLongTap": "onLongTap",
-__rsmax_runtime_options__.js:       "onLongClick": "onLongClick"
+__rsmax_runtime_options__.js:       "onLongClick": "onLongClick",
+__rsmax_runtime_options__.js:       "enable": "enable"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "safe-area": {
@@ -790,7 +860,11 @@ __rsmax_runtime_options__.js:       "onEnded": "onEnded",
 __rsmax_runtime_options__.js:       "onError": "onError",
 __rsmax_runtime_options__.js:       "onTimeUpdate": "onTimeUpdate",
 __rsmax_runtime_options__.js:       "onLoading": "onLoading",
-__rsmax_runtime_options__.js:       "onLoadedData": "onLoadedData"
+__rsmax_runtime_options__.js:       "onLoadedData": "onLoadedData",
+__rsmax_runtime_options__.js:       "onWaiting": "onWaiting",
+__rsmax_runtime_options__.js:       "onSeeking": "onSeeking",
+__rsmax_runtime_options__.js:       "onSeeked": "onSeeked",
+__rsmax_runtime_options__.js:       "onCanplay": "onCanplay"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "error-view": {
@@ -805,18 +879,23 @@ __rsmax_runtime_options__.js:       "titleColor": "title-color",
 __rsmax_runtime_options__.js:       "messageColor": "message-color",
 __rsmax_runtime_options__.js:       "dataUrl": "data-url",
 __rsmax_runtime_options__.js:       "dataStatus": "data-status",
-__rsmax_runtime_options__.js:       "dataMessage": "data-message"
+__rsmax_runtime_options__.js:       "dataMessage": "data-message",
+__rsmax_runtime_options__.js:       "onTap": "onTap",
+__rsmax_runtime_options__.js:       "onClick": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "join-group-chat": {
 __rsmax_runtime_options__.js:     "alias": {
-__rsmax_runtime_options__.js:       "templateId": "template-id"
+__rsmax_runtime_options__.js:       "templateId": "template-id",
+__rsmax_runtime_options__.js:       "onComplete": "onComplete",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "subscribe-message": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "templateId": "template-id",
-__rsmax_runtime_options__.js:       "onComplete": "onComplete"
+__rsmax_runtime_options__.js:       "onComplete": "onComplete",
+__rsmax_runtime_options__.js:       "onError": "onError"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "page-meta": {
@@ -834,14 +913,17 @@ __rsmax_runtime_options__.js:       "rootFontSize": "root-font-size",
 __rsmax_runtime_options__.js:       "pageOrientation": "page-orientation",
 __rsmax_runtime_options__.js:       "onResize": "bindresize",
 __rsmax_runtime_options__.js:       "onScroll": "bindscroll",
-__rsmax_runtime_options__.js:       "onScrollDone": "bindscrolldone"
+__rsmax_runtime_options__.js:       "onScrollDone": "bindscrolldone",
+__rsmax_runtime_options__.js:       "rootFontScale": "root-font-scale"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "ad": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "unitId": "unit-id",
 __rsmax_runtime_options__.js:       "onLoad": "onLoad",
-__rsmax_runtime_options__.js:       "onError": "onError"
+__rsmax_runtime_options__.js:       "onError": "onError",
+__rsmax_runtime_options__.js:       "onClose": "onClose",
+__rsmax_runtime_options__.js:       "onTap": "onTap"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   }
 __rsmax_runtime_options__.js: },
@@ -895,8 +977,10 @@ components/greet/index.axml: </template>
 components/greet/index.axml: 
 components/greet/index.axml: <template name="REMAX_TPL_1_ad">
 components/greet/index.axml:   <ad
+components/greet/index.axml:     onClose="{{item.props['onClose']}}"
 components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     onLoad="{{item.props['onLoad']}}"
+components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     unit-id="{{item.props['unit-id']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -917,14 +1001,18 @@ components/greet/index.axml:     muted="{{item.props['muted']}}"
 components/greet/index.axml:     name="{{item.props['name']}}"
 components/greet/index.axml:     obeys-mute-switch="{{item.props['obeys-mute-switch']}}"
 components/greet/index.axml:     onAction="{{item.props['onAction']}}"
+components/greet/index.axml:     onCanplay="{{item.props['onCanplay']}}"
 components/greet/index.axml:     onEnded="{{item.props['onEnded']}}"
 components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     onLoadedData="{{item.props['onLoadedData']}}"
 components/greet/index.axml:     onLoading="{{item.props['onLoading']}}"
 components/greet/index.axml:     onPause="{{item.props['onPause']}}"
 components/greet/index.axml:     onPlay="{{item.props['onPlay']}}"
+components/greet/index.axml:     onSeeked="{{item.props['onSeeked']}}"
+components/greet/index.axml:     onSeeking="{{item.props['onSeeking']}}"
 components/greet/index.axml:     onStop="{{item.props['onStop']}}"
 components/greet/index.axml:     onTimeUpdate="{{item.props['onTimeUpdate']}}"
+components/greet/index.axml:     onWaiting="{{item.props['onWaiting']}}"
 components/greet/index.axml:     poster="{{item.props['poster']}}"
 components/greet/index.axml:     src="{{item.props['src']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
@@ -949,7 +1037,9 @@ components/greet/index.axml:     hover-stop-propagation="{{item.props['hover-sto
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     loading="{{item.props['loading']}}"
 components/greet/index.axml:     onChooseAvatar="{{item.props['onChooseAvatar']}}"
+components/greet/index.axml:     onContactShare="{{item.props['onContactShare']}}"
 components/greet/index.axml:     onError="{{item.props['onError']}}"
+components/greet/index.axml:     onFollowLifestyle="{{item.props['onFollowLifestyle']}}"
 components/greet/index.axml:     onGetAuthorize="{{item.props['onGetAuthorize']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     open-type="{{item.props['open-type']}}"
@@ -977,6 +1067,7 @@ components/greet/index.axml:     frame-size="{{item.props['frame-size']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     max-duration="{{item.props['max-duration']}}"
 components/greet/index.axml:     mode="{{item.props['mode']}}"
+components/greet/index.axml:     onCameraReady="{{item.props['onCameraReady']}}"
 components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     onScanCode="{{item.props['onScanCode']}}"
 components/greet/index.axml:     onStop="{{item.props['onStop']}}"
@@ -995,6 +1086,7 @@ components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     disable-scroll="{{item.props['disable-scroll']}}"
 components/greet/index.axml:     height="{{item.props['height']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
+components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     onLongTap="{{item.props['onLongTap']}}"
 components/greet/index.axml:     onReady="{{item.props['onReady']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
@@ -1017,6 +1109,7 @@ components/greet/index.axml:   <checkbox
 components/greet/index.axml:     checked="{{item.props['checked']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     color="{{item.props['color']}}"
+components/greet/index.axml:     controlled="{{item.props['controlled']}}"
 components/greet/index.axml:     disabled="{{item.props['disabled']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     name="{{item.props['name']}}"
@@ -1051,6 +1144,7 @@ components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     color="{{item.props['color']}}"
 components/greet/index.axml:     icon="{{item.props['icon']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
+components/greet/index.axml:     onContactShare="{{item.props['onContactShare']}}"
 components/greet/index.axml:     scene="{{item.props['scene']}}"
 components/greet/index.axml:     size="{{item.props['size']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
@@ -1066,6 +1160,8 @@ components/greet/index.axml: <template name="REMAX_TPL_1_cover-image">
 components/greet/index.axml:   <cover-image
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
+components/greet/index.axml:     onError="{{item.props['onError']}}"
+components/greet/index.axml:     onLoad="{{item.props['onLoad']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     src="{{item.props['src']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
@@ -1081,6 +1177,10 @@ components/greet/index.axml:   <cover-view
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
+components/greet/index.axml:     onTouchCancel="{{item.props['onTouchCancel']}}"
+components/greet/index.axml:     onTouchEnd="{{item.props['onTouchEnd']}}"
+components/greet/index.axml:     onTouchMove="{{item.props['onTouchMove']}}"
+components/greet/index.axml:     onTouchStart="{{item.props['onTouchStart']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1100,6 +1200,7 @@ components/greet/index.axml:     onInput="{{item.props['onInput']}}"
 components/greet/index.axml:     onReady="{{item.props['onReady']}}"
 components/greet/index.axml:     onReady2="{{item.props['onReady2']}}"
 components/greet/index.axml:     onStatuschange="{{item.props['onStatuschange']}}"
+components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     placeholder="{{item.props['placeholder']}}"
 components/greet/index.axml:     placeholder-style="{{item.props['placeholder-style']}}"
 components/greet/index.axml:     read-only="{{item.props['read-only']}}"
@@ -1125,6 +1226,7 @@ components/greet/index.axml:     fullscreen="{{item.props['fullscreen']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     message="{{item.props['message']}}"
 components/greet/index.axml:     message-color="{{item.props['message-color']}}"
+components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:     title-color="{{item.props['title-color']}}"
 components/greet/index.axml:     type="{{item.props['type']}}"
@@ -1153,6 +1255,7 @@ components/greet/index.axml:
 components/greet/index.axml: <template name="REMAX_TPL_1_functional-page-navigator">
 components/greet/index.axml:   <functional-page-navigator
 components/greet/index.axml:     args="{{item.props['args']}}"
+components/greet/index.axml:     extra-data="{{item.props['extra-data']}}"
 components/greet/index.axml:     onCancel="{{item.props['onCancel']}}"
 components/greet/index.axml:     onFail="{{item.props['onFail']}}"
 components/greet/index.axml:     onSuccess="{{item.props['onSuccess']}}"
@@ -1183,17 +1286,20 @@ components/greet/index.axml: </template>
 components/greet/index.axml: 
 components/greet/index.axml: <template name="REMAX_TPL_1_image">
 components/greet/index.axml:   <image
+components/greet/index.axml:     catchTap="{{item.props['catchTap']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     lazy-load="{{item.props['lazy-load']}}"
 components/greet/index.axml:     mode="{{item.props['mode']}}"
 components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     onLoad="{{item.props['onLoad']}}"
+components/greet/index.axml:     onLongTap="{{item.props['onLongTap']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     onTouchCancel="{{item.props['onTouchCancel']}}"
 components/greet/index.axml:     onTouchEnd="{{item.props['onTouchEnd']}}"
 components/greet/index.axml:     onTouchMove="{{item.props['onTouchMove']}}"
 components/greet/index.axml:     onTouchStart="{{item.props['onTouchStart']}}"
+components/greet/index.axml:     show-menu-by-longpress="{{item.props['show-menu-by-longpress']}}"
 components/greet/index.axml:     src="{{item.props['src']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
@@ -1205,6 +1311,7 @@ components/greet/index.axml: </template>
 components/greet/index.axml: 
 components/greet/index.axml: <template name="REMAX_TPL_1_input">
 components/greet/index.axml:   <input
+components/greet/index.axml:     adjust-position="{{item.props['adjust-position']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     confirm-hold="{{item.props['confirm-hold']}}"
 components/greet/index.axml:     confirm-type="{{item.props['confirm-type']}}"
@@ -1239,6 +1346,8 @@ components/greet/index.axml: </template>
 components/greet/index.axml: 
 components/greet/index.axml: <template name="REMAX_TPL_1_join-group-chat">
 components/greet/index.axml:   <join-group-chat
+components/greet/index.axml:     onComplete="{{item.props['onComplete']}}"
+components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     template-id="{{item.props['template-id']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1250,6 +1359,7 @@ components/greet/index.axml:
 components/greet/index.axml: <template name="REMAX_TPL_1_keyboard-accessory">
 components/greet/index.axml:   <keyboard-accessory
 components/greet/index.axml:     class="{{item.props['class']}}"
+components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1263,6 +1373,7 @@ components/greet/index.axml:   <label
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     for="{{item.props['for']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
+components/greet/index.axml:     name="{{item.props['name']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1273,7 +1384,9 @@ components/greet/index.axml: </template>
 components/greet/index.axml: 
 components/greet/index.axml: <template name="REMAX_TPL_1_lifestyle">
 components/greet/index.axml:   <lifestyle
+components/greet/index.axml:     onClose="{{item.props['onClose']}}"
 components/greet/index.axml:     onFollow="{{item.props['onFollow']}}"
+components/greet/index.axml:     onUnfollow="{{item.props['onUnfollow']}}"
 components/greet/index.axml:     public-id="{{item.props['public-id']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1287,6 +1400,7 @@ components/greet/index.axml:   <live-player
 components/greet/index.axml:     autoplay="{{item.props['autoplay']}}"
 components/greet/index.axml:     background="{{item.props['background']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
+components/greet/index.axml:     enable-auto-rotation="{{item.props['enable-auto-rotation']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     livePause="{{item.props['livePause']}}"
 components/greet/index.axml:     max-cache="{{item.props['max-cache']}}"
@@ -1303,9 +1417,11 @@ components/greet/index.axml:     onPause="{{item.props['onPause']}}"
 components/greet/index.axml:     onPictureInPictureModeChanged="{{item.props['onPictureInPictureModeChanged']}}"
 components/greet/index.axml:     onPlay="{{item.props['onPlay']}}"
 components/greet/index.axml:     onStop="{{item.props['onStop']}}"
+components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     onTimeUpdate="{{item.props['onTimeUpdate']}}"
 components/greet/index.axml:     orientation="{{item.props['orientation']}}"
 components/greet/index.axml:     picture-in-picture-mode="{{item.props['picture-in-picture-mode']}}"
+components/greet/index.axml:     sound-mode="{{item.props['sound-mode']}}"
 components/greet/index.axml:     src="{{item.props['src']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
@@ -1323,6 +1439,7 @@ components/greet/index.axml:     auto-focus="{{item.props['auto-focus']}}"
 components/greet/index.axml:     autoplay="{{item.props['autoplay']}}"
 components/greet/index.axml:     beauty="{{item.props['beauty']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
+components/greet/index.axml:     device-position="{{item.props['device-position']}}"
 components/greet/index.axml:     enable-camera="{{item.props['enable-camera']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     max-bitrate="{{item.props['max-bitrate']}}"
@@ -1371,6 +1488,7 @@ components/greet/index.axml:     path="{{item.props['path']}}"
 components/greet/index.axml:     placeholder="{{item.props['placeholder']}}"
 components/greet/index.axml:     repeatCount="{{item.props['repeatCount']}}"
 components/greet/index.axml:     speed="{{item.props['speed']}}"
+components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
 components/greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
@@ -1393,6 +1511,7 @@ components/greet/index.axml:     markers="{{item.props['markers']}}"
 components/greet/index.axml:     onCalloutTap="{{item.props['onCalloutTap']}}"
 components/greet/index.axml:     onControlTap="{{item.props['onControlTap']}}"
 components/greet/index.axml:     onMarkerTap="{{item.props['onMarkerTap']}}"
+components/greet/index.axml:     onPanelTap="{{item.props['onPanelTap']}}"
 components/greet/index.axml:     onRegionChange="{{item.props['onRegionChange']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     polygon="{{item.props['polygon']}}"
@@ -1444,6 +1563,7 @@ components/greet/index.axml: </template>
 components/greet/index.axml: 
 components/greet/index.axml: <template name="REMAX_TPL_1_movable-view">
 components/greet/index.axml:   <movable-view
+components/greet/index.axml:     animation="{{item.props['animation']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     damping="{{item.props['damping']}}"
 components/greet/index.axml:     direction="{{item.props['direction']}}"
@@ -1477,12 +1597,15 @@ components/greet/index.axml:
 components/greet/index.axml: <template name="REMAX_TPL_1_navigator">
 components/greet/index.axml:   <navigator
 components/greet/index.axml:     class="{{item.props['class']}}"
+components/greet/index.axml:     delta="{{item.props['delta']}}"
 components/greet/index.axml:     hover-class="{{item.props['hover-class']}}"
 components/greet/index.axml:     hover-start-time="{{item.props['hover-start-time']}}"
 components/greet/index.axml:     hover-stay-time="{{item.props['hover-stay-time']}}"
+components/greet/index.axml:     hover-stop-propagation="{{item.props['hover-stop-propagation']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     open-type="{{item.props['open-type']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
+components/greet/index.axml:     target="{{item.props['target']}}"
 components/greet/index.axml:     url="{{item.props['url']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1495,6 +1618,7 @@ components/greet/index.axml: <template name="REMAX_TPL_1_open-data">
 components/greet/index.axml:   <open-data
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
+components/greet/index.axml:     lang="{{item.props['lang']}}"
 components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     open-gid="{{item.props['open-gid']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
@@ -1518,6 +1642,7 @@ components/greet/index.axml:     onBeforeLeave="{{item.props['onBeforeLeave']}}"
 components/greet/index.axml:     onClickOverlay="{{item.props['onClickOverlay']}}"
 components/greet/index.axml:     onEnter="{{item.props['onEnter']}}"
 components/greet/index.axml:     onLeave="{{item.props['onLeave']}}"
+components/greet/index.axml:     onLeaveCancelled="{{item.props['onLeaveCancelled']}}"
 components/greet/index.axml:     overlay="{{item.props['overlay']}}"
 components/greet/index.axml:     overlay-style="{{item.props['overlay-style']}}"
 components/greet/index.axml:     position="{{item.props['position']}}"
@@ -1544,6 +1669,7 @@ components/greet/index.axml:     page-font-size="{{item.props['page-font-size']}
 components/greet/index.axml:     page-orientation="{{item.props['page-orientation']}}"
 components/greet/index.axml:     page-style="{{item.props['page-style']}}"
 components/greet/index.axml:     root-background-color="{{item.props['root-background-color']}}"
+components/greet/index.axml:     root-font-scale="{{item.props['root-font-scale']}}"
 components/greet/index.axml:     root-font-size="{{item.props['root-font-size']}}"
 components/greet/index.axml:     scroll-duration="{{item.props['scroll-duration']}}"
 components/greet/index.axml:     scroll-top="{{item.props['scroll-top']}}"
@@ -1558,12 +1684,16 @@ components/greet/index.axml: <template name="REMAX_TPL_1_picker">
 components/greet/index.axml:   <picker
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     disabled="{{item.props['disabled']}}"
+components/greet/index.axml:     end="{{item.props['end']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     name="{{item.props['name']}}"
 components/greet/index.axml:     onChange="{{item.props['onChange']}}"
 components/greet/index.axml:     range="{{item.props['range']}}"
 components/greet/index.axml:     range-key="{{item.props['range-key']}}"
+components/greet/index.axml:     selected-color="{{item.props['selected-color']}}"
+components/greet/index.axml:     start="{{item.props['start']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
+components/greet/index.axml:     type="{{item.props['type']}}"
 components/greet/index.axml:     value="{{item.props['value']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <view>
@@ -1600,8 +1730,11 @@ components/greet/index.axml:   <progress
 components/greet/index.axml:     active="{{item.props['active']}}"
 components/greet/index.axml:     active-color="{{item.props['active-color']}}"
 components/greet/index.axml:     background-color="{{item.props['background-color']}}"
+components/greet/index.axml:     border-radius="{{item.props['border-radius']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
+components/greet/index.axml:     duration="{{item.props['duration']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
+components/greet/index.axml:     onActiveEnd="{{item.props['onActiveEnd']}}"
 components/greet/index.axml:     percent="{{item.props['percent']}}"
 components/greet/index.axml:     show-info="{{item.props['show-info']}}"
 components/greet/index.axml:     stroke-width="{{item.props['stroke-width']}}"
@@ -1618,6 +1751,7 @@ components/greet/index.axml:   <radio
 components/greet/index.axml:     checked="{{item.props['checked']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     color="{{item.props['color']}}"
+components/greet/index.axml:     controlled="{{item.props['controlled']}}"
 components/greet/index.axml:     disabled="{{item.props['disabled']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     name="{{item.props['name']}}"
@@ -1655,6 +1789,7 @@ components/greet/index.axml:     onTouchCancel="{{item.props['onTouchCancel']}}"
 components/greet/index.axml:     onTouchEnd="{{item.props['onTouchEnd']}}"
 components/greet/index.axml:     onTouchMove="{{item.props['onTouchMove']}}"
 components/greet/index.axml:     onTouchStart="{{item.props['onTouchStart']}}"
+components/greet/index.axml:     space="{{item.props['space']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1667,6 +1802,7 @@ components/greet/index.axml: <template name="REMAX_TPL_1_root-portal">
 components/greet/index.axml:   <root-portal
 components/greet/index.axml:     animation="{{item.props['animation']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
+components/greet/index.axml:     enable="{{item.props['enable']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     onLongClick="{{item.props['onLongClick']}}"
 components/greet/index.axml:     onLongTap="{{item.props['onLongTap']}}"
@@ -1711,6 +1847,7 @@ components/greet/index.axml:     onTouchCancel="{{item.props['onTouchCancel']}}"
 components/greet/index.axml:     onTouchEnd="{{item.props['onTouchEnd']}}"
 components/greet/index.axml:     onTouchMove="{{item.props['onTouchMove']}}"
 components/greet/index.axml:     onTouchStart="{{item.props['onTouchStart']}}"
+components/greet/index.axml:     onTransitionEnd="{{item.props['onTransitionEnd']}}"
 components/greet/index.axml:     scroll-animation-duration="{{item.props['scroll-animation-duration']}}"
 components/greet/index.axml:     scroll-into-view="{{item.props['scroll-into-view']}}"
 components/greet/index.axml:     scroll-left="{{item.props['scroll-left']}}"
@@ -1746,6 +1883,7 @@ components/greet/index.axml:   <slider
 components/greet/index.axml:     active-color="{{item.props['active-color']}}"
 components/greet/index.axml:     background-color="{{item.props['background-color']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
+components/greet/index.axml:     controlled="{{item.props['controlled']}}"
 components/greet/index.axml:     disabled="{{item.props['disabled']}}"
 components/greet/index.axml:     handle-color="{{item.props['handle-color']}}"
 components/greet/index.axml:     handle-size="{{item.props['handle-size']}}"
@@ -1770,6 +1908,7 @@ components/greet/index.axml:
 components/greet/index.axml: <template name="REMAX_TPL_1_subscribe-message">
 components/greet/index.axml:   <subscribe-message
 components/greet/index.axml:     onComplete="{{item.props['onComplete']}}"
+components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     template-id="{{item.props['template-id']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1821,6 +1960,7 @@ components/greet/index.axml:
 components/greet/index.axml: <template name="REMAX_TPL_1_switch">
 components/greet/index.axml:   <switch
 components/greet/index.axml:     checked="{{item.props['checked']}}"
+components/greet/index.axml:     checked-color="{{item.props['checked-color']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     color="{{item.props['color']}}"
 components/greet/index.axml:     controlled="{{item.props['controlled']}}"
@@ -1829,6 +1969,7 @@ components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     name="{{item.props['name']}}"
 components/greet/index.axml:     onChange="{{item.props['onChange']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
+components/greet/index.axml:     unchecked-color="{{item.props['unchecked-color']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
 components/greet/index.axml:       <template is="REMAX_TPL_1_CONTAINER" data="{{item: item}}" />
@@ -1842,6 +1983,7 @@ components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     decode="{{item.props['decode']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     number-of-lines="{{item.props['number-of-lines']}}"
+components/greet/index.axml:     onLongTap="{{item.props['onLongTap']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     selectable="{{item.props['selectable']}}"
 components/greet/index.axml:     space="{{item.props['space']}}"
@@ -1857,9 +1999,11 @@ components/greet/index.axml: </template>
 components/greet/index.axml: 
 components/greet/index.axml: <template name="REMAX_TPL_1_textarea">
 components/greet/index.axml:   <textarea
+components/greet/index.axml:     adjust-position="{{item.props['adjust-position']}}"
 components/greet/index.axml:     auto-height="{{item.props['auto-height']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     controlled="{{item.props['controlled']}}"
+components/greet/index.axml:     cursor="{{item.props['cursor']}}"
 components/greet/index.axml:     disabled="{{item.props['disabled']}}"
 components/greet/index.axml:     enableNative="{{item.props['enableNative']}}"
 components/greet/index.axml:     focus="{{item.props['focus']}}"
@@ -1873,6 +2017,9 @@ components/greet/index.axml:     onInput="{{item.props['onInput']}}"
 components/greet/index.axml:     placeholder="{{item.props['placeholder']}}"
 components/greet/index.axml:     placeholder-class="{{item.props['placeholder-class']}}"
 components/greet/index.axml:     placeholder-style="{{item.props['placeholder-style']}}"
+components/greet/index.axml:     randomNumber="{{item.props['randomNumber']}}"
+components/greet/index.axml:     selection-end="{{item.props['selection-end']}}"
+components/greet/index.axml:     selection-start="{{item.props['selection-start']}}"
 components/greet/index.axml:     show-count="{{item.props['show-count']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:     value="{{item.props['value']}}"
@@ -1890,6 +2037,7 @@ components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     controls="{{item.props['controls']}}"
 components/greet/index.axml:     direction="{{item.props['direction']}}"
 components/greet/index.axml:     duration="{{item.props['duration']}}"
+components/greet/index.axml:     enableNative="{{item.props['enableNative']}}"
 components/greet/index.axml:     enableProgressGesture="{{item.props['enableProgressGesture']}}"
 components/greet/index.axml:     id="{{item.props['id']}}"
 components/greet/index.axml:     initial-time="{{item.props['initial-time']}}"
@@ -1901,11 +2049,14 @@ components/greet/index.axml:     onEnded="{{item.props['onEnded']}}"
 components/greet/index.axml:     onError="{{item.props['onError']}}"
 components/greet/index.axml:     onFullScreenChange="{{item.props['onFullScreenChange']}}"
 components/greet/index.axml:     onLoading="{{item.props['onLoading']}}"
+components/greet/index.axml:     onLoadingComplete="{{item.props['onLoadingComplete']}}"
 components/greet/index.axml:     onPause="{{item.props['onPause']}}"
+components/greet/index.axml:     onPictureInPictureModeChanged="{{item.props['onPictureInPictureModeChanged']}}"
 components/greet/index.axml:     onPlay="{{item.props['onPlay']}}"
 components/greet/index.axml:     onTap="{{item.props['onTap']}}"
 components/greet/index.axml:     onTimeUpdate="{{item.props['onTimeUpdate']}}"
 components/greet/index.axml:     onUserAction="{{item.props['onUserAction']}}"
+components/greet/index.axml:     picture-in-picture-mode="{{item.props['picture-in-picture-mode']}}"
 components/greet/index.axml:     poster="{{item.props['poster']}}"
 components/greet/index.axml:     posterSize="{{item.props['posterSize']}}"
 components/greet/index.axml:     show-center-play-btn="{{item.props['show-center-play-btn']}}"
@@ -1924,6 +2075,7 @@ components/greet/index.axml:
 components/greet/index.axml: <template name="REMAX_TPL_1_view">
 components/greet/index.axml:   <view
 components/greet/index.axml:     animation="{{item.props['animation']}}"
+components/greet/index.axml:     catchTap="{{item.props['catchTap']}}"
 components/greet/index.axml:     class="{{item.props['class']}}"
 components/greet/index.axml:     data-foo="{{item.props['data-foo']}}"
 components/greet/index.axml:     disable-scroll="{{item.props['disable-scroll']}}"
@@ -1946,6 +2098,7 @@ components/greet/index.axml:     onTouchEnd="{{item.props['onTouchEnd']}}"
 components/greet/index.axml:     onTouchMove="{{item.props['onTouchMove']}}"
 components/greet/index.axml:     onTouchStart="{{item.props['onTouchStart']}}"
 components/greet/index.axml:     onTransitionEnd="{{item.props['onTransitionEnd']}}"
+components/greet/index.axml:     slot="{{item.props['slot']}}"
 components/greet/index.axml:     style="{{item.props['style']}}"
 components/greet/index.axml:   >
 components/greet/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">
@@ -1957,6 +2110,8 @@ components/greet/index.axml:
 components/greet/index.axml: <template name="REMAX_TPL_1_web-view">
 components/greet/index.axml:   <web-view
 components/greet/index.axml:     id="{{item.props['id']}}"
+components/greet/index.axml:     onError="{{item.props['onError']}}"
+components/greet/index.axml:     onLoad="{{item.props['onLoad']}}"
 components/greet/index.axml:     onMessage="{{item.props['onMessage']}}"
 components/greet/index.axml:     src="{{item.props['src']}}"
 components/greet/index.axml:   >
@@ -2066,17 +2221,20 @@ pages/index/index.axml: </template>
 pages/index/index.axml: 
 pages/index/index.axml: <template name="REMAX_TPL_1_image">
 pages/index/index.axml:   <image
+pages/index/index.axml:     catchTap="{{item.props['catchTap']}}"
 pages/index/index.axml:     class="{{item.props['class']}}"
 pages/index/index.axml:     id="{{item.props['id']}}"
 pages/index/index.axml:     lazy-load="{{item.props['lazy-load']}}"
 pages/index/index.axml:     mode="{{item.props['mode']}}"
 pages/index/index.axml:     onError="{{item.props['onError']}}"
 pages/index/index.axml:     onLoad="{{item.props['onLoad']}}"
+pages/index/index.axml:     onLongTap="{{item.props['onLongTap']}}"
 pages/index/index.axml:     onTap="{{item.props['onTap']}}"
 pages/index/index.axml:     onTouchCancel="{{item.props['onTouchCancel']}}"
 pages/index/index.axml:     onTouchEnd="{{item.props['onTouchEnd']}}"
 pages/index/index.axml:     onTouchMove="{{item.props['onTouchMove']}}"
 pages/index/index.axml:     onTouchStart="{{item.props['onTouchStart']}}"
+pages/index/index.axml:     show-menu-by-longpress="{{item.props['show-menu-by-longpress']}}"
 pages/index/index.axml:     src="{{item.props['src']}}"
 pages/index/index.axml:     style="{{item.props['style']}}"
 pages/index/index.axml:   >
@@ -2092,6 +2250,7 @@ pages/index/index.axml:     class="{{item.props['class']}}"
 pages/index/index.axml:     decode="{{item.props['decode']}}"
 pages/index/index.axml:     id="{{item.props['id']}}"
 pages/index/index.axml:     number-of-lines="{{item.props['number-of-lines']}}"
+pages/index/index.axml:     onLongTap="{{item.props['onLongTap']}}"
 pages/index/index.axml:     onTap="{{item.props['onTap']}}"
 pages/index/index.axml:     selectable="{{item.props['selectable']}}"
 pages/index/index.axml:     space="{{item.props['space']}}"
@@ -2108,6 +2267,7 @@ pages/index/index.axml:
 pages/index/index.axml: <template name="REMAX_TPL_1_view">
 pages/index/index.axml:   <view
 pages/index/index.axml:     animation="{{item.props['animation']}}"
+pages/index/index.axml:     catchTap="{{item.props['catchTap']}}"
 pages/index/index.axml:     class="{{item.props['class']}}"
 pages/index/index.axml:     data-foo="{{item.props['data-foo']}}"
 pages/index/index.axml:     disable-scroll="{{item.props['disable-scroll']}}"
@@ -2130,6 +2290,7 @@ pages/index/index.axml:     onTouchEnd="{{item.props['onTouchEnd']}}"
 pages/index/index.axml:     onTouchMove="{{item.props['onTouchMove']}}"
 pages/index/index.axml:     onTouchStart="{{item.props['onTouchStart']}}"
 pages/index/index.axml:     onTransitionEnd="{{item.props['onTransitionEnd']}}"
+pages/index/index.axml:     slot="{{item.props['slot']}}"
 pages/index/index.axml:     style="{{item.props['style']}}"
 pages/index/index.axml:   >
 pages/index/index.axml:     <block a:for="{{item.children}}" key="{{item.id}}">

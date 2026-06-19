@@ -13,6 +13,8 @@ export interface ErrorViewProps {
   dataUrl?: string;
   dataStatus?: string;
   dataMessage?: string;
+  onTap?: (e: any) => void;
+  onClick?: (e: any) => void;
   children?: React.ReactNode;
 }
 

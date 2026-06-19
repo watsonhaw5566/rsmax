@@ -10,6 +10,7 @@ export interface ShareElementProps {
   duration?: number;
   /** css缓动函数  */
   easingFunction?: string;
+  children?: React.ReactNode;
 }
 
 /** @see https://opendocs.alipay.com/mini/04y2ya?pathHash=a4fa18ca */

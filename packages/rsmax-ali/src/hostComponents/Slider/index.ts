@@ -5,6 +5,7 @@ export interface SliderProps {
   readonly dataset?: DOMStringMap;
   id?: string;
   className?: string;
+  style?: React.CSSProperties;
   name?: string;
   min?: number;
   max?: number;
@@ -17,6 +18,7 @@ export interface SliderProps {
   trackSize?: number;
   handleSize?: number;
   handleColor?: string;
+  controlled?: boolean;
   onChange?: (e: any) => void;
   onChanging?: (e: any) => void;
 }

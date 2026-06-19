@@ -6,10 +6,12 @@ export interface RadioProps {
   id?: string;
   name?: string;
   className?: string;
+  style?: React.CSSProperties;
   value?: string;
   checked?: boolean;
   disabled?: boolean;
   color?: string;
+  controlled?: boolean;
 }
 
 export const Radio = createHostComponent<RadioProps>('radio') as React.ComponentType<RadioProps>;

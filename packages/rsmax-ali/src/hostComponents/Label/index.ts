@@ -6,6 +6,9 @@ export interface LabelProps {
   id?: string;
   for?: string;
   className?: string;
+  style?: React.CSSProperties;
+  name?: string;
+  children?: React.ReactNode;
 }
 
 export const Label = createHostComponent<LabelProps>('label') as React.ComponentType<LabelProps>;

@@ -18,6 +18,7 @@ export interface IconProps {
     | 'loading';
   size?: number;
   color?: string;
+  style?: React.CSSProperties;
 }
 
 export const Icon = createHostComponent<IconProps>('icon') as React.ComponentType<IconProps>;

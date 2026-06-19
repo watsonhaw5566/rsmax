@@ -1,4 +1,13 @@
 import { createHostComponent } from '@rsmax/runtime';
 import type React from 'react';
 
-export const PickerViewColumn = createHostComponent('picker-view-column') as React.ComponentType<any>;
+export interface PickerViewColumnProps {
+  readonly dataset?: DOMStringMap;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+}
+
+export const PickerViewColumn = createHostComponent<PickerViewColumnProps>(
+  'picker-view-column'
+) as React.ComponentType<PickerViewColumnProps>;

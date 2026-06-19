@@ -6,10 +6,16 @@ export interface PickerProps {
   id?: string;
   name?: string;
   className?: string;
+  style?: React.CSSProperties;
   range?: string[] | any[];
   rangeKey?: string;
   value?: number;
   disabled?: boolean;
+  type?: 'selector' | 'time' | 'date' | 'multiSelector';
+  start?: string;
+  end?: string;
+  selectedColor?: string;
   onChange?: (e: any) => void;
+  children?: React.ReactNode;
 }
 export const Picker = createHostComponent<PickerProps>('picker') as React.ComponentType<PickerProps>;

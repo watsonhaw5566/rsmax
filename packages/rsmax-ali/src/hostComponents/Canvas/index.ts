@@ -11,12 +11,15 @@ export interface CanvasProps {
   disableScroll?: boolean;
   type?: string;
   onTap?: (e: any) => void;
+  onClick?: (e: any) => void;
   onTouchStart?: (e: any) => void;
   onTouchMove?: (e: any) => void;
   onTouchEnd?: (e: any) => void;
   onTouchCancel?: (e: any) => void;
   onLongTap?: (e: any) => void;
+  onLongClick?: (e: any) => void;
   onReady?: (e: any) => void;
+  onError?: (e: any) => void;
 }
 
 export const Canvas = createHostComponent<CanvasProps>('canvas') as React.ComponentType<CanvasProps>;

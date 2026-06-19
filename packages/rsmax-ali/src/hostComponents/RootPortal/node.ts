@@ -12,6 +12,7 @@ export const alias = {
   onTouchCancel: 'onTouchCancel',
   onLongTap: 'onLongTap',
   onLongClick: 'onLongClick',
+  enable: 'enable',
 };
 
 export const props = Object.values(alias);

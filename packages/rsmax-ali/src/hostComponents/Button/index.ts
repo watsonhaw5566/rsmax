@@ -25,6 +25,8 @@ export interface ButtonProps {
   onGetAuthorize?: (e: any) => void;
   onChooseAvatar?: (e: any) => void;
   onError?: (e: any) => void;
+  onContactShare?: (e: any) => void;
+  onFollowLifestyle?: (e: any) => void;
   children?: React.ReactNode;
 }
 

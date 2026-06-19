@@ -22,6 +22,8 @@ export interface VideoProps {
   showMuteBtn?: boolean;
   enableProgressGesture?: boolean;
   mobilenetHintType?: 0 | 1 | 3;
+  enableNative?: boolean;
+  pictureInPictureMode?: string[];
   onPlay?: (e: any) => void;
   onPause?: (e: any) => void;
   onEnded?: (e: any) => void;
@@ -29,8 +31,11 @@ export interface VideoProps {
   onLoading?: (e: any) => void;
   onError?: (e: any) => void;
   onFullScreenChange?: (e: any) => void;
+  onPictureInPictureModeChanged?: (e: any) => void;
   onTap?: (e: any) => void;
+  onClick?: (e: any) => void;
   onUserAction?: (e: any) => void;
+  onLoadingComplete?: (e: any) => void;
 }
 
 export const Video = createHostComponent<VideoProps>('video') as React.ComponentType<VideoProps>;

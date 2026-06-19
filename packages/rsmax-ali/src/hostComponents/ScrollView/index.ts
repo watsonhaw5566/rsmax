@@ -26,6 +26,7 @@ export interface ScrollViewProps {
   onTouchMove?: (e: any) => void;
   onTouchEnd?: (e: any) => void;
   onTouchCancel?: (e: any) => void;
+  onTransitionEnd?: (e: any) => void;
 }
 
 export const ScrollView = createHostComponent<ScrollViewProps>('scroll-view') as React.ComponentType<ScrollViewProps>;

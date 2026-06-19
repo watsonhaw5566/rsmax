@@ -6,14 +6,17 @@ export interface ImageProps {
   id?: string;
   className?: string;
   src?: string;
-  mode?: 'scaleToFill' | 'aspectFit' | 'aspectFill' | 'widthFix';
+  mode?: 'scaleToFill' | 'aspectFit' | 'aspectFill' | 'widthFix' | 'top' | 'bottom' | 'center' | 'left' | 'right';
   style?: React.CSSProperties;
   lazyLoad?: boolean;
+  showMenuByLongPress?: boolean;
   onLoad?: (e: any) => void;
   onError?: (e: any) => void;
   onTap?: (e: any) => void;
   onClick?: (e: any) => void;
   catchTap?: (e: any) => void;
+  onLongTap?: (e: any) => void;
+  onLongClick?: (e: any) => void;
   onTouchStart?: (e: any) => void;
   onTouchMove?: (e: any) => void;
   onTouchEnd?: (e: any) => void;

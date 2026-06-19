@@ -17,10 +17,15 @@ export const alias = {
   showCount: 'show-count',
   controlled: 'controlled',
   enableNative: 'enableNative',
+  adjustPosition: 'adjust-position',
   onInput: 'onInput',
   onFocus: 'onFocus',
   onBlur: 'onBlur',
   onConfirm: 'onConfirm',
+  cursor: 'cursor',
+  selectionStart: 'selection-start',
+  selectionEnd: 'selection-end',
+  randomNumber: 'randomNumber',
 };
 
 export const props = unique(Object.values(alias));

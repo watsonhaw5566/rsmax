@@ -19,6 +19,8 @@ export interface EditorProps {
   onInput?: (e: any) => void;
   onStatuschange?: (e: any) => void;
   onReady2?: (e: any) => void;
+  onTap?: (e: any) => void;
+  onClick?: (e: any) => void;
 }
 
 export const Editor = createHostComponent<EditorProps>('editor') as React.ComponentType<EditorProps>;

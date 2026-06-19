@@ -17,6 +17,7 @@ export const alias = {
   scaleMin: 'scale-min',
   scaleMax: 'scale-max',
   scaleValue: 'scale-value',
+  animation: 'animation',
   onTouchStart: 'onTouchStart',
   onTouchMove: 'onTouchMove',
   onTouchEnd: 'onTouchEnd',

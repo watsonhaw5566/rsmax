@@ -135,6 +135,8 @@ export interface MapProps extends MapCoordinate {
   onControlTap?: (e: any) => void;
   onRegionChange?: (e: any) => void;
   onTap?: (e: any) => void;
+  onPanelTap?: (e: any) => void;
+  children?: React.ReactNode;
 }
 
 export const Map = createHostComponent<MapProps>('map') as React.ComponentType<MapProps>;

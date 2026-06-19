@@ -23,6 +23,10 @@ export const alias = {
   onTimeUpdate: 'onTimeUpdate',
   onLoading: 'onLoading',
   onLoadedData: 'onLoadedData',
+  onWaiting: 'onWaiting',
+  onSeeking: 'onSeeking',
+  onSeeked: 'onSeeked',
+  onCanplay: 'onCanplay',
 };
 
 export const props = unique(Object.values(alias));

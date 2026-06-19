@@ -16,6 +16,7 @@ export interface CameraProps {
   onStop?: (e: any) => void;
   onError?: (e: any) => void;
   onScanCode?: (e: any) => void;
+  onCameraReady?: (e: any) => void;
 }
 
 export const Camera = createHostComponent<CameraProps>('camera') as React.ComponentType<CameraProps>;

@@ -10,6 +10,8 @@ export const alias = {
   numberOfLines: 'number-of-lines',
   onClick: 'onTap',
   onTap: 'onTap',
+  onLongTap: 'onLongTap',
+  onLongClick: 'onLongTap',
 };
 
 export const props = unique(Object.values(alias));

@@ -24,7 +24,6 @@ export interface MovableViewProps {
   onTouchMove?: (e: any) => void;
   onTouchEnd?: (e: any) => void;
   onTouchCancel?: (e: any) => void;
-  onTouchChange?: (e: any) => void;
   onChange?: (e: any) => void;
   onChangeEnd?: (e: any) => void;
   onScale?: (e: any) => void;

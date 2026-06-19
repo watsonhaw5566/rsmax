@@ -6,6 +6,7 @@ export interface FunctionalPageNavigatorProps {
   url?: string;
   args?: any;
   version?: 'develop' | 'trial' | 'release';
+  extraData?: any;
   onSuccess?: (e: any) => void;
   onFail?: (e: any) => void;
   onCancel?: (e: any) => void;

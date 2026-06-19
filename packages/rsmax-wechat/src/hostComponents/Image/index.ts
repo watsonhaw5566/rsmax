@@ -55,7 +55,7 @@ export interface ImageProps extends BaseProps {
    * 2.7.0
    * 开启长按图片显示识别小程序码菜单
    */
-  showMenuByLongpress?: boolean;
+  showMenuByLongPress?: boolean;
   /**
    * 1.0.0
    * 当错误发生时触发，，event.detail = {errMsg}
@@ -77,5 +77,5 @@ Image.defaultProps = {
   mode: 'scaleToFill',
   webp: false,
   lazyLoad: false,
-  showMenuByLongpress: false,
+  showMenuByLongPress: false,
 };

@@ -18,6 +18,7 @@ export const alias = {
   handleColor: 'handle-color',
   onChange: 'onChange',
   onChanging: 'onChanging',
+  controlled: 'controlled',
 };
 
 export const props = unique(Object.values(alias));

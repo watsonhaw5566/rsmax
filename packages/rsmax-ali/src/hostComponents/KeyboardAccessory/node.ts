@@ -1,6 +1,7 @@
 import { unique } from '@rsmax/shared';
 
 export const alias = {
+  id: 'id',
   className: 'class',
   style: 'style',
 };

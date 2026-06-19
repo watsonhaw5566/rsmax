@@ -6,6 +6,10 @@ export const alias = {
   style: 'style',
   onTap: 'onTap',
   onClick: 'onTap',
+  onTouchStart: 'onTouchStart',
+  onTouchMove: 'onTouchMove',
+  onTouchEnd: 'onTouchEnd',
+  onTouchCancel: 'onTouchCancel',
 };
 
 export const props = unique(Object.values(alias));

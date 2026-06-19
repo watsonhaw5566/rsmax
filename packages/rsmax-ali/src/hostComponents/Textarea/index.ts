@@ -5,6 +5,7 @@ export interface TextareaProps {
   readonly dataset?: DOMStringMap;
   id?: string;
   className?: string;
+  style?: React.CSSProperties;
   name?: string;
   value?: string;
   placeholder?: string;
@@ -17,6 +18,11 @@ export interface TextareaProps {
   showCount?: boolean;
   controlled?: boolean;
   enableNative?: boolean;
+  adjustPosition?: boolean;
+  cursor?: number;
+  selectionStart?: number;
+  selectionEnd?: number;
+  randomNumber?: boolean;
   onInput?: (e: any) => void;
   onFocus?: (e: any) => void;
   onBlur?: (e: any) => void;

@@ -24,6 +24,8 @@ export const alias = {
   onGetAuthorize: 'onGetAuthorize',
   onChooseAvatar: 'onChooseAvatar',
   onError: 'onError',
+  onContactShare: 'onContactShare',
+  onFollowLifestyle: 'onFollowLifestyle',
 };
 
 export const props = unique(Object.values(alias));

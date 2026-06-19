@@ -19,6 +19,7 @@ export const alias = {
   audioQuality: 'audio-quality',
   waitingImage: 'waiting-image',
   zoom: 'zoom',
+  devicePosition: 'device-position',
   onPush: 'onPush',
   onStop: 'onStop',
   onError: 'onError',

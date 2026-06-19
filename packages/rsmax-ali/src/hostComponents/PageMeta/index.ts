@@ -8,6 +8,8 @@ export interface PageMetaProps {
   backgroundColorTop?: string;
   /** 底部窗口的背景色，必须为十六进制颜色值，仅 iOS 支持 */
   backgroundColorBottom?: string;
+  /** 下拉窗口的背景文字样式，仅支持 dark 和 light */
+  backgroundTextStyle?: 'dark' | 'light';
   /** 页面内容的背景色，用于页面中的空白部分和页面大小变化 resize 动画期间的临时空闲区域 */
   rootBackgroundColor?: string;
   /** 滚动位置，可以使用 px 或者 rpx 为单位，在被设置时，页面会滚动到对应位置。 */
@@ -18,10 +20,18 @@ export interface PageMetaProps {
   pageStyle?: string;
   /** 页面 page 的字体大小，可以设置为system，表示使用当前用户设置的支付宝字体大小。 */
   pageFontSize?: string;
+  /** 页面方向，可选值为 auto、portrait、landscape */
+  pageOrientation?: 'auto' | 'portrait' | 'landscape';
   /** 页面的根字体大小，页面中的所有 rem 单位，将使用这个字体大小作为参考值，即 1rem 等于这个字体大小；可以设置为 system，表示使用当前用户设置的支付宝字体大小。 */
   rootFontSize?: string;
+  /** 页面的根字体缩放比例 */
+  rootFontScale?: string;
   /** 页面滚动时触发，event.detail = { scrollTop } */
   onScroll?: (e: any) => any;
+  /** 页面 resize 时触发 */
+  onResize?: (e: any) => any;
+  /** 页面滚动结束时触发 */
+  onScrollDone?: (e: any) => any;
   children?: React.ReactNode;
 }
 

@@ -23,6 +23,7 @@ export const alias = {
   randomNumber: 'randomNumber',
   controlled: 'controlled',
   enableNative: 'enableNative',
+  adjustPosition: 'adjust-position',
   onInput: 'onInput',
   onConfirm: 'onConfirm',
   onFocus: 'onFocus',

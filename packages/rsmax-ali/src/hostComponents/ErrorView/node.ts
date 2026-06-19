@@ -12,6 +12,8 @@ export const alias = {
   dataUrl: 'data-url',
   dataStatus: 'data-status',
   dataMessage: 'data-message',
+  onTap: 'onTap',
+  onClick: 'onTap',
 };
 
 export const props = unique(Object.values(alias));

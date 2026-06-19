@@ -10,6 +10,7 @@ export const alias = {
   color: 'color',
   icon: 'icon',
   alipayCardNo: 'alipay-card-no',
+  onContactShare: 'onContactShare',
 };
 
 export const props = unique(Object.values(alias));

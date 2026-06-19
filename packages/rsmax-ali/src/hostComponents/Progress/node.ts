@@ -10,6 +10,9 @@ export const alias = {
   activeColor: 'active-color',
   backgroundColor: 'background-color',
   active: 'active',
+  borderRadius: 'border-radius',
+  duration: 'duration',
+  onActiveEnd: 'onActiveEnd',
 };
 
 export const props = unique(Object.values(alias));

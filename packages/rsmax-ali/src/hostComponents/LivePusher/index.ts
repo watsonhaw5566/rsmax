@@ -20,6 +20,7 @@ export interface LivePusherProps {
   audioQuality?: string;
   waitingImage?: string;
   zoom?: boolean;
+  devicePosition?: 'front' | 'back';
   onPush?: (e: any) => void;
   onStop?: (e: any) => void;
   onError?: (e: any) => void;

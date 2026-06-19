@@ -8,6 +8,7 @@ export interface MovableAreaProps {
   style?: React.CSSProperties;
   width?: number;
   height?: number;
+  children?: React.ReactNode;
 }
 
 export const MovableArea = createHostComponent<MovableAreaProps>(

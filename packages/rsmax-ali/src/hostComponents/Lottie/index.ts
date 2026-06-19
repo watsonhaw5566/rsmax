@@ -4,6 +4,7 @@ import type React from 'react';
 export interface LottieProps {
   id?: string;
   className?: string;
+  style?: React.CSSProperties;
   autoplay?: boolean;
   path?: string;
   djangoId?: string;

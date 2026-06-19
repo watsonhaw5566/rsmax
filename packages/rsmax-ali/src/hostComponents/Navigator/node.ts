@@ -10,6 +10,9 @@ export const alias = {
   hoverStartTime: 'hover-start-time',
   hoverStayTime: 'hover-stay-time',
   url: 'url',
+  hoverStopPropagation: 'hover-stop-propagation',
+  target: 'target',
+  delta: 'delta',
 };
 
 export const props = unique(Object.values(alias));

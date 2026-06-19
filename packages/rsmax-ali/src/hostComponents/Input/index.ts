@@ -24,6 +24,7 @@ export interface InputProps {
   randomNumber?: boolean;
   controlled?: boolean;
   enableNative?: boolean;
+  adjustPosition?: boolean;
   onInput?: (e: any) => void;
   onConfirm?: (e: any) => void;
   onFocus?: (e: any) => void;

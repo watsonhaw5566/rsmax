@@ -13,5 +13,6 @@ export const alias = {
   onResize: 'bindresize',
   onScroll: 'bindscroll',
   onScrollDone: 'bindscrolldone',
+  rootFontScale: 'root-font-scale',
 };
 export const props = Object.values(alias);

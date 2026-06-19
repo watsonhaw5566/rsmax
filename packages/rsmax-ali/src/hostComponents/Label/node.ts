@@ -5,6 +5,7 @@ export const alias = {
   className: 'class',
   style: 'style',
   for: 'for',
+  name: 'name',
 };
 
 export const props = unique(Object.values(alias));

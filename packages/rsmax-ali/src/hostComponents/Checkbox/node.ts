@@ -10,6 +10,7 @@ export const alias = {
   disabled: 'disabled',
   onChange: 'onChange',
   color: 'color',
+  controlled: 'controlled',
 };
 
 export const props = unique(Object.values(alias));

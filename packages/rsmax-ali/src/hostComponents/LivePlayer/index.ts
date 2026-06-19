@@ -16,6 +16,8 @@ export interface LivePlayerProps {
   maxCache?: number;
   livePause?: boolean;
   pictureInPictureMode?: Array<string>;
+  soundMode?: 'speaker' | 'ear';
+  enableAutoRotation?: boolean;
   onPlay?: (e: any) => void;
   onPause?: (e: any) => void;
   onStop?: (e: any) => void;
@@ -26,6 +28,8 @@ export interface LivePlayerProps {
   onLoadedMetaData?: (e: any) => void;
   onFullScreenChange?: (e: any) => void;
   onPictureInPictureModeChanged?: (e: any) => void;
+  onTap?: (e: any) => void;
+  onClick?: (e: any) => void;
 }
 
 export const LivePlayer = createHostComponent<LivePlayerProps>('live-player') as React.ComponentType<LivePlayerProps>;

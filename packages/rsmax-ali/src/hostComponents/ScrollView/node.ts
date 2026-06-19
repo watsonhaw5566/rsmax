@@ -24,6 +24,7 @@ export const alias = {
   onTouchMove: 'onTouchMove',
   onTouchEnd: 'onTouchEnd',
   onTouchCancel: 'onTouchCancel',
+  onTransitionEnd: 'onTransitionEnd',
 };
 
 export const props = unique(Object.values(alias));

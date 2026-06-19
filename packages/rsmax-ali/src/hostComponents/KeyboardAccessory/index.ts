@@ -2,6 +2,7 @@ import { createHostComponent } from '@rsmax/runtime';
 import type React from 'react';
 
 export interface KeyboardAccessoryProps {
+  id?: string;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;

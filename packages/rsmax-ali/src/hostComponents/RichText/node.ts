@@ -5,6 +5,7 @@ export const alias = {
   className: 'class',
   style: 'style',
   nodes: 'nodes',
+  space: 'space',
   onTap: 'onTap',
   onClick: 'onTap',
   onTouchStart: 'onTouchStart',

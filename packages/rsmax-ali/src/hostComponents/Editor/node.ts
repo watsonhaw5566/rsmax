@@ -18,6 +18,8 @@ export const alias = {
   onInput: 'onInput',
   onStatuschange: 'onStatuschange',
   onReady2: 'onReady2',
+  onTap: 'onTap',
+  onClick: 'onTap',
 };
 
 export const props = unique(Object.values(alias));

@@ -10,7 +10,7 @@ export const alias = {
   onError: 'binderror',
   onTap: 'bindtap',
   onClick: 'bindtap',
-  showMenuByLongpress: 'show-menu-by-longpress',
+  showMenuByLongPress: 'show-menu-by-longpress',
   onTouchStart: 'bindtouchstart',
   onTouchMove: 'bindtouchmove',
   onTouchEnd: 'bindtouchend',

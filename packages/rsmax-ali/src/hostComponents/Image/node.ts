@@ -7,6 +7,7 @@ export const alias = {
   className: 'class',
   style: 'style',
   lazyLoad: 'lazy-load',
+  showMenuByLongPress: 'show-menu-by-longpress',
   onLoad: 'onLoad',
   onError: 'onError',
   onTap: 'onTap',
@@ -15,6 +16,9 @@ export const alias = {
   onTouchEnd: 'onTouchEnd',
   onTouchCancel: 'onTouchCancel',
   onClick: 'onTap',
+  catchTap: 'catchTap',
+  onLongTap: 'onLongTap',
+  onLongClick: 'onLongTap',
 };
 
 export const props = unique(Object.values(alias));

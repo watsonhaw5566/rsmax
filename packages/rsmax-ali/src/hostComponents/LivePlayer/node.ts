@@ -15,6 +15,8 @@ export const alias = {
   maxCache: 'max-cache',
   livePause: 'livePause',
   pictureInPictureMode: 'picture-in-picture-mode',
+  soundMode: 'sound-mode',
+  enableAutoRotation: 'enable-auto-rotation',
   onPlay: 'onPlay',
   onPause: 'onPause',
   onStop: 'onStop',
@@ -25,6 +27,8 @@ export const alias = {
   onLoadedMetaData: 'onLoadedMetaData',
   onFullScreenChange: 'onFullScreenChange',
   onPictureInPictureModeChanged: 'onPictureInPictureModeChanged',
+  onClick: 'onTap',
+  onTap: 'onTap',
 };
 
 export const props = unique(Object.values(alias));

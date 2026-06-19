@@ -7,6 +7,7 @@ export interface SwiperItemProps {
   className?: string;
   style?: React.CSSProperties;
   key: string;
+  children?: React.ReactNode;
 }
 
 export const SwiperItem = createHostComponent<SwiperItemProps>('swiper-item') as React.ComponentType<SwiperItemProps>;

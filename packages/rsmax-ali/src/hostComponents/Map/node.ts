@@ -27,6 +27,7 @@ export const alias = {
   onRegionChange: 'onRegionChange',
   onTap: 'onTap',
   onClick: 'onTap',
+  onPanelTap: 'onPanelTap',
 };
 
 export const props = unique(Object.values(alias));

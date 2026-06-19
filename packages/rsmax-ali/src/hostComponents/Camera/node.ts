@@ -15,6 +15,7 @@ export const alias = {
   onStop: 'onStop',
   onError: 'onError',
   onScanCode: 'onScanCode',
+  onCameraReady: 'onCameraReady',
 };
 
 export const props = unique(Object.values(alias));
