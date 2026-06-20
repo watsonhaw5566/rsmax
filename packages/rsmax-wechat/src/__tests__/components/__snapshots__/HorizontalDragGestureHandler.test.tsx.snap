@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`HorizontalDragGestureHandler > render correctly 1`] = `
+<horizontal-drag-gesture-handler
+  className="class"
+>
+  text
+</horizontal-drag-gesture-handler>
+`;

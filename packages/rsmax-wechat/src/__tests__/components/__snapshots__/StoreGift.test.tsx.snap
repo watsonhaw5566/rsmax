@@ -1,0 +1,10 @@
+// Rstest Snapshot v1
+
+exports[`StoreGift > render correctly 1`] = `
+<store-gift
+  className="class"
+  openId="456"
+  presentOrderId="123"
+  showGiftCard={true}
+/>
+`;

@@ -1,0 +1,17 @@
+// Rstest Snapshot v1
+
+exports[`OpenContainer > render correctly 1`] = `
+<open-container
+  className="class"
+  closedBorderRadius={0}
+  closedColor="white"
+  closedElevation={0}
+  openBorderRadius={0}
+  openColor="white"
+  openElevation={0}
+  transitionDuration={300}
+  transitionType="fade"
+>
+  text
+</open-container>
+`;
