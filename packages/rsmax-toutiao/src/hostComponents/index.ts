@@ -35,3 +35,5 @@ export * from './LivePlayer';
 export * from './LivePreview';
 export * from './Camera';
 export * from './Map';
+export * from './OpenData';
+export * from './AwemeData';

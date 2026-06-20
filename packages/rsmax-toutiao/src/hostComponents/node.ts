@@ -12,6 +12,8 @@ import * as label from './Label/node';
 import * as livePlayer from './LivePlayer/node';
 import * as livePreview from './LivePreview/node';
 import * as map from './Map/node';
+import * as openData from './OpenData/node';
+import * as awemeData from './AwemeData/node';
 import * as mask from './Mask/node';
 import * as matchMedia from './MatchMedia/node';
 import * as movableArea from './MovableArea/node';
@@ -75,5 +77,7 @@ hostComponents.set('live-player', livePlayer);
 hostComponents.set('live-preview', livePreview);
 hostComponents.set('camera', camera);
 hostComponents.set('map', map);
+hostComponents.set('open-data', openData);
+hostComponents.set('aweme-data', awemeData);
 
 export default hostComponents;
