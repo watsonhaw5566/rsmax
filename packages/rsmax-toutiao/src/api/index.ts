@@ -133,6 +133,7 @@ export const onNetworkStatusChange = tt.onNetworkStatusChange;
 export const offNetworkStatusChange = tt.offNetworkStatusChange;
 export const getWifiList = promisify(tt.getWifiList);
 export const onGetWifiList = tt.onGetWifiList;
+export const offGetWifiList = tt.offGetWifiList;
 // @ts-expect-error
 export const onNetworkWeakChange = tt.onNetworkWeakChange;
 // 设备 - 系统信息
@@ -142,6 +143,56 @@ export const getDeviceInfoSync = tt.getDeviceInfoSync;
 export const getSystemInfoSync = tt.getSystemInfoSync;
 // 设备 - WIFI
 export const getConnectedWifi = promisify(tt.getConnectedWifi);
+// 设备 - 蓝牙 - 通用
+// @ts-expect-error
+export const openBluetoothAdapter = promisify(tt.openBluetoothAdapter);
+// @ts-expect-error
+export const closeBluetoothAdapter = promisify(tt.closeBluetoothAdapter);
+// @ts-expect-error
+export const onBluetoothAdapterStateChange = tt.onBluetoothAdapterStateChange;
+// @ts-expect-error
+export const offBluetoothAdapterStateChange = tt.offBluetoothAdapterStateChange;
+// @ts-expect-error
+export const startBluetoothDevicesDiscovery = promisify(tt.startBluetoothDevicesDiscovery);
+// @ts-expect-error
+export const stopBluetoothDevicesDiscovery = promisify(tt.stopBluetoothDevicesDiscovery);
+// @ts-expect-error
+export const onBluetoothDeviceFound = tt.onBluetoothDeviceFound;
+// @ts-expect-error
+export const offBluetoothDeviceFound = tt.offBluetoothDeviceFound;
+// @ts-expect-error
+export const getConnectedBluetoothDevices = promisify(tt.getConnectedBluetoothDevices);
+// @ts-expect-error
+export const getBluetoothAdapterState = promisify(tt.getBluetoothAdapterState);
+// @ts-expect-error
+export const getBluetoothDevices = promisify(tt.getBluetoothDevices);
+// 设备 - 蓝牙 - 低功耗中心设备
+// @ts-expect-error
+export const createBLEConnection = promisify(tt.createBLEConnection);
+// @ts-expect-error
+export const closeBLEConnection = promisify(tt.closeBLEConnection);
+// @ts-expect-error
+export const onBLEConnectionStateChange = tt.onBLEConnectionStateChange;
+// @ts-expect-error
+export const offBLEConnectionStateChange = tt.offBLEConnectionStateChange;
+// @ts-expect-error
+export const getBLEDeviceServices = promisify(tt.getBLEDeviceServices);
+// @ts-expect-error
+export const getBLEDeviceCharacteristics = promisify(tt.getBLEDeviceCharacteristics);
+// @ts-expect-error
+export const writeBLECharacteristicValue = promisify(tt.writeBLECharacteristicValue);
+// @ts-expect-error
+export const readBLECharacteristicValue = promisify(tt.readBLECharacteristicValue);
+// @ts-expect-error
+export const onBLECharacteristicValueChange = tt.onBLECharacteristicValueChange;
+// @ts-expect-error
+export const offBLECharacteristicValueChange = tt.offBLECharacteristicValueChange;
+// @ts-expect-error
+export const notifyBLECharacteristicValueChange = promisify(tt.notifyBLECharacteristicValueChange);
+// @ts-expect-error
+export const getBLEMTU = promisify(tt.getBLEMTU);
+// @ts-expect-error
+export const getBLEDeviceRSSI = promisify(tt.getBLEDeviceRSSI);
 // 设备 - 加速度计
 export const startAccelerometer = promisify(tt.startAccelerometer);
 export const stopAccelerometer = promisify(tt.stopAccelerometer);
@@ -153,6 +204,15 @@ export const startCompass = promisify(tt.startCompass);
 export const stopCompass = promisify(tt.stopCompass);
 export const onCompassChange = tt.onCompassChange;
 export const offCompassChange = tt.offCompassChange;
+// 设备 - 设备方向
+// @ts-expect-error
+export const startDeviceMotionListening = promisify(tt.startDeviceMotionListening);
+// @ts-expect-error
+export const stopDeviceMotionListening = promisify(tt.stopDeviceMotionListening);
+// @ts-expect-error
+export const onDeviceMotionChange = tt.onDeviceMotionChange;
+// @ts-expect-error
+export const offDeviceMotionChange = tt.offDeviceMotionChange;
 // 设备 - 拨打电话
 export const makePhoneCall = promisify(tt.makePhoneCall);
 // 设备 - 扫码
@@ -197,6 +257,8 @@ export const vibrateShort = promisify(tt.vibrateShort);
 export const vibrateLong = promisify(tt.vibrateLong);
 // 设备 - 性能
 export const onMemoryWarning = tt.onMemoryWarning;
+// @ts-expect-error
+export const offMemoryWarning = tt.offMemoryWarning;
 // 画布 v1
 export const createCanvasContext = tt.createCanvasContext;
 export const canvasToTempFilePath = tt.canvasToTempFilePath;
