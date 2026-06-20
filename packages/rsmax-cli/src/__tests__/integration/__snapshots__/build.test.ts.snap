@@ -16674,7 +16674,35 @@ __rsmax_runtime_options__.js:       "onOpenSetting": "bindopensetting",
 __rsmax_runtime_options__.js:       "onLaunchApp": "bindlaunchapp",
 __rsmax_runtime_options__.js:       "onTap": "bindtap",
 __rsmax_runtime_options__.js:       "onClick": "bindtap",
-__rsmax_runtime_options__.js:       "animation": "animation"
+__rsmax_runtime_options__.js:       "animation": "animation",
+__rsmax_runtime_options__.js:       "dataAwemeId": "data-aweme-id",
+__rsmax_runtime_options__.js:       "dataImId": "data-im-id",
+__rsmax_runtime_options__.js:       "onIm": "bindim",
+__rsmax_runtime_options__.js:       "dataPlatformImType": "data-platform-im-type",
+__rsmax_runtime_options__.js:       "onPlatformIm": "bindplatformim",
+__rsmax_runtime_options__.js:       "dataVideoId": "data-video-id",
+__rsmax_runtime_options__.js:       "dataVideoType": "data-video-type",
+__rsmax_runtime_options__.js:       "onNavigateToVideoView": "bindnavigatetovideoview",
+__rsmax_runtime_options__.js:       "onOpenAwemeUserProfile": "bindopenawemeuserprofile",
+__rsmax_runtime_options__.js:       "onOpenWebcastRoom": "bindopenwebcastroom",
+__rsmax_runtime_options__.js:       "onAddShortcut": "bindaddshortcut",
+__rsmax_runtime_options__.js:       "dataCalendarOptions": "data-calendar-options",
+__rsmax_runtime_options__.js:       "onAddCalendarEvent": "bindaddcalendarevent",
+__rsmax_runtime_options__.js:       "dataScene": "data-scene",
+__rsmax_runtime_options__.js:       "dataImExtra": "data-im-extra",
+__rsmax_runtime_options__.js:       "onPm": "bindpm",
+__rsmax_runtime_options__.js:       "onAuthorizePrivateMessage": "bindauthorizeprivatemessage",
+__rsmax_runtime_options__.js:       "groupId": "group-id",
+__rsmax_runtime_options__.js:       "dataIsHalfPage": "data-is-half-page",
+__rsmax_runtime_options__.js:       "onJoinGroup": "bindjoingroup",
+__rsmax_runtime_options__.js:       "dataImType": "data-im-type",
+__rsmax_runtime_options__.js:       "dataGoodsId": "data-goods-id",
+__rsmax_runtime_options__.js:       "dataBizLine": "data-biz-line",
+__rsmax_runtime_options__.js:       "dataOrderId": "data-order-id",
+__rsmax_runtime_options__.js:       "onBytehi": "bindbytehi",
+__rsmax_runtime_options__.js:       "onOpenSubscribeMessageSetting": "bindopensubscribemessagesetting",
+__rsmax_runtime_options__.js:       "dataPoiId": "data-poi-id",
+__rsmax_runtime_options__.js:       "onLifeim": "bindlifeim"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "canvas": {
@@ -16682,18 +16710,12 @@ __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "className": "class",
-__rsmax_runtime_options__.js:       "width": "width",
-__rsmax_runtime_options__.js:       "height": "height",
-__rsmax_runtime_options__.js:       "disableScroll": "disable-scroll",
 __rsmax_runtime_options__.js:       "type": "type",
 __rsmax_runtime_options__.js:       "canvasId": "canvas-id",
 __rsmax_runtime_options__.js:       "onTouchStart": "bindtouchstart",
 __rsmax_runtime_options__.js:       "onTouchMove": "bindtouchmove",
 __rsmax_runtime_options__.js:       "onTouchEnd": "bindtouchend",
 __rsmax_runtime_options__.js:       "onTouchCancel": "bindtouchcancel",
-__rsmax_runtime_options__.js:       "onLongTap": "bindlongtap",
-__rsmax_runtime_options__.js:       "onLongClick": "bindlongtap",
-__rsmax_runtime_options__.js:       "onError": "binderror",
 __rsmax_runtime_options__.js:       "animation": "animation"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
@@ -16878,13 +16900,9 @@ __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "percent": "percent",
-__rsmax_runtime_options__.js:       "showInfo": "show-info",
-__rsmax_runtime_options__.js:       "borderRadius": "border-radius",
-__rsmax_runtime_options__.js:       "fontSize": "font-size",
 __rsmax_runtime_options__.js:       "strokeWidth": "stroke-width",
-__rsmax_runtime_options__.js:       "color": "color",
-__rsmax_runtime_options__.js:       "activeColor": "activeColor",
-__rsmax_runtime_options__.js:       "backgroundColor": "backgroundColor",
+__rsmax_runtime_options__.js:       "activeColor": "active-color",
+__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
 __rsmax_runtime_options__.js:       "active": "active",
 __rsmax_runtime_options__.js:       "activeMode": "active-mode",
 __rsmax_runtime_options__.js:       "onActiveEnd": "bindactiveend",
@@ -16946,11 +16964,20 @@ __rsmax_runtime_options__.js:       "scrollTop": "scroll-top",
 __rsmax_runtime_options__.js:       "scrollLeft": "scroll-left",
 __rsmax_runtime_options__.js:       "scrollIntoView": "scroll-into-view",
 __rsmax_runtime_options__.js:       "scrollWithAnimation": "scroll-with-animation",
-__rsmax_runtime_options__.js:       "enableBackToTop": "enable-back-to-top",
-__rsmax_runtime_options__.js:       "enableFlex": "enable-flex",
+__rsmax_runtime_options__.js:       "refresherEnabled": "refresher-enabled",
+__rsmax_runtime_options__.js:       "refresherDefaultStyle": "refresher-default-style",
+__rsmax_runtime_options__.js:       "refresherBackground": "refresher-background",
+__rsmax_runtime_options__.js:       "refresherThreshold": "refresher-threshold",
+__rsmax_runtime_options__.js:       "refresherTriggered": "refresher-triggered",
+__rsmax_runtime_options__.js:       "enhanced": "enhanced",
+__rsmax_runtime_options__.js:       "bounces": "bounces",
 __rsmax_runtime_options__.js:       "onScrollToUpper": "bindscrolltoupper",
 __rsmax_runtime_options__.js:       "onScrollToLower": "bindscrolltolower",
 __rsmax_runtime_options__.js:       "onScroll": "bindscroll",
+__rsmax_runtime_options__.js:       "onRefresherPulling": "bindrefresherpulling",
+__rsmax_runtime_options__.js:       "onRefresherRefresh": "bindrefresherrefresh",
+__rsmax_runtime_options__.js:       "onRefresherRestore": "bindrefresherrestore",
+__rsmax_runtime_options__.js:       "onRefresherAbort": "bindrefresherabort",
 __rsmax_runtime_options__.js:       "onTap": "bindtap",
 __rsmax_runtime_options__.js:       "onClick": "bindtap",
 __rsmax_runtime_options__.js:       "animation": "animation"
@@ -16969,8 +16996,8 @@ __rsmax_runtime_options__.js:       "step": "step",
 __rsmax_runtime_options__.js:       "disabled": "disabled",
 __rsmax_runtime_options__.js:       "value": "value",
 __rsmax_runtime_options__.js:       "showValue": "show-value",
-__rsmax_runtime_options__.js:       "activeColor": "activeColor",
-__rsmax_runtime_options__.js:       "backgroundColor": "backgroundColor",
+__rsmax_runtime_options__.js:       "activeColor": "active-color",
+__rsmax_runtime_options__.js:       "backgroundColor": "background-color",
 __rsmax_runtime_options__.js:       "trackSize": "track-size",
 __rsmax_runtime_options__.js:       "blockSize": "block-size",
 __rsmax_runtime_options__.js:       "blockColor": "block-color",
@@ -17007,7 +17034,6 @@ __rsmax_runtime_options__.js:       "vertical": "vertical",
 __rsmax_runtime_options__.js:       "previousMargin": "previous-margin",
 __rsmax_runtime_options__.js:       "nextMargin": "next-margin",
 __rsmax_runtime_options__.js:       "displayMultipleItems": "display-multiple-items",
-__rsmax_runtime_options__.js:       "skipHiddenItemLayout": "skip-hidden-item-layout",
 __rsmax_runtime_options__.js:       "easingFunction": "easing-function",
 __rsmax_runtime_options__.js:       "onChange": "bindchange",
 __rsmax_runtime_options__.js:       "onTransition": "bindtransition",
@@ -17152,6 +17178,7 @@ __rsmax_runtime_options__.js:   "web-view": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "src": "src",
 __rsmax_runtime_options__.js:       "progressbarColor": "progressbar-color",
+__rsmax_runtime_options__.js:       "type": "type",
 __rsmax_runtime_options__.js:       "onMessage": "bindmessage",
 __rsmax_runtime_options__.js:       "onLoad": "bindload",
 __rsmax_runtime_options__.js:       "onError": "binderror"
@@ -17163,7 +17190,8 @@ __rsmax_runtime_options__.js:       "id": "id",
 __rsmax_runtime_options__.js:       "className": "class",
 __rsmax_runtime_options__.js:       "style": "style",
 __rsmax_runtime_options__.js:       "width": "width",
-__rsmax_runtime_options__.js:       "height": "height"
+__rsmax_runtime_options__.js:       "height": "height",
+__rsmax_runtime_options__.js:       "scaleArea": "scale-area"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "movable-view": {
@@ -17177,6 +17205,7 @@ __rsmax_runtime_options__.js:       "height": "height",
 __rsmax_runtime_options__.js:       "x": "x",
 __rsmax_runtime_options__.js:       "y": "y",
 __rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "inertia": "inertia",
 __rsmax_runtime_options__.js:       "outOfBounds": "out-of-bounds",
 __rsmax_runtime_options__.js:       "damping": "damping",
 __rsmax_runtime_options__.js:       "friction": "friction",
@@ -17184,13 +17213,15 @@ __rsmax_runtime_options__.js:       "scale": "scale",
 __rsmax_runtime_options__.js:       "scaleMin": "scale-min",
 __rsmax_runtime_options__.js:       "scaleMax": "scale-max",
 __rsmax_runtime_options__.js:       "scaleValue": "scale-value",
-__rsmax_runtime_options__.js:       "onTouchStart": "touchstart",
-__rsmax_runtime_options__.js:       "onTouchMove": "touchmove",
-__rsmax_runtime_options__.js:       "onTouchEnd": "touchend",
-__rsmax_runtime_options__.js:       "onTouchCancel": "touchcancel",
+__rsmax_runtime_options__.js:       "animation": "animation",
+__rsmax_runtime_options__.js:       "onTouchStart": "bindtouchstart",
+__rsmax_runtime_options__.js:       "onTouchMove": "bindtouchmove",
+__rsmax_runtime_options__.js:       "onTouchEnd": "bindtouchend",
+__rsmax_runtime_options__.js:       "onTouchCancel": "bindtouchcancel",
 __rsmax_runtime_options__.js:       "onChange": "bindchange",
-__rsmax_runtime_options__.js:       "onChangeEnd": "bindchangeend",
-__rsmax_runtime_options__.js:       "onScale": "bindscale"
+__rsmax_runtime_options__.js:       "onScale": "bindscale",
+__rsmax_runtime_options__.js:       "hTouchMove": "bindhtouchmove",
+__rsmax_runtime_options__.js:       "vTouchMove": "bindvtouchmove"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "mask": {
@@ -17330,16 +17361,180 @@ __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "open-data": {
 __rsmax_runtime_options__.js:     "alias": {
 __rsmax_runtime_options__.js:       "type": "type",
-__rsmax_runtime_options__.js:       "openGid": "open-gid",
-__rsmax_runtime_options__.js:       "lang": "lang",
 __rsmax_runtime_options__.js:       "defaultText": "default-text",
 __rsmax_runtime_options__.js:       "defaultAvatar": "default-avatar",
+__rsmax_runtime_options__.js:       "useEmptyValue": "use-empty-value",
 __rsmax_runtime_options__.js:       "onError": "binderror"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   },
 __rsmax_runtime_options__.js:   "aweme-data": {
 __rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "awemeId": "aweme-id",
 __rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "disableDefault": "disable-default",
+__rsmax_runtime_options__.js:       "defaultAvatar": "default-avatar",
+__rsmax_runtime_options__.js:       "defaultText": "default-text",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "draw-ad": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "unitId": "unit-id",
+__rsmax_runtime_options__.js:       "fullScreen": "full-screen",
+__rsmax_runtime_options__.js:       "scale": "scale",
+__rsmax_runtime_options__.js:       "onError": "binderror",
+__rsmax_runtime_options__.js:       "onPlay": "bindplay",
+__rsmax_runtime_options__.js:       "onStop": "bindstop"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "aweme-user-card": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "awemeId": "aweme-id",
+__rsmax_runtime_options__.js:       "width": "width",
+__rsmax_runtime_options__.js:       "height": "height",
+__rsmax_runtime_options__.js:       "leftRightPadding": "left-right-padding",
+__rsmax_runtime_options__.js:       "fixed": "fixed",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "pay-button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "goodsId": "goods-id",
+__rsmax_runtime_options__.js:       "goodsType": "goods-type",
+__rsmax_runtime_options__.js:       "orderStatus": "order-status",
+__rsmax_runtime_options__.js:       "orderId": "order-id",
+__rsmax_runtime_options__.js:       "refundId": "refund-id",
+__rsmax_runtime_options__.js:       "refundTotalAmount": "refund-total-amount",
+__rsmax_runtime_options__.js:       "bizLine": "biz-line",
+__rsmax_runtime_options__.js:       "marketingReady": "marketing-ready",
+__rsmax_runtime_options__.js:       "onGetextensionpath": "bindgetextensionpath",
+__rsmax_runtime_options__.js:       "onGetgoodsinfo": "bindgetgoodsinfo",
+__rsmax_runtime_options__.js:       "onPlaceorder": "bindplaceorder",
+__rsmax_runtime_options__.js:       "onError": "binderror",
+__rsmax_runtime_options__.js:       "onApplyrefund": "bindapplyrefund",
+__rsmax_runtime_options__.js:       "onRefund": "bindrefund",
+__rsmax_runtime_options__.js:       "onPay": "bindpay"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "pay-button-sdk": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "mode": "mode",
+__rsmax_runtime_options__.js:       "goodsId": "goods-id",
+__rsmax_runtime_options__.js:       "goodsType": "goods-type",
+__rsmax_runtime_options__.js:       "orderStatus": "order-status",
+__rsmax_runtime_options__.js:       "orderId": "order-id",
+__rsmax_runtime_options__.js:       "refundId": "refund-id",
+__rsmax_runtime_options__.js:       "refundTotalAmount": "refund-total-amount",
+__rsmax_runtime_options__.js:       "bizLine": "biz-line",
+__rsmax_runtime_options__.js:       "feeDetailsList": "fee-details-list",
+__rsmax_runtime_options__.js:       "marketingReady": "marketing-ready",
+__rsmax_runtime_options__.js:       "onGetextensionpath": "bindgetextensionpath",
+__rsmax_runtime_options__.js:       "onGetgoodsinfo": "bindgetgoodsinfo",
+__rsmax_runtime_options__.js:       "onPlaceorder": "bindplaceorder",
+__rsmax_runtime_options__.js:       "onError": "binderror",
+__rsmax_runtime_options__.js:       "onApplyrefund": "bindapplyrefund",
+__rsmax_runtime_options__.js:       "onRefund": "bindrefund",
+__rsmax_runtime_options__.js:       "onPay": "bindpay"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "consume-card": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "orderId": "order-id",
+__rsmax_runtime_options__.js:       "onConsume": "bindconsume",
+__rsmax_runtime_options__.js:       "onRefund": "bindrefund",
+__rsmax_runtime_options__.js:       "onApplyrefund": "bindapplyrefund",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "payment-channel-select": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "scene": "scene",
+__rsmax_runtime_options__.js:       "skuList": "sku-list",
+__rsmax_runtime_options__.js:       "merchantUid": "merchant-uid",
+__rsmax_runtime_options__.js:       "limitPayWayList": "limit-pay-way-list",
+__rsmax_runtime_options__.js:       "customStyle": "custom-style",
+__rsmax_runtime_options__.js:       "onRequestorder": "bindrequestorder",
+__rsmax_runtime_options__.js:       "onGetpaymentresult": "bindgetpaymentresult",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "rate-button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "orderId": "order-id",
+__rsmax_runtime_options__.js:       "rateType": "rate-type",
+__rsmax_runtime_options__.js:       "normalRateText": "normal-rate-text",
+__rsmax_runtime_options__.js:       "onInit": "bindinit",
+__rsmax_runtime_options__.js:       "onSuccess": "bindsuccess",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "sku-button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "shopId": "shop-id",
+__rsmax_runtime_options__.js:       "productId": "product-id",
+__rsmax_runtime_options__.js:       "actionType": "action-type",
+__rsmax_runtime_options__.js:       "hidden": "hidden",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "noStyle": "no-style",
+__rsmax_runtime_options__.js:       "size": "size",
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "text": "text",
+__rsmax_runtime_options__.js:       "onSuccess": "bindsuccess",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "product-follow-button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "shopId": "shop-id",
+__rsmax_runtime_options__.js:       "productId": "product-id",
+__rsmax_runtime_options__.js:       "hidden": "hidden",
+__rsmax_runtime_options__.js:       "disabled": "disabled",
+__rsmax_runtime_options__.js:       "noStyle": "no-style",
+__rsmax_runtime_options__.js:       "size": "size",
+__rsmax_runtime_options__.js:       "followedText": "followed-text",
+__rsmax_runtime_options__.js:       "unfollowedText": "unfollowed-text",
+__rsmax_runtime_options__.js:       "onFollowed": "bindfollowed",
+__rsmax_runtime_options__.js:       "onUnfollowed": "bindunfollowed",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "shop-follow-card": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "shopId": "shop-id",
+__rsmax_runtime_options__.js:       "hidden": "hidden",
+__rsmax_runtime_options__.js:       "onFollowed": "bindfollowed",
+__rsmax_runtime_options__.js:       "onUnfollowed": "bindunfollowed",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "industry-member-button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "shopId": "shop-id",
+__rsmax_runtime_options__.js:       "onSuccess": "bindsuccess",
+__rsmax_runtime_options__.js:       "onCancel": "bindcancel",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "coupon-card": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "shopId": "shop-id",
+__rsmax_runtime_options__.js:       "couponId": "coupon-id",
+__rsmax_runtime_options__.js:       "isShowButtonOnly": "is-show-button-only",
+__rsmax_runtime_options__.js:       "title": "title",
+__rsmax_runtime_options__.js:       "subTitle": "sub-title",
+__rsmax_runtime_options__.js:       "buttonOptions": "button-options",
+__rsmax_runtime_options__.js:       "imgUrl": "img-url",
+__rsmax_runtime_options__.js:       "modalOptions": "modal-options",
+__rsmax_runtime_options__.js:       "isShowCouponInfo": "is-show-coupon-info",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "member-button": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "shopId": "shop-id",
+__rsmax_runtime_options__.js:       "onSuccess": "bindsuccess",
+__rsmax_runtime_options__.js:       "onCancel": "bindcancel",
 __rsmax_runtime_options__.js:       "onError": "binderror"
 __rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   }
