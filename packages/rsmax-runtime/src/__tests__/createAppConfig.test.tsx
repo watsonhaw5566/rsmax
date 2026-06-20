@@ -25,8 +25,8 @@ describe('createAppConfig', () => {
     expect(appConfig._instance.current).toBeInstanceOf(App);
   });
 
-  it.skip('does not pass ref to FC', () => {
-    const FCApp: React.FC = props => props as React.ReactElement;
+  it('does not pass ref to FC', () => {
+    const FCApp: React.FC = () => <React.Fragment />;
     const appConfig = createAppConfig(FCApp);
     appConfig.onLaunch({});
     expect(appConfig._instance.current).toBeNull();

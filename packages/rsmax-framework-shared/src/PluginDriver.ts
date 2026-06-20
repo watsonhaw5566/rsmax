@@ -1,4 +1,5 @@
 import type { RuntimePlugin } from '@rsmax/types';
+import * as React from 'react';
 
 export default class PluginDriver {
   plugins: RuntimePlugin[];
@@ -7,46 +8,52 @@ export default class PluginDriver {
     this.plugins = plugins;
   }
 
-  onAppConfig(config: any) {
-    return this.plugins.reduce((acc, plugin) => {
+  onAppConfig<T>(config: T): T {
+    return this.plugins.reduce<T>((acc, plugin) => {
       if (typeof plugin.onAppConfig === 'function') {
-        acc = plugin.onAppConfig({ config: acc });
+        return plugin.onAppConfig({ config: acc }) as T;
       }
       return acc;
     }, config);
   }
 
-  onPageConfig({ config, page }: { config: any; page: string }) {
-    return this.plugins.reduce((acc, plugin) => {
+  onPageConfig<T>({ config, page }: { config: T; page: string }): T {
+    return this.plugins.reduce<T>((acc, plugin) => {
       if (typeof plugin.onPageConfig === 'function') {
-        acc = plugin.onPageConfig({ config: acc, page });
+        return plugin.onPageConfig({ config: acc, page }) as T;
       }
       return acc;
     }, config);
   }
 
-  onAppComponent(component: React.ComponentType) {
-    return this.plugins.reduce((acc, plugin) => {
+  onAppComponent<C extends React.ComponentType>(component: C): C {
+    return this.plugins.reduce<C>((acc, plugin) => {
       if (typeof plugin.onAppComponent === 'function') {
-        acc = plugin.onAppComponent({ component: acc });
+        return plugin.onAppComponent({ component: acc }) as C;
       }
       return acc;
     }, component);
   }
 
-  onPageComponent({ component, page }: { component: React.ComponentType; page: string }) {
-    return this.plugins.reduce((acc, plugin) => {
+  onPageComponent<P>({ component, page }: { component: React.ComponentType<P>; page: string }): React.ComponentType<P> {
+    return this.plugins.reduce<React.ComponentType<P>>((acc, plugin) => {
       if (typeof plugin.onPageComponent === 'function') {
-        acc = plugin.onPageComponent({ component: acc, page });
+        return plugin.onPageComponent({ component: acc, page }) as React.ComponentType<P>;
       }
       return acc;
     }, component);
   }
 
-  onMiniComponent({ component, context }: { component: React.ComponentType; context: any }) {
-    return this.plugins.reduce((acc, plugin) => {
+  onMiniComponent<P>({
+    component,
+    context,
+  }: {
+    component: React.ComponentType<P>;
+    context: unknown;
+  }): React.ComponentType<P> {
+    return this.plugins.reduce<React.ComponentType<P>>((acc, plugin) => {
       if (typeof plugin.onMiniComponent === 'function') {
-        acc = plugin.onMiniComponent({ component: acc, context });
+        return plugin.onMiniComponent({ component: acc, context }) as React.ComponentType<P>;
       }
       return acc;
     }, component);
@@ -54,21 +61,24 @@ export default class PluginDriver {
 
   onCreateHostComponent<P>(
     component: React.ForwardRefExoticComponent<P & React.RefAttributes<any>> | React.ComponentType<P>
-  ): any {
-    return this.plugins.reduce((acc, plugin) => {
-      if (typeof plugin.onCreateHostComponent === 'function') {
-        acc = plugin.onCreateHostComponent({ component: acc });
-      }
-      return acc;
-    }, component);
+  ) {
+    return this.plugins.reduce(
+      (acc, plugin) => {
+        if (typeof plugin.onCreateHostComponent === 'function') {
+          return plugin.onCreateHostComponent({ component: acc });
+        }
+        return acc;
+      },
+      component as React.ForwardRefExoticComponent<any> | React.ComponentType<any>
+    );
   }
 
   onCreateHostComponentElement<P>(element: React.ReactElement<P>) {
     return this.plugins.reduce((acc, plugin) => {
       if (typeof plugin.onCreateHostComponentElement === 'function') {
-        acc = plugin.onCreateHostComponentElement({ element: acc });
+        return plugin.onCreateHostComponentElement({ element: acc });
       }
       return acc;
-    }, element);
+    }, element as React.ReactElement<any>);
   }
 }

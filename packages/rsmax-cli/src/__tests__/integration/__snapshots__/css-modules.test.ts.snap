@@ -1917,7 +1917,7 @@ app.js:             key: "onAppConfig",
 app.js:             value: function onAppConfig(config) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onAppConfig === 'function') {
-app.js:                         acc = plugin.onAppConfig({
+app.js:                         return plugin.onAppConfig({
 app.js:                             config: acc
 app.js:                         });
 app.js:                     }
@@ -1931,7 +1931,7 @@ app.js:             value: function onPageConfig(_ref) {
 app.js:                 var config = _ref.config, page = _ref.page;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onPageConfig === 'function') {
-app.js:                         acc = plugin.onPageConfig({
+app.js:                         return plugin.onPageConfig({
 app.js:                             config: acc,
 app.js:                             page: page
 app.js:                         });
@@ -1945,7 +1945,7 @@ app.js:             key: "onAppComponent",
 app.js:             value: function onAppComponent(component) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onAppComponent === 'function') {
-app.js:                         acc = plugin.onAppComponent({
+app.js:                         return plugin.onAppComponent({
 app.js:                             component: acc
 app.js:                         });
 app.js:                     }
@@ -1959,7 +1959,7 @@ app.js:             value: function onPageComponent(_ref2) {
 app.js:                 var component = _ref2.component, page = _ref2.page;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onPageComponent === 'function') {
-app.js:                         acc = plugin.onPageComponent({
+app.js:                         return plugin.onPageComponent({
 app.js:                             component: acc,
 app.js:                             page: page
 app.js:                         });
@@ -1974,7 +1974,7 @@ app.js:             value: function onMiniComponent(_ref3) {
 app.js:                 var component = _ref3.component, context = _ref3.context;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onMiniComponent === 'function') {
-app.js:                         acc = plugin.onMiniComponent({
+app.js:                         return plugin.onMiniComponent({
 app.js:                             component: acc,
 app.js:                             context: context
 app.js:                         });
@@ -1988,7 +1988,7 @@ app.js:             key: "onCreateHostComponent",
 app.js:             value: function onCreateHostComponent(component) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onCreateHostComponent === 'function') {
-app.js:                         acc = plugin.onCreateHostComponent({
+app.js:                         return plugin.onCreateHostComponent({
 app.js:                             component: acc
 app.js:                         });
 app.js:                     }
@@ -2001,7 +2001,7 @@ app.js:             key: "onCreateHostComponentElement",
 app.js:             value: function onCreateHostComponentElement(element) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onCreateHostComponentElement === 'function') {
-app.js:                         acc = plugin.onCreateHostComponentElement({
+app.js:                         return plugin.onCreateHostComponentElement({
 app.js:                             element: acc
 app.js:                         });
 app.js:                     }
@@ -6998,7 +6998,7 @@ app.js:             key: "onAppConfig",
 app.js:             value: function onAppConfig(config) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onAppConfig === 'function') {
-app.js:                         acc = plugin.onAppConfig({
+app.js:                         return plugin.onAppConfig({
 app.js:                             config: acc
 app.js:                         });
 app.js:                     }
@@ -7012,7 +7012,7 @@ app.js:             value: function onPageConfig(_ref) {
 app.js:                 var config = _ref.config, page = _ref.page;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onPageConfig === 'function') {
-app.js:                         acc = plugin.onPageConfig({
+app.js:                         return plugin.onPageConfig({
 app.js:                             config: acc,
 app.js:                             page: page
 app.js:                         });
@@ -7026,7 +7026,7 @@ app.js:             key: "onAppComponent",
 app.js:             value: function onAppComponent(component) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onAppComponent === 'function') {
-app.js:                         acc = plugin.onAppComponent({
+app.js:                         return plugin.onAppComponent({
 app.js:                             component: acc
 app.js:                         });
 app.js:                     }
@@ -7040,7 +7040,7 @@ app.js:             value: function onPageComponent(_ref2) {
 app.js:                 var component = _ref2.component, page = _ref2.page;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onPageComponent === 'function') {
-app.js:                         acc = plugin.onPageComponent({
+app.js:                         return plugin.onPageComponent({
 app.js:                             component: acc,
 app.js:                             page: page
 app.js:                         });
@@ -7055,7 +7055,7 @@ app.js:             value: function onMiniComponent(_ref3) {
 app.js:                 var component = _ref3.component, context = _ref3.context;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onMiniComponent === 'function') {
-app.js:                         acc = plugin.onMiniComponent({
+app.js:                         return plugin.onMiniComponent({
 app.js:                             component: acc,
 app.js:                             context: context
 app.js:                         });
@@ -7069,7 +7069,7 @@ app.js:             key: "onCreateHostComponent",
 app.js:             value: function onCreateHostComponent(component) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onCreateHostComponent === 'function') {
-app.js:                         acc = plugin.onCreateHostComponent({
+app.js:                         return plugin.onCreateHostComponent({
 app.js:                             component: acc
 app.js:                         });
 app.js:                     }
@@ -7082,7 +7082,7 @@ app.js:             key: "onCreateHostComponentElement",
 app.js:             value: function onCreateHostComponentElement(element) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onCreateHostComponentElement === 'function') {
-app.js:                         acc = plugin.onCreateHostComponentElement({
+app.js:                         return plugin.onCreateHostComponentElement({
 app.js:                             element: acc
 app.js:                         });
 app.js:                     }
@@ -12471,7 +12471,7 @@ app.js:             key: "onAppConfig",
 app.js:             value: function onAppConfig(config) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onAppConfig === 'function') {
-app.js:                         acc = plugin.onAppConfig({
+app.js:                         return plugin.onAppConfig({
 app.js:                             config: acc
 app.js:                         });
 app.js:                     }
@@ -12485,7 +12485,7 @@ app.js:             value: function onPageConfig(_ref) {
 app.js:                 var config = _ref.config, page = _ref.page;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onPageConfig === 'function') {
-app.js:                         acc = plugin.onPageConfig({
+app.js:                         return plugin.onPageConfig({
 app.js:                             config: acc,
 app.js:                             page: page
 app.js:                         });
@@ -12499,7 +12499,7 @@ app.js:             key: "onAppComponent",
 app.js:             value: function onAppComponent(component) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onAppComponent === 'function') {
-app.js:                         acc = plugin.onAppComponent({
+app.js:                         return plugin.onAppComponent({
 app.js:                             component: acc
 app.js:                         });
 app.js:                     }
@@ -12513,7 +12513,7 @@ app.js:             value: function onPageComponent(_ref2) {
 app.js:                 var component = _ref2.component, page = _ref2.page;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onPageComponent === 'function') {
-app.js:                         acc = plugin.onPageComponent({
+app.js:                         return plugin.onPageComponent({
 app.js:                             component: acc,
 app.js:                             page: page
 app.js:                         });
@@ -12528,7 +12528,7 @@ app.js:             value: function onMiniComponent(_ref3) {
 app.js:                 var component = _ref3.component, context = _ref3.context;
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onMiniComponent === 'function') {
-app.js:                         acc = plugin.onMiniComponent({
+app.js:                         return plugin.onMiniComponent({
 app.js:                             component: acc,
 app.js:                             context: context
 app.js:                         });
@@ -12542,7 +12542,7 @@ app.js:             key: "onCreateHostComponent",
 app.js:             value: function onCreateHostComponent(component) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onCreateHostComponent === 'function') {
-app.js:                         acc = plugin.onCreateHostComponent({
+app.js:                         return plugin.onCreateHostComponent({
 app.js:                             component: acc
 app.js:                         });
 app.js:                     }
@@ -12555,7 +12555,7 @@ app.js:             key: "onCreateHostComponentElement",
 app.js:             value: function onCreateHostComponentElement(element) {
 app.js:                 return this.plugins.reduce(function(acc, plugin) {
 app.js:                     if (typeof plugin.onCreateHostComponentElement === 'function') {
-app.js:                         acc = plugin.onCreateHostComponentElement({
+app.js:                         return plugin.onCreateHostComponentElement({
 app.js:                             element: acc
 app.js:                         });
 app.js:                     }

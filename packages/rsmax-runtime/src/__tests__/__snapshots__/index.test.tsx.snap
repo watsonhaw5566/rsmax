@@ -1,27 +1,5 @@
 // Rstest Snapshot v1
 
-exports[`Remax Suspense placeholder > hides and unhides timed out DOM elements 2`] = `
-[
-  {
-    "root.children": [
-      0,
-      0,
-      {
-        "children": [],
-        "id": 1,
-        "props": {
-          "className": "class",
-          "fooBar": "fooBar",
-          "onClick": "$$REMAX_METHOD_1_onClick",
-        },
-        "text": undefined,
-        "type": "native-component",
-      },
-    ],
-  },
-]
-`;
-
 exports[`ali remax render > change elements' order 1`] = `
 {
   "children": [
@@ -664,6 +642,28 @@ exports[`ali remax render > render correctly 1`] = `
   "text": undefined,
   "type": "root",
 }
+`;
+
+exports[`ali remax render > render native component correctly 1`] = `
+[
+  {
+    "root.children": [
+      0,
+      0,
+      {
+        "children": [],
+        "id": 1,
+        "props": {
+          "className": "class",
+          "fooBar": "fooBar",
+          "onClick": "$$REMAX_METHOD_1_onClick",
+        },
+        "text": undefined,
+        "type": "native-component",
+      },
+    ],
+  },
+]
 `;
 
 exports[`ali remax render > renders conditional fragment correctly 1`] = `

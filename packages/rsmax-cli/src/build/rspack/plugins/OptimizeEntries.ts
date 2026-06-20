@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { slash } from '@rsmax/shared';
 import { type Chunk, type ChunkGroup, Compilation, type Compiler, sources } from '@rspack/core';
+import { logger } from '../../../logger';
 
 const PLUGIN_NAME = 'RsmaxOptimizeEntriesPlugin';
 
@@ -43,7 +44,7 @@ class OptimizeEntriesPlugin {
               }
             }
           } catch (error) {
-            console.error(`[${PLUGIN_NAME}] Error:`, error);
+            logger.error(`[${PLUGIN_NAME}] Error:`, error);
             throw error;
           }
         }
@@ -87,7 +88,7 @@ class OptimizeEntriesPlugin {
         } else {
           // 仅在调试模式下输出警告
           if (process.env.NODE_ENV !== 'production') {
-            console.warn(`[${PLUGIN_NAME}] Asset not found: ${assetPath}`);
+            logger.warn(`[${PLUGIN_NAME}] Asset not found: ${assetPath}`);
           }
         }
       }

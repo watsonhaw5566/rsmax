@@ -3,7 +3,7 @@ import type React from 'react';
 import type { BaseProps } from '../../types/component';
 
 export interface EditorPortal extends BaseProps {
-  key: string;
+  portalKey: string;
 }
 
 /**
@@ -13,5 +13,5 @@ export interface EditorPortal extends BaseProps {
 export const EditorPortal: React.ComponentType<EditorPortal> = createHostComponent<EditorPortal>('editor-portal');
 
 EditorPortal.defaultProps = {
-  key: '',
+  portalKey: '',
 };

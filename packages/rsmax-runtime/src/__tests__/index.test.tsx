@@ -342,28 +342,24 @@ describe('ali remax render', () => {
     expect(container.root).toMatchSnapshot();
   });
 
-  // it('render native component correctly', done => {
-  //   expect.assertions(0);
-  //
-  //   const NativeComponent = ({ fooBar, onClick, className }: any) =>
-  //     React.createElement('native-component', {
-  //       fooBar,
-  //       className,
-  //       onClick,
-  //     });
-  //   const actions: any = [];
-  //   const p = {
-  //     $spliceData: (payload: any) => actions.push(payload),
-  //   };
-  //
-  //   const container = new Container(p);
-  //   render(<NativeComponent fooBar="fooBar" onClick={() => void 0} className="class" />, container);
-  //
-  //   setTimeout(() => {
-  //     expect(actions).toMatchSnapshot();
-  //     done();
-  //   }, 100);
-  // });
+  it('render native component correctly', async () => {
+    const NativeComponent = ({ fooBar, onClick, className }: any) =>
+      React.createElement('native-component', {
+        fooBar,
+        className,
+        onClick,
+      });
+    const actions: any = [];
+    const p = {
+      $spliceData: (payload: any) => actions.push(payload),
+    };
+
+    const container = new Container(p);
+    render(<NativeComponent fooBar="fooBar" onClick={() => void 0} className="class" />, container);
+
+    await delay(100);
+    expect(actions).toMatchSnapshot();
+  });
 
   it('remove event listener when unmount', () => {
     class Page extends React.Component<{ node: any }> {
@@ -428,19 +424,21 @@ it('create proxy for onClick callback', () => {
   newHandleAnimationStart({});
 });
 
-// it('useEffect works', done => {
-//   const Page = () => {
-//     React.useEffect(() => {
-//       done();
-//     });
-//
-//     return <View>app</View>;
-//   };
-//   const container = new Container(p);
-//   render(<Page />, container);
-// });
+it('useEffect works', async () => {
+  await new Promise<void>(resolve => {
+    const Page = () => {
+      React.useEffect(() => {
+        resolve();
+      });
 
-describe.skip('flatten update', () => {
+      return <View>app</View>;
+    };
+    const container = new Container(p);
+    render(<Page />, container);
+  });
+});
+
+describe('flatten update', () => {
   beforeAll(() => {
     RuntimeOptions.apply({ platform: 'web' });
   });
@@ -449,7 +447,7 @@ describe.skip('flatten update', () => {
     RuntimeOptions.reset();
   });
 
-  it('pure rerender when props changed', done => {
+  it('pure rerender when props changed', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -478,22 +476,18 @@ describe.skip('flatten update', () => {
     const page = React.createRef<any>();
     render(<Page ref={page} />, container);
 
-    expect.assertions(2);
-
     page.current.setValue('bar');
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload[1]).toMatchInlineSnapshot(`
+    await delay(50);
+    expect(payload).toHaveLength(2);
+    expect(payload[1]).toMatchInlineSnapshot(`
         {
           "root.nodes.7.nodes.6.props.value": "bar",
         }
       `);
-      done();
-    }, 5);
   });
 
-  it('pure rerender when props delete', done => {
+  it('pure rerender when props delete', async () => {
     const payload: any[] = [];
     const context = {
       setData: (data: any) => {
@@ -520,75 +514,75 @@ describe.skip('flatten update', () => {
     const page = React.createRef<any>();
     render(<Page ref={page} />, container);
 
-    expect.assertions(2);
-
     page.current.setValue(undefined);
 
-    setTimeout(() => {
-      expect(payload).toHaveLength(2);
-      expect(payload[1]).toMatchInlineSnapshot(`
+    await delay(50);
+    expect(payload).toHaveLength(2);
+    expect(payload[1]).toMatchInlineSnapshot(`
         {
           "root.nodes.10.nodes.9.props.value": null,
         }
       `);
-      done();
-    }, 5);
   });
 });
 
-it('useNativeEffect once works', done => {
-  let count = 0;
-  const Page = () => {
-    const [width, setWidth] = React.useState(0);
-    useNativeEffect(() => {
-      count += 1;
+it('useNativeEffect once works', async () => {
+  await new Promise<void>(resolve => {
+    let count = 0;
+    const Page = () => {
+      const [width, setWidth] = React.useState(0);
+      useNativeEffect(() => {
+        count += 1;
 
-      setTimeout(() => {
-        if (count === 1) {
-          done();
-        }
-      }, 500);
-    }, []);
-    React.useEffect(() => {
-      setTimeout(() => {
-        setWidth(100);
-      }, 100);
-    }, []);
+        setTimeout(() => {
+          if (count === 1) {
+            resolve();
+          }
+        }, 500);
+      }, []);
+      React.useEffect(() => {
+        setTimeout(() => {
+          setWidth(100);
+        }, 100);
+      }, []);
 
-    return <View>{width}</View>;
-  };
-  const container = new Container(p);
-  render(<Page />, container);
+      return <View>{width}</View>;
+    };
+    const container = new Container(p);
+    render(<Page />, container);
+  });
 });
 
-it('useNativeEffect deps works', done => {
-  let count = 0;
-  const Page = () => {
-    const [width, setWidth] = React.useState(0);
-    const [height, setheight] = React.useState(0);
-    useNativeEffect(() => {
-      count += 1;
+it('useNativeEffect deps works', async () => {
+  await new Promise<void>(resolve => {
+    let count = 0;
+    const Page = () => {
+      const [width, setWidth] = React.useState(0);
+      const [height, setheight] = React.useState(0);
+      useNativeEffect(() => {
+        count += 1;
 
-      if (count === 2) {
-        done();
-      }
-    }, [width]);
-    React.useEffect(() => {
-      setheight(100);
-      setTimeout(() => {
-        setWidth(100);
-      }, 1000);
-    }, []);
+        if (count === 2) {
+          resolve();
+        }
+      }, [width]);
+      React.useEffect(() => {
+        setheight(100);
+        setTimeout(() => {
+          setWidth(100);
+        }, 1000);
+      }, []);
 
-    return (
-      <View>
-        {width}
-        {height}
-      </View>
-    );
-  };
-  const container = new Container(p);
-  render(<Page />, container);
+      return (
+        <View>
+          {width}
+          {height}
+        </View>
+      );
+    };
+    const container = new Container(p);
+    render(<Page />, container);
+  });
 });
 
 describe('Remax Suspense placeholder', () => {
