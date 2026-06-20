@@ -17326,6 +17326,22 @@ __rsmax_runtime_options__.js:       "onLabelTap": "bindlabeltap",
 __rsmax_runtime_options__.js:       "onUpdated": "bindupdated",
 __rsmax_runtime_options__.js:       "onAnchorPointTap": "bindanchorpointtap"
 __rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "open-data": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "openGid": "open-gid",
+__rsmax_runtime_options__.js:       "lang": "lang",
+__rsmax_runtime_options__.js:       "defaultText": "default-text",
+__rsmax_runtime_options__.js:       "defaultAvatar": "default-avatar",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
+__rsmax_runtime_options__.js:   },
+__rsmax_runtime_options__.js:   "aweme-data": {
+__rsmax_runtime_options__.js:     "alias": {
+__rsmax_runtime_options__.js:       "type": "type",
+__rsmax_runtime_options__.js:       "onError": "binderror"
+__rsmax_runtime_options__.js:     }
 __rsmax_runtime_options__.js:   }
 __rsmax_runtime_options__.js: },
 __rsmax_runtime_options__.js:       pageEvents: {

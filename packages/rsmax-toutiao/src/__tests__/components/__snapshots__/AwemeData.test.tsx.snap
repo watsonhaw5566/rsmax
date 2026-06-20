@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`AwemeData > render correctly 1`] = `
+<aweme-data
+  type="liveStatus"
+/>
+`;
