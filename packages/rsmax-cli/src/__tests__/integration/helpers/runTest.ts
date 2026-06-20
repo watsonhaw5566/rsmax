@@ -74,24 +74,51 @@ function createHash(content: Buffer) {
 
 function normalizeJsContent(input: string) {
   return input
-    // 统一 webpack/rspack 输出中模块 ID 作为对象属性键 `1834: (function ...` / `2015: (module)` / `92: function(..`
-    // 这些 ID 随构建环境/版本变化，导致快照不稳定。必须匹配：数字+`: `+空格+`(` 或 `function`，避免误伤 case 语句
+    // 1. rspack 内部标识归一化（抹平 1.6/1.7 内部命名差异）
+    .replace(/__rspack_jsonp/g, 'webpackJsonpCallback')
+    .replace(/__unused_rspack_module/g, '__unused_webpack_module')
+    .replace(/__unused_rspack_exports/g, '__unused_webpack_exports')
+
+    // 2. rspack 版本号归一化（仅在 rspack 专属位置匹配，避免误伤 React 18.2.0 等）
+    .replace(/rspack@\d+\.\d+\.\d+/gi, 'rspack@<VERSION>')
+    .replace(/(rv = \(\) => \("\d+\.\d+\.\d+")/g, 'rv = () => ("<VERSION>")')
+
+    // 3. 模块 ID 与 require/exec 归一化
+    //    3a. 简写方法定义 `1234(params) {` → ` <ID>: (function (params) {`（rspack 1.7 新格式）
+    .replace(/(^|[\s,;])(\d+)\(([^)]*)\)\s*\{/gm, '$1<ID>: (function ($3) {')
+    //    3b. 对象属性键 `1834: (function ...` / `92: function(...` → `<ID>: (function...`
     .replace(/(^|[\s,;])(\d+):(\s+(?:\(|function\b))/gm, '$1<ID>:$3')
-    // 统一 __webpack_require__(123) 的数字 ID
+    //    3c. 模块结尾 `},` → `}),` 仅当后面紧跟另一个 <ID>: (function 模块定义
+    .replace(/(\})(,\s*\n\s*<ID>:\s*\(function)/g, '$1)$2')
+    //    3d. 模块结尾 `},` → `}),` 仅当后面是模块对象结尾 `}]`
+    .replace(/(\})(,\s*\n\s*\}\])/g, '$1)$2')
+    //    3e. 模块结尾 `},` → `}),` 仅当后面是 chunk loading 函数 `,function(`（同一行）
+    .replace(/(\})(,\s*function\()/g, '$1)$2')
+    //    3f. __webpack_require__(N) / __webpack_exec__(N) / [N] 索引
     .replace(/__webpack_require__\((\d+)\)/g, '__webpack_require__(<ID>)')
-    // 统一 __webpack_exec__(123) 的数字 ID
     .replace(/__webpack_exec__\((\d+)\)/g, '__webpack_exec__(<ID>)')
-    // 统一 [123] 这类索引
     .replace(/\[(\d+)\]/g, '[<ID>]')
-    // 统一长哈希为占位符
-    .replace(/[a-f0-9]{20,}/gi, '<HASH>')
-    // 统一 chunk 文件名中的数字片段
-    .replace(/(-|\.)\d+(\.js)/g, '$1<ID>$2')
-    // 统一 ESM import 变量名：去掉可能包含绝对路径/包名前缀，只保留 __WEBPACK_IMPORTED_MODULE_<ID>__
+
+    // 4. ESM import 变量名归一化
+    //    4a. rspack 1.7 格式 `path__rspack_import_N_default` → `__WEBPACK_IMPORTED_MODULE_N___default`
+    .replace(/[A-Za-z0-9_\/\\.-]*__rspack_import_(\d+)_default/g, '__WEBPACK_IMPORTED_MODULE_$1___default')
+    //    4b. rspack 1.7 格式 `path__rspack_import_N` → `__WEBPACK_IMPORTED_MODULE_N__`
+    .replace(/[A-Za-z0-9_\/\\.-]*__rspack_import_(\d+)\b/g, '__WEBPACK_IMPORTED_MODULE_$1__')
+    //    4c. 传统格式：去掉变量名前的绝对路径/包名前缀
     .replace(/[A-Za-z0-9_\/\\.-]*(__WEBPACK_IMPORTED_MODULE_\d+__)/g, '$1')
-    // 统一 `})()\n;` 为 `})();`（rspack 输出会把尾部分号拆到下一行）
+    //    4d. import 注释后的空格 `/* import */ var` → `/* import */var`
+    .replace(/\/\* import \*\/\s+var/g, '/* import */var')
+
+    // 5. 哈希和文件名归一化
+    .replace(/[a-f0-9]{20,}/gi, '<HASH>')
+    .replace(/(-|\.)\d+(\.js)/g, '$1<ID>$2')
+
+    // 6. 空白字符归一化
+    //    6a. `})()\n;` → `})();`（rspack 输出会把尾部分号拆到下一行）
     .replace(/\}\)\(\n;/g, '})();')
-    // 去除每行的尾部空格，并将仅含空白字符的行统一为空行
+    //    6b. 将 3 个或更多连续换行合并为 2 个（即保留一个空行）
+    .replace(/\n{3,}/g, '\n\n')
+    //    6c. 去除每行尾部空格
     .split(/\r?\n/)
     .map(line => line.replace(/[ \t]+$/g, ''))
     .join('\n');

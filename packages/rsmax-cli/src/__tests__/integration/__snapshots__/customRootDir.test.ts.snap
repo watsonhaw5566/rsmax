@@ -724,7 +724,6 @@ app.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__w
 app.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 app.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
 app.js: 
-app.js: 
 app.js: var pluginDriver = new __WEBPACK_IMPORTED_MODULE_0__.PluginDriver([].map(function(p) {
 app.js:     return p.default || p;
 app.js: }));
@@ -738,11 +737,9 @@ app.js:     pageEvents: __WEBPACK_IMPORTED_MODULE_1__.pageEvents,
 app.js:     appEvents: __WEBPACK_IMPORTED_MODULE_1__.appEvents
 app.js: });
 app.js: 
-app.js: 
 app.js: }),
 app.js: <ID>: (function () {
 app.js: App({});
-app.js: 
 app.js: 
 app.js: }),
 app.js: <ID>: (function (module) {
@@ -754,9 +751,9 @@ app.js: <ID>: (function (module) {
 app.js: "use strict";
 app.js: module.exports = require('/__rsmax_runtime_options__');
 app.js: 
-app.js: }),
+app.js: },
 app.js: 
-app.js: },function(__webpack_require__) {
+app.js: }),function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 app.js: var __webpack_exports__ = (__webpack_exec__(<ID>), __webpack_exec__(<ID>));
 app.js: 
@@ -1064,7 +1061,6 @@ pages/index.js:
 pages/index.js:     return exports;
 pages/index.js: };
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
@@ -1268,7 +1264,6 @@ pages/index.js:         exports.typeOf = typeOf;
 pages/index.js:     })();
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -1276,7 +1271,6 @@ pages/index.js:
 pages/index.js: if (false) {} else {
 pages/index.js:     module.exports = __webpack_require__(<ID>);
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -1790,7 +1784,6 @@ pages/index.js:         }
 pages/index.js:     })();
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -1799,7 +1792,6 @@ pages/index.js: if (false) {} else {
 pages/index.js:     module.exports = __webpack_require__(<ID>);
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -1808,36 +1800,32 @@ pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_requir
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 pages/index.js: 
-pages/index.js: 
 pages/index.js: Page((0,__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index'));
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index.js:   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+pages/index.js:   "default": () => (/* export default binding */ __rspack_default_export)
 pages/index.js: });
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
 pages/index.js: 
-pages/index.js: 
-pages/index.js: /* export default */ function __WEBPACK_DEFAULT_EXPORT__() {
+pages/index.js: /* export default */ function __rspack_default_export() {
 pages/index.js:     return /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_1__.jsx)(__WEBPACK_IMPORTED_MODULE_0__.View, {
 pages/index.js:         children: "foo"
 pages/index.js:     });
 pages/index.js: };
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+pages/index.js:   "default": () => (__rspack_default_export)
 pages/index.js: });
 pages/index.js: var AppInstanceContext = {
 pages/index.js:     lifecycleCallback: {},
@@ -1850,36 +1838,33 @@ pages/index.js:             _this.lifecycleCallback[lifecycle].splice(_this.life
 pages/index.js:         };
 pages/index.js:     }
 pages/index.js: };
-pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (AppInstanceContext);
-pages/index.js: 
+pages/index.js: /* export default */ const __rspack_default_export = (AppInstanceContext);
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+pages/index.js:   "default": () => (__rspack_default_export)
 pages/index.js: });
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: 
 pages/index.js: var ComponentInstanceContext = /*#__PURE__*/ __WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (ComponentInstanceContext);
-pages/index.js: 
+pages/index.js: /* export default */ const __rspack_default_export = (ComponentInstanceContext);
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+pages/index.js:   "default": () => (__rspack_default_export)
 pages/index.js: });
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 pages/index.js: 
 pages/index.js: var PageInstanceContext = /*#__PURE__*/ __WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-pages/index.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (PageInstanceContext);
-pages/index.js: 
+pages/index.js: /* export default */ const __rspack_default_export = (PageInstanceContext);
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -2030,8 +2015,6 @@ pages/index.js:         }
 pages/index.js:     ]);
 pages/index.js: }();
 pages/index.js: 
-pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2112,7 +2095,6 @@ pages/index.js: }
 pages/index.js: function reset() {
 pages/index.js:     runtimeOptions = defaultRuntimeOptions;
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -2207,11 +2189,6 @@ pages/index.js:         return t.__proto__ = e, t;
 pages/index.js:     }, _setPrototypeOf(t, e);
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
 pages/index.js: function createPageWrapper(Page, name) {
 pages/index.js:     var WrappedPage = __WEBPACK_IMPORTED_MODULE_3__.get('pluginDriver').onPageComponent({
 pages/index.js:         component: Page,
@@ -2279,7 +2256,6 @@ pages/index.js:         ]);
 pages/index.js:     }(__WEBPACK_IMPORTED_MODULE_0__.Component);
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2294,7 +2270,6 @@ pages/index.js:     }).replace(/-/g, '').replace(/^(.)/, function($1) {
 pages/index.js:         return $1.toUpperCase();
 pages/index.js:     });
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -2312,10 +2287,6 @@ pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_requir
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
 pages/index.js: 
 pages/index.js: function usePageEvent(eventName, callback) {
 pages/index.js:     var pageInstance = (0,__WEBPACK_IMPORTED_MODULE_0__.useContext)(__WEBPACK_IMPORTED_MODULE_3__["default"]);
@@ -2338,7 +2309,6 @@ pages/index.js:     (0,__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function()
 pages/index.js:         return (0,__WEBPACK_IMPORTED_MODULE_4__.registerLifecycle)(__WEBPACK_IMPORTED_MODULE_1__["default"], lifeCycle, callback);
 pages/index.js:     });
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -2379,20 +2349,6 @@ pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_9__ = __webpack_requir
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(<ID>);
 pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2406,7 +2362,6 @@ pages/index.js:   registerLifecycle: () => (registerLifecycle)
 pages/index.js: });
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-pages/index.js: 
 pages/index.js: 
 pages/index.js: var Lifecycle;
 pages/index.js: (function(Lifecycle) {
@@ -2457,7 +2412,6 @@ pages/index.js: function registerLifecycle(instance, method, callback) {
 pages/index.js:     return instance.registerLifecycle(method, callback);
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2489,7 +2443,6 @@ pages/index.js:         });
 pages/index.js:     };
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2516,7 +2469,6 @@ pages/index.js:     }
 pages/index.js:     return false;
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2527,7 +2479,6 @@ pages/index.js: });
 pages/index.js: function capitalize(str) {
 pages/index.js:     return str.charAt(0).toUpperCase() + str.slice(1);
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -2540,7 +2491,6 @@ pages/index.js: function isClassComponent(Component) {
 pages/index.js:     return Component.prototype && typeof Component.prototype.render === 'function';
 pages/index.js: }
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2551,7 +2501,6 @@ pages/index.js: });
 pages/index.js: function lowercase(str) {
 pages/index.js:     return str.charAt(0).toLowerCase() + str.slice(1);
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -2657,7 +2606,6 @@ pages/index.js:         }
 pages/index.js:     ]);
 pages/index.js: }();
 pages/index.js: exports["default"] = AppContainer;
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -2897,7 +2845,6 @@ pages/index.js:     ]);
 pages/index.js: }();
 pages/index.js: exports["default"] = Container;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -2919,7 +2866,6 @@ pages/index.js:     };
 pages/index.js: }
 pages/index.js: exports.createPortal = createPortal;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
@@ -2938,7 +2884,6 @@ pages/index.js:     'onTouchMove',
 pages/index.js:     'onTouchStart',
 pages/index.js:     'onTouchEnd'
 pages/index.js: ];
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -3022,7 +2967,6 @@ pages/index.js:     };
 pages/index.js: }
 pages/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -3060,7 +3004,6 @@ pages/index.js:     exports.isPropagationStopped[eventType] = true;
 pages/index.js:     validate(node, eventType);
 pages/index.js: }
 pages/index.js: exports["default"] = stopPropagation;
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -3495,7 +3438,6 @@ pages/index.js:     ]);
 pages/index.js: }();
 pages/index.js: exports["default"] = VNode;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
@@ -3507,7 +3449,6 @@ pages/index.js: exports.TYPE_TEXT = exports.REMAX_METHOD = exports.REMAX_ROOT_BA
 pages/index.js: exports.REMAX_ROOT_BACKUP = '$$REMAX_ROOT_BACKUP';
 pages/index.js: exports.REMAX_METHOD = '$$REMAX_METHOD';
 pages/index.js: exports.TYPE_TEXT = 'plain-text';
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -3746,7 +3687,6 @@ pages/index.js:     return createConfig(WrappedApp);
 pages/index.js: }
 pages/index.js: exports["default"] = createAppConfig;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -3839,7 +3779,6 @@ pages/index.js:     return config;
 pages/index.js: }
 pages/index.js: exports["default"] = createComponentConfig;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -3870,7 +3809,6 @@ pages/index.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver')
 pages/index.js: }
 pages/index.js: exports["default"] = createHostComponent;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -3898,7 +3836,6 @@ pages/index.js:     Component.displayName = name;
 pages/index.js:     return Component;
 pages/index.js: }
 pages/index.js: exports["default"] = createNativeComponent;
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4127,7 +4064,6 @@ pages/index.js:     });
 pages/index.js: }
 pages/index.js: exports["default"] = createPageConfig;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -4181,7 +4117,6 @@ pages/index.js:         return __importDefault(useQuery_1).default;
 pages/index.js:     }
 pages/index.js: }));
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -4203,7 +4138,6 @@ pages/index.js:     }, deps);
 pages/index.js: }
 pages/index.js: exports["default"] = useNativeEffect;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -4218,7 +4152,6 @@ pages/index.js:     var pageInstance = (0, react_1.useContext)(framework_shared_
 pages/index.js:     return pageInstance.query;
 pages/index.js: }
 pages/index.js: exports["default"] = useQuery;
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4316,7 +4249,6 @@ pages/index.js:     }
 pages/index.js:     return updatePayload.length ? updatePayload : null;
 pages/index.js: }
 pages/index.js: exports["default"] = diffProperties;
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4486,7 +4418,6 @@ pages/index.js:     cancelDeferredCallback: cancelDeferredCallback,
 pages/index.js:     supportsMutation: true
 pages/index.js: };
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -4588,7 +4519,6 @@ pages/index.js: exports["default"] = {
 pages/index.js:     unstable_batchedUpdates: exports.unstable_batchedUpdates
 pages/index.js: };
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
@@ -4608,7 +4538,6 @@ pages/index.js:     instanceId += 1;
 pages/index.js:     return id;
 pages/index.js: }
 pages/index.js: exports.generate = generate;
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -4647,7 +4576,6 @@ pages/index.js:     connect: connect,
 pages/index.js:     run: run,
 pages/index.js:     dispose: dispose
 pages/index.js: };
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function () {
@@ -4703,7 +4631,6 @@ pages/index.js:         delete context.fn;
 pages/index.js:         return result;
 pages/index.js:     };
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4766,7 +4693,6 @@ pages/index.js:     return aliasProps;
 pages/index.js: }
 pages/index.js: exports["default"] = propsAlias;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
@@ -4804,7 +4730,6 @@ pages/index.js:     return getPublicRootInstance(container._rootContainer);
 pages/index.js: }
 pages/index.js: exports["default"] = render;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
 pages/index.js: "use strict";
@@ -4813,7 +4738,6 @@ pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
 pages/index.js: exports["default"] = my.stopPullDownRefresh;
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -4896,7 +4820,6 @@ pages/index.js: };
 pages/index.js: for(var prop in exports.isUnitlessNumber){
 pages/index.js:     _loop(prop);
 pages/index.js: }
-pages/index.js: 
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4982,7 +4905,6 @@ pages/index.js:     }, []).join('');
 pages/index.js: };
 pages/index.js: exports["default"] = plainStyle;
 pages/index.js: 
-pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (module) {
 pages/index.js: "use strict";
@@ -4998,9 +4920,9 @@ pages/index.js: <ID>: (function (module) {
 pages/index.js: "use strict";
 pages/index.js: module.exports = require("rsmax");
 pages/index.js: 
-pages/index.js: }),
+pages/index.js: },
 pages/index.js: 
-pages/index.js: },function(__webpack_require__) {
+pages/index.js: }),function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/index.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
 pages/index.js: 
@@ -5118,7 +5040,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_version
 runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("1.6.3")
+runtime.js: __webpack_require__.rv = () => ("<VERSION>"))
 runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
@@ -5153,7 +5075,9 @@ runtime.js: 			installedChunks[chunkId][<ID>]();
 runtime.js: 		}
 runtime.js: 		installedChunks[chunkId] = 0;
 runtime.js: 	}
+runtime.js: 
 runtime.js: 	return __webpack_require__.O(result);
+runtime.js: 
 runtime.js: };
 runtime.js: 
 runtime.js: var chunkLoadingGlobal = my["webpackChunk"] = my["webpackChunk"] || [];
@@ -5163,8 +5087,7 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/rspack_unique_id
 runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@1.6.3";
-runtime.js: 
+runtime.js: __webpack_require__.ruid = "bundler=rspack@<VERSION>";
 runtime.js: })();
 runtime.js: })()
 runtime.js: ;

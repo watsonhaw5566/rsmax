@@ -733,10 +733,9 @@ api/data.js:     getData: getData,
 api/data.js:     setData: setData
 api/data.js: };
 api/data.js: 
+api/data.js: },
 api/data.js: 
-api/data.js: }),
-api/data.js: 
-api/data.js: },function(__webpack_require__) {
+api/data.js: }),function(__webpack_require__) {
 api/data.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 api/data.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
 api/data.js: module.exports = __webpack_exports__;
@@ -1671,9 +1670,7 @@ components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __web
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 components/greet/index.js: 
-components/greet/index.js: 
 components/greet/index.js: Component((0,__WEBPACK_IMPORTED_MODULE_0__.createComponentConfig)(__WEBPACK_IMPORTED_MODULE_1__["default"]));
-components/greet/index.js: 
 components/greet/index.js: 
 components/greet/index.js: }),
 components/greet/index.js: <ID>: (function (module) {
@@ -1695,9 +1692,9 @@ components/greet/index.js: }),
 components/greet/index.js: <ID>: (function (module) {
 components/greet/index.js: module.exports = require("/__rsmax_runtime_options__");
 components/greet/index.js: 
-components/greet/index.js: }),
+components/greet/index.js: },
 components/greet/index.js: 
-components/greet/index.js: },function(__webpack_require__) {
+components/greet/index.js: }),function(__webpack_require__) {
 components/greet/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 components/greet/index.js: __webpack_require__.O(0, ["3",], function() {
 components/greet/index.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
@@ -1841,7 +1838,6 @@ pages/index/index.js: <ID>: (function (__unused_webpack_module, __webpack_export
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: // extracted by css-extract-rspack-plugin
 pages/index/index.js: 
-pages/index/index.js: 
 pages/index/index.js: }),
 pages/index/index.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 pages/index/index.js: module.exports = __webpack_require__.p + "ae668fec285d0da4.jpg";
@@ -1854,15 +1850,13 @@ pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 pages/index/index.js: __webpack_require__(<ID>);
 pages/index/index.js: 
-pages/index/index.js: 
 pages/index/index.js: Page((0,__WEBPACK_IMPORTED_MODULE_0__.createPageConfig)(__WEBPACK_IMPORTED_MODULE_1__["default"], 'pages/index/index'));
-pages/index/index.js: 
 pages/index/index.js: 
 pages/index/index.js: }),
 pages/index/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
-pages/index/index.js:   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+pages/index/index.js:   "default": () => (/* export default binding */ __rspack_default_export)
 pages/index/index.js: });
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
@@ -1986,11 +1980,11 @@ pages/index/index.js:             if ("throw" !== c.type) {
 pages/index/index.js:                 var h = c.arg, f = h.value;
 pages/index/index.js:                 return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function(t) {
 pages/index/index.js:                     e("next", t, a, u);
-pages/index/index.js:                 }, function(t) {
+pages/index/index.js:                 }), function(t) {
 pages/index/index.js:                     e("throw", t, a, u);
 pages/index/index.js:                 }) : r.resolve(f).then(function(t) {
 pages/index/index.js:                     h.value = t, a(h);
-pages/index/index.js:                 }, function(t) {
+pages/index/index.js:                 }), function(t) {
 pages/index/index.js:                     return e("throw", t, a, u);
 pages/index/index.js:                 });
 pages/index/index.js:             }
@@ -2252,17 +2246,13 @@ pages/index/index.js: function _arrayWithHoles(r) {
 pages/index/index.js:     if (Array.isArray(r)) return r;
 pages/index/index.js: }
 pages/index/index.js: 
-pages/index/index.js: 
-pages/index/index.js: 
-pages/index/index.js: 
-pages/index/index.js: 
 pages/index/index.js: // CASE: cloneElement
 pages/index/index.js: 
 pages/index/index.js: var TextElement = /*#__PURE__*/ __WEBPACK_IMPORTED_MODULE_0___default().cloneElement(/*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_5__.jsx)(__WEBPACK_IMPORTED_MODULE_1__.Text, {
 pages/index/index.js:     id: "text",
 pages/index/index.js:     children: "clonedElement"
 pages/index/index.js: }));
-pages/index/index.js: /* export default */ function __WEBPACK_DEFAULT_EXPORT__() {
+pages/index/index.js: /* export default */ function __rspack_default_export() {
 pages/index/index.js:     var _obj$a;
 pages/index/index.js:     var props = {
 pages/index/index.js:         className: 'class-view'
@@ -2328,7 +2318,6 @@ pages/index/index.js:         ]
 pages/index/index.js:     });
 pages/index/index.js: };
 pages/index/index.js: 
-pages/index/index.js: 
 pages/index/index.js: }),
 pages/index/index.js: <ID>: (function (module) {
 pages/index/index.js: module.exports = require("react");
@@ -2349,9 +2338,9 @@ pages/index/index.js: }),
 pages/index/index.js: <ID>: (function (module) {
 pages/index/index.js: module.exports = require("/__rsmax_runtime_options__");
 pages/index/index.js: 
-pages/index/index.js: }),
+pages/index/index.js: },
 pages/index/index.js: 
-pages/index/index.js: },function(__webpack_require__) {
+pages/index/index.js: }),function(__webpack_require__) {
 pages/index/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/index/index.js: __webpack_require__.O(0, ["3",], function() {
 pages/index/index.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
@@ -2622,7 +2611,6 @@ rsmax-vendors.js:
 rsmax-vendors.js:     return exports;
 rsmax-vendors.js: };
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
 rsmax-vendors.js: "use strict";
@@ -2826,7 +2814,6 @@ rsmax-vendors.js:         exports.typeOf = typeOf;
 rsmax-vendors.js:     })();
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -2834,7 +2821,6 @@ rsmax-vendors.js:
 rsmax-vendors.js: if (false) {} else {
 rsmax-vendors.js:     module.exports = __webpack_require__(<ID>);
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -3348,7 +3334,6 @@ rsmax-vendors.js:         }
 rsmax-vendors.js:     })();
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -3356,7 +3341,6 @@ rsmax-vendors.js:
 rsmax-vendors.js: if (false) {} else {
 rsmax-vendors.js:     module.exports = __webpack_require__(<ID>);
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -3366,7 +3350,6 @@ rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_requ
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: var pluginDriver = new __WEBPACK_IMPORTED_MODULE_0__.PluginDriver([].map(function(p) {
 rsmax-vendors.js:     return p.default || p;
@@ -3381,22 +3364,20 @@ rsmax-vendors.js:     pageEvents: __WEBPACK_IMPORTED_MODULE_1__.pageEvents,
 rsmax-vendors.js:     appEvents: __WEBPACK_IMPORTED_MODULE_1__.appEvents
 rsmax-vendors.js: });
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: __webpack_require__.r(__webpack_exports__);
 rsmax-vendors.js: __webpack_require__.d(__webpack_exports__, {
-rsmax-vendors.js:   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+rsmax-vendors.js:   "default": () => (/* export default binding */ __rspack_default_export)
 rsmax-vendors.js: });
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: console.log('greeting');
-rsmax-vendors.js: /* export default */ function __WEBPACK_DEFAULT_EXPORT__(_ref) {
+rsmax-vendors.js: /* export default */ function __rspack_default_export(_ref) {
 rsmax-vendors.js:     var name = _ref.name;
 rsmax-vendors.js:     return /*#__PURE__*/ (0,__WEBPACK_IMPORTED_MODULE_1__.jsxs)(__WEBPACK_IMPORTED_MODULE_0__.View, {
 rsmax-vendors.js:         id: "greeting",
@@ -3407,13 +3388,12 @@ rsmax-vendors.js:         ]
 rsmax-vendors.js:     });
 rsmax-vendors.js: };
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: __webpack_require__.r(__webpack_exports__);
 rsmax-vendors.js: __webpack_require__.d(__webpack_exports__, {
-rsmax-vendors.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+rsmax-vendors.js:   "default": () => (__rspack_default_export)
 rsmax-vendors.js: });
 rsmax-vendors.js: var AppInstanceContext = {
 rsmax-vendors.js:     lifecycleCallback: {},
@@ -3426,36 +3406,33 @@ rsmax-vendors.js:             _this.lifecycleCallback[lifecycle].splice(_this.li
 rsmax-vendors.js:         };
 rsmax-vendors.js:     }
 rsmax-vendors.js: };
-rsmax-vendors.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (AppInstanceContext);
-rsmax-vendors.js: 
+rsmax-vendors.js: /* export default */ const __rspack_default_export = (AppInstanceContext);
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: __webpack_require__.r(__webpack_exports__);
 rsmax-vendors.js: __webpack_require__.d(__webpack_exports__, {
-rsmax-vendors.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+rsmax-vendors.js:   "default": () => (__rspack_default_export)
 rsmax-vendors.js: });
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 rsmax-vendors.js: 
 rsmax-vendors.js: var ComponentInstanceContext = /*#__PURE__*/ __WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-rsmax-vendors.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (ComponentInstanceContext);
-rsmax-vendors.js: 
+rsmax-vendors.js: /* export default */ const __rspack_default_export = (ComponentInstanceContext);
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: __webpack_require__.r(__webpack_exports__);
 rsmax-vendors.js: __webpack_require__.d(__webpack_exports__, {
-rsmax-vendors.js:   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+rsmax-vendors.js:   "default": () => (__rspack_default_export)
 rsmax-vendors.js: });
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__);
 rsmax-vendors.js: 
 rsmax-vendors.js: var PageInstanceContext = /*#__PURE__*/ __WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-rsmax-vendors.js: /* export default */ const __WEBPACK_DEFAULT_EXPORT__ = (PageInstanceContext);
-rsmax-vendors.js: 
+rsmax-vendors.js: /* export default */ const __rspack_default_export = (PageInstanceContext);
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -3606,8 +3583,6 @@ rsmax-vendors.js:         }
 rsmax-vendors.js:     ]);
 rsmax-vendors.js: }();
 rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -3688,7 +3663,6 @@ rsmax-vendors.js: }
 rsmax-vendors.js: function reset() {
 rsmax-vendors.js:     runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -3783,11 +3757,6 @@ rsmax-vendors.js:         return t.__proto__ = e, t;
 rsmax-vendors.js:     }, _setPrototypeOf(t, e);
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: function createPageWrapper(Page, name) {
 rsmax-vendors.js:     var WrappedPage = __WEBPACK_IMPORTED_MODULE_3__.get('pluginDriver').onPageComponent({
 rsmax-vendors.js:         component: Page,
@@ -3855,7 +3824,6 @@ rsmax-vendors.js:         ]);
 rsmax-vendors.js:     }(__WEBPACK_IMPORTED_MODULE_0__.Component);
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -3870,7 +3838,6 @@ rsmax-vendors.js:     }).replace(/-/g, '').replace(/^(.)/, function($1) {
 rsmax-vendors.js:         return $1.toUpperCase();
 rsmax-vendors.js:     });
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -3888,10 +3855,6 @@ rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_requ
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(<ID>);
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: function usePageEvent(eventName, callback) {
 rsmax-vendors.js:     var pageInstance = (0,__WEBPACK_IMPORTED_MODULE_0__.useContext)(__WEBPACK_IMPORTED_MODULE_3__["default"]);
@@ -3914,7 +3877,6 @@ rsmax-vendors.js:     (0,__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function
 rsmax-vendors.js:         return (0,__WEBPACK_IMPORTED_MODULE_4__.registerLifecycle)(__WEBPACK_IMPORTED_MODULE_1__["default"], lifeCycle, callback);
 rsmax-vendors.js:     });
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -3955,20 +3917,6 @@ rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_9__ = __webpack_requ
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(<ID>);
 rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -3982,7 +3930,6 @@ rsmax-vendors.js:   registerLifecycle: () => (registerLifecycle)
 rsmax-vendors.js: });
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
 rsmax-vendors.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(<ID>);
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: var Lifecycle;
 rsmax-vendors.js: (function(Lifecycle) {
@@ -4033,7 +3980,6 @@ rsmax-vendors.js: function registerLifecycle(instance, method, callback) {
 rsmax-vendors.js:     return instance.registerLifecycle(method, callback);
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -4065,7 +4011,6 @@ rsmax-vendors.js:         });
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -4092,7 +4037,6 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return false;
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -4103,7 +4047,6 @@ rsmax-vendors.js: });
 rsmax-vendors.js: function capitalize(str) {
 rsmax-vendors.js:     return str.charAt(0).toUpperCase() + str.slice(1);
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -4116,7 +4059,6 @@ rsmax-vendors.js: function isClassComponent(Component) {
 rsmax-vendors.js:     return Component.prototype && typeof Component.prototype.render === 'function';
 rsmax-vendors.js: }
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -4127,7 +4069,6 @@ rsmax-vendors.js: });
 rsmax-vendors.js: function lowercase(str) {
 rsmax-vendors.js:     return str.charAt(0).toLowerCase() + str.slice(1);
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4233,7 +4174,6 @@ rsmax-vendors.js:         }
 rsmax-vendors.js:     ]);
 rsmax-vendors.js: }();
 rsmax-vendors.js: exports["default"] = AppContainer;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4473,7 +4413,6 @@ rsmax-vendors.js:     ]);
 rsmax-vendors.js: }();
 rsmax-vendors.js: exports["default"] = Container;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -4495,7 +4434,6 @@ rsmax-vendors.js:     };
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.createPortal = createPortal;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
 rsmax-vendors.js: "use strict";
@@ -4514,7 +4452,6 @@ rsmax-vendors.js:     'onTouchMove',
 rsmax-vendors.js:     'onTouchStart',
 rsmax-vendors.js:     'onTouchEnd'
 rsmax-vendors.js: ];
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -4598,7 +4535,6 @@ rsmax-vendors.js:     };
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.createCallbackProxy = createCallbackProxy;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -4636,7 +4572,6 @@ rsmax-vendors.js:     exports.isPropagationStopped[eventType] = true;
 rsmax-vendors.js:     validate(node, eventType);
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = stopPropagation;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -5071,7 +5006,6 @@ rsmax-vendors.js:     ]);
 rsmax-vendors.js: }();
 rsmax-vendors.js: exports["default"] = VNode;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
 rsmax-vendors.js: "use strict";
@@ -5083,7 +5017,6 @@ rsmax-vendors.js: exports.TYPE_TEXT = exports.REMAX_METHOD = exports.REMAX_ROOT_
 rsmax-vendors.js: exports.REMAX_ROOT_BACKUP = '$$REMAX_ROOT_BACKUP';
 rsmax-vendors.js: exports.REMAX_METHOD = '$$REMAX_METHOD';
 rsmax-vendors.js: exports.TYPE_TEXT = 'plain-text';
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -5322,7 +5255,6 @@ rsmax-vendors.js:     return createConfig(WrappedApp);
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = createAppConfig;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -5415,7 +5347,6 @@ rsmax-vendors.js:     return config;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = createComponentConfig;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -5446,7 +5377,6 @@ rsmax-vendors.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = createHostComponent;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -5474,7 +5404,6 @@ rsmax-vendors.js:     Component.displayName = name;
 rsmax-vendors.js:     return Component;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = createNativeComponent;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -5703,7 +5632,6 @@ rsmax-vendors.js:     });
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = createPageConfig;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -5757,7 +5685,6 @@ rsmax-vendors.js:         return __importDefault(useQuery_1).default;
 rsmax-vendors.js:     }
 rsmax-vendors.js: }));
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -5779,7 +5706,6 @@ rsmax-vendors.js:     }, deps);
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = useNativeEffect;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -5794,7 +5720,6 @@ rsmax-vendors.js:     var pageInstance = (0, react_1.useContext)(framework_share
 rsmax-vendors.js:     return pageInstance.query;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = useQuery;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -5892,7 +5817,6 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     return updatePayload.length ? updatePayload : null;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = diffProperties;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -6062,7 +5986,6 @@ rsmax-vendors.js:     cancelDeferredCallback: cancelDeferredCallback,
 rsmax-vendors.js:     supportsMutation: true
 rsmax-vendors.js: };
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -6164,7 +6087,6 @@ rsmax-vendors.js: exports["default"] = {
 rsmax-vendors.js:     unstable_batchedUpdates: exports.unstable_batchedUpdates
 rsmax-vendors.js: };
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
 rsmax-vendors.js: "use strict";
@@ -6184,7 +6106,6 @@ rsmax-vendors.js:     instanceId += 1;
 rsmax-vendors.js:     return id;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.generate = generate;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -6223,7 +6144,6 @@ rsmax-vendors.js:     connect: connect,
 rsmax-vendors.js:     run: run,
 rsmax-vendors.js:     dispose: dispose
 rsmax-vendors.js: };
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function () {
@@ -6279,7 +6199,6 @@ rsmax-vendors.js:         delete context.fn;
 rsmax-vendors.js:         return result;
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -6342,7 +6261,6 @@ rsmax-vendors.js:     return aliasProps;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = propsAlias;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
@@ -6380,7 +6298,6 @@ rsmax-vendors.js:     return getPublicRootInstance(container._rootContainer);
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = render;
 rsmax-vendors.js: 
-rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
 rsmax-vendors.js: "use strict";
@@ -6389,7 +6306,6 @@ rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports["default"] = my.stopPullDownRefresh;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -6472,7 +6388,6 @@ rsmax-vendors.js: };
 rsmax-vendors.js: for(var prop in exports.isUnitlessNumber){
 rsmax-vendors.js:     _loop(prop);
 rsmax-vendors.js: }
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
@@ -6557,7 +6472,6 @@ rsmax-vendors.js:         ]);
 rsmax-vendors.js:     }, []).join('');
 rsmax-vendors.js: };
 rsmax-vendors.js: exports["default"] = plainStyle;
-rsmax-vendors.js: 
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: 
@@ -6703,7 +6617,9 @@ runtime.js: 			installedChunks[chunkId][<ID>]();
 runtime.js: 		}
 runtime.js: 		installedChunks[chunkId] = 0;
 runtime.js: 	}
+runtime.js: 
 runtime.js: 	return __webpack_require__.O(result);
+runtime.js: 
 runtime.js: };
 runtime.js: 
 runtime.js: var chunkLoadingGlobal = my["webpackChunk"] = my["webpackChunk"] || [];
