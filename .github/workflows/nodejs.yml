@@ -29,5 +29,6 @@ jobs:
       - name: install, build, and test
         run: |
           pnpm install --frozen-lockfile
+          npx update-browserslist-db@latest
           pnpm build
           pnpm test
