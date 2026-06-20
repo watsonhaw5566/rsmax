@@ -8,6 +8,7 @@ export interface SwitchProps extends BaseProps {
   checked?: boolean;
   disabled?: boolean;
   type?: string;
+  controlled?: boolean;
   onChange?: (e: any) => void;
   color?: string;
 }

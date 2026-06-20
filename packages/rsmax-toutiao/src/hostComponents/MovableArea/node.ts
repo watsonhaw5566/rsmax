@@ -6,6 +6,7 @@ export const alias = {
   style: 'style',
   width: 'width',
   height: 'height',
+  scaleArea: 'scale-area',
 };
 
 export const props = unique(Object.values(alias));

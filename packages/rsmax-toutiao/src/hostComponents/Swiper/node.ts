@@ -14,7 +14,6 @@ export const alias = {
   previousMargin: 'previous-margin',
   nextMargin: 'next-margin',
   displayMultipleItems: 'display-multiple-items',
-  skipHiddenItemLayout: 'skip-hidden-item-layout',
   easingFunction: 'easing-function',
   onChange: 'bindchange',
   onTransition: 'bindtransition',

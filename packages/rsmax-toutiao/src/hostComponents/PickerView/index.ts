@@ -8,8 +8,12 @@ export interface PickerViewProps extends BaseProps {
   name?: string;
   value?: number[];
   indicatorStyle?: React.CSSProperties;
+  indicatorClassName?: string;
   maskStyle?: string;
+  maskClassName?: string;
   onChange?: (e: any) => void;
+  onPickStart?: (e: any) => void;
+  onPickEnd?: (e: any) => void;
 }
 
 export const PickerView: React.ComponentType<PickerViewProps> = createHostComponent<PickerViewProps>('picker-view');

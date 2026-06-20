@@ -21,6 +21,7 @@ export interface ImageProps extends BaseProps {
     | 'bottom right';
   style?: React.CSSProperties;
   lazyLoad?: boolean;
+  showMenuByLongpress?: boolean;
   onLoad?: (e: any) => void;
   onError?: (e: any) => void;
   onTap?: (e: any) => void;

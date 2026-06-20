@@ -8,19 +8,27 @@ export interface TextareaProps extends BaseProps {
   value?: string;
   placeholder?: string;
   placeholderStyle?: string;
+  placeholderClassName?: string;
   disabled?: boolean;
   maxlength?: number;
+  autoFocus?: boolean;
   focus?: boolean;
   autoHeight?: boolean;
   fixed?: boolean;
+  showCount?: boolean;
+  controlled?: boolean;
   cursorSpacing?: number;
   cursor?: number;
+  showConfirmBar?: boolean;
   selectionStart?: number;
   selectionEnd?: number;
+  adjustPosition?: boolean;
   onInput?: (e: any) => void;
   onFocus?: (e: any) => void;
   onBlur?: (e: any) => void;
+  onLineChange?: (e: any) => void;
   onConfirm?: (e: any) => void;
+  onKeyboardHeightChange?: (e: any) => void;
 }
 
 export const Textarea: React.ComponentType<TextareaProps> = createHostComponent<TextareaProps>('textarea');

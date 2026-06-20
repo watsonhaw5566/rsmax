@@ -12,6 +12,13 @@ interface Node {
 export interface RichTextProps extends BaseProps {
   nodes?: Node | string;
   space?: 'ensp' | 'emsp' | 'nbsp';
+  onTap?: (e: any) => void;
+  onClick?: (e: any) => void;
+  onTouchStart?: (e: any) => void;
+  onTouchMove?: (e: any) => void;
+  onTouchEnd?: (e: any) => void;
+  onTouchCancel?: (e: any) => void;
+  onLongTap?: (e: any) => void;
 }
 
 export const RichText: React.ComponentType<RichTextProps> = createHostComponent<RichTextProps>('rich-text');

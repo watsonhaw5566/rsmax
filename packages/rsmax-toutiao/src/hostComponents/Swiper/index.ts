@@ -17,6 +17,7 @@ export interface SwiperProps extends BaseProps {
   vertical?: boolean;
   previousMargin?: string;
   nextMargin?: string;
+  easingFunction?: 'default' | 'linear' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic';
   onChange?: (e: any) => void;
   onTransition?: (e: any) => void;
   onAnimationFinish?: (e: any) => void;

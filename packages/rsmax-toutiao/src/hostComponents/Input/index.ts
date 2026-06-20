@@ -6,10 +6,13 @@ import type { BaseProps } from '../../types/component';
 export interface InputProps extends BaseProps {
   name?: string;
   focus?: boolean;
+  autoFocus?: boolean;
   maxlength?: number;
   value?: string;
   password?: boolean;
-  type?: 'text' | 'number' | 'digit';
+  type?: 'text' | 'number' | 'digit' | 'idcard';
+  confirmType?: 'send' | 'search' | 'next' | 'go' | 'done';
+  confirmHold?: boolean;
   cursor?: number;
   selectionStart?: number;
   selectionEnd?: number;
@@ -24,6 +27,7 @@ export interface InputProps extends BaseProps {
   onFocus?: (e: any) => void;
   onBlur?: (e: any) => void;
   onConfirm?: (e: any) => void;
+  onKeyboardHeightChange?: (e: any) => void;
 }
 
 export const Input: React.ComponentType<InputProps> = createHostComponent<InputProps>('input');

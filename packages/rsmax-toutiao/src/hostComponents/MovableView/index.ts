@@ -58,10 +58,10 @@ export interface MovableViewProps extends BaseProps {
   onChange?: (event: GenericEvent) => any;
   // 缩放过程中触发的事件，event.detail = {x, y, scale}
   onScale?: (event: GenericEvent) => any;
-  // 初次手指触摸后移动为横向的移动时触发，如果 catch 此事件，则意味着 touchmove 事件也被 catch
-  hTouchmove?: (event: GenericEvent) => any;
-  // 初次手指触摸后移动为纵向的移动时触发，如果 catch 此事件，则意味着 touchmove 事件也被 catch
-  vTouchmove?: (event: GenericEvent) => any;
+  // 初次手指触摸后移动为横向的移动时触发
+  hTouchMove?: (event: GenericEvent) => any;
+  // 初次手指触摸后移动为纵向的移动时触发
+  vTouchMove?: (event: GenericEvent) => any;
 }
 
 export const MovableView: React.ComponentType<MovableViewProps> = createHostComponent<MovableViewProps>('movable-view');

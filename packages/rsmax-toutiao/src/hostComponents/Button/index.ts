@@ -5,17 +5,30 @@ import type { BaseProps } from '../../types/component';
 
 export interface ButtonProps extends BaseProps {
   size?: 'default' | 'mini';
-  type?: 'primary' | 'default';
+  type?: 'primary' | 'default' | 'warn';
+  plain?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  formType?: 'submit' | 'reset';
+  openType?: string;
   hoverClassName?: string;
   hoverStartTime?: number;
   hoverStayTime?: number;
   hoverStopPropagation?: boolean;
-  formType?: 'submit' | 'reset';
-  openType?: 'share' | 'getPhoneNumber';
+  lang?: 'en' | 'zh_CN' | 'zh_TW';
+  sessionFrom?: string;
+  sendMessageTitle?: string;
+  sendMessagePath?: string;
+  sendMessageImg?: string;
+  appParameter?: string;
+  showMessageCard?: boolean;
   onClick?: (e: any) => void;
+  onGetUserInfo?: (e: any) => void;
+  onContact?: (e: any) => void;
   onGetPhoneNumber?: (e: any) => void;
+  onError?: (e: any) => void;
+  onOpenSetting?: (e: any) => void;
+  onLaunchApp?: (e: any) => void;
   children?: React.ReactNode;
 }
 

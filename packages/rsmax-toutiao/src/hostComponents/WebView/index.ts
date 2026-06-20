@@ -5,8 +5,10 @@ import type { BaseProps } from '../../types/component';
 
 export interface WebViewProps extends BaseProps {
   src?: string;
-  onMessage?: (e: any) => void;
   progressbarColor?: string;
+  onMessage?: (e: any) => void;
+  onLoad?: (e: any) => void;
+  onError?: (e: any) => void;
 }
 
 export const WebView: React.ComponentType<WebViewProps> = createHostComponent<WebViewProps>('web-view');
