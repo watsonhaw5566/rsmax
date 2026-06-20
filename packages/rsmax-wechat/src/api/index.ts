@@ -78,7 +78,9 @@ export const preloadWebview = wx.preloadWebview;
 export const preloadSkylineView = wx.preloadSkylineView;
 export const preloadAssets = wx.preloadAssets;
 export const getPerformance = wx.getPerformance;
+// @ts-expect-error 缺少类型声明
 export const requestIdleCallback = wx.requestIdleCallback;
+// @ts-expect-error 缺少类型声明
 export const cancelIdleCallback = wx.cancelIdleCallback;
 // 基础 - 分包加载
 export const preDownloadSubpackage = wx.preDownloadSubpackage;
@@ -103,6 +105,7 @@ export const offEmbeddedMiniProgramHeightChange = wx.offEmbeddedMiniProgramHeigh
 export const navigateToMiniProgram = promisify(wx.navigateToMiniProgram);
 export const navigateBackMiniProgram = promisify(wx.navigateBackMiniProgram);
 export const exitMiniProgram = promisify(wx.exitMiniProgram);
+// @ts-expect-error 缺少类型声明
 export const openOfficialAccountChat = promisify(wx.openOfficialAccountChat);
 // @ts-expect-error 缺少类型声明
 export const openInquiriesTopic = promisify(wx.openInquiriesTopic);
@@ -129,6 +132,7 @@ export const offCopyUrl = wx.offCopyUrl;
 export const hideShareMenu = promisify(wx.hideShareMenu);
 export const getShareInfo = wx.getShareInfo;
 export const authPrivateMessage = promisify(wx.authPrivateMessage);
+// @ts-expect-error 缺少类型声明
 export const shareToOfficialAccount = promisify(wx.shareToOfficialAccount);
 // 界面 - 交互
 export const showToast = promisify(wx.showToast);
@@ -189,8 +193,10 @@ export const onWindowResize = wx.onWindowResize;
 export const offWindowResize = wx.offWindowResize;
 export const checkIsPictureInPictureActive = wx.checkIsPictureInPictureActive;
 export const onWindowStateChange = wx.onWindowStateChange;
+// @ts-expect-error 缺少类型声明
 export const onParallelStateChange = wx.onParallelStateChange;
 export const offWindowStateChange = wx.offWindowStateChange;
+// @ts-expect-error 缺少类型声明
 export const offParallelStateChange = wx.offParallelStateChange;
 // 界面 - worklet 动画
 export const worklet = wx.worklet;
@@ -420,6 +426,7 @@ export const openChannelsActivity = wx.openChannelsActivity;
 export const getChannelsShareKey = wx.getChannelsShareKey;
 export const getChannelsLiveNoticeInfo = wx.getChannelsLiveNoticeInfo;
 export const getChannelsLiveInfo = wx.getChannelsLiveInfo;
+// @ts-expect-error 缺少类型声明
 export const openChannelsLiveNoticeInfo = wx.openChannelsLiveNoticeInfo;
 // 开放接口 - 音视频通话
 export const requestDeviceVoIP = wx.requestDeviceVoIP;
@@ -440,8 +447,11 @@ export const openSingleStickerView = wx.openSingleStickerView;
 // @ts-expect-error 缺少类型声明
 export const openDesignerProfile = wx.openDesignerProfile;
 // 开放接口 - 用工关系
+// @ts-expect-error 缺少类型声明
 export const requestSubscribeEmployeeMessage = promisify(wx.requestSubscribeEmployeeMessage);
+// @ts-expect-error 缺少类型声明
 export const checkEmployeeRelation = promisify(wx.checkEmployeeRelation);
+// @ts-expect-error 缺少类型声明
 export const bindEmployeeRelation = promisify(wx.bindEmployeeRelation);
 // 开放接口 - 人脸检测
 // @ts-expect-error 缺少类型声明
@@ -494,6 +504,7 @@ export const getBeacons = promisify(wx.getBeacons);
 // 设备 - NFC读写
 export const getNFCAdapter = wx.getNFCAdapter;
 // 设备 - NFC - 公交卡/安全元件
+// @ts-expect-error 缺少类型声明
 export const removeSecureElementPass = wx.removeSecureElementPass;
 // @ts-expect-error 缺少类型声明
 export const rechargeTransitCard = wx.rechargeTransitCard;
@@ -505,13 +516,17 @@ export const getTransitCardList = wx.getTransitCardList;
 export const getTransitCardInfo = wx.getTransitCardInfo;
 // @ts-expect-error 缺少类型声明
 export const getTransitCardCPLC = wx.getTransitCardCPLC;
+// @ts-expect-error 缺少类型声明
 export const getSecureElementPasses = wx.getSecureElementPasses;
 // @ts-expect-error 缺少类型声明
 export const deleteTransitCard = wx.deleteTransitCard;
 // @ts-expect-error 缺少类型声明
 export const checkTransitCardSupport = wx.checkTransitCardSupport;
+// @ts-expect-error 缺少类型声明
 export const canAddSecureElementPass = wx.canAddSecureElementPass;
+// @ts-expect-error 缺少类型声明
 export const addPaymentPassGetCertificateData = wx.addPaymentPassGetCertificateData;
+// @ts-expect-error 缺少类型声明
 export const addPaymentPassFinish = wx.addPaymentPassFinish;
 // 设备 - WIFI
 export const stopWifi = promisify(wx.stopWifi);
@@ -567,7 +582,9 @@ export const onScreenRecordingStateChanged = wx.onScreenRecordingStateChanged;
 export const offUserCaptureScreen = wx.offUserCaptureScreen;
 export const offScreenRecordingStateChanged = wx.offScreenRecordingStateChanged;
 export const getScreenRecordingState = wx.getScreenRecordingState;
+// @ts-expect-error 缺少类型声明
 export const onGeneratePoster = wx.onGeneratePoster;
+// @ts-expect-error 缺少类型声明
 export const offGeneratePoster = wx.offGeneratePoster;
 export const getScreenBrightness = promisify(wx.getScreenBrightness);
 // 设备 - 键盘
