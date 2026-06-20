@@ -65,6 +65,8 @@ export interface ScrollViewProps extends BaseProps {
   bounces?: boolean;
   /** (default: true) 滚动条显隐控制 (同时开启 enhanced 属性后生效) 2.12.0 */
   showScrollbar?: boolean;
+  /** (default: false) 使 position: sticky 在 scroll-view 中持续生效 3.2.1 */
+  usingSticky?: boolean;
   /** (default: false) 分页滑动效果 (同时开启 enhanced 属性后生效) 2.12.0 */
   pagingEnabled?: boolean;
   /** (default: false) 滑动减速速率控制 (同时开启 enhanced 属性后生效) 2.12.0 */

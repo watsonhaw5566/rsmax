@@ -56,6 +56,8 @@ export interface ImageProps extends BaseProps {
    * 开启长按图片显示识别小程序码菜单
    */
   showMenuByLongpress?: boolean;
+  /** 是否自动将 http 替换为 https 3.9.1 */
+  forceHttps?: boolean;
   /**
    * 1.0.0
    * 当错误发生时触发，，event.detail = {errMsg}

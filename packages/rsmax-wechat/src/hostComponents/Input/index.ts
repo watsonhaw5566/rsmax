@@ -40,7 +40,7 @@ export interface InputProps extends BaseProps {
    * idcard	身份证输入键盘
    * digit	带小数点的数字键盘
    */
-  type?: 'text' | 'number' | 'idcard' | 'digit';
+  type?: 'text' | 'number' | 'idcard' | 'digit' | 'safe-password' | 'nickname';
   /**
    * 1.1.0
    * 设置键盘右下角按钮的文字，仅在type='text'时生效
@@ -82,6 +82,8 @@ export interface InputProps extends BaseProps {
    * focus时，点击页面的时候不收起键盘
    */
   holdKeyboard?: boolean;
+  /** 指定光标颜色 3.1.0 */
+  cursorColor?: string;
   /**
    * 1.0.0
    * 输入框为空时占位符
@@ -133,6 +135,46 @@ export interface InputProps extends BaseProps {
    * 键盘高度发生变化的时候触发此事件，event.detail = {height: height, duration: duration}
    */
   onKeyboardHeightChange?: (event: GenericEvent) => any;
+  /**
+   * 1.0.0
+   * 在非聚焦状态输入框内容变化时触发
+   */
+  onChange?: (event: GenericEvent) => void;
+  /**
+   * 2.29.1
+   * 用户昵称审核完毕后触发，type="nickname"时有效
+   */
+  onNicknameReview?: (event: GenericEvent) => any;
+  /**
+   * 2.18.0
+   * 安全键盘加密公钥的路径，type="safe-password"时有效
+   */
+  safePasswordCertPath?: string;
+  /**
+   * 2.18.0
+   * 安全键盘自定义哈希，type="safe-password"时有效
+   */
+  safePasswordCustomHash?: string;
+  /**
+   * 2.18.0
+   * 安全键盘盐值，type="safe-password"时有效
+   */
+  safePasswordNonce?: string;
+  /**
+   * 2.18.0
+   * 安全键盘盐值，type="safe-password"时有效
+   */
+  safePasswordSalt?: string;
+  /**
+   * 2.18.0
+   * 安全键盘时间戳，type="safe-password"时有效
+   */
+  safePasswordTimeStamp?: number;
+  /**
+   * 2.18.0
+   * 安全键盘随机数，type="safe-password"时有效
+   */
+  randomNumber?: string;
 }
 
 /**

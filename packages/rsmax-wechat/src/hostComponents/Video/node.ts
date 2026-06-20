@@ -39,6 +39,17 @@ export const alias = {
   autoPauseIfOpenNative: 'auto-pause-if-open-native',
   vslideGesture: 'vslide-gesture',
   vslideGestureInFullscreen: 'vslide-gesture-in-fullscreen',
+  showBottomProgress: 'show-bottom-progress',
+  adUnitId: 'ad-unit-id',
+  referrerPolicy: 'referrer-policy',
+  isDrm: 'is-drm',
+  provisionUrl: 'provision-url',
+  certificateUrl: 'certificate-url',
+  licenseUrl: 'license-url',
+  isLive: 'is-live',
+  preferredPeakBitRate: 'preferred-peak-bit-rate',
+  enableSystemPip: 'enable-system-pip',
+  pictureInPictureInitPosition: 'picture-in-picture-init-position',
   onPlay: 'bindplay',
   onPause: 'bindpause',
   onEnded: 'bindended',
@@ -52,6 +63,9 @@ export const alias = {
   onEnterPictureInPicture: 'bindenterpictureinpicture',
   onLeavePictureInPicture: 'bindleavepictureinpicture',
   onSeekComplete: 'bindseekcomplete',
+  onCastingUserSelect: 'bindcastinguserselect',
+  onCastingStateChange: 'bindcastingstatechange',
+  onCastingInterrupt: 'bindcastinginterrupt',
 };
 
 export const props = Object.values(alias);

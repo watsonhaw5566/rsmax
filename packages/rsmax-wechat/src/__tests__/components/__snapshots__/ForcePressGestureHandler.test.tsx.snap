@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`ForcePressGestureHandler > render correctly 1`] = `
+<force-press-gesture-handler
+  className="class"
+>
+  text
+</force-press-gesture-handler>
+`;

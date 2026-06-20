@@ -19,6 +19,7 @@ export const alias = {
   onClick: 'bindtap',
   onTap: 'bindtap',
   headerText: 'header-text',
+  level: 'level',
 };
 
 export const props = Object.values(alias);

@@ -29,6 +29,18 @@ export interface LivePlayerProps extends BaseProps {
   autoPauseIfOpenNative?: boolean;
   /** 设置小窗模式： push, pop，空字符串或通过数组形式设置多种模式（如： ["push", "pop"]） 2.10.3 */
   pictureInPictureMode?: string | string[];
+  /** 小窗初始位置 3.3.0 */
+  pictureInPictureInitPosition?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+  /** 启用 iOS 系统画中画 3.14.1 */
+  enableSystemPip?: boolean;
+  /** 开启横屏自动全屏 2.11.0 */
+  enableAutoRotation?: boolean;
+  /** 格式固定为 https://servicewechat.com/{appid}/{version}/page-frame.html 2.13.0 */
+  referrerPolicy?: 'origin' | 'no-referrer';
+  /** 开启投屏支持 2.32.0 */
+  enableCasting?: boolean;
+  /** 在其他音频播放时是否自动静音 3.16.2 */
+  muteOnAudioConflict?: boolean;
   /** 播放状态变化事件，detail = {code} 1.7.0  */
   onStateChange?: (event: GenericEvent) => any;
   /** 全屏变化事件，detail = {direction, fullScreen} 1.7.0  */
@@ -41,6 +53,12 @@ export interface LivePlayerProps extends BaseProps {
   onEnterPictureInPicture?: (event: GenericEvent) => any;
   /** 播放器退出小窗	2.11.0 */
   onLeavePictureInPicture?: (event: GenericEvent) => any;
+  /** 用户选择投屏设备时触发 2.32.0 */
+  onCastingUserSelect?: (event: GenericEvent) => any;
+  /** 投屏状态变化时触发 2.32.0 */
+  onCastingStateChange?: (event: GenericEvent) => any;
+  /** 投屏被中断时触发 2.32.0 */
+  onCastingInterrupt?: (event: GenericEvent) => any;
 }
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/component/live-player.html
@@ -59,4 +77,6 @@ LivePlayer.defaultProps = {
   soundMode: 'speaker',
   autoPauseIfNavigate: true,
   autoPauseIfOpenNative: true,
+  enableAutoRotation: false,
+  muteOnAudioConflict: false,
 };
