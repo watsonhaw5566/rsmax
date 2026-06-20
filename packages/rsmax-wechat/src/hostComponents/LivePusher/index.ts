@@ -23,7 +23,7 @@ export interface LivePusherProps extends BaseProps {
   /** 推流地址。目前仅支持 flv, rtmp 格式 1.7.0  */
   url?: string;
   /** (default: RTC) SD（标清）, HD（高清）, FHD（超清）, RTC（实时通话） 1.7.0  */
-  mode?: string;
+  mode?: 'QVGA' | 'HVGA' | 'SD' | 'HD' | 'FHD' | 'RTC';
   /** (default: false) 自动推流 1.7.0  */
   autopush?: boolean;
   /** (default: false) 是否静音 1.7.0  */
@@ -73,7 +73,7 @@ export interface LivePusherProps extends BaseProps {
   /** (default: false) 调整焦距 2.1.0 */
   zoom?: boolean;
   /** (default: front) 前置或后置，值为front, back 2.3.0 */
-  devicePosition?: string;
+  devicePosition?: 'front' | 'back';
   /** (default: false) 进入后台时是否静音 1.7.0 */
   backgroundMute?: boolean;
   /** (default: false) 设置推流画面是否镜像，产生的效果在 live-player 反应到 2.7.0 */
@@ -90,12 +90,30 @@ export interface LivePusherProps extends BaseProps {
   enableAgc?: boolean;
   /** (default: false) 是否开启音频噪声抑制	2.10.0 */
   enableAns?: boolean;
-  /** (default: voicecall) 音量类型	2.10.0 */
-  audioVolumeType?: 'media' | 'voicecall';
+  /** (default: auto) 音量类型	2.10.0 */
+  audioVolumeType?: 'media' | 'voicecall' | 'auto';
   /** (default: 360) 上推的视频流的分辨率宽度	2.10.0 */
   videoWidth?: number;
   /** (default: 640) 上推的视频流的分辨率高度	2.10.0 */
   videoHeight?: number;
+  /** 小窗模式 2.25.0 */
+  pictureInPictureMode?: string | string[];
+  /** 变声类型 2.31.0 */
+  voiceChangerType?: number;
+  /** 自定义特效开关 2.29.1 */
+  customEffect?: boolean;
+  /** 美白 取值 0-1 2.29.1 */
+  skinWhiteness?: number;
+  /** 磨皮 取值 0-1 2.29.1 */
+  skinSmoothness?: number;
+  /** 瘦脸 取值 0-1 2.29.1 */
+  faceSlimming?: number;
+  /** 大眼 取值 0-1 2.29.1 */
+  eyeEnlarging?: number;
+  /** 帧率 1~30 2.31.0 */
+  fps?: number;
+  /** 在其他音频播放时是否自动静音 3.16.2 */
+  muteOnAudioConflict?: boolean;
   /** 状态变化事件，detail = {code} 1.7.0 */
   onStateChange?: (event: GenericEvent) => any;
   /** 网络状态通知，detail = {info} 1.9.0 */
@@ -108,6 +126,12 @@ export interface LivePusherProps extends BaseProps {
   onBgmProgress?: (event: GenericEvent) => any;
   /** 背景音播放完成时触发 2.4.0 */
   onBgmComplete?: (event: GenericEvent) => any;
+  /** 麦克风采集音量通知 2.12.0 */
+  onAudioVolumeNotify?: (event: GenericEvent) => any;
+  /** 进入小窗 2.25.0 */
+  onEnterPictureInPicture?: (event: GenericEvent) => any;
+  /** 退出小窗 2.25.0 */
+  onLeavePictureInPicture?: (event: GenericEvent) => any;
 }
 
 /**
@@ -119,7 +143,7 @@ LivePusher.defaultProps = {
   mode: 'RTC',
   autopush: false,
   muted: false,
-  enableCamera: false,
+  enableCamera: true,
   autoFocus: true,
   orientation: 'vertical',
   beauty: 0,
@@ -136,9 +160,9 @@ LivePusher.defaultProps = {
   localMirror: 'auto',
   audioReverbType: 0,
   enableMic: true,
-  enableAgc: true,
+  enableAgc: false,
   enableAns: false,
-  audioVolumeType: 'voicecall',
+  audioVolumeType: 'auto',
   videoWidth: 360,
   videoHeight: 640,
 };

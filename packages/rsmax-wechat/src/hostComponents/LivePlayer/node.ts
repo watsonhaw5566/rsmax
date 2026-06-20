@@ -16,12 +16,21 @@ export const alias = {
   autoPauseIfNavigate: 'auto-pause-if-navigate',
   autoPauseIfOpenNative: 'auto-pause-if-open-native',
   pictureInPictureMode: 'picture-in-picture-mode',
+  pictureInPictureInitPosition: 'picture-in-picture-init-position',
+  enableSystemPip: 'enable-system-pip',
+  enableAutoRotation: 'enable-auto-rotation',
+  referrerPolicy: 'referrer-policy',
+  enableCasting: 'enable-casting',
+  muteOnAudioConflict: 'mute-on-audio-conflict',
   onStateChange: 'bindstatechange',
   onFullscreenChange: 'bindfullscreenchange',
   onNetStatus: 'bindnetstatus',
   onAudioVolumeNotify: 'bindaudiovolumenotify',
   onEnterPictureInPicture: 'bindenterpictureinpicture',
   onLeavePictureInPicture: 'bindleavepictureinpicture',
+  onCastingUserSelect: 'bindcastinguserselect',
+  onCastingStateChange: 'bindcastingstatechange',
+  onCastingInterrupt: 'bindcastinginterrupt',
 };
 
 export const props = Object.values(alias);

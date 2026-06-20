@@ -59,6 +59,8 @@ export interface MapProps extends BaseProps {
   enablePoi?: boolean;
   /** (default: false) 是否展示建筑物 2.14.0 */
   enableBuilding?: boolean;
+  /** 开启最大俯视角 2.26.0 */
+  enableAutoMaxOverlooking?: boolean;
   /** 配置项 2.8.2 */
   setting?: any;
   /** 点击标记点时触发，e.detail = {markerId} 1.0.0 */
@@ -75,6 +77,20 @@ export interface MapProps extends BaseProps {
   onPoiTap?: (event: GenericEvent) => any;
   /** 点击定位标时触发，e.detail = {longitude, latitude} 2.13.0 */
   onAnchorPointTap?: (event: GenericEvent) => any;
+  /** 点击 label 时触发，e.detail = {markerId} 2.9.0 */
+  onLabelTap?: (event: GenericEvent) => any;
+  /** 点击路线时触发 3.1.0 */
+  onPolylineTap?: (event: GenericEvent) => any;
+  /** 地图能力生效时触发 */
+  onAbilitySuccess?: (event: GenericEvent) => any;
+  /** 地图能力失败时触发 */
+  onAbilityFail?: (event: GenericEvent) => any;
+  /** 地图鉴权成功时触发 */
+  onAuthSuccess?: (event: GenericEvent) => any;
+  /** 插值动画时触发 3.1.0 */
+  onInterpolatePoint?: (event: GenericEvent) => any;
+  /** 地图组件错误时触发 */
+  onError?: (event: GenericEvent) => any;
 }
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/component/map.html
@@ -97,5 +113,8 @@ Map.defaultProps = {
   enableRotate: false,
   enableSatellite: false,
   enableTraffic: false,
+  enablePoi: false,
+  enableBuilding: false,
+  enableAutoMaxOverlooking: false,
   setting: {},
 };

@@ -70,6 +70,11 @@ export interface PickerProps extends BaseProps {
    * 选择器的标题，仅安卓可用
    */
   headerText?: string;
+  /**
+   * 2.21.1
+   * mode = region 时有效，设置省市区选择器的层级
+   */
+  level?: 'province' | 'city' | 'region' | 'sub-district';
 }
 
 /**

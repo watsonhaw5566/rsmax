@@ -14,6 +14,7 @@ export const alias = {
   confirmType: 'confirm-type',
   confirmHold: 'confirm-hold',
   cursor: 'cursor',
+  cursorColor: 'cursor-color',
   selectionStart: 'selection-start',
   selectionEnd: 'selection-end',
   adjustPosition: 'adjust-position',
@@ -30,6 +31,14 @@ export const alias = {
   onBlur: 'bindblur',
   onConfirm: 'bindconfirm',
   onKeyboardHeightChange: 'bindkeyboardheightchange',
+  onChange: 'bindchange',
+  onNicknameReview: 'bindnicknamereview',
+  safePasswordCertPath: 'safe-password-cert-path',
+  safePasswordCustomHash: 'safe-password-custom-hash',
+  safePasswordNonce: 'safe-password-nonce',
+  safePasswordSalt: 'safe-password-salt',
+  safePasswordTimeStamp: 'safe-password-time-stamp',
+  randomNumber: 'random-number',
 };
 
 export const props = Object.values(alias);

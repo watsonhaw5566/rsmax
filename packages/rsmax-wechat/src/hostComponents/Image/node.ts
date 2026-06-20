@@ -6,6 +6,8 @@ export const alias = {
   style: 'style',
   animation: 'animation',
   lazyLoad: 'lazy-load',
+  webp: 'webp',
+  forceHttps: 'force-https',
   onLoad: 'bindload',
   onError: 'binderror',
   onTap: 'bindtap',

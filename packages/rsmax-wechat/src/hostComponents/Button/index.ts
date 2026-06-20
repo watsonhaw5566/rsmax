@@ -37,7 +37,7 @@ export interface ButtonProps extends BaseProps {
    * submit	提交表单
    * reset	重置表单
    */
-  formType?: 'submit' | 'reset';
+  formType?: 'submit' | 'reset' | 'submitToGroup';
   /**
    * - 微信小程序 & QQ 小程序
    * contact	打开客服会话，如果用户在会话中点击消息卡片后返回小程序，可以从 bindcontact 回调中获得具体信息	1.1.0
@@ -72,7 +72,10 @@ export interface ButtonProps extends BaseProps {
     | 'addGroupApp'
     | 'shareMessageToFriend'
     | 'addToFavorites'
-    | 'chooseAvatar';
+    | 'chooseAvatar'
+    | 'getRealtimePhoneNumber'
+    | 'liveActivity'
+    | 'agreePrivacyAuthorization';
   /**
    * 1.0.0
    * 指定按钮按下去的样式类。当 hover-class="none" 时，没有点击态效果

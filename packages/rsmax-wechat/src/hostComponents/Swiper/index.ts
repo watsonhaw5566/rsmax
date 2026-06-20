@@ -39,6 +39,8 @@ export interface SwiperProps extends BaseProps {
   onAnimationFinish?: (event: GenericEvent) => any;
   /** 当 swiper-item 的个数大于等于 2，关闭 circular 并且开启 previous-margin 或 next-margin 的时候，可以指定这个边距是否应用到第一个、最后一个元素 2.12.1 */
   snapToEdge?: boolean;
+  /** 设置滑动方向 3.8.10 */
+  direction?: 'all' | 'positive' | 'negative';
 }
 
 /**

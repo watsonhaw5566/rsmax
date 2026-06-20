@@ -39,6 +39,7 @@ export const alias = {
   showScrollbar: 'show-scrollbar',
   pagingEnabled: 'paging-enabled',
   fastDeceleration: 'fast-deceleration',
+  usingSticky: 'using-sticky',
   onDragStart: 'binddragstart',
   onDragging: 'binddragging',
   onDragEnd: 'binddragend',

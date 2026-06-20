@@ -23,6 +23,7 @@ export const alias = {
   onTap: 'bindtap',
   onClick: 'bindtap',
   snapToEdge: 'snap-to-edge',
+  direction: 'direction',
 };
 
 export const props = Object.values(alias);

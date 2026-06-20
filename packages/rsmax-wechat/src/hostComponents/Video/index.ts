@@ -62,7 +62,7 @@ export interface VideoProps extends BaseProps {
   /** 是否开启手机横屏时自动全屏，当系统设置开启自动旋转时生效 2.11.0 */
   enableAutoRotation?: boolean;
   /** 是否显示锁屏按钮，仅在全屏时显示，锁屏后控制栏的操作 2.11.0 */
-  showScreenLockButton?: false;
+  showScreenLockButton?: boolean;
   /** 是否显示截屏按钮，仅在全屏时显示 2.13.0 */
   showSnapshotButton?: boolean;
   /** 是否展示后台音频播放按钮 2.14.3 */
@@ -77,6 +77,28 @@ export interface VideoProps extends BaseProps {
   vslideGesture?: boolean;
   /** 在全屏模式下，是否开启亮度与音量调节手势 2.6.2 */
   vslideGestureInFullscreen?: boolean;
+  /** 是否展示底部进度条 2.8.0 */
+  showBottomProgress?: boolean;
+  /** 视频前贴广告单元ID 2.8.1 */
+  adUnitId?: string;
+  /** 格式固定为 https://servicewechat.com/{appid}/{version}/page-frame.html，其中 {appid} 为小程序的 appid，{version} 为小程序的版本号 2.13.0 */
+  referrerPolicy?: 'origin' | 'no-referrer';
+  /** 是否是 DRM 视频源 2.19.3 */
+  isDrm?: boolean;
+  /** 详见 DRM 安全链路配置，仅 Android 支持 2.19.3 */
+  provisionUrl?: string;
+  /** 详见 DRM 安全链路配置，仅 iOS 支持 2.19.3 */
+  certificateUrl?: string;
+  /** 传入申请到的 DRM 加密信息 2.19.3 */
+  licenseUrl?: string;
+  /** 是否为直播源 2.28.1 */
+  isLive?: boolean;
+  /** 指定码率上界 2.26.0 */
+  preferredPeakBitRate?: number;
+  /** 启用 iOS 系统画中画 3.15.1 */
+  enableSystemPip?: boolean;
+  /** 小窗初始位置 3.3.0 */
+  pictureInPictureInitPosition?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
   /** 当开始/继续播放时触发play事件 1.0.0 */
   onPlay?: (event: GenericEvent) => any;
   /** 当暂停播放时触发 pause 事件 1.0.0 */
@@ -103,6 +125,12 @@ export interface VideoProps extends BaseProps {
   onLeavePictureInPicture?: (event: GenericEvent) => any;
   /** seek 完成时触发 (position iOS 单位 s, Android 单位 ms) 2.12.0 */
   onSeekComplete?: (event: GenericEvent) => any;
+  /** 用户选择投屏设备时触发 2.32.0 */
+  onCastingUserSelect?: (event: GenericEvent) => any;
+  /** 投屏状态变化时触发 2.32.0 */
+  onCastingStateChange?: (event: GenericEvent) => any;
+  /** 投屏被中断时触发 2.32.0 */
+  onCastingInterrupt?: (event: GenericEvent) => any;
 }
 
 const VideoRender: React.ForwardRefRenderFunction<any, VideoProps> = (props, ref) => {
@@ -149,6 +177,9 @@ RsmaxVideo.defaultProps = {
   showScreenLockButton: false,
   showSnapshotButton: false,
   showBackgroundPlaybackButton: false,
+  showBottomProgress: false,
+  isDrm: false,
+  isLive: false,
 };
 
 export const Video: React.ComponentType<VideoProps> = createHostComponent<VideoProps>(hostComponentName, RsmaxVideo);

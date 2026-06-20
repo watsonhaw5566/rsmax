@@ -35,6 +35,7 @@ export const alias = {
   enableTraffic: 'enable-traffic',
   enablePoi: 'enable-poi',
   enableBuilding: 'enable-building',
+  enableAutoMaxOverlooking: 'enable-auto-max-overlooking',
   onTap: 'bindtap',
   onClick: 'bindtap',
   onMarkerTap: 'bindmarkertap',
@@ -48,6 +49,13 @@ export const alias = {
   onPoiTap: 'bindpoitap',
   onPoiClick: 'bindpoitap',
   onAnchorPointTap: 'bindanchorpointtap',
+  onLabelTap: 'bindlabeltap',
+  onPolylineTap: 'bindpolylinetap',
+  onAbilitySuccess: 'bindabilitysuccess',
+  onAbilityFail: 'bindabilityfail',
+  onAuthSuccess: 'bindauthsuccess',
+  onInterpolatePoint: 'bindinterpolatepoint',
+  onError: 'binderror',
 };
 
 export const props = Object.values(alias);

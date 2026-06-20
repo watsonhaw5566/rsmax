@@ -36,12 +36,16 @@ export interface TextareaProps extends BaseProps {
   confirmHold?: boolean;
   /** 是否去掉 iOS 下的默认内边距 2.10.0 */
   disableDefaultPadding?: boolean;
+  /** 键盘弹起时自动上推页面时，textarea 与光标是否对齐到底部 2.16.1 */
+  adjustKeyboardTo?: 'cursor' | 'bottom';
 
   onInput?: (event: GenericEvent) => void;
   onFocus?: (event: GenericEvent) => void;
   onBlur?: (event: GenericEvent) => void;
   onConfirm?: (event: GenericEvent) => any;
   onKeyboardHeightChange?: (event: GenericEvent) => any;
+  /** 输入框行数变化时触发 1.0.0 */
+  onLineChange?: (event: GenericEvent) => any;
 }
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/component/textarea.html

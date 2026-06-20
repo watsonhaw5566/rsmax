@@ -24,6 +24,7 @@ export const alias = {
   selectionEnd: 'selection-end',
   adjustPosition: 'adjust-position',
   holdKeyboard: 'hold-keyboard',
+  adjustKeyboardTo: 'adjust-keyboard-to',
   onFocus: 'bindfocus',
   onBlur: 'bindblur',
   onLineChange: 'bindlinechange',
