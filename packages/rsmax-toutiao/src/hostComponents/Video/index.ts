@@ -57,6 +57,12 @@ export interface VideoProps extends BaseProps {
   vSlideGesture?: boolean;
   /** 全屏时是否开启竖向滑动手势 */
   vSlideGestureInfullscreen?: boolean;
+  /** 封面图片与容器大小不一致时的表现形式 */
+  posterSize?: string;
+  /** 限制视频的最大可播放时长 */
+  durationLimit?: number;
+  /** 是否展示底部的播放进度条 */
+  showBottomProgress?: boolean;
   /** 当开始播放时触发 */
   onPlay?: (event: any) => any;
   /** 当暂停播放时触发 */
@@ -73,6 +79,18 @@ export interface VideoProps extends BaseProps {
   onError?: (event: any) => any;
   /** 加载进度变化时触发 */
   onProgress?: (event: any) => any;
+  /** 切换播放控件显示/隐藏时触发 */
+  onControlstoggle?: (event: any) => any;
+  /** 视频元数据加载完成时触发 */
+  onLoadedmetadata?: (event: any) => any;
+  /** seek 完成时触发 */
+  onSeekcomplete?: (event: any) => any;
+  /** 倍速改变完成时触发 */
+  onPlaybackratechange?: (event: any) => any;
+  /** 静音状态改变完成时触发 */
+  onMutechange?: (event: any) => any;
+  /** 点击控件时触发 */
+  onControltap?: (event: any) => any;
 }
 
 export const Video: React.ComponentType<VideoProps> = createHostComponent<VideoProps>('video');

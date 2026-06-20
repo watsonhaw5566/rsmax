@@ -23,6 +23,10 @@ export interface TextareaProps extends BaseProps {
   selectionStart?: number;
   selectionEnd?: number;
   adjustPosition?: boolean;
+  holdKeyboard?: boolean;
+  disableDefaultPadding?: boolean;
+  confirmType?: 'send' | 'search' | 'next' | 'go' | 'done' | 'return';
+  confirmHold?: boolean;
   onInput?: (e: any) => void;
   onFocus?: (e: any) => void;
   onBlur?: (e: any) => void;
@@ -43,4 +47,10 @@ Textarea.defaultProps = {
   cursor: -1,
   selectionStart: -1,
   selectionEnd: -1,
+  adjustPosition: true,
+  holdKeyboard: false,
+  disableDefaultPadding: true,
+  confirmType: 'return',
+  confirmHold: false,
+  showConfirmBar: true,
 };

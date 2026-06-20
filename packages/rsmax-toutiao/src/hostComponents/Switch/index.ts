@@ -7,7 +7,7 @@ export interface SwitchProps extends BaseProps {
   name?: string;
   checked?: boolean;
   disabled?: boolean;
-  type?: string;
+  type?: 'switch' | 'checkbox';
   controlled?: boolean;
   onChange?: (e: any) => void;
   color?: string;

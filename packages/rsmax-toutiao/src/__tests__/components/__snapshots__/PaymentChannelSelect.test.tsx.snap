@@ -1,0 +1,18 @@
+// Rstest Snapshot v1
+
+exports[`PaymentChannelSelect > render correctly 1`] = `
+<payment-channel-select
+  scene="cash"
+  skuList={
+    [
+      {
+        "price": 100,
+        "skuId": "1",
+        "tagGroupId": "1",
+        "title": "test",
+        "type": 1,
+      },
+    ]
+  }
+/>
+`;

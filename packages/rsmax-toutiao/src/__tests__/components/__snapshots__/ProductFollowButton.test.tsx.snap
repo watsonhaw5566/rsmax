@@ -1,0 +1,14 @@
+// Rstest Snapshot v1
+
+exports[`ProductFollowButton > render correctly 1`] = `
+<product-follow-button
+  disabled={false}
+  followedText="已收藏"
+  hidden={false}
+  noStyle={false}
+  productId="1"
+  shopId="1"
+  size="mini"
+  unfollowedText="收藏"
+/>
+`;

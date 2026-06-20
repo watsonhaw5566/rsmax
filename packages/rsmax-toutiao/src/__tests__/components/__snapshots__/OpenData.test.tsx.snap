@@ -2,7 +2,6 @@
 
 exports[`OpenData > render correctly 1`] = `
 <open-data
-  lang="en"
   type="userNickName"
 />
 `;

@@ -37,6 +37,19 @@ import * as textarea from './Textarea/node';
 import * as video from './Video/node';
 import * as view from './View/node';
 import * as webView from './WebView/node';
+import * as drawAd from './DrawAd/node';
+import * as awemeUserCard from './AwemeUserCard/node';
+import * as payButton from './PayButton/node';
+import * as payButtonSdk from './PayButtonSdk/node';
+import * as consumeCard from './ConsumeCard/node';
+import * as paymentChannelSelect from './PaymentChannelSelect/node';
+import * as rateButton from './RateButton/node';
+import * as skuButton from './SkuButton/node';
+import * as productFollowButton from './ProductFollowButton/node';
+import * as shopFollowCard from './ShopFollowCard/node';
+import * as industryMemberButton from './IndustryMemberButton/node';
+import * as couponCard from './CouponCard/node';
+import * as memberButton from './MemberButton/node';
 
 const hostComponents = new Map();
 
@@ -79,5 +92,18 @@ hostComponents.set('camera', camera);
 hostComponents.set('map', map);
 hostComponents.set('open-data', openData);
 hostComponents.set('aweme-data', awemeData);
+hostComponents.set('draw-ad', drawAd);
+hostComponents.set('aweme-user-card', awemeUserCard);
+hostComponents.set('pay-button', payButton);
+hostComponents.set('pay-button-sdk', payButtonSdk);
+hostComponents.set('consume-card', consumeCard);
+hostComponents.set('payment-channel-select', paymentChannelSelect);
+hostComponents.set('rate-button', rateButton);
+hostComponents.set('sku-button', skuButton);
+hostComponents.set('product-follow-button', productFollowButton);
+hostComponents.set('shop-follow-card', shopFollowCard);
+hostComponents.set('industry-member-button', industryMemberButton);
+hostComponents.set('coupon-card', couponCard);
+hostComponents.set('member-button', memberButton);
 
 export default hostComponents;

@@ -12,8 +12,6 @@ export interface ScrollViewProps extends BaseProps {
   scrollLeft?: number;
   scrollIntoView?: string;
   scrollWithAnimation?: boolean;
-  enableBackToTop?: boolean;
-  enableFlex?: boolean;
   refresherEnabled?: boolean;
   refresherDefaultStyle?: 'black' | 'white' | 'none';
   refresherBackground?: string;
@@ -21,9 +19,6 @@ export interface ScrollViewProps extends BaseProps {
   refresherTriggered?: boolean;
   enhanced?: boolean;
   bounces?: boolean;
-  showScrollbar?: boolean;
-  pagingEnabled?: boolean;
-  fastDeceleration?: boolean;
   onScrollToUpper?: (e: any) => void;
   onScrollToLower?: (e: any) => void;
   onScroll?: (e: any) => void;
@@ -31,9 +26,6 @@ export interface ScrollViewProps extends BaseProps {
   onRefresherRefresh?: (e: any) => void;
   onRefresherRestore?: (e: any) => void;
   onRefresherAbort?: (e: any) => void;
-  onDragStart?: (e: any) => void;
-  onDragging?: (e: any) => void;
-  onDragEnd?: (e: any) => void;
 }
 
 export const ScrollView: React.ComponentType<ScrollViewProps> = createHostComponent<ScrollViewProps>('scroll-view');
@@ -44,4 +36,11 @@ ScrollView.defaultProps = {
   upperThreshold: 50,
   lowerThreshold: 50,
   scrollWithAnimation: false,
+  refresherEnabled: false,
+  refresherDefaultStyle: 'black',
+  refresherBackground: '#FFF',
+  refresherThreshold: 55,
+  refresherTriggered: false,
+  enhanced: false,
+  bounces: true,
 };

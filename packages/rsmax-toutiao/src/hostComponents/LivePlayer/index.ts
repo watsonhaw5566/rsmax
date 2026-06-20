@@ -6,7 +6,7 @@ import type { BaseProps } from '../../types/component';
 type SignatureProps = {
   enable: boolean;
   content: string;
-  position: string;
+  position: number;
   color: string;
 };
 

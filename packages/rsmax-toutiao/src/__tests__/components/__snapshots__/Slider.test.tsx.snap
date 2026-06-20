@@ -2,15 +2,15 @@
 
 exports[`Slider > render correctly 1`] = `
 <slider
-  activeColor="#1aad19"
-  backgroundColor="#e9e9e9"
+  activeColor="#f85959"
+  backgroundColor="#e8e8e8"
   blockColor="#ffffff"
   blockSize={28}
-  color="#e9e9e9"
+  color="#e8e8e8"
   disabled={false}
   max={100}
   min={0}
-  selectedColor="#1aad19"
+  selectedColor="#f85959"
   showValue={false}
   step={1}
   value={0}

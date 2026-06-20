@@ -11,6 +11,7 @@ export interface PickerViewProps extends BaseProps {
   indicatorClassName?: string;
   maskStyle?: string;
   maskClassName?: string;
+  immediateChange?: boolean;
   onChange?: (e: any) => void;
   onPickStart?: (e: any) => void;
   onPickEnd?: (e: any) => void;

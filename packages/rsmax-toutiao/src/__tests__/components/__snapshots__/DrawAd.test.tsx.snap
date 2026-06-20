@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`DrawAd > render correctly 1`] = `
+<draw-ad
+  fullScreen={false}
+  scale={1.5}
+  unitId="123"
+/>
+`;

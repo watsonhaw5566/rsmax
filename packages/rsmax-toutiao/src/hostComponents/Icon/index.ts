@@ -4,17 +4,7 @@ import type React from 'react';
 import type { BaseProps } from '../../types/component';
 
 export interface IconProps extends BaseProps {
-  type:
-    | 'info'
-    | 'warn'
-    | 'waiting'
-    | 'cancel'
-    | 'download'
-    | 'search'
-    | 'clear'
-    | 'success'
-    | 'success_no_circle'
-    | 'loading';
+  type: 'info' | 'warn' | 'waiting' | 'cancel' | 'download' | 'search' | 'clear' | 'success' | 'success_no_circle';
   size?: number;
   color?: string;
 }

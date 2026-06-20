@@ -2,16 +2,22 @@
 
 exports[`TextArea > render correctly 1`] = `
 <textarea
+  adjustPosition={true}
   autoHeight={false}
   className="class"
+  confirmHold={false}
+  confirmType="return"
   cursor={-1}
   cursorSpacing={0}
+  disableDefaultPadding={true}
   disabled={false}
   fixed={false}
   focus={false}
+  holdKeyboard={false}
   maxlength={140}
   selectionEnd={-1}
   selectionStart={-1}
+  showConfirmBar={true}
   value=""
 />
 `;

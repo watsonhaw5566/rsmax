@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`ConsumeCard > render correctly 1`] = `
+<consume-card
+  orderId="123"
+/>
+`;

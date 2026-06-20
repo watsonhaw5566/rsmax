@@ -1,0 +1,10 @@
+// Rstest Snapshot v1
+
+exports[`PayButton > render correctly 1`] = `
+<pay-button
+  bizLine={1}
+  marketingReady={false}
+  mode={1}
+  orderStatus={0}
+/>
+`;

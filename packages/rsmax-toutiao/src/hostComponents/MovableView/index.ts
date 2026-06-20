@@ -76,7 +76,7 @@ MovableView.defaultProps = {
   friction: 2,
   disabled: false,
   scale: false,
-  scaleMin: 0,
+  scaleMin: 0.5,
   scaleMax: 10,
   scaleValue: 1,
   animation: true,

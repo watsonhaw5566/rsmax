@@ -5,7 +5,7 @@ exports[`Text > render correctly 1`] = `
   className="class"
   decode={false}
   selectable={false}
-  space={false}
+  space=""
 >
   text
 </text>

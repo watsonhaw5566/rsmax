@@ -104,7 +104,7 @@ export interface MapProps extends BaseProps {
   rotate?: number;
   skew?: number;
   polygons?: Polygon[];
-  showCompass?: number;
+  showCompass?: boolean;
   enableOverlooking?: boolean;
   enableRotate?: boolean;
   minScale?: number;

@@ -1,0 +1,14 @@
+// Rstest Snapshot v1
+
+exports[`SkuButton > render correctly 1`] = `
+<sku-button
+  actionType={2}
+  disabled={false}
+  hidden={false}
+  noStyle={false}
+  productId="1"
+  shopId="1"
+  size="default"
+  type="primary"
+/>
+`;

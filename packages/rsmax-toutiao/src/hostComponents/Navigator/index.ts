@@ -6,7 +6,7 @@ import type { BaseProps } from '../../types/component';
 export interface NavigatorProps extends BaseProps {
   url: string;
   delta?: number;
-  openType?: 'navigate' | 'redirect' | 'switchTab' | 'navigateBack';
+  openType?: 'navigate' | 'redirect' | 'switchTab' | 'navigateBack' | 'reLaunch';
   hoverClassName?: string;
   hoverStartTime?: number;
   hoverStayTime?: number;

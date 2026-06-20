@@ -2,10 +2,14 @@
 
 exports[`Input > render correctly 1`] = `
 <input
+  adjustPosition={true}
+  confirmHold={false}
+  confirmType="done"
   cursor={-1}
   cursorSpacing={0}
   disabled={false}
   focus={false}
+  holdKeyboard={false}
   maxlength={140}
   password={false}
   selectionEnd={-1}

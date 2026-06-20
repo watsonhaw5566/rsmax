@@ -2,7 +2,14 @@
 
 exports[`ScrollView > render correctly 1`] = `
 <scroll-view
+  bounces={true}
+  enhanced={false}
   lowerThreshold={50}
+  refresherBackground="#FFF"
+  refresherDefaultStyle="black"
+  refresherEnabled={false}
+  refresherThreshold={55}
+  refresherTriggered={false}
   scrollWithAnimation={false}
   scrollX={false}
   scrollY={false}

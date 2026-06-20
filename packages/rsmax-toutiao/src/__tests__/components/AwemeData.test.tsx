@@ -4,7 +4,7 @@ import { AwemeData } from '../../hostComponents';
 
 describe('AwemeData', () => {
   it('render correctly', () => {
-    const testRenderer = TestRenderer.create(<AwemeData type="liveStatus" />);
+    const testRenderer = TestRenderer.create(<AwemeData awemeId={'1'}  type={'avatar'} />);
 
     expect(testRenderer.toJSON()).toMatchSnapshot();
   });

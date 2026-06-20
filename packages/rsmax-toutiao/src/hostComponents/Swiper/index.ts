@@ -39,4 +39,5 @@ Swiper.defaultProps = {
   duration: 500,
   circular: false,
   vertical: false,
+  easingFunction: 'default',
 };

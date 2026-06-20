@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`IndustryMemberButton > render correctly 1`] = `
+<industry-member-button
+  shopId="1"
+/>
+`;

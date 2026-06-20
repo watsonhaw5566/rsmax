@@ -12,7 +12,7 @@ exports[`MovableView > render correctly 1`] = `
   outOfBounds={false}
   scale={false}
   scaleMax={10}
-  scaleMin={0}
+  scaleMin={0.5}
   scaleValue={1}
   width={10}
 />

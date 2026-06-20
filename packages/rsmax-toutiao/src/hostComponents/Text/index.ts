@@ -5,7 +5,7 @@ import type { BaseProps } from '../../types/component';
 
 export interface TextProps extends BaseProps {
   selectable?: boolean;
-  space?: string | boolean;
+  space?: string;
   decode?: boolean;
   children?: React.ReactNode;
 }
@@ -14,6 +14,6 @@ export const Text: React.ComponentType<TextProps> = createHostComponent<TextProp
 
 Text.defaultProps = {
   selectable: false,
-  space: false,
+  space: '',
   decode: false,
 };

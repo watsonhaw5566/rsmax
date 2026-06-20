@@ -5,5 +5,6 @@ exports[`Image > render correctly 1`] = `
   className="class"
   lazyLoad={false}
   mode="scaleToFill"
+  webp={false}
 />
 `;

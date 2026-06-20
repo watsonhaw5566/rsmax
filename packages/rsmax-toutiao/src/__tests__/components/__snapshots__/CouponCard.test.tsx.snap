@@ -1,0 +1,13 @@
+// Rstest Snapshot v1
+
+exports[`CouponCard > render correctly 1`] = `
+<coupon-card
+  couponId="1"
+  imgUrl="https://lf3-cm.ecombdstatic.com/obj/ecom-ecop/1688986275d1c1cf2dc8858aacd228074e918d5dbe9301dad7.png"
+  isShowButtonOnly={false}
+  isShowCouponInfo={false}
+  shopId="1"
+  subTitle="领取后前往店铺使用"
+  title="专享优惠券"
+/>
+`;

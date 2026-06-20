@@ -3,6 +3,10 @@ import type React from 'react';
 
 import type { BaseProps } from '../../types/component';
 
+interface Text {
+  type: string;
+}
+
 interface Node {
   name: string;
   attrs?: any;
@@ -10,7 +14,7 @@ interface Node {
 }
 
 export interface RichTextProps extends BaseProps {
-  nodes?: Node | string;
+  nodes?: (Node | Text)[] | string;
   space?: 'ensp' | 'emsp' | 'nbsp';
   onTap?: (e: any) => void;
   onClick?: (e: any) => void;

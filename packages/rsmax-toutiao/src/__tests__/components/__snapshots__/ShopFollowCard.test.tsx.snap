@@ -1,0 +1,8 @@
+// Rstest Snapshot v1
+
+exports[`ShopFollowCard > render correctly 1`] = `
+<shop-follow-card
+  hidden={false}
+  shopId="1"
+/>
+`;

@@ -10,6 +10,7 @@ export interface ImageProps extends BaseProps {
     | 'aspectFit'
     | 'aspectFill'
     | 'widthFix'
+    | 'heightFix'
     | 'top'
     | 'bottom'
     | 'center'
@@ -21,6 +22,7 @@ export interface ImageProps extends BaseProps {
     | 'bottom right';
   style?: React.CSSProperties;
   lazyLoad?: boolean;
+  webp?: boolean;
   showMenuByLongpress?: boolean;
   onLoad?: (e: any) => void;
   onError?: (e: any) => void;
@@ -37,4 +39,5 @@ export const Image: React.ComponentType<ImageProps> = createHostComponent<ImageP
 Image.defaultProps = {
   mode: 'scaleToFill',
   lazyLoad: false,
+  webp: false,
 };

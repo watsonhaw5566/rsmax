@@ -2,6 +2,8 @@
 
 exports[`Form > render correctly 1`] = `
 <form
+  clueComponentId=""
+  conversionTarget={0}
   reportSubmit={true}
 />
 `;

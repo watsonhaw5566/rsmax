@@ -2,6 +2,7 @@
 
 exports[`AwemeData > render correctly 1`] = `
 <aweme-data
+  disableDefault={false}
   type="liveStatus"
 />
 `;

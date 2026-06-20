@@ -4,6 +4,8 @@ import type React from 'react';
 import type { BaseProps } from '../../types/component';
 
 export interface FormProps extends BaseProps {
+  conversionTarget?: number;
+  clueComponentId?: string;
   onSubmit?: (e: any) => void;
   onReset?: (e: any) => void;
   reportSubmit?: boolean;
@@ -15,5 +17,7 @@ export interface FormProps extends BaseProps {
 export const Form: React.ComponentType<FormProps> = createHostComponent<FormProps>('form');
 
 Form.defaultProps = {
+  conversionTarget: 0,
+  clueComponentId: '',
   reportSubmit: false,
 };

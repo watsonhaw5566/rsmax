@@ -17,6 +17,7 @@ export interface InputProps extends BaseProps {
   selectionStart?: number;
   selectionEnd?: number;
   adjustPosition?: boolean;
+  holdKeyboard?: boolean;
   placeholder?: string;
   placeholderStyle?: React.CSSProperties;
   placeholderClassName?: string;
@@ -43,4 +44,8 @@ Input.defaultProps = {
   selectionStart: -1,
   cursorSpacing: 0,
   cursor: -1,
+  adjustPosition: true,
+  confirmType: 'done',
+  confirmHold: false,
+  holdKeyboard: false,
 };

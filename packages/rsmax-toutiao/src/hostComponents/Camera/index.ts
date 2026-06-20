@@ -9,9 +9,9 @@ import type { BaseProps } from '../../types/component';
  */
 export interface CameraProps extends BaseProps {
   mode?: 'normal' | 'scanCode';
-  resolution?: string;
+  resolution?: 'low' | 'medium' | 'high';
   devicePosition?: 'front' | 'back';
-  flash?: 'on' | 'off';
+  flash?: 'off' | 'torch';
   frameSize?: 'small' | 'medium' | 'large';
   onInitdone?: (e: any) => void;
   onError?: (e: any) => void;

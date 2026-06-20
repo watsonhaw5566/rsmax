@@ -1,9 +1,8 @@
 export const alias = {
   type: 'type',
-  openGid: 'open-gid',
-  lang: 'lang',
   defaultText: 'default-text',
   defaultAvatar: 'default-avatar',
+  useEmptyValue: 'use-empty-value',
   onError: 'binderror',
 };
 

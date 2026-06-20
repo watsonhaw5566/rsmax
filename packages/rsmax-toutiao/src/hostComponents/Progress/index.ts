@@ -23,4 +23,5 @@ Progress.defaultProps = {
   backgroundColor: '#EBEBEB',
   active: false,
   activeMode: 'backwards',
+  duration: 30,
 };

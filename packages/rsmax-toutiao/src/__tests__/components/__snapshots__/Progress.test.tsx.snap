@@ -6,7 +6,7 @@ exports[`Progress > render correctly 1`] = `
   activeColor="#F85959"
   activeMode="backwards"
   backgroundColor="#EBEBEB"
-  color="#F85959"
+  duration={30}
   percent={0}
   strokeWidth={6}
 />

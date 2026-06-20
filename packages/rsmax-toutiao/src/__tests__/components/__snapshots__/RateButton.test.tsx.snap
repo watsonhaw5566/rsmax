@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`RateButton > render correctly 1`] = `
+<rate-button
+  rateType="transaction"
+/>
+`;
