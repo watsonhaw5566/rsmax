@@ -37,13 +37,5 @@ export default function baseConfig(config: Config, builder: Builder) {
     config.output.clear();
   }
 
-  config.devServer
-    .publicPath(config.get('publicPath'))
-    .compress(true)
-    .hot(true)
-    .open(false)
-    .historyApiFallback(true)
-    .noInfo(true);
-
   return config;
 }

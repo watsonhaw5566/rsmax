@@ -80,3 +80,5 @@ esm
 
 # ai
 .trae
+.agents
+skills-lock.json

@@ -160,10 +160,11 @@ export default function rspackConfig(builder: Builder): Configuration {
     appEvents: '[]',
   };
 
-  const virtualModules = new rspack.experiments.VirtualModulesPlugin({
-    [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
-  });
-  config.plugin('rspack-virtual-modules').use(virtualModules);
+  config.plugin('rspack-virtual-modules').use(rspack.experiments.VirtualModulesPlugin, [
+    {
+      [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
+    },
+  ]);
 
   if (fs.existsSync(builder.projectPath.publicDir())) {
     config.plugin('rspack-copy-plugin').use(rspack.CopyRspackPlugin, [
