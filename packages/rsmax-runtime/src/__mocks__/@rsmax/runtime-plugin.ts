@@ -1,3 +1,3 @@
-import PluginDriver from '../../PluginDriver';
+import { PluginDriver } from '@rsmax/framework-shared';
 
 export const pluginDriver = new PluginDriver([]);
