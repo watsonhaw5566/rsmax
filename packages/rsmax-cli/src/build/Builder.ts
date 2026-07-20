@@ -24,9 +24,7 @@ abstract class Builder {
     this.target = options.target!;
     this.buildType = buildType;
 
-    if (this.target !== 'web') {
-      api.registerAdapterPlugins(this.target);
-    }
+    api.registerAdapterPlugins(this.target);
 
     this.projectPath = new ProjectPath(this);
     this.projectConfig = this.fetchProjectConfig();

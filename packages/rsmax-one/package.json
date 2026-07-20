@@ -20,7 +20,6 @@
     "@rsmax/framework-shared": "workspace:*",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/toutiao": "workspace:*",
-    "@rsmax/web": "workspace:*",
     "@rsmax/wechat": "workspace:*",
     "clsx": "^2.1.1",
     "memoize-one": "^5.1.1",

@@ -3726,7 +3726,6 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: __webpack_require__(<ID>);
 rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var React = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: var react_is_1 = __webpack_require__(<ID>);
@@ -4731,61 +4730,6 @@ rsmax-vendors.js:     dispose: dispose
 rsmax-vendors.js: };
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
-rsmax-vendors.js: <ID>: (function () {
-rsmax-vendors.js: "use strict";
-rsmax-vendors.js: 
-rsmax-vendors.js: /* eslint-disable prefer-rest-params */ /* istanbul ignore next */ function _toConsumableArray(r) {
-rsmax-vendors.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-rsmax-vendors.js: }
-rsmax-vendors.js: function _nonIterableSpread() {
-rsmax-vendors.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-rsmax-vendors.js: }
-rsmax-vendors.js: function _unsupportedIterableToArray(r, a) {
-rsmax-vendors.js:     if (r) {
-rsmax-vendors.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
-rsmax-vendors.js:         var t = ({}).toString.call(r).slice(8, -1);
-rsmax-vendors.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-rsmax-vendors.js:     }
-rsmax-vendors.js: }
-rsmax-vendors.js: function _iterableToArray(r) {
-rsmax-vendors.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-rsmax-vendors.js: }
-rsmax-vendors.js: function _arrayWithoutHoles(r) {
-rsmax-vendors.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-rsmax-vendors.js: }
-rsmax-vendors.js: function _arrayLikeToArray(r, a) {
-rsmax-vendors.js:     (null == a || a > r.length) && (a = r.length);
-rsmax-vendors.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
-rsmax-vendors.js:     return n;
-rsmax-vendors.js: }
-rsmax-vendors.js: if (typeof Function.prototype.call === 'undefined') {
-rsmax-vendors.js:     Function.prototype.call = function(context) {
-rsmax-vendors.js:         var _context;
-rsmax-vendors.js:         context = context || window;
-rsmax-vendors.js:         context.fn = this;
-rsmax-vendors.js:         var args = Array.prototype.slice.call(arguments).slice(1);
-rsmax-vendors.js:         var result = (_context = context).fn.apply(_context, _toConsumableArray(args));
-rsmax-vendors.js:         delete context.fn;
-rsmax-vendors.js:         return result;
-rsmax-vendors.js:     };
-rsmax-vendors.js: }
-rsmax-vendors.js: /* istanbul ignore next */ if (typeof Function.prototype.apply === 'undefined') {
-rsmax-vendors.js:     Function.prototype.apply = function(context) {
-rsmax-vendors.js:         context = context || window;
-rsmax-vendors.js:         context.fn = this;
-rsmax-vendors.js:         var result;
-rsmax-vendors.js:         if (arguments[<ID>]) {
-rsmax-vendors.js:             var _context2;
-rsmax-vendors.js:             result = (_context2 = context).fn.apply(_context2, _toConsumableArray(arguments[<ID>]));
-rsmax-vendors.js:         } else {
-rsmax-vendors.js:             result = context.fn();
-rsmax-vendors.js:         }
-rsmax-vendors.js:         delete context.fn;
-rsmax-vendors.js:         return result;
-rsmax-vendors.js:     };
-rsmax-vendors.js: }
-rsmax-vendors.js: 
-rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: 
@@ -4882,6 +4826,56 @@ rsmax-vendors.js:     });
 rsmax-vendors.js:     return getPublicRootInstance(container._rootContainer);
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = render;
+rsmax-vendors.js: 
+rsmax-vendors.js: }),
+rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
+rsmax-vendors.js: "use strict";
+rsmax-vendors.js: 
+rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
+rsmax-vendors.js:     value: true
+rsmax-vendors.js: }));
+rsmax-vendors.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+rsmax-vendors.js: var taskQueue = [];
+rsmax-vendors.js: var taskIdCounter = 0;
+rsmax-vendors.js: exports.unstable_now = Date.now;
+rsmax-vendors.js: function unstable_scheduleCallback(callback) {
+rsmax-vendors.js:     var id = ++taskIdCounter;
+rsmax-vendors.js:     var task = {
+rsmax-vendors.js:         callback: callback,
+rsmax-vendors.js:         id: id
+rsmax-vendors.js:     };
+rsmax-vendors.js:     taskQueue.push(task);
+rsmax-vendors.js:     setTimeout(function() {
+rsmax-vendors.js:         var index = taskQueue.findIndex(function(t) {
+rsmax-vendors.js:             return t.id === id;
+rsmax-vendors.js:         });
+rsmax-vendors.js:         if (index !== -1) {
+rsmax-vendors.js:             taskQueue.splice(index, 1);
+rsmax-vendors.js:             callback((0, exports.unstable_now)());
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }, 0);
+rsmax-vendors.js:     return id;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+rsmax-vendors.js: function unstable_cancelCallback(id) {
+rsmax-vendors.js:     var index = taskQueue.findIndex(function(t) {
+rsmax-vendors.js:         return t.id === id;
+rsmax-vendors.js:     });
+rsmax-vendors.js:     if (index !== -1) {
+rsmax-vendors.js:         taskQueue.splice(index, 1);
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+rsmax-vendors.js: function unstable_shouldYield() {
+rsmax-vendors.js:     return false;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.unstable_shouldYield = unstable_shouldYield;
+rsmax-vendors.js: exports["default"] = {
+rsmax-vendors.js:     unstable_scheduleCallback: unstable_scheduleCallback,
+rsmax-vendors.js:     unstable_cancelCallback: unstable_cancelCallback,
+rsmax-vendors.js:     unstable_shouldYield: unstable_shouldYield,
+rsmax-vendors.js:     unstable_now: exports.unstable_now
+rsmax-vendors.js: };
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {

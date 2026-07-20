@@ -732,7 +732,7 @@ file: app.js
 app.js: require('./rsmax-vendors.js');
 app.js: require('./runtime.js');
 app.js: "use strict";
-app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
+app.js: (my["rspackChunk"] = my["rspackChunk"] || []).push([[<ID>], {
 app.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: __webpack_require__.r(__webpack_exports__);
 app.js: // extracted by css-extract-rspack-plugin
@@ -900,7 +900,7 @@ app.js: },
 app.js: 
 app.js: }),function(__webpack_require__) {
 app.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-app.js: __webpack_require__.O(0, ["3",], function() {
+app.js: __webpack_require__.O(0, [<ID>], function() {
 app.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 app.js:       });
 app.js: var __webpack_exports__ = __webpack_require__.O();
@@ -979,7 +979,7 @@ file: pages/classPage.js
 pages/classPage.js: require('./../rsmax-vendors.js');
 pages/classPage.js: require('./../runtime.js');
 pages/classPage.js: "use strict";
-pages/classPage.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
+pages/classPage.js: (my["rspackChunk"] = my["rspackChunk"] || []).push([[<ID>], {
 pages/classPage.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/classPage.js: __webpack_require__.r(__webpack_exports__);
 pages/classPage.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<ID>);
@@ -1276,7 +1276,7 @@ pages/classPage.js: },
 pages/classPage.js: 
 pages/classPage.js: }),function(__webpack_require__) {
 pages/classPage.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/classPage.js: __webpack_require__.O(0, ["3",], function() {
+pages/classPage.js: __webpack_require__.O(0, [<ID>], function() {
 pages/classPage.js:         return __webpack_exec__(<ID>);
 pages/classPage.js:       });
 pages/classPage.js: var __webpack_exports__ = __webpack_require__.O();
@@ -1356,7 +1356,7 @@ file: pages/index.js
 pages/index.js: require('./../rsmax-vendors.js');
 pages/index.js: require('./../runtime.js');
 pages/index.js: "use strict";
-pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["2"], {
+pages/index.js: (my["rspackChunk"] = my["rspackChunk"] || []).push([[<ID>], {
 pages/index.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 pages/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index.js: // extracted by css-extract-rspack-plugin
@@ -1435,7 +1435,7 @@ pages/index.js: },
 pages/index.js: 
 pages/index.js: }),function(__webpack_require__) {
 pages/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
-pages/index.js: __webpack_require__.O(0, ["3",], function() {
+pages/index.js: __webpack_require__.O(0, [<ID>], function() {
 pages/index.js:         return __webpack_exec__(<ID>);
 pages/index.js:       });
 pages/index.js: var __webpack_exports__ = __webpack_require__.O();
@@ -1453,7 +1453,7 @@ pages/index.json: }
 -------------------------------------------------------------------------------
 file: rsmax-vendors.js
 -------------------------------------------------------------------------------
-rsmax-vendors.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["3"], {
+rsmax-vendors.js: (my["rspackChunk"] = my["rspackChunk"] || []).push([[<ID>], {
 rsmax-vendors.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 rsmax-vendors.js: /**
 rsmax-vendors.js:  * @license React
@@ -3759,6 +3759,9 @@ rsmax-vendors.js: }
 rsmax-vendors.js: function toRawProps(prop, value, type) {
 rsmax-vendors.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 rsmax-vendors.js: }
+rsmax-vendors.js: function isAliPlatform() {
+rsmax-vendors.js:     return framework_shared_1.RuntimeOptions.get('platform') === 'ali';
+rsmax-vendors.js: }
 rsmax-vendors.js: var VNode = /*#__PURE__*/ function() {
 rsmax-vendors.js:     function VNode(_ref) {
 rsmax-vendors.js:         var id = _ref.id, type = _ref.type, props = _ref.props, container = _ref.container;
@@ -3784,7 +3787,7 @@ rsmax-vendors.js:             value: function appendChild(node) {
 rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
-rsmax-vendors.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+rsmax-vendors.js:                 node.deleted = false;
 rsmax-vendors.js:                 if (!this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -3854,7 +3857,7 @@ rsmax-vendors.js:             value: function insertBefore(node, referenceNode) 
 rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
-rsmax-vendors.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+rsmax-vendors.js:                 node.deleted = false;
 rsmax-vendors.js:                 if (referenceNode === this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -3886,7 +3889,6 @@ rsmax-vendors.js:             value: function update(payload) {
 rsmax-vendors.js:                 if (this.type === 'text' || !payload) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
-rsmax-vendors.js:                         // root 不会更新，所以肯定有 parent
 rsmax-vendors.js:                         path: this.parent.path,
 rsmax-vendors.js:                         start: this.index,
 rsmax-vendors.js:                         id: this.id,
@@ -3901,16 +3903,13 @@ rsmax-vendors.js:                 }
 rsmax-vendors.js:                 var parentPath = this.parent.path;
 rsmax-vendors.js:                 for(var i = 0; i < payload.length; i = i + 2){
 rsmax-vendors.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
-rsmax-vendors.js:                     var path = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         "children[".concat(this.index, "].props")
+rsmax-vendors.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 rsmax-vendors.js:                         'nodes',
 rsmax-vendors.js:                         this.id.toString(),
 rsmax-vendors.js:                         'props'
 rsmax-vendors.js:                     ]);
-rsmax-vendors.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
-rsmax-vendors.js:                         path = [].concat(_toConsumableArray(parentPath), [
-rsmax-vendors.js:                             "children[".concat(this.index, "].props")
-rsmax-vendors.js:                         ]);
-rsmax-vendors.js:                     }
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'set',
 rsmax-vendors.js:                         path: path,
@@ -3957,7 +3956,7 @@ rsmax-vendors.js:                     parent = parent.parent;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 for(var i = 0; i < parents.length; i++){
 rsmax-vendors.js:                     var child = parents[i + 1] || this;
-rsmax-vendors.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
+rsmax-vendors.js:                     if (isAliPlatform()) {
 rsmax-vendors.js:                         dataPath.push('children');
 rsmax-vendors.js:                         dataPath.push(child.index.toString());
 rsmax-vendors.js:                     } else {
@@ -4009,18 +4008,15 @@ rsmax-vendors.js:                     currentNode: rawNode,
 rsmax-vendors.js:                     children: this.children
 rsmax-vendors.js:                 });
 rsmax-vendors.js:                 while(stack.length > 0){
-rsmax-vendors.js:                     // while 循环已经保证了不会有空值
 rsmax-vendors.js:                     var stackItem = stack.pop();
 rsmax-vendors.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
 rsmax-vendors.js:                     for(var i = children.length - 1; i >= 0; i--){
 rsmax-vendors.js:                         var currentVNode = children[i];
 rsmax-vendors.js:                         var currentRawNode = toRawNode(currentVNode);
-rsmax-vendors.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode.id);
-rsmax-vendors.js:                         } else {
+rsmax-vendors.js:                         if (isAliPlatform()) {
 rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode);
-rsmax-vendors.js:                         }
-rsmax-vendors.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
+rsmax-vendors.js:                         } else {
+rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode.id);
 rsmax-vendors.js:                             if (!currentNode.nodes) {
 rsmax-vendors.js:                                 currentNode.nodes = {};
 rsmax-vendors.js:                             }
@@ -4174,7 +4170,6 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: __webpack_require__(<ID>);
 rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var React = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: var react_is_1 = __webpack_require__(<ID>);
@@ -4338,42 +4333,59 @@ rsmax-vendors.js: var React = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: var Container_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: var render_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: function createComponentConfig(Component) {
+rsmax-vendors.js:     var platform = framework_shared_1.RuntimeOptions.get('platform');
+rsmax-vendors.js:     var isWechat = platform === 'wechat';
 rsmax-vendors.js:     var config = {
 rsmax-vendors.js:         data: {
 rsmax-vendors.js:             action: {},
 rsmax-vendors.js:             root: {
 rsmax-vendors.js:                 children: []
 rsmax-vendors.js:             }
-rsmax-vendors.js:         },
-rsmax-vendors.js:         didMount: function didMount() {
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
+rsmax-vendors.js:     if (isWechat) {
+rsmax-vendors.js:         config.options = {
+rsmax-vendors.js:             styleIsolation: 'apply-shared'
+rsmax-vendors.js:         };
+rsmax-vendors.js:         config.attached = function() {
 rsmax-vendors.js:             if (!this.container) {
 rsmax-vendors.js:                 this.init();
 rsmax-vendors.js:             }
-rsmax-vendors.js:         },
-rsmax-vendors.js:         didUpdate: function didUpdate(prevProps, prevData) {
+rsmax-vendors.js:         };
+rsmax-vendors.js:         config.detached = function() {
+rsmax-vendors.js:             this.container.clearUpdate();
+rsmax-vendors.js:             (0, render_1.default)(null, this.container);
+rsmax-vendors.js:         };
+rsmax-vendors.js:     } else {
+rsmax-vendors.js:         config.didMount = function() {
+rsmax-vendors.js:             if (!this.container) {
+rsmax-vendors.js:                 this.init();
+rsmax-vendors.js:             }
+rsmax-vendors.js:         };
+rsmax-vendors.js:         config.didUpdate = function(prevProps, prevData) {
 rsmax-vendors.js:             if (prevData !== this.data) {
 rsmax-vendors.js:                 return;
 rsmax-vendors.js:             }
 rsmax-vendors.js:             this.render();
-rsmax-vendors.js:         },
-rsmax-vendors.js:         didUnmount: function didUnmount() {
+rsmax-vendors.js:         };
+rsmax-vendors.js:         config.didUnmount = function() {
 rsmax-vendors.js:             this.container.clearUpdate();
 rsmax-vendors.js:             (0, render_1.default)(null, this.container);
+rsmax-vendors.js:         };
+rsmax-vendors.js:     }
+rsmax-vendors.js:     config.methods = {
+rsmax-vendors.js:         init: function init() {
+rsmax-vendors.js:             this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
+rsmax-vendors.js:                 component: Component,
+rsmax-vendors.js:                 context: this
+rsmax-vendors.js:             });
+rsmax-vendors.js:             this.container = new Container_1.default(this);
+rsmax-vendors.js:             this.render();
 rsmax-vendors.js:         },
-rsmax-vendors.js:         methods: {
-rsmax-vendors.js:             init: function init() {
-rsmax-vendors.js:                 this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
-rsmax-vendors.js:                     component: Component,
-rsmax-vendors.js:                     context: this
-rsmax-vendors.js:                 });
-rsmax-vendors.js:                 this.container = new Container_1.default(this);
-rsmax-vendors.js:                 this.render();
-rsmax-vendors.js:             },
-rsmax-vendors.js:             render: function render() {
-rsmax-vendors.js:                 this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
-rsmax-vendors.js:                     value: this
-rsmax-vendors.js:                 }, React.createElement(this.component, this.props)), this.container);
-rsmax-vendors.js:             }
+rsmax-vendors.js:         render: function render() {
+rsmax-vendors.js:             this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
+rsmax-vendors.js:                 value: this
+rsmax-vendors.js:             }, React.createElement(this.component, isWechat ? this.properties : this.props)), this.container);
 rsmax-vendors.js:         }
 rsmax-vendors.js:     };
 rsmax-vendors.js:     return config;
@@ -5179,61 +5191,6 @@ rsmax-vendors.js:     dispose: dispose
 rsmax-vendors.js: };
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
-rsmax-vendors.js: <ID>: (function () {
-rsmax-vendors.js: "use strict";
-rsmax-vendors.js: 
-rsmax-vendors.js: /* eslint-disable prefer-rest-params */ /* istanbul ignore next */ function _toConsumableArray(r) {
-rsmax-vendors.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-rsmax-vendors.js: }
-rsmax-vendors.js: function _nonIterableSpread() {
-rsmax-vendors.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-rsmax-vendors.js: }
-rsmax-vendors.js: function _unsupportedIterableToArray(r, a) {
-rsmax-vendors.js:     if (r) {
-rsmax-vendors.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
-rsmax-vendors.js:         var t = ({}).toString.call(r).slice(8, -1);
-rsmax-vendors.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-rsmax-vendors.js:     }
-rsmax-vendors.js: }
-rsmax-vendors.js: function _iterableToArray(r) {
-rsmax-vendors.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-rsmax-vendors.js: }
-rsmax-vendors.js: function _arrayWithoutHoles(r) {
-rsmax-vendors.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-rsmax-vendors.js: }
-rsmax-vendors.js: function _arrayLikeToArray(r, a) {
-rsmax-vendors.js:     (null == a || a > r.length) && (a = r.length);
-rsmax-vendors.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
-rsmax-vendors.js:     return n;
-rsmax-vendors.js: }
-rsmax-vendors.js: if (typeof Function.prototype.call === 'undefined') {
-rsmax-vendors.js:     Function.prototype.call = function(context) {
-rsmax-vendors.js:         var _context;
-rsmax-vendors.js:         context = context || window;
-rsmax-vendors.js:         context.fn = this;
-rsmax-vendors.js:         var args = Array.prototype.slice.call(arguments).slice(1);
-rsmax-vendors.js:         var result = (_context = context).fn.apply(_context, _toConsumableArray(args));
-rsmax-vendors.js:         delete context.fn;
-rsmax-vendors.js:         return result;
-rsmax-vendors.js:     };
-rsmax-vendors.js: }
-rsmax-vendors.js: /* istanbul ignore next */ if (typeof Function.prototype.apply === 'undefined') {
-rsmax-vendors.js:     Function.prototype.apply = function(context) {
-rsmax-vendors.js:         context = context || window;
-rsmax-vendors.js:         context.fn = this;
-rsmax-vendors.js:         var result;
-rsmax-vendors.js:         if (arguments[<ID>]) {
-rsmax-vendors.js:             var _context2;
-rsmax-vendors.js:             result = (_context2 = context).fn.apply(_context2, _toConsumableArray(arguments[<ID>]));
-rsmax-vendors.js:         } else {
-rsmax-vendors.js:             result = context.fn();
-rsmax-vendors.js:         }
-rsmax-vendors.js:         delete context.fn;
-rsmax-vendors.js:         return result;
-rsmax-vendors.js:     };
-rsmax-vendors.js: }
-rsmax-vendors.js: 
-rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: 
@@ -5338,7 +5295,73 @@ rsmax-vendors.js:
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports["default"] = my.stopPullDownRefresh;
+rsmax-vendors.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+rsmax-vendors.js: var taskQueue = [];
+rsmax-vendors.js: var taskIdCounter = 0;
+rsmax-vendors.js: exports.unstable_now = Date.now;
+rsmax-vendors.js: function unstable_scheduleCallback(callback) {
+rsmax-vendors.js:     var id = ++taskIdCounter;
+rsmax-vendors.js:     var task = {
+rsmax-vendors.js:         callback: callback,
+rsmax-vendors.js:         id: id
+rsmax-vendors.js:     };
+rsmax-vendors.js:     taskQueue.push(task);
+rsmax-vendors.js:     setTimeout(function() {
+rsmax-vendors.js:         var index = taskQueue.findIndex(function(t) {
+rsmax-vendors.js:             return t.id === id;
+rsmax-vendors.js:         });
+rsmax-vendors.js:         if (index !== -1) {
+rsmax-vendors.js:             taskQueue.splice(index, 1);
+rsmax-vendors.js:             callback((0, exports.unstable_now)());
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }, 0);
+rsmax-vendors.js:     return id;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+rsmax-vendors.js: function unstable_cancelCallback(id) {
+rsmax-vendors.js:     var index = taskQueue.findIndex(function(t) {
+rsmax-vendors.js:         return t.id === id;
+rsmax-vendors.js:     });
+rsmax-vendors.js:     if (index !== -1) {
+rsmax-vendors.js:         taskQueue.splice(index, 1);
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+rsmax-vendors.js: function unstable_shouldYield() {
+rsmax-vendors.js:     return false;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.unstable_shouldYield = unstable_shouldYield;
+rsmax-vendors.js: exports["default"] = {
+rsmax-vendors.js:     unstable_scheduleCallback: unstable_scheduleCallback,
+rsmax-vendors.js:     unstable_cancelCallback: unstable_cancelCallback,
+rsmax-vendors.js:     unstable_shouldYield: unstable_shouldYield,
+rsmax-vendors.js:     unstable_now: exports.unstable_now
+rsmax-vendors.js: };
+rsmax-vendors.js: 
+rsmax-vendors.js: }),
+rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+rsmax-vendors.js: "use strict";
+rsmax-vendors.js: 
+rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
+rsmax-vendors.js:     value: true
+rsmax-vendors.js: }));
+rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var platform = framework_shared_1.RuntimeOptions.get('platform');
+rsmax-vendors.js: var stopPullDownRefresh;
+rsmax-vendors.js: switch(platform){
+rsmax-vendors.js:     case 'ali':
+rsmax-vendors.js:         stopPullDownRefresh = my.stopPullDownRefresh;
+rsmax-vendors.js:         break;
+rsmax-vendors.js:     case 'toutiao':
+rsmax-vendors.js:         stopPullDownRefresh = tt.stopPullDownRefresh;
+rsmax-vendors.js:         break;
+rsmax-vendors.js:     case 'wechat':
+rsmax-vendors.js:         stopPullDownRefresh = wx.stopPullDownRefresh;
+rsmax-vendors.js:         break;
+rsmax-vendors.js:     default:
+rsmax-vendors.js:         stopPullDownRefresh = function stopPullDownRefresh() {};
+rsmax-vendors.js: }
+rsmax-vendors.js: exports["default"] = stopPullDownRefresh;
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -5555,12 +5578,16 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/define_property_getters
 runtime.js: (() => {
-runtime.js: __webpack_require__.d = (exports, definition) => {
-runtime.js: 	for(var key in definition) {
-runtime.js:         if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-runtime.js:             Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-runtime.js:         }
-runtime.js:     }
+runtime.js: __webpack_require__.d = (exports, getters, values) => {
+runtime.js: 	var define = (defs, kind) => {
+runtime.js: 		for(var key in defs) {
+runtime.js: 			if(__webpack_require__.o(defs, key) && !__webpack_require__.o(exports, key)) {
+runtime.js: 				Object.defineProperty(exports, key, { enumerable: true, [kind]: defs[key] });
+runtime.js: 			}
+runtime.js: 		}
+runtime.js: 	};
+runtime.js: 	define(getters, "get");
+runtime.js: 	define(values, "value");
 runtime.js: };
 runtime.js: })();
 runtime.js: // webpack/runtime/has_own_property
@@ -5613,25 +5640,21 @@ runtime.js: 	return result;
 runtime.js: };
 runtime.js: 
 runtime.js: })();
-runtime.js: // webpack/runtime/rspack_version
-runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("<VERSION>"))
-runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
 runtime.js: 
 runtime.js:       // object to store loaded and loading chunks
 runtime.js:       // undefined = chunk not loaded, null = chunk preloaded/prefetched
 runtime.js:       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-runtime.js:       var installedChunks = {"4": 0,};
-runtime.js:       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+runtime.js:       var jsonpInstalledChunks = {4: 0,};
+runtime.js:       __webpack_require__.O.j = (chunkId) => (jsonpInstalledChunks[chunkId] === 0);
 runtime.js: // install a JSONP callback for chunk loading
 runtime.js: var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 runtime.js: 	var [chunkIds, moreModules, runtime] = data;
 runtime.js: 	// add "moreModules" to the modules object,
 runtime.js: 	// then flag all "chunkIds" as loaded and fire callback
 runtime.js: 	var moduleId, chunkId, i = 0;
-runtime.js: 	if (chunkIds.some((id) => (installedChunks[id] !== 0))) {
+runtime.js: 	if (chunkIds.some((id) => (jsonpInstalledChunks[id] !== 0))) {
 runtime.js: 		for (moduleId in moreModules) {
 runtime.js: 			if (__webpack_require__.o(moreModules, moduleId)) {
 runtime.js: 				__webpack_require__.m[moduleId] = moreModules[moduleId];
@@ -5643,26 +5666,22 @@ runtime.js: 	if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
 runtime.js: 	for (; i < chunkIds.length; i++) {
 runtime.js: 		chunkId = chunkIds[i];
 runtime.js: 		if (
-runtime.js: 			__webpack_require__.o(installedChunks, chunkId) &&
-runtime.js: 			installedChunks[chunkId]
+runtime.js: 			__webpack_require__.o(jsonpInstalledChunks, chunkId) &&
+runtime.js: 			jsonpInstalledChunks[chunkId]
 runtime.js: 		) {
-runtime.js: 			installedChunks[chunkId][<ID>]();
+runtime.js: 			jsonpInstalledChunks[chunkId][<ID>]();
 runtime.js: 		}
-runtime.js: 		installedChunks[chunkId] = 0;
+runtime.js: 		jsonpInstalledChunks[chunkId] = 0;
 runtime.js: 	}
 runtime.js: 
 runtime.js: 	return __webpack_require__.O(result);
 runtime.js: 
 runtime.js: };
 runtime.js: 
-runtime.js: var chunkLoadingGlobal = my["webpackChunk"] = my["webpackChunk"] || [];
-runtime.js: chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-runtime.js: chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+runtime.js: var jsonpChunkLoadingGlobal = my["rspackChunk"] = my["rspackChunk"] || [];
+runtime.js: jsonpChunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+runtime.js: jsonpChunkLoadingGlobal.push = webpackJsonpCallback.bind(null, jsonpChunkLoadingGlobal.push.bind(jsonpChunkLoadingGlobal));
 runtime.js: 
-runtime.js: })();
-runtime.js: // webpack/runtime/rspack_unique_id
-runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@<VERSION>";
 runtime.js: })();
 runtime.js: })()
 runtime.js: ;

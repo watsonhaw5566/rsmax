@@ -1,1 +1,1 @@
-export { navigateTo, navigateBack, redirectTo, reLaunch, switchTab } from '@rsmax/web';
+export { navigateTo, navigateBack, redirectTo, reLaunch, switchTab } from '@rsmax/wechat';

@@ -77,3 +77,6 @@ cjs
 esm
 
 .npmrc
+
+# ai
+.trae

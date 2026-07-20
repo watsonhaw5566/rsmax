@@ -11,20 +11,16 @@ export function run(options: Options, api: API): Compiler {
   setupLogger(options.loglevel);
   api.onBuildStart(options);
 
-  if (options.target === 'web') {
-    // 兼容 herbox 所以用 require
-    // https://opendocs.alipay.com/mini/tool/00nxap
-    const WebBuilder = require('./WebBuilder').default;
-    return new WebBuilder(api, options).run();
-  }
   const MiniBuilder = require('./MiniBuilder').default;
   return new MiniBuilder(api, options).run();
 }
 
-export function buildApp(options: Options) {
-  const api = new API();
-  api.registerPlugins(options.plugins);
-  return internalBuildApp(options, api);
+export function buildMini(options: Options, api?: API) {
+  const finalApi = api || new API();
+  if (!api) {
+    finalApi.registerPlugins(options.plugins);
+  }
+  return internalBuildApp(options, finalApi);
 }
 
 export function internalBuildApp(options: Options, api: API) {

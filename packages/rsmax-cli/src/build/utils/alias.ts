@@ -29,9 +29,5 @@ export default (options: Options, target: Platform) => {
     '@rsmax/shared': require.resolve('@rsmax/shared'),
   };
 
-  if (target !== 'web') {
-    config['react-dom'] = '@rsmax/runtime';
-  }
-
   return config;
 };

@@ -713,7 +713,7 @@ __rsmax_runtime_options__.js:     }
 file: app.js
 -------------------------------------------------------------------------------
 app.js: require('./runtime.js');
-app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
+app.js: (my["rspackChunk"] = my["rspackChunk"] || []).push([[<ID>], {
 app.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 app.js: /**
 app.js:  * @license React
@@ -3155,6 +3155,9 @@ app.js: }
 app.js: function toRawProps(prop, value, type) {
 app.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 app.js: }
+app.js: function isAliPlatform() {
+app.js:     return framework_shared_1.RuntimeOptions.get('platform') === 'ali';
+app.js: }
 app.js: var VNode = /*#__PURE__*/ function() {
 app.js:     function VNode(_ref) {
 app.js:         var id = _ref.id, type = _ref.type, props = _ref.props, container = _ref.container;
@@ -3180,7 +3183,7 @@ app.js:             value: function appendChild(node) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
-app.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+app.js:                 node.deleted = false;
 app.js:                 if (!this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -3250,7 +3253,7 @@ app.js:             value: function insertBefore(node, referenceNode) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
-app.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+app.js:                 node.deleted = false;
 app.js:                 if (referenceNode === this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -3282,7 +3285,6 @@ app.js:             value: function update(payload) {
 app.js:                 if (this.type === 'text' || !payload) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
-app.js:                         // root 不会更新，所以肯定有 parent
 app.js:                         path: this.parent.path,
 app.js:                         start: this.index,
 app.js:                         id: this.id,
@@ -3297,16 +3299,13 @@ app.js:                 }
 app.js:                 var parentPath = this.parent.path;
 app.js:                 for(var i = 0; i < payload.length; i = i + 2){
 app.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
-app.js:                     var path = [].concat(_toConsumableArray(parentPath), [
+app.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
+app.js:                         "children[".concat(this.index, "].props")
+app.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 app.js:                         'nodes',
 app.js:                         this.id.toString(),
 app.js:                         'props'
 app.js:                     ]);
-app.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
-app.js:                         path = [].concat(_toConsumableArray(parentPath), [
-app.js:                             "children[".concat(this.index, "].props")
-app.js:                         ]);
-app.js:                     }
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'set',
 app.js:                         path: path,
@@ -3353,7 +3352,7 @@ app.js:                     parent = parent.parent;
 app.js:                 }
 app.js:                 for(var i = 0; i < parents.length; i++){
 app.js:                     var child = parents[i + 1] || this;
-app.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
+app.js:                     if (isAliPlatform()) {
 app.js:                         dataPath.push('children');
 app.js:                         dataPath.push(child.index.toString());
 app.js:                     } else {
@@ -3405,18 +3404,15 @@ app.js:                     currentNode: rawNode,
 app.js:                     children: this.children
 app.js:                 });
 app.js:                 while(stack.length > 0){
-app.js:                     // while 循环已经保证了不会有空值
 app.js:                     var stackItem = stack.pop();
 app.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
 app.js:                     for(var i = children.length - 1; i >= 0; i--){
 app.js:                         var currentVNode = children[i];
 app.js:                         var currentRawNode = toRawNode(currentVNode);
-app.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
-app.js:                             currentNode.children.unshift(currentRawNode.id);
-app.js:                         } else {
+app.js:                         if (isAliPlatform()) {
 app.js:                             currentNode.children.unshift(currentRawNode);
-app.js:                         }
-app.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
+app.js:                         } else {
+app.js:                             currentNode.children.unshift(currentRawNode.id);
 app.js:                             if (!currentNode.nodes) {
 app.js:                                 currentNode.nodes = {};
 app.js:                             }
@@ -3570,7 +3566,6 @@ app.js: };
 app.js: Object.defineProperty(exports, "__esModule", ({
 app.js:     value: true
 app.js: }));
-app.js: __webpack_require__(<ID>);
 app.js: var framework_shared_1 = __webpack_require__(<ID>);
 app.js: var React = __importStar(__webpack_require__(<ID>));
 app.js: var react_is_1 = __webpack_require__(<ID>);
@@ -3734,42 +3729,59 @@ app.js: var React = __importStar(__webpack_require__(<ID>));
 app.js: var Container_1 = __importDefault(__webpack_require__(<ID>));
 app.js: var render_1 = __importDefault(__webpack_require__(<ID>));
 app.js: function createComponentConfig(Component) {
+app.js:     var platform = framework_shared_1.RuntimeOptions.get('platform');
+app.js:     var isWechat = platform === 'wechat';
 app.js:     var config = {
 app.js:         data: {
 app.js:             action: {},
 app.js:             root: {
 app.js:                 children: []
 app.js:             }
-app.js:         },
-app.js:         didMount: function didMount() {
+app.js:         }
+app.js:     };
+app.js:     if (isWechat) {
+app.js:         config.options = {
+app.js:             styleIsolation: 'apply-shared'
+app.js:         };
+app.js:         config.attached = function() {
 app.js:             if (!this.container) {
 app.js:                 this.init();
 app.js:             }
-app.js:         },
-app.js:         didUpdate: function didUpdate(prevProps, prevData) {
+app.js:         };
+app.js:         config.detached = function() {
+app.js:             this.container.clearUpdate();
+app.js:             (0, render_1.default)(null, this.container);
+app.js:         };
+app.js:     } else {
+app.js:         config.didMount = function() {
+app.js:             if (!this.container) {
+app.js:                 this.init();
+app.js:             }
+app.js:         };
+app.js:         config.didUpdate = function(prevProps, prevData) {
 app.js:             if (prevData !== this.data) {
 app.js:                 return;
 app.js:             }
 app.js:             this.render();
-app.js:         },
-app.js:         didUnmount: function didUnmount() {
+app.js:         };
+app.js:         config.didUnmount = function() {
 app.js:             this.container.clearUpdate();
 app.js:             (0, render_1.default)(null, this.container);
+app.js:         };
+app.js:     }
+app.js:     config.methods = {
+app.js:         init: function init() {
+app.js:             this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
+app.js:                 component: Component,
+app.js:                 context: this
+app.js:             });
+app.js:             this.container = new Container_1.default(this);
+app.js:             this.render();
 app.js:         },
-app.js:         methods: {
-app.js:             init: function init() {
-app.js:                 this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
-app.js:                     component: Component,
-app.js:                     context: this
-app.js:                 });
-app.js:                 this.container = new Container_1.default(this);
-app.js:                 this.render();
-app.js:             },
-app.js:             render: function render() {
-app.js:                 this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
-app.js:                     value: this
-app.js:                 }, React.createElement(this.component, this.props)), this.container);
-app.js:             }
+app.js:         render: function render() {
+app.js:             this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
+app.js:                 value: this
+app.js:             }, React.createElement(this.component, isWechat ? this.properties : this.props)), this.container);
 app.js:         }
 app.js:     };
 app.js:     return config;
@@ -4575,61 +4587,6 @@ app.js:     dispose: dispose
 app.js: };
 app.js: 
 app.js: }),
-app.js: <ID>: (function () {
-app.js: "use strict";
-app.js: 
-app.js: /* eslint-disable prefer-rest-params */ /* istanbul ignore next */ function _toConsumableArray(r) {
-app.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-app.js: }
-app.js: function _nonIterableSpread() {
-app.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-app.js: }
-app.js: function _unsupportedIterableToArray(r, a) {
-app.js:     if (r) {
-app.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
-app.js:         var t = ({}).toString.call(r).slice(8, -1);
-app.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-app.js:     }
-app.js: }
-app.js: function _iterableToArray(r) {
-app.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-app.js: }
-app.js: function _arrayWithoutHoles(r) {
-app.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-app.js: }
-app.js: function _arrayLikeToArray(r, a) {
-app.js:     (null == a || a > r.length) && (a = r.length);
-app.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
-app.js:     return n;
-app.js: }
-app.js: if (typeof Function.prototype.call === 'undefined') {
-app.js:     Function.prototype.call = function(context) {
-app.js:         var _context;
-app.js:         context = context || window;
-app.js:         context.fn = this;
-app.js:         var args = Array.prototype.slice.call(arguments).slice(1);
-app.js:         var result = (_context = context).fn.apply(_context, _toConsumableArray(args));
-app.js:         delete context.fn;
-app.js:         return result;
-app.js:     };
-app.js: }
-app.js: /* istanbul ignore next */ if (typeof Function.prototype.apply === 'undefined') {
-app.js:     Function.prototype.apply = function(context) {
-app.js:         context = context || window;
-app.js:         context.fn = this;
-app.js:         var result;
-app.js:         if (arguments[<ID>]) {
-app.js:             var _context2;
-app.js:             result = (_context2 = context).fn.apply(_context2, _toConsumableArray(arguments[<ID>]));
-app.js:         } else {
-app.js:             result = context.fn();
-app.js:         }
-app.js:         delete context.fn;
-app.js:         return result;
-app.js:     };
-app.js: }
-app.js: 
-app.js: }),
 app.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 app.js: "use strict";
 app.js: 
@@ -4734,7 +4691,73 @@ app.js:
 app.js: Object.defineProperty(exports, "__esModule", ({
 app.js:     value: true
 app.js: }));
-app.js: exports["default"] = my.stopPullDownRefresh;
+app.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+app.js: var taskQueue = [];
+app.js: var taskIdCounter = 0;
+app.js: exports.unstable_now = Date.now;
+app.js: function unstable_scheduleCallback(callback) {
+app.js:     var id = ++taskIdCounter;
+app.js:     var task = {
+app.js:         callback: callback,
+app.js:         id: id
+app.js:     };
+app.js:     taskQueue.push(task);
+app.js:     setTimeout(function() {
+app.js:         var index = taskQueue.findIndex(function(t) {
+app.js:             return t.id === id;
+app.js:         });
+app.js:         if (index !== -1) {
+app.js:             taskQueue.splice(index, 1);
+app.js:             callback((0, exports.unstable_now)());
+app.js:         }
+app.js:     }, 0);
+app.js:     return id;
+app.js: }
+app.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+app.js: function unstable_cancelCallback(id) {
+app.js:     var index = taskQueue.findIndex(function(t) {
+app.js:         return t.id === id;
+app.js:     });
+app.js:     if (index !== -1) {
+app.js:         taskQueue.splice(index, 1);
+app.js:     }
+app.js: }
+app.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+app.js: function unstable_shouldYield() {
+app.js:     return false;
+app.js: }
+app.js: exports.unstable_shouldYield = unstable_shouldYield;
+app.js: exports["default"] = {
+app.js:     unstable_scheduleCallback: unstable_scheduleCallback,
+app.js:     unstable_cancelCallback: unstable_cancelCallback,
+app.js:     unstable_shouldYield: unstable_shouldYield,
+app.js:     unstable_now: exports.unstable_now
+app.js: };
+app.js: 
+app.js: }),
+app.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+app.js: "use strict";
+app.js: 
+app.js: Object.defineProperty(exports, "__esModule", ({
+app.js:     value: true
+app.js: }));
+app.js: var framework_shared_1 = __webpack_require__(<ID>);
+app.js: var platform = framework_shared_1.RuntimeOptions.get('platform');
+app.js: var stopPullDownRefresh;
+app.js: switch(platform){
+app.js:     case 'ali':
+app.js:         stopPullDownRefresh = my.stopPullDownRefresh;
+app.js:         break;
+app.js:     case 'toutiao':
+app.js:         stopPullDownRefresh = tt.stopPullDownRefresh;
+app.js:         break;
+app.js:     case 'wechat':
+app.js:         stopPullDownRefresh = wx.stopPullDownRefresh;
+app.js:         break;
+app.js:     default:
+app.js:         stopPullDownRefresh = function stopPullDownRefresh() {};
+app.js: }
+app.js: exports["default"] = stopPullDownRefresh;
 app.js: 
 app.js: }),
 app.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -4982,12 +5005,16 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/define_property_getters
 runtime.js: (() => {
-runtime.js: __webpack_require__.d = (exports, definition) => {
-runtime.js: 	for(var key in definition) {
-runtime.js:         if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-runtime.js:             Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-runtime.js:         }
-runtime.js:     }
+runtime.js: __webpack_require__.d = (exports, getters, values) => {
+runtime.js: 	var define = (defs, kind) => {
+runtime.js: 		for(var key in defs) {
+runtime.js: 			if(__webpack_require__.o(defs, key) && !__webpack_require__.o(exports, key)) {
+runtime.js: 				Object.defineProperty(exports, key, { enumerable: true, [kind]: defs[key] });
+runtime.js: 			}
+runtime.js: 		}
+runtime.js: 	};
+runtime.js: 	define(getters, "get");
+runtime.js: 	define(values, "value");
 runtime.js: };
 runtime.js: })();
 runtime.js: // webpack/runtime/has_own_property
@@ -5040,25 +5067,21 @@ runtime.js: 	return result;
 runtime.js: };
 runtime.js: 
 runtime.js: })();
-runtime.js: // webpack/runtime/rspack_version
-runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("<VERSION>"))
-runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
 runtime.js: 
 runtime.js:       // object to store loaded and loading chunks
 runtime.js:       // undefined = chunk not loaded, null = chunk preloaded/prefetched
 runtime.js:       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-runtime.js:       var installedChunks = {"1": 0,};
-runtime.js:       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+runtime.js:       var jsonpInstalledChunks = {1: 0,};
+runtime.js:       __webpack_require__.O.j = (chunkId) => (jsonpInstalledChunks[chunkId] === 0);
 runtime.js: // install a JSONP callback for chunk loading
 runtime.js: var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 runtime.js: 	var [chunkIds, moreModules, runtime] = data;
 runtime.js: 	// add "moreModules" to the modules object,
 runtime.js: 	// then flag all "chunkIds" as loaded and fire callback
 runtime.js: 	var moduleId, chunkId, i = 0;
-runtime.js: 	if (chunkIds.some((id) => (installedChunks[id] !== 0))) {
+runtime.js: 	if (chunkIds.some((id) => (jsonpInstalledChunks[id] !== 0))) {
 runtime.js: 		for (moduleId in moreModules) {
 runtime.js: 			if (__webpack_require__.o(moreModules, moduleId)) {
 runtime.js: 				__webpack_require__.m[moduleId] = moreModules[moduleId];
@@ -5070,26 +5093,22 @@ runtime.js: 	if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
 runtime.js: 	for (; i < chunkIds.length; i++) {
 runtime.js: 		chunkId = chunkIds[i];
 runtime.js: 		if (
-runtime.js: 			__webpack_require__.o(installedChunks, chunkId) &&
-runtime.js: 			installedChunks[chunkId]
+runtime.js: 			__webpack_require__.o(jsonpInstalledChunks, chunkId) &&
+runtime.js: 			jsonpInstalledChunks[chunkId]
 runtime.js: 		) {
-runtime.js: 			installedChunks[chunkId][<ID>]();
+runtime.js: 			jsonpInstalledChunks[chunkId][<ID>]();
 runtime.js: 		}
-runtime.js: 		installedChunks[chunkId] = 0;
+runtime.js: 		jsonpInstalledChunks[chunkId] = 0;
 runtime.js: 	}
 runtime.js: 
 runtime.js: 	return __webpack_require__.O(result);
 runtime.js: 
 runtime.js: };
 runtime.js: 
-runtime.js: var chunkLoadingGlobal = my["webpackChunk"] = my["webpackChunk"] || [];
-runtime.js: chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-runtime.js: chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+runtime.js: var jsonpChunkLoadingGlobal = my["rspackChunk"] = my["rspackChunk"] || [];
+runtime.js: jsonpChunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+runtime.js: jsonpChunkLoadingGlobal.push = webpackJsonpCallback.bind(null, jsonpChunkLoadingGlobal.push.bind(jsonpChunkLoadingGlobal));
 runtime.js: 
-runtime.js: })();
-runtime.js: // webpack/runtime/rspack_unique_id
-runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@<VERSION>";
 runtime.js: })();
 runtime.js: })()
 runtime.js: ;
@@ -5794,7 +5813,7 @@ __rsmax_runtime_options__.js:     }
 file: app.js
 -------------------------------------------------------------------------------
 app.js: require('./runtime.js');
-app.js: (tt["webpackChunk"] = tt["webpackChunk"] || []).push([["0"], {
+app.js: (tt["rspackChunk"] = tt["rspackChunk"] || []).push([[<ID>], {
 app.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 app.js: /**
 app.js:  * @license React
@@ -8236,6 +8255,9 @@ app.js: }
 app.js: function toRawProps(prop, value, type) {
 app.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 app.js: }
+app.js: function isAliPlatform() {
+app.js:     return framework_shared_1.RuntimeOptions.get('platform') === 'ali';
+app.js: }
 app.js: var VNode = /*#__PURE__*/ function() {
 app.js:     function VNode(_ref) {
 app.js:         var id = _ref.id, type = _ref.type, props = _ref.props, container = _ref.container;
@@ -8261,7 +8283,7 @@ app.js:             value: function appendChild(node) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
-app.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+app.js:                 node.deleted = false;
 app.js:                 if (!this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -8331,7 +8353,7 @@ app.js:             value: function insertBefore(node, referenceNode) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
-app.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+app.js:                 node.deleted = false;
 app.js:                 if (referenceNode === this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -8363,7 +8385,6 @@ app.js:             value: function update(payload) {
 app.js:                 if (this.type === 'text' || !payload) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
-app.js:                         // root 不会更新，所以肯定有 parent
 app.js:                         path: this.parent.path,
 app.js:                         start: this.index,
 app.js:                         id: this.id,
@@ -8378,16 +8399,13 @@ app.js:                 }
 app.js:                 var parentPath = this.parent.path;
 app.js:                 for(var i = 0; i < payload.length; i = i + 2){
 app.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
-app.js:                     var path = [].concat(_toConsumableArray(parentPath), [
+app.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
+app.js:                         "children[".concat(this.index, "].props")
+app.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 app.js:                         'nodes',
 app.js:                         this.id.toString(),
 app.js:                         'props'
 app.js:                     ]);
-app.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
-app.js:                         path = [].concat(_toConsumableArray(parentPath), [
-app.js:                             "children[".concat(this.index, "].props")
-app.js:                         ]);
-app.js:                     }
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'set',
 app.js:                         path: path,
@@ -8434,7 +8452,7 @@ app.js:                     parent = parent.parent;
 app.js:                 }
 app.js:                 for(var i = 0; i < parents.length; i++){
 app.js:                     var child = parents[i + 1] || this;
-app.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
+app.js:                     if (isAliPlatform()) {
 app.js:                         dataPath.push('children');
 app.js:                         dataPath.push(child.index.toString());
 app.js:                     } else {
@@ -8486,18 +8504,15 @@ app.js:                     currentNode: rawNode,
 app.js:                     children: this.children
 app.js:                 });
 app.js:                 while(stack.length > 0){
-app.js:                     // while 循环已经保证了不会有空值
 app.js:                     var stackItem = stack.pop();
 app.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
 app.js:                     for(var i = children.length - 1; i >= 0; i--){
 app.js:                         var currentVNode = children[i];
 app.js:                         var currentRawNode = toRawNode(currentVNode);
-app.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
-app.js:                             currentNode.children.unshift(currentRawNode.id);
-app.js:                         } else {
+app.js:                         if (isAliPlatform()) {
 app.js:                             currentNode.children.unshift(currentRawNode);
-app.js:                         }
-app.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
+app.js:                         } else {
+app.js:                             currentNode.children.unshift(currentRawNode.id);
 app.js:                             if (!currentNode.nodes) {
 app.js:                                 currentNode.nodes = {};
 app.js:                             }
@@ -8651,7 +8666,6 @@ app.js: };
 app.js: Object.defineProperty(exports, "__esModule", ({
 app.js:     value: true
 app.js: }));
-app.js: __webpack_require__(<ID>);
 app.js: var framework_shared_1 = __webpack_require__(<ID>);
 app.js: var React = __importStar(__webpack_require__(<ID>));
 app.js: var react_is_1 = __webpack_require__(<ID>);
@@ -8815,42 +8829,59 @@ app.js: var React = __importStar(__webpack_require__(<ID>));
 app.js: var Container_1 = __importDefault(__webpack_require__(<ID>));
 app.js: var render_1 = __importDefault(__webpack_require__(<ID>));
 app.js: function createComponentConfig(Component) {
+app.js:     var platform = framework_shared_1.RuntimeOptions.get('platform');
+app.js:     var isWechat = platform === 'wechat';
 app.js:     var config = {
 app.js:         data: {
 app.js:             action: {},
 app.js:             root: {
 app.js:                 children: []
 app.js:             }
-app.js:         },
-app.js:         didMount: function didMount() {
+app.js:         }
+app.js:     };
+app.js:     if (isWechat) {
+app.js:         config.options = {
+app.js:             styleIsolation: 'apply-shared'
+app.js:         };
+app.js:         config.attached = function() {
 app.js:             if (!this.container) {
 app.js:                 this.init();
 app.js:             }
-app.js:         },
-app.js:         didUpdate: function didUpdate(prevProps, prevData) {
+app.js:         };
+app.js:         config.detached = function() {
+app.js:             this.container.clearUpdate();
+app.js:             (0, render_1.default)(null, this.container);
+app.js:         };
+app.js:     } else {
+app.js:         config.didMount = function() {
+app.js:             if (!this.container) {
+app.js:                 this.init();
+app.js:             }
+app.js:         };
+app.js:         config.didUpdate = function(prevProps, prevData) {
 app.js:             if (prevData !== this.data) {
 app.js:                 return;
 app.js:             }
 app.js:             this.render();
-app.js:         },
-app.js:         didUnmount: function didUnmount() {
+app.js:         };
+app.js:         config.didUnmount = function() {
 app.js:             this.container.clearUpdate();
 app.js:             (0, render_1.default)(null, this.container);
+app.js:         };
+app.js:     }
+app.js:     config.methods = {
+app.js:         init: function init() {
+app.js:             this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
+app.js:                 component: Component,
+app.js:                 context: this
+app.js:             });
+app.js:             this.container = new Container_1.default(this);
+app.js:             this.render();
 app.js:         },
-app.js:         methods: {
-app.js:             init: function init() {
-app.js:                 this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
-app.js:                     component: Component,
-app.js:                     context: this
-app.js:                 });
-app.js:                 this.container = new Container_1.default(this);
-app.js:                 this.render();
-app.js:             },
-app.js:             render: function render() {
-app.js:                 this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
-app.js:                     value: this
-app.js:                 }, React.createElement(this.component, this.props)), this.container);
-app.js:             }
+app.js:         render: function render() {
+app.js:             this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
+app.js:                 value: this
+app.js:             }, React.createElement(this.component, isWechat ? this.properties : this.props)), this.container);
 app.js:         }
 app.js:     };
 app.js:     return config;
@@ -9656,61 +9687,6 @@ app.js:     dispose: dispose
 app.js: };
 app.js: 
 app.js: }),
-app.js: <ID>: (function () {
-app.js: "use strict";
-app.js: 
-app.js: /* eslint-disable prefer-rest-params */ /* istanbul ignore next */ function _toConsumableArray(r) {
-app.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-app.js: }
-app.js: function _nonIterableSpread() {
-app.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-app.js: }
-app.js: function _unsupportedIterableToArray(r, a) {
-app.js:     if (r) {
-app.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
-app.js:         var t = ({}).toString.call(r).slice(8, -1);
-app.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-app.js:     }
-app.js: }
-app.js: function _iterableToArray(r) {
-app.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-app.js: }
-app.js: function _arrayWithoutHoles(r) {
-app.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-app.js: }
-app.js: function _arrayLikeToArray(r, a) {
-app.js:     (null == a || a > r.length) && (a = r.length);
-app.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
-app.js:     return n;
-app.js: }
-app.js: if (typeof Function.prototype.call === 'undefined') {
-app.js:     Function.prototype.call = function(context) {
-app.js:         var _context;
-app.js:         context = context || window;
-app.js:         context.fn = this;
-app.js:         var args = Array.prototype.slice.call(arguments).slice(1);
-app.js:         var result = (_context = context).fn.apply(_context, _toConsumableArray(args));
-app.js:         delete context.fn;
-app.js:         return result;
-app.js:     };
-app.js: }
-app.js: /* istanbul ignore next */ if (typeof Function.prototype.apply === 'undefined') {
-app.js:     Function.prototype.apply = function(context) {
-app.js:         context = context || window;
-app.js:         context.fn = this;
-app.js:         var result;
-app.js:         if (arguments[<ID>]) {
-app.js:             var _context2;
-app.js:             result = (_context2 = context).fn.apply(_context2, _toConsumableArray(arguments[<ID>]));
-app.js:         } else {
-app.js:             result = context.fn();
-app.js:         }
-app.js:         delete context.fn;
-app.js:         return result;
-app.js:     };
-app.js: }
-app.js: 
-app.js: }),
 app.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 app.js: "use strict";
 app.js: 
@@ -9815,7 +9791,73 @@ app.js:
 app.js: Object.defineProperty(exports, "__esModule", ({
 app.js:     value: true
 app.js: }));
-app.js: exports["default"] = tt.stopPullDownRefresh;
+app.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+app.js: var taskQueue = [];
+app.js: var taskIdCounter = 0;
+app.js: exports.unstable_now = Date.now;
+app.js: function unstable_scheduleCallback(callback) {
+app.js:     var id = ++taskIdCounter;
+app.js:     var task = {
+app.js:         callback: callback,
+app.js:         id: id
+app.js:     };
+app.js:     taskQueue.push(task);
+app.js:     setTimeout(function() {
+app.js:         var index = taskQueue.findIndex(function(t) {
+app.js:             return t.id === id;
+app.js:         });
+app.js:         if (index !== -1) {
+app.js:             taskQueue.splice(index, 1);
+app.js:             callback((0, exports.unstable_now)());
+app.js:         }
+app.js:     }, 0);
+app.js:     return id;
+app.js: }
+app.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+app.js: function unstable_cancelCallback(id) {
+app.js:     var index = taskQueue.findIndex(function(t) {
+app.js:         return t.id === id;
+app.js:     });
+app.js:     if (index !== -1) {
+app.js:         taskQueue.splice(index, 1);
+app.js:     }
+app.js: }
+app.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+app.js: function unstable_shouldYield() {
+app.js:     return false;
+app.js: }
+app.js: exports.unstable_shouldYield = unstable_shouldYield;
+app.js: exports["default"] = {
+app.js:     unstable_scheduleCallback: unstable_scheduleCallback,
+app.js:     unstable_cancelCallback: unstable_cancelCallback,
+app.js:     unstable_shouldYield: unstable_shouldYield,
+app.js:     unstable_now: exports.unstable_now
+app.js: };
+app.js: 
+app.js: }),
+app.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+app.js: "use strict";
+app.js: 
+app.js: Object.defineProperty(exports, "__esModule", ({
+app.js:     value: true
+app.js: }));
+app.js: var framework_shared_1 = __webpack_require__(<ID>);
+app.js: var platform = framework_shared_1.RuntimeOptions.get('platform');
+app.js: var stopPullDownRefresh;
+app.js: switch(platform){
+app.js:     case 'ali':
+app.js:         stopPullDownRefresh = my.stopPullDownRefresh;
+app.js:         break;
+app.js:     case 'toutiao':
+app.js:         stopPullDownRefresh = tt.stopPullDownRefresh;
+app.js:         break;
+app.js:     case 'wechat':
+app.js:         stopPullDownRefresh = wx.stopPullDownRefresh;
+app.js:         break;
+app.js:     default:
+app.js:         stopPullDownRefresh = function stopPullDownRefresh() {};
+app.js: }
+app.js: exports["default"] = stopPullDownRefresh;
 app.js: 
 app.js: }),
 app.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -10147,12 +10189,16 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/define_property_getters
 runtime.js: (() => {
-runtime.js: __webpack_require__.d = (exports, definition) => {
-runtime.js: 	for(var key in definition) {
-runtime.js:         if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-runtime.js:             Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-runtime.js:         }
-runtime.js:     }
+runtime.js: __webpack_require__.d = (exports, getters, values) => {
+runtime.js: 	var define = (defs, kind) => {
+runtime.js: 		for(var key in defs) {
+runtime.js: 			if(__webpack_require__.o(defs, key) && !__webpack_require__.o(exports, key)) {
+runtime.js: 				Object.defineProperty(exports, key, { enumerable: true, [kind]: defs[key] });
+runtime.js: 			}
+runtime.js: 		}
+runtime.js: 	};
+runtime.js: 	define(getters, "get");
+runtime.js: 	define(values, "value");
 runtime.js: };
 runtime.js: })();
 runtime.js: // webpack/runtime/has_own_property
@@ -10205,25 +10251,21 @@ runtime.js: 	return result;
 runtime.js: };
 runtime.js: 
 runtime.js: })();
-runtime.js: // webpack/runtime/rspack_version
-runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("<VERSION>"))
-runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
 runtime.js: 
 runtime.js:       // object to store loaded and loading chunks
 runtime.js:       // undefined = chunk not loaded, null = chunk preloaded/prefetched
 runtime.js:       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-runtime.js:       var installedChunks = {"1": 0,};
-runtime.js:       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+runtime.js:       var jsonpInstalledChunks = {1: 0,};
+runtime.js:       __webpack_require__.O.j = (chunkId) => (jsonpInstalledChunks[chunkId] === 0);
 runtime.js: // install a JSONP callback for chunk loading
 runtime.js: var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 runtime.js: 	var [chunkIds, moreModules, runtime] = data;
 runtime.js: 	// add "moreModules" to the modules object,
 runtime.js: 	// then flag all "chunkIds" as loaded and fire callback
 runtime.js: 	var moduleId, chunkId, i = 0;
-runtime.js: 	if (chunkIds.some((id) => (installedChunks[id] !== 0))) {
+runtime.js: 	if (chunkIds.some((id) => (jsonpInstalledChunks[id] !== 0))) {
 runtime.js: 		for (moduleId in moreModules) {
 runtime.js: 			if (__webpack_require__.o(moreModules, moduleId)) {
 runtime.js: 				__webpack_require__.m[moduleId] = moreModules[moduleId];
@@ -10235,26 +10277,22 @@ runtime.js: 	if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
 runtime.js: 	for (; i < chunkIds.length; i++) {
 runtime.js: 		chunkId = chunkIds[i];
 runtime.js: 		if (
-runtime.js: 			__webpack_require__.o(installedChunks, chunkId) &&
-runtime.js: 			installedChunks[chunkId]
+runtime.js: 			__webpack_require__.o(jsonpInstalledChunks, chunkId) &&
+runtime.js: 			jsonpInstalledChunks[chunkId]
 runtime.js: 		) {
-runtime.js: 			installedChunks[chunkId][<ID>]();
+runtime.js: 			jsonpInstalledChunks[chunkId][<ID>]();
 runtime.js: 		}
-runtime.js: 		installedChunks[chunkId] = 0;
+runtime.js: 		jsonpInstalledChunks[chunkId] = 0;
 runtime.js: 	}
 runtime.js: 
 runtime.js: 	return __webpack_require__.O(result);
 runtime.js: 
 runtime.js: };
 runtime.js: 
-runtime.js: var chunkLoadingGlobal = tt["webpackChunk"] = tt["webpackChunk"] || [];
-runtime.js: chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-runtime.js: chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+runtime.js: var jsonpChunkLoadingGlobal = tt["rspackChunk"] = tt["rspackChunk"] || [];
+runtime.js: jsonpChunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+runtime.js: jsonpChunkLoadingGlobal.push = webpackJsonpCallback.bind(null, jsonpChunkLoadingGlobal.push.bind(jsonpChunkLoadingGlobal));
 runtime.js: 
-runtime.js: })();
-runtime.js: // webpack/runtime/rspack_unique_id
-runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@<VERSION>";
 runtime.js: })();
 runtime.js: })()
 runtime.js: ;
@@ -11641,7 +11679,7 @@ __rsmax_runtime_options__.js:     }
 file: app.js
 -------------------------------------------------------------------------------
 app.js: require('./runtime.js');
-app.js: (wx["webpackChunk"] = wx["webpackChunk"] || []).push([["0"], {
+app.js: (wx["rspackChunk"] = wx["rspackChunk"] || []).push([[<ID>], {
 app.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 app.js: /**
 app.js:  * @license React
@@ -14083,6 +14121,9 @@ app.js: }
 app.js: function toRawProps(prop, value, type) {
 app.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 app.js: }
+app.js: function isAliPlatform() {
+app.js:     return framework_shared_1.RuntimeOptions.get('platform') === 'ali';
+app.js: }
 app.js: var VNode = /*#__PURE__*/ function() {
 app.js:     function VNode(_ref) {
 app.js:         var id = _ref.id, type = _ref.type, props = _ref.props, container = _ref.container;
@@ -14108,7 +14149,7 @@ app.js:             value: function appendChild(node) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
-app.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+app.js:                 node.deleted = false;
 app.js:                 if (!this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -14178,7 +14219,7 @@ app.js:             value: function insertBefore(node, referenceNode) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
-app.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+app.js:                 node.deleted = false;
 app.js:                 if (referenceNode === this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -14210,7 +14251,6 @@ app.js:             value: function update(payload) {
 app.js:                 if (this.type === 'text' || !payload) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
-app.js:                         // root 不会更新，所以肯定有 parent
 app.js:                         path: this.parent.path,
 app.js:                         start: this.index,
 app.js:                         id: this.id,
@@ -14225,16 +14265,13 @@ app.js:                 }
 app.js:                 var parentPath = this.parent.path;
 app.js:                 for(var i = 0; i < payload.length; i = i + 2){
 app.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
-app.js:                     var path = [].concat(_toConsumableArray(parentPath), [
+app.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
+app.js:                         "children[".concat(this.index, "].props")
+app.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 app.js:                         'nodes',
 app.js:                         this.id.toString(),
 app.js:                         'props'
 app.js:                     ]);
-app.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
-app.js:                         path = [].concat(_toConsumableArray(parentPath), [
-app.js:                             "children[".concat(this.index, "].props")
-app.js:                         ]);
-app.js:                     }
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'set',
 app.js:                         path: path,
@@ -14281,7 +14318,7 @@ app.js:                     parent = parent.parent;
 app.js:                 }
 app.js:                 for(var i = 0; i < parents.length; i++){
 app.js:                     var child = parents[i + 1] || this;
-app.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
+app.js:                     if (isAliPlatform()) {
 app.js:                         dataPath.push('children');
 app.js:                         dataPath.push(child.index.toString());
 app.js:                     } else {
@@ -14333,18 +14370,15 @@ app.js:                     currentNode: rawNode,
 app.js:                     children: this.children
 app.js:                 });
 app.js:                 while(stack.length > 0){
-app.js:                     // while 循环已经保证了不会有空值
 app.js:                     var stackItem = stack.pop();
 app.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
 app.js:                     for(var i = children.length - 1; i >= 0; i--){
 app.js:                         var currentVNode = children[i];
 app.js:                         var currentRawNode = toRawNode(currentVNode);
-app.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
-app.js:                             currentNode.children.unshift(currentRawNode.id);
-app.js:                         } else {
+app.js:                         if (isAliPlatform()) {
 app.js:                             currentNode.children.unshift(currentRawNode);
-app.js:                         }
-app.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
+app.js:                         } else {
+app.js:                             currentNode.children.unshift(currentRawNode.id);
 app.js:                             if (!currentNode.nodes) {
 app.js:                                 currentNode.nodes = {};
 app.js:                             }
@@ -14498,7 +14532,6 @@ app.js: };
 app.js: Object.defineProperty(exports, "__esModule", ({
 app.js:     value: true
 app.js: }));
-app.js: __webpack_require__(<ID>);
 app.js: var framework_shared_1 = __webpack_require__(<ID>);
 app.js: var React = __importStar(__webpack_require__(<ID>));
 app.js: var react_is_1 = __webpack_require__(<ID>);
@@ -14662,54 +14695,59 @@ app.js: var React = __importStar(__webpack_require__(<ID>));
 app.js: var Container_1 = __importDefault(__webpack_require__(<ID>));
 app.js: var render_1 = __importDefault(__webpack_require__(<ID>));
 app.js: function createComponentConfig(Component) {
+app.js:     var platform = framework_shared_1.RuntimeOptions.get('platform');
+app.js:     var isWechat = platform === 'wechat';
 app.js:     var config = {
-app.js:         options: {
-app.js:             styleIsolation: 'apply-shared'
-app.js:         },
 app.js:         data: {
 app.js:             action: {},
 app.js:             root: {
 app.js:                 children: []
 app.js:             }
-app.js:         },
-app.js:         attached: function attached() {
-app.js:             // 在组件实例进入页面节点树时执行
+app.js:         }
+app.js:     };
+app.js:     if (isWechat) {
+app.js:         config.options = {
+app.js:             styleIsolation: 'apply-shared'
+app.js:         };
+app.js:         config.attached = function() {
 app.js:             if (!this.container) {
 app.js:                 this.init();
 app.js:             }
-app.js:         },
-app.js:         detached: function detached() {
-app.js:             // 在组件实例被从页面节点树移除时执行
+app.js:         };
+app.js:         config.detached = function() {
 app.js:             this.container.clearUpdate();
 app.js:             (0, render_1.default)(null, this.container);
-app.js:         },
-app.js:         /*
-app.js:     TODO: 当前微信无对应语法支持监听props
-app.js:           且必须显示设定 properties，才能在组件中使用 this.properties.name
-app.js:           所以当前的实现不支持在微信端 props
-app.js:     eg:
-app.js:     properties: {
-app.js:       name: String
-app.js:     },
-app.js:          didUpdate(prevProps: any, prevData: any) {
-app.js:       if (prevData !== this.data) {
-app.js:         return;
-app.js:       }
-app.js:            this.render();
-app.js:     },*/ methods: {
-app.js:             init: function init() {
-app.js:                 this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
-app.js:                     component: Component,
-app.js:                     context: this
-app.js:                 });
-app.js:                 this.container = new Container_1.default(this);
-app.js:                 this.render();
-app.js:             },
-app.js:             render: function render() {
-app.js:                 this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
-app.js:                     value: this
-app.js:                 }, React.createElement(this.component, this.properties)), this.container);
+app.js:         };
+app.js:     } else {
+app.js:         config.didMount = function() {
+app.js:             if (!this.container) {
+app.js:                 this.init();
 app.js:             }
+app.js:         };
+app.js:         config.didUpdate = function(prevProps, prevData) {
+app.js:             if (prevData !== this.data) {
+app.js:                 return;
+app.js:             }
+app.js:             this.render();
+app.js:         };
+app.js:         config.didUnmount = function() {
+app.js:             this.container.clearUpdate();
+app.js:             (0, render_1.default)(null, this.container);
+app.js:         };
+app.js:     }
+app.js:     config.methods = {
+app.js:         init: function init() {
+app.js:             this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
+app.js:                 component: Component,
+app.js:                 context: this
+app.js:             });
+app.js:             this.container = new Container_1.default(this);
+app.js:             this.render();
+app.js:         },
+app.js:         render: function render() {
+app.js:             this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
+app.js:                 value: this
+app.js:             }, React.createElement(this.component, isWechat ? this.properties : this.props)), this.container);
 app.js:         }
 app.js:     };
 app.js:     return config;
@@ -15515,61 +15553,6 @@ app.js:     dispose: dispose
 app.js: };
 app.js: 
 app.js: }),
-app.js: <ID>: (function () {
-app.js: "use strict";
-app.js: 
-app.js: /* eslint-disable prefer-rest-params */ /* istanbul ignore next */ function _toConsumableArray(r) {
-app.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-app.js: }
-app.js: function _nonIterableSpread() {
-app.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-app.js: }
-app.js: function _unsupportedIterableToArray(r, a) {
-app.js:     if (r) {
-app.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
-app.js:         var t = ({}).toString.call(r).slice(8, -1);
-app.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-app.js:     }
-app.js: }
-app.js: function _iterableToArray(r) {
-app.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-app.js: }
-app.js: function _arrayWithoutHoles(r) {
-app.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-app.js: }
-app.js: function _arrayLikeToArray(r, a) {
-app.js:     (null == a || a > r.length) && (a = r.length);
-app.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
-app.js:     return n;
-app.js: }
-app.js: if (typeof Function.prototype.call === 'undefined') {
-app.js:     Function.prototype.call = function(context) {
-app.js:         var _context;
-app.js:         context = context || window;
-app.js:         context.fn = this;
-app.js:         var args = Array.prototype.slice.call(arguments).slice(1);
-app.js:         var result = (_context = context).fn.apply(_context, _toConsumableArray(args));
-app.js:         delete context.fn;
-app.js:         return result;
-app.js:     };
-app.js: }
-app.js: /* istanbul ignore next */ if (typeof Function.prototype.apply === 'undefined') {
-app.js:     Function.prototype.apply = function(context) {
-app.js:         context = context || window;
-app.js:         context.fn = this;
-app.js:         var result;
-app.js:         if (arguments[<ID>]) {
-app.js:             var _context2;
-app.js:             result = (_context2 = context).fn.apply(_context2, _toConsumableArray(arguments[<ID>]));
-app.js:         } else {
-app.js:             result = context.fn();
-app.js:         }
-app.js:         delete context.fn;
-app.js:         return result;
-app.js:     };
-app.js: }
-app.js: 
-app.js: }),
 app.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 app.js: "use strict";
 app.js: 
@@ -15674,7 +15657,73 @@ app.js:
 app.js: Object.defineProperty(exports, "__esModule", ({
 app.js:     value: true
 app.js: }));
-app.js: exports["default"] = wx.stopPullDownRefresh;
+app.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+app.js: var taskQueue = [];
+app.js: var taskIdCounter = 0;
+app.js: exports.unstable_now = Date.now;
+app.js: function unstable_scheduleCallback(callback) {
+app.js:     var id = ++taskIdCounter;
+app.js:     var task = {
+app.js:         callback: callback,
+app.js:         id: id
+app.js:     };
+app.js:     taskQueue.push(task);
+app.js:     setTimeout(function() {
+app.js:         var index = taskQueue.findIndex(function(t) {
+app.js:             return t.id === id;
+app.js:         });
+app.js:         if (index !== -1) {
+app.js:             taskQueue.splice(index, 1);
+app.js:             callback((0, exports.unstable_now)());
+app.js:         }
+app.js:     }, 0);
+app.js:     return id;
+app.js: }
+app.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+app.js: function unstable_cancelCallback(id) {
+app.js:     var index = taskQueue.findIndex(function(t) {
+app.js:         return t.id === id;
+app.js:     });
+app.js:     if (index !== -1) {
+app.js:         taskQueue.splice(index, 1);
+app.js:     }
+app.js: }
+app.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+app.js: function unstable_shouldYield() {
+app.js:     return false;
+app.js: }
+app.js: exports.unstable_shouldYield = unstable_shouldYield;
+app.js: exports["default"] = {
+app.js:     unstable_scheduleCallback: unstable_scheduleCallback,
+app.js:     unstable_cancelCallback: unstable_cancelCallback,
+app.js:     unstable_shouldYield: unstable_shouldYield,
+app.js:     unstable_now: exports.unstable_now
+app.js: };
+app.js: 
+app.js: }),
+app.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+app.js: "use strict";
+app.js: 
+app.js: Object.defineProperty(exports, "__esModule", ({
+app.js:     value: true
+app.js: }));
+app.js: var framework_shared_1 = __webpack_require__(<ID>);
+app.js: var platform = framework_shared_1.RuntimeOptions.get('platform');
+app.js: var stopPullDownRefresh;
+app.js: switch(platform){
+app.js:     case 'ali':
+app.js:         stopPullDownRefresh = my.stopPullDownRefresh;
+app.js:         break;
+app.js:     case 'toutiao':
+app.js:         stopPullDownRefresh = tt.stopPullDownRefresh;
+app.js:         break;
+app.js:     case 'wechat':
+app.js:         stopPullDownRefresh = wx.stopPullDownRefresh;
+app.js:         break;
+app.js:     default:
+app.js:         stopPullDownRefresh = function stopPullDownRefresh() {};
+app.js: }
+app.js: exports["default"] = stopPullDownRefresh;
 app.js: 
 app.js: }),
 app.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -15915,7 +15964,7 @@ base.wxml:
 base.wxml:             var id = 'REMAX_TPL_' + (1 + count) + '_' + type;
 base.wxml:             __cache[key] = id;
 base.wxml:             return id;
-base.wxml:         }
+base.wxml:         },
 base.wxml: 
 base.wxml:         container: function (tid) {
 base.wxml:             return 'REMAX_TPL_' + (tid + 1) + '_CONTAINER';
@@ -16025,12 +16074,16 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/define_property_getters
 runtime.js: (() => {
-runtime.js: __webpack_require__.d = (exports, definition) => {
-runtime.js: 	for(var key in definition) {
-runtime.js:         if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-runtime.js:             Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-runtime.js:         }
-runtime.js:     }
+runtime.js: __webpack_require__.d = (exports, getters, values) => {
+runtime.js: 	var define = (defs, kind) => {
+runtime.js: 		for(var key in defs) {
+runtime.js: 			if(__webpack_require__.o(defs, key) && !__webpack_require__.o(exports, key)) {
+runtime.js: 				Object.defineProperty(exports, key, { enumerable: true, [kind]: defs[key] });
+runtime.js: 			}
+runtime.js: 		}
+runtime.js: 	};
+runtime.js: 	define(getters, "get");
+runtime.js: 	define(values, "value");
 runtime.js: };
 runtime.js: })();
 runtime.js: // webpack/runtime/has_own_property
@@ -16083,25 +16136,21 @@ runtime.js: 	return result;
 runtime.js: };
 runtime.js: 
 runtime.js: })();
-runtime.js: // webpack/runtime/rspack_version
-runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("<VERSION>"))
-runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
 runtime.js: 
 runtime.js:       // object to store loaded and loading chunks
 runtime.js:       // undefined = chunk not loaded, null = chunk preloaded/prefetched
 runtime.js:       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-runtime.js:       var installedChunks = {"1": 0,};
-runtime.js:       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+runtime.js:       var jsonpInstalledChunks = {1: 0,};
+runtime.js:       __webpack_require__.O.j = (chunkId) => (jsonpInstalledChunks[chunkId] === 0);
 runtime.js: // install a JSONP callback for chunk loading
 runtime.js: var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 runtime.js: 	var [chunkIds, moreModules, runtime] = data;
 runtime.js: 	// add "moreModules" to the modules object,
 runtime.js: 	// then flag all "chunkIds" as loaded and fire callback
 runtime.js: 	var moduleId, chunkId, i = 0;
-runtime.js: 	if (chunkIds.some((id) => (installedChunks[id] !== 0))) {
+runtime.js: 	if (chunkIds.some((id) => (jsonpInstalledChunks[id] !== 0))) {
 runtime.js: 		for (moduleId in moreModules) {
 runtime.js: 			if (__webpack_require__.o(moreModules, moduleId)) {
 runtime.js: 				__webpack_require__.m[moduleId] = moreModules[moduleId];
@@ -16113,26 +16162,22 @@ runtime.js: 	if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
 runtime.js: 	for (; i < chunkIds.length; i++) {
 runtime.js: 		chunkId = chunkIds[i];
 runtime.js: 		if (
-runtime.js: 			__webpack_require__.o(installedChunks, chunkId) &&
-runtime.js: 			installedChunks[chunkId]
+runtime.js: 			__webpack_require__.o(jsonpInstalledChunks, chunkId) &&
+runtime.js: 			jsonpInstalledChunks[chunkId]
 runtime.js: 		) {
-runtime.js: 			installedChunks[chunkId][<ID>]();
+runtime.js: 			jsonpInstalledChunks[chunkId][<ID>]();
 runtime.js: 		}
-runtime.js: 		installedChunks[chunkId] = 0;
+runtime.js: 		jsonpInstalledChunks[chunkId] = 0;
 runtime.js: 	}
 runtime.js: 
 runtime.js: 	return __webpack_require__.O(result);
 runtime.js: 
 runtime.js: };
 runtime.js: 
-runtime.js: var chunkLoadingGlobal = wx["webpackChunk"] = wx["webpackChunk"] || [];
-runtime.js: chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-runtime.js: chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+runtime.js: var jsonpChunkLoadingGlobal = wx["rspackChunk"] = wx["rspackChunk"] || [];
+runtime.js: jsonpChunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+runtime.js: jsonpChunkLoadingGlobal.push = webpackJsonpCallback.bind(null, jsonpChunkLoadingGlobal.push.bind(jsonpChunkLoadingGlobal));
 runtime.js: 
-runtime.js: })();
-runtime.js: // webpack/runtime/rspack_unique_id
-runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@<VERSION>";
 runtime.js: })();
 runtime.js: })()
 runtime.js: ;

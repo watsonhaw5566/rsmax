@@ -9,7 +9,6 @@ import type { Platform } from '@rsmax/types';
 import Config from 'rspack-chain';
 import MiniBuilder from '../../../build/MiniBuilder';
 import MiniPluginBuilder from '../../../build/MiniPluginBuilder';
-import WebBuilder from '../../../build/WebBuilder';
 import MiniComponentBuilder from '../../../build/MiniComponentBuilder';
 
 export interface OutputFile {
@@ -103,7 +102,7 @@ export async function buildApp(
     ...extraRemaxOptions,
   };
 
-  const builder = target === 'web' ? new WebBuilder(api, remaxOptions) : new MiniBuilder(api, remaxOptions);
+  const builder = new MiniBuilder(api, remaxOptions);
   const compiler = builder.run();
 
   return new Promise((resolve, reject) => {

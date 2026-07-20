@@ -4,9 +4,8 @@ import API from './API';
 import { buildMiniPlugin, internalBuildApp } from './build';
 import getConfig from './getConfig';
 
-export * from './legacyExport';
-
-export { buildMiniComponent } from './build';
+export { buildMini, buildMiniComponent } from './build';
+export { getDefaultOptions } from './defaultOptions';
 
 export default class RsmaxCLI {
   options?: Options;

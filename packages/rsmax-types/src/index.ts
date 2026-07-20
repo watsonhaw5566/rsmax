@@ -7,7 +7,7 @@ import type yargs from 'yargs';
 
 export type LogLevel = 'debug' | 'verbose' | 'info' | 'warn' | 'error' | 'silent';
 
-export type Platform = 'web' | 'wechat' | 'ali' | 'toutiao';
+export type Platform = 'wechat' | 'ali' | 'toutiao';
 
 export type BuildType = 'miniapp' | 'miniplugin' | 'minicomponent' | 'webapp';
 
@@ -37,7 +37,6 @@ export interface BuildOptions {
   devtools?: boolean;
   type?: BuildType;
   component?: HostComponent;
-  web?: WebOptions;
   minimize?: boolean;
   loglevel?: LogLevel;
 }

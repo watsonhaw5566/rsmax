@@ -715,7 +715,7 @@ __rsmax_runtime_options__.js:     }
 file: app.js
 -------------------------------------------------------------------------------
 app.js: require('./runtime.js');
-app.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["0"], {
+app.js: (my["rspackChunk"] = my["rspackChunk"] || []).push([[<ID>], {
 app.js: <ID>: (function (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 app.js: "use strict";
 app.js: __webpack_require__.r(__webpack_exports__);
@@ -824,7 +824,7 @@ pages/index.axml:
 file: pages/index.js
 -------------------------------------------------------------------------------
 pages/index.js: require('./../runtime.js');
-pages/index.js: (my["webpackChunk"] = my["webpackChunk"] || []).push([["1"], {
+pages/index.js: (my["rspackChunk"] = my["rspackChunk"] || []).push([[<ID>], {
 pages/index.js: <ID>: (function (module, __unused_webpack_exports, __webpack_require__) {
 pages/index.js: /**
 pages/index.js:  * @license React
@@ -3158,6 +3158,9 @@ pages/index.js: }
 pages/index.js: function toRawProps(prop, value, type) {
 pages/index.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 pages/index.js: }
+pages/index.js: function isAliPlatform() {
+pages/index.js:     return framework_shared_1.RuntimeOptions.get('platform') === 'ali';
+pages/index.js: }
 pages/index.js: var VNode = /*#__PURE__*/ function() {
 pages/index.js:     function VNode(_ref) {
 pages/index.js:         var id = _ref.id, type = _ref.type, props = _ref.props, container = _ref.container;
@@ -3183,7 +3186,7 @@ pages/index.js:             value: function appendChild(node) {
 pages/index.js:                 this.removeChild(node);
 pages/index.js:                 this.size += 1;
 pages/index.js:                 node.parent = this;
-pages/index.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+pages/index.js:                 node.deleted = false;
 pages/index.js:                 if (!this.firstChild) {
 pages/index.js:                     this.firstChild = node;
 pages/index.js:                 }
@@ -3253,7 +3256,7 @@ pages/index.js:             value: function insertBefore(node, referenceNode) {
 pages/index.js:                 this.removeChild(node);
 pages/index.js:                 this.size += 1;
 pages/index.js:                 node.parent = this;
-pages/index.js:                 node.deleted = false; // 交换节点时删除的节点会被复用
+pages/index.js:                 node.deleted = false;
 pages/index.js:                 if (referenceNode === this.firstChild) {
 pages/index.js:                     this.firstChild = node;
 pages/index.js:                 }
@@ -3285,7 +3288,6 @@ pages/index.js:             value: function update(payload) {
 pages/index.js:                 if (this.type === 'text' || !payload) {
 pages/index.js:                     this.container.requestUpdate({
 pages/index.js:                         type: 'splice',
-pages/index.js:                         // root 不会更新，所以肯定有 parent
 pages/index.js:                         path: this.parent.path,
 pages/index.js:                         start: this.index,
 pages/index.js:                         id: this.id,
@@ -3300,16 +3302,13 @@ pages/index.js:                 }
 pages/index.js:                 var parentPath = this.parent.path;
 pages/index.js:                 for(var i = 0; i < payload.length; i = i + 2){
 pages/index.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
-pages/index.js:                     var path = [].concat(_toConsumableArray(parentPath), [
+pages/index.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
+pages/index.js:                         "children[".concat(this.index, "].props")
+pages/index.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 pages/index.js:                         'nodes',
 pages/index.js:                         this.id.toString(),
 pages/index.js:                         'props'
 pages/index.js:                     ]);
-pages/index.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
-pages/index.js:                         path = [].concat(_toConsumableArray(parentPath), [
-pages/index.js:                             "children[".concat(this.index, "].props")
-pages/index.js:                         ]);
-pages/index.js:                     }
 pages/index.js:                     this.container.requestUpdate({
 pages/index.js:                         type: 'set',
 pages/index.js:                         path: path,
@@ -3356,7 +3355,7 @@ pages/index.js:                     parent = parent.parent;
 pages/index.js:                 }
 pages/index.js:                 for(var i = 0; i < parents.length; i++){
 pages/index.js:                     var child = parents[i + 1] || this;
-pages/index.js:                     if (framework_shared_1.RuntimeOptions.get('platform') === 'ali') {
+pages/index.js:                     if (isAliPlatform()) {
 pages/index.js:                         dataPath.push('children');
 pages/index.js:                         dataPath.push(child.index.toString());
 pages/index.js:                     } else {
@@ -3408,18 +3407,15 @@ pages/index.js:                     currentNode: rawNode,
 pages/index.js:                     children: this.children
 pages/index.js:                 });
 pages/index.js:                 while(stack.length > 0){
-pages/index.js:                     // while 循环已经保证了不会有空值
 pages/index.js:                     var stackItem = stack.pop();
 pages/index.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
 pages/index.js:                     for(var i = children.length - 1; i >= 0; i--){
 pages/index.js:                         var currentVNode = children[i];
 pages/index.js:                         var currentRawNode = toRawNode(currentVNode);
-pages/index.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
-pages/index.js:                             currentNode.children.unshift(currentRawNode.id);
-pages/index.js:                         } else {
+pages/index.js:                         if (isAliPlatform()) {
 pages/index.js:                             currentNode.children.unshift(currentRawNode);
-pages/index.js:                         }
-pages/index.js:                         if (framework_shared_1.RuntimeOptions.get('platform') !== 'ali') {
+pages/index.js:                         } else {
+pages/index.js:                             currentNode.children.unshift(currentRawNode.id);
 pages/index.js:                             if (!currentNode.nodes) {
 pages/index.js:                                 currentNode.nodes = {};
 pages/index.js:                             }
@@ -3573,7 +3569,6 @@ pages/index.js: };
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: __webpack_require__(<ID>);
 pages/index.js: var framework_shared_1 = __webpack_require__(<ID>);
 pages/index.js: var React = __importStar(__webpack_require__(<ID>));
 pages/index.js: var react_is_1 = __webpack_require__(<ID>);
@@ -3737,42 +3732,59 @@ pages/index.js: var React = __importStar(__webpack_require__(<ID>));
 pages/index.js: var Container_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: var render_1 = __importDefault(__webpack_require__(<ID>));
 pages/index.js: function createComponentConfig(Component) {
+pages/index.js:     var platform = framework_shared_1.RuntimeOptions.get('platform');
+pages/index.js:     var isWechat = platform === 'wechat';
 pages/index.js:     var config = {
 pages/index.js:         data: {
 pages/index.js:             action: {},
 pages/index.js:             root: {
 pages/index.js:                 children: []
 pages/index.js:             }
-pages/index.js:         },
-pages/index.js:         didMount: function didMount() {
+pages/index.js:         }
+pages/index.js:     };
+pages/index.js:     if (isWechat) {
+pages/index.js:         config.options = {
+pages/index.js:             styleIsolation: 'apply-shared'
+pages/index.js:         };
+pages/index.js:         config.attached = function() {
 pages/index.js:             if (!this.container) {
 pages/index.js:                 this.init();
 pages/index.js:             }
-pages/index.js:         },
-pages/index.js:         didUpdate: function didUpdate(prevProps, prevData) {
+pages/index.js:         };
+pages/index.js:         config.detached = function() {
+pages/index.js:             this.container.clearUpdate();
+pages/index.js:             (0, render_1.default)(null, this.container);
+pages/index.js:         };
+pages/index.js:     } else {
+pages/index.js:         config.didMount = function() {
+pages/index.js:             if (!this.container) {
+pages/index.js:                 this.init();
+pages/index.js:             }
+pages/index.js:         };
+pages/index.js:         config.didUpdate = function(prevProps, prevData) {
 pages/index.js:             if (prevData !== this.data) {
 pages/index.js:                 return;
 pages/index.js:             }
 pages/index.js:             this.render();
-pages/index.js:         },
-pages/index.js:         didUnmount: function didUnmount() {
+pages/index.js:         };
+pages/index.js:         config.didUnmount = function() {
 pages/index.js:             this.container.clearUpdate();
 pages/index.js:             (0, render_1.default)(null, this.container);
+pages/index.js:         };
+pages/index.js:     }
+pages/index.js:     config.methods = {
+pages/index.js:         init: function init() {
+pages/index.js:             this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
+pages/index.js:                 component: Component,
+pages/index.js:                 context: this
+pages/index.js:             });
+pages/index.js:             this.container = new Container_1.default(this);
+pages/index.js:             this.render();
 pages/index.js:         },
-pages/index.js:         methods: {
-pages/index.js:             init: function init() {
-pages/index.js:                 this.component = framework_shared_1.RuntimeOptions.get('pluginDriver').onMiniComponent({
-pages/index.js:                     component: Component,
-pages/index.js:                     context: this
-pages/index.js:                 });
-pages/index.js:                 this.container = new Container_1.default(this);
-pages/index.js:                 this.render();
-pages/index.js:             },
-pages/index.js:             render: function render() {
-pages/index.js:                 this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
-pages/index.js:                     value: this
-pages/index.js:                 }, React.createElement(this.component, this.props)), this.container);
-pages/index.js:             }
+pages/index.js:         render: function render() {
+pages/index.js:             this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
+pages/index.js:                 value: this
+pages/index.js:             }, React.createElement(this.component, isWechat ? this.properties : this.props)), this.container);
 pages/index.js:         }
 pages/index.js:     };
 pages/index.js:     return config;
@@ -4578,61 +4590,6 @@ pages/index.js:     dispose: dispose
 pages/index.js: };
 pages/index.js: 
 pages/index.js: }),
-pages/index.js: <ID>: (function () {
-pages/index.js: "use strict";
-pages/index.js: 
-pages/index.js: /* eslint-disable prefer-rest-params */ /* istanbul ignore next */ function _toConsumableArray(r) {
-pages/index.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-pages/index.js: }
-pages/index.js: function _nonIterableSpread() {
-pages/index.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-pages/index.js: }
-pages/index.js: function _unsupportedIterableToArray(r, a) {
-pages/index.js:     if (r) {
-pages/index.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
-pages/index.js:         var t = ({}).toString.call(r).slice(8, -1);
-pages/index.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-pages/index.js:     }
-pages/index.js: }
-pages/index.js: function _iterableToArray(r) {
-pages/index.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-pages/index.js: }
-pages/index.js: function _arrayWithoutHoles(r) {
-pages/index.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-pages/index.js: }
-pages/index.js: function _arrayLikeToArray(r, a) {
-pages/index.js:     (null == a || a > r.length) && (a = r.length);
-pages/index.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
-pages/index.js:     return n;
-pages/index.js: }
-pages/index.js: if (typeof Function.prototype.call === 'undefined') {
-pages/index.js:     Function.prototype.call = function(context) {
-pages/index.js:         var _context;
-pages/index.js:         context = context || window;
-pages/index.js:         context.fn = this;
-pages/index.js:         var args = Array.prototype.slice.call(arguments).slice(1);
-pages/index.js:         var result = (_context = context).fn.apply(_context, _toConsumableArray(args));
-pages/index.js:         delete context.fn;
-pages/index.js:         return result;
-pages/index.js:     };
-pages/index.js: }
-pages/index.js: /* istanbul ignore next */ if (typeof Function.prototype.apply === 'undefined') {
-pages/index.js:     Function.prototype.apply = function(context) {
-pages/index.js:         context = context || window;
-pages/index.js:         context.fn = this;
-pages/index.js:         var result;
-pages/index.js:         if (arguments[<ID>]) {
-pages/index.js:             var _context2;
-pages/index.js:             result = (_context2 = context).fn.apply(_context2, _toConsumableArray(arguments[<ID>]));
-pages/index.js:         } else {
-pages/index.js:             result = context.fn();
-pages/index.js:         }
-pages/index.js:         delete context.fn;
-pages/index.js:         return result;
-pages/index.js:     };
-pages/index.js: }
-pages/index.js: 
-pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 pages/index.js: "use strict";
 pages/index.js: 
@@ -4737,7 +4694,73 @@ pages/index.js:
 pages/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index.js:     value: true
 pages/index.js: }));
-pages/index.js: exports["default"] = my.stopPullDownRefresh;
+pages/index.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+pages/index.js: var taskQueue = [];
+pages/index.js: var taskIdCounter = 0;
+pages/index.js: exports.unstable_now = Date.now;
+pages/index.js: function unstable_scheduleCallback(callback) {
+pages/index.js:     var id = ++taskIdCounter;
+pages/index.js:     var task = {
+pages/index.js:         callback: callback,
+pages/index.js:         id: id
+pages/index.js:     };
+pages/index.js:     taskQueue.push(task);
+pages/index.js:     setTimeout(function() {
+pages/index.js:         var index = taskQueue.findIndex(function(t) {
+pages/index.js:             return t.id === id;
+pages/index.js:         });
+pages/index.js:         if (index !== -1) {
+pages/index.js:             taskQueue.splice(index, 1);
+pages/index.js:             callback((0, exports.unstable_now)());
+pages/index.js:         }
+pages/index.js:     }, 0);
+pages/index.js:     return id;
+pages/index.js: }
+pages/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+pages/index.js: function unstable_cancelCallback(id) {
+pages/index.js:     var index = taskQueue.findIndex(function(t) {
+pages/index.js:         return t.id === id;
+pages/index.js:     });
+pages/index.js:     if (index !== -1) {
+pages/index.js:         taskQueue.splice(index, 1);
+pages/index.js:     }
+pages/index.js: }
+pages/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+pages/index.js: function unstable_shouldYield() {
+pages/index.js:     return false;
+pages/index.js: }
+pages/index.js: exports.unstable_shouldYield = unstable_shouldYield;
+pages/index.js: exports["default"] = {
+pages/index.js:     unstable_scheduleCallback: unstable_scheduleCallback,
+pages/index.js:     unstable_cancelCallback: unstable_cancelCallback,
+pages/index.js:     unstable_shouldYield: unstable_shouldYield,
+pages/index.js:     unstable_now: exports.unstable_now
+pages/index.js: };
+pages/index.js: 
+pages/index.js: }),
+pages/index.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+pages/index.js: "use strict";
+pages/index.js: 
+pages/index.js: Object.defineProperty(exports, "__esModule", ({
+pages/index.js:     value: true
+pages/index.js: }));
+pages/index.js: var framework_shared_1 = __webpack_require__(<ID>);
+pages/index.js: var platform = framework_shared_1.RuntimeOptions.get('platform');
+pages/index.js: var stopPullDownRefresh;
+pages/index.js: switch(platform){
+pages/index.js:     case 'ali':
+pages/index.js:         stopPullDownRefresh = my.stopPullDownRefresh;
+pages/index.js:         break;
+pages/index.js:     case 'toutiao':
+pages/index.js:         stopPullDownRefresh = tt.stopPullDownRefresh;
+pages/index.js:         break;
+pages/index.js:     case 'wechat':
+pages/index.js:         stopPullDownRefresh = wx.stopPullDownRefresh;
+pages/index.js:         break;
+pages/index.js:     default:
+pages/index.js:         stopPullDownRefresh = function stopPullDownRefresh() {};
+pages/index.js: }
+pages/index.js: exports["default"] = stopPullDownRefresh;
 pages/index.js: 
 pages/index.js: }),
 pages/index.js: <ID>: (function (__unused_webpack_module, exports) {
@@ -4980,12 +5003,16 @@ runtime.js:
 runtime.js: })();
 runtime.js: // webpack/runtime/define_property_getters
 runtime.js: (() => {
-runtime.js: __webpack_require__.d = (exports, definition) => {
-runtime.js: 	for(var key in definition) {
-runtime.js:         if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-runtime.js:             Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-runtime.js:         }
-runtime.js:     }
+runtime.js: __webpack_require__.d = (exports, getters, values) => {
+runtime.js: 	var define = (defs, kind) => {
+runtime.js: 		for(var key in defs) {
+runtime.js: 			if(__webpack_require__.o(defs, key) && !__webpack_require__.o(exports, key)) {
+runtime.js: 				Object.defineProperty(exports, key, { enumerable: true, [kind]: defs[key] });
+runtime.js: 			}
+runtime.js: 		}
+runtime.js: 	};
+runtime.js: 	define(getters, "get");
+runtime.js: 	define(values, "value");
 runtime.js: };
 runtime.js: })();
 runtime.js: // webpack/runtime/has_own_property
@@ -5038,25 +5065,21 @@ runtime.js: 	return result;
 runtime.js: };
 runtime.js: 
 runtime.js: })();
-runtime.js: // webpack/runtime/rspack_version
-runtime.js: (() => {
-runtime.js: __webpack_require__.rv = () => ("<VERSION>"))
-runtime.js: })();
 runtime.js: // webpack/runtime/jsonp_chunk_loading
 runtime.js: (() => {
 runtime.js: 
 runtime.js:       // object to store loaded and loading chunks
 runtime.js:       // undefined = chunk not loaded, null = chunk preloaded/prefetched
 runtime.js:       // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-runtime.js:       var installedChunks = {"2": 0,};
-runtime.js:       __webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+runtime.js:       var jsonpInstalledChunks = {2: 0,};
+runtime.js:       __webpack_require__.O.j = (chunkId) => (jsonpInstalledChunks[chunkId] === 0);
 runtime.js: // install a JSONP callback for chunk loading
 runtime.js: var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 runtime.js: 	var [chunkIds, moreModules, runtime] = data;
 runtime.js: 	// add "moreModules" to the modules object,
 runtime.js: 	// then flag all "chunkIds" as loaded and fire callback
 runtime.js: 	var moduleId, chunkId, i = 0;
-runtime.js: 	if (chunkIds.some((id) => (installedChunks[id] !== 0))) {
+runtime.js: 	if (chunkIds.some((id) => (jsonpInstalledChunks[id] !== 0))) {
 runtime.js: 		for (moduleId in moreModules) {
 runtime.js: 			if (__webpack_require__.o(moreModules, moduleId)) {
 runtime.js: 				__webpack_require__.m[moduleId] = moreModules[moduleId];
@@ -5068,26 +5091,22 @@ runtime.js: 	if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
 runtime.js: 	for (; i < chunkIds.length; i++) {
 runtime.js: 		chunkId = chunkIds[i];
 runtime.js: 		if (
-runtime.js: 			__webpack_require__.o(installedChunks, chunkId) &&
-runtime.js: 			installedChunks[chunkId]
+runtime.js: 			__webpack_require__.o(jsonpInstalledChunks, chunkId) &&
+runtime.js: 			jsonpInstalledChunks[chunkId]
 runtime.js: 		) {
-runtime.js: 			installedChunks[chunkId][<ID>]();
+runtime.js: 			jsonpInstalledChunks[chunkId][<ID>]();
 runtime.js: 		}
-runtime.js: 		installedChunks[chunkId] = 0;
+runtime.js: 		jsonpInstalledChunks[chunkId] = 0;
 runtime.js: 	}
 runtime.js: 
 runtime.js: 	return __webpack_require__.O(result);
 runtime.js: 
 runtime.js: };
 runtime.js: 
-runtime.js: var chunkLoadingGlobal = my["webpackChunk"] = my["webpackChunk"] || [];
-runtime.js: chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-runtime.js: chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+runtime.js: var jsonpChunkLoadingGlobal = my["rspackChunk"] = my["rspackChunk"] || [];
+runtime.js: jsonpChunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+runtime.js: jsonpChunkLoadingGlobal.push = webpackJsonpCallback.bind(null, jsonpChunkLoadingGlobal.push.bind(jsonpChunkLoadingGlobal));
 runtime.js: 
-runtime.js: })();
-runtime.js: // webpack/runtime/rspack_unique_id
-runtime.js: (() => {
-runtime.js: __webpack_require__.ruid = "bundler=rspack@<VERSION>";
 runtime.js: })();
 runtime.js: })()
 runtime.js: ;

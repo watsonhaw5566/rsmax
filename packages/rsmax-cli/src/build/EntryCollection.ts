@@ -5,7 +5,6 @@ import type { AppConfig, EntryInfo, MiniPluginConfig } from '@rsmax/types';
 import type Builder from './Builder';
 import AppEntry from './entries/AppEntry';
 import ComponentEntry from './entries/ComponentEntry';
-import MpaEntry from './entries/MpaEntry';
 import NativeEntry from './entries/NativeEntry';
 import NormalEntry from './entries/NormalEntry';
 import PageEntry from './entries/PageEntry';
@@ -85,7 +84,7 @@ export default class EntryCollection {
       []
     );
 
-    if (['miniapp', 'webapp'].includes(this.builder.buildType)) {
+    if (this.builder.buildType === 'miniapp') {
       const subPackages = (projectConfig as AppConfig).subPackages ?? (projectConfig as any).subpackages ?? [];
 
       // 分包页面
@@ -116,14 +115,9 @@ export default class EntryCollection {
       if (!p.filename) {
         return;
       }
-      let entry;
-      if (this.builder.target === 'web' && this.builder.options.web?.mpa) {
-        entry = new MpaEntry(this.builder, p.name, p.filename);
-      } else {
-        entry = this.isNativeEntry(p.filename)
-          ? new NativeEntry(this.builder, p.name, p.filename)
-          : new PageEntry(this.builder, p.name, p.filename);
-      }
+      const entry = this.isNativeEntry(p.filename)
+        ? new NativeEntry(this.builder, p.name, p.filename)
+        : new PageEntry(this.builder, p.name, p.filename);
       entries.set(p.filename, entry);
     });
 
