@@ -1,7 +1,8 @@
-import type { Options } from '@rsmax/types';
+import type { Options, Platform } from '@rsmax/types';
 import type { Compiler } from '@rspack/core';
 import { logger, setupLogger } from '../logger';
 import API from '../API';
+import MultiPlatformBuilder from './MultiPlatformBuilder';
 
 const version = require('../../package.json').version;
 
@@ -25,10 +26,17 @@ export function buildMini(options: Options, api?: API) {
 
 export function internalBuildApp(options: Options, api: API) {
   const { target } = options;
-  process.env.RSMAX_PLATFORM = target;
 
   setupLogger(options.loglevel);
   logger.greet(`Rsmax v${version}`);
+
+  if (Array.isArray(target) && target.length > 1) {
+    const multiBuilder = new MultiPlatformBuilder(options);
+    return options.watch ? multiBuilder.watch() : multiBuilder.build();
+  }
+
+  const finalTarget = Array.isArray(target) ? target[0] : target;
+  process.env.RSMAX_PLATFORM = finalTarget as Platform;
   logger.start('🚀 构建应用');
   return run(options, api);
 }
@@ -37,10 +45,19 @@ export function buildMiniPlugin(options: Options) {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
   const { target } = options;
-  process.env.RSMAX_PLATFORM = target;
 
   setupLogger(options.loglevel);
   logger.greet(`Rsmax v${version}`);
+
+  if (Array.isArray(target)) {
+    const multiBuilder = new MultiPlatformBuilder({
+      ...options,
+      type: 'miniplugin',
+    });
+    return options.watch ? multiBuilder.watch() : multiBuilder.build();
+  }
+
+  process.env.RSMAX_PLATFORM = target as Platform;
   logger.start('🔨 构建插件');
 
   const api = new API();
@@ -54,7 +71,8 @@ export function buildMiniComponent(options: Options) {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
   const { target } = options;
-  process.env.RSMAX_PLATFORM = target;
+  const platformTarget = Array.isArray(target) ? target[0] : target;
+  process.env.RSMAX_PLATFORM = platformTarget;
 
   setupLogger(options.loglevel);
   logger.greet(`Rsmax v${version}`);

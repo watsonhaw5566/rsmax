@@ -21,7 +21,7 @@ abstract class Builder {
   protected constructor(api: API, options: Options, buildType: BuildType) {
     this.api = api;
     this.options = options;
-    this.target = options.target!;
+    this.target = options.target! as Platform;
     this.buildType = buildType;
 
     api.registerAdapterPlugins(this.target);
@@ -33,6 +33,10 @@ abstract class Builder {
     this.entryCollection.init();
     this.rspackConfig = this.createRspackConfig();
     this.rspackCompiler = this.createRspackCompiler();
+  }
+
+  createRspackCompiler(): Compiler {
+    return rspack(this.rspackConfig);
   }
 
   abstract run(): Compiler;
@@ -63,10 +67,6 @@ abstract class Builder {
     const configFile = this.projectPath.themeConfigFile();
     this.projectThemeConfig = readManifest(configFile, this.target, false);
     return this.projectThemeConfig;
-  }
-
-  createRspackCompiler(): Compiler {
-    return rspack(this.rspackConfig);
   }
 }
 

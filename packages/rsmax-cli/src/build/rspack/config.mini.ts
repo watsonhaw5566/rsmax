@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
-import type { Options } from '@rsmax/types';
+import type { Options, Platform } from '@rsmax/types';
 import { type Configuration, rspack } from '@rspack/core';
 import moduleResolver from 'babel-plugin-module-resolver';
 import { hostComponent, lifecycleApp, lifecyclePage } from 'babel-preset-rsmax';
@@ -125,7 +125,7 @@ export default function rspackConfig(builder: Builder): Configuration {
           },
         }),
         hostComponent({
-          target: builder.options.target!,
+          target: builder.options.target! as Platform,
           hostComponents: Store.registeredHostComponents,
           skipHostComponents: Store.skipHostComponents,
           skipProps: [],

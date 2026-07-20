@@ -13,10 +13,18 @@ export default class RsmaxCLI {
 
   run(args: any, callback?: yargs.ParseCallback) {
     const argv: any = require('yargs-parser')(args);
-    process.env.RSMAX_PLATFORM = argv.t || argv.target || 'ali';
+
+    const targetArg = argv.t || argv.target;
+    const targets = Array.isArray(targetArg) ? targetArg : [targetArg || 'ali'];
+    process.env.RSMAX_PLATFORM = targets[0];
 
     this.options = getConfig();
     this.options.compressTemplate = this.options.compressTemplate ?? argv.minimize;
+
+    if (targetArg) {
+      this.options.target = Array.isArray(targetArg) ? targetArg : targetArg;
+    }
+
     this.api = new API();
     const cli = this.initCLI();
     this.api.registerPlugins(this.options.plugins);
@@ -42,10 +50,11 @@ export default class RsmaxCLI {
             default: false,
           })
             .option('target', {
-              describe: '目标平台',
+              describe: '目标平台，支持: wechat, ali, toutiao，可指定多个',
               alias: 't',
-              type: 'string',
-              default: 'ali',
+              type: 'array',
+              string: true,
+              default: ['ali'],
             })
             .option('port', {
               describe: '指定端口号',
@@ -76,7 +85,11 @@ export default class RsmaxCLI {
             });
         },
         (argv: any) => {
-          internalBuildApp({ ...this.options, ...argv }, this.api!);
+          const options = { ...this.options, ...argv };
+          if (argv.target && argv.target.length === 1) {
+            options.target = argv.target[0];
+          }
+          internalBuildApp(options, this.api!);
         }
       )
       .command<any>('mini-plugin', '插件相关命令', y => {
@@ -90,13 +103,19 @@ export default class RsmaxCLI {
               type: 'boolean',
               default: false,
             }).option('target', {
-              describe: '目标平台',
+              describe: '目标平台，支持: wechat, ali, toutiao，可指定多个',
               alias: 't',
-              type: 'string',
+              type: 'array',
+              string: true,
+              default: ['ali'],
             });
           },
           (argv: any) => {
-            buildMiniPlugin({ ...this.options, ...argv });
+            const options = { ...this.options, ...argv };
+            if (argv.target && argv.target.length === 1) {
+              options.target = argv.target[0];
+            }
+            buildMiniPlugin(options);
           }
         );
       })

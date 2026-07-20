@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'development';
 
 buildMini({
   cwd: process.cwd(),
-  target: 'wechat',
+  target: ['wechat', 'ali', 'toutiao'],
   output: 'dist',
   rootDir: './src',
   pxToRpx: true,

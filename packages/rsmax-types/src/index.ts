@@ -9,6 +9,8 @@ export type LogLevel = 'debug' | 'verbose' | 'info' | 'warn' | 'error' | 'silent
 
 export type Platform = 'wechat' | 'ali' | 'toutiao';
 
+export type Target = Platform | Platform[];
+
 export type BuildType = 'miniapp' | 'miniplugin' | 'minicomponent' | 'webapp';
 
 export type WebOptions = {
@@ -32,7 +34,7 @@ export interface BuildOptions {
   plugins: Plugin[];
   port?: number;
   watch?: boolean;
-  target?: Platform;
+  target?: Target;
   analyze?: boolean;
   devtools?: boolean;
   type?: BuildType;
