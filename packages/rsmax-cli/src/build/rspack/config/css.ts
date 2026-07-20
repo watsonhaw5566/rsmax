@@ -67,7 +67,6 @@ export function addCSSRule(rspackConfig: Config, builder: Builder, web: boolean,
                     divisor: 100,
                   }
                 : {}),
-            [require.resolve('@rsmax/postcss-tag')]: web && {},
           },
         },
       });

@@ -35,7 +35,6 @@
     "@rsmax/build-store": "workspace:*",
     "@rsmax/macro": "workspace:*",
     "@rsmax/postcss-px2units": "^0.2.0",
-    "@rsmax/postcss-tag": "workspace:*",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/shared": "workspace:*",
     "@rspack/core": "^1.7.0",

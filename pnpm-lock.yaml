@@ -233,9 +233,6 @@ importers:
       '@rsmax/postcss-px2units':
         specifier: ^0.2.0
         version: 0.2.1
-      '@rsmax/postcss-tag':
-        specifier: workspace:*
-        version: link:../postcss-rsmax-tag
       '@rsmax/runtime':
         specifier: workspace:*
         version: link:../rsmax-runtime
