@@ -1,4 +1,3 @@
-import './polyfills/Function';
 import {
   AppInstanceContext,
   AppLifecycle,
