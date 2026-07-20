@@ -17,12 +17,6 @@
       "path": "./packages/babel-preset-rsmax"
     },
     {
-      "path": "./packages/babel-plugin-rsmax-host-component"
-    },
-    {
-      "path": "./packages/babel-plugin-rsmax-lifecycle"
-    },
-    {
       "path": "./packages/rsmax-runtime"
     },
     {

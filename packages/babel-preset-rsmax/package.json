@@ -23,6 +23,13 @@
     "@babel/helper-plugin-utils": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
+    "@babel/traverse": "^7.11.0",
+    "@babel/types": "^7.11.0",
+    "@rsmax/ali": "workspace:*",
+    "@rsmax/build-store": "workspace:*",
+    "@rsmax/macro": "workspace:*",
+    "@rsmax/shared": "workspace:*",
+    "@rsmax/types": "workspace:*",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

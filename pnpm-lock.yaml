@@ -163,6 +163,27 @@ importers:
       '@babel/preset-react':
         specifier: ^7.24.7
         version: 7.27.1(@babel/core@7.27.1)
+      '@babel/traverse':
+        specifier: ^7.11.0
+        version: 7.27.1
+      '@babel/types':
+        specifier: ^7.11.0
+        version: 7.27.1
+      '@rsmax/ali':
+        specifier: workspace:*
+        version: link:../rsmax-ali
+      '@rsmax/build-store':
+        specifier: workspace:*
+        version: link:../rsmax-build-store
+      '@rsmax/macro':
+        specifier: workspace:*
+        version: link:../rsmax-macro
+      '@rsmax/shared':
+        specifier: workspace:*
+        version: link:../rsmax-shared
+      '@rsmax/types':
+        specifier: workspace:*
+        version: link:../rsmax-types
       lodash:
         specifier: ^4.17.15
         version: 4.17.21

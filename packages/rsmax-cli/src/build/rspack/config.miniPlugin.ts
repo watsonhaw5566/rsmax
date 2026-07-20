@@ -4,8 +4,7 @@ import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
 import { type Configuration, rspack } from '@rspack/core';
-import hostComponent from 'babel-plugin-rsmax-host-component';
-import * as Lifecycle from 'babel-plugin-rsmax-lifecycle';
+import { hostComponent, lifecyclePage } from 'babel-preset-rsmax';
 import babelPluginMacros from 'babel-plugin-macros';
 import ejs from 'ejs';
 import Config from 'rspack-chain';
@@ -103,7 +102,7 @@ export default function rspackConfig(builder: Builder): Configuration {
       configFile: resolveBabelConfig(builder.options),
       usePlugins: [
         babelPluginMacros,
-        Lifecycle.page({
+        lifecyclePage({
           test: file => {
             const importer = slash(file);
             const root = builder.projectPath.srcDir();

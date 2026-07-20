@@ -1,4 +1,24 @@
 import { declare } from '@babel/helper-plugin-utils';
+import type { Platform } from '@rsmax/types';
+import hostComponent from './plugins/hostComponent';
+import * as Lifecycle from './plugins/lifecycle';
+
+interface HostComponentOptions {
+  target: Platform;
+  hostComponents: Map<string, any>;
+  skipHostComponents: string[];
+  skipProps: string[];
+  includeProps: string[];
+}
+
+interface LifecycleOptions {
+  app?: {
+    test: (file: string) => boolean;
+  };
+  page?: {
+    test: (file: string) => boolean;
+  };
+}
 
 interface PresetOption {
   react?: boolean | { [key: string]: any };
@@ -6,6 +26,8 @@ interface PresetOption {
   'class-properties'?: any;
   'throw-if-namespace'?: boolean;
   target?: any;
+  hostComponent?: false | HostComponentOptions;
+  lifecycle?: false | LifecycleOptions;
 }
 
 function preset(api: any, presetOption: PresetOption) {
@@ -27,10 +49,29 @@ function preset(api: any, presetOption: PresetOption) {
     presets.push([require.resolve('@babel/preset-react'), reactOpts]);
   }
 
+  const plugins: any[] = [];
+
+  if (presetOption.lifecycle !== false) {
+    const lifecycleOpts = presetOption.lifecycle || {};
+    if (lifecycleOpts.app) {
+      plugins.push(Lifecycle.app(lifecycleOpts.app));
+    }
+    if (lifecycleOpts.page) {
+      plugins.push(Lifecycle.page(lifecycleOpts.page));
+    }
+  }
+
+  if (presetOption.hostComponent !== false && presetOption.hostComponent) {
+    plugins.push(hostComponent(presetOption.hostComponent));
+  }
+
   return {
     presets,
-    plugins: [],
+    plugins,
   };
 }
 
 export default declare(preset);
+
+export { default as hostComponent } from './plugins/hostComponent';
+export { app as lifecycleApp, page as lifecyclePage } from './plugins/lifecycle';
