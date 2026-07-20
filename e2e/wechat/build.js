@@ -11,4 +11,5 @@ buildMini(api, {
   output: 'dist',
   rootDir: './src',
   pxToRpx: true,
+  minimize: false,
 });

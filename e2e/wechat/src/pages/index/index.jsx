@@ -3,7 +3,6 @@ import styles from './index.module.css';
 import logo from '../../../public/icon.png';
 
 export default () => {
-  console.log('hello rsmax');
   return (
     <View className={styles.app}>
       <View className={styles.header}>
