@@ -1,4 +1,4 @@
-import scheduler from 'scheduler';
+import scheduler from '../scheduler';
 import type Container from '../Container';
 import VNode from '../VNode';
 import { TYPE_TEXT } from '../constants';
