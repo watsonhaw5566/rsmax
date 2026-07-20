@@ -4,6 +4,9 @@ import Container from './Container';
 import render from './render';
 
 export default function createComponentConfig(Component: React.ComponentType<any>) {
+  const platform = RuntimeOptions.get('platform');
+  const isWechat = platform === 'wechat';
+
   const config: any = {
     data: {
       action: {},
@@ -11,48 +14,64 @@ export default function createComponentConfig(Component: React.ComponentType<any
         children: [],
       },
     },
+  };
 
-    didMount() {
+  if (isWechat) {
+    config.options = {
+      styleIsolation: 'apply-shared',
+    };
+
+    config.attached = function () {
       if (!this.container) {
         this.init();
       }
-    },
+    };
 
-    didUpdate(prevProps: any, prevData: any) {
+    config.detached = function () {
+      this.container.clearUpdate();
+      render(null, this.container);
+    };
+  } else {
+    config.didMount = function () {
+      if (!this.container) {
+        this.init();
+      }
+    };
+
+    config.didUpdate = function (prevProps: any, prevData: any) {
       if (prevData !== this.data) {
         return;
       }
+      this.render();
+    };
 
+    config.didUnmount = function () {
+      this.container.clearUpdate();
+      render(null, this.container);
+    };
+  }
+
+  config.methods = {
+    init(this: any) {
+      this.component = RuntimeOptions.get('pluginDriver').onMiniComponent({
+        component: Component,
+        context: this,
+      });
+      this.container = new Container(this);
       this.render();
     },
 
-    didUnmount(this: any) {
-      this.container.clearUpdate();
-      render(null, this.container);
-    },
-
-    methods: {
-      init(this: any) {
-        this.component = RuntimeOptions.get('pluginDriver').onMiniComponent({
-          component: Component,
-          context: this,
-        });
-        this.container = new Container(this);
-        this.render();
-      },
-
-      render(this: any) {
-        this.element = render(
-          React.createElement(
-            ComponentInstanceContext.Provider,
-            {
-              value: this,
-            },
-            React.createElement(this.component, this.props)
-          ),
-          this.container
-        );
-      },
+    render(this: any) {
+      this.element = render(
+        React.createElement(
+          ComponentInstanceContext.Provider,
+          {
+            value: this,
+          },
+          React.createElement(this.component, isWechat ? this.properties : this.props)
+        ),
+        this.container
+      );
     },
   };
 

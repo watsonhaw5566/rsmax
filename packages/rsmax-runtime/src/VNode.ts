@@ -35,6 +35,10 @@ function toRawProps(prop: string, value: any, type: string) {
   return propAlias(prop, value, type);
 }
 
+function isAliPlatform(): boolean {
+  return RuntimeOptions.get('platform') === 'ali';
+}
+
 export default class VNode {
   id: number;
   container: Container;
@@ -63,7 +67,7 @@ export default class VNode {
     this.size += 1;
 
     node.parent = this;
-    node.deleted = false; // 交换节点时删除的节点会被复用
+    node.deleted = false;
 
     if (!this.firstChild) {
       this.firstChild = node;
@@ -140,7 +144,7 @@ export default class VNode {
     this.size += 1;
 
     node.parent = this;
-    node.deleted = false; // 交换节点时删除的节点会被复用
+    node.deleted = false;
 
     if (referenceNode === this.firstChild) {
       this.firstChild = node;
@@ -172,7 +176,6 @@ export default class VNode {
     if (this.type === 'text' || !payload) {
       this.container.requestUpdate({
         type: 'splice',
-        // root 不会更新，所以肯定有 parent
         path: this.parent!.path,
         start: this.index,
         id: this.id,
@@ -189,11 +192,9 @@ export default class VNode {
     for (let i = 0; i < payload.length; i = i + 2) {
       const [propName, propValue] = toRawProps(payload[i], payload[i + 1], this.type);
 
-      let path = [...parentPath, 'nodes', this.id.toString(), 'props'];
-
-      if (RuntimeOptions.get('platform') === 'ali') {
-        path = [...parentPath, `children[${this.index}].props`];
-      }
+      const path = isAliPlatform()
+        ? [...parentPath, `children[${this.index}].props`]
+        : [...parentPath, 'nodes', this.id.toString(), 'props'];
 
       this.container.requestUpdate({
         type: 'set',
@@ -242,7 +243,7 @@ export default class VNode {
     for (let i = 0; i < parents.length; i++) {
       const child = parents[i + 1] || this;
 
-      if (RuntimeOptions.get('platform') === 'ali') {
+      if (isAliPlatform()) {
         dataPath.push('children');
         dataPath.push(child.index.toString());
       } else {
@@ -288,22 +289,17 @@ export default class VNode {
     });
 
     while (stack.length > 0) {
-      // while 循环已经保证了不会有空值
       const stackItem = stack.pop()!;
-
       const { children = [], currentNode } = stackItem;
 
       for (let i = children.length - 1; i >= 0; i--) {
         const currentVNode = children[i];
         const currentRawNode = toRawNode(currentVNode);
 
-        if (RuntimeOptions.get('platform') !== 'ali') {
-          currentNode.children!.unshift(currentRawNode.id);
-        } else {
+        if (isAliPlatform()) {
           currentNode.children!.unshift(currentRawNode);
-        }
-
-        if (RuntimeOptions.get('platform') !== 'ali') {
+        } else {
+          currentNode.children!.unshift(currentRawNode.id);
           if (!currentNode.nodes) {
             currentNode.nodes = {};
           }
