@@ -3,13 +3,13 @@ name: Node CI
 on:
   push:
     branches:
-      - master
+      - ['master','feature/*']
   pull_request:
     branches:
-      - master
+      - ['master','feature/*']
 
 jobs:
-  build:
+  node-ci:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
