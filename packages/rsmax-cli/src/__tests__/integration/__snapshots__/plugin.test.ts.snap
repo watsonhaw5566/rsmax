@@ -3320,6 +3320,15 @@ rsmax-vendors.js:         children: [],
 rsmax-vendors.js:         text: node.text
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
+rsmax-vendors.js: function collectChildren(node) {
+rsmax-vendors.js:     var arr = [];
+rsmax-vendors.js:     var item = node.firstChild;
+rsmax-vendors.js:     while(item){
+rsmax-vendors.js:         arr.push(item);
+rsmax-vendors.js:         item = item.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return arr;
+rsmax-vendors.js: }
 rsmax-vendors.js: function toRawProps(prop, value, type) {
 rsmax-vendors.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 rsmax-vendors.js: }
@@ -3339,6 +3348,10 @@ rsmax-vendors.js:         this.size = 0;
 rsmax-vendors.js:         this.previousSibling = null;
 rsmax-vendors.js:         this.nextSibling = null;
 rsmax-vendors.js:         this.callbackIds = new Set();
+rsmax-vendors.js:         this._index = 0;
+rsmax-vendors.js:         this._path = null;
+rsmax-vendors.js:         this._mounted = null;
+rsmax-vendors.js:         this._callbackRegistry = new Map();
 rsmax-vendors.js:         this.id = id;
 rsmax-vendors.js:         this.container = container;
 rsmax-vendors.js:         this.type = type;
@@ -3346,12 +3359,48 @@ rsmax-vendors.js:         this.props = props;
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return _createClass(VNode, [
 rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "invalidateCache",
+rsmax-vendors.js:             value: function invalidateCache() {
+rsmax-vendors.js:                 this._path = null;
+rsmax-vendors.js:                 this._mounted = null;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "updateIndicesFrom",
+rsmax-vendors.js:             value: function updateIndicesFrom(startIndex) {
+rsmax-vendors.js:                 var cur = this.childAtIndex(startIndex);
+rsmax-vendors.js:                 while(cur){
+rsmax-vendors.js:                     cur._index = startIndex;
+rsmax-vendors.js:                     cur.invalidateCache();
+rsmax-vendors.js:                     startIndex += 1;
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "childAtIndex",
+rsmax-vendors.js:             value: function childAtIndex(index) {
+rsmax-vendors.js:                 if (index < 0 || index >= this.size) return null;
+rsmax-vendors.js:                 if (index === 0) return this.firstChild;
+rsmax-vendors.js:                 if (index === this.size - 1) return this.lastChild;
+rsmax-vendors.js:                 var cur = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
+rsmax-vendors.js:                 while(cur && i < index){
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                     i += 1;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 return cur;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "appendChild",
 rsmax-vendors.js:             value: function appendChild(node) {
 rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 node._index = this.size - 1;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (!this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -3364,7 +3413,7 @@ rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -3383,7 +3432,7 @@ rsmax-vendors.js:                 var previousSibling = node.previousSibling, ne
 rsmax-vendors.js:                 if (node.parent !== this) {
 rsmax-vendors.js:                     return;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 var index = node.index;
+rsmax-vendors.js:                 var index = node._index;
 rsmax-vendors.js:                 this.size -= 1;
 rsmax-vendors.js:                 if (this.firstChild === node) {
 rsmax-vendors.js:                     this.firstChild = node.nextSibling;
@@ -3400,7 +3449,9 @@ rsmax-vendors.js:                 }
 rsmax-vendors.js:                 node.previousSibling = null;
 rsmax-vendors.js:                 node.nextSibling = null;
 rsmax-vendors.js:                 node.deleted = true;
+rsmax-vendors.js:                 node.parent = null;
 rsmax-vendors.js:                 node.unregisteredCallbacks();
+rsmax-vendors.js:                 this.updateIndicesFrom(index);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
@@ -3422,6 +3473,9 @@ rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 var targetIndex = referenceNode._index;
+rsmax-vendors.js:                 node._index = targetIndex;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (referenceNode === this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -3431,11 +3485,12 @@ rsmax-vendors.js:                     node.previousSibling = referenceNode.previ
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 referenceNode.previousSibling = node;
 rsmax-vendors.js:                 node.nextSibling = referenceNode;
+rsmax-vendors.js:                 this.updateIndicesFrom(targetIndex + 1);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -3454,7 +3509,7 @@ rsmax-vendors.js:                 if (this.type === 'text' || !payload) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.parent.path,
-rsmax-vendors.js:                         start: this.index,
+rsmax-vendors.js:                         start: this._index,
 rsmax-vendors.js:                         id: this.id,
 rsmax-vendors.js:                         deleteCount: 1,
 rsmax-vendors.js:                         items: [
@@ -3468,7 +3523,7 @@ rsmax-vendors.js:                 var parentPath = this.parent.path;
 rsmax-vendors.js:                 for(var i = 0; i < payload.length; i = i + 2){
 rsmax-vendors.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 rsmax-vendors.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-rsmax-vendors.js:                         "children[".concat(this.index, "].props")
+rsmax-vendors.js:                         "children[".concat(this._index, "].props")
 rsmax-vendors.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 rsmax-vendors.js:                         'nodes',
 rsmax-vendors.js:                         this.id.toString(),
@@ -3487,22 +3542,17 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "index",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var value = 0;
-rsmax-vendors.js:                 var previousSibling = this.previousSibling;
-rsmax-vendors.js:                 while(previousSibling){
-rsmax-vendors.js:                     value += 1;
-rsmax-vendors.js:                     previousSibling = previousSibling.previousSibling;
-rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return value;
+rsmax-vendors.js:                 return this._index;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "children",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var arr = [];
+rsmax-vendors.js:                 var arr = new Array(this.size);
 rsmax-vendors.js:                 var item = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
 rsmax-vendors.js:                 while(item){
-rsmax-vendors.js:                     arr.push(item);
+rsmax-vendors.js:                     arr[i++] = item;
 rsmax-vendors.js:                     item = item.nextSibling;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return arr;
@@ -3511,30 +3561,39 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "path",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var dataPath = [];
-rsmax-vendors.js:                 var parents = [];
-rsmax-vendors.js:                 var parent = this.parent;
-rsmax-vendors.js:                 while(parent){
-rsmax-vendors.js:                     parents.unshift(parent);
-rsmax-vendors.js:                     parent = parent.parent;
+rsmax-vendors.js:                 if (this._path) {
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 for(var i = 0; i < parents.length; i++){
-rsmax-vendors.js:                     var child = parents[i + 1] || this;
-rsmax-vendors.js:                     if (isAliPlatform()) {
-rsmax-vendors.js:                         dataPath.push('children');
-rsmax-vendors.js:                         dataPath.push(child.index.toString());
-rsmax-vendors.js:                     } else {
-rsmax-vendors.js:                         dataPath.push('nodes');
-rsmax-vendors.js:                         dataPath.push(child.id.toString());
-rsmax-vendors.js:                     }
+rsmax-vendors.js:                 if (!this.parent) {
+rsmax-vendors.js:                     this._path = [];
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return dataPath;
+rsmax-vendors.js:                 var parentPath = this.parent.path;
+rsmax-vendors.js:                 var childPath;
+rsmax-vendors.js:                 if (isAliPlatform()) {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'children',
+rsmax-vendors.js:                         this._index.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'nodes',
+rsmax-vendors.js:                         this.id.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 this._path = childPath;
+rsmax-vendors.js:                 return childPath;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "isMounted",
 rsmax-vendors.js:             value: function isMounted() {
-rsmax-vendors.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 if (this._mounted !== null) {
+rsmax-vendors.js:                     return this._mounted;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 this._mounted = result;
+rsmax-vendors.js:                 return result;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
@@ -3548,17 +3607,55 @@ rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "registerCallback",
 rsmax-vendors.js:             value: function registerCallback(propKey, propValue) {
 rsmax-vendors.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+rsmax-vendors.js:                 var existing = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (existing) {
+rsmax-vendors.js:                     if (existing.fn === propValue) {
+rsmax-vendors.js:                         return existing.id;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     this.container.removeCallback(existing.id);
+rsmax-vendors.js:                     this.callbackIds.delete(existing.id);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:                 this.callbackIds.add(id);
+rsmax-vendors.js:                 this._callbackRegistry.set(propKey, {
+rsmax-vendors.js:                     fn: propValue,
+rsmax-vendors.js:                     id: id
+rsmax-vendors.js:                 });
 rsmax-vendors.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 rsmax-vendors.js:                 return id;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "unregisterCallback",
+rsmax-vendors.js:             value: function unregisterCallback(propKey) {
+rsmax-vendors.js:                 var entry = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (entry) {
+rsmax-vendors.js:                     this.container.removeCallback(entry.id);
+rsmax-vendors.js:                     this.callbackIds.delete(entry.id);
+rsmax-vendors.js:                     this._callbackRegistry.delete(propKey);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "pruneCallbacks",
+rsmax-vendors.js:             value: function pruneCallbacks(keepKeys) {
+rsmax-vendors.js:                 var toDelete = [];
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     if (!keepKeys.has(key)) {
+rsmax-vendors.js:                         toDelete.push(key);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
+rsmax-vendors.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+rsmax-vendors.js:                     var key = _toDelete[_i];
+rsmax-vendors.js:                     this.unregisterCallback(key);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "unregisteredCallbacks",
 rsmax-vendors.js:             value: function unregisteredCallbacks() {
 rsmax-vendors.js:                 var _this = this;
-rsmax-vendors.js:                 this.callbackIds.forEach(function(id) {
-rsmax-vendors.js:                     _this.container.removeCallback(id);
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     _this.unregisterCallback(key);
 rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
@@ -3567,29 +3664,32 @@ rsmax-vendors.js:             key: "toJSON",
 rsmax-vendors.js:             value: function toJSON() {
 rsmax-vendors.js:                 var stack = [];
 rsmax-vendors.js:                 var rawNode = toRawNode(this);
+rsmax-vendors.js:                 var isAli = isAliPlatform();
 rsmax-vendors.js:                 stack.push({
 rsmax-vendors.js:                     currentNode: rawNode,
-rsmax-vendors.js:                     children: this.children
+rsmax-vendors.js:                     children: collectChildren(this)
 rsmax-vendors.js:                 });
 rsmax-vendors.js:                 while(stack.length > 0){
 rsmax-vendors.js:                     var stackItem = stack.pop();
 rsmax-vendors.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-rsmax-vendors.js:                     for(var i = children.length - 1; i >= 0; i--){
+rsmax-vendors.js:                     for(var i = 0; i < children.length; i++){
 rsmax-vendors.js:                         var currentVNode = children[i];
 rsmax-vendors.js:                         var currentRawNode = toRawNode(currentVNode);
-rsmax-vendors.js:                         if (isAliPlatform()) {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode);
+rsmax-vendors.js:                         if (isAli) {
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode);
 rsmax-vendors.js:                         } else {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode.id);
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode.id);
 rsmax-vendors.js:                             if (!currentNode.nodes) {
 rsmax-vendors.js:                                 currentNode.nodes = {};
 rsmax-vendors.js:                             }
 rsmax-vendors.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 rsmax-vendors.js:                         }
-rsmax-vendors.js:                         stack.push({
-rsmax-vendors.js:                             currentNode: currentRawNode,
-rsmax-vendors.js:                             children: currentVNode.children
-rsmax-vendors.js:                         });
+rsmax-vendors.js:                         if (currentVNode.firstChild) {
+rsmax-vendors.js:                             stack.push({
+rsmax-vendors.js:                                 currentNode: currentRawNode,
+rsmax-vendors.js:                                 children: collectChildren(currentVNode)
+rsmax-vendors.js:                             });
+rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return rawNode;
@@ -4452,10 +4552,11 @@ rsmax-vendors.js:     img: 'image'
 rsmax-vendors.js: };
 rsmax-vendors.js: function processProps(newProps, node) {
 rsmax-vendors.js:     var props = {};
-rsmax-vendors.js:     node.unregisteredCallbacks();
+rsmax-vendors.js:     var functionPropKeys = new Set();
 rsmax-vendors.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 rsmax-vendors.js:         var propKey = _Object$keys[_i];
 rsmax-vendors.js:         if (typeof newProps[propKey] === 'function') {
+rsmax-vendors.js:             functionPropKeys.add(propKey);
 rsmax-vendors.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 rsmax-vendors.js:         } else if (propKey === 'style') {
 rsmax-vendors.js:             props[propKey] = newProps[propKey] || '';
@@ -4465,6 +4566,7 @@ rsmax-vendors.js:         } else {
 rsmax-vendors.js:             props[propKey] = newProps[propKey];
 rsmax-vendors.js:         }
 rsmax-vendors.js:     }
+rsmax-vendors.js:     node.pruneCallbacks(functionPropKeys);
 rsmax-vendors.js:     return props;
 rsmax-vendors.js: }
 rsmax-vendors.js: var rootHostContext = {};
@@ -4870,7 +4972,7 @@ rsmax-vendors.js:         callback: callback,
 rsmax-vendors.js:         id: id
 rsmax-vendors.js:     };
 rsmax-vendors.js:     taskQueue.push(task);
-rsmax-vendors.js:     setTimeout(function() {
+rsmax-vendors.js:     queueMicrotask(function() {
 rsmax-vendors.js:         var index = taskQueue.findIndex(function(t) {
 rsmax-vendors.js:             return t.id === id;
 rsmax-vendors.js:         });
@@ -4878,7 +4980,7 @@ rsmax-vendors.js:         if (index !== -1) {
 rsmax-vendors.js:             taskQueue.splice(index, 1);
 rsmax-vendors.js:             callback((0, exports.unstable_now)());
 rsmax-vendors.js:         }
-rsmax-vendors.js:     }, 0);
+rsmax-vendors.js:     });
 rsmax-vendors.js:     return id;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -8556,6 +8658,15 @@ rsmax-vendors.js:         children: [],
 rsmax-vendors.js:         text: node.text
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
+rsmax-vendors.js: function collectChildren(node) {
+rsmax-vendors.js:     var arr = [];
+rsmax-vendors.js:     var item = node.firstChild;
+rsmax-vendors.js:     while(item){
+rsmax-vendors.js:         arr.push(item);
+rsmax-vendors.js:         item = item.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return arr;
+rsmax-vendors.js: }
 rsmax-vendors.js: function toRawProps(prop, value, type) {
 rsmax-vendors.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 rsmax-vendors.js: }
@@ -8575,6 +8686,10 @@ rsmax-vendors.js:         this.size = 0;
 rsmax-vendors.js:         this.previousSibling = null;
 rsmax-vendors.js:         this.nextSibling = null;
 rsmax-vendors.js:         this.callbackIds = new Set();
+rsmax-vendors.js:         this._index = 0;
+rsmax-vendors.js:         this._path = null;
+rsmax-vendors.js:         this._mounted = null;
+rsmax-vendors.js:         this._callbackRegistry = new Map();
 rsmax-vendors.js:         this.id = id;
 rsmax-vendors.js:         this.container = container;
 rsmax-vendors.js:         this.type = type;
@@ -8582,12 +8697,48 @@ rsmax-vendors.js:         this.props = props;
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return _createClass(VNode, [
 rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "invalidateCache",
+rsmax-vendors.js:             value: function invalidateCache() {
+rsmax-vendors.js:                 this._path = null;
+rsmax-vendors.js:                 this._mounted = null;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "updateIndicesFrom",
+rsmax-vendors.js:             value: function updateIndicesFrom(startIndex) {
+rsmax-vendors.js:                 var cur = this.childAtIndex(startIndex);
+rsmax-vendors.js:                 while(cur){
+rsmax-vendors.js:                     cur._index = startIndex;
+rsmax-vendors.js:                     cur.invalidateCache();
+rsmax-vendors.js:                     startIndex += 1;
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "childAtIndex",
+rsmax-vendors.js:             value: function childAtIndex(index) {
+rsmax-vendors.js:                 if (index < 0 || index >= this.size) return null;
+rsmax-vendors.js:                 if (index === 0) return this.firstChild;
+rsmax-vendors.js:                 if (index === this.size - 1) return this.lastChild;
+rsmax-vendors.js:                 var cur = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
+rsmax-vendors.js:                 while(cur && i < index){
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                     i += 1;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 return cur;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "appendChild",
 rsmax-vendors.js:             value: function appendChild(node) {
 rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 node._index = this.size - 1;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (!this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -8600,7 +8751,7 @@ rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -8619,7 +8770,7 @@ rsmax-vendors.js:                 var previousSibling = node.previousSibling, ne
 rsmax-vendors.js:                 if (node.parent !== this) {
 rsmax-vendors.js:                     return;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 var index = node.index;
+rsmax-vendors.js:                 var index = node._index;
 rsmax-vendors.js:                 this.size -= 1;
 rsmax-vendors.js:                 if (this.firstChild === node) {
 rsmax-vendors.js:                     this.firstChild = node.nextSibling;
@@ -8636,7 +8787,9 @@ rsmax-vendors.js:                 }
 rsmax-vendors.js:                 node.previousSibling = null;
 rsmax-vendors.js:                 node.nextSibling = null;
 rsmax-vendors.js:                 node.deleted = true;
+rsmax-vendors.js:                 node.parent = null;
 rsmax-vendors.js:                 node.unregisteredCallbacks();
+rsmax-vendors.js:                 this.updateIndicesFrom(index);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
@@ -8658,6 +8811,9 @@ rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 var targetIndex = referenceNode._index;
+rsmax-vendors.js:                 node._index = targetIndex;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (referenceNode === this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -8667,11 +8823,12 @@ rsmax-vendors.js:                     node.previousSibling = referenceNode.previ
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 referenceNode.previousSibling = node;
 rsmax-vendors.js:                 node.nextSibling = referenceNode;
+rsmax-vendors.js:                 this.updateIndicesFrom(targetIndex + 1);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -8690,7 +8847,7 @@ rsmax-vendors.js:                 if (this.type === 'text' || !payload) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.parent.path,
-rsmax-vendors.js:                         start: this.index,
+rsmax-vendors.js:                         start: this._index,
 rsmax-vendors.js:                         id: this.id,
 rsmax-vendors.js:                         deleteCount: 1,
 rsmax-vendors.js:                         items: [
@@ -8704,7 +8861,7 @@ rsmax-vendors.js:                 var parentPath = this.parent.path;
 rsmax-vendors.js:                 for(var i = 0; i < payload.length; i = i + 2){
 rsmax-vendors.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 rsmax-vendors.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-rsmax-vendors.js:                         "children[".concat(this.index, "].props")
+rsmax-vendors.js:                         "children[".concat(this._index, "].props")
 rsmax-vendors.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 rsmax-vendors.js:                         'nodes',
 rsmax-vendors.js:                         this.id.toString(),
@@ -8723,22 +8880,17 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "index",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var value = 0;
-rsmax-vendors.js:                 var previousSibling = this.previousSibling;
-rsmax-vendors.js:                 while(previousSibling){
-rsmax-vendors.js:                     value += 1;
-rsmax-vendors.js:                     previousSibling = previousSibling.previousSibling;
-rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return value;
+rsmax-vendors.js:                 return this._index;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "children",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var arr = [];
+rsmax-vendors.js:                 var arr = new Array(this.size);
 rsmax-vendors.js:                 var item = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
 rsmax-vendors.js:                 while(item){
-rsmax-vendors.js:                     arr.push(item);
+rsmax-vendors.js:                     arr[i++] = item;
 rsmax-vendors.js:                     item = item.nextSibling;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return arr;
@@ -8747,30 +8899,39 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "path",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var dataPath = [];
-rsmax-vendors.js:                 var parents = [];
-rsmax-vendors.js:                 var parent = this.parent;
-rsmax-vendors.js:                 while(parent){
-rsmax-vendors.js:                     parents.unshift(parent);
-rsmax-vendors.js:                     parent = parent.parent;
+rsmax-vendors.js:                 if (this._path) {
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 for(var i = 0; i < parents.length; i++){
-rsmax-vendors.js:                     var child = parents[i + 1] || this;
-rsmax-vendors.js:                     if (isAliPlatform()) {
-rsmax-vendors.js:                         dataPath.push('children');
-rsmax-vendors.js:                         dataPath.push(child.index.toString());
-rsmax-vendors.js:                     } else {
-rsmax-vendors.js:                         dataPath.push('nodes');
-rsmax-vendors.js:                         dataPath.push(child.id.toString());
-rsmax-vendors.js:                     }
+rsmax-vendors.js:                 if (!this.parent) {
+rsmax-vendors.js:                     this._path = [];
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return dataPath;
+rsmax-vendors.js:                 var parentPath = this.parent.path;
+rsmax-vendors.js:                 var childPath;
+rsmax-vendors.js:                 if (isAliPlatform()) {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'children',
+rsmax-vendors.js:                         this._index.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'nodes',
+rsmax-vendors.js:                         this.id.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 this._path = childPath;
+rsmax-vendors.js:                 return childPath;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "isMounted",
 rsmax-vendors.js:             value: function isMounted() {
-rsmax-vendors.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 if (this._mounted !== null) {
+rsmax-vendors.js:                     return this._mounted;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 this._mounted = result;
+rsmax-vendors.js:                 return result;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
@@ -8784,17 +8945,55 @@ rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "registerCallback",
 rsmax-vendors.js:             value: function registerCallback(propKey, propValue) {
 rsmax-vendors.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+rsmax-vendors.js:                 var existing = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (existing) {
+rsmax-vendors.js:                     if (existing.fn === propValue) {
+rsmax-vendors.js:                         return existing.id;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     this.container.removeCallback(existing.id);
+rsmax-vendors.js:                     this.callbackIds.delete(existing.id);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:                 this.callbackIds.add(id);
+rsmax-vendors.js:                 this._callbackRegistry.set(propKey, {
+rsmax-vendors.js:                     fn: propValue,
+rsmax-vendors.js:                     id: id
+rsmax-vendors.js:                 });
 rsmax-vendors.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 rsmax-vendors.js:                 return id;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "unregisterCallback",
+rsmax-vendors.js:             value: function unregisterCallback(propKey) {
+rsmax-vendors.js:                 var entry = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (entry) {
+rsmax-vendors.js:                     this.container.removeCallback(entry.id);
+rsmax-vendors.js:                     this.callbackIds.delete(entry.id);
+rsmax-vendors.js:                     this._callbackRegistry.delete(propKey);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "pruneCallbacks",
+rsmax-vendors.js:             value: function pruneCallbacks(keepKeys) {
+rsmax-vendors.js:                 var toDelete = [];
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     if (!keepKeys.has(key)) {
+rsmax-vendors.js:                         toDelete.push(key);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
+rsmax-vendors.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+rsmax-vendors.js:                     var key = _toDelete[_i];
+rsmax-vendors.js:                     this.unregisterCallback(key);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "unregisteredCallbacks",
 rsmax-vendors.js:             value: function unregisteredCallbacks() {
 rsmax-vendors.js:                 var _this = this;
-rsmax-vendors.js:                 this.callbackIds.forEach(function(id) {
-rsmax-vendors.js:                     _this.container.removeCallback(id);
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     _this.unregisterCallback(key);
 rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
@@ -8803,29 +9002,32 @@ rsmax-vendors.js:             key: "toJSON",
 rsmax-vendors.js:             value: function toJSON() {
 rsmax-vendors.js:                 var stack = [];
 rsmax-vendors.js:                 var rawNode = toRawNode(this);
+rsmax-vendors.js:                 var isAli = isAliPlatform();
 rsmax-vendors.js:                 stack.push({
 rsmax-vendors.js:                     currentNode: rawNode,
-rsmax-vendors.js:                     children: this.children
+rsmax-vendors.js:                     children: collectChildren(this)
 rsmax-vendors.js:                 });
 rsmax-vendors.js:                 while(stack.length > 0){
 rsmax-vendors.js:                     var stackItem = stack.pop();
 rsmax-vendors.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-rsmax-vendors.js:                     for(var i = children.length - 1; i >= 0; i--){
+rsmax-vendors.js:                     for(var i = 0; i < children.length; i++){
 rsmax-vendors.js:                         var currentVNode = children[i];
 rsmax-vendors.js:                         var currentRawNode = toRawNode(currentVNode);
-rsmax-vendors.js:                         if (isAliPlatform()) {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode);
+rsmax-vendors.js:                         if (isAli) {
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode);
 rsmax-vendors.js:                         } else {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode.id);
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode.id);
 rsmax-vendors.js:                             if (!currentNode.nodes) {
 rsmax-vendors.js:                                 currentNode.nodes = {};
 rsmax-vendors.js:                             }
 rsmax-vendors.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 rsmax-vendors.js:                         }
-rsmax-vendors.js:                         stack.push({
-rsmax-vendors.js:                             currentNode: currentRawNode,
-rsmax-vendors.js:                             children: currentVNode.children
-rsmax-vendors.js:                         });
+rsmax-vendors.js:                         if (currentVNode.firstChild) {
+rsmax-vendors.js:                             stack.push({
+rsmax-vendors.js:                                 currentNode: currentRawNode,
+rsmax-vendors.js:                                 children: collectChildren(currentVNode)
+rsmax-vendors.js:                             });
+rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return rawNode;
@@ -9688,10 +9890,11 @@ rsmax-vendors.js:     img: 'image'
 rsmax-vendors.js: };
 rsmax-vendors.js: function processProps(newProps, node) {
 rsmax-vendors.js:     var props = {};
-rsmax-vendors.js:     node.unregisteredCallbacks();
+rsmax-vendors.js:     var functionPropKeys = new Set();
 rsmax-vendors.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 rsmax-vendors.js:         var propKey = _Object$keys[_i];
 rsmax-vendors.js:         if (typeof newProps[propKey] === 'function') {
+rsmax-vendors.js:             functionPropKeys.add(propKey);
 rsmax-vendors.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 rsmax-vendors.js:         } else if (propKey === 'style') {
 rsmax-vendors.js:             props[propKey] = newProps[propKey] || '';
@@ -9701,6 +9904,7 @@ rsmax-vendors.js:         } else {
 rsmax-vendors.js:             props[propKey] = newProps[propKey];
 rsmax-vendors.js:         }
 rsmax-vendors.js:     }
+rsmax-vendors.js:     node.pruneCallbacks(functionPropKeys);
 rsmax-vendors.js:     return props;
 rsmax-vendors.js: }
 rsmax-vendors.js: var rootHostContext = {};
@@ -10106,7 +10310,7 @@ rsmax-vendors.js:         callback: callback,
 rsmax-vendors.js:         id: id
 rsmax-vendors.js:     };
 rsmax-vendors.js:     taskQueue.push(task);
-rsmax-vendors.js:     setTimeout(function() {
+rsmax-vendors.js:     queueMicrotask(function() {
 rsmax-vendors.js:         var index = taskQueue.findIndex(function(t) {
 rsmax-vendors.js:             return t.id === id;
 rsmax-vendors.js:         });
@@ -10114,7 +10318,7 @@ rsmax-vendors.js:         if (index !== -1) {
 rsmax-vendors.js:             taskQueue.splice(index, 1);
 rsmax-vendors.js:             callback((0, exports.unstable_now)());
 rsmax-vendors.js:         }
-rsmax-vendors.js:     }, 0);
+rsmax-vendors.js:     });
 rsmax-vendors.js:     return id;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -13817,6 +14021,15 @@ rsmax-vendors.js:         children: [],
 rsmax-vendors.js:         text: node.text
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
+rsmax-vendors.js: function collectChildren(node) {
+rsmax-vendors.js:     var arr = [];
+rsmax-vendors.js:     var item = node.firstChild;
+rsmax-vendors.js:     while(item){
+rsmax-vendors.js:         arr.push(item);
+rsmax-vendors.js:         item = item.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return arr;
+rsmax-vendors.js: }
 rsmax-vendors.js: function toRawProps(prop, value, type) {
 rsmax-vendors.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 rsmax-vendors.js: }
@@ -13836,6 +14049,10 @@ rsmax-vendors.js:         this.size = 0;
 rsmax-vendors.js:         this.previousSibling = null;
 rsmax-vendors.js:         this.nextSibling = null;
 rsmax-vendors.js:         this.callbackIds = new Set();
+rsmax-vendors.js:         this._index = 0;
+rsmax-vendors.js:         this._path = null;
+rsmax-vendors.js:         this._mounted = null;
+rsmax-vendors.js:         this._callbackRegistry = new Map();
 rsmax-vendors.js:         this.id = id;
 rsmax-vendors.js:         this.container = container;
 rsmax-vendors.js:         this.type = type;
@@ -13843,12 +14060,48 @@ rsmax-vendors.js:         this.props = props;
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return _createClass(VNode, [
 rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "invalidateCache",
+rsmax-vendors.js:             value: function invalidateCache() {
+rsmax-vendors.js:                 this._path = null;
+rsmax-vendors.js:                 this._mounted = null;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "updateIndicesFrom",
+rsmax-vendors.js:             value: function updateIndicesFrom(startIndex) {
+rsmax-vendors.js:                 var cur = this.childAtIndex(startIndex);
+rsmax-vendors.js:                 while(cur){
+rsmax-vendors.js:                     cur._index = startIndex;
+rsmax-vendors.js:                     cur.invalidateCache();
+rsmax-vendors.js:                     startIndex += 1;
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "childAtIndex",
+rsmax-vendors.js:             value: function childAtIndex(index) {
+rsmax-vendors.js:                 if (index < 0 || index >= this.size) return null;
+rsmax-vendors.js:                 if (index === 0) return this.firstChild;
+rsmax-vendors.js:                 if (index === this.size - 1) return this.lastChild;
+rsmax-vendors.js:                 var cur = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
+rsmax-vendors.js:                 while(cur && i < index){
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                     i += 1;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 return cur;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "appendChild",
 rsmax-vendors.js:             value: function appendChild(node) {
 rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 node._index = this.size - 1;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (!this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -13861,7 +14114,7 @@ rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -13880,7 +14133,7 @@ rsmax-vendors.js:                 var previousSibling = node.previousSibling, ne
 rsmax-vendors.js:                 if (node.parent !== this) {
 rsmax-vendors.js:                     return;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 var index = node.index;
+rsmax-vendors.js:                 var index = node._index;
 rsmax-vendors.js:                 this.size -= 1;
 rsmax-vendors.js:                 if (this.firstChild === node) {
 rsmax-vendors.js:                     this.firstChild = node.nextSibling;
@@ -13897,7 +14150,9 @@ rsmax-vendors.js:                 }
 rsmax-vendors.js:                 node.previousSibling = null;
 rsmax-vendors.js:                 node.nextSibling = null;
 rsmax-vendors.js:                 node.deleted = true;
+rsmax-vendors.js:                 node.parent = null;
 rsmax-vendors.js:                 node.unregisteredCallbacks();
+rsmax-vendors.js:                 this.updateIndicesFrom(index);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
@@ -13919,6 +14174,9 @@ rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 var targetIndex = referenceNode._index;
+rsmax-vendors.js:                 node._index = targetIndex;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (referenceNode === this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -13928,11 +14186,12 @@ rsmax-vendors.js:                     node.previousSibling = referenceNode.previ
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 referenceNode.previousSibling = node;
 rsmax-vendors.js:                 node.nextSibling = referenceNode;
+rsmax-vendors.js:                 this.updateIndicesFrom(targetIndex + 1);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -13951,7 +14210,7 @@ rsmax-vendors.js:                 if (this.type === 'text' || !payload) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.parent.path,
-rsmax-vendors.js:                         start: this.index,
+rsmax-vendors.js:                         start: this._index,
 rsmax-vendors.js:                         id: this.id,
 rsmax-vendors.js:                         deleteCount: 1,
 rsmax-vendors.js:                         items: [
@@ -13965,7 +14224,7 @@ rsmax-vendors.js:                 var parentPath = this.parent.path;
 rsmax-vendors.js:                 for(var i = 0; i < payload.length; i = i + 2){
 rsmax-vendors.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 rsmax-vendors.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-rsmax-vendors.js:                         "children[".concat(this.index, "].props")
+rsmax-vendors.js:                         "children[".concat(this._index, "].props")
 rsmax-vendors.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 rsmax-vendors.js:                         'nodes',
 rsmax-vendors.js:                         this.id.toString(),
@@ -13984,22 +14243,17 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "index",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var value = 0;
-rsmax-vendors.js:                 var previousSibling = this.previousSibling;
-rsmax-vendors.js:                 while(previousSibling){
-rsmax-vendors.js:                     value += 1;
-rsmax-vendors.js:                     previousSibling = previousSibling.previousSibling;
-rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return value;
+rsmax-vendors.js:                 return this._index;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "children",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var arr = [];
+rsmax-vendors.js:                 var arr = new Array(this.size);
 rsmax-vendors.js:                 var item = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
 rsmax-vendors.js:                 while(item){
-rsmax-vendors.js:                     arr.push(item);
+rsmax-vendors.js:                     arr[i++] = item;
 rsmax-vendors.js:                     item = item.nextSibling;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return arr;
@@ -14008,30 +14262,39 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "path",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var dataPath = [];
-rsmax-vendors.js:                 var parents = [];
-rsmax-vendors.js:                 var parent = this.parent;
-rsmax-vendors.js:                 while(parent){
-rsmax-vendors.js:                     parents.unshift(parent);
-rsmax-vendors.js:                     parent = parent.parent;
+rsmax-vendors.js:                 if (this._path) {
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 for(var i = 0; i < parents.length; i++){
-rsmax-vendors.js:                     var child = parents[i + 1] || this;
-rsmax-vendors.js:                     if (isAliPlatform()) {
-rsmax-vendors.js:                         dataPath.push('children');
-rsmax-vendors.js:                         dataPath.push(child.index.toString());
-rsmax-vendors.js:                     } else {
-rsmax-vendors.js:                         dataPath.push('nodes');
-rsmax-vendors.js:                         dataPath.push(child.id.toString());
-rsmax-vendors.js:                     }
+rsmax-vendors.js:                 if (!this.parent) {
+rsmax-vendors.js:                     this._path = [];
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return dataPath;
+rsmax-vendors.js:                 var parentPath = this.parent.path;
+rsmax-vendors.js:                 var childPath;
+rsmax-vendors.js:                 if (isAliPlatform()) {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'children',
+rsmax-vendors.js:                         this._index.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'nodes',
+rsmax-vendors.js:                         this.id.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 this._path = childPath;
+rsmax-vendors.js:                 return childPath;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "isMounted",
 rsmax-vendors.js:             value: function isMounted() {
-rsmax-vendors.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 if (this._mounted !== null) {
+rsmax-vendors.js:                     return this._mounted;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 this._mounted = result;
+rsmax-vendors.js:                 return result;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
@@ -14045,17 +14308,55 @@ rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "registerCallback",
 rsmax-vendors.js:             value: function registerCallback(propKey, propValue) {
 rsmax-vendors.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+rsmax-vendors.js:                 var existing = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (existing) {
+rsmax-vendors.js:                     if (existing.fn === propValue) {
+rsmax-vendors.js:                         return existing.id;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     this.container.removeCallback(existing.id);
+rsmax-vendors.js:                     this.callbackIds.delete(existing.id);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:                 this.callbackIds.add(id);
+rsmax-vendors.js:                 this._callbackRegistry.set(propKey, {
+rsmax-vendors.js:                     fn: propValue,
+rsmax-vendors.js:                     id: id
+rsmax-vendors.js:                 });
 rsmax-vendors.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 rsmax-vendors.js:                 return id;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "unregisterCallback",
+rsmax-vendors.js:             value: function unregisterCallback(propKey) {
+rsmax-vendors.js:                 var entry = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (entry) {
+rsmax-vendors.js:                     this.container.removeCallback(entry.id);
+rsmax-vendors.js:                     this.callbackIds.delete(entry.id);
+rsmax-vendors.js:                     this._callbackRegistry.delete(propKey);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "pruneCallbacks",
+rsmax-vendors.js:             value: function pruneCallbacks(keepKeys) {
+rsmax-vendors.js:                 var toDelete = [];
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     if (!keepKeys.has(key)) {
+rsmax-vendors.js:                         toDelete.push(key);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
+rsmax-vendors.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+rsmax-vendors.js:                     var key = _toDelete[_i];
+rsmax-vendors.js:                     this.unregisterCallback(key);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "unregisteredCallbacks",
 rsmax-vendors.js:             value: function unregisteredCallbacks() {
 rsmax-vendors.js:                 var _this = this;
-rsmax-vendors.js:                 this.callbackIds.forEach(function(id) {
-rsmax-vendors.js:                     _this.container.removeCallback(id);
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     _this.unregisterCallback(key);
 rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
@@ -14064,29 +14365,32 @@ rsmax-vendors.js:             key: "toJSON",
 rsmax-vendors.js:             value: function toJSON() {
 rsmax-vendors.js:                 var stack = [];
 rsmax-vendors.js:                 var rawNode = toRawNode(this);
+rsmax-vendors.js:                 var isAli = isAliPlatform();
 rsmax-vendors.js:                 stack.push({
 rsmax-vendors.js:                     currentNode: rawNode,
-rsmax-vendors.js:                     children: this.children
+rsmax-vendors.js:                     children: collectChildren(this)
 rsmax-vendors.js:                 });
 rsmax-vendors.js:                 while(stack.length > 0){
 rsmax-vendors.js:                     var stackItem = stack.pop();
 rsmax-vendors.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-rsmax-vendors.js:                     for(var i = children.length - 1; i >= 0; i--){
+rsmax-vendors.js:                     for(var i = 0; i < children.length; i++){
 rsmax-vendors.js:                         var currentVNode = children[i];
 rsmax-vendors.js:                         var currentRawNode = toRawNode(currentVNode);
-rsmax-vendors.js:                         if (isAliPlatform()) {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode);
+rsmax-vendors.js:                         if (isAli) {
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode);
 rsmax-vendors.js:                         } else {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode.id);
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode.id);
 rsmax-vendors.js:                             if (!currentNode.nodes) {
 rsmax-vendors.js:                                 currentNode.nodes = {};
 rsmax-vendors.js:                             }
 rsmax-vendors.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 rsmax-vendors.js:                         }
-rsmax-vendors.js:                         stack.push({
-rsmax-vendors.js:                             currentNode: currentRawNode,
-rsmax-vendors.js:                             children: currentVNode.children
-rsmax-vendors.js:                         });
+rsmax-vendors.js:                         if (currentVNode.firstChild) {
+rsmax-vendors.js:                             stack.push({
+rsmax-vendors.js:                                 currentNode: currentRawNode,
+rsmax-vendors.js:                                 children: collectChildren(currentVNode)
+rsmax-vendors.js:                             });
+rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return rawNode;
@@ -14949,10 +15253,11 @@ rsmax-vendors.js:     img: 'image'
 rsmax-vendors.js: };
 rsmax-vendors.js: function processProps(newProps, node) {
 rsmax-vendors.js:     var props = {};
-rsmax-vendors.js:     node.unregisteredCallbacks();
+rsmax-vendors.js:     var functionPropKeys = new Set();
 rsmax-vendors.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 rsmax-vendors.js:         var propKey = _Object$keys[_i];
 rsmax-vendors.js:         if (typeof newProps[propKey] === 'function') {
+rsmax-vendors.js:             functionPropKeys.add(propKey);
 rsmax-vendors.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 rsmax-vendors.js:         } else if (propKey === 'style') {
 rsmax-vendors.js:             props[propKey] = newProps[propKey] || '';
@@ -14962,6 +15267,7 @@ rsmax-vendors.js:         } else {
 rsmax-vendors.js:             props[propKey] = newProps[propKey];
 rsmax-vendors.js:         }
 rsmax-vendors.js:     }
+rsmax-vendors.js:     node.pruneCallbacks(functionPropKeys);
 rsmax-vendors.js:     return props;
 rsmax-vendors.js: }
 rsmax-vendors.js: var rootHostContext = {};
@@ -15367,7 +15673,7 @@ rsmax-vendors.js:         callback: callback,
 rsmax-vendors.js:         id: id
 rsmax-vendors.js:     };
 rsmax-vendors.js:     taskQueue.push(task);
-rsmax-vendors.js:     setTimeout(function() {
+rsmax-vendors.js:     queueMicrotask(function() {
 rsmax-vendors.js:         var index = taskQueue.findIndex(function(t) {
 rsmax-vendors.js:             return t.id === id;
 rsmax-vendors.js:         });
@@ -15375,7 +15681,7 @@ rsmax-vendors.js:         if (index !== -1) {
 rsmax-vendors.js:             taskQueue.splice(index, 1);
 rsmax-vendors.js:             callback((0, exports.unstable_now)());
 rsmax-vendors.js:         }
-rsmax-vendors.js:     }, 0);
+rsmax-vendors.js:     });
 rsmax-vendors.js:     return id;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -19172,6 +19478,15 @@ rsmax-vendors.js:         children: [],
 rsmax-vendors.js:         text: node.text
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
+rsmax-vendors.js: function collectChildren(node) {
+rsmax-vendors.js:     var arr = [];
+rsmax-vendors.js:     var item = node.firstChild;
+rsmax-vendors.js:     while(item){
+rsmax-vendors.js:         arr.push(item);
+rsmax-vendors.js:         item = item.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return arr;
+rsmax-vendors.js: }
 rsmax-vendors.js: function toRawProps(prop, value, type) {
 rsmax-vendors.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 rsmax-vendors.js: }
@@ -19191,6 +19506,10 @@ rsmax-vendors.js:         this.size = 0;
 rsmax-vendors.js:         this.previousSibling = null;
 rsmax-vendors.js:         this.nextSibling = null;
 rsmax-vendors.js:         this.callbackIds = new Set();
+rsmax-vendors.js:         this._index = 0;
+rsmax-vendors.js:         this._path = null;
+rsmax-vendors.js:         this._mounted = null;
+rsmax-vendors.js:         this._callbackRegistry = new Map();
 rsmax-vendors.js:         this.id = id;
 rsmax-vendors.js:         this.container = container;
 rsmax-vendors.js:         this.type = type;
@@ -19198,12 +19517,48 @@ rsmax-vendors.js:         this.props = props;
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return _createClass(VNode, [
 rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "invalidateCache",
+rsmax-vendors.js:             value: function invalidateCache() {
+rsmax-vendors.js:                 this._path = null;
+rsmax-vendors.js:                 this._mounted = null;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "updateIndicesFrom",
+rsmax-vendors.js:             value: function updateIndicesFrom(startIndex) {
+rsmax-vendors.js:                 var cur = this.childAtIndex(startIndex);
+rsmax-vendors.js:                 while(cur){
+rsmax-vendors.js:                     cur._index = startIndex;
+rsmax-vendors.js:                     cur.invalidateCache();
+rsmax-vendors.js:                     startIndex += 1;
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "childAtIndex",
+rsmax-vendors.js:             value: function childAtIndex(index) {
+rsmax-vendors.js:                 if (index < 0 || index >= this.size) return null;
+rsmax-vendors.js:                 if (index === 0) return this.firstChild;
+rsmax-vendors.js:                 if (index === this.size - 1) return this.lastChild;
+rsmax-vendors.js:                 var cur = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
+rsmax-vendors.js:                 while(cur && i < index){
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                     i += 1;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 return cur;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "appendChild",
 rsmax-vendors.js:             value: function appendChild(node) {
 rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 node._index = this.size - 1;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (!this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -19216,7 +19571,7 @@ rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -19235,7 +19590,7 @@ rsmax-vendors.js:                 var previousSibling = node.previousSibling, ne
 rsmax-vendors.js:                 if (node.parent !== this) {
 rsmax-vendors.js:                     return;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 var index = node.index;
+rsmax-vendors.js:                 var index = node._index;
 rsmax-vendors.js:                 this.size -= 1;
 rsmax-vendors.js:                 if (this.firstChild === node) {
 rsmax-vendors.js:                     this.firstChild = node.nextSibling;
@@ -19252,7 +19607,9 @@ rsmax-vendors.js:                 }
 rsmax-vendors.js:                 node.previousSibling = null;
 rsmax-vendors.js:                 node.nextSibling = null;
 rsmax-vendors.js:                 node.deleted = true;
+rsmax-vendors.js:                 node.parent = null;
 rsmax-vendors.js:                 node.unregisteredCallbacks();
+rsmax-vendors.js:                 this.updateIndicesFrom(index);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
@@ -19274,6 +19631,9 @@ rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 var targetIndex = referenceNode._index;
+rsmax-vendors.js:                 node._index = targetIndex;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (referenceNode === this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -19283,11 +19643,12 @@ rsmax-vendors.js:                     node.previousSibling = referenceNode.previ
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 referenceNode.previousSibling = node;
 rsmax-vendors.js:                 node.nextSibling = referenceNode;
+rsmax-vendors.js:                 this.updateIndicesFrom(targetIndex + 1);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -19306,7 +19667,7 @@ rsmax-vendors.js:                 if (this.type === 'text' || !payload) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.parent.path,
-rsmax-vendors.js:                         start: this.index,
+rsmax-vendors.js:                         start: this._index,
 rsmax-vendors.js:                         id: this.id,
 rsmax-vendors.js:                         deleteCount: 1,
 rsmax-vendors.js:                         items: [
@@ -19320,7 +19681,7 @@ rsmax-vendors.js:                 var parentPath = this.parent.path;
 rsmax-vendors.js:                 for(var i = 0; i < payload.length; i = i + 2){
 rsmax-vendors.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 rsmax-vendors.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-rsmax-vendors.js:                         "children[".concat(this.index, "].props")
+rsmax-vendors.js:                         "children[".concat(this._index, "].props")
 rsmax-vendors.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 rsmax-vendors.js:                         'nodes',
 rsmax-vendors.js:                         this.id.toString(),
@@ -19339,22 +19700,17 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "index",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var value = 0;
-rsmax-vendors.js:                 var previousSibling = this.previousSibling;
-rsmax-vendors.js:                 while(previousSibling){
-rsmax-vendors.js:                     value += 1;
-rsmax-vendors.js:                     previousSibling = previousSibling.previousSibling;
-rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return value;
+rsmax-vendors.js:                 return this._index;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "children",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var arr = [];
+rsmax-vendors.js:                 var arr = new Array(this.size);
 rsmax-vendors.js:                 var item = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
 rsmax-vendors.js:                 while(item){
-rsmax-vendors.js:                     arr.push(item);
+rsmax-vendors.js:                     arr[i++] = item;
 rsmax-vendors.js:                     item = item.nextSibling;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return arr;
@@ -19363,30 +19719,39 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "path",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var dataPath = [];
-rsmax-vendors.js:                 var parents = [];
-rsmax-vendors.js:                 var parent = this.parent;
-rsmax-vendors.js:                 while(parent){
-rsmax-vendors.js:                     parents.unshift(parent);
-rsmax-vendors.js:                     parent = parent.parent;
+rsmax-vendors.js:                 if (this._path) {
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 for(var i = 0; i < parents.length; i++){
-rsmax-vendors.js:                     var child = parents[i + 1] || this;
-rsmax-vendors.js:                     if (isAliPlatform()) {
-rsmax-vendors.js:                         dataPath.push('children');
-rsmax-vendors.js:                         dataPath.push(child.index.toString());
-rsmax-vendors.js:                     } else {
-rsmax-vendors.js:                         dataPath.push('nodes');
-rsmax-vendors.js:                         dataPath.push(child.id.toString());
-rsmax-vendors.js:                     }
+rsmax-vendors.js:                 if (!this.parent) {
+rsmax-vendors.js:                     this._path = [];
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return dataPath;
+rsmax-vendors.js:                 var parentPath = this.parent.path;
+rsmax-vendors.js:                 var childPath;
+rsmax-vendors.js:                 if (isAliPlatform()) {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'children',
+rsmax-vendors.js:                         this._index.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'nodes',
+rsmax-vendors.js:                         this.id.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 this._path = childPath;
+rsmax-vendors.js:                 return childPath;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "isMounted",
 rsmax-vendors.js:             value: function isMounted() {
-rsmax-vendors.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 if (this._mounted !== null) {
+rsmax-vendors.js:                     return this._mounted;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 this._mounted = result;
+rsmax-vendors.js:                 return result;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
@@ -19400,17 +19765,55 @@ rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "registerCallback",
 rsmax-vendors.js:             value: function registerCallback(propKey, propValue) {
 rsmax-vendors.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+rsmax-vendors.js:                 var existing = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (existing) {
+rsmax-vendors.js:                     if (existing.fn === propValue) {
+rsmax-vendors.js:                         return existing.id;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     this.container.removeCallback(existing.id);
+rsmax-vendors.js:                     this.callbackIds.delete(existing.id);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:                 this.callbackIds.add(id);
+rsmax-vendors.js:                 this._callbackRegistry.set(propKey, {
+rsmax-vendors.js:                     fn: propValue,
+rsmax-vendors.js:                     id: id
+rsmax-vendors.js:                 });
 rsmax-vendors.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 rsmax-vendors.js:                 return id;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "unregisterCallback",
+rsmax-vendors.js:             value: function unregisterCallback(propKey) {
+rsmax-vendors.js:                 var entry = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (entry) {
+rsmax-vendors.js:                     this.container.removeCallback(entry.id);
+rsmax-vendors.js:                     this.callbackIds.delete(entry.id);
+rsmax-vendors.js:                     this._callbackRegistry.delete(propKey);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "pruneCallbacks",
+rsmax-vendors.js:             value: function pruneCallbacks(keepKeys) {
+rsmax-vendors.js:                 var toDelete = [];
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     if (!keepKeys.has(key)) {
+rsmax-vendors.js:                         toDelete.push(key);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
+rsmax-vendors.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+rsmax-vendors.js:                     var key = _toDelete[_i];
+rsmax-vendors.js:                     this.unregisterCallback(key);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "unregisteredCallbacks",
 rsmax-vendors.js:             value: function unregisteredCallbacks() {
 rsmax-vendors.js:                 var _this = this;
-rsmax-vendors.js:                 this.callbackIds.forEach(function(id) {
-rsmax-vendors.js:                     _this.container.removeCallback(id);
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     _this.unregisterCallback(key);
 rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
@@ -19419,29 +19822,32 @@ rsmax-vendors.js:             key: "toJSON",
 rsmax-vendors.js:             value: function toJSON() {
 rsmax-vendors.js:                 var stack = [];
 rsmax-vendors.js:                 var rawNode = toRawNode(this);
+rsmax-vendors.js:                 var isAli = isAliPlatform();
 rsmax-vendors.js:                 stack.push({
 rsmax-vendors.js:                     currentNode: rawNode,
-rsmax-vendors.js:                     children: this.children
+rsmax-vendors.js:                     children: collectChildren(this)
 rsmax-vendors.js:                 });
 rsmax-vendors.js:                 while(stack.length > 0){
 rsmax-vendors.js:                     var stackItem = stack.pop();
 rsmax-vendors.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-rsmax-vendors.js:                     for(var i = children.length - 1; i >= 0; i--){
+rsmax-vendors.js:                     for(var i = 0; i < children.length; i++){
 rsmax-vendors.js:                         var currentVNode = children[i];
 rsmax-vendors.js:                         var currentRawNode = toRawNode(currentVNode);
-rsmax-vendors.js:                         if (isAliPlatform()) {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode);
+rsmax-vendors.js:                         if (isAli) {
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode);
 rsmax-vendors.js:                         } else {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode.id);
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode.id);
 rsmax-vendors.js:                             if (!currentNode.nodes) {
 rsmax-vendors.js:                                 currentNode.nodes = {};
 rsmax-vendors.js:                             }
 rsmax-vendors.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 rsmax-vendors.js:                         }
-rsmax-vendors.js:                         stack.push({
-rsmax-vendors.js:                             currentNode: currentRawNode,
-rsmax-vendors.js:                             children: currentVNode.children
-rsmax-vendors.js:                         });
+rsmax-vendors.js:                         if (currentVNode.firstChild) {
+rsmax-vendors.js:                             stack.push({
+rsmax-vendors.js:                                 currentNode: currentRawNode,
+rsmax-vendors.js:                                 children: collectChildren(currentVNode)
+rsmax-vendors.js:                             });
+rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return rawNode;
@@ -20304,10 +20710,11 @@ rsmax-vendors.js:     img: 'image'
 rsmax-vendors.js: };
 rsmax-vendors.js: function processProps(newProps, node) {
 rsmax-vendors.js:     var props = {};
-rsmax-vendors.js:     node.unregisteredCallbacks();
+rsmax-vendors.js:     var functionPropKeys = new Set();
 rsmax-vendors.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 rsmax-vendors.js:         var propKey = _Object$keys[_i];
 rsmax-vendors.js:         if (typeof newProps[propKey] === 'function') {
+rsmax-vendors.js:             functionPropKeys.add(propKey);
 rsmax-vendors.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 rsmax-vendors.js:         } else if (propKey === 'style') {
 rsmax-vendors.js:             props[propKey] = newProps[propKey] || '';
@@ -20317,6 +20724,7 @@ rsmax-vendors.js:         } else {
 rsmax-vendors.js:             props[propKey] = newProps[propKey];
 rsmax-vendors.js:         }
 rsmax-vendors.js:     }
+rsmax-vendors.js:     node.pruneCallbacks(functionPropKeys);
 rsmax-vendors.js:     return props;
 rsmax-vendors.js: }
 rsmax-vendors.js: var rootHostContext = {};
@@ -20722,7 +21130,7 @@ rsmax-vendors.js:         callback: callback,
 rsmax-vendors.js:         id: id
 rsmax-vendors.js:     };
 rsmax-vendors.js:     taskQueue.push(task);
-rsmax-vendors.js:     setTimeout(function() {
+rsmax-vendors.js:     queueMicrotask(function() {
 rsmax-vendors.js:         var index = taskQueue.findIndex(function(t) {
 rsmax-vendors.js:             return t.id === id;
 rsmax-vendors.js:         });
@@ -20730,7 +21138,7 @@ rsmax-vendors.js:         if (index !== -1) {
 rsmax-vendors.js:             taskQueue.splice(index, 1);
 rsmax-vendors.js:             callback((0, exports.unstable_now)());
 rsmax-vendors.js:         }
-rsmax-vendors.js:     }, 0);
+rsmax-vendors.js:     });
 rsmax-vendors.js:     return id;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -24526,6 +24934,15 @@ rsmax-vendors.js:         children: [],
 rsmax-vendors.js:         text: node.text
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
+rsmax-vendors.js: function collectChildren(node) {
+rsmax-vendors.js:     var arr = [];
+rsmax-vendors.js:     var item = node.firstChild;
+rsmax-vendors.js:     while(item){
+rsmax-vendors.js:         arr.push(item);
+rsmax-vendors.js:         item = item.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return arr;
+rsmax-vendors.js: }
 rsmax-vendors.js: function toRawProps(prop, value, type) {
 rsmax-vendors.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 rsmax-vendors.js: }
@@ -24545,6 +24962,10 @@ rsmax-vendors.js:         this.size = 0;
 rsmax-vendors.js:         this.previousSibling = null;
 rsmax-vendors.js:         this.nextSibling = null;
 rsmax-vendors.js:         this.callbackIds = new Set();
+rsmax-vendors.js:         this._index = 0;
+rsmax-vendors.js:         this._path = null;
+rsmax-vendors.js:         this._mounted = null;
+rsmax-vendors.js:         this._callbackRegistry = new Map();
 rsmax-vendors.js:         this.id = id;
 rsmax-vendors.js:         this.container = container;
 rsmax-vendors.js:         this.type = type;
@@ -24552,12 +24973,48 @@ rsmax-vendors.js:         this.props = props;
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return _createClass(VNode, [
 rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "invalidateCache",
+rsmax-vendors.js:             value: function invalidateCache() {
+rsmax-vendors.js:                 this._path = null;
+rsmax-vendors.js:                 this._mounted = null;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "updateIndicesFrom",
+rsmax-vendors.js:             value: function updateIndicesFrom(startIndex) {
+rsmax-vendors.js:                 var cur = this.childAtIndex(startIndex);
+rsmax-vendors.js:                 while(cur){
+rsmax-vendors.js:                     cur._index = startIndex;
+rsmax-vendors.js:                     cur.invalidateCache();
+rsmax-vendors.js:                     startIndex += 1;
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "childAtIndex",
+rsmax-vendors.js:             value: function childAtIndex(index) {
+rsmax-vendors.js:                 if (index < 0 || index >= this.size) return null;
+rsmax-vendors.js:                 if (index === 0) return this.firstChild;
+rsmax-vendors.js:                 if (index === this.size - 1) return this.lastChild;
+rsmax-vendors.js:                 var cur = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
+rsmax-vendors.js:                 while(cur && i < index){
+rsmax-vendors.js:                     cur = cur.nextSibling;
+rsmax-vendors.js:                     i += 1;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 return cur;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "appendChild",
 rsmax-vendors.js:             value: function appendChild(node) {
 rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 node._index = this.size - 1;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (!this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -24570,7 +25027,7 @@ rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -24589,7 +25046,7 @@ rsmax-vendors.js:                 var previousSibling = node.previousSibling, ne
 rsmax-vendors.js:                 if (node.parent !== this) {
 rsmax-vendors.js:                     return;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 var index = node.index;
+rsmax-vendors.js:                 var index = node._index;
 rsmax-vendors.js:                 this.size -= 1;
 rsmax-vendors.js:                 if (this.firstChild === node) {
 rsmax-vendors.js:                     this.firstChild = node.nextSibling;
@@ -24606,7 +25063,9 @@ rsmax-vendors.js:                 }
 rsmax-vendors.js:                 node.previousSibling = null;
 rsmax-vendors.js:                 node.nextSibling = null;
 rsmax-vendors.js:                 node.deleted = true;
+rsmax-vendors.js:                 node.parent = null;
 rsmax-vendors.js:                 node.unregisteredCallbacks();
+rsmax-vendors.js:                 this.updateIndicesFrom(index);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
@@ -24628,6 +25087,9 @@ rsmax-vendors.js:                 this.removeChild(node);
 rsmax-vendors.js:                 this.size += 1;
 rsmax-vendors.js:                 node.parent = this;
 rsmax-vendors.js:                 node.deleted = false;
+rsmax-vendors.js:                 var targetIndex = referenceNode._index;
+rsmax-vendors.js:                 node._index = targetIndex;
+rsmax-vendors.js:                 node.invalidateCache();
 rsmax-vendors.js:                 if (referenceNode === this.firstChild) {
 rsmax-vendors.js:                     this.firstChild = node;
 rsmax-vendors.js:                 }
@@ -24637,11 +25099,12 @@ rsmax-vendors.js:                     node.previousSibling = referenceNode.previ
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 referenceNode.previousSibling = node;
 rsmax-vendors.js:                 node.nextSibling = referenceNode;
+rsmax-vendors.js:                 this.updateIndicesFrom(targetIndex + 1);
 rsmax-vendors.js:                 if (this.isMounted()) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
-rsmax-vendors.js:                         start: node.index,
+rsmax-vendors.js:                         start: node._index,
 rsmax-vendors.js:                         id: node.id,
 rsmax-vendors.js:                         deleteCount: 0,
 rsmax-vendors.js:                         children: this.children,
@@ -24660,7 +25123,7 @@ rsmax-vendors.js:                 if (this.type === 'text' || !payload) {
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.parent.path,
-rsmax-vendors.js:                         start: this.index,
+rsmax-vendors.js:                         start: this._index,
 rsmax-vendors.js:                         id: this.id,
 rsmax-vendors.js:                         deleteCount: 1,
 rsmax-vendors.js:                         items: [
@@ -24674,7 +25137,7 @@ rsmax-vendors.js:                 var parentPath = this.parent.path;
 rsmax-vendors.js:                 for(var i = 0; i < payload.length; i = i + 2){
 rsmax-vendors.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 rsmax-vendors.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-rsmax-vendors.js:                         "children[".concat(this.index, "].props")
+rsmax-vendors.js:                         "children[".concat(this._index, "].props")
 rsmax-vendors.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 rsmax-vendors.js:                         'nodes',
 rsmax-vendors.js:                         this.id.toString(),
@@ -24693,22 +25156,17 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "index",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var value = 0;
-rsmax-vendors.js:                 var previousSibling = this.previousSibling;
-rsmax-vendors.js:                 while(previousSibling){
-rsmax-vendors.js:                     value += 1;
-rsmax-vendors.js:                     previousSibling = previousSibling.previousSibling;
-rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return value;
+rsmax-vendors.js:                 return this._index;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "children",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var arr = [];
+rsmax-vendors.js:                 var arr = new Array(this.size);
 rsmax-vendors.js:                 var item = this.firstChild;
+rsmax-vendors.js:                 var i = 0;
 rsmax-vendors.js:                 while(item){
-rsmax-vendors.js:                     arr.push(item);
+rsmax-vendors.js:                     arr[i++] = item;
 rsmax-vendors.js:                     item = item.nextSibling;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return arr;
@@ -24717,30 +25175,39 @@ rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "path",
 rsmax-vendors.js:             get: function get() {
-rsmax-vendors.js:                 var dataPath = [];
-rsmax-vendors.js:                 var parents = [];
-rsmax-vendors.js:                 var parent = this.parent;
-rsmax-vendors.js:                 while(parent){
-rsmax-vendors.js:                     parents.unshift(parent);
-rsmax-vendors.js:                     parent = parent.parent;
+rsmax-vendors.js:                 if (this._path) {
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 for(var i = 0; i < parents.length; i++){
-rsmax-vendors.js:                     var child = parents[i + 1] || this;
-rsmax-vendors.js:                     if (isAliPlatform()) {
-rsmax-vendors.js:                         dataPath.push('children');
-rsmax-vendors.js:                         dataPath.push(child.index.toString());
-rsmax-vendors.js:                     } else {
-rsmax-vendors.js:                         dataPath.push('nodes');
-rsmax-vendors.js:                         dataPath.push(child.id.toString());
-rsmax-vendors.js:                     }
+rsmax-vendors.js:                 if (!this.parent) {
+rsmax-vendors.js:                     this._path = [];
+rsmax-vendors.js:                     return this._path;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return dataPath;
+rsmax-vendors.js:                 var parentPath = this.parent.path;
+rsmax-vendors.js:                 var childPath;
+rsmax-vendors.js:                 if (isAliPlatform()) {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'children',
+rsmax-vendors.js:                         this._index.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 } else {
+rsmax-vendors.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+rsmax-vendors.js:                         'nodes',
+rsmax-vendors.js:                         this.id.toString()
+rsmax-vendors.js:                     ]);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 this._path = childPath;
+rsmax-vendors.js:                 return childPath;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "isMounted",
 rsmax-vendors.js:             value: function isMounted() {
-rsmax-vendors.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 if (this._mounted !== null) {
+rsmax-vendors.js:                     return this._mounted;
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+rsmax-vendors.js:                 this._mounted = result;
+rsmax-vendors.js:                 return result;
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
@@ -24754,17 +25221,55 @@ rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "registerCallback",
 rsmax-vendors.js:             value: function registerCallback(propKey, propValue) {
 rsmax-vendors.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+rsmax-vendors.js:                 var existing = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (existing) {
+rsmax-vendors.js:                     if (existing.fn === propValue) {
+rsmax-vendors.js:                         return existing.id;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     this.container.removeCallback(existing.id);
+rsmax-vendors.js:                     this.callbackIds.delete(existing.id);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:                 this.callbackIds.add(id);
+rsmax-vendors.js:                 this._callbackRegistry.set(propKey, {
+rsmax-vendors.js:                     fn: propValue,
+rsmax-vendors.js:                     id: id
+rsmax-vendors.js:                 });
 rsmax-vendors.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 rsmax-vendors.js:                 return id;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "unregisterCallback",
+rsmax-vendors.js:             value: function unregisterCallback(propKey) {
+rsmax-vendors.js:                 var entry = this._callbackRegistry.get(propKey);
+rsmax-vendors.js:                 if (entry) {
+rsmax-vendors.js:                     this.container.removeCallback(entry.id);
+rsmax-vendors.js:                     this.callbackIds.delete(entry.id);
+rsmax-vendors.js:                     this._callbackRegistry.delete(propKey);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         },
+rsmax-vendors.js:         {
+rsmax-vendors.js:             key: "pruneCallbacks",
+rsmax-vendors.js:             value: function pruneCallbacks(keepKeys) {
+rsmax-vendors.js:                 var toDelete = [];
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     if (!keepKeys.has(key)) {
+rsmax-vendors.js:                         toDelete.push(key);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 });
+rsmax-vendors.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+rsmax-vendors.js:                     var key = _toDelete[_i];
+rsmax-vendors.js:                     this.unregisterCallback(key);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
 rsmax-vendors.js:         {
 rsmax-vendors.js:             key: "unregisteredCallbacks",
 rsmax-vendors.js:             value: function unregisteredCallbacks() {
 rsmax-vendors.js:                 var _this = this;
-rsmax-vendors.js:                 this.callbackIds.forEach(function(id) {
-rsmax-vendors.js:                     _this.container.removeCallback(id);
+rsmax-vendors.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+rsmax-vendors.js:                     _this.unregisterCallback(key);
 rsmax-vendors.js:                 });
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
@@ -24773,29 +25278,32 @@ rsmax-vendors.js:             key: "toJSON",
 rsmax-vendors.js:             value: function toJSON() {
 rsmax-vendors.js:                 var stack = [];
 rsmax-vendors.js:                 var rawNode = toRawNode(this);
+rsmax-vendors.js:                 var isAli = isAliPlatform();
 rsmax-vendors.js:                 stack.push({
 rsmax-vendors.js:                     currentNode: rawNode,
-rsmax-vendors.js:                     children: this.children
+rsmax-vendors.js:                     children: collectChildren(this)
 rsmax-vendors.js:                 });
 rsmax-vendors.js:                 while(stack.length > 0){
 rsmax-vendors.js:                     var stackItem = stack.pop();
 rsmax-vendors.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-rsmax-vendors.js:                     for(var i = children.length - 1; i >= 0; i--){
+rsmax-vendors.js:                     for(var i = 0; i < children.length; i++){
 rsmax-vendors.js:                         var currentVNode = children[i];
 rsmax-vendors.js:                         var currentRawNode = toRawNode(currentVNode);
-rsmax-vendors.js:                         if (isAliPlatform()) {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode);
+rsmax-vendors.js:                         if (isAli) {
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode);
 rsmax-vendors.js:                         } else {
-rsmax-vendors.js:                             currentNode.children.unshift(currentRawNode.id);
+rsmax-vendors.js:                             currentNode.children.push(currentRawNode.id);
 rsmax-vendors.js:                             if (!currentNode.nodes) {
 rsmax-vendors.js:                                 currentNode.nodes = {};
 rsmax-vendors.js:                             }
 rsmax-vendors.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 rsmax-vendors.js:                         }
-rsmax-vendors.js:                         stack.push({
-rsmax-vendors.js:                             currentNode: currentRawNode,
-rsmax-vendors.js:                             children: currentVNode.children
-rsmax-vendors.js:                         });
+rsmax-vendors.js:                         if (currentVNode.firstChild) {
+rsmax-vendors.js:                             stack.push({
+rsmax-vendors.js:                                 currentNode: currentRawNode,
+rsmax-vendors.js:                                 children: collectChildren(currentVNode)
+rsmax-vendors.js:                             });
+rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 return rawNode;
@@ -25658,10 +26166,11 @@ rsmax-vendors.js:     img: 'image'
 rsmax-vendors.js: };
 rsmax-vendors.js: function processProps(newProps, node) {
 rsmax-vendors.js:     var props = {};
-rsmax-vendors.js:     node.unregisteredCallbacks();
+rsmax-vendors.js:     var functionPropKeys = new Set();
 rsmax-vendors.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 rsmax-vendors.js:         var propKey = _Object$keys[_i];
 rsmax-vendors.js:         if (typeof newProps[propKey] === 'function') {
+rsmax-vendors.js:             functionPropKeys.add(propKey);
 rsmax-vendors.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 rsmax-vendors.js:         } else if (propKey === 'style') {
 rsmax-vendors.js:             props[propKey] = newProps[propKey] || '';
@@ -25671,6 +26180,7 @@ rsmax-vendors.js:         } else {
 rsmax-vendors.js:             props[propKey] = newProps[propKey];
 rsmax-vendors.js:         }
 rsmax-vendors.js:     }
+rsmax-vendors.js:     node.pruneCallbacks(functionPropKeys);
 rsmax-vendors.js:     return props;
 rsmax-vendors.js: }
 rsmax-vendors.js: var rootHostContext = {};
@@ -26076,7 +26586,7 @@ rsmax-vendors.js:         callback: callback,
 rsmax-vendors.js:         id: id
 rsmax-vendors.js:     };
 rsmax-vendors.js:     taskQueue.push(task);
-rsmax-vendors.js:     setTimeout(function() {
+rsmax-vendors.js:     queueMicrotask(function() {
 rsmax-vendors.js:         var index = taskQueue.findIndex(function(t) {
 rsmax-vendors.js:             return t.id === id;
 rsmax-vendors.js:         });
@@ -26084,7 +26594,7 @@ rsmax-vendors.js:         if (index !== -1) {
 rsmax-vendors.js:             taskQueue.splice(index, 1);
 rsmax-vendors.js:             callback((0, exports.unstable_now)());
 rsmax-vendors.js:         }
-rsmax-vendors.js:     }, 0);
+rsmax-vendors.js:     });
 rsmax-vendors.js:     return id;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;

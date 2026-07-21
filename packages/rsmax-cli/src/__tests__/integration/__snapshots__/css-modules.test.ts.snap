@@ -3152,6 +3152,15 @@ app.js:         children: [],
 app.js:         text: node.text
 app.js:     };
 app.js: }
+app.js: function collectChildren(node) {
+app.js:     var arr = [];
+app.js:     var item = node.firstChild;
+app.js:     while(item){
+app.js:         arr.push(item);
+app.js:         item = item.nextSibling;
+app.js:     }
+app.js:     return arr;
+app.js: }
 app.js: function toRawProps(prop, value, type) {
 app.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 app.js: }
@@ -3171,6 +3180,10 @@ app.js:         this.size = 0;
 app.js:         this.previousSibling = null;
 app.js:         this.nextSibling = null;
 app.js:         this.callbackIds = new Set();
+app.js:         this._index = 0;
+app.js:         this._path = null;
+app.js:         this._mounted = null;
+app.js:         this._callbackRegistry = new Map();
 app.js:         this.id = id;
 app.js:         this.container = container;
 app.js:         this.type = type;
@@ -3178,12 +3191,48 @@ app.js:         this.props = props;
 app.js:     }
 app.js:     return _createClass(VNode, [
 app.js:         {
+app.js:             key: "invalidateCache",
+app.js:             value: function invalidateCache() {
+app.js:                 this._path = null;
+app.js:                 this._mounted = null;
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "updateIndicesFrom",
+app.js:             value: function updateIndicesFrom(startIndex) {
+app.js:                 var cur = this.childAtIndex(startIndex);
+app.js:                 while(cur){
+app.js:                     cur._index = startIndex;
+app.js:                     cur.invalidateCache();
+app.js:                     startIndex += 1;
+app.js:                     cur = cur.nextSibling;
+app.js:                 }
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "childAtIndex",
+app.js:             value: function childAtIndex(index) {
+app.js:                 if (index < 0 || index >= this.size) return null;
+app.js:                 if (index === 0) return this.firstChild;
+app.js:                 if (index === this.size - 1) return this.lastChild;
+app.js:                 var cur = this.firstChild;
+app.js:                 var i = 0;
+app.js:                 while(cur && i < index){
+app.js:                     cur = cur.nextSibling;
+app.js:                     i += 1;
+app.js:                 }
+app.js:                 return cur;
+app.js:             }
+app.js:         },
+app.js:         {
 app.js:             key: "appendChild",
 app.js:             value: function appendChild(node) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
 app.js:                 node.deleted = false;
+app.js:                 node._index = this.size - 1;
+app.js:                 node.invalidateCache();
 app.js:                 if (!this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -3196,7 +3245,7 @@ app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.path,
-app.js:                         start: node.index,
+app.js:                         start: node._index,
 app.js:                         id: node.id,
 app.js:                         deleteCount: 0,
 app.js:                         children: this.children,
@@ -3215,7 +3264,7 @@ app.js:                 var previousSibling = node.previousSibling, nextSibling 
 app.js:                 if (node.parent !== this) {
 app.js:                     return;
 app.js:                 }
-app.js:                 var index = node.index;
+app.js:                 var index = node._index;
 app.js:                 this.size -= 1;
 app.js:                 if (this.firstChild === node) {
 app.js:                     this.firstChild = node.nextSibling;
@@ -3232,7 +3281,9 @@ app.js:                 }
 app.js:                 node.previousSibling = null;
 app.js:                 node.nextSibling = null;
 app.js:                 node.deleted = true;
+app.js:                 node.parent = null;
 app.js:                 node.unregisteredCallbacks();
+app.js:                 this.updateIndicesFrom(index);
 app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
@@ -3254,6 +3305,9 @@ app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
 app.js:                 node.deleted = false;
+app.js:                 var targetIndex = referenceNode._index;
+app.js:                 node._index = targetIndex;
+app.js:                 node.invalidateCache();
 app.js:                 if (referenceNode === this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -3263,11 +3317,12 @@ app.js:                     node.previousSibling = referenceNode.previousSibling
 app.js:                 }
 app.js:                 referenceNode.previousSibling = node;
 app.js:                 node.nextSibling = referenceNode;
+app.js:                 this.updateIndicesFrom(targetIndex + 1);
 app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.path,
-app.js:                         start: node.index,
+app.js:                         start: node._index,
 app.js:                         id: node.id,
 app.js:                         deleteCount: 0,
 app.js:                         children: this.children,
@@ -3286,7 +3341,7 @@ app.js:                 if (this.type === 'text' || !payload) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.parent.path,
-app.js:                         start: this.index,
+app.js:                         start: this._index,
 app.js:                         id: this.id,
 app.js:                         deleteCount: 1,
 app.js:                         items: [
@@ -3300,7 +3355,7 @@ app.js:                 var parentPath = this.parent.path;
 app.js:                 for(var i = 0; i < payload.length; i = i + 2){
 app.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 app.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-app.js:                         "children[".concat(this.index, "].props")
+app.js:                         "children[".concat(this._index, "].props")
 app.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 app.js:                         'nodes',
 app.js:                         this.id.toString(),
@@ -3319,22 +3374,17 @@ app.js:         },
 app.js:         {
 app.js:             key: "index",
 app.js:             get: function get() {
-app.js:                 var value = 0;
-app.js:                 var previousSibling = this.previousSibling;
-app.js:                 while(previousSibling){
-app.js:                     value += 1;
-app.js:                     previousSibling = previousSibling.previousSibling;
-app.js:                 }
-app.js:                 return value;
+app.js:                 return this._index;
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "children",
 app.js:             get: function get() {
-app.js:                 var arr = [];
+app.js:                 var arr = new Array(this.size);
 app.js:                 var item = this.firstChild;
+app.js:                 var i = 0;
 app.js:                 while(item){
-app.js:                     arr.push(item);
+app.js:                     arr[i++] = item;
 app.js:                     item = item.nextSibling;
 app.js:                 }
 app.js:                 return arr;
@@ -3343,30 +3393,39 @@ app.js:         },
 app.js:         {
 app.js:             key: "path",
 app.js:             get: function get() {
-app.js:                 var dataPath = [];
-app.js:                 var parents = [];
-app.js:                 var parent = this.parent;
-app.js:                 while(parent){
-app.js:                     parents.unshift(parent);
-app.js:                     parent = parent.parent;
+app.js:                 if (this._path) {
+app.js:                     return this._path;
 app.js:                 }
-app.js:                 for(var i = 0; i < parents.length; i++){
-app.js:                     var child = parents[i + 1] || this;
-app.js:                     if (isAliPlatform()) {
-app.js:                         dataPath.push('children');
-app.js:                         dataPath.push(child.index.toString());
-app.js:                     } else {
-app.js:                         dataPath.push('nodes');
-app.js:                         dataPath.push(child.id.toString());
-app.js:                     }
+app.js:                 if (!this.parent) {
+app.js:                     this._path = [];
+app.js:                     return this._path;
 app.js:                 }
-app.js:                 return dataPath;
+app.js:                 var parentPath = this.parent.path;
+app.js:                 var childPath;
+app.js:                 if (isAliPlatform()) {
+app.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+app.js:                         'children',
+app.js:                         this._index.toString()
+app.js:                     ]);
+app.js:                 } else {
+app.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+app.js:                         'nodes',
+app.js:                         this.id.toString()
+app.js:                     ]);
+app.js:                 }
+app.js:                 this._path = childPath;
+app.js:                 return childPath;
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "isMounted",
 app.js:             value: function isMounted() {
-app.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+app.js:                 if (this._mounted !== null) {
+app.js:                     return this._mounted;
+app.js:                 }
+app.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+app.js:                 this._mounted = result;
+app.js:                 return result;
 app.js:             }
 app.js:         },
 app.js:         {
@@ -3380,17 +3439,55 @@ app.js:         {
 app.js:             key: "registerCallback",
 app.js:             value: function registerCallback(propKey, propValue) {
 app.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+app.js:                 var existing = this._callbackRegistry.get(propKey);
+app.js:                 if (existing) {
+app.js:                     if (existing.fn === propValue) {
+app.js:                         return existing.id;
+app.js:                     }
+app.js:                     this.container.removeCallback(existing.id);
+app.js:                     this.callbackIds.delete(existing.id);
+app.js:                 }
 app.js:                 this.callbackIds.add(id);
+app.js:                 this._callbackRegistry.set(propKey, {
+app.js:                     fn: propValue,
+app.js:                     id: id
+app.js:                 });
 app.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 app.js:                 return id;
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "unregisterCallback",
+app.js:             value: function unregisterCallback(propKey) {
+app.js:                 var entry = this._callbackRegistry.get(propKey);
+app.js:                 if (entry) {
+app.js:                     this.container.removeCallback(entry.id);
+app.js:                     this.callbackIds.delete(entry.id);
+app.js:                     this._callbackRegistry.delete(propKey);
+app.js:                 }
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "pruneCallbacks",
+app.js:             value: function pruneCallbacks(keepKeys) {
+app.js:                 var toDelete = [];
+app.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+app.js:                     if (!keepKeys.has(key)) {
+app.js:                         toDelete.push(key);
+app.js:                     }
+app.js:                 });
+app.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+app.js:                     var key = _toDelete[_i];
+app.js:                     this.unregisterCallback(key);
+app.js:                 }
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "unregisteredCallbacks",
 app.js:             value: function unregisteredCallbacks() {
 app.js:                 var _this = this;
-app.js:                 this.callbackIds.forEach(function(id) {
-app.js:                     _this.container.removeCallback(id);
+app.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+app.js:                     _this.unregisterCallback(key);
 app.js:                 });
 app.js:             }
 app.js:         },
@@ -3399,29 +3496,32 @@ app.js:             key: "toJSON",
 app.js:             value: function toJSON() {
 app.js:                 var stack = [];
 app.js:                 var rawNode = toRawNode(this);
+app.js:                 var isAli = isAliPlatform();
 app.js:                 stack.push({
 app.js:                     currentNode: rawNode,
-app.js:                     children: this.children
+app.js:                     children: collectChildren(this)
 app.js:                 });
 app.js:                 while(stack.length > 0){
 app.js:                     var stackItem = stack.pop();
 app.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-app.js:                     for(var i = children.length - 1; i >= 0; i--){
+app.js:                     for(var i = 0; i < children.length; i++){
 app.js:                         var currentVNode = children[i];
 app.js:                         var currentRawNode = toRawNode(currentVNode);
-app.js:                         if (isAliPlatform()) {
-app.js:                             currentNode.children.unshift(currentRawNode);
+app.js:                         if (isAli) {
+app.js:                             currentNode.children.push(currentRawNode);
 app.js:                         } else {
-app.js:                             currentNode.children.unshift(currentRawNode.id);
+app.js:                             currentNode.children.push(currentRawNode.id);
 app.js:                             if (!currentNode.nodes) {
 app.js:                                 currentNode.nodes = {};
 app.js:                             }
 app.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 app.js:                         }
-app.js:                         stack.push({
-app.js:                             currentNode: currentRawNode,
-app.js:                             children: currentVNode.children
-app.js:                         });
+app.js:                         if (currentVNode.firstChild) {
+app.js:                             stack.push({
+app.js:                                 currentNode: currentRawNode,
+app.js:                                 children: collectChildren(currentVNode)
+app.js:                             });
+app.js:                         }
 app.js:                     }
 app.js:                 }
 app.js:                 return rawNode;
@@ -4284,10 +4384,11 @@ app.js:     img: 'image'
 app.js: };
 app.js: function processProps(newProps, node) {
 app.js:     var props = {};
-app.js:     node.unregisteredCallbacks();
+app.js:     var functionPropKeys = new Set();
 app.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 app.js:         var propKey = _Object$keys[_i];
 app.js:         if (typeof newProps[propKey] === 'function') {
+app.js:             functionPropKeys.add(propKey);
 app.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 app.js:         } else if (propKey === 'style') {
 app.js:             props[propKey] = newProps[propKey] || '';
@@ -4297,6 +4398,7 @@ app.js:         } else {
 app.js:             props[propKey] = newProps[propKey];
 app.js:         }
 app.js:     }
+app.js:     node.pruneCallbacks(functionPropKeys);
 app.js:     return props;
 app.js: }
 app.js: var rootHostContext = {};
@@ -4702,7 +4804,7 @@ app.js:         callback: callback,
 app.js:         id: id
 app.js:     };
 app.js:     taskQueue.push(task);
-app.js:     setTimeout(function() {
+app.js:     queueMicrotask(function() {
 app.js:         var index = taskQueue.findIndex(function(t) {
 app.js:             return t.id === id;
 app.js:         });
@@ -4710,7 +4812,7 @@ app.js:         if (index !== -1) {
 app.js:             taskQueue.splice(index, 1);
 app.js:             callback((0, exports.unstable_now)());
 app.js:         }
-app.js:     }, 0);
+app.js:     });
 app.js:     return id;
 app.js: }
 app.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -8252,6 +8354,15 @@ app.js:         children: [],
 app.js:         text: node.text
 app.js:     };
 app.js: }
+app.js: function collectChildren(node) {
+app.js:     var arr = [];
+app.js:     var item = node.firstChild;
+app.js:     while(item){
+app.js:         arr.push(item);
+app.js:         item = item.nextSibling;
+app.js:     }
+app.js:     return arr;
+app.js: }
 app.js: function toRawProps(prop, value, type) {
 app.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 app.js: }
@@ -8271,6 +8382,10 @@ app.js:         this.size = 0;
 app.js:         this.previousSibling = null;
 app.js:         this.nextSibling = null;
 app.js:         this.callbackIds = new Set();
+app.js:         this._index = 0;
+app.js:         this._path = null;
+app.js:         this._mounted = null;
+app.js:         this._callbackRegistry = new Map();
 app.js:         this.id = id;
 app.js:         this.container = container;
 app.js:         this.type = type;
@@ -8278,12 +8393,48 @@ app.js:         this.props = props;
 app.js:     }
 app.js:     return _createClass(VNode, [
 app.js:         {
+app.js:             key: "invalidateCache",
+app.js:             value: function invalidateCache() {
+app.js:                 this._path = null;
+app.js:                 this._mounted = null;
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "updateIndicesFrom",
+app.js:             value: function updateIndicesFrom(startIndex) {
+app.js:                 var cur = this.childAtIndex(startIndex);
+app.js:                 while(cur){
+app.js:                     cur._index = startIndex;
+app.js:                     cur.invalidateCache();
+app.js:                     startIndex += 1;
+app.js:                     cur = cur.nextSibling;
+app.js:                 }
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "childAtIndex",
+app.js:             value: function childAtIndex(index) {
+app.js:                 if (index < 0 || index >= this.size) return null;
+app.js:                 if (index === 0) return this.firstChild;
+app.js:                 if (index === this.size - 1) return this.lastChild;
+app.js:                 var cur = this.firstChild;
+app.js:                 var i = 0;
+app.js:                 while(cur && i < index){
+app.js:                     cur = cur.nextSibling;
+app.js:                     i += 1;
+app.js:                 }
+app.js:                 return cur;
+app.js:             }
+app.js:         },
+app.js:         {
 app.js:             key: "appendChild",
 app.js:             value: function appendChild(node) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
 app.js:                 node.deleted = false;
+app.js:                 node._index = this.size - 1;
+app.js:                 node.invalidateCache();
 app.js:                 if (!this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -8296,7 +8447,7 @@ app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.path,
-app.js:                         start: node.index,
+app.js:                         start: node._index,
 app.js:                         id: node.id,
 app.js:                         deleteCount: 0,
 app.js:                         children: this.children,
@@ -8315,7 +8466,7 @@ app.js:                 var previousSibling = node.previousSibling, nextSibling 
 app.js:                 if (node.parent !== this) {
 app.js:                     return;
 app.js:                 }
-app.js:                 var index = node.index;
+app.js:                 var index = node._index;
 app.js:                 this.size -= 1;
 app.js:                 if (this.firstChild === node) {
 app.js:                     this.firstChild = node.nextSibling;
@@ -8332,7 +8483,9 @@ app.js:                 }
 app.js:                 node.previousSibling = null;
 app.js:                 node.nextSibling = null;
 app.js:                 node.deleted = true;
+app.js:                 node.parent = null;
 app.js:                 node.unregisteredCallbacks();
+app.js:                 this.updateIndicesFrom(index);
 app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
@@ -8354,6 +8507,9 @@ app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
 app.js:                 node.deleted = false;
+app.js:                 var targetIndex = referenceNode._index;
+app.js:                 node._index = targetIndex;
+app.js:                 node.invalidateCache();
 app.js:                 if (referenceNode === this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -8363,11 +8519,12 @@ app.js:                     node.previousSibling = referenceNode.previousSibling
 app.js:                 }
 app.js:                 referenceNode.previousSibling = node;
 app.js:                 node.nextSibling = referenceNode;
+app.js:                 this.updateIndicesFrom(targetIndex + 1);
 app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.path,
-app.js:                         start: node.index,
+app.js:                         start: node._index,
 app.js:                         id: node.id,
 app.js:                         deleteCount: 0,
 app.js:                         children: this.children,
@@ -8386,7 +8543,7 @@ app.js:                 if (this.type === 'text' || !payload) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.parent.path,
-app.js:                         start: this.index,
+app.js:                         start: this._index,
 app.js:                         id: this.id,
 app.js:                         deleteCount: 1,
 app.js:                         items: [
@@ -8400,7 +8557,7 @@ app.js:                 var parentPath = this.parent.path;
 app.js:                 for(var i = 0; i < payload.length; i = i + 2){
 app.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 app.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-app.js:                         "children[".concat(this.index, "].props")
+app.js:                         "children[".concat(this._index, "].props")
 app.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 app.js:                         'nodes',
 app.js:                         this.id.toString(),
@@ -8419,22 +8576,17 @@ app.js:         },
 app.js:         {
 app.js:             key: "index",
 app.js:             get: function get() {
-app.js:                 var value = 0;
-app.js:                 var previousSibling = this.previousSibling;
-app.js:                 while(previousSibling){
-app.js:                     value += 1;
-app.js:                     previousSibling = previousSibling.previousSibling;
-app.js:                 }
-app.js:                 return value;
+app.js:                 return this._index;
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "children",
 app.js:             get: function get() {
-app.js:                 var arr = [];
+app.js:                 var arr = new Array(this.size);
 app.js:                 var item = this.firstChild;
+app.js:                 var i = 0;
 app.js:                 while(item){
-app.js:                     arr.push(item);
+app.js:                     arr[i++] = item;
 app.js:                     item = item.nextSibling;
 app.js:                 }
 app.js:                 return arr;
@@ -8443,30 +8595,39 @@ app.js:         },
 app.js:         {
 app.js:             key: "path",
 app.js:             get: function get() {
-app.js:                 var dataPath = [];
-app.js:                 var parents = [];
-app.js:                 var parent = this.parent;
-app.js:                 while(parent){
-app.js:                     parents.unshift(parent);
-app.js:                     parent = parent.parent;
+app.js:                 if (this._path) {
+app.js:                     return this._path;
 app.js:                 }
-app.js:                 for(var i = 0; i < parents.length; i++){
-app.js:                     var child = parents[i + 1] || this;
-app.js:                     if (isAliPlatform()) {
-app.js:                         dataPath.push('children');
-app.js:                         dataPath.push(child.index.toString());
-app.js:                     } else {
-app.js:                         dataPath.push('nodes');
-app.js:                         dataPath.push(child.id.toString());
-app.js:                     }
+app.js:                 if (!this.parent) {
+app.js:                     this._path = [];
+app.js:                     return this._path;
 app.js:                 }
-app.js:                 return dataPath;
+app.js:                 var parentPath = this.parent.path;
+app.js:                 var childPath;
+app.js:                 if (isAliPlatform()) {
+app.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+app.js:                         'children',
+app.js:                         this._index.toString()
+app.js:                     ]);
+app.js:                 } else {
+app.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+app.js:                         'nodes',
+app.js:                         this.id.toString()
+app.js:                     ]);
+app.js:                 }
+app.js:                 this._path = childPath;
+app.js:                 return childPath;
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "isMounted",
 app.js:             value: function isMounted() {
-app.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+app.js:                 if (this._mounted !== null) {
+app.js:                     return this._mounted;
+app.js:                 }
+app.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+app.js:                 this._mounted = result;
+app.js:                 return result;
 app.js:             }
 app.js:         },
 app.js:         {
@@ -8480,17 +8641,55 @@ app.js:         {
 app.js:             key: "registerCallback",
 app.js:             value: function registerCallback(propKey, propValue) {
 app.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+app.js:                 var existing = this._callbackRegistry.get(propKey);
+app.js:                 if (existing) {
+app.js:                     if (existing.fn === propValue) {
+app.js:                         return existing.id;
+app.js:                     }
+app.js:                     this.container.removeCallback(existing.id);
+app.js:                     this.callbackIds.delete(existing.id);
+app.js:                 }
 app.js:                 this.callbackIds.add(id);
+app.js:                 this._callbackRegistry.set(propKey, {
+app.js:                     fn: propValue,
+app.js:                     id: id
+app.js:                 });
 app.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 app.js:                 return id;
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "unregisterCallback",
+app.js:             value: function unregisterCallback(propKey) {
+app.js:                 var entry = this._callbackRegistry.get(propKey);
+app.js:                 if (entry) {
+app.js:                     this.container.removeCallback(entry.id);
+app.js:                     this.callbackIds.delete(entry.id);
+app.js:                     this._callbackRegistry.delete(propKey);
+app.js:                 }
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "pruneCallbacks",
+app.js:             value: function pruneCallbacks(keepKeys) {
+app.js:                 var toDelete = [];
+app.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+app.js:                     if (!keepKeys.has(key)) {
+app.js:                         toDelete.push(key);
+app.js:                     }
+app.js:                 });
+app.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+app.js:                     var key = _toDelete[_i];
+app.js:                     this.unregisterCallback(key);
+app.js:                 }
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "unregisteredCallbacks",
 app.js:             value: function unregisteredCallbacks() {
 app.js:                 var _this = this;
-app.js:                 this.callbackIds.forEach(function(id) {
-app.js:                     _this.container.removeCallback(id);
+app.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+app.js:                     _this.unregisterCallback(key);
 app.js:                 });
 app.js:             }
 app.js:         },
@@ -8499,29 +8698,32 @@ app.js:             key: "toJSON",
 app.js:             value: function toJSON() {
 app.js:                 var stack = [];
 app.js:                 var rawNode = toRawNode(this);
+app.js:                 var isAli = isAliPlatform();
 app.js:                 stack.push({
 app.js:                     currentNode: rawNode,
-app.js:                     children: this.children
+app.js:                     children: collectChildren(this)
 app.js:                 });
 app.js:                 while(stack.length > 0){
 app.js:                     var stackItem = stack.pop();
 app.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-app.js:                     for(var i = children.length - 1; i >= 0; i--){
+app.js:                     for(var i = 0; i < children.length; i++){
 app.js:                         var currentVNode = children[i];
 app.js:                         var currentRawNode = toRawNode(currentVNode);
-app.js:                         if (isAliPlatform()) {
-app.js:                             currentNode.children.unshift(currentRawNode);
+app.js:                         if (isAli) {
+app.js:                             currentNode.children.push(currentRawNode);
 app.js:                         } else {
-app.js:                             currentNode.children.unshift(currentRawNode.id);
+app.js:                             currentNode.children.push(currentRawNode.id);
 app.js:                             if (!currentNode.nodes) {
 app.js:                                 currentNode.nodes = {};
 app.js:                             }
 app.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 app.js:                         }
-app.js:                         stack.push({
-app.js:                             currentNode: currentRawNode,
-app.js:                             children: currentVNode.children
-app.js:                         });
+app.js:                         if (currentVNode.firstChild) {
+app.js:                             stack.push({
+app.js:                                 currentNode: currentRawNode,
+app.js:                                 children: collectChildren(currentVNode)
+app.js:                             });
+app.js:                         }
 app.js:                     }
 app.js:                 }
 app.js:                 return rawNode;
@@ -9384,10 +9586,11 @@ app.js:     img: 'image'
 app.js: };
 app.js: function processProps(newProps, node) {
 app.js:     var props = {};
-app.js:     node.unregisteredCallbacks();
+app.js:     var functionPropKeys = new Set();
 app.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 app.js:         var propKey = _Object$keys[_i];
 app.js:         if (typeof newProps[propKey] === 'function') {
+app.js:             functionPropKeys.add(propKey);
 app.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 app.js:         } else if (propKey === 'style') {
 app.js:             props[propKey] = newProps[propKey] || '';
@@ -9397,6 +9600,7 @@ app.js:         } else {
 app.js:             props[propKey] = newProps[propKey];
 app.js:         }
 app.js:     }
+app.js:     node.pruneCallbacks(functionPropKeys);
 app.js:     return props;
 app.js: }
 app.js: var rootHostContext = {};
@@ -9802,7 +10006,7 @@ app.js:         callback: callback,
 app.js:         id: id
 app.js:     };
 app.js:     taskQueue.push(task);
-app.js:     setTimeout(function() {
+app.js:     queueMicrotask(function() {
 app.js:         var index = taskQueue.findIndex(function(t) {
 app.js:             return t.id === id;
 app.js:         });
@@ -9810,7 +10014,7 @@ app.js:         if (index !== -1) {
 app.js:             taskQueue.splice(index, 1);
 app.js:             callback((0, exports.unstable_now)());
 app.js:         }
-app.js:     }, 0);
+app.js:     });
 app.js:     return id;
 app.js: }
 app.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -14118,6 +14322,15 @@ app.js:         children: [],
 app.js:         text: node.text
 app.js:     };
 app.js: }
+app.js: function collectChildren(node) {
+app.js:     var arr = [];
+app.js:     var item = node.firstChild;
+app.js:     while(item){
+app.js:         arr.push(item);
+app.js:         item = item.nextSibling;
+app.js:     }
+app.js:     return arr;
+app.js: }
 app.js: function toRawProps(prop, value, type) {
 app.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 app.js: }
@@ -14137,6 +14350,10 @@ app.js:         this.size = 0;
 app.js:         this.previousSibling = null;
 app.js:         this.nextSibling = null;
 app.js:         this.callbackIds = new Set();
+app.js:         this._index = 0;
+app.js:         this._path = null;
+app.js:         this._mounted = null;
+app.js:         this._callbackRegistry = new Map();
 app.js:         this.id = id;
 app.js:         this.container = container;
 app.js:         this.type = type;
@@ -14144,12 +14361,48 @@ app.js:         this.props = props;
 app.js:     }
 app.js:     return _createClass(VNode, [
 app.js:         {
+app.js:             key: "invalidateCache",
+app.js:             value: function invalidateCache() {
+app.js:                 this._path = null;
+app.js:                 this._mounted = null;
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "updateIndicesFrom",
+app.js:             value: function updateIndicesFrom(startIndex) {
+app.js:                 var cur = this.childAtIndex(startIndex);
+app.js:                 while(cur){
+app.js:                     cur._index = startIndex;
+app.js:                     cur.invalidateCache();
+app.js:                     startIndex += 1;
+app.js:                     cur = cur.nextSibling;
+app.js:                 }
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "childAtIndex",
+app.js:             value: function childAtIndex(index) {
+app.js:                 if (index < 0 || index >= this.size) return null;
+app.js:                 if (index === 0) return this.firstChild;
+app.js:                 if (index === this.size - 1) return this.lastChild;
+app.js:                 var cur = this.firstChild;
+app.js:                 var i = 0;
+app.js:                 while(cur && i < index){
+app.js:                     cur = cur.nextSibling;
+app.js:                     i += 1;
+app.js:                 }
+app.js:                 return cur;
+app.js:             }
+app.js:         },
+app.js:         {
 app.js:             key: "appendChild",
 app.js:             value: function appendChild(node) {
 app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
 app.js:                 node.deleted = false;
+app.js:                 node._index = this.size - 1;
+app.js:                 node.invalidateCache();
 app.js:                 if (!this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -14162,7 +14415,7 @@ app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.path,
-app.js:                         start: node.index,
+app.js:                         start: node._index,
 app.js:                         id: node.id,
 app.js:                         deleteCount: 0,
 app.js:                         children: this.children,
@@ -14181,7 +14434,7 @@ app.js:                 var previousSibling = node.previousSibling, nextSibling 
 app.js:                 if (node.parent !== this) {
 app.js:                     return;
 app.js:                 }
-app.js:                 var index = node.index;
+app.js:                 var index = node._index;
 app.js:                 this.size -= 1;
 app.js:                 if (this.firstChild === node) {
 app.js:                     this.firstChild = node.nextSibling;
@@ -14198,7 +14451,9 @@ app.js:                 }
 app.js:                 node.previousSibling = null;
 app.js:                 node.nextSibling = null;
 app.js:                 node.deleted = true;
+app.js:                 node.parent = null;
 app.js:                 node.unregisteredCallbacks();
+app.js:                 this.updateIndicesFrom(index);
 app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
@@ -14220,6 +14475,9 @@ app.js:                 this.removeChild(node);
 app.js:                 this.size += 1;
 app.js:                 node.parent = this;
 app.js:                 node.deleted = false;
+app.js:                 var targetIndex = referenceNode._index;
+app.js:                 node._index = targetIndex;
+app.js:                 node.invalidateCache();
 app.js:                 if (referenceNode === this.firstChild) {
 app.js:                     this.firstChild = node;
 app.js:                 }
@@ -14229,11 +14487,12 @@ app.js:                     node.previousSibling = referenceNode.previousSibling
 app.js:                 }
 app.js:                 referenceNode.previousSibling = node;
 app.js:                 node.nextSibling = referenceNode;
+app.js:                 this.updateIndicesFrom(targetIndex + 1);
 app.js:                 if (this.isMounted()) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.path,
-app.js:                         start: node.index,
+app.js:                         start: node._index,
 app.js:                         id: node.id,
 app.js:                         deleteCount: 0,
 app.js:                         children: this.children,
@@ -14252,7 +14511,7 @@ app.js:                 if (this.type === 'text' || !payload) {
 app.js:                     this.container.requestUpdate({
 app.js:                         type: 'splice',
 app.js:                         path: this.parent.path,
-app.js:                         start: this.index,
+app.js:                         start: this._index,
 app.js:                         id: this.id,
 app.js:                         deleteCount: 1,
 app.js:                         items: [
@@ -14266,7 +14525,7 @@ app.js:                 var parentPath = this.parent.path;
 app.js:                 for(var i = 0; i < payload.length; i = i + 2){
 app.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 app.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-app.js:                         "children[".concat(this.index, "].props")
+app.js:                         "children[".concat(this._index, "].props")
 app.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 app.js:                         'nodes',
 app.js:                         this.id.toString(),
@@ -14285,22 +14544,17 @@ app.js:         },
 app.js:         {
 app.js:             key: "index",
 app.js:             get: function get() {
-app.js:                 var value = 0;
-app.js:                 var previousSibling = this.previousSibling;
-app.js:                 while(previousSibling){
-app.js:                     value += 1;
-app.js:                     previousSibling = previousSibling.previousSibling;
-app.js:                 }
-app.js:                 return value;
+app.js:                 return this._index;
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "children",
 app.js:             get: function get() {
-app.js:                 var arr = [];
+app.js:                 var arr = new Array(this.size);
 app.js:                 var item = this.firstChild;
+app.js:                 var i = 0;
 app.js:                 while(item){
-app.js:                     arr.push(item);
+app.js:                     arr[i++] = item;
 app.js:                     item = item.nextSibling;
 app.js:                 }
 app.js:                 return arr;
@@ -14309,30 +14563,39 @@ app.js:         },
 app.js:         {
 app.js:             key: "path",
 app.js:             get: function get() {
-app.js:                 var dataPath = [];
-app.js:                 var parents = [];
-app.js:                 var parent = this.parent;
-app.js:                 while(parent){
-app.js:                     parents.unshift(parent);
-app.js:                     parent = parent.parent;
+app.js:                 if (this._path) {
+app.js:                     return this._path;
 app.js:                 }
-app.js:                 for(var i = 0; i < parents.length; i++){
-app.js:                     var child = parents[i + 1] || this;
-app.js:                     if (isAliPlatform()) {
-app.js:                         dataPath.push('children');
-app.js:                         dataPath.push(child.index.toString());
-app.js:                     } else {
-app.js:                         dataPath.push('nodes');
-app.js:                         dataPath.push(child.id.toString());
-app.js:                     }
+app.js:                 if (!this.parent) {
+app.js:                     this._path = [];
+app.js:                     return this._path;
 app.js:                 }
-app.js:                 return dataPath;
+app.js:                 var parentPath = this.parent.path;
+app.js:                 var childPath;
+app.js:                 if (isAliPlatform()) {
+app.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+app.js:                         'children',
+app.js:                         this._index.toString()
+app.js:                     ]);
+app.js:                 } else {
+app.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+app.js:                         'nodes',
+app.js:                         this.id.toString()
+app.js:                     ]);
+app.js:                 }
+app.js:                 this._path = childPath;
+app.js:                 return childPath;
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "isMounted",
 app.js:             value: function isMounted() {
-app.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+app.js:                 if (this._mounted !== null) {
+app.js:                     return this._mounted;
+app.js:                 }
+app.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+app.js:                 this._mounted = result;
+app.js:                 return result;
 app.js:             }
 app.js:         },
 app.js:         {
@@ -14346,17 +14609,55 @@ app.js:         {
 app.js:             key: "registerCallback",
 app.js:             value: function registerCallback(propKey, propValue) {
 app.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+app.js:                 var existing = this._callbackRegistry.get(propKey);
+app.js:                 if (existing) {
+app.js:                     if (existing.fn === propValue) {
+app.js:                         return existing.id;
+app.js:                     }
+app.js:                     this.container.removeCallback(existing.id);
+app.js:                     this.callbackIds.delete(existing.id);
+app.js:                 }
 app.js:                 this.callbackIds.add(id);
+app.js:                 this._callbackRegistry.set(propKey, {
+app.js:                     fn: propValue,
+app.js:                     id: id
+app.js:                 });
 app.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 app.js:                 return id;
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "unregisterCallback",
+app.js:             value: function unregisterCallback(propKey) {
+app.js:                 var entry = this._callbackRegistry.get(propKey);
+app.js:                 if (entry) {
+app.js:                     this.container.removeCallback(entry.id);
+app.js:                     this.callbackIds.delete(entry.id);
+app.js:                     this._callbackRegistry.delete(propKey);
+app.js:                 }
+app.js:             }
+app.js:         },
+app.js:         {
+app.js:             key: "pruneCallbacks",
+app.js:             value: function pruneCallbacks(keepKeys) {
+app.js:                 var toDelete = [];
+app.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+app.js:                     if (!keepKeys.has(key)) {
+app.js:                         toDelete.push(key);
+app.js:                     }
+app.js:                 });
+app.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+app.js:                     var key = _toDelete[_i];
+app.js:                     this.unregisterCallback(key);
+app.js:                 }
 app.js:             }
 app.js:         },
 app.js:         {
 app.js:             key: "unregisteredCallbacks",
 app.js:             value: function unregisteredCallbacks() {
 app.js:                 var _this = this;
-app.js:                 this.callbackIds.forEach(function(id) {
-app.js:                     _this.container.removeCallback(id);
+app.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+app.js:                     _this.unregisterCallback(key);
 app.js:                 });
 app.js:             }
 app.js:         },
@@ -14365,29 +14666,32 @@ app.js:             key: "toJSON",
 app.js:             value: function toJSON() {
 app.js:                 var stack = [];
 app.js:                 var rawNode = toRawNode(this);
+app.js:                 var isAli = isAliPlatform();
 app.js:                 stack.push({
 app.js:                     currentNode: rawNode,
-app.js:                     children: this.children
+app.js:                     children: collectChildren(this)
 app.js:                 });
 app.js:                 while(stack.length > 0){
 app.js:                     var stackItem = stack.pop();
 app.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-app.js:                     for(var i = children.length - 1; i >= 0; i--){
+app.js:                     for(var i = 0; i < children.length; i++){
 app.js:                         var currentVNode = children[i];
 app.js:                         var currentRawNode = toRawNode(currentVNode);
-app.js:                         if (isAliPlatform()) {
-app.js:                             currentNode.children.unshift(currentRawNode);
+app.js:                         if (isAli) {
+app.js:                             currentNode.children.push(currentRawNode);
 app.js:                         } else {
-app.js:                             currentNode.children.unshift(currentRawNode.id);
+app.js:                             currentNode.children.push(currentRawNode.id);
 app.js:                             if (!currentNode.nodes) {
 app.js:                                 currentNode.nodes = {};
 app.js:                             }
 app.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 app.js:                         }
-app.js:                         stack.push({
-app.js:                             currentNode: currentRawNode,
-app.js:                             children: currentVNode.children
-app.js:                         });
+app.js:                         if (currentVNode.firstChild) {
+app.js:                             stack.push({
+app.js:                                 currentNode: currentRawNode,
+app.js:                                 children: collectChildren(currentVNode)
+app.js:                             });
+app.js:                         }
 app.js:                     }
 app.js:                 }
 app.js:                 return rawNode;
@@ -15250,10 +15554,11 @@ app.js:     img: 'image'
 app.js: };
 app.js: function processProps(newProps, node) {
 app.js:     var props = {};
-app.js:     node.unregisteredCallbacks();
+app.js:     var functionPropKeys = new Set();
 app.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 app.js:         var propKey = _Object$keys[_i];
 app.js:         if (typeof newProps[propKey] === 'function') {
+app.js:             functionPropKeys.add(propKey);
 app.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 app.js:         } else if (propKey === 'style') {
 app.js:             props[propKey] = newProps[propKey] || '';
@@ -15263,6 +15568,7 @@ app.js:         } else {
 app.js:             props[propKey] = newProps[propKey];
 app.js:         }
 app.js:     }
+app.js:     node.pruneCallbacks(functionPropKeys);
 app.js:     return props;
 app.js: }
 app.js: var rootHostContext = {};
@@ -15668,7 +15974,7 @@ app.js:         callback: callback,
 app.js:         id: id
 app.js:     };
 app.js:     taskQueue.push(task);
-app.js:     setTimeout(function() {
+app.js:     queueMicrotask(function() {
 app.js:         var index = taskQueue.findIndex(function(t) {
 app.js:             return t.id === id;
 app.js:         });
@@ -15676,7 +15982,7 @@ app.js:         if (index !== -1) {
 app.js:             taskQueue.splice(index, 1);
 app.js:             callback((0, exports.unstable_now)());
 app.js:         }
-app.js:     }, 0);
+app.js:     });
 app.js:     return id;
 app.js: }
 app.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;

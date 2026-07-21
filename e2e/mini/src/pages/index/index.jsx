@@ -16,7 +16,7 @@ export default () => {
       <View className={styles.header}>
         <Image src={logo} className={styles.logo} alt="logo" />
         <View className={styles.text}>
-          编辑 <Text>src/pages/index/index.js</Text> 开始 321
+          编辑 <Text>src/pages/index/index.js</Text> 开始 123
         </View>
       </View>
       <View onTap={handleClick}>点击我</View>
