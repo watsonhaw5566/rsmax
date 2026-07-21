@@ -11,13 +11,13 @@ export function unstable_scheduleCallback(callback: (timestamp: number) => void)
   const task = { callback, id };
   taskQueue.push(task);
 
-  setTimeout(() => {
+  queueMicrotask(() => {
     const index = taskQueue.findIndex(t => t.id === id);
     if (index !== -1) {
       taskQueue.splice(index, 1);
       callback(unstable_now());
     }
-  }, 0);
+  });
 
   return id;
 }
