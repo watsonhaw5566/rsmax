@@ -30,7 +30,6 @@
   "dependencies": {
     "@rsmax/framework-shared": "workspace:*",
     "@rsmax/shared": "workspace:*",
-    "react-is": "^18.3.0",
     "react-reconciler": "0.29.0"
   },
   "devDependencies": {

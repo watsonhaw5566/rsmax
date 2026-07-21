@@ -6,7 +6,8 @@ import {
   isClassComponent,
 } from '@rsmax/framework-shared';
 import * as React from 'react';
-import { ForwardRef } from 'react-is';
+
+const REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
 import AppContainer from './AppContainer';
 import render from './render';
 
@@ -69,7 +70,7 @@ export default function createAppConfig(this: any, App: any) {
       _render() {
         const props: any = {};
 
-        if (isClassComponent(AppComponent) || (AppComponent as any).$$typeof === ForwardRef) {
+        if (isClassComponent(AppComponent) || (AppComponent as any).$$typeof === REACT_FORWARD_REF_TYPE) {
           props.ref = this._instance;
         }
 
