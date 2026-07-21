@@ -3155,6 +3155,15 @@ pages/index.js:         children: [],
 pages/index.js:         text: node.text
 pages/index.js:     };
 pages/index.js: }
+pages/index.js: function collectChildren(node) {
+pages/index.js:     var arr = [];
+pages/index.js:     var item = node.firstChild;
+pages/index.js:     while(item){
+pages/index.js:         arr.push(item);
+pages/index.js:         item = item.nextSibling;
+pages/index.js:     }
+pages/index.js:     return arr;
+pages/index.js: }
 pages/index.js: function toRawProps(prop, value, type) {
 pages/index.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 pages/index.js: }
@@ -3174,6 +3183,10 @@ pages/index.js:         this.size = 0;
 pages/index.js:         this.previousSibling = null;
 pages/index.js:         this.nextSibling = null;
 pages/index.js:         this.callbackIds = new Set();
+pages/index.js:         this._index = 0;
+pages/index.js:         this._path = null;
+pages/index.js:         this._mounted = null;
+pages/index.js:         this._callbackRegistry = new Map();
 pages/index.js:         this.id = id;
 pages/index.js:         this.container = container;
 pages/index.js:         this.type = type;
@@ -3181,12 +3194,48 @@ pages/index.js:         this.props = props;
 pages/index.js:     }
 pages/index.js:     return _createClass(VNode, [
 pages/index.js:         {
+pages/index.js:             key: "invalidateCache",
+pages/index.js:             value: function invalidateCache() {
+pages/index.js:                 this._path = null;
+pages/index.js:                 this._mounted = null;
+pages/index.js:             }
+pages/index.js:         },
+pages/index.js:         {
+pages/index.js:             key: "updateIndicesFrom",
+pages/index.js:             value: function updateIndicesFrom(startIndex) {
+pages/index.js:                 var cur = this.childAtIndex(startIndex);
+pages/index.js:                 while(cur){
+pages/index.js:                     cur._index = startIndex;
+pages/index.js:                     cur.invalidateCache();
+pages/index.js:                     startIndex += 1;
+pages/index.js:                     cur = cur.nextSibling;
+pages/index.js:                 }
+pages/index.js:             }
+pages/index.js:         },
+pages/index.js:         {
+pages/index.js:             key: "childAtIndex",
+pages/index.js:             value: function childAtIndex(index) {
+pages/index.js:                 if (index < 0 || index >= this.size) return null;
+pages/index.js:                 if (index === 0) return this.firstChild;
+pages/index.js:                 if (index === this.size - 1) return this.lastChild;
+pages/index.js:                 var cur = this.firstChild;
+pages/index.js:                 var i = 0;
+pages/index.js:                 while(cur && i < index){
+pages/index.js:                     cur = cur.nextSibling;
+pages/index.js:                     i += 1;
+pages/index.js:                 }
+pages/index.js:                 return cur;
+pages/index.js:             }
+pages/index.js:         },
+pages/index.js:         {
 pages/index.js:             key: "appendChild",
 pages/index.js:             value: function appendChild(node) {
 pages/index.js:                 this.removeChild(node);
 pages/index.js:                 this.size += 1;
 pages/index.js:                 node.parent = this;
 pages/index.js:                 node.deleted = false;
+pages/index.js:                 node._index = this.size - 1;
+pages/index.js:                 node.invalidateCache();
 pages/index.js:                 if (!this.firstChild) {
 pages/index.js:                     this.firstChild = node;
 pages/index.js:                 }
@@ -3199,7 +3248,7 @@ pages/index.js:                 if (this.isMounted()) {
 pages/index.js:                     this.container.requestUpdate({
 pages/index.js:                         type: 'splice',
 pages/index.js:                         path: this.path,
-pages/index.js:                         start: node.index,
+pages/index.js:                         start: node._index,
 pages/index.js:                         id: node.id,
 pages/index.js:                         deleteCount: 0,
 pages/index.js:                         children: this.children,
@@ -3218,7 +3267,7 @@ pages/index.js:                 var previousSibling = node.previousSibling, next
 pages/index.js:                 if (node.parent !== this) {
 pages/index.js:                     return;
 pages/index.js:                 }
-pages/index.js:                 var index = node.index;
+pages/index.js:                 var index = node._index;
 pages/index.js:                 this.size -= 1;
 pages/index.js:                 if (this.firstChild === node) {
 pages/index.js:                     this.firstChild = node.nextSibling;
@@ -3235,7 +3284,9 @@ pages/index.js:                 }
 pages/index.js:                 node.previousSibling = null;
 pages/index.js:                 node.nextSibling = null;
 pages/index.js:                 node.deleted = true;
+pages/index.js:                 node.parent = null;
 pages/index.js:                 node.unregisteredCallbacks();
+pages/index.js:                 this.updateIndicesFrom(index);
 pages/index.js:                 if (this.isMounted()) {
 pages/index.js:                     this.container.requestUpdate({
 pages/index.js:                         type: 'splice',
@@ -3257,6 +3308,9 @@ pages/index.js:                 this.removeChild(node);
 pages/index.js:                 this.size += 1;
 pages/index.js:                 node.parent = this;
 pages/index.js:                 node.deleted = false;
+pages/index.js:                 var targetIndex = referenceNode._index;
+pages/index.js:                 node._index = targetIndex;
+pages/index.js:                 node.invalidateCache();
 pages/index.js:                 if (referenceNode === this.firstChild) {
 pages/index.js:                     this.firstChild = node;
 pages/index.js:                 }
@@ -3266,11 +3320,12 @@ pages/index.js:                     node.previousSibling = referenceNode.previou
 pages/index.js:                 }
 pages/index.js:                 referenceNode.previousSibling = node;
 pages/index.js:                 node.nextSibling = referenceNode;
+pages/index.js:                 this.updateIndicesFrom(targetIndex + 1);
 pages/index.js:                 if (this.isMounted()) {
 pages/index.js:                     this.container.requestUpdate({
 pages/index.js:                         type: 'splice',
 pages/index.js:                         path: this.path,
-pages/index.js:                         start: node.index,
+pages/index.js:                         start: node._index,
 pages/index.js:                         id: node.id,
 pages/index.js:                         deleteCount: 0,
 pages/index.js:                         children: this.children,
@@ -3289,7 +3344,7 @@ pages/index.js:                 if (this.type === 'text' || !payload) {
 pages/index.js:                     this.container.requestUpdate({
 pages/index.js:                         type: 'splice',
 pages/index.js:                         path: this.parent.path,
-pages/index.js:                         start: this.index,
+pages/index.js:                         start: this._index,
 pages/index.js:                         id: this.id,
 pages/index.js:                         deleteCount: 1,
 pages/index.js:                         items: [
@@ -3303,7 +3358,7 @@ pages/index.js:                 var parentPath = this.parent.path;
 pages/index.js:                 for(var i = 0; i < payload.length; i = i + 2){
 pages/index.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 pages/index.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-pages/index.js:                         "children[".concat(this.index, "].props")
+pages/index.js:                         "children[".concat(this._index, "].props")
 pages/index.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 pages/index.js:                         'nodes',
 pages/index.js:                         this.id.toString(),
@@ -3322,22 +3377,17 @@ pages/index.js:         },
 pages/index.js:         {
 pages/index.js:             key: "index",
 pages/index.js:             get: function get() {
-pages/index.js:                 var value = 0;
-pages/index.js:                 var previousSibling = this.previousSibling;
-pages/index.js:                 while(previousSibling){
-pages/index.js:                     value += 1;
-pages/index.js:                     previousSibling = previousSibling.previousSibling;
-pages/index.js:                 }
-pages/index.js:                 return value;
+pages/index.js:                 return this._index;
 pages/index.js:             }
 pages/index.js:         },
 pages/index.js:         {
 pages/index.js:             key: "children",
 pages/index.js:             get: function get() {
-pages/index.js:                 var arr = [];
+pages/index.js:                 var arr = new Array(this.size);
 pages/index.js:                 var item = this.firstChild;
+pages/index.js:                 var i = 0;
 pages/index.js:                 while(item){
-pages/index.js:                     arr.push(item);
+pages/index.js:                     arr[i++] = item;
 pages/index.js:                     item = item.nextSibling;
 pages/index.js:                 }
 pages/index.js:                 return arr;
@@ -3346,30 +3396,39 @@ pages/index.js:         },
 pages/index.js:         {
 pages/index.js:             key: "path",
 pages/index.js:             get: function get() {
-pages/index.js:                 var dataPath = [];
-pages/index.js:                 var parents = [];
-pages/index.js:                 var parent = this.parent;
-pages/index.js:                 while(parent){
-pages/index.js:                     parents.unshift(parent);
-pages/index.js:                     parent = parent.parent;
+pages/index.js:                 if (this._path) {
+pages/index.js:                     return this._path;
 pages/index.js:                 }
-pages/index.js:                 for(var i = 0; i < parents.length; i++){
-pages/index.js:                     var child = parents[i + 1] || this;
-pages/index.js:                     if (isAliPlatform()) {
-pages/index.js:                         dataPath.push('children');
-pages/index.js:                         dataPath.push(child.index.toString());
-pages/index.js:                     } else {
-pages/index.js:                         dataPath.push('nodes');
-pages/index.js:                         dataPath.push(child.id.toString());
-pages/index.js:                     }
+pages/index.js:                 if (!this.parent) {
+pages/index.js:                     this._path = [];
+pages/index.js:                     return this._path;
 pages/index.js:                 }
-pages/index.js:                 return dataPath;
+pages/index.js:                 var parentPath = this.parent.path;
+pages/index.js:                 var childPath;
+pages/index.js:                 if (isAliPlatform()) {
+pages/index.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+pages/index.js:                         'children',
+pages/index.js:                         this._index.toString()
+pages/index.js:                     ]);
+pages/index.js:                 } else {
+pages/index.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+pages/index.js:                         'nodes',
+pages/index.js:                         this.id.toString()
+pages/index.js:                     ]);
+pages/index.js:                 }
+pages/index.js:                 this._path = childPath;
+pages/index.js:                 return childPath;
 pages/index.js:             }
 pages/index.js:         },
 pages/index.js:         {
 pages/index.js:             key: "isMounted",
 pages/index.js:             value: function isMounted() {
-pages/index.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+pages/index.js:                 if (this._mounted !== null) {
+pages/index.js:                     return this._mounted;
+pages/index.js:                 }
+pages/index.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+pages/index.js:                 this._mounted = result;
+pages/index.js:                 return result;
 pages/index.js:             }
 pages/index.js:         },
 pages/index.js:         {
@@ -3383,17 +3442,55 @@ pages/index.js:         {
 pages/index.js:             key: "registerCallback",
 pages/index.js:             value: function registerCallback(propKey, propValue) {
 pages/index.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+pages/index.js:                 var existing = this._callbackRegistry.get(propKey);
+pages/index.js:                 if (existing) {
+pages/index.js:                     if (existing.fn === propValue) {
+pages/index.js:                         return existing.id;
+pages/index.js:                     }
+pages/index.js:                     this.container.removeCallback(existing.id);
+pages/index.js:                     this.callbackIds.delete(existing.id);
+pages/index.js:                 }
 pages/index.js:                 this.callbackIds.add(id);
+pages/index.js:                 this._callbackRegistry.set(propKey, {
+pages/index.js:                     fn: propValue,
+pages/index.js:                     id: id
+pages/index.js:                 });
 pages/index.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 pages/index.js:                 return id;
+pages/index.js:             }
+pages/index.js:         },
+pages/index.js:         {
+pages/index.js:             key: "unregisterCallback",
+pages/index.js:             value: function unregisterCallback(propKey) {
+pages/index.js:                 var entry = this._callbackRegistry.get(propKey);
+pages/index.js:                 if (entry) {
+pages/index.js:                     this.container.removeCallback(entry.id);
+pages/index.js:                     this.callbackIds.delete(entry.id);
+pages/index.js:                     this._callbackRegistry.delete(propKey);
+pages/index.js:                 }
+pages/index.js:             }
+pages/index.js:         },
+pages/index.js:         {
+pages/index.js:             key: "pruneCallbacks",
+pages/index.js:             value: function pruneCallbacks(keepKeys) {
+pages/index.js:                 var toDelete = [];
+pages/index.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+pages/index.js:                     if (!keepKeys.has(key)) {
+pages/index.js:                         toDelete.push(key);
+pages/index.js:                     }
+pages/index.js:                 });
+pages/index.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+pages/index.js:                     var key = _toDelete[_i];
+pages/index.js:                     this.unregisterCallback(key);
+pages/index.js:                 }
 pages/index.js:             }
 pages/index.js:         },
 pages/index.js:         {
 pages/index.js:             key: "unregisteredCallbacks",
 pages/index.js:             value: function unregisteredCallbacks() {
 pages/index.js:                 var _this = this;
-pages/index.js:                 this.callbackIds.forEach(function(id) {
-pages/index.js:                     _this.container.removeCallback(id);
+pages/index.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+pages/index.js:                     _this.unregisterCallback(key);
 pages/index.js:                 });
 pages/index.js:             }
 pages/index.js:         },
@@ -3402,29 +3499,32 @@ pages/index.js:             key: "toJSON",
 pages/index.js:             value: function toJSON() {
 pages/index.js:                 var stack = [];
 pages/index.js:                 var rawNode = toRawNode(this);
+pages/index.js:                 var isAli = isAliPlatform();
 pages/index.js:                 stack.push({
 pages/index.js:                     currentNode: rawNode,
-pages/index.js:                     children: this.children
+pages/index.js:                     children: collectChildren(this)
 pages/index.js:                 });
 pages/index.js:                 while(stack.length > 0){
 pages/index.js:                     var stackItem = stack.pop();
 pages/index.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-pages/index.js:                     for(var i = children.length - 1; i >= 0; i--){
+pages/index.js:                     for(var i = 0; i < children.length; i++){
 pages/index.js:                         var currentVNode = children[i];
 pages/index.js:                         var currentRawNode = toRawNode(currentVNode);
-pages/index.js:                         if (isAliPlatform()) {
-pages/index.js:                             currentNode.children.unshift(currentRawNode);
+pages/index.js:                         if (isAli) {
+pages/index.js:                             currentNode.children.push(currentRawNode);
 pages/index.js:                         } else {
-pages/index.js:                             currentNode.children.unshift(currentRawNode.id);
+pages/index.js:                             currentNode.children.push(currentRawNode.id);
 pages/index.js:                             if (!currentNode.nodes) {
 pages/index.js:                                 currentNode.nodes = {};
 pages/index.js:                             }
 pages/index.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 pages/index.js:                         }
-pages/index.js:                         stack.push({
-pages/index.js:                             currentNode: currentRawNode,
-pages/index.js:                             children: currentVNode.children
-pages/index.js:                         });
+pages/index.js:                         if (currentVNode.firstChild) {
+pages/index.js:                             stack.push({
+pages/index.js:                                 currentNode: currentRawNode,
+pages/index.js:                                 children: collectChildren(currentVNode)
+pages/index.js:                             });
+pages/index.js:                         }
 pages/index.js:                     }
 pages/index.js:                 }
 pages/index.js:                 return rawNode;
@@ -4287,10 +4387,11 @@ pages/index.js:     img: 'image'
 pages/index.js: };
 pages/index.js: function processProps(newProps, node) {
 pages/index.js:     var props = {};
-pages/index.js:     node.unregisteredCallbacks();
+pages/index.js:     var functionPropKeys = new Set();
 pages/index.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 pages/index.js:         var propKey = _Object$keys[_i];
 pages/index.js:         if (typeof newProps[propKey] === 'function') {
+pages/index.js:             functionPropKeys.add(propKey);
 pages/index.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 pages/index.js:         } else if (propKey === 'style') {
 pages/index.js:             props[propKey] = newProps[propKey] || '';
@@ -4300,6 +4401,7 @@ pages/index.js:         } else {
 pages/index.js:             props[propKey] = newProps[propKey];
 pages/index.js:         }
 pages/index.js:     }
+pages/index.js:     node.pruneCallbacks(functionPropKeys);
 pages/index.js:     return props;
 pages/index.js: }
 pages/index.js: var rootHostContext = {};
@@ -4705,7 +4807,7 @@ pages/index.js:         callback: callback,
 pages/index.js:         id: id
 pages/index.js:     };
 pages/index.js:     taskQueue.push(task);
-pages/index.js:     setTimeout(function() {
+pages/index.js:     queueMicrotask(function() {
 pages/index.js:         var index = taskQueue.findIndex(function(t) {
 pages/index.js:             return t.id === id;
 pages/index.js:         });
@@ -4713,7 +4815,7 @@ pages/index.js:         if (index !== -1) {
 pages/index.js:             taskQueue.splice(index, 1);
 pages/index.js:             callback((0, exports.unstable_now)());
 pages/index.js:         }
-pages/index.js:     }, 0);
+pages/index.js:     });
 pages/index.js:     return id;
 pages/index.js: }
 pages/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;

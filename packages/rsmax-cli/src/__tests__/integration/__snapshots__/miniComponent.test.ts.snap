@@ -12034,6 +12034,15 @@ greet.js:         children: [],
 greet.js:         text: node.text
 greet.js:     };
 greet.js: }
+greet.js: function collectChildren(node) {
+greet.js:     var arr = [];
+greet.js:     var item = node.firstChild;
+greet.js:     while(item){
+greet.js:         arr.push(item);
+greet.js:         item = item.nextSibling;
+greet.js:     }
+greet.js:     return arr;
+greet.js: }
 greet.js: function toRawProps(prop, value, type) {
 greet.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 greet.js: }
@@ -12053,6 +12062,10 @@ greet.js:         this.size = 0;
 greet.js:         this.previousSibling = null;
 greet.js:         this.nextSibling = null;
 greet.js:         this.callbackIds = new Set();
+greet.js:         this._index = 0;
+greet.js:         this._path = null;
+greet.js:         this._mounted = null;
+greet.js:         this._callbackRegistry = new Map();
 greet.js:         this.id = id;
 greet.js:         this.container = container;
 greet.js:         this.type = type;
@@ -12060,12 +12073,48 @@ greet.js:         this.props = props;
 greet.js:     }
 greet.js:     return _createClass(VNode, [
 greet.js:         {
+greet.js:             key: "invalidateCache",
+greet.js:             value: function invalidateCache() {
+greet.js:                 this._path = null;
+greet.js:                 this._mounted = null;
+greet.js:             }
+greet.js:         },
+greet.js:         {
+greet.js:             key: "updateIndicesFrom",
+greet.js:             value: function updateIndicesFrom(startIndex) {
+greet.js:                 var cur = this.childAtIndex(startIndex);
+greet.js:                 while(cur){
+greet.js:                     cur._index = startIndex;
+greet.js:                     cur.invalidateCache();
+greet.js:                     startIndex += 1;
+greet.js:                     cur = cur.nextSibling;
+greet.js:                 }
+greet.js:             }
+greet.js:         },
+greet.js:         {
+greet.js:             key: "childAtIndex",
+greet.js:             value: function childAtIndex(index) {
+greet.js:                 if (index < 0 || index >= this.size) return null;
+greet.js:                 if (index === 0) return this.firstChild;
+greet.js:                 if (index === this.size - 1) return this.lastChild;
+greet.js:                 var cur = this.firstChild;
+greet.js:                 var i = 0;
+greet.js:                 while(cur && i < index){
+greet.js:                     cur = cur.nextSibling;
+greet.js:                     i += 1;
+greet.js:                 }
+greet.js:                 return cur;
+greet.js:             }
+greet.js:         },
+greet.js:         {
 greet.js:             key: "appendChild",
 greet.js:             value: function appendChild(node) {
 greet.js:                 this.removeChild(node);
 greet.js:                 this.size += 1;
 greet.js:                 node.parent = this;
 greet.js:                 node.deleted = false;
+greet.js:                 node._index = this.size - 1;
+greet.js:                 node.invalidateCache();
 greet.js:                 if (!this.firstChild) {
 greet.js:                     this.firstChild = node;
 greet.js:                 }
@@ -12078,7 +12127,7 @@ greet.js:                 if (this.isMounted()) {
 greet.js:                     this.container.requestUpdate({
 greet.js:                         type: 'splice',
 greet.js:                         path: this.path,
-greet.js:                         start: node.index,
+greet.js:                         start: node._index,
 greet.js:                         id: node.id,
 greet.js:                         deleteCount: 0,
 greet.js:                         children: this.children,
@@ -12097,7 +12146,7 @@ greet.js:                 var previousSibling = node.previousSibling, nextSiblin
 greet.js:                 if (node.parent !== this) {
 greet.js:                     return;
 greet.js:                 }
-greet.js:                 var index = node.index;
+greet.js:                 var index = node._index;
 greet.js:                 this.size -= 1;
 greet.js:                 if (this.firstChild === node) {
 greet.js:                     this.firstChild = node.nextSibling;
@@ -12114,7 +12163,9 @@ greet.js:                 }
 greet.js:                 node.previousSibling = null;
 greet.js:                 node.nextSibling = null;
 greet.js:                 node.deleted = true;
+greet.js:                 node.parent = null;
 greet.js:                 node.unregisteredCallbacks();
+greet.js:                 this.updateIndicesFrom(index);
 greet.js:                 if (this.isMounted()) {
 greet.js:                     this.container.requestUpdate({
 greet.js:                         type: 'splice',
@@ -12136,6 +12187,9 @@ greet.js:                 this.removeChild(node);
 greet.js:                 this.size += 1;
 greet.js:                 node.parent = this;
 greet.js:                 node.deleted = false;
+greet.js:                 var targetIndex = referenceNode._index;
+greet.js:                 node._index = targetIndex;
+greet.js:                 node.invalidateCache();
 greet.js:                 if (referenceNode === this.firstChild) {
 greet.js:                     this.firstChild = node;
 greet.js:                 }
@@ -12145,11 +12199,12 @@ greet.js:                     node.previousSibling = referenceNode.previousSibli
 greet.js:                 }
 greet.js:                 referenceNode.previousSibling = node;
 greet.js:                 node.nextSibling = referenceNode;
+greet.js:                 this.updateIndicesFrom(targetIndex + 1);
 greet.js:                 if (this.isMounted()) {
 greet.js:                     this.container.requestUpdate({
 greet.js:                         type: 'splice',
 greet.js:                         path: this.path,
-greet.js:                         start: node.index,
+greet.js:                         start: node._index,
 greet.js:                         id: node.id,
 greet.js:                         deleteCount: 0,
 greet.js:                         children: this.children,
@@ -12168,7 +12223,7 @@ greet.js:                 if (this.type === 'text' || !payload) {
 greet.js:                     this.container.requestUpdate({
 greet.js:                         type: 'splice',
 greet.js:                         path: this.parent.path,
-greet.js:                         start: this.index,
+greet.js:                         start: this._index,
 greet.js:                         id: this.id,
 greet.js:                         deleteCount: 1,
 greet.js:                         items: [
@@ -12182,7 +12237,7 @@ greet.js:                 var parentPath = this.parent.path;
 greet.js:                 for(var i = 0; i < payload.length; i = i + 2){
 greet.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 greet.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-greet.js:                         "children[".concat(this.index, "].props")
+greet.js:                         "children[".concat(this._index, "].props")
 greet.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 greet.js:                         'nodes',
 greet.js:                         this.id.toString(),
@@ -12201,22 +12256,17 @@ greet.js:         },
 greet.js:         {
 greet.js:             key: "index",
 greet.js:             get: function get() {
-greet.js:                 var value = 0;
-greet.js:                 var previousSibling = this.previousSibling;
-greet.js:                 while(previousSibling){
-greet.js:                     value += 1;
-greet.js:                     previousSibling = previousSibling.previousSibling;
-greet.js:                 }
-greet.js:                 return value;
+greet.js:                 return this._index;
 greet.js:             }
 greet.js:         },
 greet.js:         {
 greet.js:             key: "children",
 greet.js:             get: function get() {
-greet.js:                 var arr = [];
+greet.js:                 var arr = new Array(this.size);
 greet.js:                 var item = this.firstChild;
+greet.js:                 var i = 0;
 greet.js:                 while(item){
-greet.js:                     arr.push(item);
+greet.js:                     arr[i++] = item;
 greet.js:                     item = item.nextSibling;
 greet.js:                 }
 greet.js:                 return arr;
@@ -12225,30 +12275,39 @@ greet.js:         },
 greet.js:         {
 greet.js:             key: "path",
 greet.js:             get: function get() {
-greet.js:                 var dataPath = [];
-greet.js:                 var parents = [];
-greet.js:                 var parent = this.parent;
-greet.js:                 while(parent){
-greet.js:                     parents.unshift(parent);
-greet.js:                     parent = parent.parent;
+greet.js:                 if (this._path) {
+greet.js:                     return this._path;
 greet.js:                 }
-greet.js:                 for(var i = 0; i < parents.length; i++){
-greet.js:                     var child = parents[i + 1] || this;
-greet.js:                     if (isAliPlatform()) {
-greet.js:                         dataPath.push('children');
-greet.js:                         dataPath.push(child.index.toString());
-greet.js:                     } else {
-greet.js:                         dataPath.push('nodes');
-greet.js:                         dataPath.push(child.id.toString());
-greet.js:                     }
+greet.js:                 if (!this.parent) {
+greet.js:                     this._path = [];
+greet.js:                     return this._path;
 greet.js:                 }
-greet.js:                 return dataPath;
+greet.js:                 var parentPath = this.parent.path;
+greet.js:                 var childPath;
+greet.js:                 if (isAliPlatform()) {
+greet.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+greet.js:                         'children',
+greet.js:                         this._index.toString()
+greet.js:                     ]);
+greet.js:                 } else {
+greet.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+greet.js:                         'nodes',
+greet.js:                         this.id.toString()
+greet.js:                     ]);
+greet.js:                 }
+greet.js:                 this._path = childPath;
+greet.js:                 return childPath;
 greet.js:             }
 greet.js:         },
 greet.js:         {
 greet.js:             key: "isMounted",
 greet.js:             value: function isMounted() {
-greet.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+greet.js:                 if (this._mounted !== null) {
+greet.js:                     return this._mounted;
+greet.js:                 }
+greet.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+greet.js:                 this._mounted = result;
+greet.js:                 return result;
 greet.js:             }
 greet.js:         },
 greet.js:         {
@@ -12262,17 +12321,55 @@ greet.js:         {
 greet.js:             key: "registerCallback",
 greet.js:             value: function registerCallback(propKey, propValue) {
 greet.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+greet.js:                 var existing = this._callbackRegistry.get(propKey);
+greet.js:                 if (existing) {
+greet.js:                     if (existing.fn === propValue) {
+greet.js:                         return existing.id;
+greet.js:                     }
+greet.js:                     this.container.removeCallback(existing.id);
+greet.js:                     this.callbackIds.delete(existing.id);
+greet.js:                 }
 greet.js:                 this.callbackIds.add(id);
+greet.js:                 this._callbackRegistry.set(propKey, {
+greet.js:                     fn: propValue,
+greet.js:                     id: id
+greet.js:                 });
 greet.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 greet.js:                 return id;
+greet.js:             }
+greet.js:         },
+greet.js:         {
+greet.js:             key: "unregisterCallback",
+greet.js:             value: function unregisterCallback(propKey) {
+greet.js:                 var entry = this._callbackRegistry.get(propKey);
+greet.js:                 if (entry) {
+greet.js:                     this.container.removeCallback(entry.id);
+greet.js:                     this.callbackIds.delete(entry.id);
+greet.js:                     this._callbackRegistry.delete(propKey);
+greet.js:                 }
+greet.js:             }
+greet.js:         },
+greet.js:         {
+greet.js:             key: "pruneCallbacks",
+greet.js:             value: function pruneCallbacks(keepKeys) {
+greet.js:                 var toDelete = [];
+greet.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+greet.js:                     if (!keepKeys.has(key)) {
+greet.js:                         toDelete.push(key);
+greet.js:                     }
+greet.js:                 });
+greet.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+greet.js:                     var key = _toDelete[_i];
+greet.js:                     this.unregisterCallback(key);
+greet.js:                 }
 greet.js:             }
 greet.js:         },
 greet.js:         {
 greet.js:             key: "unregisteredCallbacks",
 greet.js:             value: function unregisteredCallbacks() {
 greet.js:                 var _this = this;
-greet.js:                 this.callbackIds.forEach(function(id) {
-greet.js:                     _this.container.removeCallback(id);
+greet.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+greet.js:                     _this.unregisterCallback(key);
 greet.js:                 });
 greet.js:             }
 greet.js:         },
@@ -12281,29 +12378,32 @@ greet.js:             key: "toJSON",
 greet.js:             value: function toJSON() {
 greet.js:                 var stack = [];
 greet.js:                 var rawNode = toRawNode(this);
+greet.js:                 var isAli = isAliPlatform();
 greet.js:                 stack.push({
 greet.js:                     currentNode: rawNode,
-greet.js:                     children: this.children
+greet.js:                     children: collectChildren(this)
 greet.js:                 });
 greet.js:                 while(stack.length > 0){
 greet.js:                     var stackItem = stack.pop();
 greet.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-greet.js:                     for(var i = children.length - 1; i >= 0; i--){
+greet.js:                     for(var i = 0; i < children.length; i++){
 greet.js:                         var currentVNode = children[i];
 greet.js:                         var currentRawNode = toRawNode(currentVNode);
-greet.js:                         if (isAliPlatform()) {
-greet.js:                             currentNode.children.unshift(currentRawNode);
+greet.js:                         if (isAli) {
+greet.js:                             currentNode.children.push(currentRawNode);
 greet.js:                         } else {
-greet.js:                             currentNode.children.unshift(currentRawNode.id);
+greet.js:                             currentNode.children.push(currentRawNode.id);
 greet.js:                             if (!currentNode.nodes) {
 greet.js:                                 currentNode.nodes = {};
 greet.js:                             }
 greet.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 greet.js:                         }
-greet.js:                         stack.push({
-greet.js:                             currentNode: currentRawNode,
-greet.js:                             children: currentVNode.children
-greet.js:                         });
+greet.js:                         if (currentVNode.firstChild) {
+greet.js:                             stack.push({
+greet.js:                                 currentNode: currentRawNode,
+greet.js:                                 children: collectChildren(currentVNode)
+greet.js:                             });
+greet.js:                         }
 greet.js:                     }
 greet.js:                 }
 greet.js:                 return rawNode;
@@ -13155,10 +13255,11 @@ greet.js:     img: 'image'
 greet.js: };
 greet.js: function processProps(newProps, node) {
 greet.js:     var props = {};
-greet.js:     node.unregisteredCallbacks();
+greet.js:     var functionPropKeys = new Set();
 greet.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 greet.js:         var propKey = _Object$keys[_i];
 greet.js:         if (typeof newProps[propKey] === 'function') {
+greet.js:             functionPropKeys.add(propKey);
 greet.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 greet.js:         } else if (propKey === 'style') {
 greet.js:             props[propKey] = newProps[propKey] || '';
@@ -13168,6 +13269,7 @@ greet.js:         } else {
 greet.js:             props[propKey] = newProps[propKey];
 greet.js:         }
 greet.js:     }
+greet.js:     node.pruneCallbacks(functionPropKeys);
 greet.js:     return props;
 greet.js: }
 greet.js: var rootHostContext = {};
@@ -13567,7 +13669,7 @@ greet.js:         callback: callback,
 greet.js:         id: id
 greet.js:     };
 greet.js:     taskQueue.push(task);
-greet.js:     setTimeout(function() {
+greet.js:     queueMicrotask(function() {
 greet.js:         var index = taskQueue.findIndex(function(t) {
 greet.js:             return t.id === id;
 greet.js:         });
@@ -13575,7 +13677,7 @@ greet.js:         if (index !== -1) {
 greet.js:             taskQueue.splice(index, 1);
 greet.js:             callback((0, exports.unstable_now)());
 greet.js:         }
-greet.js:     }, 0);
+greet.js:     });
 greet.js:     return id;
 greet.js: }
 greet.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -19652,6 +19754,15 @@ greet2.js:         children: [],
 greet2.js:         text: node.text
 greet2.js:     };
 greet2.js: }
+greet2.js: function collectChildren(node) {
+greet2.js:     var arr = [];
+greet2.js:     var item = node.firstChild;
+greet2.js:     while(item){
+greet2.js:         arr.push(item);
+greet2.js:         item = item.nextSibling;
+greet2.js:     }
+greet2.js:     return arr;
+greet2.js: }
 greet2.js: function toRawProps(prop, value, type) {
 greet2.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 greet2.js: }
@@ -19671,6 +19782,10 @@ greet2.js:         this.size = 0;
 greet2.js:         this.previousSibling = null;
 greet2.js:         this.nextSibling = null;
 greet2.js:         this.callbackIds = new Set();
+greet2.js:         this._index = 0;
+greet2.js:         this._path = null;
+greet2.js:         this._mounted = null;
+greet2.js:         this._callbackRegistry = new Map();
 greet2.js:         this.id = id;
 greet2.js:         this.container = container;
 greet2.js:         this.type = type;
@@ -19678,12 +19793,48 @@ greet2.js:         this.props = props;
 greet2.js:     }
 greet2.js:     return _createClass(VNode, [
 greet2.js:         {
+greet2.js:             key: "invalidateCache",
+greet2.js:             value: function invalidateCache() {
+greet2.js:                 this._path = null;
+greet2.js:                 this._mounted = null;
+greet2.js:             }
+greet2.js:         },
+greet2.js:         {
+greet2.js:             key: "updateIndicesFrom",
+greet2.js:             value: function updateIndicesFrom(startIndex) {
+greet2.js:                 var cur = this.childAtIndex(startIndex);
+greet2.js:                 while(cur){
+greet2.js:                     cur._index = startIndex;
+greet2.js:                     cur.invalidateCache();
+greet2.js:                     startIndex += 1;
+greet2.js:                     cur = cur.nextSibling;
+greet2.js:                 }
+greet2.js:             }
+greet2.js:         },
+greet2.js:         {
+greet2.js:             key: "childAtIndex",
+greet2.js:             value: function childAtIndex(index) {
+greet2.js:                 if (index < 0 || index >= this.size) return null;
+greet2.js:                 if (index === 0) return this.firstChild;
+greet2.js:                 if (index === this.size - 1) return this.lastChild;
+greet2.js:                 var cur = this.firstChild;
+greet2.js:                 var i = 0;
+greet2.js:                 while(cur && i < index){
+greet2.js:                     cur = cur.nextSibling;
+greet2.js:                     i += 1;
+greet2.js:                 }
+greet2.js:                 return cur;
+greet2.js:             }
+greet2.js:         },
+greet2.js:         {
 greet2.js:             key: "appendChild",
 greet2.js:             value: function appendChild(node) {
 greet2.js:                 this.removeChild(node);
 greet2.js:                 this.size += 1;
 greet2.js:                 node.parent = this;
 greet2.js:                 node.deleted = false;
+greet2.js:                 node._index = this.size - 1;
+greet2.js:                 node.invalidateCache();
 greet2.js:                 if (!this.firstChild) {
 greet2.js:                     this.firstChild = node;
 greet2.js:                 }
@@ -19696,7 +19847,7 @@ greet2.js:                 if (this.isMounted()) {
 greet2.js:                     this.container.requestUpdate({
 greet2.js:                         type: 'splice',
 greet2.js:                         path: this.path,
-greet2.js:                         start: node.index,
+greet2.js:                         start: node._index,
 greet2.js:                         id: node.id,
 greet2.js:                         deleteCount: 0,
 greet2.js:                         children: this.children,
@@ -19715,7 +19866,7 @@ greet2.js:                 var previousSibling = node.previousSibling, nextSibli
 greet2.js:                 if (node.parent !== this) {
 greet2.js:                     return;
 greet2.js:                 }
-greet2.js:                 var index = node.index;
+greet2.js:                 var index = node._index;
 greet2.js:                 this.size -= 1;
 greet2.js:                 if (this.firstChild === node) {
 greet2.js:                     this.firstChild = node.nextSibling;
@@ -19732,7 +19883,9 @@ greet2.js:                 }
 greet2.js:                 node.previousSibling = null;
 greet2.js:                 node.nextSibling = null;
 greet2.js:                 node.deleted = true;
+greet2.js:                 node.parent = null;
 greet2.js:                 node.unregisteredCallbacks();
+greet2.js:                 this.updateIndicesFrom(index);
 greet2.js:                 if (this.isMounted()) {
 greet2.js:                     this.container.requestUpdate({
 greet2.js:                         type: 'splice',
@@ -19754,6 +19907,9 @@ greet2.js:                 this.removeChild(node);
 greet2.js:                 this.size += 1;
 greet2.js:                 node.parent = this;
 greet2.js:                 node.deleted = false;
+greet2.js:                 var targetIndex = referenceNode._index;
+greet2.js:                 node._index = targetIndex;
+greet2.js:                 node.invalidateCache();
 greet2.js:                 if (referenceNode === this.firstChild) {
 greet2.js:                     this.firstChild = node;
 greet2.js:                 }
@@ -19763,11 +19919,12 @@ greet2.js:                     node.previousSibling = referenceNode.previousSibl
 greet2.js:                 }
 greet2.js:                 referenceNode.previousSibling = node;
 greet2.js:                 node.nextSibling = referenceNode;
+greet2.js:                 this.updateIndicesFrom(targetIndex + 1);
 greet2.js:                 if (this.isMounted()) {
 greet2.js:                     this.container.requestUpdate({
 greet2.js:                         type: 'splice',
 greet2.js:                         path: this.path,
-greet2.js:                         start: node.index,
+greet2.js:                         start: node._index,
 greet2.js:                         id: node.id,
 greet2.js:                         deleteCount: 0,
 greet2.js:                         children: this.children,
@@ -19786,7 +19943,7 @@ greet2.js:                 if (this.type === 'text' || !payload) {
 greet2.js:                     this.container.requestUpdate({
 greet2.js:                         type: 'splice',
 greet2.js:                         path: this.parent.path,
-greet2.js:                         start: this.index,
+greet2.js:                         start: this._index,
 greet2.js:                         id: this.id,
 greet2.js:                         deleteCount: 1,
 greet2.js:                         items: [
@@ -19800,7 +19957,7 @@ greet2.js:                 var parentPath = this.parent.path;
 greet2.js:                 for(var i = 0; i < payload.length; i = i + 2){
 greet2.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 greet2.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-greet2.js:                         "children[".concat(this.index, "].props")
+greet2.js:                         "children[".concat(this._index, "].props")
 greet2.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 greet2.js:                         'nodes',
 greet2.js:                         this.id.toString(),
@@ -19819,22 +19976,17 @@ greet2.js:         },
 greet2.js:         {
 greet2.js:             key: "index",
 greet2.js:             get: function get() {
-greet2.js:                 var value = 0;
-greet2.js:                 var previousSibling = this.previousSibling;
-greet2.js:                 while(previousSibling){
-greet2.js:                     value += 1;
-greet2.js:                     previousSibling = previousSibling.previousSibling;
-greet2.js:                 }
-greet2.js:                 return value;
+greet2.js:                 return this._index;
 greet2.js:             }
 greet2.js:         },
 greet2.js:         {
 greet2.js:             key: "children",
 greet2.js:             get: function get() {
-greet2.js:                 var arr = [];
+greet2.js:                 var arr = new Array(this.size);
 greet2.js:                 var item = this.firstChild;
+greet2.js:                 var i = 0;
 greet2.js:                 while(item){
-greet2.js:                     arr.push(item);
+greet2.js:                     arr[i++] = item;
 greet2.js:                     item = item.nextSibling;
 greet2.js:                 }
 greet2.js:                 return arr;
@@ -19843,30 +19995,39 @@ greet2.js:         },
 greet2.js:         {
 greet2.js:             key: "path",
 greet2.js:             get: function get() {
-greet2.js:                 var dataPath = [];
-greet2.js:                 var parents = [];
-greet2.js:                 var parent = this.parent;
-greet2.js:                 while(parent){
-greet2.js:                     parents.unshift(parent);
-greet2.js:                     parent = parent.parent;
+greet2.js:                 if (this._path) {
+greet2.js:                     return this._path;
 greet2.js:                 }
-greet2.js:                 for(var i = 0; i < parents.length; i++){
-greet2.js:                     var child = parents[i + 1] || this;
-greet2.js:                     if (isAliPlatform()) {
-greet2.js:                         dataPath.push('children');
-greet2.js:                         dataPath.push(child.index.toString());
-greet2.js:                     } else {
-greet2.js:                         dataPath.push('nodes');
-greet2.js:                         dataPath.push(child.id.toString());
-greet2.js:                     }
+greet2.js:                 if (!this.parent) {
+greet2.js:                     this._path = [];
+greet2.js:                     return this._path;
 greet2.js:                 }
-greet2.js:                 return dataPath;
+greet2.js:                 var parentPath = this.parent.path;
+greet2.js:                 var childPath;
+greet2.js:                 if (isAliPlatform()) {
+greet2.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+greet2.js:                         'children',
+greet2.js:                         this._index.toString()
+greet2.js:                     ]);
+greet2.js:                 } else {
+greet2.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+greet2.js:                         'nodes',
+greet2.js:                         this.id.toString()
+greet2.js:                     ]);
+greet2.js:                 }
+greet2.js:                 this._path = childPath;
+greet2.js:                 return childPath;
 greet2.js:             }
 greet2.js:         },
 greet2.js:         {
 greet2.js:             key: "isMounted",
 greet2.js:             value: function isMounted() {
-greet2.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+greet2.js:                 if (this._mounted !== null) {
+greet2.js:                     return this._mounted;
+greet2.js:                 }
+greet2.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+greet2.js:                 this._mounted = result;
+greet2.js:                 return result;
 greet2.js:             }
 greet2.js:         },
 greet2.js:         {
@@ -19880,17 +20041,55 @@ greet2.js:         {
 greet2.js:             key: "registerCallback",
 greet2.js:             value: function registerCallback(propKey, propValue) {
 greet2.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+greet2.js:                 var existing = this._callbackRegistry.get(propKey);
+greet2.js:                 if (existing) {
+greet2.js:                     if (existing.fn === propValue) {
+greet2.js:                         return existing.id;
+greet2.js:                     }
+greet2.js:                     this.container.removeCallback(existing.id);
+greet2.js:                     this.callbackIds.delete(existing.id);
+greet2.js:                 }
 greet2.js:                 this.callbackIds.add(id);
+greet2.js:                 this._callbackRegistry.set(propKey, {
+greet2.js:                     fn: propValue,
+greet2.js:                     id: id
+greet2.js:                 });
 greet2.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 greet2.js:                 return id;
+greet2.js:             }
+greet2.js:         },
+greet2.js:         {
+greet2.js:             key: "unregisterCallback",
+greet2.js:             value: function unregisterCallback(propKey) {
+greet2.js:                 var entry = this._callbackRegistry.get(propKey);
+greet2.js:                 if (entry) {
+greet2.js:                     this.container.removeCallback(entry.id);
+greet2.js:                     this.callbackIds.delete(entry.id);
+greet2.js:                     this._callbackRegistry.delete(propKey);
+greet2.js:                 }
+greet2.js:             }
+greet2.js:         },
+greet2.js:         {
+greet2.js:             key: "pruneCallbacks",
+greet2.js:             value: function pruneCallbacks(keepKeys) {
+greet2.js:                 var toDelete = [];
+greet2.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+greet2.js:                     if (!keepKeys.has(key)) {
+greet2.js:                         toDelete.push(key);
+greet2.js:                     }
+greet2.js:                 });
+greet2.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+greet2.js:                     var key = _toDelete[_i];
+greet2.js:                     this.unregisterCallback(key);
+greet2.js:                 }
 greet2.js:             }
 greet2.js:         },
 greet2.js:         {
 greet2.js:             key: "unregisteredCallbacks",
 greet2.js:             value: function unregisteredCallbacks() {
 greet2.js:                 var _this = this;
-greet2.js:                 this.callbackIds.forEach(function(id) {
-greet2.js:                     _this.container.removeCallback(id);
+greet2.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+greet2.js:                     _this.unregisterCallback(key);
 greet2.js:                 });
 greet2.js:             }
 greet2.js:         },
@@ -19899,29 +20098,32 @@ greet2.js:             key: "toJSON",
 greet2.js:             value: function toJSON() {
 greet2.js:                 var stack = [];
 greet2.js:                 var rawNode = toRawNode(this);
+greet2.js:                 var isAli = isAliPlatform();
 greet2.js:                 stack.push({
 greet2.js:                     currentNode: rawNode,
-greet2.js:                     children: this.children
+greet2.js:                     children: collectChildren(this)
 greet2.js:                 });
 greet2.js:                 while(stack.length > 0){
 greet2.js:                     var stackItem = stack.pop();
 greet2.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-greet2.js:                     for(var i = children.length - 1; i >= 0; i--){
+greet2.js:                     for(var i = 0; i < children.length; i++){
 greet2.js:                         var currentVNode = children[i];
 greet2.js:                         var currentRawNode = toRawNode(currentVNode);
-greet2.js:                         if (isAliPlatform()) {
-greet2.js:                             currentNode.children.unshift(currentRawNode);
+greet2.js:                         if (isAli) {
+greet2.js:                             currentNode.children.push(currentRawNode);
 greet2.js:                         } else {
-greet2.js:                             currentNode.children.unshift(currentRawNode.id);
+greet2.js:                             currentNode.children.push(currentRawNode.id);
 greet2.js:                             if (!currentNode.nodes) {
 greet2.js:                                 currentNode.nodes = {};
 greet2.js:                             }
 greet2.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 greet2.js:                         }
-greet2.js:                         stack.push({
-greet2.js:                             currentNode: currentRawNode,
-greet2.js:                             children: currentVNode.children
-greet2.js:                         });
+greet2.js:                         if (currentVNode.firstChild) {
+greet2.js:                             stack.push({
+greet2.js:                                 currentNode: currentRawNode,
+greet2.js:                                 children: collectChildren(currentVNode)
+greet2.js:                             });
+greet2.js:                         }
 greet2.js:                     }
 greet2.js:                 }
 greet2.js:                 return rawNode;
@@ -20773,10 +20975,11 @@ greet2.js:     img: 'image'
 greet2.js: };
 greet2.js: function processProps(newProps, node) {
 greet2.js:     var props = {};
-greet2.js:     node.unregisteredCallbacks();
+greet2.js:     var functionPropKeys = new Set();
 greet2.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 greet2.js:         var propKey = _Object$keys[_i];
 greet2.js:         if (typeof newProps[propKey] === 'function') {
+greet2.js:             functionPropKeys.add(propKey);
 greet2.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 greet2.js:         } else if (propKey === 'style') {
 greet2.js:             props[propKey] = newProps[propKey] || '';
@@ -20786,6 +20989,7 @@ greet2.js:         } else {
 greet2.js:             props[propKey] = newProps[propKey];
 greet2.js:         }
 greet2.js:     }
+greet2.js:     node.pruneCallbacks(functionPropKeys);
 greet2.js:     return props;
 greet2.js: }
 greet2.js: var rootHostContext = {};
@@ -21185,7 +21389,7 @@ greet2.js:         callback: callback,
 greet2.js:         id: id
 greet2.js:     };
 greet2.js:     taskQueue.push(task);
-greet2.js:     setTimeout(function() {
+greet2.js:     queueMicrotask(function() {
 greet2.js:         var index = taskQueue.findIndex(function(t) {
 greet2.js:             return t.id === id;
 greet2.js:         });
@@ -21193,7 +21397,7 @@ greet2.js:         if (index !== -1) {
 greet2.js:             taskQueue.splice(index, 1);
 greet2.js:             callback((0, exports.unstable_now)());
 greet2.js:         }
-greet2.js:     }, 0);
+greet2.js:     });
 greet2.js:     return id;
 greet2.js: }
 greet2.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;

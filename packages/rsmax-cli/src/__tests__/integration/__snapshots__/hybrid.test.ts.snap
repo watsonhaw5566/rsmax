@@ -7570,6 +7570,15 @@ components/react-greet/index.js:         children: [],
 components/react-greet/index.js:         text: node.text
 components/react-greet/index.js:     };
 components/react-greet/index.js: }
+components/react-greet/index.js: function collectChildren(node) {
+components/react-greet/index.js:     var arr = [];
+components/react-greet/index.js:     var item = node.firstChild;
+components/react-greet/index.js:     while(item){
+components/react-greet/index.js:         arr.push(item);
+components/react-greet/index.js:         item = item.nextSibling;
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return arr;
+components/react-greet/index.js: }
 components/react-greet/index.js: function toRawProps(prop, value, type) {
 components/react-greet/index.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 components/react-greet/index.js: }
@@ -7589,6 +7598,10 @@ components/react-greet/index.js:         this.size = 0;
 components/react-greet/index.js:         this.previousSibling = null;
 components/react-greet/index.js:         this.nextSibling = null;
 components/react-greet/index.js:         this.callbackIds = new Set();
+components/react-greet/index.js:         this._index = 0;
+components/react-greet/index.js:         this._path = null;
+components/react-greet/index.js:         this._mounted = null;
+components/react-greet/index.js:         this._callbackRegistry = new Map();
 components/react-greet/index.js:         this.id = id;
 components/react-greet/index.js:         this.container = container;
 components/react-greet/index.js:         this.type = type;
@@ -7596,12 +7609,48 @@ components/react-greet/index.js:         this.props = props;
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return _createClass(VNode, [
 components/react-greet/index.js:         {
+components/react-greet/index.js:             key: "invalidateCache",
+components/react-greet/index.js:             value: function invalidateCache() {
+components/react-greet/index.js:                 this._path = null;
+components/react-greet/index.js:                 this._mounted = null;
+components/react-greet/index.js:             }
+components/react-greet/index.js:         },
+components/react-greet/index.js:         {
+components/react-greet/index.js:             key: "updateIndicesFrom",
+components/react-greet/index.js:             value: function updateIndicesFrom(startIndex) {
+components/react-greet/index.js:                 var cur = this.childAtIndex(startIndex);
+components/react-greet/index.js:                 while(cur){
+components/react-greet/index.js:                     cur._index = startIndex;
+components/react-greet/index.js:                     cur.invalidateCache();
+components/react-greet/index.js:                     startIndex += 1;
+components/react-greet/index.js:                     cur = cur.nextSibling;
+components/react-greet/index.js:                 }
+components/react-greet/index.js:             }
+components/react-greet/index.js:         },
+components/react-greet/index.js:         {
+components/react-greet/index.js:             key: "childAtIndex",
+components/react-greet/index.js:             value: function childAtIndex(index) {
+components/react-greet/index.js:                 if (index < 0 || index >= this.size) return null;
+components/react-greet/index.js:                 if (index === 0) return this.firstChild;
+components/react-greet/index.js:                 if (index === this.size - 1) return this.lastChild;
+components/react-greet/index.js:                 var cur = this.firstChild;
+components/react-greet/index.js:                 var i = 0;
+components/react-greet/index.js:                 while(cur && i < index){
+components/react-greet/index.js:                     cur = cur.nextSibling;
+components/react-greet/index.js:                     i += 1;
+components/react-greet/index.js:                 }
+components/react-greet/index.js:                 return cur;
+components/react-greet/index.js:             }
+components/react-greet/index.js:         },
+components/react-greet/index.js:         {
 components/react-greet/index.js:             key: "appendChild",
 components/react-greet/index.js:             value: function appendChild(node) {
 components/react-greet/index.js:                 this.removeChild(node);
 components/react-greet/index.js:                 this.size += 1;
 components/react-greet/index.js:                 node.parent = this;
 components/react-greet/index.js:                 node.deleted = false;
+components/react-greet/index.js:                 node._index = this.size - 1;
+components/react-greet/index.js:                 node.invalidateCache();
 components/react-greet/index.js:                 if (!this.firstChild) {
 components/react-greet/index.js:                     this.firstChild = node;
 components/react-greet/index.js:                 }
@@ -7614,7 +7663,7 @@ components/react-greet/index.js:                 if (this.isMounted()) {
 components/react-greet/index.js:                     this.container.requestUpdate({
 components/react-greet/index.js:                         type: 'splice',
 components/react-greet/index.js:                         path: this.path,
-components/react-greet/index.js:                         start: node.index,
+components/react-greet/index.js:                         start: node._index,
 components/react-greet/index.js:                         id: node.id,
 components/react-greet/index.js:                         deleteCount: 0,
 components/react-greet/index.js:                         children: this.children,
@@ -7633,7 +7682,7 @@ components/react-greet/index.js:                 var previousSibling = node.prev
 components/react-greet/index.js:                 if (node.parent !== this) {
 components/react-greet/index.js:                     return;
 components/react-greet/index.js:                 }
-components/react-greet/index.js:                 var index = node.index;
+components/react-greet/index.js:                 var index = node._index;
 components/react-greet/index.js:                 this.size -= 1;
 components/react-greet/index.js:                 if (this.firstChild === node) {
 components/react-greet/index.js:                     this.firstChild = node.nextSibling;
@@ -7650,7 +7699,9 @@ components/react-greet/index.js:                 }
 components/react-greet/index.js:                 node.previousSibling = null;
 components/react-greet/index.js:                 node.nextSibling = null;
 components/react-greet/index.js:                 node.deleted = true;
+components/react-greet/index.js:                 node.parent = null;
 components/react-greet/index.js:                 node.unregisteredCallbacks();
+components/react-greet/index.js:                 this.updateIndicesFrom(index);
 components/react-greet/index.js:                 if (this.isMounted()) {
 components/react-greet/index.js:                     this.container.requestUpdate({
 components/react-greet/index.js:                         type: 'splice',
@@ -7672,6 +7723,9 @@ components/react-greet/index.js:                 this.removeChild(node);
 components/react-greet/index.js:                 this.size += 1;
 components/react-greet/index.js:                 node.parent = this;
 components/react-greet/index.js:                 node.deleted = false;
+components/react-greet/index.js:                 var targetIndex = referenceNode._index;
+components/react-greet/index.js:                 node._index = targetIndex;
+components/react-greet/index.js:                 node.invalidateCache();
 components/react-greet/index.js:                 if (referenceNode === this.firstChild) {
 components/react-greet/index.js:                     this.firstChild = node;
 components/react-greet/index.js:                 }
@@ -7681,11 +7735,12 @@ components/react-greet/index.js:                     node.previousSibling = refe
 components/react-greet/index.js:                 }
 components/react-greet/index.js:                 referenceNode.previousSibling = node;
 components/react-greet/index.js:                 node.nextSibling = referenceNode;
+components/react-greet/index.js:                 this.updateIndicesFrom(targetIndex + 1);
 components/react-greet/index.js:                 if (this.isMounted()) {
 components/react-greet/index.js:                     this.container.requestUpdate({
 components/react-greet/index.js:                         type: 'splice',
 components/react-greet/index.js:                         path: this.path,
-components/react-greet/index.js:                         start: node.index,
+components/react-greet/index.js:                         start: node._index,
 components/react-greet/index.js:                         id: node.id,
 components/react-greet/index.js:                         deleteCount: 0,
 components/react-greet/index.js:                         children: this.children,
@@ -7704,7 +7759,7 @@ components/react-greet/index.js:                 if (this.type === 'text' || !pa
 components/react-greet/index.js:                     this.container.requestUpdate({
 components/react-greet/index.js:                         type: 'splice',
 components/react-greet/index.js:                         path: this.parent.path,
-components/react-greet/index.js:                         start: this.index,
+components/react-greet/index.js:                         start: this._index,
 components/react-greet/index.js:                         id: this.id,
 components/react-greet/index.js:                         deleteCount: 1,
 components/react-greet/index.js:                         items: [
@@ -7718,7 +7773,7 @@ components/react-greet/index.js:                 var parentPath = this.parent.pa
 components/react-greet/index.js:                 for(var i = 0; i < payload.length; i = i + 2){
 components/react-greet/index.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 components/react-greet/index.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-components/react-greet/index.js:                         "children[".concat(this.index, "].props")
+components/react-greet/index.js:                         "children[".concat(this._index, "].props")
 components/react-greet/index.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 components/react-greet/index.js:                         'nodes',
 components/react-greet/index.js:                         this.id.toString(),
@@ -7737,22 +7792,17 @@ components/react-greet/index.js:         },
 components/react-greet/index.js:         {
 components/react-greet/index.js:             key: "index",
 components/react-greet/index.js:             get: function get() {
-components/react-greet/index.js:                 var value = 0;
-components/react-greet/index.js:                 var previousSibling = this.previousSibling;
-components/react-greet/index.js:                 while(previousSibling){
-components/react-greet/index.js:                     value += 1;
-components/react-greet/index.js:                     previousSibling = previousSibling.previousSibling;
-components/react-greet/index.js:                 }
-components/react-greet/index.js:                 return value;
+components/react-greet/index.js:                 return this._index;
 components/react-greet/index.js:             }
 components/react-greet/index.js:         },
 components/react-greet/index.js:         {
 components/react-greet/index.js:             key: "children",
 components/react-greet/index.js:             get: function get() {
-components/react-greet/index.js:                 var arr = [];
+components/react-greet/index.js:                 var arr = new Array(this.size);
 components/react-greet/index.js:                 var item = this.firstChild;
+components/react-greet/index.js:                 var i = 0;
 components/react-greet/index.js:                 while(item){
-components/react-greet/index.js:                     arr.push(item);
+components/react-greet/index.js:                     arr[i++] = item;
 components/react-greet/index.js:                     item = item.nextSibling;
 components/react-greet/index.js:                 }
 components/react-greet/index.js:                 return arr;
@@ -7761,30 +7811,39 @@ components/react-greet/index.js:         },
 components/react-greet/index.js:         {
 components/react-greet/index.js:             key: "path",
 components/react-greet/index.js:             get: function get() {
-components/react-greet/index.js:                 var dataPath = [];
-components/react-greet/index.js:                 var parents = [];
-components/react-greet/index.js:                 var parent = this.parent;
-components/react-greet/index.js:                 while(parent){
-components/react-greet/index.js:                     parents.unshift(parent);
-components/react-greet/index.js:                     parent = parent.parent;
+components/react-greet/index.js:                 if (this._path) {
+components/react-greet/index.js:                     return this._path;
 components/react-greet/index.js:                 }
-components/react-greet/index.js:                 for(var i = 0; i < parents.length; i++){
-components/react-greet/index.js:                     var child = parents[i + 1] || this;
-components/react-greet/index.js:                     if (isAliPlatform()) {
-components/react-greet/index.js:                         dataPath.push('children');
-components/react-greet/index.js:                         dataPath.push(child.index.toString());
-components/react-greet/index.js:                     } else {
-components/react-greet/index.js:                         dataPath.push('nodes');
-components/react-greet/index.js:                         dataPath.push(child.id.toString());
-components/react-greet/index.js:                     }
+components/react-greet/index.js:                 if (!this.parent) {
+components/react-greet/index.js:                     this._path = [];
+components/react-greet/index.js:                     return this._path;
 components/react-greet/index.js:                 }
-components/react-greet/index.js:                 return dataPath;
+components/react-greet/index.js:                 var parentPath = this.parent.path;
+components/react-greet/index.js:                 var childPath;
+components/react-greet/index.js:                 if (isAliPlatform()) {
+components/react-greet/index.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+components/react-greet/index.js:                         'children',
+components/react-greet/index.js:                         this._index.toString()
+components/react-greet/index.js:                     ]);
+components/react-greet/index.js:                 } else {
+components/react-greet/index.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+components/react-greet/index.js:                         'nodes',
+components/react-greet/index.js:                         this.id.toString()
+components/react-greet/index.js:                     ]);
+components/react-greet/index.js:                 }
+components/react-greet/index.js:                 this._path = childPath;
+components/react-greet/index.js:                 return childPath;
 components/react-greet/index.js:             }
 components/react-greet/index.js:         },
 components/react-greet/index.js:         {
 components/react-greet/index.js:             key: "isMounted",
 components/react-greet/index.js:             value: function isMounted() {
-components/react-greet/index.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+components/react-greet/index.js:                 if (this._mounted !== null) {
+components/react-greet/index.js:                     return this._mounted;
+components/react-greet/index.js:                 }
+components/react-greet/index.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+components/react-greet/index.js:                 this._mounted = result;
+components/react-greet/index.js:                 return result;
 components/react-greet/index.js:             }
 components/react-greet/index.js:         },
 components/react-greet/index.js:         {
@@ -7798,17 +7857,55 @@ components/react-greet/index.js:         {
 components/react-greet/index.js:             key: "registerCallback",
 components/react-greet/index.js:             value: function registerCallback(propKey, propValue) {
 components/react-greet/index.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+components/react-greet/index.js:                 var existing = this._callbackRegistry.get(propKey);
+components/react-greet/index.js:                 if (existing) {
+components/react-greet/index.js:                     if (existing.fn === propValue) {
+components/react-greet/index.js:                         return existing.id;
+components/react-greet/index.js:                     }
+components/react-greet/index.js:                     this.container.removeCallback(existing.id);
+components/react-greet/index.js:                     this.callbackIds.delete(existing.id);
+components/react-greet/index.js:                 }
 components/react-greet/index.js:                 this.callbackIds.add(id);
+components/react-greet/index.js:                 this._callbackRegistry.set(propKey, {
+components/react-greet/index.js:                     fn: propValue,
+components/react-greet/index.js:                     id: id
+components/react-greet/index.js:                 });
 components/react-greet/index.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 components/react-greet/index.js:                 return id;
+components/react-greet/index.js:             }
+components/react-greet/index.js:         },
+components/react-greet/index.js:         {
+components/react-greet/index.js:             key: "unregisterCallback",
+components/react-greet/index.js:             value: function unregisterCallback(propKey) {
+components/react-greet/index.js:                 var entry = this._callbackRegistry.get(propKey);
+components/react-greet/index.js:                 if (entry) {
+components/react-greet/index.js:                     this.container.removeCallback(entry.id);
+components/react-greet/index.js:                     this.callbackIds.delete(entry.id);
+components/react-greet/index.js:                     this._callbackRegistry.delete(propKey);
+components/react-greet/index.js:                 }
+components/react-greet/index.js:             }
+components/react-greet/index.js:         },
+components/react-greet/index.js:         {
+components/react-greet/index.js:             key: "pruneCallbacks",
+components/react-greet/index.js:             value: function pruneCallbacks(keepKeys) {
+components/react-greet/index.js:                 var toDelete = [];
+components/react-greet/index.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+components/react-greet/index.js:                     if (!keepKeys.has(key)) {
+components/react-greet/index.js:                         toDelete.push(key);
+components/react-greet/index.js:                     }
+components/react-greet/index.js:                 });
+components/react-greet/index.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+components/react-greet/index.js:                     var key = _toDelete[_i];
+components/react-greet/index.js:                     this.unregisterCallback(key);
+components/react-greet/index.js:                 }
 components/react-greet/index.js:             }
 components/react-greet/index.js:         },
 components/react-greet/index.js:         {
 components/react-greet/index.js:             key: "unregisteredCallbacks",
 components/react-greet/index.js:             value: function unregisteredCallbacks() {
 components/react-greet/index.js:                 var _this = this;
-components/react-greet/index.js:                 this.callbackIds.forEach(function(id) {
-components/react-greet/index.js:                     _this.container.removeCallback(id);
+components/react-greet/index.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+components/react-greet/index.js:                     _this.unregisterCallback(key);
 components/react-greet/index.js:                 });
 components/react-greet/index.js:             }
 components/react-greet/index.js:         },
@@ -7817,29 +7914,32 @@ components/react-greet/index.js:             key: "toJSON",
 components/react-greet/index.js:             value: function toJSON() {
 components/react-greet/index.js:                 var stack = [];
 components/react-greet/index.js:                 var rawNode = toRawNode(this);
+components/react-greet/index.js:                 var isAli = isAliPlatform();
 components/react-greet/index.js:                 stack.push({
 components/react-greet/index.js:                     currentNode: rawNode,
-components/react-greet/index.js:                     children: this.children
+components/react-greet/index.js:                     children: collectChildren(this)
 components/react-greet/index.js:                 });
 components/react-greet/index.js:                 while(stack.length > 0){
 components/react-greet/index.js:                     var stackItem = stack.pop();
 components/react-greet/index.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-components/react-greet/index.js:                     for(var i = children.length - 1; i >= 0; i--){
+components/react-greet/index.js:                     for(var i = 0; i < children.length; i++){
 components/react-greet/index.js:                         var currentVNode = children[i];
 components/react-greet/index.js:                         var currentRawNode = toRawNode(currentVNode);
-components/react-greet/index.js:                         if (isAliPlatform()) {
-components/react-greet/index.js:                             currentNode.children.unshift(currentRawNode);
+components/react-greet/index.js:                         if (isAli) {
+components/react-greet/index.js:                             currentNode.children.push(currentRawNode);
 components/react-greet/index.js:                         } else {
-components/react-greet/index.js:                             currentNode.children.unshift(currentRawNode.id);
+components/react-greet/index.js:                             currentNode.children.push(currentRawNode.id);
 components/react-greet/index.js:                             if (!currentNode.nodes) {
 components/react-greet/index.js:                                 currentNode.nodes = {};
 components/react-greet/index.js:                             }
 components/react-greet/index.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 components/react-greet/index.js:                         }
-components/react-greet/index.js:                         stack.push({
-components/react-greet/index.js:                             currentNode: currentRawNode,
-components/react-greet/index.js:                             children: currentVNode.children
-components/react-greet/index.js:                         });
+components/react-greet/index.js:                         if (currentVNode.firstChild) {
+components/react-greet/index.js:                             stack.push({
+components/react-greet/index.js:                                 currentNode: currentRawNode,
+components/react-greet/index.js:                                 children: collectChildren(currentVNode)
+components/react-greet/index.js:                             });
+components/react-greet/index.js:                         }
 components/react-greet/index.js:                     }
 components/react-greet/index.js:                 }
 components/react-greet/index.js:                 return rawNode;
@@ -8691,10 +8791,11 @@ components/react-greet/index.js:     img: 'image'
 components/react-greet/index.js: };
 components/react-greet/index.js: function processProps(newProps, node) {
 components/react-greet/index.js:     var props = {};
-components/react-greet/index.js:     node.unregisteredCallbacks();
+components/react-greet/index.js:     var functionPropKeys = new Set();
 components/react-greet/index.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 components/react-greet/index.js:         var propKey = _Object$keys[_i];
 components/react-greet/index.js:         if (typeof newProps[propKey] === 'function') {
+components/react-greet/index.js:             functionPropKeys.add(propKey);
 components/react-greet/index.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 components/react-greet/index.js:         } else if (propKey === 'style') {
 components/react-greet/index.js:             props[propKey] = newProps[propKey] || '';
@@ -8704,6 +8805,7 @@ components/react-greet/index.js:         } else {
 components/react-greet/index.js:             props[propKey] = newProps[propKey];
 components/react-greet/index.js:         }
 components/react-greet/index.js:     }
+components/react-greet/index.js:     node.pruneCallbacks(functionPropKeys);
 components/react-greet/index.js:     return props;
 components/react-greet/index.js: }
 components/react-greet/index.js: var rootHostContext = {};
@@ -9103,7 +9205,7 @@ components/react-greet/index.js:         callback: callback,
 components/react-greet/index.js:         id: id
 components/react-greet/index.js:     };
 components/react-greet/index.js:     taskQueue.push(task);
-components/react-greet/index.js:     setTimeout(function() {
+components/react-greet/index.js:     queueMicrotask(function() {
 components/react-greet/index.js:         var index = taskQueue.findIndex(function(t) {
 components/react-greet/index.js:             return t.id === id;
 components/react-greet/index.js:         });
@@ -9111,7 +9213,7 @@ components/react-greet/index.js:         if (index !== -1) {
 components/react-greet/index.js:             taskQueue.splice(index, 1);
 components/react-greet/index.js:             callback((0, exports.unstable_now)());
 components/react-greet/index.js:         }
-components/react-greet/index.js:     }, 0);
+components/react-greet/index.js:     });
 components/react-greet/index.js:     return id;
 components/react-greet/index.js: }
 components/react-greet/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
@@ -15326,6 +15428,15 @@ pages/react/index.js:         children: [],
 pages/react/index.js:         text: node.text
 pages/react/index.js:     };
 pages/react/index.js: }
+pages/react/index.js: function collectChildren(node) {
+pages/react/index.js:     var arr = [];
+pages/react/index.js:     var item = node.firstChild;
+pages/react/index.js:     while(item){
+pages/react/index.js:         arr.push(item);
+pages/react/index.js:         item = item.nextSibling;
+pages/react/index.js:     }
+pages/react/index.js:     return arr;
+pages/react/index.js: }
 pages/react/index.js: function toRawProps(prop, value, type) {
 pages/react/index.js:     return (0, propsAlias_1.propAlias)(prop, value, type);
 pages/react/index.js: }
@@ -15345,6 +15456,10 @@ pages/react/index.js:         this.size = 0;
 pages/react/index.js:         this.previousSibling = null;
 pages/react/index.js:         this.nextSibling = null;
 pages/react/index.js:         this.callbackIds = new Set();
+pages/react/index.js:         this._index = 0;
+pages/react/index.js:         this._path = null;
+pages/react/index.js:         this._mounted = null;
+pages/react/index.js:         this._callbackRegistry = new Map();
 pages/react/index.js:         this.id = id;
 pages/react/index.js:         this.container = container;
 pages/react/index.js:         this.type = type;
@@ -15352,12 +15467,48 @@ pages/react/index.js:         this.props = props;
 pages/react/index.js:     }
 pages/react/index.js:     return _createClass(VNode, [
 pages/react/index.js:         {
+pages/react/index.js:             key: "invalidateCache",
+pages/react/index.js:             value: function invalidateCache() {
+pages/react/index.js:                 this._path = null;
+pages/react/index.js:                 this._mounted = null;
+pages/react/index.js:             }
+pages/react/index.js:         },
+pages/react/index.js:         {
+pages/react/index.js:             key: "updateIndicesFrom",
+pages/react/index.js:             value: function updateIndicesFrom(startIndex) {
+pages/react/index.js:                 var cur = this.childAtIndex(startIndex);
+pages/react/index.js:                 while(cur){
+pages/react/index.js:                     cur._index = startIndex;
+pages/react/index.js:                     cur.invalidateCache();
+pages/react/index.js:                     startIndex += 1;
+pages/react/index.js:                     cur = cur.nextSibling;
+pages/react/index.js:                 }
+pages/react/index.js:             }
+pages/react/index.js:         },
+pages/react/index.js:         {
+pages/react/index.js:             key: "childAtIndex",
+pages/react/index.js:             value: function childAtIndex(index) {
+pages/react/index.js:                 if (index < 0 || index >= this.size) return null;
+pages/react/index.js:                 if (index === 0) return this.firstChild;
+pages/react/index.js:                 if (index === this.size - 1) return this.lastChild;
+pages/react/index.js:                 var cur = this.firstChild;
+pages/react/index.js:                 var i = 0;
+pages/react/index.js:                 while(cur && i < index){
+pages/react/index.js:                     cur = cur.nextSibling;
+pages/react/index.js:                     i += 1;
+pages/react/index.js:                 }
+pages/react/index.js:                 return cur;
+pages/react/index.js:             }
+pages/react/index.js:         },
+pages/react/index.js:         {
 pages/react/index.js:             key: "appendChild",
 pages/react/index.js:             value: function appendChild(node) {
 pages/react/index.js:                 this.removeChild(node);
 pages/react/index.js:                 this.size += 1;
 pages/react/index.js:                 node.parent = this;
 pages/react/index.js:                 node.deleted = false;
+pages/react/index.js:                 node._index = this.size - 1;
+pages/react/index.js:                 node.invalidateCache();
 pages/react/index.js:                 if (!this.firstChild) {
 pages/react/index.js:                     this.firstChild = node;
 pages/react/index.js:                 }
@@ -15370,7 +15521,7 @@ pages/react/index.js:                 if (this.isMounted()) {
 pages/react/index.js:                     this.container.requestUpdate({
 pages/react/index.js:                         type: 'splice',
 pages/react/index.js:                         path: this.path,
-pages/react/index.js:                         start: node.index,
+pages/react/index.js:                         start: node._index,
 pages/react/index.js:                         id: node.id,
 pages/react/index.js:                         deleteCount: 0,
 pages/react/index.js:                         children: this.children,
@@ -15389,7 +15540,7 @@ pages/react/index.js:                 var previousSibling = node.previousSibling
 pages/react/index.js:                 if (node.parent !== this) {
 pages/react/index.js:                     return;
 pages/react/index.js:                 }
-pages/react/index.js:                 var index = node.index;
+pages/react/index.js:                 var index = node._index;
 pages/react/index.js:                 this.size -= 1;
 pages/react/index.js:                 if (this.firstChild === node) {
 pages/react/index.js:                     this.firstChild = node.nextSibling;
@@ -15406,7 +15557,9 @@ pages/react/index.js:                 }
 pages/react/index.js:                 node.previousSibling = null;
 pages/react/index.js:                 node.nextSibling = null;
 pages/react/index.js:                 node.deleted = true;
+pages/react/index.js:                 node.parent = null;
 pages/react/index.js:                 node.unregisteredCallbacks();
+pages/react/index.js:                 this.updateIndicesFrom(index);
 pages/react/index.js:                 if (this.isMounted()) {
 pages/react/index.js:                     this.container.requestUpdate({
 pages/react/index.js:                         type: 'splice',
@@ -15428,6 +15581,9 @@ pages/react/index.js:                 this.removeChild(node);
 pages/react/index.js:                 this.size += 1;
 pages/react/index.js:                 node.parent = this;
 pages/react/index.js:                 node.deleted = false;
+pages/react/index.js:                 var targetIndex = referenceNode._index;
+pages/react/index.js:                 node._index = targetIndex;
+pages/react/index.js:                 node.invalidateCache();
 pages/react/index.js:                 if (referenceNode === this.firstChild) {
 pages/react/index.js:                     this.firstChild = node;
 pages/react/index.js:                 }
@@ -15437,11 +15593,12 @@ pages/react/index.js:                     node.previousSibling = referenceNode.p
 pages/react/index.js:                 }
 pages/react/index.js:                 referenceNode.previousSibling = node;
 pages/react/index.js:                 node.nextSibling = referenceNode;
+pages/react/index.js:                 this.updateIndicesFrom(targetIndex + 1);
 pages/react/index.js:                 if (this.isMounted()) {
 pages/react/index.js:                     this.container.requestUpdate({
 pages/react/index.js:                         type: 'splice',
 pages/react/index.js:                         path: this.path,
-pages/react/index.js:                         start: node.index,
+pages/react/index.js:                         start: node._index,
 pages/react/index.js:                         id: node.id,
 pages/react/index.js:                         deleteCount: 0,
 pages/react/index.js:                         children: this.children,
@@ -15460,7 +15617,7 @@ pages/react/index.js:                 if (this.type === 'text' || !payload) {
 pages/react/index.js:                     this.container.requestUpdate({
 pages/react/index.js:                         type: 'splice',
 pages/react/index.js:                         path: this.parent.path,
-pages/react/index.js:                         start: this.index,
+pages/react/index.js:                         start: this._index,
 pages/react/index.js:                         id: this.id,
 pages/react/index.js:                         deleteCount: 1,
 pages/react/index.js:                         items: [
@@ -15474,7 +15631,7 @@ pages/react/index.js:                 var parentPath = this.parent.path;
 pages/react/index.js:                 for(var i = 0; i < payload.length; i = i + 2){
 pages/react/index.js:                     var _toRawProps = toRawProps(payload[i], payload[i + 1], this.type), _toRawProps2 = _slicedToArray(_toRawProps, 2), propName = _toRawProps2[<ID>], propValue = _toRawProps2[<ID>];
 pages/react/index.js:                     var path = isAliPlatform() ? [].concat(_toConsumableArray(parentPath), [
-pages/react/index.js:                         "children[".concat(this.index, "].props")
+pages/react/index.js:                         "children[".concat(this._index, "].props")
 pages/react/index.js:                     ]) : [].concat(_toConsumableArray(parentPath), [
 pages/react/index.js:                         'nodes',
 pages/react/index.js:                         this.id.toString(),
@@ -15493,22 +15650,17 @@ pages/react/index.js:         },
 pages/react/index.js:         {
 pages/react/index.js:             key: "index",
 pages/react/index.js:             get: function get() {
-pages/react/index.js:                 var value = 0;
-pages/react/index.js:                 var previousSibling = this.previousSibling;
-pages/react/index.js:                 while(previousSibling){
-pages/react/index.js:                     value += 1;
-pages/react/index.js:                     previousSibling = previousSibling.previousSibling;
-pages/react/index.js:                 }
-pages/react/index.js:                 return value;
+pages/react/index.js:                 return this._index;
 pages/react/index.js:             }
 pages/react/index.js:         },
 pages/react/index.js:         {
 pages/react/index.js:             key: "children",
 pages/react/index.js:             get: function get() {
-pages/react/index.js:                 var arr = [];
+pages/react/index.js:                 var arr = new Array(this.size);
 pages/react/index.js:                 var item = this.firstChild;
+pages/react/index.js:                 var i = 0;
 pages/react/index.js:                 while(item){
-pages/react/index.js:                     arr.push(item);
+pages/react/index.js:                     arr[i++] = item;
 pages/react/index.js:                     item = item.nextSibling;
 pages/react/index.js:                 }
 pages/react/index.js:                 return arr;
@@ -15517,30 +15669,39 @@ pages/react/index.js:         },
 pages/react/index.js:         {
 pages/react/index.js:             key: "path",
 pages/react/index.js:             get: function get() {
-pages/react/index.js:                 var dataPath = [];
-pages/react/index.js:                 var parents = [];
-pages/react/index.js:                 var parent = this.parent;
-pages/react/index.js:                 while(parent){
-pages/react/index.js:                     parents.unshift(parent);
-pages/react/index.js:                     parent = parent.parent;
+pages/react/index.js:                 if (this._path) {
+pages/react/index.js:                     return this._path;
 pages/react/index.js:                 }
-pages/react/index.js:                 for(var i = 0; i < parents.length; i++){
-pages/react/index.js:                     var child = parents[i + 1] || this;
-pages/react/index.js:                     if (isAliPlatform()) {
-pages/react/index.js:                         dataPath.push('children');
-pages/react/index.js:                         dataPath.push(child.index.toString());
-pages/react/index.js:                     } else {
-pages/react/index.js:                         dataPath.push('nodes');
-pages/react/index.js:                         dataPath.push(child.id.toString());
-pages/react/index.js:                     }
+pages/react/index.js:                 if (!this.parent) {
+pages/react/index.js:                     this._path = [];
+pages/react/index.js:                     return this._path;
 pages/react/index.js:                 }
-pages/react/index.js:                 return dataPath;
+pages/react/index.js:                 var parentPath = this.parent.path;
+pages/react/index.js:                 var childPath;
+pages/react/index.js:                 if (isAliPlatform()) {
+pages/react/index.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+pages/react/index.js:                         'children',
+pages/react/index.js:                         this._index.toString()
+pages/react/index.js:                     ]);
+pages/react/index.js:                 } else {
+pages/react/index.js:                     childPath = [].concat(_toConsumableArray(parentPath), [
+pages/react/index.js:                         'nodes',
+pages/react/index.js:                         this.id.toString()
+pages/react/index.js:                     ]);
+pages/react/index.js:                 }
+pages/react/index.js:                 this._path = childPath;
+pages/react/index.js:                 return childPath;
 pages/react/index.js:             }
 pages/react/index.js:         },
 pages/react/index.js:         {
 pages/react/index.js:             key: "isMounted",
 pages/react/index.js:             value: function isMounted() {
-pages/react/index.js:                 return this.parent ? this.parent.isMounted() : this.mounted;
+pages/react/index.js:                 if (this._mounted !== null) {
+pages/react/index.js:                     return this._mounted;
+pages/react/index.js:                 }
+pages/react/index.js:                 var result = this.parent ? this.parent.isMounted() : this.mounted;
+pages/react/index.js:                 this._mounted = result;
+pages/react/index.js:                 return result;
 pages/react/index.js:             }
 pages/react/index.js:         },
 pages/react/index.js:         {
@@ -15554,17 +15715,55 @@ pages/react/index.js:         {
 pages/react/index.js:             key: "registerCallback",
 pages/react/index.js:             value: function registerCallback(propKey, propValue) {
 pages/react/index.js:                 var id = "".concat(constants_1.REMAX_METHOD, "_").concat(this.id, "_").concat(propKey);
+pages/react/index.js:                 var existing = this._callbackRegistry.get(propKey);
+pages/react/index.js:                 if (existing) {
+pages/react/index.js:                     if (existing.fn === propValue) {
+pages/react/index.js:                         return existing.id;
+pages/react/index.js:                     }
+pages/react/index.js:                     this.container.removeCallback(existing.id);
+pages/react/index.js:                     this.callbackIds.delete(existing.id);
+pages/react/index.js:                 }
 pages/react/index.js:                 this.callbackIds.add(id);
+pages/react/index.js:                 this._callbackRegistry.set(propKey, {
+pages/react/index.js:                     fn: propValue,
+pages/react/index.js:                     id: id
+pages/react/index.js:                 });
 pages/react/index.js:                 this.container.createCallback(id, (0, createCallbackProxy_1.createCallbackProxy)(propKey, this, propValue));
 pages/react/index.js:                 return id;
+pages/react/index.js:             }
+pages/react/index.js:         },
+pages/react/index.js:         {
+pages/react/index.js:             key: "unregisterCallback",
+pages/react/index.js:             value: function unregisterCallback(propKey) {
+pages/react/index.js:                 var entry = this._callbackRegistry.get(propKey);
+pages/react/index.js:                 if (entry) {
+pages/react/index.js:                     this.container.removeCallback(entry.id);
+pages/react/index.js:                     this.callbackIds.delete(entry.id);
+pages/react/index.js:                     this._callbackRegistry.delete(propKey);
+pages/react/index.js:                 }
+pages/react/index.js:             }
+pages/react/index.js:         },
+pages/react/index.js:         {
+pages/react/index.js:             key: "pruneCallbacks",
+pages/react/index.js:             value: function pruneCallbacks(keepKeys) {
+pages/react/index.js:                 var toDelete = [];
+pages/react/index.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+pages/react/index.js:                     if (!keepKeys.has(key)) {
+pages/react/index.js:                         toDelete.push(key);
+pages/react/index.js:                     }
+pages/react/index.js:                 });
+pages/react/index.js:                 for(var _i = 0, _toDelete = toDelete; _i < _toDelete.length; _i++){
+pages/react/index.js:                     var key = _toDelete[_i];
+pages/react/index.js:                     this.unregisterCallback(key);
+pages/react/index.js:                 }
 pages/react/index.js:             }
 pages/react/index.js:         },
 pages/react/index.js:         {
 pages/react/index.js:             key: "unregisteredCallbacks",
 pages/react/index.js:             value: function unregisteredCallbacks() {
 pages/react/index.js:                 var _this = this;
-pages/react/index.js:                 this.callbackIds.forEach(function(id) {
-pages/react/index.js:                     _this.container.removeCallback(id);
+pages/react/index.js:                 this._callbackRegistry.forEach(function(_entry, key) {
+pages/react/index.js:                     _this.unregisterCallback(key);
 pages/react/index.js:                 });
 pages/react/index.js:             }
 pages/react/index.js:         },
@@ -15573,29 +15772,32 @@ pages/react/index.js:             key: "toJSON",
 pages/react/index.js:             value: function toJSON() {
 pages/react/index.js:                 var stack = [];
 pages/react/index.js:                 var rawNode = toRawNode(this);
+pages/react/index.js:                 var isAli = isAliPlatform();
 pages/react/index.js:                 stack.push({
 pages/react/index.js:                     currentNode: rawNode,
-pages/react/index.js:                     children: this.children
+pages/react/index.js:                     children: collectChildren(this)
 pages/react/index.js:                 });
 pages/react/index.js:                 while(stack.length > 0){
 pages/react/index.js:                     var stackItem = stack.pop();
 pages/react/index.js:                     var _stackItem$children = stackItem.children, children = _stackItem$children === void 0 ? [] : _stackItem$children, currentNode = stackItem.currentNode;
-pages/react/index.js:                     for(var i = children.length - 1; i >= 0; i--){
+pages/react/index.js:                     for(var i = 0; i < children.length; i++){
 pages/react/index.js:                         var currentVNode = children[i];
 pages/react/index.js:                         var currentRawNode = toRawNode(currentVNode);
-pages/react/index.js:                         if (isAliPlatform()) {
-pages/react/index.js:                             currentNode.children.unshift(currentRawNode);
+pages/react/index.js:                         if (isAli) {
+pages/react/index.js:                             currentNode.children.push(currentRawNode);
 pages/react/index.js:                         } else {
-pages/react/index.js:                             currentNode.children.unshift(currentRawNode.id);
+pages/react/index.js:                             currentNode.children.push(currentRawNode.id);
 pages/react/index.js:                             if (!currentNode.nodes) {
 pages/react/index.js:                                 currentNode.nodes = {};
 pages/react/index.js:                             }
 pages/react/index.js:                             currentNode.nodes[currentRawNode.id] = currentRawNode;
 pages/react/index.js:                         }
-pages/react/index.js:                         stack.push({
-pages/react/index.js:                             currentNode: currentRawNode,
-pages/react/index.js:                             children: currentVNode.children
-pages/react/index.js:                         });
+pages/react/index.js:                         if (currentVNode.firstChild) {
+pages/react/index.js:                             stack.push({
+pages/react/index.js:                                 currentNode: currentRawNode,
+pages/react/index.js:                                 children: collectChildren(currentVNode)
+pages/react/index.js:                             });
+pages/react/index.js:                         }
 pages/react/index.js:                     }
 pages/react/index.js:                 }
 pages/react/index.js:                 return rawNode;
@@ -16447,10 +16649,11 @@ pages/react/index.js:     img: 'image'
 pages/react/index.js: };
 pages/react/index.js: function processProps(newProps, node) {
 pages/react/index.js:     var props = {};
-pages/react/index.js:     node.unregisteredCallbacks();
+pages/react/index.js:     var functionPropKeys = new Set();
 pages/react/index.js:     for(var _i = 0, _Object$keys = Object.keys(newProps); _i < _Object$keys.length; _i++){
 pages/react/index.js:         var propKey = _Object$keys[_i];
 pages/react/index.js:         if (typeof newProps[propKey] === 'function') {
+pages/react/index.js:             functionPropKeys.add(propKey);
 pages/react/index.js:             props[propKey] = node.registerCallback(propKey, newProps[propKey]);
 pages/react/index.js:         } else if (propKey === 'style') {
 pages/react/index.js:             props[propKey] = newProps[propKey] || '';
@@ -16460,6 +16663,7 @@ pages/react/index.js:         } else {
 pages/react/index.js:             props[propKey] = newProps[propKey];
 pages/react/index.js:         }
 pages/react/index.js:     }
+pages/react/index.js:     node.pruneCallbacks(functionPropKeys);
 pages/react/index.js:     return props;
 pages/react/index.js: }
 pages/react/index.js: var rootHostContext = {};
@@ -16859,7 +17063,7 @@ pages/react/index.js:         callback: callback,
 pages/react/index.js:         id: id
 pages/react/index.js:     };
 pages/react/index.js:     taskQueue.push(task);
-pages/react/index.js:     setTimeout(function() {
+pages/react/index.js:     queueMicrotask(function() {
 pages/react/index.js:         var index = taskQueue.findIndex(function(t) {
 pages/react/index.js:             return t.id === id;
 pages/react/index.js:         });
@@ -16867,7 +17071,7 @@ pages/react/index.js:         if (index !== -1) {
 pages/react/index.js:             taskQueue.splice(index, 1);
 pages/react/index.js:             callback((0, exports.unstable_now)());
 pages/react/index.js:         }
-pages/react/index.js:     }, 0);
+pages/react/index.js:     });
 pages/react/index.js:     return id;
 pages/react/index.js: }
 pages/react/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
