@@ -19,3 +19,4 @@ export type { BaseProps, Platform, PlatformConfig } from './types/component';
 
 export * from './types/component';
 export * from './types/event';
+export * from './types';

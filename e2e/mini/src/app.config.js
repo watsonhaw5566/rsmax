@@ -1,3 +1,5 @@
+/** @type {import('rsmax/one').AppConfig} */
+
 module.exports = {
   pages: ['pages/index/index'],
   window: {
