@@ -25,7 +25,7 @@ export function testBuildApp(
   );
 }
 
-export function testBuildMiniPlugin(app: string, target: Platform = 'ali', outputPath?: string, options?: any) {
+export function testBuildMiniPlugin(app: string, target: Platform = 'ali', options?: any) {
   it(
     `build ${app} on target ${target}`,
     async () => {

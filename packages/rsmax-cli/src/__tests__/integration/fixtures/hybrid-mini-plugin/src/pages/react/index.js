@@ -1,4 +1,4 @@
-import { View } from 'rsmax';
+import { View } from 'rsmax/one';
 import MiniGreet from '../../components/mini-greet';
 import ReactGreet from '../../components/react-greet';
 

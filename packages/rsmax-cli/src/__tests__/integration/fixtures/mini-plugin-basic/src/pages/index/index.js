@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'rsmax';
+import { View, Text, Image } from 'rsmax/one';
 import Greet from '../../components/greet';
 import catImage from '@/assets/images/cat.jpg';
 import './index.css';
