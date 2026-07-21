@@ -31,6 +31,18 @@ function toRawNode(node: VNode): RawNode {
   };
 }
 
+function collectChildren(node: VNode): VNode[] {
+  const arr: VNode[] = [];
+  let item = node.firstChild;
+
+  while (item) {
+    arr.push(item);
+    item = item.nextSibling;
+  }
+
+  return arr;
+}
+
 function toRawProps(prop: string, value: any, type: string) {
   return propAlias(prop, value, type);
 }
@@ -54,6 +66,10 @@ export default class VNode {
   nextSibling: VNode | null = null;
   text?: string;
   callbackIds = new Set<string>();
+  private _index = 0;
+  private _path: string[] | null = null;
+  private _mounted: boolean | null = null;
+  private _callbackRegistry = new Map<string, { fn: any; id: string }>();
 
   constructor({ id, type, props, container }: { id: number; type: string; props?: any; container: any }) {
     this.id = id;
@@ -62,12 +78,42 @@ export default class VNode {
     this.props = props;
   }
 
+  private invalidateCache() {
+    this._path = null;
+    this._mounted = null;
+  }
+
+  private updateIndicesFrom(startIndex: number) {
+    let cur = this.childAtIndex(startIndex);
+    while (cur) {
+      cur._index = startIndex;
+      cur.invalidateCache();
+      startIndex += 1;
+      cur = cur.nextSibling;
+    }
+  }
+
+  private childAtIndex(index: number): VNode | null {
+    if (index < 0 || index >= this.size) return null;
+    if (index === 0) return this.firstChild;
+    if (index === this.size - 1) return this.lastChild;
+    let cur: VNode | null = this.firstChild;
+    let i = 0;
+    while (cur && i < index) {
+      cur = cur.nextSibling;
+      i += 1;
+    }
+    return cur;
+  }
+
   appendChild(node: VNode) {
     this.removeChild(node);
     this.size += 1;
 
     node.parent = this;
     node.deleted = false;
+    node._index = this.size - 1;
+    node.invalidateCache();
 
     if (!this.firstChild) {
       this.firstChild = node;
@@ -84,7 +130,7 @@ export default class VNode {
       this.container.requestUpdate({
         type: 'splice',
         path: this.path,
-        start: node.index,
+        start: node._index,
         id: node.id,
         deleteCount: 0,
         children: this.children,
@@ -101,7 +147,7 @@ export default class VNode {
       return;
     }
 
-    const index = node.index;
+    const index = node._index;
     this.size -= 1;
 
     if (this.firstChild === node) {
@@ -123,7 +169,10 @@ export default class VNode {
     node.previousSibling = null;
     node.nextSibling = null;
     node.deleted = true;
+    node.parent = null;
     node.unregisteredCallbacks();
+
+    this.updateIndicesFrom(index);
 
     if (this.isMounted()) {
       this.container.requestUpdate({
@@ -145,6 +194,9 @@ export default class VNode {
 
     node.parent = this;
     node.deleted = false;
+    const targetIndex = referenceNode._index;
+    node._index = targetIndex;
+    node.invalidateCache();
 
     if (referenceNode === this.firstChild) {
       this.firstChild = node;
@@ -158,11 +210,13 @@ export default class VNode {
     referenceNode.previousSibling = node;
     node.nextSibling = referenceNode;
 
+    this.updateIndicesFrom(targetIndex + 1);
+
     if (this.isMounted()) {
       this.container.requestUpdate({
         type: 'splice',
         path: this.path,
-        start: node.index,
+        start: node._index,
         id: node.id,
         deleteCount: 0,
         children: this.children,
@@ -177,7 +231,7 @@ export default class VNode {
       this.container.requestUpdate({
         type: 'splice',
         path: this.parent!.path,
-        start: this.index,
+        start: this._index,
         id: this.id,
         deleteCount: 1,
         items: [this.toJSON()],
@@ -193,7 +247,7 @@ export default class VNode {
       const [propName, propValue] = toRawProps(payload[i], payload[i + 1], this.type);
 
       const path = isAliPlatform()
-        ? [...parentPath, `children[${this.index}].props`]
+        ? [...parentPath, `children[${this._index}].props`]
         : [...parentPath, 'nodes', this.id.toString(), 'props'];
 
       this.container.requestUpdate({
@@ -207,56 +261,46 @@ export default class VNode {
   }
 
   get index(): number {
-    let value = 0;
-    let previousSibling = this.previousSibling;
-
-    while (previousSibling) {
-      value += 1;
-      previousSibling = previousSibling.previousSibling;
-    }
-
-    return value;
+    return this._index;
   }
 
   get children() {
-    const arr = [];
+    const arr: VNode[] = new Array(this.size);
     let item = this.firstChild;
-
+    let i = 0;
     while (item) {
-      arr.push(item);
+      arr[i++] = item;
       item = item.nextSibling;
     }
-
     return arr;
   }
 
   get path() {
-    const dataPath: string[] = [];
-    const parents = [];
-    let parent = this.parent;
-
-    while (parent) {
-      parents.unshift(parent);
-      parent = parent.parent;
+    if (this._path) {
+      return this._path;
     }
-
-    for (let i = 0; i < parents.length; i++) {
-      const child = parents[i + 1] || this;
-
-      if (isAliPlatform()) {
-        dataPath.push('children');
-        dataPath.push(child.index.toString());
-      } else {
-        dataPath.push('nodes');
-        dataPath.push(child.id.toString());
-      }
+    if (!this.parent) {
+      this._path = [];
+      return this._path;
     }
-
-    return dataPath;
+    const parentPath = this.parent.path;
+    let childPath: string[];
+    if (isAliPlatform()) {
+      childPath = [...parentPath, 'children', this._index.toString()];
+    } else {
+      childPath = [...parentPath, 'nodes', this.id.toString()];
+    }
+    this._path = childPath;
+    return childPath;
   }
 
   isMounted(): boolean {
-    return this.parent ? this.parent.isMounted() : this.mounted;
+    if (this._mounted !== null) {
+      return this._mounted;
+    }
+    const result = this.parent ? this.parent.isMounted() : this.mounted;
+    this._mounted = result;
+    return result;
   }
 
   isDeleted(): boolean {
@@ -265,14 +309,44 @@ export default class VNode {
 
   registerCallback(propKey: string, propValue: any) {
     const id = `${REMAX_METHOD}_${this.id}_${propKey}`;
+    const existing = this._callbackRegistry.get(propKey);
+    if (existing) {
+      if (existing.fn === propValue) {
+        return existing.id;
+      }
+      this.container.removeCallback(existing.id);
+      this.callbackIds.delete(existing.id);
+    }
     this.callbackIds.add(id);
+    this._callbackRegistry.set(propKey, { fn: propValue, id });
     this.container.createCallback(id, createCallbackProxy(propKey, this, propValue));
     return id;
   }
 
+  unregisterCallback(propKey: string) {
+    const entry = this._callbackRegistry.get(propKey);
+    if (entry) {
+      this.container.removeCallback(entry.id);
+      this.callbackIds.delete(entry.id);
+      this._callbackRegistry.delete(propKey);
+    }
+  }
+
+  pruneCallbacks(keepKeys: Set<string>) {
+    const toDelete: string[] = [];
+    this._callbackRegistry.forEach((_entry, key) => {
+      if (!keepKeys.has(key)) {
+        toDelete.push(key);
+      }
+    });
+    for (const key of toDelete) {
+      this.unregisterCallback(key);
+    }
+  }
+
   unregisteredCallbacks() {
-    this.callbackIds.forEach(id => {
-      this.container.removeCallback(id);
+    this._callbackRegistry.forEach((_entry, key) => {
+      this.unregisterCallback(key);
     });
   }
 
@@ -282,34 +356,37 @@ export default class VNode {
       children: VNode[];
     }> = [];
     const rawNode = toRawNode(this);
+    const isAli = isAliPlatform();
 
     stack.push({
       currentNode: rawNode,
-      children: this.children,
+      children: collectChildren(this),
     });
 
     while (stack.length > 0) {
       const stackItem = stack.pop()!;
       const { children = [], currentNode } = stackItem;
 
-      for (let i = children.length - 1; i >= 0; i--) {
+      for (let i = 0; i < children.length; i++) {
         const currentVNode = children[i];
         const currentRawNode = toRawNode(currentVNode);
 
-        if (isAliPlatform()) {
-          currentNode.children!.unshift(currentRawNode);
+        if (isAli) {
+          currentNode.children!.push(currentRawNode);
         } else {
-          currentNode.children!.unshift(currentRawNode.id);
+          currentNode.children!.push(currentRawNode.id);
           if (!currentNode.nodes) {
             currentNode.nodes = {};
           }
           currentNode.nodes[currentRawNode.id] = currentRawNode;
         }
 
-        stack.push({
-          currentNode: currentRawNode,
-          children: currentVNode.children,
-        });
+        if (currentVNode.firstChild) {
+          stack.push({
+            currentNode: currentRawNode,
+            children: collectChildren(currentVNode),
+          });
+        }
       }
     }
 

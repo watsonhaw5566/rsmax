@@ -20,9 +20,11 @@ const DOM_TAG_MAP: { [name: string]: string } = {
 
 function processProps(newProps: any, node: VNode) {
   const props: any = {};
-  node.unregisteredCallbacks();
+  const functionPropKeys = new Set<string>();
+
   for (const propKey of Object.keys(newProps)) {
     if (typeof newProps[propKey] === 'function') {
+      functionPropKeys.add(propKey);
       props[propKey] = node.registerCallback(propKey, newProps[propKey]);
     } else if (propKey === 'style') {
       props[propKey] = newProps[propKey] || '';
@@ -32,6 +34,8 @@ function processProps(newProps: any, node: VNode) {
       props[propKey] = newProps[propKey];
     }
   }
+
+  node.pruneCallbacks(functionPropKeys);
 
   return props;
 }
