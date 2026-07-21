@@ -3,6 +3,9 @@ import styles from './index.module.css';
 import logo from '../../../public/icon.png';
 
 export default () => {
+  function handleClick() {
+    console.log('hello rsmax');
+  }
   return (
     <View className={styles.app}>
       <View className={styles.header}>
@@ -11,6 +14,7 @@ export default () => {
           编辑 <Text>src/pages/index/index.js</Text> 开始 321
         </View>
       </View>
+      <View>点击我</View>
     </View>
   );
 };

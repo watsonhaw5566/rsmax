@@ -27,6 +27,7 @@ const createImageErrorCallback = memoizeOne(createCallback);
 
 interface ComponentConfig {
   name: string;
+  tagName: string;
   alias?: Record<string, string>;
   defaultProps?: Record<string, any>;
   eventHandlers?: string[];
@@ -36,100 +37,112 @@ declare const wx: Record<string, any> | undefined;
 declare const my: Record<string, any> | undefined;
 declare const tt: Record<string, any> | undefined;
 
-const wechatComponentProps: Record<string, Record<string, any>> = {
-  View: {},
-  Text: {},
-  Image: { mode: 'scaleToFill' },
-  Button: { type: 'default', size: 'default' },
-  Input: { type: 'text' },
-  Textarea: {},
-  Form: {},
-  Label: {},
-  Navigator: { openType: 'navigate' },
-  WebView: {},
-};
-
-const aliComponentProps: Record<string, Record<string, any>> = {
-  View: {},
-  Text: {},
-  Image: { mode: 'aspectFill' },
-  Button: { type: 'primary', size: 'default' },
-  Input: { type: 'text' },
-  Textarea: {},
-  Form: {},
-  Label: {},
-  Navigator: { openType: 'navigate' },
-  WebView: {},
-};
-
-const toutiaoComponentProps: Record<string, Record<string, any>> = {
-  View: {},
-  Text: {},
-  Image: { mode: 'scaleToFill' },
-  Button: { type: 'default', size: 'default' },
-  Input: { type: 'text' },
-  Textarea: {},
-  Form: {},
-  Label: {},
-  Navigator: { openType: 'navigate' },
-  WebView: {},
-};
-
-function getPlatformComponentProps(): Record<string, Record<string, any>> {
-  if (typeof wx !== 'undefined') return wechatComponentProps;
-  if (typeof my !== 'undefined') return aliComponentProps;
-  if (typeof tt !== 'undefined') return toutiaoComponentProps;
-  return {};
+function detectPlatform(): 'wechat' | 'ali' | 'toutiao' {
+  if (typeof wx !== 'undefined') return 'wechat';
+  if (typeof my !== 'undefined') return 'ali';
+  if (typeof tt !== 'undefined') return 'toutiao';
+  return 'wechat';
 }
 
-const platformComponentProps = getPlatformComponentProps();
+const currentPlatform = detectPlatform();
+
+const platformComponentProps: Record<string, Record<string, Record<string, any>>> = {
+  wechat: {
+    View: {},
+    Text: {},
+    Image: { mode: 'scaleToFill' },
+    Button: { type: 'default', size: 'default' },
+    Input: { type: 'text' },
+    Textarea: {},
+    Form: {},
+    Label: {},
+    Navigator: { openType: 'navigate' },
+    WebView: {},
+  },
+  ali: {
+    View: {},
+    Text: {},
+    Image: { mode: 'aspectFill' },
+    Button: { type: 'primary', size: 'default' },
+    Input: { type: 'text' },
+    Textarea: {},
+    Form: {},
+    Label: {},
+    Navigator: { openType: 'navigate' },
+    WebView: {},
+  },
+  toutiao: {
+    View: {},
+    Text: {},
+    Image: { mode: 'scaleToFill' },
+    Button: { type: 'default', size: 'default' },
+    Input: { type: 'text' },
+    Textarea: {},
+    Form: {},
+    Label: {},
+    Navigator: { openType: 'navigate' },
+    WebView: {},
+  },
+};
 
 const componentConfigs: Record<string, ComponentConfig> = {
   View: {
-    name: 'view',
+    name: 'View',
+    tagName: 'view',
     eventHandlers: ['onTap', 'onLongTap', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'],
   },
   Text: {
-    name: 'text',
+    name: 'Text',
+    tagName: 'text',
     eventHandlers: ['onTap', 'onLongTap', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'],
   },
   Image: {
-    name: 'image',
+    name: 'Image',
+    tagName: 'image',
     eventHandlers: ['onLoad', 'onError'],
   },
   Button: {
-    name: 'button',
+    name: 'Button',
+    tagName: 'button',
     eventHandlers: ['onTap', 'onLongTap', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'],
   },
   Input: {
-    name: 'input',
+    name: 'Input',
+    tagName: 'input',
     eventHandlers: ['onChange', 'onInput', 'onConfirm', 'onFocus', 'onBlur'],
   },
   Textarea: {
-    name: 'textarea',
+    name: 'Textarea',
+    tagName: 'textarea',
     eventHandlers: ['onChange', 'onInput', 'onConfirm', 'onFocus', 'onBlur'],
   },
   Form: {
-    name: 'form',
+    name: 'Form',
+    tagName: 'form',
     eventHandlers: ['onSubmit', 'onReset'],
   },
   Label: {
-    name: 'label',
+    name: 'Label',
+    tagName: 'label',
     eventHandlers: ['onTap'],
   },
   Navigator: {
-    name: 'navigator',
+    name: 'Navigator',
+    tagName: 'navigator',
     eventHandlers: ['onTap'],
   },
   WebView: {
-    name: 'web-view',
+    name: 'WebView',
+    tagName: 'web-view',
     eventHandlers: ['onMessage'],
   },
 };
 
 function assignDefaultProps(inputProps: Record<string, any>, defaultProps: Record<string, any>): void {
   Object.keys(defaultProps).forEach(key => {
-    inputProps[key] = inputProps[key] ?? defaultProps[key];
+    if (inputProps[key] === undefined) {
+      inputProps[key] = defaultProps[key];
+    }
   });
 }
 
@@ -139,53 +152,6 @@ function aliasProps(props: Record<string, any>, alias: Record<string, string>): 
     nextProps[alias[key] ?? key] = props[key];
   }
   return nextProps;
-}
-
-export function createUnifiedComponent(componentName: string, customConfig?: Partial<ComponentConfig>): any {
-  const config: ComponentConfig = {
-    ...componentConfigs[componentName],
-    ...customConfig,
-  };
-
-  const { name, alias, defaultProps: customDefaultProps, eventHandlers } = config;
-
-  const Component: React.ForwardRefRenderFunction<any, any> = (props: any, ref: React.Ref<any>) => {
-    const platformDefaultProps = platformComponentProps[componentName] || {};
-
-    const inputProps = { ...props };
-
-    assignDefaultProps(inputProps, platformDefaultProps);
-
-    if (customDefaultProps) {
-      assignDefaultProps(inputProps, customDefaultProps);
-    }
-
-    if (eventHandlers) {
-      eventHandlers.forEach(handler => {
-        if (inputProps[handler]) {
-          const eventCreator = getEventCreator(handler);
-          if (eventCreator) {
-            const memoizedCallback = getMemoizedCallback(handler);
-            inputProps[handler] = memoizedCallback(inputProps[handler], eventCreator);
-          }
-        }
-      });
-    }
-
-    let nextProps = inputProps;
-    if (alias) {
-      nextProps = aliasProps(inputProps, alias);
-    }
-    nextProps.ref = ref;
-
-    return React.createElement(name, nextProps);
-  };
-
-  if (process.env.NODE_ENV === 'development') {
-    Component.displayName = formatDisplayName(name);
-  }
-
-  return React.forwardRef(Component);
 }
 
 function getEventCreator(handler: string): ((event: any) => any) | undefined {
@@ -250,8 +216,60 @@ function getMemoizedCallback(handler: string): typeof createCallback {
   }
 }
 
-export function createComponents(): Record<string, any> {
-  const components: Record<string, any> = {};
+export function createUnifiedComponent<P = {}>(
+  componentName: string,
+  customConfig?: Partial<ComponentConfig>
+): React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<any>> {
+  const config: ComponentConfig = {
+    ...componentConfigs[componentName],
+    ...customConfig,
+  };
+
+  const { tagName, alias, defaultProps: customDefaultProps, eventHandlers } = config;
+
+  const Component = (props: React.PropsWithoutRef<P>, ref: React.Ref<any>) => {
+    const platformDefaultProps = platformComponentProps[currentPlatform]?.[componentName] || {};
+
+    const inputProps = { ...props } as Record<string, any>;
+
+    assignDefaultProps(inputProps, platformDefaultProps);
+
+    if (customDefaultProps) {
+      assignDefaultProps(inputProps, customDefaultProps);
+    }
+
+    if (eventHandlers) {
+      eventHandlers.forEach(handler => {
+        if (inputProps[handler]) {
+          const eventCreator = getEventCreator(handler);
+          if (eventCreator) {
+            const memoizedCallback = getMemoizedCallback(handler);
+            inputProps[handler] = memoizedCallback(inputProps[handler], eventCreator);
+          }
+        }
+      });
+    }
+
+    let nextProps = inputProps;
+    if (alias) {
+      nextProps = aliasProps(inputProps, alias);
+    }
+    nextProps.ref = ref;
+
+    return React.createElement(tagName, nextProps);
+  };
+
+  if (process.env.NODE_ENV === 'development') {
+    (Component as any).displayName = formatDisplayName(config.name);
+  }
+
+  return React.forwardRef(Component) as React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<P> & React.RefAttributes<any>
+  >;
+}
+
+export function createComponents(): Record<string, React.ForwardRefExoticComponent<any>> {
+  const components: Record<string, React.ForwardRefExoticComponent<any>> = {};
 
   Object.keys(componentConfigs).forEach(name => {
     components[name] = createUnifiedComponent(name);
@@ -259,3 +277,5 @@ export function createComponents(): Record<string, any> {
 
   return components;
 }
+
+export { componentConfigs };
