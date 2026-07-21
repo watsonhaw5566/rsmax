@@ -198,14 +198,17 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
-        logger.error(info.errors);
-        reject(new Error(info?.errors?.join('\n')));
+        info?.errors?.forEach(err => {
+          const msg = (err && typeof err === 'object') ? (err.message ?? JSON.stringify(err).slice(0, 3000)) : String(err);
+          logger.error('ERROR-PREVIEW:', msg);
+        });
+        reject(new Error(info?.errors?.map((e: any) => (e && e.message) || String(e)).join('\n')));
         return;
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          logger.warn(warning);
+          logger.warn(warning.message);
         });
       }
 
@@ -289,14 +292,17 @@ export function buildMiniComponent(
       const info = stats.toJson();
 
       if (stats.hasErrors()) {
-        logger.error(info.errors);
-        reject(new Error(info?.errors?.join('\n')));
+        info?.errors?.forEach(err => {
+          const msg = (err && typeof err === 'object') ? (err.message ?? JSON.stringify(err).slice(0, 3000)) : String(err);
+          logger.error('ERROR-PREVIEW:', msg);
+        });
+        reject(new Error(info?.errors?.map((e: any) => (e && e.message) || String(e)).join('\n')));
         return;
       }
 
       if (stats.hasWarnings()) {
         info?.warnings?.forEach(warning => {
-          logger.warn(warning);
+          logger.warn(warning.message);
         });
       }
 

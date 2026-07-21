@@ -43,7 +43,7 @@ export function configureSwc(config: Config) {
             runtime: 'automatic',
           },
         },
-        target: 'es2015',
+        target: 'es2018',
         loose: true,
         externalHelpers: true,
         keepClassNames: true,
