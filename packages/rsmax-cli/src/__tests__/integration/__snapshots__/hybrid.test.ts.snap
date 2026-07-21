@@ -1796,6 +1796,7 @@ components/mini-greet/index.js:
 components/mini-greet/index.js: }),function(__webpack_require__) {
 components/mini-greet/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 components/mini-greet/index.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
+components/mini-greet/index.js: module.exports = __webpack_exports__;
 components/mini-greet/index.js: 
 components/mini-greet/index.js: }
 components/mini-greet/index.js: ]);
@@ -2753,7 +2754,7 @@ components/react-greet/index.js: module.exports = require("rsmax/runtime");
 components/react-greet/index.js: 
 components/react-greet/index.js: }),
 components/react-greet/index.js: <ID>: (function (module) {
-components/react-greet/index.js: module.exports = /__rsmax_runtime_options__;
+components/react-greet/index.js: module.exports = require("/__rsmax_runtime_options__");
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: 
@@ -2763,6 +2764,7 @@ components/react-greet/index.js: __webpack_require__.O(0, [<ID>], function() {
 components/react-greet/index.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 components/react-greet/index.js:       });
 components/react-greet/index.js: var __webpack_exports__ = __webpack_require__.O();
+components/react-greet/index.js: module.exports = __webpack_exports__;
 components/react-greet/index.js: 
 components/react-greet/index.js: }
 components/react-greet/index.js: ]);
@@ -2791,6 +2793,7 @@ main.js:
 main.js: }),function(__webpack_require__) {
 main.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 main.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
+main.js: module.exports = __webpack_exports__;
 main.js: 
 main.js: }
 main.js: ]);
@@ -2827,6 +2830,7 @@ pages/mini/index.js:
 pages/mini/index.js: }),function(__webpack_require__) {
 pages/mini/index.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 pages/mini/index.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
+pages/mini/index.js: module.exports = __webpack_exports__;
 pages/mini/index.js: 
 pages/mini/index.js: }
 pages/mini/index.js: ]);
@@ -2959,7 +2963,7 @@ pages/react/index.js: module.exports = require("rsmax/runtime");
 pages/react/index.js: 
 pages/react/index.js: }),
 pages/react/index.js: <ID>: (function (module) {
-pages/react/index.js: module.exports = /__rsmax_runtime_options__;
+pages/react/index.js: module.exports = require("/__rsmax_runtime_options__");
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: 
@@ -2969,6 +2973,7 @@ pages/react/index.js: __webpack_require__.O(0, [<ID>], function() {
 pages/react/index.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 pages/react/index.js:       });
 pages/react/index.js: var __webpack_exports__ = __webpack_require__.O();
+pages/react/index.js: module.exports = __webpack_exports__;
 pages/react/index.js: 
 pages/react/index.js: }
 pages/react/index.js: ]);

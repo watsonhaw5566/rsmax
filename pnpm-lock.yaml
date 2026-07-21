@@ -77,9 +77,6 @@ importers:
 
   e2e/mini:
     dependencies:
-      '@rsmax/cli':
-        specifier: workspace:*
-        version: link:../../packages/rsmax-cli
       '@vant/weapp':
         specifier: ^1.11.7
         version: 1.11.7

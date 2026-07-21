@@ -738,6 +738,7 @@ api/data.js:
 api/data.js: }),function(__webpack_require__) {
 api/data.js: var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId) }
 api/data.js: var __webpack_exports__ = (__webpack_exec__(<ID>));
+api/data.js: module.exports = __webpack_exports__;
 api/data.js: 
 api/data.js: }
 api/data.js: ]);
@@ -1689,7 +1690,7 @@ components/greet/index.js: module.exports = require("rsmax/runtime");
 components/greet/index.js: 
 components/greet/index.js: }),
 components/greet/index.js: <ID>: (function (module) {
-components/greet/index.js: module.exports = /__rsmax_runtime_options__;
+components/greet/index.js: module.exports = require("/__rsmax_runtime_options__");
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: 
@@ -1699,6 +1700,7 @@ components/greet/index.js: __webpack_require__.O(0, [<ID>], function() {
 components/greet/index.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 components/greet/index.js:       });
 components/greet/index.js: var __webpack_exports__ = __webpack_require__.O();
+components/greet/index.js: module.exports = __webpack_exports__;
 components/greet/index.js: 
 components/greet/index.js: }
 components/greet/index.js: ]);
@@ -2334,7 +2336,7 @@ pages/index/index.js: module.exports = require("rsmax/runtime");
 pages/index/index.js: 
 pages/index/index.js: }),
 pages/index/index.js: <ID>: (function (module) {
-pages/index/index.js: module.exports = /__rsmax_runtime_options__;
+pages/index/index.js: module.exports = require("/__rsmax_runtime_options__");
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: 
@@ -2344,6 +2346,7 @@ pages/index/index.js: __webpack_require__.O(0, [<ID>], function() {
 pages/index/index.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 pages/index/index.js:       });
 pages/index/index.js: var __webpack_exports__ = __webpack_require__.O();
+pages/index/index.js: module.exports = __webpack_exports__;
 pages/index/index.js: 
 pages/index/index.js: }
 pages/index/index.js: ]);

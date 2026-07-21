@@ -1617,7 +1617,7 @@ greet.js: module.exports = require("rsmax/runtime");
 greet.js: 
 greet.js: }),
 greet.js: <ID>: (function (module) {
-greet.js: module.exports = ./__rsmax_runtime_options__;
+greet.js: module.exports = require("./__rsmax_runtime_options__");
 greet.js: 
 greet.js: },
 greet.js: 
@@ -1627,6 +1627,7 @@ greet.js: __webpack_require__.O(0, [<ID>], function() {
 greet.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 greet.js:       });
 greet.js: var __webpack_exports__ = __webpack_require__.O();
+greet.js: module.exports = __webpack_exports__;
 greet.js: 
 greet.js: }
 greet.js: ]);
@@ -1701,7 +1702,7 @@ greet2.js: module.exports = require("rsmax/runtime");
 greet2.js: 
 greet2.js: }),
 greet2.js: <ID>: (function (module) {
-greet2.js: module.exports = ./__rsmax_runtime_options__;
+greet2.js: module.exports = require("./__rsmax_runtime_options__");
 greet2.js: 
 greet2.js: },
 greet2.js: 
@@ -1711,6 +1712,7 @@ greet2.js: __webpack_require__.O(0, [<ID>], function() {
 greet2.js:         return __webpack_exec__(<ID>), __webpack_exec__(<ID>);
 greet2.js:       });
 greet2.js: var __webpack_exports__ = __webpack_require__.O();
+greet2.js: module.exports = __webpack_exports__;
 greet2.js: 
 greet2.js: }
 greet2.js: ]);
