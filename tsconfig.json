@@ -20,15 +20,6 @@
       "path": "./packages/rsmax-runtime"
     },
     {
-      "path": "./packages/rsmax-ali"
-    },
-    {
-      "path": "./packages/rsmax-wechat"
-    },
-    {
-      "path": "./packages/rsmax-toutiao"
-    },
-    {
       "path": "./packages/rsmax-one"
     },
     {

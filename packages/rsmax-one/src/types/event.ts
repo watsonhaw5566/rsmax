@@ -7,6 +7,7 @@ import type {
   EventCurrentTarget,
   EventTarget,
   FormEvent,
+  GenericEvent,
   ImageErrorEvent,
   ImageLoadEvent,
   InputEvent,
@@ -33,6 +34,7 @@ export type {
   TapEvent,
   InputEvent,
   FormEvent,
+  GenericEvent,
 };
 
 /** rsmax-one 中的 Event 等价于 @rsmax/types 的 BaseEvent */

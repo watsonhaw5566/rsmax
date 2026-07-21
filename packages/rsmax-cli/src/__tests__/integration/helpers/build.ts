@@ -6,7 +6,7 @@ import API from '../../../API';
 import getConfig from '../../../getConfig';
 import { logger } from '../../../logger';
 import type { Platform } from '@rsmax/types';
-import Config from 'rspack-chain';
+import { RspackChain as Config } from 'rspack-chain';
 import MiniBuilder from '../../../build/MiniBuilder';
 import MiniPluginBuilder from '../../../build/MiniPluginBuilder';
 import MiniComponentBuilder from '../../../build/MiniComponentBuilder';
@@ -52,7 +52,7 @@ export async function buildApp(
   app: string,
   target: Platform,
   options: Partial<Options> = {},
-  extraRemaxOptions?: any
+  extraRsmaxOptions?: any
 ): Promise<OutputFile[]> {
   const cwd = path.resolve(__dirname, `../fixtures/${app}`);
   process.chdir(cwd);
@@ -73,7 +73,7 @@ export async function buildApp(
     }),
   ];
 
-  const remaxOptions = {
+  const rsmaxOptions = {
     ...config,
     target,
     configRspack(context: any) {
@@ -99,10 +99,10 @@ export async function buildApp(
         config.configRspack(context);
       }
     },
-    ...extraRemaxOptions,
+    ...extraRsmaxOptions,
   };
 
-  const builder = new MiniBuilder(api, remaxOptions);
+  const builder = new MiniBuilder(api, rsmaxOptions);
   const compiler = builder.run();
 
   return new Promise((resolve, reject) => {
@@ -128,7 +128,7 @@ export async function buildApp(
       const include = options.include || [];
       const includeRegExp = new RegExp(`(${include.join('|')})`);
       const excludeRegExp = new RegExp(`(${exclude.join('|')})`);
-      const outputDir = path.join(remaxOptions.cwd, remaxOptions.output);
+      const outputDir = path.join(rsmaxOptions.cwd, rsmaxOptions.output);
 
       const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
@@ -166,7 +166,7 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
     }),
   ];
 
-  const remaxOptions = {
+  const rsmaxOptions = {
     ...config,
     target,
     configRspack(context: { config: Config; rspack: any }) {
@@ -190,7 +190,7 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
     },
   };
 
-  const builder = new MiniPluginBuilder(api, remaxOptions);
+  const builder = new MiniPluginBuilder(api, rsmaxOptions);
   const compiler = builder.run();
 
   return new Promise((resolve, reject) => {
@@ -213,7 +213,7 @@ export async function buildMiniPlugin(app: string, target: Platform = 'ali', opt
       const include = options.include || [];
       const includeRegExp = new RegExp(`(${include.join('|')})`);
       const excludeRegExp = new RegExp(`(${exclude.join('|')})`);
-      const outputDir = path.join(remaxOptions.cwd, remaxOptions.output);
+      const outputDir = path.join(rsmaxOptions.cwd, rsmaxOptions.output);
 
       const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
@@ -256,7 +256,7 @@ export function buildMiniComponent(
     }),
   ];
 
-  const remaxOptions = {
+  const rsmaxOptions = {
     ...config,
     input: inputs,
     target,
@@ -281,7 +281,7 @@ export function buildMiniComponent(
     },
   };
 
-  const builder = new MiniComponentBuilder(api, remaxOptions);
+  const builder = new MiniComponentBuilder(api, rsmaxOptions);
   const compiler = builder.run();
 
   return new Promise((resolve, reject) => {
@@ -304,7 +304,7 @@ export function buildMiniComponent(
       const include = options.include || [];
       const includeRegExp = new RegExp(`(${include.join('|')})`);
       const excludeRegExp = new RegExp(`(${exclude.join('|')})`);
-      const outputDir = path.join(remaxOptions.cwd, remaxOptions.output);
+      const outputDir = path.join(rsmaxOptions.cwd, rsmaxOptions.output);
 
       const output = getFilesInDir(outputDir + '/', outputDir).filter(
         c =>
