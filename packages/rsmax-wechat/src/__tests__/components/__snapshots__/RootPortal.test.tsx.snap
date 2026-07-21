@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`RootPortal > render correctly 1`] = `
-<root-portal
-  enable={true}
-/>
-`;

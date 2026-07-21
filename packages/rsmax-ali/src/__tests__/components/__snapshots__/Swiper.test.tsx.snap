@@ -1,3 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Swiper > render correctly 1`] = `<swiper />`;

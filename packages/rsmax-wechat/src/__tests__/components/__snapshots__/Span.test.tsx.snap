@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Span > render correctly 1`] = `
-<span
-  className="class"
->
-  text
-</span>
-`;

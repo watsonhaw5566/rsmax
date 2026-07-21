@@ -1,3 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`MatchMedia > render correctly 1`] = `<match-media />`;

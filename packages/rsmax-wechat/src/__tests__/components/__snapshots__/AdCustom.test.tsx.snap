@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`AdCustom > render correctly 1`] = `
-<ad-custom
-  unitId="id"
-/>
-`;

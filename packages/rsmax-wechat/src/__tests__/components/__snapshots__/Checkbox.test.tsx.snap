@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Checkbox > render correctly 1`] = `
-<checkbox
-  checked={false}
-  color="#09bb07"
-  disabled={false}
-/>
-`;
