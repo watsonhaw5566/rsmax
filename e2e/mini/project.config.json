@@ -11,7 +11,15 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "compileWorklet": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "condition": false
   },
   "compileType": "miniprogram",
   "simulatorPluginLibVersion": {},
@@ -21,5 +29,5 @@
   },
   "appid": "wx1b5ea82ec5175c73",
   "editorSetting": {},
-  "miniprogramRoot": "dist"
+  "miniprogramRoot": "dist/wechat"
 }

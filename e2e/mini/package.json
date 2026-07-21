@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@rsmax/cli": "workspace:*",
+    "@rsmax/one": "workspace:*",
     "@rsmax/wechat": "workspace:*",
     "@vant/weapp": "^1.11.7",
     "antd-mini": "^3.0",

@@ -6,8 +6,16 @@ function copyAssetsInDir(outputRoot, fsPath) {
     const filePath = path.join(fsPath, fileName);
 
     if (fs.statSync(filePath).isDirectory()) {
-      copyAssetsInDir(path.join(outputRoot, fileName), filePath);
+      const outputDir = path.join(outputRoot, fileName);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+      copyAssetsInDir(outputDir, filePath);
     } else if (fileName.endsWith('.css')) {
+      const outputDir = path.dirname(outputRoot);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
       fs.createReadStream(filePath).pipe(fs.createWriteStream(path.join(outputRoot, fileName)));
     }
   });

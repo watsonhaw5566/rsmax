@@ -1,1 +1,3 @@
-export { navigateTo, navigateBack, redirectTo, reLaunch, switchTab } from '@rsmax/wechat';
+export { api, callAPI } from './unified';
+
+export * from './platforms';

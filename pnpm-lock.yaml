@@ -75,14 +75,14 @@ importers:
         specifier: ^4.7.4
         version: 4.9.5
 
-  e2e/wechat:
+  e2e/mini:
     dependencies:
       '@rsmax/cli':
         specifier: workspace:*
         version: link:../../packages/rsmax-cli
-      '@rsmax/wechat':
+      '@rsmax/one':
         specifier: workspace:*
-        version: link:../../packages/rsmax-wechat
+        version: link:../../packages/rsmax-one
       '@vant/weapp':
         specifier: ^1.11.7
         version: 1.11.7
@@ -8211,7 +8211,7 @@ snapshots:
 
   '@rspack/binding-wasm32-wasi@1.5.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)':
     dependencies:
-      '@napi-rs/wasm-runtime': 1.1.5(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)
+      '@napi-rs/wasm-runtime': 1.1.6(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)
     transitivePeerDependencies:
       - '@emnapi/core'
       - '@emnapi/runtime'

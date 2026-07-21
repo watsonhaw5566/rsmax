@@ -1,4 +1,4 @@
-import { View, Text, Image } from '@rsmax/wechat';
+import { View, Text, Image } from '@rsmax/one';
 import styles from './index.module.css';
 import logo from '../../../public/icon.png';
 
