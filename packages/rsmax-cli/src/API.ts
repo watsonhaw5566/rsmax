@@ -3,7 +3,7 @@ import Store from '@rsmax/build-store';
 import { slash } from '@rsmax/shared';
 import type { HostComponent, Meta, Options, Platform, Plugin } from '@rsmax/types';
 import { merge } from 'lodash';
-import type Config from 'rspack-chain';
+import type { RspackChain as Config } from 'rspack-chain';
 import type yargs from 'yargs';
 import type { RuleConfig } from './build/rspack/config/css';
 export default class API {

@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import { slash } from '@rsmax/shared';
 import type { Options } from '@rsmax/types';
 import { rspack } from '@rspack/core';
-import type Config from 'rspack-chain';
+import type { RspackChain as Config } from 'rspack-chain';
 import type Builder from '../../Builder';
 
 export interface RuleConfig {

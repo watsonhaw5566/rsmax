@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { rspack } from '@rspack/core';
-import type Config from 'rspack-chain';
+import type { RspackChain as Config } from 'rspack-chain';
 import type Builder from '../Builder';
 import alias from '../utils/alias';
 import getEnvironment from '../utils/env';
