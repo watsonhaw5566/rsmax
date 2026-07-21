@@ -17,7 +17,7 @@ export default class MultiPlatformBuilder {
     await this.createBuilders(targets);
     await this.runBuilders(false);
 
-    logger.info('所有平台构建完成!');
+    logger.info('所有平台构建完成');
   }
 
   async watch(): Promise<void> {
