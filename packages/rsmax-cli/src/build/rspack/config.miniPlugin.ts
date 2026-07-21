@@ -1,26 +1,19 @@
-import fs from 'node:fs';
-import * as path from 'node:path';
-import Store from '@rsmax/build-store';
-import { slash } from '@rsmax/shared';
-import type { Options } from '@rsmax/types';
-import { type Configuration, rspack } from '@rspack/core';
-import { hostComponent, lifecyclePage } from 'babel-preset-rsmax';
-import babelPluginMacros from 'babel-plugin-macros';
-import ejs from 'ejs';
+import path from 'node:path';
+import { type Configuration } from '@rspack/core';
 import { RspackChain as Config } from 'rspack-chain';
-import { moduleMatcher, targetExtensions } from '../../extensions';
+import { targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
-import NativeEntry from '../entries/NativeEntry';
 import baseConfig from './baseConfig';
-import { type RuleConfig, addCSSRule, cssConfig } from './config/css';
+import { cssConfig } from './config/css';
 import * as RsmaxPlugins from './plugins';
-
-function resolveBabelConfig(options: Options) {
-  if (fs.existsSync(path.join(options.cwd, 'babel.config.js'))) {
-    return path.join(options.cwd, 'babel.config.js');
-  }
-  return false;
-}
+import {
+  configureSwc,
+  configureBabel,
+  configureNativeComponent,
+  configureAssets,
+  configureRuntimeOptions,
+  configureCommonPlugins,
+} from './config/miniShared';
 
 export default function rspackConfig(builder: Builder): Configuration {
   const config = new Config();
@@ -35,7 +28,7 @@ export default function rspackConfig(builder: Builder): Configuration {
     config.entry(mainEntry.name).add(mainEntry.filename);
   }
 
-  entries.forEach(e => {
+  entries.forEach((e: any) => {
     config.plugin(`rspack-virtual-modules${e.name}`).use(e.virtualModule);
     config.entry(e.name).add(e.virtualPath);
   });
@@ -53,7 +46,7 @@ export default function rspackConfig(builder: Builder): Configuration {
     cacheGroups: {
       rsmaxVendors: {
         name: 'rsmax-vendors',
-        test: moduleMatcher,
+        test: /[\\/]node_modules[\\/]/,
         chunks: 'initial',
         minChunks: 2,
         minSize: 0,
@@ -62,126 +55,15 @@ export default function rspackConfig(builder: Builder): Configuration {
   });
   config.optimization.minimize(false);
 
-  config.module
-    .rule('swc')
-    .type('javascript/auto')
-    .test(moduleMatcher)
-    .exclude.add(/react-reconciler/)
-    .end()
-    .use('swc-loader')
-    .loader('builtin:swc-loader')
-    .options({
-      jsc: {
-        parser: {
-          syntax: 'typescript',
-          tsx: true,
-          decorators: true,
-          dynamicImport: true,
-        },
-        transform: {
-          react: {
-            runtime: 'automatic',
-          },
-        },
-        target: 'es2015',
-        loose: true,
-        externalHelpers: true,
-        keepClassNames: true,
-      },
-    });
-
-  config.module
-    .rule('js')
-    .test(moduleMatcher)
-    .exclude.add(/react-reconciler/)
-    .end()
-    .use('babel')
-    .loader('babel')
-    .options({
-      babelrc: false,
-      configFile: resolveBabelConfig(builder.options),
-      usePlugins: [
-        babelPluginMacros,
-        lifecyclePage({
-          test: file => {
-            const importer = slash(file);
-            const root = builder.projectPath.srcDir();
-            return importer.startsWith(root);
-          },
-        }),
-        hostComponent({
-          target: builder.target,
-          hostComponents: Store.registeredHostComponents,
-          skipHostComponents: Store.skipHostComponents,
-          skipProps: [],
-          includeProps: [],
-        }),
-      ],
-      reactPreset: true,
-      api: builder.api,
-      compact: process.env.NODE_ENV === 'production',
-    });
-
-  config.module.rule('native-component').test(moduleMatcher).use('native-component').loader('nativeComponent').options({
-    builder,
-  });
+  configureSwc(config);
+  configureBabel(config, builder);
+  configureNativeComponent(config, builder);
 
   cssConfig(config, builder, false);
 
-  config.module
-    .rule('image-sources')
-    .test(/\.(png|jpe?g|gif|svg)$/i)
-    .type('asset')
-    .parser({
-      dataUrlCondition: {
-        maxSize: 8 * 1024,
-      },
-    });
-  config.module
-    .rule('font-sources')
-    .test(/\.(ttf|eot|woff|woff2)$/)
-    .type('asset/resource');
+  configureAssets(config);
 
-  const runtimeOptionsTemplate = fs.readFileSync(
-    path.resolve(__dirname, '../../../template/app-runtime-options.js.ejs'),
-    'utf-8'
-  );
-  const runtimeOptionsPath = slash('node_modules/@rsmax/apply-runtime-options.js');
-
-  entries.forEach(entry => {
-    if (!(entry instanceof NativeEntry)) {
-      config.entry(entry.name).prepend('@rsmax/apply-runtime-options');
-    }
-  });
-
-  const runtimeOptions = {
-    pxToRpx: builder.options.pxToRpx,
-    debug: !!process.env.RSMAX_DEBUG,
-    platform: builder.target,
-    pluginFiles: builder.api.getRuntimePluginFiles(),
-    hostComponents: '[]',
-    pageEvents: '{}',
-    appEvents: '[]',
-  };
-
-  config.plugin('rspack-virtual-modules').use(rspack.experiments.VirtualModulesPlugin, [
-    {
-      [runtimeOptionsPath]: ejs.render(runtimeOptionsTemplate, runtimeOptions, { debug: false }),
-    },
-  ]);
-
-  if (fs.existsSync(builder.projectPath.publicDir())) {
-    config.plugin('rspack-copy-plugin').use(rspack.CopyRspackPlugin, [
-      {
-        patterns: [
-          {
-            from: builder.projectPath.publicDir(),
-            to: builder.projectPath.outputDir(),
-          },
-        ],
-      },
-    ]);
-  }
+  configureRuntimeOptions(config, builder, path.resolve(__dirname, '../../../template/app-runtime-options.js.ejs'));
 
   config.externals([
     {
@@ -189,34 +71,9 @@ export default function rspackConfig(builder: Builder): Configuration {
     },
   ]);
 
-  config.plugin('rspackbar').use(rspack.ProgressPlugin);
-  config.plugin('mini-css-extract-plugin').use(rspack.CssExtractRspackPlugin, [{ filename: `[name]${meta.style}` }]);
-  config.plugin('rsmax-optimize-entries-plugin').use(RsmaxPlugins.OptimizeEntries, [meta]);
   config.plugin('rsmax-plugin-asset-plugin').use(RsmaxPlugins.PluginAsset, [builder]);
-  config.plugin('rsmax-page-asset-plugin').use(RsmaxPlugins.PageAsset, [builder]);
-  config.plugin('rsmax-runtime-options-plugin').use(RsmaxPlugins.RuntimeOptions, [builder]);
-  config.plugin('rsmax-coverage-ignore-plugin').use(RsmaxPlugins.CoverageIgnore);
-  config.plugin('rsmax-component-asset-plugin').use(RsmaxPlugins.ComponentAsset, [builder]);
-  config.plugin('rsmax-native-asset-plugin').use(RsmaxPlugins.NativeAsset, [builder]);
 
-  if (builder.options.analyze) {
-    config.plugin('rsmax-rsdoctor-plugin').use(RsmaxPlugins.RsdoctorAnalyze, [{ output: builder.options.output }]);
-  }
-
-  const context = {
-    config,
-    rspack,
-    addCSSRule: (ruleConfig: RuleConfig) => {
-      addCSSRule(config, builder, false, ruleConfig);
-    },
-  };
-
-  if (typeof builder.options.configRspack === 'function') {
-    // @ts-ignore
-    builder.options.configRspack(context);
-  }
-  // @ts-ignore
-  builder.api.configRspack(context);
+  configureCommonPlugins(config, builder);
 
   return config.toConfig();
 }
