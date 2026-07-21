@@ -7,7 +7,7 @@ import { type Configuration, rspack } from '@rspack/core';
 import { hostComponent, lifecyclePage } from 'babel-preset-rsmax';
 import babelPluginMacros from 'babel-plugin-macros';
 import ejs from 'ejs';
-import Config from 'rspack-chain';
+import { RspackChain as Config } from 'rspack-chain';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
 import NativeEntry from '../entries/NativeEntry';
@@ -43,7 +43,7 @@ export default function rspackConfig(builder: Builder): Configuration {
   config.output.filename('[name].js');
   config.output.globalObject(meta.global);
   config.output.publicPath('/');
-  config.output.libraryTarget('commonjs2');
+  config.output.library({ type: 'commonjs2' });
   config.optimization.runtimeChunk({ name: 'runtime' });
   config.optimization.splitChunks({
     cacheGroups: {

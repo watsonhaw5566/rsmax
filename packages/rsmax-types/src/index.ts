@@ -1,6 +1,6 @@
 import type * as t from '@babel/types';
 import type React from 'react';
-import type RspackChainConfig from 'rspack-chain';
+import type { RspackChain as RspackChainConfig } from 'rspack-chain';
 import type yargs from 'yargs';
 
 // ==================== 基础构建类型 ====================

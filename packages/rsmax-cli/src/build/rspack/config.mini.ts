@@ -8,7 +8,7 @@ import moduleResolver from 'babel-plugin-module-resolver';
 import { hostComponent, lifecycleApp, lifecyclePage } from 'babel-preset-rsmax';
 import babelPluginMacros from 'babel-plugin-macros';
 import ejs from 'ejs';
-import Config from 'rspack-chain';
+import { RspackChain as Config } from 'rspack-chain';
 import type API from '../../API';
 import { moduleMatcher, targetExtensions } from '../../extensions';
 import type Builder from '../Builder';

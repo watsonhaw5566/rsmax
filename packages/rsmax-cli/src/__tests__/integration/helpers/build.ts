@@ -6,7 +6,7 @@ import API from '../../../API';
 import getConfig from '../../../getConfig';
 import { logger } from '../../../logger';
 import type { Platform } from '@rsmax/types';
-import Config from 'rspack-chain';
+import { RspackChain as Config } from 'rspack-chain';
 import MiniBuilder from '../../../build/MiniBuilder';
 import MiniPluginBuilder from '../../../build/MiniPluginBuilder';
 import MiniComponentBuilder from '../../../build/MiniComponentBuilder';
