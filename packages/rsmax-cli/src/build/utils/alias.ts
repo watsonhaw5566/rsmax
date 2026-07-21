@@ -1,7 +1,6 @@
-import * as path from 'node:path';
+import path from 'node:path';
 import { slash } from '@rsmax/shared';
 import type { Options, Platform } from '@rsmax/types';
-import { logger } from '../../logger';
 
 interface Alias {
   [key: string]: string;
@@ -13,7 +12,6 @@ const resolveReact = (options: Options): string => {
     react = require.resolve(`${options.cwd}/node_modules/react/`);
   } catch (e) {
     react = require.resolve('react');
-    logger.debug(`Can't resolve react in ${options.cwd}, fallback to global react.`);
   }
   return path.dirname(slash(react));
 };
