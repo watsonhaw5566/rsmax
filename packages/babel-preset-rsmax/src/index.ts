@@ -28,6 +28,9 @@ interface PresetOption {
   target?: any;
   hostComponent?: false | HostComponentOptions;
   lifecycle?: false | LifecycleOptions;
+  event?: false;
+  plugin?: false;
+  createHostComponent?: false;
 }
 
 function preset(api: any, presetOption: PresetOption) {
