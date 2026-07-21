@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`WebView > render correctly 1`] = `
-<web-view
-  progressbarColor="#51a0d8"
-/>
-`;

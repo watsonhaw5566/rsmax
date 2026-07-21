@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`TapGestureHandler > render correctly 1`] = `
-<tap-gesture-handler
-  className="class"
->
-  text
-</tap-gesture-handler>
-`;

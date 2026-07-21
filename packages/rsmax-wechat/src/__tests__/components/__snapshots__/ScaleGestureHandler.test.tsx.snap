@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`ScaleGestureHandler > render correctly 1`] = `
-<scale-gesture-handler
-  className="class"
->
-  text
-</scale-gesture-handler>
-`;
