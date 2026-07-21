@@ -110,9 +110,6 @@ importers:
       '@babel/types':
         specifier: ^7.11.0
         version: 7.27.1
-      '@rsmax/ali':
-        specifier: workspace:*
-        version: link:../rsmax-ali
       '@rsmax/build-store':
         specifier: workspace:*
         version: link:../rsmax-build-store
@@ -133,12 +130,6 @@ importers:
         specifier: ^7.7.4
         version: 7.27.1
 
-  packages/postcss-rsmax-tag:
-    devDependencies:
-      postcss:
-        specifier: ^8.4.41
-        version: 8.5.3
-
   packages/rsmax:
     dependencies:
       '@rsmax/cli':
@@ -156,37 +147,6 @@ importers:
       '@rsmax/types':
         specifier: workspace:*
         version: link:../rsmax-types
-
-  packages/rsmax-ali:
-    dependencies:
-      '@rsmax/framework-shared':
-        specifier: workspace:*
-        version: link:../rsmax-framework-shared
-      '@rsmax/runtime':
-        specifier: workspace:*
-        version: link:../rsmax-runtime
-      '@rsmax/shared':
-        specifier: workspace:*
-        version: link:../rsmax-shared
-      '@rsmax/types':
-        specifier: workspace:*
-        version: link:../rsmax-types
-    devDependencies:
-      '@mini-types/alipay':
-        specifier: ^3.0.14
-        version: 3.0.14
-      '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.21
-      '@types/react-test-renderer':
-        specifier: ^18.3.0
-        version: 18.3.1
-      react:
-        specifier: ^18.3.0
-        version: 18.3.1
-      react-test-renderer:
-        specifier: ^18.3.0
-        version: 18.3.1(react@18.3.1)
 
   packages/rsmax-build-store:
     dependencies:
@@ -327,21 +287,12 @@ importers:
       '@babel/traverse':
         specifier: ^7.7.4
         version: 7.27.1
-      '@rsmax/ali':
-        specifier: workspace:*
-        version: link:../rsmax-ali
       '@rsmax/one':
         specifier: workspace:*
         version: link:../rsmax-one
-      '@rsmax/toutiao':
-        specifier: workspace:*
-        version: link:../rsmax-toutiao
       '@rsmax/types':
         specifier: workspace:*
         version: link:../rsmax-types
-      '@rsmax/wechat':
-        specifier: workspace:*
-        version: link:../rsmax-wechat
       '@swc/types':
         specifier: ^0.1.27
         version: 0.1.27
@@ -476,30 +427,18 @@ importers:
 
   packages/rsmax-one:
     dependencies:
-      '@rsmax/ali':
-        specifier: workspace:*
-        version: link:../rsmax-ali
       '@rsmax/framework-shared':
         specifier: workspace:*
         version: link:../rsmax-framework-shared
       '@rsmax/runtime':
         specifier: workspace:*
         version: link:../rsmax-runtime
-      '@rsmax/toutiao':
+      '@rsmax/shared':
         specifier: workspace:*
-        version: link:../rsmax-toutiao
-      '@rsmax/wechat':
-        specifier: workspace:*
-        version: link:../rsmax-wechat
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
+        version: link:../rsmax-shared
       memoize-one:
         specifier: ^5.1.1
         version: 5.2.1
-      react-textarea-autosize:
-        specifier: ^8.5.3
-        version: 8.5.9(@types/react@18.3.21)(react@18.3.1)
     devDependencies:
       '@rsmax/types':
         specifier: workspace:*
@@ -615,43 +554,6 @@ importers:
         specifier: ^18.3.0
         version: 18.3.1(react@18.3.1)
 
-  packages/rsmax-toutiao:
-    dependencies:
-      '@rsmax/shared':
-        specifier: workspace:*
-        version: link:../rsmax-shared
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-    devDependencies:
-      '@douyin-microapp/typings':
-        specifier: ^1.3.1
-        version: 1.3.1
-      '@rsmax/framework-shared':
-        specifier: workspace:*
-        version: link:../rsmax-framework-shared
-      '@rsmax/runtime':
-        specifier: workspace:*
-        version: link:../rsmax-runtime
-      '@rsmax/types':
-        specifier: workspace:*
-        version: link:../rsmax-types
-      '@rsmax/wechat':
-        specifier: workspace:*
-        version: link:../rsmax-wechat
-      '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.21
-      '@types/react-test-renderer':
-        specifier: ^18.3.0
-        version: 18.3.1
-      react:
-        specifier: ^18.3.0
-        version: 18.3.1
-      react-test-renderer:
-        specifier: ^18.3.0
-        version: 18.3.1(react@18.3.1)
-
   packages/rsmax-types:
     dependencies:
       '@babel/types':
@@ -666,37 +568,6 @@ importers:
       rspack-chain:
         specifier: ^1.2.4
         version: 1.2.4
-
-  packages/rsmax-wechat:
-    dependencies:
-      '@rsmax/framework-shared':
-        specifier: workspace:*
-        version: link:../rsmax-framework-shared
-      '@rsmax/runtime':
-        specifier: workspace:*
-        version: link:../rsmax-runtime
-      '@rsmax/shared':
-        specifier: workspace:*
-        version: link:../rsmax-shared
-      miniprogram-api-typings:
-        specifier: ^4.1.0
-        version: 4.1.0
-    devDependencies:
-      '@rsmax/types':
-        specifier: workspace:*
-        version: link:../rsmax-types
-      '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.21
-      '@types/react-test-renderer':
-        specifier: ^18.3.0
-        version: 18.3.1
-      react:
-        specifier: ^18.3.0
-        version: 18.3.1
-      react-test-renderer:
-        specifier: ^18.3.0
-        version: 18.3.1(react@18.3.1)
 
 packages:
 
@@ -1511,9 +1382,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.4
-
-  '@douyin-microapp/typings@1.3.1':
-    resolution: {integrity: sha512-TuooIb1SYqMQ6FcC2Ux5wm5/2VH9hKO6bHIHxlKhcpW9fBp8FXHn7X/wfpVi0SaKNK15zA+B8JN2HSsaJ/wjUw==}
 
   '@emnapi/core@1.11.2':
     resolution: {integrity: sha512-TC8MkTuZUtcTSiFeuC0ksCh9QIJ5+F21MvZ4Wn4ORfYaFJ/0dsiudv5tVkejgwZlwQ39jL9WWDe2lz8x0WglOA==}
@@ -3103,10 +2971,6 @@ packages:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
     engines: {node: '>=0.8'}
 
-  clsx@2.1.1:
-    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
-    engines: {node: '>=6'}
-
   cmd-shim@6.0.3:
     resolution: {integrity: sha512-FMabTRlc5t5zjdenF6mS0MBeFZm0XqHqeOkcskKFb/LYCcRQ5fVgLOHVc4Lq9CqABd9zhjwPjMBCJvMCziSVtA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -4596,9 +4460,6 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
-  miniprogram-api-typings@4.1.0:
-    resolution: {integrity: sha512-4RBsz27nBKyRkVGoNkRaPx24/KeJBw3zaaIlXDR8s/WBh2PbcUAc+q7wLLbp7Qsmb3bLzzUu7tqAti+B06kmjg==}
-
   minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
     engines: {node: '>= 8'}
@@ -5435,12 +5296,6 @@ packages:
     peerDependencies:
       react: ^18.3.1
 
-  react-textarea-autosize@8.5.9:
-    resolution: {integrity: sha512-U1DGlIQN5AwgjTyOEnI1oCcMuEr1pv1qOtklB2l4nyMGbHzWrI0eFsYK0zos2YWqAolJyG0IWJaqWmWj5ETh0A==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
@@ -6121,33 +5976,6 @@ packages:
 
   urlpattern-polyfill@9.0.0:
     resolution: {integrity: sha512-WHN8KDQblxd32odxeIgo83rdVDE2bvdkb86it7bMhYZwWKJz0+O0RK/eZiHYnM+zgt/U7hAHOlCQGfjjvSkw2g==}
-
-  use-composed-ref@1.4.0:
-    resolution: {integrity: sha512-djviaxuOOh7wkj0paeO1Q/4wMZ8Zrnag5H6yBvzN7AKKe8beOaED9SF5/ByLqsku8NP4zQqsvM2u3ew/tJK8/w==}
-    peerDependencies:
-      '@types/react': '*'
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
-  use-isomorphic-layout-effect@1.2.1:
-    resolution: {integrity: sha512-tpZZ+EX0gaghDAiFR37hj5MgY6ZN55kLiPkJsKxBMZ6GZdOSPJXiOzPM984oPYZ5AnehYx5WQp1+ME8I/P/pRA==}
-    peerDependencies:
-      '@types/react': '*'
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
-  use-latest@1.3.0:
-    resolution: {integrity: sha512-mhg3xdm9NaM8q+gLT8KryJPnRFOz1/5XPBhmDEVZK1webPzDjrPk7f/mbpeLqTgB9msytYWANxgALOCJKnLvcQ==}
-    peerDependencies:
-      '@types/react': '*'
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -7352,8 +7180,6 @@ snapshots:
   '@csstools/utilities@2.0.0(postcss@8.5.15)':
     dependencies:
       postcss: 8.5.15
-
-  '@douyin-microapp/typings@1.3.1': {}
 
   '@emnapi/core@1.11.2':
     dependencies:
@@ -9287,8 +9113,6 @@ snapshots:
 
   clone@1.0.4: {}
 
-  clsx@2.1.1: {}
-
   cmd-shim@6.0.3: {}
 
   color-convert@2.0.1:
@@ -10881,8 +10705,6 @@ snapshots:
 
   minipass@7.1.2: {}
 
-  miniprogram-api-typings@4.1.0: {}
-
   minizlib@2.1.2:
     dependencies:
       minipass: 3.3.6
@@ -11862,15 +11684,6 @@ snapshots:
       react-shallow-renderer: 16.15.0(react@18.3.1)
       scheduler: 0.23.2
 
-  react-textarea-autosize@8.5.9(@types/react@18.3.21)(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.27.1
-      react: 18.3.1
-      use-composed-ref: 1.4.0(@types/react@18.3.21)(react@18.3.1)
-      use-latest: 1.3.0(@types/react@18.3.21)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-
   react@18.3.1:
     dependencies:
       loose-envify: 1.4.0
@@ -12541,25 +12354,6 @@ snapshots:
       punycode: 2.3.1
 
   urlpattern-polyfill@9.0.0: {}
-
-  use-composed-ref@1.4.0(@types/react@18.3.21)(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.21
-
-  use-isomorphic-layout-effect@1.2.1(@types/react@18.3.21)(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.21
-
-  use-latest@1.3.0(@types/react@18.3.21)(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-      use-isomorphic-layout-effect: 1.2.1(@types/react@18.3.21)(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.21
 
   util-deprecate@1.0.2: {}
 

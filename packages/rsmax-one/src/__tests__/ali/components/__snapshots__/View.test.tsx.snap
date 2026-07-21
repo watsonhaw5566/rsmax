@@ -1,0 +1,11 @@
+// Rstest Snapshot v1
+
+exports[`View > render correctly 1`] = `
+<view
+  catchClick={[Function]}
+  className="class"
+  onAnimationStart={[Function]}
+>
+  view
+</view>
+`;

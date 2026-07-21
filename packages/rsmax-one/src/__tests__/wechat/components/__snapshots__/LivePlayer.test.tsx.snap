@@ -1,0 +1,19 @@
+// Rstest Snapshot v1
+
+exports[`LivePlayer > render correctly 1`] = `
+<live-player
+  autoPauseIfNavigate={true}
+  autoPauseIfOpenNative={true}
+  autoplay={false}
+  backgroundMute={false}
+  enableAutoRotation={false}
+  maxCache={3}
+  minCache={1}
+  mode="live"
+  muteOnAudioConflict={false}
+  muted={false}
+  objectFit="contain"
+  orientation="vertical"
+  soundMode="speaker"
+/>
+`;

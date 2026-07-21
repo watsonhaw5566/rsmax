@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`RichText > render correctly 1`] = `<rich-text />`;

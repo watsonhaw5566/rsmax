@@ -1,0 +1,8 @@
+// Rstest Snapshot v1
+
+exports[`Ad > render correctly 1`] = `
+<ad
+  scale={100}
+  unitId="123"
+/>
+`;

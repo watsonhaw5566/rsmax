@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`Radio > render correctly 1`] = `
+<radio
+  checked={false}
+  color="#09BB07"
+  disabled={false}
+/>
+`;

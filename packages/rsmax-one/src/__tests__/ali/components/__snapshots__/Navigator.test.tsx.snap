@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`Navigator > render correctly 1`] = `
+<navigator
+  url="url"
+/>
+`;

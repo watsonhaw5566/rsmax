@@ -1,0 +1,8 @@
+// Rstest Snapshot v1
+
+exports[`ContactButton > render correctly 1`] = `
+<contact-button
+  scene=""
+  tntInstId=""
+/>
+`;

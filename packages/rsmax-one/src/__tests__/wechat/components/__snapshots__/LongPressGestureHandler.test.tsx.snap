@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`LongPressGestureHandler > render correctly 1`] = `
+<long-press-gesture-handler
+  className="class"
+>
+  text
+</long-press-gesture-handler>
+`;

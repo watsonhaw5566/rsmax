@@ -1,0 +1,44 @@
+<template name="REMAX_TPL_<%=templateId%>_<%=id%>">
+    <%_ function propsKeyTpl(props, isCatch, indent, type) {
+        // 互斥事件
+        if (isCatch) {
+            props = props.filter(key => key !== 'bindtouchmove')
+        } else {
+            props = props.filter(key => key !== 'catchtouchmove')
+        }
+
+        return props
+                .map(key => {
+                    if (type === 'native') {
+                        return `${indent}${key}="{{i.props['${key}']}}"`;
+                    } else {
+                        return `${indent}${key}="{{_h.v(i.props['${key}'])}}"`;
+                    }
+                })
+                .join('\n')
+    } -%>
+    <%_ if (id === 'view') { -%>
+    <%# view 标签需要区分是否含 catchtouchmove 事件，区分渲染模板 -%>
+    <block wx:if="{{i.props['catchtouchmove']}}">
+        <<%=id%>
+        <%- propsKeyTpl(props, true, '      ', type) %>
+        >
+        <%- include('./children.ejs', { props: props, id: id, type: type, slotView: slotView }) -%>
+    </<%=id%>>
+    </block>
+
+    <block wx:else>
+        <<%=id%>
+        <%- propsKeyTpl(props, false, '      ', type) %>
+        >
+        <%- include('./children.ejs', { props: props, id: id, type: type, slotView: slotView }) -%>
+    </<%=id%>>
+    </block>
+    <%_ } else { -%>
+    <<%=id%>
+    <%- propsKeyTpl(props, false, '    ',type) %>
+    >
+    <%- include('./children.ejs', { props: props, id: id, type: type, slotView: slotView }) -%>
+</<%=id%>>
+<%_ } -%>
+</template>

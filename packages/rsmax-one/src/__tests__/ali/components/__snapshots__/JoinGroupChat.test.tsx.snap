@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`JoinGroupChat > render correctly 1`] = `
+<join-group-chat
+  templateId="123"
+/>
+`;

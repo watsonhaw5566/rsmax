@@ -1,0 +1,10 @@
+// Rstest Snapshot v1
+
+exports[`Editor > render correctly 1`] = `
+<editor
+  readOnly={false}
+  showImgResize={false}
+  showImgSize={false}
+  showImgToolbar={false}
+/>
+`;

@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`MovableArea > render correctly 1`] = `
+<movable-area
+  scaleArea={false}
+/>
+`;

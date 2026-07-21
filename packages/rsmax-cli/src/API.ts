@@ -155,9 +155,9 @@ export default class API {
 
   public registerAdapterPlugins(targetName: Platform) {
     this.adapter.target = targetName;
-    this.adapter.packageName = `@rsmax/${targetName}`;
+    this.adapter.packageName = `@rsmax/one`;
 
-    const packagePath = `${this.adapter.packageName}/node`;
+    const packagePath = `${this.adapter.packageName}/node/${targetName}`;
 
     let plugin = require(packagePath).default || require(packagePath);
     plugin = typeof plugin === 'function' ? plugin() : plugin;

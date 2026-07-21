@@ -1,0 +1,18 @@
+// Rstest Snapshot v1
+
+exports[`StickySection > render correctly 1`] = `
+<sticky-section
+  className="class"
+  padding={
+    [
+      0,
+      0,
+      0,
+      0,
+    ]
+  }
+  pushPinnedHeader={true}
+>
+  text
+</sticky-section>
+`;

@@ -1,0 +1,11 @@
+// Rstest Snapshot v1
+
+exports[`Camera > render correctly 1`] = `
+<camera
+  devicePosition="back"
+  flash="auto"
+  frameSize="medium"
+  mode="normal"
+  resolution="medium"
+/>
+`;

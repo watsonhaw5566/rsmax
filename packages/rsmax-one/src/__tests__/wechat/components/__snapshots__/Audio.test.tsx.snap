@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`Audio > render correctly 1`] = `<audio />`;
