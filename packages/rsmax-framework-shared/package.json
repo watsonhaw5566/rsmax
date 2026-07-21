@@ -19,13 +19,9 @@
     "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
     "test": "rstest run"
   },
-  "dependencies": {
-    "react-is": "^18.3.0"
-  },
   "devDependencies": {
     "@rsmax/types": "workspace:*",
     "@types/react": "^18.3.0",
-    "@types/react-is": "^18.3.0",
     "@types/react-test-renderer": "^18.3.0",
     "react-test-renderer": "^18.3.0"
   },

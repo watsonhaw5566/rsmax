@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { ForwardRef } from 'react-is';
 import PageInstanceContext from './PageInstanceContext';
 import * as RuntimeOptions from './RuntimeOptions';
 import { type Callback, Lifecycle, callbackName } from './lifecycle';
 import isClassComponent from './utils/isClassComponent';
+
+const REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
 
 export interface PageProps<Q = Record<string, string | undefined>> {
   location: {
@@ -14,7 +15,6 @@ export interface PageProps<Q = Record<string, string | undefined>> {
 export default function createPageWrapper(Page: React.ComponentType<any>, name: string) {
   const WrappedPage = RuntimeOptions.get('pluginDriver').onPageComponent({ component: Page, page: name });
   return class PageWrapper extends React.Component<{ page: any; query: any }> {
-    // 页面组件的实例
     pageComponentInstance: any = null;
 
     callbacks = new Map<
@@ -49,7 +49,7 @@ export default function createPageWrapper(Page: React.ComponentType<any>, name: 
         },
       };
 
-      if (isClassComponent(Page) || (Page as any).$$typeof === ForwardRef) {
+      if (isClassComponent(Page) || (Page as any).$$typeof === REACT_FORWARD_REF_TYPE) {
         props.ref = (node: any) => (this.pageComponentInstance = node);
       }
 
