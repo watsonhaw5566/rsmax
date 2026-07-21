@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`NavigationBar > render correctly 1`] = `
+<navigation-bar
+  colorAnimationDuration={0}
+  colorAnimationTimingFunc="linear"
+  loading={false}
+/>
+`;

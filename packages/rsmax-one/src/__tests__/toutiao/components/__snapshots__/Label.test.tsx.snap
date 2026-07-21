@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`Label > render correctly 1`] = `<label />`;

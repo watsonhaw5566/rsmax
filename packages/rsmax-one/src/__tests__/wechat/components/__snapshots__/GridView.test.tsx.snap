@@ -1,0 +1,22 @@
+// Rstest Snapshot v1
+
+exports[`GridView > render correctly 1`] = `
+<grid-view
+  className="class"
+  crossAxisCount={2}
+  crossAxisGap={0}
+  mainAxisGap={0}
+  maxCrossAxisExtent={0}
+  padding={
+    [
+      0,
+      0,
+      0,
+      0,
+    ]
+  }
+  type="aligned"
+>
+  text
+</grid-view>
+`;

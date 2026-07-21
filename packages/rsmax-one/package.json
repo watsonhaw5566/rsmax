@@ -7,6 +7,38 @@
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "typings": "./esm/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js",
+      "types": "./esm/index.d.ts"
+    },
+    "./wechat": {
+      "import": "./esm/hostComponents/wechat/index.js",
+      "require": "./cjs/hostComponents/wechat/index.js",
+      "types": "./esm/hostComponents/wechat/index.d.ts"
+    },
+    "./ali": {
+      "import": "./esm/hostComponents/ali/index.js",
+      "require": "./cjs/hostComponents/ali/index.js",
+      "types": "./esm/hostComponents/ali/index.d.ts"
+    },
+    "./toutiao": {
+      "import": "./esm/hostComponents/toutiao/index.js",
+      "require": "./cjs/hostComponents/toutiao/index.js",
+      "types": "./esm/hostComponents/toutiao/index.d.ts"
+    },
+    "./node/wechat": {
+      "require": "./cjs/node/wechat/index.js"
+    },
+    "./node/ali": {
+      "require": "./cjs/node/ali/index.js"
+    },
+    "./node/toutiao": {
+      "require": "./cjs/node/toutiao/index.js"
+    }
+  },
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
@@ -16,14 +48,10 @@
     "test": "rstest run"
   },
   "dependencies": {
-    "@rsmax/ali": "workspace:*",
     "@rsmax/framework-shared": "workspace:*",
     "@rsmax/runtime": "workspace:*",
-    "@rsmax/toutiao": "workspace:*",
-    "@rsmax/wechat": "workspace:*",
-    "clsx": "^2.1.1",
-    "memoize-one": "^5.1.1",
-    "react-textarea-autosize": "^8.5.3"
+    "@rsmax/shared": "workspace:*",
+    "memoize-one": "^5.1.1"
   },
   "devDependencies": {
     "@rsmax/types": "workspace:*",

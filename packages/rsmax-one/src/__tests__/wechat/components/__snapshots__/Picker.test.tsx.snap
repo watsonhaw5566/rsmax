@@ -1,0 +1,10 @@
+// Rstest Snapshot v1
+
+exports[`Picker > render correctly 1`] = `
+<picker
+  disabled={false}
+  fields="day"
+  mode="selector"
+  range={[]}
+/>
+`;

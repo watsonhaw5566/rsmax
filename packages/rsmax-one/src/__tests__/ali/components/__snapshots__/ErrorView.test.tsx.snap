@@ -1,0 +1,9 @@
+// Rstest Snapshot v1
+
+exports[`ErrorView > render correctly 1`] = `
+<error-view
+  type="default"
+>
+  text
+</error-view>
+`;

@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`SwiperItem > render correctly 1`] = `<swiper-item />`;

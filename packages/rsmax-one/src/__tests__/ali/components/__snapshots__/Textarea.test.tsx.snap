@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`Textarea > render correctly 1`] = `
+<textarea
+  className="class"
+/>
+`;

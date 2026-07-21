@@ -1,0 +1,8 @@
+// Rstest Snapshot v1
+
+exports[`StoreHome > render correctly 1`] = `
+<store-home
+  appid="123"
+  className="class"
+/>
+`;

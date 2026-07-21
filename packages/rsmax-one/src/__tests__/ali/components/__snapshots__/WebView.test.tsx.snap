@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`WebView > render correctly 1`] = `
+<web-view
+  src="https://url.com"
+/>
+`;

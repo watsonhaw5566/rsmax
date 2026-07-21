@@ -1,0 +1,7 @@
+// Rstest Snapshot v1
+
+exports[`Input > render correctly 1`] = `
+<input
+  className="class"
+/>
+`;

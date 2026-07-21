@@ -9,6 +9,7 @@ import {
   createCallback,
 } from '../createHostComponent';
 import memoizeOne from 'memoize-one';
+import type { Platform } from '../types/component';
 
 const createTapCallback = memoizeOne(createCallback);
 const createTouchStartCallback = memoizeOne(createCallback);
@@ -25,7 +26,7 @@ const createResetCallback = memoizeOne(createCallback);
 const createImageLoadCallback = memoizeOne(createCallback);
 const createImageErrorCallback = memoizeOne(createCallback);
 
-interface ComponentConfig {
+export interface ComponentConfig {
   name: string;
   tagName: string;
   alias?: Record<string, string>;
@@ -37,16 +38,16 @@ declare const wx: Record<string, any> | undefined;
 declare const my: Record<string, any> | undefined;
 declare const tt: Record<string, any> | undefined;
 
-function detectPlatform(): 'wechat' | 'ali' | 'toutiao' {
+function detectPlatform(): Platform {
   if (typeof wx !== 'undefined') return 'wechat';
   if (typeof my !== 'undefined') return 'ali';
   if (typeof tt !== 'undefined') return 'toutiao';
   return 'wechat';
 }
 
-const currentPlatform = detectPlatform();
+export const currentPlatform: Platform = detectPlatform();
 
-const platformComponentProps: Record<string, Record<string, Record<string, any>>> = {
+export const platformComponentProps: Record<Platform, Record<string, Record<string, any>>> = {
   wechat: {
     View: {},
     Text: {},
@@ -58,6 +59,42 @@ const platformComponentProps: Record<string, Record<string, Record<string, any>>
     Label: {},
     Navigator: { openType: 'navigate' },
     WebView: {},
+    ScrollView: {},
+    Swiper: { indicatorDots: false, autoplay: false, circular: false, vertical: false },
+    SwiperItem: {},
+    Switch: { type: 'switch' },
+    Radio: {},
+    RadioGroup: {},
+    Checkbox: {},
+    CheckboxGroup: {},
+    Picker: { mode: 'selector' },
+    PickerView: {},
+    PickerViewColumn: {},
+    Slider: { min: 0, max: 100, step: 1 },
+    Progress: { percent: 0, showInfo: false, strokeWidth: 6 },
+    Video: { controls: true },
+    Canvas: {},
+    Camera: { mode: 'normal', devicePosition: 'back', flash: 'auto' },
+    Map: { scale: 16, showLocation: false },
+    RichText: {},
+    CoverView: {},
+    CoverImage: {},
+    MovableArea: {},
+    MovableView: { direction: 'all' },
+    Icon: {},
+    MatchMedia: {},
+    PageContainer: {
+      show: false,
+      duration: 300,
+      zIndex: 1000,
+      overlay: true,
+      position: 'bottom',
+      closeOnSlideDown: false,
+    },
+    ShareElement: {},
+    RootPortal: {},
+    PageMeta: {},
+    Ad: { adIntervals: 30 },
   },
   ali: {
     View: {},
@@ -70,6 +107,35 @@ const platformComponentProps: Record<string, Record<string, Record<string, any>>
     Label: {},
     Navigator: { openType: 'navigate' },
     WebView: {},
+    ScrollView: {},
+    Swiper: { indicatorDots: false, autoplay: false, circular: false, vertical: false },
+    SwiperItem: {},
+    Switch: { type: 'switch' },
+    Radio: {},
+    RadioGroup: {},
+    Checkbox: {},
+    CheckboxGroup: {},
+    Picker: { mode: 'selector' },
+    PickerView: {},
+    PickerViewColumn: {},
+    Slider: { min: 0, max: 100, step: 1 },
+    Progress: { percent: 0, showInfo: false, strokeWidth: 6 },
+    Video: { controls: true },
+    Canvas: {},
+    Camera: { mode: 'normal', devicePosition: 'back', flash: 'auto' },
+    Map: { scale: 16, showLocation: false },
+    RichText: {},
+    CoverView: {},
+    CoverImage: {},
+    MovableArea: {},
+    MovableView: { direction: 'all' },
+    Icon: {},
+    MatchMedia: {},
+    PageContainer: { show: false, duration: 300, zIndex: 1000, overlay: true, position: 'bottom' },
+    ShareElement: {},
+    RootPortal: {},
+    PageMeta: {},
+    Ad: {},
   },
   toutiao: {
     View: {},
@@ -82,10 +148,39 @@ const platformComponentProps: Record<string, Record<string, Record<string, any>>
     Label: {},
     Navigator: { openType: 'navigate' },
     WebView: {},
+    ScrollView: {},
+    Swiper: { indicatorDots: false, autoplay: false, circular: false, vertical: false },
+    SwiperItem: {},
+    Switch: { type: 'switch' },
+    Radio: {},
+    RadioGroup: {},
+    Checkbox: {},
+    CheckboxGroup: {},
+    Picker: { mode: 'selector' },
+    PickerView: {},
+    PickerViewColumn: {},
+    Slider: { min: 0, max: 100, step: 1 },
+    Progress: { percent: 0, showInfo: false, strokeWidth: 6 },
+    Video: { controls: true },
+    Canvas: {},
+    Camera: { mode: 'normal', devicePosition: 'back', flash: 'auto' },
+    Map: { scale: 16, showLocation: false },
+    RichText: {},
+    CoverView: {},
+    CoverImage: {},
+    MovableArea: {},
+    MovableView: { direction: 'all' },
+    Icon: {},
+    MatchMedia: {},
+    PageContainer: { show: false, duration: 300, zIndex: 1000, overlay: true, position: 'bottom' },
+    ShareElement: {},
+    RootPortal: {},
+    PageMeta: {},
+    Ad: { adIntervals: 30 },
   },
 };
 
-const componentConfigs: Record<string, ComponentConfig> = {
+export const componentConfigs: Record<string, ComponentConfig> = {
   View: {
     name: 'View',
     tagName: 'view',
@@ -136,6 +231,151 @@ const componentConfigs: Record<string, ComponentConfig> = {
     tagName: 'web-view',
     eventHandlers: ['onMessage'],
   },
+  ScrollView: {
+    name: 'ScrollView',
+    tagName: 'scroll-view',
+    eventHandlers: ['onScroll', 'onScrollToUpper', 'onScrollToLower'],
+  },
+  Swiper: {
+    name: 'Swiper',
+    tagName: 'swiper',
+    eventHandlers: ['onChange'],
+  },
+  SwiperItem: {
+    name: 'SwiperItem',
+    tagName: 'swiper-item',
+    eventHandlers: [],
+  },
+  Switch: {
+    name: 'Switch',
+    tagName: 'switch',
+    eventHandlers: ['onChange'],
+  },
+  Radio: {
+    name: 'Radio',
+    tagName: 'radio',
+    eventHandlers: ['onChange'],
+  },
+  RadioGroup: {
+    name: 'RadioGroup',
+    tagName: 'radio-group',
+    eventHandlers: ['onChange'],
+  },
+  Checkbox: {
+    name: 'Checkbox',
+    tagName: 'checkbox',
+    eventHandlers: ['onChange'],
+  },
+  CheckboxGroup: {
+    name: 'CheckboxGroup',
+    tagName: 'checkbox-group',
+    eventHandlers: ['onChange'],
+  },
+  Picker: {
+    name: 'Picker',
+    tagName: 'picker',
+    eventHandlers: ['onChange', 'onColumnChange'],
+  },
+  PickerView: {
+    name: 'PickerView',
+    tagName: 'picker-view',
+    eventHandlers: ['onChange'],
+  },
+  PickerViewColumn: {
+    name: 'PickerViewColumn',
+    tagName: 'picker-view-column',
+    eventHandlers: [],
+  },
+  Slider: {
+    name: 'Slider',
+    tagName: 'slider',
+    eventHandlers: ['onChange', 'onChanging'],
+  },
+  Progress: {
+    name: 'Progress',
+    tagName: 'progress',
+    eventHandlers: [],
+  },
+  Video: {
+    name: 'Video',
+    tagName: 'video',
+    eventHandlers: ['onPlay', 'onPause', 'onEnded', 'onTimeUpdate', 'onFullscreenChange', 'onWaiting', 'onError'],
+  },
+  Canvas: {
+    name: 'Canvas',
+    tagName: 'canvas',
+    eventHandlers: ['onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'],
+  },
+  Camera: {
+    name: 'Camera',
+    tagName: 'camera',
+    eventHandlers: ['onStop', 'onError'],
+  },
+  Map: {
+    name: 'Map',
+    tagName: 'map',
+    eventHandlers: ['onTap', 'onMarkerTap', 'onControlTap', 'onCalloutTap', 'onRegionChange'],
+  },
+  RichText: {
+    name: 'RichText',
+    tagName: 'rich-text',
+    eventHandlers: [],
+  },
+  CoverView: {
+    name: 'CoverView',
+    tagName: 'cover-view',
+    eventHandlers: ['onTap'],
+  },
+  CoverImage: {
+    name: 'CoverImage',
+    tagName: 'cover-image',
+    eventHandlers: ['onLoad', 'onError'],
+  },
+  MovableArea: {
+    name: 'MovableArea',
+    tagName: 'movable-area',
+    eventHandlers: [],
+  },
+  MovableView: {
+    name: 'MovableView',
+    tagName: 'movable-view',
+    eventHandlers: ['onChange', 'onScale'],
+  },
+  Icon: {
+    name: 'Icon',
+    tagName: 'icon',
+    eventHandlers: [],
+  },
+  MatchMedia: {
+    name: 'MatchMedia',
+    tagName: 'match-media',
+    eventHandlers: ['onChange'],
+  },
+  PageContainer: {
+    name: 'PageContainer',
+    tagName: 'page-container',
+    eventHandlers: ['onShow', 'onHide'],
+  },
+  ShareElement: {
+    name: 'ShareElement',
+    tagName: 'share-element',
+    eventHandlers: ['onTransitionEnd'],
+  },
+  RootPortal: {
+    name: 'RootPortal',
+    tagName: 'root-portal',
+    eventHandlers: [],
+  },
+  PageMeta: {
+    name: 'PageMeta',
+    tagName: 'page-meta',
+    eventHandlers: [],
+  },
+  Ad: {
+    name: 'Ad',
+    tagName: 'ad',
+    eventHandlers: ['onLoad', 'onError', 'onClose'],
+  },
 };
 
 function assignDefaultProps(inputProps: Record<string, any>, defaultProps: Record<string, any>): void {
@@ -172,6 +412,7 @@ function getEventCreator(handler: string): ((event: any) => any) | undefined {
     case 'onConfirm':
     case 'onFocus':
     case 'onBlur':
+    case 'onChanging':
       return createInputEvent;
     case 'onSubmit':
     case 'onReset':
@@ -211,6 +452,8 @@ function getMemoizedCallback(handler: string): typeof createCallback {
       return createImageLoadCallback;
     case 'onError':
       return createImageErrorCallback;
+    case 'onChanging':
+      return createChangeCallback;
     default:
       return createCallback;
   }
@@ -267,15 +510,3 @@ export function createUnifiedComponent<P = {}>(
     React.PropsWithoutRef<P> & React.RefAttributes<any>
   >;
 }
-
-export function createComponents(): Record<string, React.ForwardRefExoticComponent<any>> {
-  const components: Record<string, React.ForwardRefExoticComponent<any>> = {};
-
-  Object.keys(componentConfigs).forEach(name => {
-    components[name] = createUnifiedComponent(name);
-  });
-
-  return components;
-}
-
-export { componentConfigs };

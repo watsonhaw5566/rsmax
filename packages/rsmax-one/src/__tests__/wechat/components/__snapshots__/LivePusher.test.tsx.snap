@@ -1,0 +1,31 @@
+// Rstest Snapshot v1
+
+exports[`LivePusher > render correctly 1`] = `
+<live-pusher
+  aspect="9:16"
+  audioQuality="high"
+  audioReverbType={0}
+  audioVolumeType="auto"
+  autoFocus={true}
+  autopush={false}
+  backgroundMute={false}
+  beauty={0}
+  devicePosition="front"
+  enableAgc={false}
+  enableAns={false}
+  enableCamera={true}
+  enableMic={true}
+  localMirror="auto"
+  maxBitrate={1000}
+  minBitrate={200}
+  mirror={false}
+  mode="RTC"
+  muted={false}
+  orientation="vertical"
+  remoteMirror={false}
+  videoHeight={640}
+  videoWidth={360}
+  whiteness={0}
+  zoom={false}
+/>
+`;

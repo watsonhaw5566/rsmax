@@ -1,0 +1,8 @@
+// Rstest Snapshot v1
+
+exports[`Form > render correctly 1`] = `
+<form
+  reportSubmit={true}
+  reportSubmitTimeout={0}
+/>
+`;

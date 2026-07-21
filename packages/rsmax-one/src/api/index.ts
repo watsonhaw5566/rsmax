@@ -1,3 +1,6 @@
-export { api, callAPI } from './unified';
+export { api, initAPI } from './unified';
+export { getCurrentAPI, getCurrentPlatform, setCurrentPlatform } from './adapters';
+export { wechatAPI, aliAPI, toutiaoAPI } from './adapters';
 
-export * from './platforms';
+export type { UnifiedAPI } from './unified/types';
+export * from './unified/types';

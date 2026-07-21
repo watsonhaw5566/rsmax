@@ -1,0 +1,11 @@
+// Rstest Snapshot v1
+
+exports[`OpenDataList > render correctly 1`] = `
+<open-data-list
+  className="class"
+  members={[]}
+  type="groupMembers"
+>
+  text
+</open-data-list>
+`;

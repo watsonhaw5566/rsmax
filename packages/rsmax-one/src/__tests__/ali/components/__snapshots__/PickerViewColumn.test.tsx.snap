@@ -1,0 +1,3 @@
+// Rstest Snapshot v1
+
+exports[`PickerViewColumn > render correctly 1`] = `<picker-view-column />`;
