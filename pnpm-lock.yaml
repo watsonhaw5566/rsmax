@@ -80,9 +80,6 @@ importers:
       '@rsmax/cli':
         specifier: workspace:*
         version: link:../../packages/rsmax-cli
-      '@rsmax/one':
-        specifier: workspace:*
-        version: link:../../packages/rsmax-one
       '@vant/weapp':
         specifier: ^1.11.7
         version: 1.11.7

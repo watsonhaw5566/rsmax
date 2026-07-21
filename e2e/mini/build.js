@@ -1,4 +1,4 @@
-const { buildMini } = require('@rsmax/cli');
+const { buildMini } = require('rsmax/build');
 
 buildMini({
   cwd: process.cwd(),

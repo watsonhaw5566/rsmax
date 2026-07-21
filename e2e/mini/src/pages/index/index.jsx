@@ -1,4 +1,4 @@
-import { api, Image, Text, View } from '@rsmax/one';
+import { api, Image, Text, View } from 'rsmax/one';
 import styles from './index.module.css';
 import logo from '../../../public/icon.png';
 

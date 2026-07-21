@@ -15,7 +15,7 @@
 ### 基础用法
 
 ```tsx
-import { View, Text, Image, Button } from '@rsmax/one';
+import { View, Text, Image, Button } from 'rsmax/one';
 
 function App() {
   return (
@@ -111,7 +111,7 @@ function App() {
 除了统一组件外，`@rsmax/one` 还导出各平台特定的组件：
 
 ```tsx
-import { wechat, ali, toutiao } from '@rsmax/one';
+import { wechat, ali, toutiao } from 'rsmax/one';
 
 // 使用微信特有组件
 function WechatOnly() {
@@ -150,7 +150,7 @@ function ToutiaoOnly() {
 `@rsmax/one` 提供统一的 API 接口，自动适配不同平台：
 
 ```tsx
-import { api } from '@rsmax/one';
+import { api } from 'rsmax/one';
 
 // 调用统一 API，自动路由到对应平台
 api.navigateTo({ url: '/pages/index' });
@@ -187,7 +187,7 @@ const data = api.getStorageSync('key');
 如果需要访问平台特定 API，可以使用平台特定的 API 对象：
 
 ```tsx
-import { wechatAPI, aliAPI, toutiaoAPI, getCurrentPlatform } from '@rsmax/one';
+import { wechatAPI, aliAPI, toutiaoAPI, getCurrentPlatform } from 'rsmax/one';
 
 const platform = getCurrentPlatform(); // 'wechat' | 'ali' | 'toutiao'
 
@@ -203,7 +203,7 @@ if (platform === 'wechat') {
 `@rsmax/one` 提供完整的 TypeScript 类型定义：
 
 ```tsx
-import type { ViewProps, TextProps, ImageProps, ButtonProps, UnifiedAPI } from '@rsmax/one';
+import type { ViewProps, TextProps, ImageProps, ButtonProps, UnifiedAPI } from 'rsmax/one';
 
 interface MyComponentProps {
   viewProps?: ViewProps;
@@ -281,7 +281,7 @@ api.navigateTo(options)
 ## 📝 示例项目
 
 ```tsx
-import { View, Text, Image, Button, ScrollView, Swiper, SwiperItem, api } from '@rsmax/one';
+import { View, Text, Image, Button, ScrollView, Swiper, SwiperItem, api } from 'rsmax/one';
 
 function HomePage() {
   const handleClick = () => {
