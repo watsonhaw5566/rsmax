@@ -1,4 +1,4 @@
-import type { UnifiedAPI } from '../unified/types';
+import type { UnifiedAPI } from '../unified';
 import { promisify } from '@rsmax/framework-shared';
 
 declare const wx: any;
@@ -57,3 +57,21 @@ export const wechatAPI: UnifiedAPI = {
   clearStorage: () => promisify(wx.clearStorage)(),
   clearStorageSync: () => wx.clearStorageSync(),
 };
+
+import type { Platform } from '../unified';
+
+export function getCurrentPlatform(): Platform {
+  return 'wechat';
+}
+
+export function getCurrentAPI(): UnifiedAPI {
+  return wechatAPI;
+}
+
+export function setCurrentPlatform(_platform: Platform): void {
+  // 一份小程序产物只服务一个构建目标平台，运行时无需切换
+}
+
+export function initAPI(_platform?: Platform): UnifiedAPI {
+  return wechatAPI;
+}

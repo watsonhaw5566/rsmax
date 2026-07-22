@@ -34,21 +34,19 @@ export interface ComponentConfig {
   eventHandlers?: string[];
 }
 
+type ComponentProps = Record<string, Record<string, any>>;
+
 declare const wx: Record<string, any> | undefined;
 declare const my: Record<string, any> | undefined;
 declare const tt: Record<string, any> | undefined;
 
-function detectPlatform(): Platform {
-  if (typeof wx !== 'undefined') return 'wechat';
-  if (typeof my !== 'undefined') return 'ali';
-  if (typeof tt !== 'undefined') return 'toutiao';
-  return 'wechat';
-}
+const buildTarget = process.env.RSMAX_PLATFORM as Platform | undefined;
 
-export const currentPlatform: Platform = detectPlatform();
+let currentPlatform: Platform;
+let currentPlatformComponentProps: ComponentProps;
 
-export const platformComponentProps: Record<Platform, Record<string, Record<string, any>>> = {
-  wechat: {
+function getWechatComponentProps(): ComponentProps {
+  return {
     View: {},
     Text: {},
     Image: { mode: 'scaleToFill' },
@@ -95,8 +93,11 @@ export const platformComponentProps: Record<Platform, Record<string, Record<stri
     RootPortal: {},
     PageMeta: {},
     Ad: { adIntervals: 30 },
-  },
-  ali: {
+  };
+}
+
+function getAliComponentProps(): ComponentProps {
+  return {
     View: {},
     Text: {},
     Image: { mode: 'aspectFill' },
@@ -136,8 +137,11 @@ export const platformComponentProps: Record<Platform, Record<string, Record<stri
     RootPortal: {},
     PageMeta: {},
     Ad: {},
-  },
-  toutiao: {
+  };
+}
+
+function getToutiaoComponentProps(): ComponentProps {
+  return {
     View: {},
     Text: {},
     Image: { mode: 'scaleToFill' },
@@ -177,8 +181,47 @@ export const platformComponentProps: Record<Platform, Record<string, Record<stri
     RootPortal: {},
     PageMeta: {},
     Ad: { adIntervals: 30 },
+  };
+}
+
+if (buildTarget === 'wechat') {
+  currentPlatform = 'wechat';
+  currentPlatformComponentProps = getWechatComponentProps();
+} else if (buildTarget === 'ali') {
+  currentPlatform = 'ali';
+  currentPlatformComponentProps = getAliComponentProps();
+} else if (buildTarget === 'toutiao') {
+  currentPlatform = 'toutiao';
+  currentPlatformComponentProps = getToutiaoComponentProps();
+} else {
+  if (typeof wx !== 'undefined') {
+    currentPlatform = 'wechat';
+    currentPlatformComponentProps = getWechatComponentProps();
+  } else if (typeof my !== 'undefined') {
+    currentPlatform = 'ali';
+    currentPlatformComponentProps = getAliComponentProps();
+  } else if (typeof tt !== 'undefined') {
+    currentPlatform = 'toutiao';
+    currentPlatformComponentProps = getToutiaoComponentProps();
+  } else {
+    currentPlatform = 'wechat';
+    currentPlatformComponentProps = getWechatComponentProps();
+  }
+}
+
+export { currentPlatform };
+
+export const platformComponentProps: Record<Platform, ComponentProps> = {
+  get wechat() {
+    return getWechatComponentProps();
   },
-};
+  get ali() {
+    return getAliComponentProps();
+  },
+  get toutiao() {
+    return getToutiaoComponentProps();
+  },
+} as Record<Platform, ComponentProps>;
 
 export const componentConfigs: Record<string, ComponentConfig> = {
   View: {
@@ -471,7 +514,7 @@ export function createUnifiedComponent<P = {}>(
   const { tagName, alias, defaultProps: customDefaultProps, eventHandlers } = config;
 
   const Component = (props: React.PropsWithoutRef<P>, ref: React.Ref<any>) => {
-    const platformDefaultProps = platformComponentProps[currentPlatform]?.[componentName] || {};
+    const platformDefaultProps = currentPlatformComponentProps[componentName] || {};
 
     const inputProps = { ...props } as Record<string, any>;
 

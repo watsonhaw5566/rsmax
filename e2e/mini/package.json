@@ -8,6 +8,7 @@
   "dependencies": {
     "@vant/weapp": "^1.11.7",
     "antd-mini": "^3.0",
+    "dayjs": "^1.11.21",
     "rsmax": "workspace:*"
   }
 }

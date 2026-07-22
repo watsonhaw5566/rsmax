@@ -25,50 +25,27 @@ export {
   createAdapter,
 };
 
-export { wechatAdapter };
-export { aliAdapter };
-export { toutiaoAdapter };
-
-export const adapters: Record<string, PlatformAdapter> = {
-  wechat: wechatAdapter,
-  ali: aliAdapter,
-  toutiao: toutiaoAdapter,
-};
-
 function detectPlatform(): string {
-  if (typeof wx !== 'undefined') {
-    return 'wechat';
+  const buildTarget = process.env?.RSMAX_PLATFORM;
+  if (buildTarget === 'wechat' || buildTarget === 'ali' || buildTarget === 'toutiao') {
+    return buildTarget;
   }
-  if (typeof my !== 'undefined') {
-    return 'ali';
-  }
-  if (typeof tt !== 'undefined') {
-    return 'toutiao';
-  }
+  if (typeof wx !== 'undefined') return 'wechat';
+  if (typeof my !== 'undefined') return 'ali';
+  if (typeof tt !== 'undefined') return 'toutiao';
   return 'wechat';
 }
 
+function resolveAdapter(platform: string): PlatformAdapter {
+  if (platform === 'wechat') return wechatAdapter;
+  if (platform === 'ali') return aliAdapter;
+  if (platform === 'toutiao') return toutiaoAdapter;
+  return wechatAdapter;
+}
+
 export function initAdapter(platform?: string): void {
-  let targetPlatform = platform;
-
-  if (!targetPlatform) {
-    try {
-      targetPlatform = process.env?.RSMAX_PLATFORM;
-    } catch {
-      // process.env may not be available in all environments
-    }
-  }
-
-  if (!targetPlatform) {
-    targetPlatform = detectPlatform();
-  }
-
-  const adapter = adapters[targetPlatform];
-
-  if (!adapter) {
-    throw new Error(`Unsupported platform: ${targetPlatform}`);
-  }
-
-  setCurrentPlatform(targetPlatform as Platform);
+  const target = platform ?? detectPlatform();
+  const adapter = resolveAdapter(target);
+  setCurrentPlatform(target as Platform);
   setCurrentAdapter(adapter);
 }
