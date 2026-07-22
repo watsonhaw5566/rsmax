@@ -7228,7 +7228,7 @@ components/react-greet/index.js:                     // 更新 ref（如果有�
 components/react-greet/index.js:                     if (ref) {
 components/react-greet/index.js:                         if (typeof ref === 'function') {
 components/react-greet/index.js:                             ref(_reuse);
-components/react-greet/index.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+components/react-greet/index.js:                         } else if (_typeof(ref) === 'object') {
 components/react-greet/index.js:                             ref.current = _reuse;
 components/react-greet/index.js:                         }
 components/react-greet/index.js:                     }
@@ -7247,7 +7247,7 @@ components/react-greet/index.js:                 // 设置 ref（如果有）
 components/react-greet/index.js:                 if (ref) {
 components/react-greet/index.js:                     if (typeof ref === 'function') {
 components/react-greet/index.js:                         ref(_vnode);
-components/react-greet/index.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+components/react-greet/index.js:                     } else if (_typeof(ref) === 'object') {
 components/react-greet/index.js:                         ref.current = _vnode;
 components/react-greet/index.js:                     }
 components/react-greet/index.js:                 }
@@ -13775,7 +13775,7 @@ pages/react/index.js:                     // 更新 ref（如果有）
 pages/react/index.js:                     if (ref) {
 pages/react/index.js:                         if (typeof ref === 'function') {
 pages/react/index.js:                             ref(_reuse);
-pages/react/index.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+pages/react/index.js:                         } else if (_typeof(ref) === 'object') {
 pages/react/index.js:                             ref.current = _reuse;
 pages/react/index.js:                         }
 pages/react/index.js:                     }
@@ -13794,7 +13794,7 @@ pages/react/index.js:                 // 设置 ref（如果有）
 pages/react/index.js:                 if (ref) {
 pages/react/index.js:                     if (typeof ref === 'function') {
 pages/react/index.js:                         ref(_vnode);
-pages/react/index.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+pages/react/index.js:                     } else if (_typeof(ref) === 'object') {
 pages/react/index.js:                         ref.current = _vnode;
 pages/react/index.js:                     }
 pages/react/index.js:                 }

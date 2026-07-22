@@ -6123,7 +6123,7 @@ rsmax-vendors.js:                     // 更新 ref（如果有）
 rsmax-vendors.js:                     if (ref) {
 rsmax-vendors.js:                         if (typeof ref === 'function') {
 rsmax-vendors.js:                             ref(_reuse);
-rsmax-vendors.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                         } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                             ref.current = _reuse;
 rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
@@ -6142,7 +6142,7 @@ rsmax-vendors.js:                 // 设置 ref（如果有）
 rsmax-vendors.js:                 if (ref) {
 rsmax-vendors.js:                     if (typeof ref === 'function') {
 rsmax-vendors.js:                         ref(_vnode);
-rsmax-vendors.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                     } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                         ref.current = _vnode;
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
@@ -13297,7 +13297,7 @@ rsmax-vendors.js:                     // 更新 ref（如果有）
 rsmax-vendors.js:                     if (ref) {
 rsmax-vendors.js:                         if (typeof ref === 'function') {
 rsmax-vendors.js:                             ref(_reuse);
-rsmax-vendors.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                         } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                             ref.current = _reuse;
 rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
@@ -13316,7 +13316,7 @@ rsmax-vendors.js:                 // 设置 ref（如果有）
 rsmax-vendors.js:                 if (ref) {
 rsmax-vendors.js:                     if (typeof ref === 'function') {
 rsmax-vendors.js:                         ref(_vnode);
-rsmax-vendors.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                     } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                         ref.current = _vnode;
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
@@ -20495,7 +20495,7 @@ rsmax-vendors.js:                     // 更新 ref（如果有）
 rsmax-vendors.js:                     if (ref) {
 rsmax-vendors.js:                         if (typeof ref === 'function') {
 rsmax-vendors.js:                             ref(_reuse);
-rsmax-vendors.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                         } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                             ref.current = _reuse;
 rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
@@ -20514,7 +20514,7 @@ rsmax-vendors.js:                 // 设置 ref（如果有）
 rsmax-vendors.js:                 if (ref) {
 rsmax-vendors.js:                     if (typeof ref === 'function') {
 rsmax-vendors.js:                         ref(_vnode);
-rsmax-vendors.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                     } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                         ref.current = _vnode;
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
@@ -27786,7 +27786,7 @@ rsmax-vendors.js:                     // 更新 ref（如果有）
 rsmax-vendors.js:                     if (ref) {
 rsmax-vendors.js:                         if (typeof ref === 'function') {
 rsmax-vendors.js:                             ref(_reuse);
-rsmax-vendors.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                         } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                             ref.current = _reuse;
 rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
@@ -27805,7 +27805,7 @@ rsmax-vendors.js:                 // 设置 ref（如果有）
 rsmax-vendors.js:                 if (ref) {
 rsmax-vendors.js:                     if (typeof ref === 'function') {
 rsmax-vendors.js:                         ref(_vnode);
-rsmax-vendors.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                     } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                         ref.current = _vnode;
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
@@ -35076,7 +35076,7 @@ rsmax-vendors.js:                     // 更新 ref（如果有）
 rsmax-vendors.js:                     if (ref) {
 rsmax-vendors.js:                         if (typeof ref === 'function') {
 rsmax-vendors.js:                             ref(_reuse);
-rsmax-vendors.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                         } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                             ref.current = _reuse;
 rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
@@ -35095,7 +35095,7 @@ rsmax-vendors.js:                 // 设置 ref（如果有）
 rsmax-vendors.js:                 if (ref) {
 rsmax-vendors.js:                     if (typeof ref === 'function') {
 rsmax-vendors.js:                         ref(_vnode);
-rsmax-vendors.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                     } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                         ref.current = _vnode;
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }

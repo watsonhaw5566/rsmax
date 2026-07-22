@@ -6153,7 +6153,7 @@ components/greet/index.js:                     // 更新 ref（如果有）
 components/greet/index.js:                     if (ref) {
 components/greet/index.js:                         if (typeof ref === 'function') {
 components/greet/index.js:                             ref(_reuse);
-components/greet/index.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+components/greet/index.js:                         } else if (_typeof(ref) === 'object') {
 components/greet/index.js:                             ref.current = _reuse;
 components/greet/index.js:                         }
 components/greet/index.js:                     }
@@ -6172,7 +6172,7 @@ components/greet/index.js:                 // 设置 ref（如果有）
 components/greet/index.js:                 if (ref) {
 components/greet/index.js:                     if (typeof ref === 'function') {
 components/greet/index.js:                         ref(_vnode);
-components/greet/index.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+components/greet/index.js:                     } else if (_typeof(ref) === 'object') {
 components/greet/index.js:                         ref.current = _vnode;
 components/greet/index.js:                     }
 components/greet/index.js:                 }
@@ -13137,7 +13137,7 @@ pages/index/index.js:                     // 更新 ref（如果有）
 pages/index/index.js:                     if (ref) {
 pages/index/index.js:                         if (typeof ref === 'function') {
 pages/index/index.js:                             ref(_reuse);
-pages/index/index.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+pages/index/index.js:                         } else if (_typeof(ref) === 'object') {
 pages/index/index.js:                             ref.current = _reuse;
 pages/index/index.js:                         }
 pages/index/index.js:                     }
@@ -13156,7 +13156,7 @@ pages/index/index.js:                 // 设置 ref（如果有）
 pages/index/index.js:                 if (ref) {
 pages/index/index.js:                     if (typeof ref === 'function') {
 pages/index/index.js:                         ref(_vnode);
-pages/index/index.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+pages/index/index.js:                     } else if (_typeof(ref) === 'object') {
 pages/index/index.js:                         ref.current = _vnode;
 pages/index/index.js:                     }
 pages/index/index.js:                 }
