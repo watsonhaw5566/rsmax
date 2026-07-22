@@ -7,4 +7,6 @@ buildMini({
   rootDir: './src',
   pxToRpx: true,
   minimize: false,
+  renderer: 'light',
+  debug: true,
 });

@@ -41,6 +41,8 @@ export interface BuildOptions {
   component?: HostComponent;
   minimize?: boolean;
   loglevel?: LogLevel;
+  renderer?: 'classic' | 'light';
+  debug?: boolean;
 }
 
 export type Options = BuildOptions & PluginOptions;

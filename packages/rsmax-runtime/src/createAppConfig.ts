@@ -8,7 +8,7 @@ import {
 import * as React from 'react';
 import { ForwardRef } from 'react-is';
 import AppContainer from './AppContainer';
-import render from './render';
+import { getRenderer } from './renderer';
 
 class DefaultAppComponent extends React.Component {
   render() {
@@ -73,6 +73,7 @@ export default function createAppConfig(this: any, App: any) {
           props.ref = this._instance;
         }
 
+        const { render } = getRenderer();
         return render(
           React.createElement(
             AppComponent,

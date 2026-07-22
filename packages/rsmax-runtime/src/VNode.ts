@@ -126,7 +126,14 @@ export default class VNode {
 
     this.lastChild = node;
 
-    if (this.isMounted()) {
+    const mounted = this.isMounted();
+    if (RuntimeOptions.get('debug')) {
+      console.log(
+        `[VNode] appendChild: parent.id=${this.id}, child.id=${node.id}, isMounted=${mounted}, this.container.hasUpdateQueue=${!!this.container.updateQueue}, this.container.updateQueue.length=${this.container.updateQueue.length}`
+      );
+    }
+    if (mounted) {
+      const beforeLen = this.container.updateQueue.length;
       this.container.requestUpdate({
         type: 'splice',
         path: this.path,
@@ -137,6 +144,12 @@ export default class VNode {
         items: [node.toJSON()],
         node: this,
       });
+      if (RuntimeOptions.get('debug')) {
+        const afterLen = this.container.updateQueue.length;
+        console.log(
+          `[VNode]   requestUpdate called: beforeLen=${beforeLen}, afterLen=${afterLen}, pushed=${afterLen > beforeLen}`
+        );
+      }
     }
   }
 

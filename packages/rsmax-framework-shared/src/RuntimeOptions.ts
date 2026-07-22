@@ -11,6 +11,7 @@ interface RuntimeOptions {
   appEvents: string[];
   navigate: any;
   mpa: boolean;
+  renderer: 'classic' | 'light';
 }
 
 const defaultRuntimeOptions: RuntimeOptions = {
@@ -22,6 +23,7 @@ const defaultRuntimeOptions: RuntimeOptions = {
   pluginDriver: new PluginDriver([]),
   navigate: {},
   mpa: false,
+  renderer: 'classic',
 };
 
 let runtimeOptions = defaultRuntimeOptions;
@@ -47,6 +49,7 @@ function merge(...options: Array<Partial<RuntimeOptions>>) {
     acc.platform = option.platform ?? acc.platform;
     acc.pxToRpx = option.pxToRpx ?? acc.pxToRpx;
     acc.mpa = option.mpa ?? acc.mpa;
+    acc.renderer = option.renderer ?? acc.renderer;
 
     return acc;
   }, runtimeOptions);

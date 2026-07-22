@@ -16,7 +16,7 @@ const resolveReact = (options: Options): string => {
   return path.dirname(slash(react));
 };
 
-export default (options: Options, target: Platform) => {
+export default (options: Options, _target: Platform) => {
   const config: Alias = {
     'regenerator-runtime': require.resolve('regenerator-runtime'),
     // 防止 link 开发时加载多个 React
@@ -26,6 +26,14 @@ export default (options: Options, target: Platform) => {
     '@rsmax/runtime': require.resolve('@rsmax/runtime'),
     '@rsmax/shared': require.resolve('@rsmax/shared'),
   };
+
+  if (options.renderer === 'light') {
+    const runtimeRenderPath = slash(path.resolve(require.resolve('@rsmax/runtime'), '../render.js'));
+    const runtimeLightShimPath = slash(
+      path.resolve(require.resolve('@rsmax/runtime'), '../render-light-classic-shim.js')
+    );
+    config[runtimeRenderPath] = runtimeLightShimPath;
+  }
 
   return config;
 };

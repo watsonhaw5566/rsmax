@@ -98,12 +98,13 @@ export default function rspackConfig(builder: Builder): Configuration {
 
   const runtimeOptions = {
     pxToRpx: builder.options.pxToRpx,
-    debug: !!process.env.RSMAX_DEBUG,
+    debug: (builder.options.debug ?? process.env.RSMAX_DEBUG) ? true : false,
     platform: builder.options.target,
     pluginFiles: builder.api.getRuntimePluginFiles(),
     hostComponents: '[]',
     pageEvents: '{}',
     appEvents: '[]',
+    renderer: builder.options.renderer || 'classic',
   };
 
   config.plugin('rspack-virtual-modules').use(rspack.experiments.VirtualModulesPlugin, [

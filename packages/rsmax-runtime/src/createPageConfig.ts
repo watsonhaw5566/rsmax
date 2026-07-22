@@ -2,8 +2,7 @@ import { Lifecycle, RuntimeOptions, callbackName, createPageWrapper } from '@rsm
 import React from 'react';
 import Container from './Container';
 import { createPortal } from './ReactPortal';
-import { unstable_batchedUpdates } from './index';
-import render from './render';
+import { getRenderer } from './renderer';
 import stopPullDownRefresh from './stopPullDownRefresh';
 
 let idCounter = 0;
@@ -94,6 +93,7 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
         this.element = createPortal(pageElement, this.container, this.pageId);
         app._mount(this);
       } else {
+        const { render } = getRenderer();
         this.element = render(pageElement, this.container);
       }
 
@@ -135,9 +135,10 @@ export default function createPageConfig(Page: React.ComponentType<any>, name: s
       let result;
       // 生命周期中可能改变 state 导致 callbacks 发生变化
       [...callbacks].map((callback: any) => {
-        result = unstable_batchedUpdates(args => {
+        const { unstable_batchedUpdates } = getRenderer();
+        result = unstable_batchedUpdates(() => {
           return callback(...args);
-        }, args);
+        });
       });
       if (result) {
         return result;
