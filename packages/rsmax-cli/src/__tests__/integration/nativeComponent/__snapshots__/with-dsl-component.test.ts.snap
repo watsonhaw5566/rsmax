@@ -732,6 +732,7 @@ app.js: __WEBPACK_IMPORTED_MODULE_0__.RuntimeOptions.apply({
 app.js:     platform: "ali",
 app.js:     debug: false,
 app.js:     pxToRpx: true,
+app.js:     renderer: "classic",
 app.js:     pluginDriver: pluginDriver,
 app.js:     hostComponents: __WEBPACK_IMPORTED_MODULE_1__.hostComponents,
 app.js:     pageEvents: __WEBPACK_IMPORTED_MODULE_1__.pageEvents,
@@ -2314,7 +2315,8 @@ rsmax-vendors.js:     appEvents: [],
 rsmax-vendors.js:     pageEvents: {},
 rsmax-vendors.js:     pluginDriver: new __WEBPACK_IMPORTED_MODULE_0__["default"]([]),
 rsmax-vendors.js:     navigate: {},
-rsmax-vendors.js:     mpa: false
+rsmax-vendors.js:     mpa: false,
+rsmax-vendors.js:     renderer: 'classic'
 rsmax-vendors.js: };
 rsmax-vendors.js: var runtimeOptions = defaultRuntimeOptions;
 rsmax-vendors.js: function merge() {
@@ -2322,7 +2324,7 @@ rsmax-vendors.js:     for(var _len = arguments.length, options = new Array(_len)
 rsmax-vendors.js:         options[_key] = arguments[_key];
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return options.reduce(function(acc, option) {
-rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+rsmax-vendors.js:         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 rsmax-vendors.js:         acc.appEvents = (_a = option.appEvents) !== null && _a !== void 0 ? _a : acc.appEvents;
 rsmax-vendors.js:         acc.debug = (_b = option.debug) !== null && _b !== void 0 ? _b : acc.debug;
 rsmax-vendors.js:         acc.navigate = (_c = option.navigate) !== null && _c !== void 0 ? _c : acc.navigate;
@@ -2339,6 +2341,7 @@ rsmax-vendors.js:         acc.pageEvents = (_f = option.pageEvents) !== null && 
 rsmax-vendors.js:         acc.platform = (_g = option.platform) !== null && _g !== void 0 ? _g : acc.platform;
 rsmax-vendors.js:         acc.pxToRpx = (_h = option.pxToRpx) !== null && _h !== void 0 ? _h : acc.pxToRpx;
 rsmax-vendors.js:         acc.mpa = (_j = option.mpa) !== null && _j !== void 0 ? _j : acc.mpa;
+rsmax-vendors.js:         acc.renderer = (_k = option.renderer) !== null && _k !== void 0 ? _k : acc.renderer;
 rsmax-vendors.js:         return acc;
 rsmax-vendors.js:     }, runtimeOptions);
 rsmax-vendors.js: }
@@ -2945,7 +2948,7 @@ rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var VNode_1 = __importDefault(__webpack_require__(<ID>));
-rsmax-vendors.js: var index_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var renderer_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var instanceId_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var nativeEffect_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: var Container = /*#__PURE__*/ function() {
@@ -2986,6 +2989,10 @@ rsmax-vendors.js:                 if (this.stopUpdate || this.updateQueue.length
 rsmax-vendors.js:                     return;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 var startTime = new Date().getTime();
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log("[Container] applyUpdate: rootKey=".concat(this.rootKey, ", updateQueue length=").concat(this.updateQueue.length));
+rsmax-vendors.js:                     console.log("[Container] updateQueue:", JSON.stringify(this.updateQueue, null, 2));
+rsmax-vendors.js:                 }
 rsmax-vendors.js:                 if (typeof this.context.$spliceData === 'function') {
 rsmax-vendors.js:                     var $batchedUpdates = function $batchedUpdates(callback) {
 rsmax-vendors.js:                         callback();
@@ -3067,9 +3074,10 @@ rsmax-vendors.js:                 this.context[name] = function() {
 rsmax-vendors.js:                     for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
 rsmax-vendors.js:                         args[_key] = arguments[_key];
 rsmax-vendors.js:                     }
-rsmax-vendors.js:                     return (0, index_1.unstable_batchedUpdates)(function(args) {
-rsmax-vendors.js:                         return fn.apply(void 0, _toConsumableArray(args));
-rsmax-vendors.js:                     }, args);
+rsmax-vendors.js:                     var _ref = (0, renderer_1.getRenderer)(), unstable_batchedUpdates = _ref.unstable_batchedUpdates;
+rsmax-vendors.js:                     return unstable_batchedUpdates(function() {
+rsmax-vendors.js:                         return fn.apply(void 0, args);
+rsmax-vendors.js:                     });
 rsmax-vendors.js:                 };
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
@@ -3500,7 +3508,12 @@ rsmax-vendors.js:                     this.lastChild.nextSibling = node;
 rsmax-vendors.js:                     node.previousSibling = this.lastChild;
 rsmax-vendors.js:                 }
 rsmax-vendors.js:                 this.lastChild = node;
-rsmax-vendors.js:                 if (this.isMounted()) {
+rsmax-vendors.js:                 var mounted = this.isMounted();
+rsmax-vendors.js:                 if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                     console.log("[VNode] appendChild: parent.id=".concat(this.id, ", child.id=").concat(node.id, ", isMounted=").concat(mounted, ", this.container.hasUpdateQueue=").concat(!!this.container.updateQueue, ", this.container.updateQueue.length=").concat(this.container.updateQueue.length));
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (mounted) {
+rsmax-vendors.js:                     var beforeLen = this.container.updateQueue.length;
 rsmax-vendors.js:                     this.container.requestUpdate({
 rsmax-vendors.js:                         type: 'splice',
 rsmax-vendors.js:                         path: this.path,
@@ -3513,6 +3526,10 @@ rsmax-vendors.js:                             node.toJSON()
 rsmax-vendors.js:                         ],
 rsmax-vendors.js:                         node: this
 rsmax-vendors.js:                     });
+rsmax-vendors.js:                     if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:                         var afterLen = this.container.updateQueue.length;
+rsmax-vendors.js:                         console.log("[VNode]   requestUpdate called: beforeLen=".concat(beforeLen, ", afterLen=").concat(afterLen, ", pushed=").concat(afterLen > beforeLen));
+rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         },
@@ -3929,7 +3946,7 @@ rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var React = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: var react_is_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var AppContainer_1 = __importDefault(__webpack_require__(<ID>));
-rsmax-vendors.js: var render_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: var renderer_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var DefaultAppComponent = /*#__PURE__*/ function(_React$Component) {
 rsmax-vendors.js:     function DefaultAppComponent() {
 rsmax-vendors.js:         _classCallCheck(this, DefaultAppComponent);
@@ -3995,7 +4012,8 @@ rsmax-vendors.js:                 var props = {};
 rsmax-vendors.js:                 if ((0, framework_shared_1.isClassComponent)(AppComponent) || AppComponent.$$typeof === react_is_1.ForwardRef) {
 rsmax-vendors.js:                     props.ref = this._instance;
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 return (0, render_1.default)(React.createElement(AppComponent, props, this._pages.map(function(p) {
+rsmax-vendors.js:                 var _ref = (0, renderer_1.getRenderer)(), render = _ref.render;
+rsmax-vendors.js:                 return render(React.createElement(AppComponent, props, this._pages.map(function(p) {
 rsmax-vendors.js:                     return p.element;
 rsmax-vendors.js:                 })), this._container);
 rsmax-vendors.js:             },
@@ -4042,6 +4060,9 @@ rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: 
+rsmax-vendors.js: function _readOnlyError(r) {
+rsmax-vendors.js:     throw new TypeError('"' + r + '" is read-only');
+rsmax-vendors.js: }
 rsmax-vendors.js: var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
 rsmax-vendors.js:     if (k2 === undefined) k2 = k;
 rsmax-vendors.js:     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4086,7 +4107,7 @@ rsmax-vendors.js: }));
 rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var React = __importStar(__webpack_require__(<ID>));
 rsmax-vendors.js: var Container_1 = __importDefault(__webpack_require__(<ID>));
-rsmax-vendors.js: var render_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: var renderer_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: function createComponentConfig(Component) {
 rsmax-vendors.js:     var platform = framework_shared_1.RuntimeOptions.get('platform');
 rsmax-vendors.js:     var isWechat = platform === 'wechat';
@@ -4109,7 +4130,8 @@ rsmax-vendors.js:             }
 rsmax-vendors.js:         };
 rsmax-vendors.js:         config.detached = function() {
 rsmax-vendors.js:             this.container.clearUpdate();
-rsmax-vendors.js:             (0, render_1.default)(null, this.container);
+rsmax-vendors.js:             var _ref = (0, renderer_1.getRenderer)(), render = _ref.render;
+rsmax-vendors.js:             render(null, this.container);
 rsmax-vendors.js:         };
 rsmax-vendors.js:     } else {
 rsmax-vendors.js:         config.didMount = function() {
@@ -4125,7 +4147,8 @@ rsmax-vendors.js:             this.render();
 rsmax-vendors.js:         };
 rsmax-vendors.js:         config.didUnmount = function() {
 rsmax-vendors.js:             this.container.clearUpdate();
-rsmax-vendors.js:             (0, render_1.default)(null, this.container);
+rsmax-vendors.js:             var _ref2 = (0, renderer_1.getRenderer)(), render = _ref2.render;
+rsmax-vendors.js:             render(null, this.container);
 rsmax-vendors.js:         };
 rsmax-vendors.js:     }
 rsmax-vendors.js:     config.methods = {
@@ -4138,7 +4161,8 @@ rsmax-vendors.js:             this.container = new Container_1.default(this);
 rsmax-vendors.js:             this.render();
 rsmax-vendors.js:         },
 rsmax-vendors.js:         render: function render() {
-rsmax-vendors.js:             this.element = (0, render_1.default)(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
+rsmax-vendors.js:             var _ref3 = (0, renderer_1.getRenderer)(), render = _ref3.render;
+rsmax-vendors.js:             this.element = render(React.createElement(framework_shared_1.ComponentInstanceContext.Provider, {
 rsmax-vendors.js:                 value: this
 rsmax-vendors.js:             }, React.createElement(this.component, isWechat ? this.properties : this.props)), this.container);
 rsmax-vendors.js:         }
@@ -4246,8 +4270,7 @@ rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var react_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: var Container_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: var ReactPortal_1 = __webpack_require__(<ID>);
-rsmax-vendors.js: var index_1 = __webpack_require__(<ID>);
-rsmax-vendors.js: var render_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: var renderer_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var stopPullDownRefresh_1 = __importDefault(__webpack_require__(<ID>));
 rsmax-vendors.js: var idCounter = 0;
 rsmax-vendors.js: function generatePageId() {
@@ -4326,7 +4349,8 @@ rsmax-vendors.js:             if (app === null || app === void 0 ? void 0 : app.
 rsmax-vendors.js:                 this.element = (0, ReactPortal_1.createPortal)(pageElement, this.container, this.pageId);
 rsmax-vendors.js:                 app._mount(this);
 rsmax-vendors.js:             } else {
-rsmax-vendors.js:                 this.element = (0, render_1.default)(pageElement, this.container);
+rsmax-vendors.js:                 var _ref = (0, renderer_1.getRenderer)(), render = _ref.render;
+rsmax-vendors.js:                 this.element = render(pageElement, this.container);
 rsmax-vendors.js:             }
 rsmax-vendors.js:             return this.callLifecycle(framework_shared_1.Lifecycle.load, query);
 rsmax-vendors.js:         },
@@ -4363,9 +4387,10 @@ rsmax-vendors.js:             var callbacks = this.lifecycleCallback[lifecycle] 
 rsmax-vendors.js:             var result;
 rsmax-vendors.js:             // 生命周期中可能改变 state 导致 callbacks 发生变化
 rsmax-vendors.js:             _toConsumableArray(callbacks).map(function(callback) {
-rsmax-vendors.js:                 result = (0, index_1.unstable_batchedUpdates)(function(args) {
-rsmax-vendors.js:                     return callback.apply(void 0, _toConsumableArray(args));
-rsmax-vendors.js:                 }, args);
+rsmax-vendors.js:                 var _ref2 = (0, renderer_1.getRenderer)(), unstable_batchedUpdates = _ref2.unstable_batchedUpdates;
+rsmax-vendors.js:                 result = unstable_batchedUpdates(function() {
+rsmax-vendors.js:                     return callback.apply(void 0, args);
+rsmax-vendors.js:                 });
 rsmax-vendors.js:             });
 rsmax-vendors.js:             if (result) {
 rsmax-vendors.js:                 return result;
@@ -4436,6 +4461,514 @@ rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: 
+rsmax-vendors.js: /**
+rsmax-vendors.js:  * Lightweight React Hooks implementation
+rsmax-vendors.js:  * 轻量级 React Hooks 实现
+rsmax-vendors.js:  *
+rsmax-vendors.js:  * Designed to work with render-light.ts
+rsmax-vendors.js:  * Hook state is stored on the LightNode of the currently rendering component.
+rsmax-vendors.js:  *
+rsmax-vendors.js:  * Design principles:
+rsmax-vendors.js:  * 1. No priority scheduling - synchronous + queueMicrotask for deferred work
+rsmax-vendors.js:  * 2. No time-slicing - render completes in one pass
+rsmax-vendors.js:  * 3. Simple batching - multiple setState calls in one event batch
+rsmax-vendors.js:  */ function _typeof(o) {
+rsmax-vendors.js:     "@babel/helpers - typeof";
+rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+rsmax-vendors.js:         return typeof o;
+rsmax-vendors.js:     } : function(o) {
+rsmax-vendors.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+rsmax-vendors.js:     }, _typeof(o);
+rsmax-vendors.js: }
+rsmax-vendors.js: function _createForOfIteratorHelper(r, e) {
+rsmax-vendors.js:     var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+rsmax-vendors.js:     if (!t) {
+rsmax-vendors.js:         if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
+rsmax-vendors.js:             t && (r = t);
+rsmax-vendors.js:             var _n = 0, F = function F() {};
+rsmax-vendors.js:             return {
+rsmax-vendors.js:                 s: F,
+rsmax-vendors.js:                 n: function n() {
+rsmax-vendors.js:                     return _n >= r.length ? {
+rsmax-vendors.js:                         done: !0
+rsmax-vendors.js:                     } : {
+rsmax-vendors.js:                         done: !1,
+rsmax-vendors.js:                         value: r[_n++]
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                 },
+rsmax-vendors.js:                 e: function e(r) {
+rsmax-vendors.js:                     throw r;
+rsmax-vendors.js:                 },
+rsmax-vendors.js:                 f: F
+rsmax-vendors.js:             };
+rsmax-vendors.js:         }
+rsmax-vendors.js:         throw new TypeError("Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var o, a = !0, u = !1;
+rsmax-vendors.js:     return {
+rsmax-vendors.js:         s: function s() {
+rsmax-vendors.js:             t = t.call(r);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         n: function n() {
+rsmax-vendors.js:             var r = t.next();
+rsmax-vendors.js:             return a = r.done, r;
+rsmax-vendors.js:         },
+rsmax-vendors.js:         e: function e(r) {
+rsmax-vendors.js:             u = !0, o = r;
+rsmax-vendors.js:         },
+rsmax-vendors.js:         f: function f() {
+rsmax-vendors.js:             try {
+rsmax-vendors.js:                 a || null == t.return || t.return();
+rsmax-vendors.js:             } finally{
+rsmax-vendors.js:                 if (u) throw o;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
+rsmax-vendors.js: }
+rsmax-vendors.js: function _unsupportedIterableToArray(r, a) {
+rsmax-vendors.js:     if (r) {
+rsmax-vendors.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
+rsmax-vendors.js:         var t = ({}).toString.call(r).slice(8, -1);
+rsmax-vendors.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: function _arrayLikeToArray(r, a) {
+rsmax-vendors.js:     (null == a || a > r.length) && (a = r.length);
+rsmax-vendors.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
+rsmax-vendors.js:     return n;
+rsmax-vendors.js: }
+rsmax-vendors.js: var __importDefault = this && this.__importDefault || function(mod) {
+rsmax-vendors.js:     return mod && mod.__esModule ? mod : {
+rsmax-vendors.js:         "default": mod
+rsmax-vendors.js:     };
+rsmax-vendors.js: };
+rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
+rsmax-vendors.js:     value: true
+rsmax-vendors.js: }));
+rsmax-vendors.js: exports.setReRenderFn = exports.cleanupEffectsForNode = exports.flushPassiveEffects = exports.flushLayoutEffects = exports.useDebugValue = exports.useImperativeHandle = exports.useContext = exports.useCallback = exports.useMemo = exports.useRef = exports.useLayoutEffect = exports.useEffect = exports.useReducer = exports.useState = exports.batchedUpdates = exports.scheduleComponentUpdate = exports.popRenderContext = exports.pushRenderContext = exports.currentComponent = void 0;
+rsmax-vendors.js: var scheduler_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // Rendering Context
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: /** The component currently being rendered (set by render-light.ts) */ exports.currentComponent = null;
+rsmax-vendors.js: /** Index into the current component's hooks array */ var currentHookIndex = 0;
+rsmax-vendors.js: var renderStack = [];
+rsmax-vendors.js: function pushRenderContext(node) {
+rsmax-vendors.js:     renderStack.push({
+rsmax-vendors.js:         component: exports.currentComponent,
+rsmax-vendors.js:         hookIndex: currentHookIndex
+rsmax-vendors.js:     });
+rsmax-vendors.js:     exports.currentComponent = node;
+rsmax-vendors.js:     currentHookIndex = 0;
+rsmax-vendors.js:     if (!node.memoizedState) node.memoizedState = [];
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.pushRenderContext = pushRenderContext;
+rsmax-vendors.js: function popRenderContext() {
+rsmax-vendors.js:     var ctx = renderStack.pop();
+rsmax-vendors.js:     if (ctx) {
+rsmax-vendors.js:         exports.currentComponent = ctx.component;
+rsmax-vendors.js:         currentHookIndex = ctx.hookIndex;
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.popRenderContext = popRenderContext;
+rsmax-vendors.js: /** Effects scheduled via useEffect - run after paint */ var passiveEffects = [];
+rsmax-vendors.js: /** Effects scheduled via useLayoutEffect - run before paint */ var layoutEffects = [];
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // Dirty Component Tracking
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: var dirtyComponents = new Set();
+rsmax-vendors.js: var updateScheduled = false;
+rsmax-vendors.js: function scheduleComponentUpdate(node) {
+rsmax-vendors.js:     dirtyComponents.add(node);
+rsmax-vendors.js:     if (!updateScheduled) {
+rsmax-vendors.js:         updateScheduled = true;
+rsmax-vendors.js:         // Schedule the update using queueMicrotask
+rsmax-vendors.js:         scheduler_1.default.unstable_scheduleCallback(function() {
+rsmax-vendors.js:             updateScheduled = false;
+rsmax-vendors.js:             flushDirtyComponents();
+rsmax-vendors.js:         });
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
+rsmax-vendors.js: function flushDirtyComponents() {
+rsmax-vendors.js:     var dirty = Array.from(dirtyComponents);
+rsmax-vendors.js:     dirtyComponents.clear();
+rsmax-vendors.js:     for(var _i = 0, _dirty = dirty; _i < _dirty.length; _i++){
+rsmax-vendors.js:         var node = _dirty[_i];
+rsmax-vendors.js:         if (!node.dirty) continue; // Might have been updated by a parent
+rsmax-vendors.js:         reRenderComponent(node);
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // Batching
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: var batchDepth = 0;
+rsmax-vendors.js: var pendingBatched = [];
+rsmax-vendors.js: function batchedUpdates(fn) {
+rsmax-vendors.js:     batchDepth++;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         return fn();
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         batchDepth--;
+rsmax-vendors.js:         if (batchDepth === 0 && pendingBatched.length > 0) {
+rsmax-vendors.js:             var toUpdate = pendingBatched.splice(0);
+rsmax-vendors.js:             var _iterator = _createForOfIteratorHelper(toUpdate), _step;
+rsmax-vendors.js:             try {
+rsmax-vendors.js:                 for(_iterator.s(); !(_step = _iterator.n()).done;){
+rsmax-vendors.js:                     var node = _step.value;
+rsmax-vendors.js:                     scheduleComponentUpdate(node);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             } catch (err) {
+rsmax-vendors.js:                 _iterator.e(err);
+rsmax-vendors.js:             } finally{
+rsmax-vendors.js:                 _iterator.f();
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.batchedUpdates = batchedUpdates;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // Core Hook Helpers
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function getOrCreateHook(type) {
+rsmax-vendors.js:     if (!exports.currentComponent) {
+rsmax-vendors.js:         throw new Error('Hooks can only be called inside function components');
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var hooks = exports.currentComponent.memoizedState;
+rsmax-vendors.js:     var hook = hooks[currentHookIndex];
+rsmax-vendors.js:     if (!hook) {
+rsmax-vendors.js:         hook = {
+rsmax-vendors.js:             type: type,
+rsmax-vendors.js:             state: undefined
+rsmax-vendors.js:         };
+rsmax-vendors.js:         hooks.push(hook);
+rsmax-vendors.js:     } else if (hook.type !== type) {
+rsmax-vendors.js:         // Type mismatch - warn but continue (in production, just overwrite)
+rsmax-vendors.js:         hook.type = type;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     currentHookIndex++;
+rsmax-vendors.js:     return hook;
+rsmax-vendors.js: }
+rsmax-vendors.js: function depsChanged(prevDeps, nextDeps) {
+rsmax-vendors.js:     if (!prevDeps || !nextDeps) return true;
+rsmax-vendors.js:     if (prevDeps.length !== nextDeps.length) return true;
+rsmax-vendors.js:     for(var i = 0; i < prevDeps.length; i++){
+rsmax-vendors.js:         if (!Object.is(prevDeps[i], nextDeps[i])) return true;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return false;
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useState
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useState(initialValue) {
+rsmax-vendors.js:     var hook = getOrCreateHook('state');
+rsmax-vendors.js:     var component = exports.currentComponent;
+rsmax-vendors.js:     if (hook.state === undefined && !hook.queue) {
+rsmax-vendors.js:         hook.state = typeof initialValue === 'function' ? initialValue() : initialValue;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     // Process pending updates
+rsmax-vendors.js:     if (hook.queue && hook.queue.length > 0) {
+rsmax-vendors.js:         var state = hook.state;
+rsmax-vendors.js:         var _iterator2 = _createForOfIteratorHelper(hook.queue), _step2;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator2.s(); !(_step2 = _iterator2.n()).done;){
+rsmax-vendors.js:                 var update = _step2.value;
+rsmax-vendors.js:                 state = typeof update === 'function' ? update(state) : update;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator2.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator2.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:         hook.queue = [];
+rsmax-vendors.js:         hook.state = state;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var setState = function setState(value) {
+rsmax-vendors.js:         var newState = typeof value === 'function' ? value(hook.state) : value;
+rsmax-vendors.js:         if (Object.is(hook.state, newState) || !component) return;
+rsmax-vendors.js:         hook.state = newState;
+rsmax-vendors.js:         component.dirty = true;
+rsmax-vendors.js:         if (batchDepth > 0) {
+rsmax-vendors.js:             if (pendingBatched.indexOf(component) === -1) {
+rsmax-vendors.js:                 pendingBatched.push(component);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             scheduleComponentUpdate(component);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
+rsmax-vendors.js:     return [
+rsmax-vendors.js:         hook.state,
+rsmax-vendors.js:         setState
+rsmax-vendors.js:     ];
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useState = useState;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useReducer
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useReducer(reducer, initialArg, init) {
+rsmax-vendors.js:     var hook = getOrCreateHook('state');
+rsmax-vendors.js:     var component = exports.currentComponent;
+rsmax-vendors.js:     if (hook.state === undefined && !hook.queue) {
+rsmax-vendors.js:         hook.state = init ? init(initialArg) : initialArg;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if (hook.queue && hook.queue.length > 0) {
+rsmax-vendors.js:         var state = hook.state;
+rsmax-vendors.js:         var _iterator3 = _createForOfIteratorHelper(hook.queue), _step3;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator3.s(); !(_step3 = _iterator3.n()).done;){
+rsmax-vendors.js:                 var action = _step3.value;
+rsmax-vendors.js:                 state = reducer(state, action);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator3.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator3.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:         hook.queue = [];
+rsmax-vendors.js:         hook.state = state;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var dispatch = function dispatch(action) {
+rsmax-vendors.js:         var newState = reducer(hook.state, action);
+rsmax-vendors.js:         if (Object.is(hook.state, newState) || !component) return;
+rsmax-vendors.js:         hook.state = newState;
+rsmax-vendors.js:         component.dirty = true;
+rsmax-vendors.js:         if (batchDepth > 0) {
+rsmax-vendors.js:             if (pendingBatched.indexOf(component) === -1) {
+rsmax-vendors.js:                 pendingBatched.push(component);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             scheduleComponentUpdate(component);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
+rsmax-vendors.js:     return [
+rsmax-vendors.js:         hook.state,
+rsmax-vendors.js:         dispatch
+rsmax-vendors.js:     ];
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useReducer = useReducer;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useEffect
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useEffect(create, deps) {
+rsmax-vendors.js:     var hook = getOrCreateHook('effect');
+rsmax-vendors.js:     var prevEffect = hook.effect;
+rsmax-vendors.js:     if (depsChanged(prevEffect === null || prevEffect === void 0 ? void 0 : prevEffect.deps, deps)) {
+rsmax-vendors.js:         hook.effect = {
+rsmax-vendors.js:             create: create,
+rsmax-vendors.js:             deps: deps
+rsmax-vendors.js:         };
+rsmax-vendors.js:         passiveEffects.push({
+rsmax-vendors.js:             node: exports.currentComponent,
+rsmax-vendors.js:             hook: hook
+rsmax-vendors.js:         });
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useEffect = useEffect;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useLayoutEffect
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useLayoutEffect(create, deps) {
+rsmax-vendors.js:     var hook = getOrCreateHook('layout');
+rsmax-vendors.js:     var prevEffect = hook.effect;
+rsmax-vendors.js:     if (depsChanged(prevEffect === null || prevEffect === void 0 ? void 0 : prevEffect.deps, deps)) {
+rsmax-vendors.js:         hook.effect = {
+rsmax-vendors.js:             create: create,
+rsmax-vendors.js:             deps: deps
+rsmax-vendors.js:         };
+rsmax-vendors.js:         layoutEffects.push({
+rsmax-vendors.js:             node: exports.currentComponent,
+rsmax-vendors.js:             hook: hook
+rsmax-vendors.js:         });
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useLayoutEffect = useLayoutEffect;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useRef
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useRef(initialValue) {
+rsmax-vendors.js:     var hook = getOrCreateHook('ref');
+rsmax-vendors.js:     if (hook.state === undefined) {
+rsmax-vendors.js:         hook.state = {
+rsmax-vendors.js:             current: initialValue
+rsmax-vendors.js:         };
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return hook.state;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useRef = useRef;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useMemo
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useMemo(factory, deps) {
+rsmax-vendors.js:     var hook = getOrCreateHook('memo');
+rsmax-vendors.js:     if (!hook.memo || depsChanged(hook.memo.deps, deps)) {
+rsmax-vendors.js:         hook.memo = {
+rsmax-vendors.js:             value: factory(),
+rsmax-vendors.js:             deps: deps || []
+rsmax-vendors.js:         };
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return hook.memo.value;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useMemo = useMemo;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useCallback
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useCallback(callback, deps) {
+rsmax-vendors.js:     return useMemo(function() {
+rsmax-vendors.js:         return callback;
+rsmax-vendors.js:     }, deps);
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useCallback = useCallback;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useContext
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useContext(context) {
+rsmax-vendors.js:     var hook = getOrCreateHook('context');
+rsmax-vendors.js:     hook.state = context;
+rsmax-vendors.js:     if (context == null || _typeof(context) !== 'object') {
+rsmax-vendors.js:         return undefined;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if ('_currentValue' in context) {
+rsmax-vendors.js:         return context._currentValue;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if ('_currentValue2' in context) {
+rsmax-vendors.js:         return context._currentValue2;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return undefined;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useContext = useContext;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // useImperativeHandle / useDebugValue
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function useImperativeHandle(ref, create, deps) {
+rsmax-vendors.js:     useLayoutEffect(function() {
+rsmax-vendors.js:         var value = create();
+rsmax-vendors.js:         if (typeof ref === 'function') {
+rsmax-vendors.js:             ref(value);
+rsmax-vendors.js:             return function() {
+rsmax-vendors.js:                 return ref(null);
+rsmax-vendors.js:             };
+rsmax-vendors.js:         }
+rsmax-vendors.js:         if (ref && _typeof(ref) === 'object') {
+rsmax-vendors.js:             ref.current = value;
+rsmax-vendors.js:             return function() {
+rsmax-vendors.js:                 ref.current = null;
+rsmax-vendors.js:             };
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }, deps);
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useImperativeHandle = useImperativeHandle;
+rsmax-vendors.js: function useDebugValue(_value) {
+rsmax-vendors.js: // noop
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useDebugValue = useDebugValue;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // Effect Flushing (called by render-light.ts)
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function flushLayoutEffects() {
+rsmax-vendors.js:     while(layoutEffects.length > 0){
+rsmax-vendors.js:         var pending = layoutEffects.splice(0);
+rsmax-vendors.js:         var _iterator4 = _createForOfIteratorHelper(pending), _step4;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
+rsmax-vendors.js:                 var _step4$value = _step4.value, node = _step4$value.node, hook = _step4$value.hook;
+rsmax-vendors.js:                 if (node.dirty) continue; // Skip if component was marked dirty during render
+rsmax-vendors.js:                 if (hook.effect) {
+rsmax-vendors.js:                     // Run previous cleanup
+rsmax-vendors.js:                     if (hook.effect.destroy) {
+rsmax-vendors.js:                         try {
+rsmax-vendors.js:                             hook.effect.destroy();
+rsmax-vendors.js:                         } catch (e) {
+rsmax-vendors.js:                             console.error('Error in useLayoutEffect cleanup:', e);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     // Run effect and capture cleanup
+rsmax-vendors.js:                     try {
+rsmax-vendors.js:                         var destroy = hook.effect.create();
+rsmax-vendors.js:                         if (typeof destroy === 'function') {
+rsmax-vendors.js:                             hook.effect.destroy = destroy;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     } catch (e) {
+rsmax-vendors.js:                         console.error('Error in useLayoutEffect:', e);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator4.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator4.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.flushLayoutEffects = flushLayoutEffects;
+rsmax-vendors.js: function flushPassiveEffects() {
+rsmax-vendors.js:     if (passiveEffects.length === 0) return;
+rsmax-vendors.js:     scheduler_1.default.unstable_scheduleCallback(function() {
+rsmax-vendors.js:         var pending = passiveEffects.splice(0);
+rsmax-vendors.js:         var _iterator5 = _createForOfIteratorHelper(pending), _step5;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
+rsmax-vendors.js:                 var _step5$value = _step5.value, node = _step5$value.node, hook = _step5$value.hook;
+rsmax-vendors.js:                 if (node.dirty) continue;
+rsmax-vendors.js:                 if (hook.effect) {
+rsmax-vendors.js:                     if (hook.effect.destroy) {
+rsmax-vendors.js:                         try {
+rsmax-vendors.js:                             hook.effect.destroy();
+rsmax-vendors.js:                         } catch (e) {
+rsmax-vendors.js:                             console.error('Error in useEffect cleanup:', e);
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     try {
+rsmax-vendors.js:                         var destroy = hook.effect.create();
+rsmax-vendors.js:                         if (typeof destroy === 'function') {
+rsmax-vendors.js:                             hook.effect.destroy = destroy;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     } catch (e) {
+rsmax-vendors.js:                         console.error('Error in useEffect:', e);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator5.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator5.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:     });
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.flushPassiveEffects = flushPassiveEffects;
+rsmax-vendors.js: function cleanupEffectsForNode(node) {
+rsmax-vendors.js:     var _a;
+rsmax-vendors.js:     if (!node.memoizedState) return;
+rsmax-vendors.js:     var _iterator6 = _createForOfIteratorHelper(node.memoizedState), _step6;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
+rsmax-vendors.js:             var hook = _step6.value;
+rsmax-vendors.js:             if ((_a = hook.effect) === null || _a === void 0 ? void 0 : _a.destroy) {
+rsmax-vendors.js:                 try {
+rsmax-vendors.js:                     hook.effect.destroy();
+rsmax-vendors.js:                 } catch (e) {
+rsmax-vendors.js:                 // ignore
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator6.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator6.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
+rsmax-vendors.js: var reRenderComponent = function reRenderComponent() {
+rsmax-vendors.js:     throw new Error('reRenderComponent not set - render-light.ts must set this');
+rsmax-vendors.js: };
+rsmax-vendors.js: function setReRenderFn(fn) {
+rsmax-vendors.js:     reRenderComponent = fn;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.setReRenderFn = setReRenderFn;
+rsmax-vendors.js: 
+rsmax-vendors.js: }),
+rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+rsmax-vendors.js: "use strict";
+rsmax-vendors.js: 
 rsmax-vendors.js: var __importDefault = this && this.__importDefault || function(mod) {
 rsmax-vendors.js:     return mod && mod.__esModule ? mod : {
 rsmax-vendors.js:         "default": mod
@@ -4446,30 +4979,42 @@ rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: exports.useQuery = exports.useNativeEffect = exports.useComponentInstance = exports.usePageInstance = exports.useAppEvent = exports.usePageEvent = void 0;
 rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
-rsmax-vendors.js: Object.defineProperty(exports, "usePageEvent", ({
-rsmax-vendors.js:     enumerable: true,
-rsmax-vendors.js:     get: function get() {
-rsmax-vendors.js:         return framework_shared_1.usePageEvent;
+rsmax-vendors.js: var hooks_light_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: function usePageEvent(eventName, callback) {
+rsmax-vendors.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
+rsmax-vendors.js:         return (0, framework_shared_1.usePageEvent)(eventName, callback);
 rsmax-vendors.js:     }
-rsmax-vendors.js: }));
-rsmax-vendors.js: Object.defineProperty(exports, "useAppEvent", ({
-rsmax-vendors.js:     enumerable: true,
-rsmax-vendors.js:     get: function get() {
-rsmax-vendors.js:         return framework_shared_1.useAppEvent;
+rsmax-vendors.js:     var pageInstance = (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext);
+rsmax-vendors.js:     var lifeCycle = (0, framework_shared_1.lifeCycleName)(eventName);
+rsmax-vendors.js:     (0, hooks_light_1.useLayoutEffect)(function() {
+rsmax-vendors.js:         return (0, framework_shared_1.registerLifecycle)(pageInstance, lifeCycle, callback);
+rsmax-vendors.js:     });
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.usePageEvent = usePageEvent;
+rsmax-vendors.js: function useAppEvent(eventName, callback) {
+rsmax-vendors.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
+rsmax-vendors.js:         return (0, framework_shared_1.useAppEvent)(eventName, callback);
 rsmax-vendors.js:     }
-rsmax-vendors.js: }));
-rsmax-vendors.js: Object.defineProperty(exports, "usePageInstance", ({
-rsmax-vendors.js:     enumerable: true,
-rsmax-vendors.js:     get: function get() {
-rsmax-vendors.js:         return framework_shared_1.usePageInstance;
+rsmax-vendors.js:     var lifeCycle = (0, framework_shared_1.lifeCycleName)(eventName);
+rsmax-vendors.js:     (0, hooks_light_1.useLayoutEffect)(function() {
+rsmax-vendors.js:         return (0, framework_shared_1.registerLifecycle)(framework_shared_1.AppInstanceContext, lifeCycle, callback);
+rsmax-vendors.js:     });
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useAppEvent = useAppEvent;
+rsmax-vendors.js: function usePageInstance() {
+rsmax-vendors.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
+rsmax-vendors.js:         return (0, framework_shared_1.usePageInstance)();
 rsmax-vendors.js:     }
-rsmax-vendors.js: }));
-rsmax-vendors.js: Object.defineProperty(exports, "useComponentInstance", ({
-rsmax-vendors.js:     enumerable: true,
-rsmax-vendors.js:     get: function get() {
-rsmax-vendors.js:         return framework_shared_1.useComponentInstance;
+rsmax-vendors.js:     return (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext);
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.usePageInstance = usePageInstance;
+rsmax-vendors.js: function useComponentInstance() {
+rsmax-vendors.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
+rsmax-vendors.js:         return (0, framework_shared_1.useComponentInstance)();
 rsmax-vendors.js:     }
-rsmax-vendors.js: }));
+rsmax-vendors.js:     return (0, hooks_light_1.useContext)(framework_shared_1.ComponentInstanceContext);
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.useComponentInstance = useComponentInstance;
 rsmax-vendors.js: var useNativeEffect_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: Object.defineProperty(exports, "useNativeEffect", ({
 rsmax-vendors.js:     enumerable: true,
@@ -4515,8 +5060,9 @@ rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
 rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var react_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var hooks_light_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: function useQuery() {
-rsmax-vendors.js:     var pageInstance = (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
+rsmax-vendors.js:     var pageInstance = framework_shared_1.RuntimeOptions.get('renderer') === 'light' ? (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext) : (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
 rsmax-vendors.js:     return pageInstance.query;
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = useQuery;
@@ -4819,12 +5365,22 @@ rsmax-vendors.js: };
 rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
 rsmax-vendors.js:     value: true
 rsmax-vendors.js: }));
-rsmax-vendors.js: exports.unstable_batchedUpdates = exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.render = void 0;
+rsmax-vendors.js: exports.unstable_batchedUpdates = exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
 rsmax-vendors.js: var render_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var render_light_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var render_2 = __webpack_require__(<ID>);
 rsmax-vendors.js: Object.defineProperty(exports, "render", ({
 rsmax-vendors.js:     enumerable: true,
 rsmax-vendors.js:     get: function get() {
-rsmax-vendors.js:         return __importDefault(render_1).default;
+rsmax-vendors.js:         return __importDefault(render_2).default;
+rsmax-vendors.js:     }
+rsmax-vendors.js: }));
+rsmax-vendors.js: var render_light_2 = __webpack_require__(<ID>);
+rsmax-vendors.js: Object.defineProperty(exports, "renderLight", ({
+rsmax-vendors.js:     enumerable: true,
+rsmax-vendors.js:     get: function get() {
+rsmax-vendors.js:         return __importDefault(render_light_2).default;
 rsmax-vendors.js:     }
 rsmax-vendors.js: }));
 rsmax-vendors.js: var createAppConfig_1 = __webpack_require__(<ID>);
@@ -4869,24 +5425,31 @@ rsmax-vendors.js:     get: function get() {
 rsmax-vendors.js:         return ReactPortal_1.createPortal;
 rsmax-vendors.js:     }
 rsmax-vendors.js: }));
-rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var framework_shared_2 = __webpack_require__(<ID>);
 rsmax-vendors.js: Object.defineProperty(exports, "RuntimeOptions", ({
 rsmax-vendors.js:     enumerable: true,
 rsmax-vendors.js:     get: function get() {
-rsmax-vendors.js:         return framework_shared_1.RuntimeOptions;
+rsmax-vendors.js:         return framework_shared_2.RuntimeOptions;
 rsmax-vendors.js:     }
 rsmax-vendors.js: }));
 rsmax-vendors.js: Object.defineProperty(exports, "PluginDriver", ({
 rsmax-vendors.js:     enumerable: true,
 rsmax-vendors.js:     get: function get() {
-rsmax-vendors.js:         return framework_shared_1.PluginDriver;
+rsmax-vendors.js:         return framework_shared_2.PluginDriver;
 rsmax-vendors.js:     }
 rsmax-vendors.js: }));
 rsmax-vendors.js: __exportStar(__webpack_require__(<ID>), exports);
-rsmax-vendors.js: var render_2 = __webpack_require__(<ID>);
-rsmax-vendors.js: exports.unstable_batchedUpdates = render_2.ReactReconcilerInst.batchedUpdates;
+rsmax-vendors.js: __exportStar(__webpack_require__(<ID>), exports);
+rsmax-vendors.js: function unstable_batchedUpdates(callback) {
+rsmax-vendors.js:     var renderer = framework_shared_1.RuntimeOptions.get('renderer');
+rsmax-vendors.js:     if (renderer === 'light') {
+rsmax-vendors.js:         return (0, render_light_1.unstable_batchedUpdates)(callback);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return render_1.ReactReconcilerInst.batchedUpdates(callback, null);
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 rsmax-vendors.js: exports["default"] = {
-rsmax-vendors.js:     unstable_batchedUpdates: exports.unstable_batchedUpdates
+rsmax-vendors.js:     unstable_batchedUpdates: unstable_batchedUpdates
 rsmax-vendors.js: };
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
@@ -5012,6 +5575,1135 @@ rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
 rsmax-vendors.js: "use strict";
 rsmax-vendors.js: 
+rsmax-vendors.js: /**
+rsmax-vendors.js:  * render-light - 为小程序优化的轻量级 React 渲染器
+rsmax-vendors.js:  *
+rsmax-vendors.js:  * 核心设计（参考 react-reconciler 的精简版）：
+rsmax-vendors.js:  *
+rsmax-vendors.js:  *   render(rootElement, container)
+rsmax-vendors.js:  *     │
+rsmax-vendors.js:  *     ├─ 深度优先递归遍历 element 树
+rsmax-vendors.js:  *     │    ├─ FunctionComponent: 调用组件函数，返回 childElement，递归渲染
+rsmax-vendors.js:  *     │    ├─ Fragment: 直接遍历 children
+rsmax-vendors.js:  *     │    ├─ HostComponent (view/text/image): 创建 VNode
+rsmax-vendors.js:  *     │    ├─ HostText: 创建文本 VNode
+rsmax-vendors.js:  *     │    └─ Portal: children 渲染到指定 container.root
+rsmax-vendors.js:  *     │
+rsmax-vendors.js:  *     ├─ VNode 树自底向上构建（子 VNode 先创建，再 appendChild 到父 VNode）
+rsmax-vendors.js:  *     │
+rsmax-vendors.js:  *     └─ container.applyUpdate() flush 到小程序
+rsmax-vendors.js:  *
+rsmax-vendors.js:  * 更新阶段（Update Phase）：
+rsmax-vendors.js:  *   通过比对 old/new child 列表，基于 key 匹配决定：
+rsmax-vendors.js:  *     - UPDATE: 复用 VNode，更新 props/text
+rsmax-vendors.js:  *     - INSERT: 新增 VNode，appendChild 或 insertBefore
+rsmax-vendors.js:  *     - DELETE: 删除 VNode，removeChild
+rsmax-vendors.js:  */ function _toConsumableArray(r) {
+rsmax-vendors.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
+rsmax-vendors.js: }
+rsmax-vendors.js: function _nonIterableSpread() {
+rsmax-vendors.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+rsmax-vendors.js: }
+rsmax-vendors.js: function _iterableToArray(r) {
+rsmax-vendors.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+rsmax-vendors.js: }
+rsmax-vendors.js: function _arrayWithoutHoles(r) {
+rsmax-vendors.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
+rsmax-vendors.js: }
+rsmax-vendors.js: function _createForOfIteratorHelper(r, e) {
+rsmax-vendors.js:     var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+rsmax-vendors.js:     if (!t) {
+rsmax-vendors.js:         if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
+rsmax-vendors.js:             t && (r = t);
+rsmax-vendors.js:             var _n = 0, F = function F() {};
+rsmax-vendors.js:             return {
+rsmax-vendors.js:                 s: F,
+rsmax-vendors.js:                 n: function n() {
+rsmax-vendors.js:                     return _n >= r.length ? {
+rsmax-vendors.js:                         done: !0
+rsmax-vendors.js:                     } : {
+rsmax-vendors.js:                         done: !1,
+rsmax-vendors.js:                         value: r[_n++]
+rsmax-vendors.js:                     };
+rsmax-vendors.js:                 },
+rsmax-vendors.js:                 e: function e(r) {
+rsmax-vendors.js:                     throw r;
+rsmax-vendors.js:                 },
+rsmax-vendors.js:                 f: F
+rsmax-vendors.js:             };
+rsmax-vendors.js:         }
+rsmax-vendors.js:         throw new TypeError("Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var o, a = !0, u = !1;
+rsmax-vendors.js:     return {
+rsmax-vendors.js:         s: function s() {
+rsmax-vendors.js:             t = t.call(r);
+rsmax-vendors.js:         },
+rsmax-vendors.js:         n: function n() {
+rsmax-vendors.js:             var r = t.next();
+rsmax-vendors.js:             return a = r.done, r;
+rsmax-vendors.js:         },
+rsmax-vendors.js:         e: function e(r) {
+rsmax-vendors.js:             u = !0, o = r;
+rsmax-vendors.js:         },
+rsmax-vendors.js:         f: function f() {
+rsmax-vendors.js:             try {
+rsmax-vendors.js:                 a || null == t.return || t.return();
+rsmax-vendors.js:             } finally{
+rsmax-vendors.js:                 if (u) throw o;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     };
+rsmax-vendors.js: }
+rsmax-vendors.js: function _unsupportedIterableToArray(r, a) {
+rsmax-vendors.js:     if (r) {
+rsmax-vendors.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
+rsmax-vendors.js:         var t = ({}).toString.call(r).slice(8, -1);
+rsmax-vendors.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: function _arrayLikeToArray(r, a) {
+rsmax-vendors.js:     (null == a || a > r.length) && (a = r.length);
+rsmax-vendors.js:     for(var e = 0, n = Array(a); e < a; e++)n[e] = r[e];
+rsmax-vendors.js:     return n;
+rsmax-vendors.js: }
+rsmax-vendors.js: function _typeof(o) {
+rsmax-vendors.js:     "@babel/helpers - typeof";
+rsmax-vendors.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+rsmax-vendors.js:         return typeof o;
+rsmax-vendors.js:     } : function(o) {
+rsmax-vendors.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+rsmax-vendors.js:     }, _typeof(o);
+rsmax-vendors.js: }
+rsmax-vendors.js: var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
+rsmax-vendors.js:     if (k2 === undefined) k2 = k;
+rsmax-vendors.js:     var desc = Object.getOwnPropertyDescriptor(m, k);
+rsmax-vendors.js:     if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+rsmax-vendors.js:         desc = {
+rsmax-vendors.js:             enumerable: true,
+rsmax-vendors.js:             get: function get() {
+rsmax-vendors.js:                 return m[k];
+rsmax-vendors.js:             }
+rsmax-vendors.js:         };
+rsmax-vendors.js:     }
+rsmax-vendors.js:     Object.defineProperty(o, k2, desc);
+rsmax-vendors.js: } : function(o, m, k, k2) {
+rsmax-vendors.js:     if (k2 === undefined) k2 = k;
+rsmax-vendors.js:     o[k2] = m[k];
+rsmax-vendors.js: });
+rsmax-vendors.js: var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function(o, v) {
+rsmax-vendors.js:     Object.defineProperty(o, "default", {
+rsmax-vendors.js:         enumerable: true,
+rsmax-vendors.js:         value: v
+rsmax-vendors.js:     });
+rsmax-vendors.js: } : function(o, v) {
+rsmax-vendors.js:     o["default"] = v;
+rsmax-vendors.js: });
+rsmax-vendors.js: var __importStar = this && this.__importStar || function(mod) {
+rsmax-vendors.js:     if (mod && mod.__esModule) return mod;
+rsmax-vendors.js:     var result = {};
+rsmax-vendors.js:     if (mod != null) {
+rsmax-vendors.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     __setModuleDefault(result, mod);
+rsmax-vendors.js:     return result;
+rsmax-vendors.js: };
+rsmax-vendors.js: var __importDefault = this && this.__importDefault || function(mod) {
+rsmax-vendors.js:     return mod && mod.__esModule ? mod : {
+rsmax-vendors.js:         "default": mod
+rsmax-vendors.js:     };
+rsmax-vendors.js: };
+rsmax-vendors.js: var _a, _b;
+rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
+rsmax-vendors.js:     value: true
+rsmax-vendors.js: }));
+rsmax-vendors.js: exports.unstable_batchedUpdates = exports.batchedUpdates = void 0;
+rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var React = __importStar(__webpack_require__(<ID>));
+rsmax-vendors.js: var VNode_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: var instanceId_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var diffProperties_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: var constants_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var hooks_light_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: Object.defineProperty(exports, "batchedUpdates", ({
+rsmax-vendors.js:     enumerable: true,
+rsmax-vendors.js:     get: function get() {
+rsmax-vendors.js:         return hooks_light_1.batchedUpdates;
+rsmax-vendors.js:     }
+rsmax-vendors.js: }));
+rsmax-vendors.js: Object.defineProperty(exports, "unstable_batchedUpdates", ({
+rsmax-vendors.js:     enumerable: true,
+rsmax-vendors.js:     get: function get() {
+rsmax-vendors.js:         return hooks_light_1.batchedUpdates;
+rsmax-vendors.js:     }
+rsmax-vendors.js: }));
+rsmax-vendors.js: var ReactCurrentDispatcher = (_b = (_a = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) === null || _a === void 0 ? void 0 : _a.ReactCurrentDispatcher) !== null && _b !== void 0 ? _b : null;
+rsmax-vendors.js: var lightDispatcher = {
+rsmax-vendors.js:     useState: hooks_light_1.useState,
+rsmax-vendors.js:     useReducer: hooks_light_1.useReducer,
+rsmax-vendors.js:     useEffect: hooks_light_1.useEffect,
+rsmax-vendors.js:     useLayoutEffect: hooks_light_1.useLayoutEffect,
+rsmax-vendors.js:     useRef: hooks_light_1.useRef,
+rsmax-vendors.js:     useMemo: hooks_light_1.useMemo,
+rsmax-vendors.js:     useCallback: hooks_light_1.useCallback,
+rsmax-vendors.js:     useContext: hooks_light_1.useContext,
+rsmax-vendors.js:     useImperativeHandle: hooks_light_1.useImperativeHandle,
+rsmax-vendors.js:     useDebugValue: hooks_light_1.useDebugValue
+rsmax-vendors.js: };
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 常量 & 工具函数
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: var DOM_TAG_MAP = {
+rsmax-vendors.js:     span: 'text',
+rsmax-vendors.js:     div: 'view',
+rsmax-vendors.js:     img: 'image'
+rsmax-vendors.js: };
+rsmax-vendors.js: var REACT_FRAGMENT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.fragment') || 0xeacb;
+rsmax-vendors.js: var REACT_FORWARD_REF_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.forward_ref') || 0xead0;
+rsmax-vendors.js: var REACT_MEMO_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.memo') || 0xead3;
+rsmax-vendors.js: var REACT_PROVIDER_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.provider') || 0xeacd;
+rsmax-vendors.js: var REACT_CONTEXT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.context') || 0xeace;
+rsmax-vendors.js: var REACT_PORTAL_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.portal') || 0xeaca;
+rsmax-vendors.js: function mapHostTag(tag) {
+rsmax-vendors.js:     return DOM_TAG_MAP[tag] || tag;
+rsmax-vendors.js: }
+rsmax-vendors.js: function isPortal(v) {
+rsmax-vendors.js:     if (v == null || _typeof(v) !== 'object') return false;
+rsmax-vendors.js:     var t = v.$$typeof;
+rsmax-vendors.js:     return _typeof(t) === 'symbol' ? String(t) === String(REACT_PORTAL_TYPE) : t === REACT_PORTAL_TYPE;
+rsmax-vendors.js: }
+rsmax-vendors.js: function compareTypeSymbol(a, b) {
+rsmax-vendors.js:     if (a === b) return true;
+rsmax-vendors.js:     if (_typeof(a) === 'symbol' && _typeof(b) === 'symbol') return String(a) === String(b);
+rsmax-vendors.js:     if (_typeof(a) === 'symbol') return String(a) === String(b);
+rsmax-vendors.js:     if (_typeof(b) === 'symbol') return String(a) === String(b);
+rsmax-vendors.js:     return false;
+rsmax-vendors.js: }
+rsmax-vendors.js: function unwrapComponentType(type) {
+rsmax-vendors.js:     if (type === null || type === undefined) return type;
+rsmax-vendors.js:     if (typeof type === 'function') return type;
+rsmax-vendors.js:     if (_typeof(type) === 'object') {
+rsmax-vendors.js:         if (compareTypeSymbol(type.$$typeof, REACT_FORWARD_REF_TYPE)) return type.render;
+rsmax-vendors.js:         if (compareTypeSymbol(type.$$typeof, REACT_MEMO_TYPE)) return unwrapComponentType(type.type);
+rsmax-vendors.js:         if (typeof type.render === 'function') return type.render;
+rsmax-vendors.js:         if (type.type !== undefined && type.type !== null) return unwrapComponentType(type.type);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return type;
+rsmax-vendors.js: }
+rsmax-vendors.js: function hasForwardRef(type) {
+rsmax-vendors.js:     if (_typeof(type) === 'object' && type !== null) {
+rsmax-vendors.js:         if (compareTypeSymbol(type.$$typeof, REACT_FORWARD_REF_TYPE)) return true;
+rsmax-vendors.js:         if (compareTypeSymbol(type.$$typeof, REACT_MEMO_TYPE)) return hasForwardRef(type.type);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return false;
+rsmax-vendors.js: }
+rsmax-vendors.js: function isClassComponent(type) {
+rsmax-vendors.js:     if (type == null || typeof type !== 'function') return false;
+rsmax-vendors.js:     return type.prototype && typeof type.prototype.render === 'function';
+rsmax-vendors.js: }
+rsmax-vendors.js: function flattenChildren(children) {
+rsmax-vendors.js:     var out = arguments.length > 1 && arguments[<ID>] !== undefined ? arguments[<ID>] : [];
+rsmax-vendors.js:     if (children == null || typeof children === 'boolean') return out;
+rsmax-vendors.js:     if (Array.isArray(children)) {
+rsmax-vendors.js:         for(var i = 0; i < children.length; i++)flattenChildren(children[i], out);
+rsmax-vendors.js:         return out;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     out.push(children);
+rsmax-vendors.js:     return out;
+rsmax-vendors.js: }
+rsmax-vendors.js: function debugRenderLight() {
+rsmax-vendors.js:     if (framework_shared_1.RuntimeOptions.get('debug')) {
+rsmax-vendors.js:         var _console;
+rsmax-vendors.js:         for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+rsmax-vendors.js:             args[_key] = arguments[_key];
+rsmax-vendors.js:         }
+rsmax-vendors.js:         (_console = console).log.apply(_console, [
+rsmax-vendors.js:             '[render-light]'
+rsmax-vendors.js:         ].concat(args));
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: function getDebugTypeName(type) {
+rsmax-vendors.js:     if (typeof type === 'string') return type;
+rsmax-vendors.js:     var resolved = unwrapComponentType(type);
+rsmax-vendors.js:     return (resolved === null || resolved === void 0 ? void 0 : resolved.name) || (type === null || type === void 0 ? void 0 : type.name) || 'Anonymous';
+rsmax-vendors.js: }
+rsmax-vendors.js: function getDebugVNodeName(vnode) {
+rsmax-vendors.js:     return vnode ? "".concat(vnode.type, "#").concat(vnode.id) : 'null';
+rsmax-vendors.js: }
+rsmax-vendors.js: function getDebugElementName(element) {
+rsmax-vendors.js:     if (element == null) return String(element);
+rsmax-vendors.js:     if (typeof element === 'string' || typeof element === 'number') return "text:".concat(String(element));
+rsmax-vendors.js:     if (element instanceof VNode_1.default) return "vnode:".concat(getDebugVNodeName(element));
+rsmax-vendors.js:     if (_typeof(element) === 'object' && 'type' in element) {
+rsmax-vendors.js:         return getDebugTypeName(element.type);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return _typeof(element);
+rsmax-vendors.js: }
+rsmax-vendors.js: function isContextProviderType(type) {
+rsmax-vendors.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_PROVIDER_TYPE);
+rsmax-vendors.js: }
+rsmax-vendors.js: function isContextConsumerType(type) {
+rsmax-vendors.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_CONTEXT_TYPE);
+rsmax-vendors.js: }
+rsmax-vendors.js: function getContextObjectFromType(type) {
+rsmax-vendors.js:     var _a;
+rsmax-vendors.js:     if (isContextProviderType(type)) {
+rsmax-vendors.js:         return (_a = type._context) !== null && _a !== void 0 ? _a : null;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if (isContextConsumerType(type)) {
+rsmax-vendors.js:         return type;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return null;
+rsmax-vendors.js: }
+rsmax-vendors.js: function getContextCurrentValue(context) {
+rsmax-vendors.js:     if (!context || _typeof(context) !== 'object') return undefined;
+rsmax-vendors.js:     if ('_currentValue' in context) return context._currentValue;
+rsmax-vendors.js:     if ('_currentValue2' in context) return context._currentValue2;
+rsmax-vendors.js:     return undefined;
+rsmax-vendors.js: }
+rsmax-vendors.js: function setContextCurrentValue(context, value) {
+rsmax-vendors.js:     if (!context || _typeof(context) !== 'object') return;
+rsmax-vendors.js:     if ('_currentValue' in context) {
+rsmax-vendors.js:         context._currentValue = value;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if ('_currentValue2' in context) {
+rsmax-vendors.js:         context._currentValue2 = value;
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: var allComponents = new Set();
+rsmax-vendors.js: var pendingDidMount = new Set();
+rsmax-vendors.js: var pendingDidUpdate = new Set();
+rsmax-vendors.js: function createComponent(type, props, ref, container, parent) {
+rsmax-vendors.js:     var resolvedType = unwrapComponentType(type);
+rsmax-vendors.js:     var isClass = isClassComponent(type) || isClassComponent(resolvedType);
+rsmax-vendors.js:     var comp = {
+rsmax-vendors.js:         type: type,
+rsmax-vendors.js:         componentName: typeof type === 'function' && type.name || resolvedType && typeof resolvedType === 'function' && resolvedType.name || 'Component',
+rsmax-vendors.js:         container: container,
+rsmax-vendors.js:         props: props,
+rsmax-vendors.js:         memoizedState: null,
+rsmax-vendors.js:         dirty: false,
+rsmax-vendors.js:         mounted: true,
+rsmax-vendors.js:         parent: parent,
+rsmax-vendors.js:         children: new Set(),
+rsmax-vendors.js:         parentVNode: null,
+rsmax-vendors.js:         outputVNodes: [],
+rsmax-vendors.js:         ref: ref,
+rsmax-vendors.js:         isClass: isClass,
+rsmax-vendors.js:         classInstance: null,
+rsmax-vendors.js:         key: undefined,
+rsmax-vendors.js:         elementType: type,
+rsmax-vendors.js:         didRender: true
+rsmax-vendors.js:     };
+rsmax-vendors.js:     allComponents.add(comp);
+rsmax-vendors.js:     if (parent) parent.children.add(comp);
+rsmax-vendors.js:     return comp;
+rsmax-vendors.js: }
+rsmax-vendors.js: function getRootComponents(parentVNode) {
+rsmax-vendors.js:     var rootComponents = new Set();
+rsmax-vendors.js:     allComponents.forEach(function(comp) {
+rsmax-vendors.js:         if (comp.parent === null && comp.parentVNode === parentVNode) {
+rsmax-vendors.js:             rootComponents.add(comp);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     });
+rsmax-vendors.js:     return rootComponents;
+rsmax-vendors.js: }
+rsmax-vendors.js: function flushComponentLifecycles() {
+rsmax-vendors.js:     var mounted = Array.from(pendingDidMount);
+rsmax-vendors.js:     pendingDidMount.clear();
+rsmax-vendors.js:     for(var _i = 0, _mounted = mounted; _i < _mounted.length; _i++){
+rsmax-vendors.js:         var comp = _mounted[_i];
+rsmax-vendors.js:         if (comp.isClass && comp.classInstance && comp.mounted) {
+rsmax-vendors.js:             if (typeof comp.classInstance.componentDidMount === 'function') {
+rsmax-vendors.js:                 try {
+rsmax-vendors.js:                     comp.classInstance.componentDidMount();
+rsmax-vendors.js:                 } catch (e) {
+rsmax-vendors.js:                     console.error('[render-light] Error in componentDidMount', comp.componentName, e);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var updated = Array.from(pendingDidUpdate);
+rsmax-vendors.js:     pendingDidUpdate.clear();
+rsmax-vendors.js:     for(var _i2 = 0, _updated = updated; _i2 < _updated.length; _i2++){
+rsmax-vendors.js:         var _comp = _updated[_i2];
+rsmax-vendors.js:         if (_comp.isClass && _comp.classInstance && _comp.mounted && _comp.didRender) {
+rsmax-vendors.js:             if (typeof _comp.classInstance.componentDidUpdate === 'function') {
+rsmax-vendors.js:                 try {
+rsmax-vendors.js:                     _comp.classInstance.componentDidUpdate();
+rsmax-vendors.js:                 } catch (e) {
+rsmax-vendors.js:                     console.error('[render-light] Error in componentDidUpdate', _comp.componentName, e);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: function isSameComponentType(prevType, nextType) {
+rsmax-vendors.js:     if (prevType === nextType) return true;
+rsmax-vendors.js:     return unwrapComponentType(prevType) === unwrapComponentType(nextType);
+rsmax-vendors.js: }
+rsmax-vendors.js: function findReusableComponent(components, key, type, parentVNode) {
+rsmax-vendors.js:     var _iterator = _createForOfIteratorHelper(components), _step;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator.s(); !(_step = _iterator.n()).done;){
+rsmax-vendors.js:             var component = _step.value;
+rsmax-vendors.js:             if (component.key === key && component.parentVNode === parentVNode && isSameComponentType(component.elementType, type)) {
+rsmax-vendors.js:                 return component;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return null;
+rsmax-vendors.js: }
+rsmax-vendors.js: function destroyComponent(comp) {
+rsmax-vendors.js:     // 递归销毁子组件
+rsmax-vendors.js:     comp.children.forEach(function(child) {
+rsmax-vendors.js:         return destroyComponent(child);
+rsmax-vendors.js:     });
+rsmax-vendors.js:     comp.children.clear();
+rsmax-vendors.js:     // 清理 effects
+rsmax-vendors.js:     if (comp.memoizedState && comp.memoizedState.length > 0) {
+rsmax-vendors.js:         (0, hooks_light_1.cleanupEffectsForNode)(comp);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     // 调用类组件的 componentWillUnmount
+rsmax-vendors.js:     if (comp.isClass && comp.classInstance && typeof comp.classInstance.componentWillUnmount === 'function') {
+rsmax-vendors.js:         comp.classInstance.componentWillUnmount();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if (comp.parent) {
+rsmax-vendors.js:         comp.parent.children.delete(comp);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     comp.mounted = false;
+rsmax-vendors.js:     allComponents.delete(comp);
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // VNode Props 处理
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function processVNodeProps(props, vnode) {
+rsmax-vendors.js:     var result = {};
+rsmax-vendors.js:     var functionPropKeys = new Set();
+rsmax-vendors.js:     for(var _i3 = 0, _Object$keys = Object.keys(props); _i3 < _Object$keys.length; _i3++){
+rsmax-vendors.js:         var key = _Object$keys[_i3];
+rsmax-vendors.js:         if (typeof props[key] === 'function') {
+rsmax-vendors.js:             functionPropKeys.add(key);
+rsmax-vendors.js:             result[key] = vnode.registerCallback(key, props[key]);
+rsmax-vendors.js:         } else if (key === 'style') {
+rsmax-vendors.js:             result[key] = props[key] || '';
+rsmax-vendors.js:         } else if (key !== 'children' && key !== 'ref') {
+rsmax-vendors.js:             result[key] = props[key];
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js:     vnode.pruneCallbacks(functionPropKeys);
+rsmax-vendors.js:     return result;
+rsmax-vendors.js: }
+rsmax-vendors.js: function processPropsForDiff(props) {
+rsmax-vendors.js:     if (!props || _typeof(props) !== 'object') return props;
+rsmax-vendors.js:     var result = {};
+rsmax-vendors.js:     for(var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++){
+rsmax-vendors.js:         var key = _Object$keys2[_i4];
+rsmax-vendors.js:         if (key === 'children' || key === 'ref') continue;
+rsmax-vendors.js:         result[key] = props[key];
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return result;
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // VNode 创建
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function createHostVNode(elementType, props, container, key) {
+rsmax-vendors.js:     var id = (0, instanceId_1.generate)();
+rsmax-vendors.js:     var vnode = new VNode_1.default({
+rsmax-vendors.js:         id: id,
+rsmax-vendors.js:         type: mapHostTag(elementType),
+rsmax-vendors.js:         props: {},
+rsmax-vendors.js:         container: container
+rsmax-vendors.js:     });
+rsmax-vendors.js:     if (key !== undefined) {
+rsmax-vendors.js:         vnode._rsmaxKey = key;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     vnode.props = processVNodeProps(props, vnode);
+rsmax-vendors.js:     return vnode;
+rsmax-vendors.js: }
+rsmax-vendors.js: function createTextVNode(text, container, key) {
+rsmax-vendors.js:     var id = (0, instanceId_1.generate)();
+rsmax-vendors.js:     var vnode = new VNode_1.default({
+rsmax-vendors.js:         id: id,
+rsmax-vendors.js:         type: constants_1.TYPE_TEXT,
+rsmax-vendors.js:         props: null,
+rsmax-vendors.js:         container: container
+rsmax-vendors.js:     });
+rsmax-vendors.js:     if (key !== undefined) {
+rsmax-vendors.js:         vnode._rsmaxKey = key;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     vnode.text = text;
+rsmax-vendors.js:     return vnode;
+rsmax-vendors.js: }
+rsmax-vendors.js: function getElementKind(element) {
+rsmax-vendors.js:     if (element == null) return 'invalid';
+rsmax-vendors.js:     if (typeof element === 'string' || typeof element === 'number') return 'text';
+rsmax-vendors.js:     if (element instanceof VNode_1.default) return 'vnode';
+rsmax-vendors.js:     if (isPortal(element)) return 'portal';
+rsmax-vendors.js:     if (_typeof(element) !== 'object') return 'invalid';
+rsmax-vendors.js:     var type = element.type;
+rsmax-vendors.js:     if (type == null) return 'invalid';
+rsmax-vendors.js:     if (type === REACT_FRAGMENT_TYPE || type === 'Fragment' || compareTypeSymbol(type, REACT_FRAGMENT_TYPE)) return 'fragment';
+rsmax-vendors.js:     if (typeof type === 'string') return 'host';
+rsmax-vendors.js:     if (isContextProviderType(type)) return 'provider';
+rsmax-vendors.js:     if (isContextConsumerType(type)) return 'consumer';
+rsmax-vendors.js:     if (typeof type === 'function') return 'component';
+rsmax-vendors.js:     if (_typeof(type) === 'object') {
+rsmax-vendors.js:         var resolved = unwrapComponentType(type);
+rsmax-vendors.js:         if (typeof resolved === 'function') return 'component';
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return 'invalid';
+rsmax-vendors.js: }
+rsmax-vendors.js: function getElementKey(element, index) {
+rsmax-vendors.js:     if (element == null || _typeof(element) !== 'object') return String(index);
+rsmax-vendors.js:     return element.key != null ? String(element.key) : String(index);
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 渲染单个 element
+rsmax-vendors.js: // 返回产出的 VNode 列表（扁平）
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function renderElement(element, ctx, index, keyedOldMap, keyedOldByIndex, consumedOld) {
+rsmax-vendors.js:     var kind = getElementKind(element);
+rsmax-vendors.js:     debugRenderLight('renderElement', "kind=".concat(kind), "index=".concat(index), "element=".concat(getDebugElementName(element)), "parent=".concat(getDebugVNodeName(ctx.parentVNode)));
+rsmax-vendors.js:     switch(kind){
+rsmax-vendors.js:         case 'text':
+rsmax-vendors.js:             {
+rsmax-vendors.js:                 var text = String(element);
+rsmax-vendors.js:                 // 尝试复用 text VNode
+rsmax-vendors.js:                 var key = String(index);
+rsmax-vendors.js:                 var reuse = keyedOldMap.get(key);
+rsmax-vendors.js:                 if (reuse && reuse.type === constants_1.TYPE_TEXT) {
+rsmax-vendors.js:                     reuse._rsmaxKey = key;
+rsmax-vendors.js:                     consumedOld.add(reuse);
+rsmax-vendors.js:                     if (reuse.text !== text) {
+rsmax-vendors.js:                         reuse.text = text;
+rsmax-vendors.js:                         reuse.update();
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     return [
+rsmax-vendors.js:                         reuse
+rsmax-vendors.js:                     ];
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var vnode = createTextVNode(text, ctx.container, key);
+rsmax-vendors.js:                 debugRenderLight('create text vnode', "key=".concat(key), "text=".concat(text));
+rsmax-vendors.js:                 return [
+rsmax-vendors.js:                     vnode
+rsmax-vendors.js:                 ];
+rsmax-vendors.js:             }
+rsmax-vendors.js:         case 'host':
+rsmax-vendors.js:             {
+rsmax-vendors.js:                 var elementType = element.type;
+rsmax-vendors.js:                 var props = element.props || {};
+rsmax-vendors.js:                 var ref = element.ref;
+rsmax-vendors.js:                 var _key2 = getElementKey(element, index);
+rsmax-vendors.js:                 var mappedType = mapHostTag(elementType);
+rsmax-vendors.js:                 // 尝试复用同 key + 同类型的 VNode
+rsmax-vendors.js:                 var _reuse = keyedOldMap.get(_key2);
+rsmax-vendors.js:                 if (_reuse && _reuse.type === mappedType) {
+rsmax-vendors.js:                     _reuse._rsmaxKey = _key2;
+rsmax-vendors.js:                     consumedOld.add(_reuse);
+rsmax-vendors.js:                     // diff props
+rsmax-vendors.js:                     var diff = (0, diffProperties_1.default)(processPropsForDiff(_reuse.props || {}), processPropsForDiff(props));
+rsmax-vendors.js:                     _reuse.props = processVNodeProps(props, _reuse);
+rsmax-vendors.js:                     if (diff) {
+rsmax-vendors.js:                         _reuse.update(diff);
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     // 更新 ref（如果有）
+rsmax-vendors.js:                     if (ref) {
+rsmax-vendors.js:                         if (typeof ref === 'function') {
+rsmax-vendors.js:                             ref(_reuse);
+rsmax-vendors.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                             ref.current = _reuse;
+rsmax-vendors.js:                         }
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                     // 递归渲染 children
+rsmax-vendors.js:                     var _children = flattenChildren(props.children);
+rsmax-vendors.js:                     var childOldVNodes = getChildVNodes(_reuse);
+rsmax-vendors.js:                     renderChildrenInto(_children, _reuse, ctx.container, ctx.currentComponent, childOldVNodes);
+rsmax-vendors.js:                     return [
+rsmax-vendors.js:                         _reuse
+rsmax-vendors.js:                     ];
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 // 新建 VNode
+rsmax-vendors.js:                 var _vnode = createHostVNode(elementType, props, ctx.container, _key2);
+rsmax-vendors.js:                 debugRenderLight('create host vnode', "type=".concat(mappedType), "key=".concat(_key2), "id=".concat(_vnode.id), "parent=".concat(getDebugVNodeName(ctx.parentVNode)));
+rsmax-vendors.js:                 // 设置 ref（如果有）
+rsmax-vendors.js:                 if (ref) {
+rsmax-vendors.js:                     if (typeof ref === 'function') {
+rsmax-vendors.js:                         ref(_vnode);
+rsmax-vendors.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                         ref.current = _vnode;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 // 递归渲染 children
+rsmax-vendors.js:                 var children = flattenChildren(props.children);
+rsmax-vendors.js:                 renderChildrenInto(children, _vnode, ctx.container, ctx.currentComponent, []);
+rsmax-vendors.js:                 return [
+rsmax-vendors.js:                     _vnode
+rsmax-vendors.js:                 ];
+rsmax-vendors.js:             }
+rsmax-vendors.js:         case 'fragment':
+rsmax-vendors.js:             {
+rsmax-vendors.js:                 var _children2 = flattenChildren((element.props || {}).children);
+rsmax-vendors.js:                 return renderChildrenFlatten(_children2, ctx, index, keyedOldMap, keyedOldByIndex, consumedOld);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         case 'portal':
+rsmax-vendors.js:             {
+rsmax-vendors.js:                 // Portal: children 渲染到指定 container 的 root
+rsmax-vendors.js:                 var portalContainer = element.containerInfo;
+rsmax-vendors.js:                 var _children3 = flattenChildren(element.children);
+rsmax-vendors.js:                 if (portalContainer && portalContainer.root) {
+rsmax-vendors.js:                     var rootVNode = portalContainer.root;
+rsmax-vendors.js:                     debugRenderLight('enter portal branch', "target=".concat(getDebugVNodeName(rootVNode)), "children=".concat(_children3.length));
+rsmax-vendors.js:                     // Portal 相当于独立渲染到另一个 container
+rsmax-vendors.js:                     var oldChildVNodes = getChildVNodes(rootVNode);
+rsmax-vendors.js:                     renderChildrenInto(_children3, rootVNode, portalContainer, ctx.currentComponent, oldChildVNodes);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 return []; // Portal 本身不产生 VNode
+rsmax-vendors.js:             }
+rsmax-vendors.js:         case 'provider':
+rsmax-vendors.js:             {
+rsmax-vendors.js:                 var type = element.type;
+rsmax-vendors.js:                 var _props = element.props || {};
+rsmax-vendors.js:                 var context = getContextObjectFromType(type);
+rsmax-vendors.js:                 var prevValue = getContextCurrentValue(context);
+rsmax-vendors.js:                 debugRenderLight('enter provider branch', "type=".concat(getDebugTypeName(type)), "parent=".concat(getDebugVNodeName(ctx.parentVNode)));
+rsmax-vendors.js:                 setContextCurrentValue(context, _props.value);
+rsmax-vendors.js:                 try {
+rsmax-vendors.js:                     var _children4 = flattenChildren(_props.children);
+rsmax-vendors.js:                     return renderChildrenFlatten(_children4, ctx, index, keyedOldMap, keyedOldByIndex, consumedOld);
+rsmax-vendors.js:                 } finally{
+rsmax-vendors.js:                     setContextCurrentValue(context, prevValue);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:         case 'consumer':
+rsmax-vendors.js:             {
+rsmax-vendors.js:                 var _type = element.type;
+rsmax-vendors.js:                 var _props2 = element.props || {};
+rsmax-vendors.js:                 var renderChild = _props2.children;
+rsmax-vendors.js:                 if (typeof renderChild !== 'function') {
+rsmax-vendors.js:                     debugRenderLight('consumer missing render fn', "type=".concat(getDebugTypeName(_type)));
+rsmax-vendors.js:                     return [];
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var _context = getContextObjectFromType(_type);
+rsmax-vendors.js:                 var value = getContextCurrentValue(_context);
+rsmax-vendors.js:                 var childElement = null;
+rsmax-vendors.js:                 try {
+rsmax-vendors.js:                     childElement = renderChild(value);
+rsmax-vendors.js:                 } catch (e) {
+rsmax-vendors.js:                     console.error('[render-light] Error rendering context consumer', getDebugTypeName(_type), e);
+rsmax-vendors.js:                     return [];
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 debugRenderLight('enter consumer branch', "type=".concat(getDebugTypeName(_type)), "child=".concat(getDebugElementName(childElement)));
+rsmax-vendors.js:                 return renderChildrenFlatten([
+rsmax-vendors.js:                     childElement
+rsmax-vendors.js:                 ], ctx, index, keyedOldMap, keyedOldByIndex, consumedOld);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         case 'component':
+rsmax-vendors.js:             {
+rsmax-vendors.js:                 debugRenderLight('enter component branch', "type=".concat(getDebugTypeName(element.type)), "index=".concat(index));
+rsmax-vendors.js:                 return renderFunctionComponent(element, ctx, index);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         case 'vnode':
+rsmax-vendors.js:             return [
+rsmax-vendors.js:                 element
+rsmax-vendors.js:             ];
+rsmax-vendors.js:         case 'invalid':
+rsmax-vendors.js:         default:
+rsmax-vendors.js:             return [];
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 获取一个 VNode 的子 VNode 列表
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function getChildVNodes(parent) {
+rsmax-vendors.js:     var arr = [];
+rsmax-vendors.js:     var item = parent.firstChild;
+rsmax-vendors.js:     while(item){
+rsmax-vendors.js:         arr.push(item);
+rsmax-vendors.js:         item = item.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return arr;
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 渲染子组件（函数组件 + 类组件）
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function renderFunctionComponent(element, ctx, index) {
+rsmax-vendors.js:     var _a;
+rsmax-vendors.js:     var type = element.type;
+rsmax-vendors.js:     var props = element.props || {};
+rsmax-vendors.js:     var ref = element.ref;
+rsmax-vendors.js:     var key = getElementKey(element, index);
+rsmax-vendors.js:     var Component = unwrapComponentType(type);
+rsmax-vendors.js:     if (Component == null || typeof Component !== 'function') {
+rsmax-vendors.js:         debugRenderLight('skip non-callable component', "type=".concat(getDebugTypeName(type)), "rawType=".concat(_typeof(type)), "resolved=".concat(_typeof(Component)));
+rsmax-vendors.js:         return [];
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var reusableComponent = findReusableComponent(ctx.oldComponents, key, type, ctx.parentVNode);
+rsmax-vendors.js:     var comp = reusableComponent !== null && reusableComponent !== void 0 ? reusableComponent : createComponent(type, props, ref, ctx.container, ctx.currentComponent);
+rsmax-vendors.js:     var isMount = reusableComponent === null;
+rsmax-vendors.js:     debugRenderLight("component ".concat(isMount ? 'mount' : 'reuse'), "type=".concat(getDebugTypeName(type)), "key=".concat(key), "parent=".concat(getDebugVNodeName(ctx.parentVNode)), "prevOutput=".concat(comp.outputVNodes.length));
+rsmax-vendors.js:     comp.props = props;
+rsmax-vendors.js:     comp.ref = ref;
+rsmax-vendors.js:     comp.parentVNode = ctx.parentVNode;
+rsmax-vendors.js:     comp.key = key;
+rsmax-vendors.js:     comp.elementType = type;
+rsmax-vendors.js:     comp.didRender = true;
+rsmax-vendors.js:     ctx.usedChildComponents.add(comp);
+rsmax-vendors.js:     var childElement = null;
+rsmax-vendors.js:     if (comp.isClass) {
+rsmax-vendors.js:         // ==================== 类组件渲染 ====================
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             var instance = (_a = comp.classInstance) !== null && _a !== void 0 ? _a : new Component(props);
+rsmax-vendors.js:             comp.classInstance = instance;
+rsmax-vendors.js:             if (isMount) {
+rsmax-vendors.js:                 if (ref) {
+rsmax-vendors.js:                     if (typeof ref === 'function') {
+rsmax-vendors.js:                         ref(instance);
+rsmax-vendors.js:                     } else if (ref && _typeof(ref) === 'object') {
+rsmax-vendors.js:                         ref.current = instance;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (typeof instance.componentWillMount === 'function') {
+rsmax-vendors.js:                     instance.componentWillMount();
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (typeof instance.UNSAFE_componentWillMount === 'function') {
+rsmax-vendors.js:                     instance.UNSAFE_componentWillMount();
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             } else {
+rsmax-vendors.js:                 instance.props = props;
+rsmax-vendors.js:                 if (typeof instance.componentWillReceiveProps === 'function') {
+rsmax-vendors.js:                     instance.componentWillReceiveProps(props);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (typeof instance.UNSAFE_componentWillReceiveProps === 'function') {
+rsmax-vendors.js:                     instance.UNSAFE_componentWillReceiveProps(props);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 var shouldUpdate = true;
+rsmax-vendors.js:                 if (typeof instance.shouldComponentUpdate === 'function') {
+rsmax-vendors.js:                     shouldUpdate = instance.shouldComponentUpdate(props, instance.state || null);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (!shouldUpdate) {
+rsmax-vendors.js:                     comp.didRender = false;
+rsmax-vendors.js:                     debugRenderLight("component skip update type=".concat(comp.componentName, " key=").concat(key));
+rsmax-vendors.js:                     return comp.outputVNodes.slice();
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (typeof instance.componentWillUpdate === 'function') {
+rsmax-vendors.js:                     instance.componentWillUpdate(props, instance.state || null);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (typeof instance.UNSAFE_componentWillUpdate === 'function') {
+rsmax-vendors.js:                     instance.UNSAFE_componentWillUpdate(props, instance.state || null);
+rsmax-vendors.js:                 }
+rsmax-vendors.js:                 if (ref) {
+rsmax-vendors.js:                     if (typeof ref === 'function') {
+rsmax-vendors.js:                         ref(instance);
+rsmax-vendors.js:                     } else if (ref && _typeof(ref) === 'object') {
+rsmax-vendors.js:                         ref.current = instance;
+rsmax-vendors.js:                     }
+rsmax-vendors.js:                 }
+rsmax-vendors.js:             }
+rsmax-vendors.js:             instance.props = props;
+rsmax-vendors.js:             childElement = instance.render();
+rsmax-vendors.js:         } catch (e) {
+rsmax-vendors.js:             console.error('[render-light] Error rendering class component', comp.componentName, e);
+rsmax-vendors.js:             childElement = null;
+rsmax-vendors.js:         }
+rsmax-vendors.js:         // 注册为 pendingDidMount（挂载完成后调用 componentDidMount）
+rsmax-vendors.js:         if (isMount) {
+rsmax-vendors.js:             pendingDidMount.add(comp);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     } else {
+rsmax-vendors.js:         // ==================== 函数组件渲染 ====================
+rsmax-vendors.js:         (0, hooks_light_1.pushRenderContext)(comp);
+rsmax-vendors.js:         var prevDispatcher = ReactCurrentDispatcher === null || ReactCurrentDispatcher === void 0 ? void 0 : ReactCurrentDispatcher.current;
+rsmax-vendors.js:         if (ReactCurrentDispatcher) {
+rsmax-vendors.js:             ReactCurrentDispatcher.current = lightDispatcher;
+rsmax-vendors.js:         }
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             if (hasForwardRef(type)) {
+rsmax-vendors.js:                 childElement = Component(props, ref);
+rsmax-vendors.js:             } else {
+rsmax-vendors.js:                 childElement = Component(props);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (e) {
+rsmax-vendors.js:             console.error('[render-light] Error rendering component', comp.componentName, e);
+rsmax-vendors.js:             childElement = null;
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             if (ReactCurrentDispatcher) {
+rsmax-vendors.js:                 ReactCurrentDispatcher.current = prevDispatcher;
+rsmax-vendors.js:             }
+rsmax-vendors.js:             (0, hooks_light_1.popRenderContext)();
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js:     // 扁平化为 element 列表
+rsmax-vendors.js:     var children = childElement == null ? [] : flattenChildren([
+rsmax-vendors.js:         childElement
+rsmax-vendors.js:     ]);
+rsmax-vendors.js:     debugRenderLight('component output', "type=".concat(comp.componentName), "key=".concat(key), "childElement=".concat(getDebugElementName(childElement)), "children=".concat(children.length), "childKinds=".concat(children.map(function(child) {
+rsmax-vendors.js:         return getElementKind(child);
+rsmax-vendors.js:     }).join(',') || 'empty'));
+rsmax-vendors.js:     var oldChildComponents = new Set(comp.children);
+rsmax-vendors.js:     // 渲染子元素，产出的 VNode 列表
+rsmax-vendors.js:     // 注意：组件的产出 VNode 挂载到外层 parentVNode
+rsmax-vendors.js:     var previousOutput = comp.outputVNodes.slice();
+rsmax-vendors.js:     var oldByKey = new Map();
+rsmax-vendors.js:     previousOutput.forEach(function(vnode, vnodeIndex) {
+rsmax-vendors.js:         var vnodeKey = vnode._rsmaxKey != null ? String(vnode._rsmaxKey) : String(vnodeIndex);
+rsmax-vendors.js:         oldByKey.set(vnodeKey, vnode);
+rsmax-vendors.js:     });
+rsmax-vendors.js:     var result = [];
+rsmax-vendors.js:     var childCtx = {
+rsmax-vendors.js:         container: ctx.container,
+rsmax-vendors.js:         currentComponent: comp,
+rsmax-vendors.js:         parentVNode: ctx.parentVNode,
+rsmax-vendors.js:         isFirstRender: previousOutput.length === 0,
+rsmax-vendors.js:         oldVNodes: previousOutput,
+rsmax-vendors.js:         oldComponents: oldChildComponents,
+rsmax-vendors.js:         usedChildComponents: new Set()
+rsmax-vendors.js:     };
+rsmax-vendors.js:     var outputConsumed = new Set();
+rsmax-vendors.js:     for(var i = 0; i < children.length; i++){
+rsmax-vendors.js:         debugRenderLight('render component child', "owner=".concat(comp.componentName), "index=".concat(i), "element=".concat(getDebugElementName(children[i])));
+rsmax-vendors.js:         var vnodes = renderElement(children[i], childCtx, i, oldByKey, previousOutput, outputConsumed);
+rsmax-vendors.js:         var _iterator2 = _createForOfIteratorHelper(vnodes), _step2;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator2.s(); !(_step2 = _iterator2.n()).done;){
+rsmax-vendors.js:                 var vnode = _step2.value;
+rsmax-vendors.js:                 result.push(vnode);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator2.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator2.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js:     oldChildComponents.forEach(function(child) {
+rsmax-vendors.js:         if (!childCtx.usedChildComponents.has(child)) {
+rsmax-vendors.js:             destroyComponent(child);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     });
+rsmax-vendors.js:     comp.outputVNodes = result.slice();
+rsmax-vendors.js:     if (!isMount && comp.isClass && comp.didRender) {
+rsmax-vendors.js:         pendingDidUpdate.add(comp);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return result;
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 渲染 children 列表到指定 parentVNode
+rsmax-vendors.js: // 这是核心的子节点协调逻辑
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function renderChildrenInto(children, parentVNode, container, parentComponent, oldChildVNodes) {
+rsmax-vendors.js:     debugRenderLight('renderChildrenInto', "parent=".concat(getDebugVNodeName(parentVNode)), "children=".concat(children.length), "old=".concat(oldChildVNodes.length), "component=".concat((parentComponent === null || parentComponent === void 0 ? void 0 : parentComponent.componentName) || 'root'));
+rsmax-vendors.js:     // 构建旧 VNode 的 key 映射（用于复用）
+rsmax-vendors.js:     var oldByKey = new Map();
+rsmax-vendors.js:     var oldByIndex = [];
+rsmax-vendors.js:     oldChildVNodes.forEach(function(vnode, i) {
+rsmax-vendors.js:         var key = vnode._rsmaxKey != null ? String(vnode._rsmaxKey) : String(i);
+rsmax-vendors.js:         oldByKey.set(key, vnode);
+rsmax-vendors.js:         oldByIndex.push(vnode);
+rsmax-vendors.js:     });
+rsmax-vendors.js:     // 产出的新 VNode 列表
+rsmax-vendors.js:     var newChildVNodes = [];
+rsmax-vendors.js:     var consumedOld = new Set();
+rsmax-vendors.js:     var ctx = {
+rsmax-vendors.js:         container: container,
+rsmax-vendors.js:         currentComponent: parentComponent,
+rsmax-vendors.js:         parentVNode: parentVNode,
+rsmax-vendors.js:         isFirstRender: oldChildVNodes.length === 0,
+rsmax-vendors.js:         oldVNodes: oldChildVNodes,
+rsmax-vendors.js:         oldComponents: parentComponent ? new Set(parentComponent.children) : getRootComponents(parentVNode),
+rsmax-vendors.js:         usedChildComponents: new Set()
+rsmax-vendors.js:     };
+rsmax-vendors.js:     for(var i = 0; i < children.length; i++){
+rsmax-vendors.js:         var child = children[i];
+rsmax-vendors.js:         var vnodes = renderElement(child, ctx, i, oldByKey, oldByIndex, consumedOld);
+rsmax-vendors.js:         var _iterator3 = _createForOfIteratorHelper(vnodes), _step3;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator3.s(); !(_step3 = _iterator3.n()).done;){
+rsmax-vendors.js:                 var vnode = _step3.value;
+rsmax-vendors.js:                 newChildVNodes.push(vnode);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator3.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator3.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js:     // 处理未被复用的旧 VNode → 删除
+rsmax-vendors.js:     var _iterator4 = _createForOfIteratorHelper(oldChildVNodes), _step4;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
+rsmax-vendors.js:             var oldVNode = _step4.value;
+rsmax-vendors.js:             if (!consumedOld.has(oldVNode) && !isVNodeInList(oldVNode, newChildVNodes)) {
+rsmax-vendors.js:                 debugRenderLight('remove old vnode', "parent=".concat(getDebugVNodeName(parentVNode)), "child=".concat(getDebugVNodeName(oldVNode)));
+rsmax-vendors.js:                 parentVNode.removeChild(oldVNode);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator4.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator4.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     ctx.oldComponents.forEach(function(component) {
+rsmax-vendors.js:         if (!ctx.usedChildComponents.has(component)) {
+rsmax-vendors.js:             destroyComponent(component);
+rsmax-vendors.js:         }
+rsmax-vendors.js:     });
+rsmax-vendors.js:     // 将新 VNode 按正确顺序挂载到 parentVNode
+rsmax-vendors.js:     mountVNodesInOrder(parentVNode, newChildVNodes, oldChildVNodes);
+rsmax-vendors.js: }
+rsmax-vendors.js: function isVNodeInList(target, list) {
+rsmax-vendors.js:     var _iterator5 = _createForOfIteratorHelper(list), _step5;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
+rsmax-vendors.js:             var item = _step5.value;
+rsmax-vendors.js:             if (item === target) return true;
+rsmax-vendors.js:             // 递归检查子节点（防止函数组件产出的嵌套 VNode）
+rsmax-vendors.js:             var children = getChildVNodes(item);
+rsmax-vendors.js:             if (isVNodeInList(target, children)) return true;
+rsmax-vendors.js:         }
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator5.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator5.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return false;
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 将 VNode 按顺序挂载到父 VNode
+rsmax-vendors.js: // 这是关键的挂载逻辑：
+rsmax-vendors.js: //   - 复用的 VNode: 如果位置变化了需要 insertBefore
+rsmax-vendors.js: //   - 新增的 VNode: 直接 appendChild 或 insertBefore
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function mountVNodesInOrder(parent, newChildren, oldChildren) {
+rsmax-vendors.js:     debugRenderLight('mountVNodesInOrder', "parent=".concat(getDebugVNodeName(parent)), "new=".concat(newChildren.length), "old=".concat(oldChildren.length));
+rsmax-vendors.js:     if (newChildren.length === 0) {
+rsmax-vendors.js:         // 清空所有子节点
+rsmax-vendors.js:         var toRemove = getChildVNodes(parent);
+rsmax-vendors.js:         var _iterator6 = _createForOfIteratorHelper(toRemove), _step6;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
+rsmax-vendors.js:                 var child = _step6.value;
+rsmax-vendors.js:                 parent.removeChild(child);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator6.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator6.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:         return;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     // 为了简单和正确性，采用两步策略：
+rsmax-vendors.js:     // 1. 先从 parent 中移除所有旧的但不在新列表中的 VNode
+rsmax-vendors.js:     // 2. 按新顺序，把新 VNode 挂载到正确位置
+rsmax-vendors.js:     var newSet = new Set(newChildren);
+rsmax-vendors.js:     // 第一步：删除不再需要的旧 VNode
+rsmax-vendors.js:     var _iterator7 = _createForOfIteratorHelper(oldChildren), _step7;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
+rsmax-vendors.js:             var oldChild = _step7.value;
+rsmax-vendors.js:             if (!newSet.has(oldChild)) {
+rsmax-vendors.js:                 // 这个旧 VNode 不在新列表中 → 删除
+rsmax-vendors.js:                 parent.removeChild(oldChild);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     // 第二步：按新顺序挂载
+rsmax-vendors.js:     // 策略：逐个检查当前 parent 的第一个子节点是否为期望的 VNode
+rsmax-vendors.js:     // 如果不是，则把期望的 VNode 用 insertBefore 或 appendChild 放到正确位置
+rsmax-vendors.js:     // 构建索引映射
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator7.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator7.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var newIndex = new Map();
+rsmax-vendors.js:     newChildren.forEach(function(vnode, idx) {
+rsmax-vendors.js:         return newIndex.set(vnode, idx);
+rsmax-vendors.js:     });
+rsmax-vendors.js:     // 简化方案：重新按顺序挂载
+rsmax-vendors.js:     // 先把所有新 VNode 从 parent 中临时移除（如果已存在）
+rsmax-vendors.js:     // 然后按顺序 append / insert
+rsmax-vendors.js:     // 但 VNode.removeChild 后，firstChild 会更新
+rsmax-vendors.js:     // 更简单的方法：按顺序遍历，确保每个新 VNode 在正确位置
+rsmax-vendors.js:     // 获取挂载前的 children 状态
+rsmax-vendors.js:     var mountedChildren = getChildVNodes(parent);
+rsmax-vendors.js:     var mountedSet = new Set(mountedChildren);
+rsmax-vendors.js:     // 检查是否已有正确顺序
+rsmax-vendors.js:     var needsReorder = false;
+rsmax-vendors.js:     if (mountedChildren.length === newChildren.length) {
+rsmax-vendors.js:         for(var i = 0; i < newChildren.length; i++){
+rsmax-vendors.js:             if (mountedChildren[i] !== newChildren[i]) {
+rsmax-vendors.js:                 needsReorder = true;
+rsmax-vendors.js:                 break;
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     } else {
+rsmax-vendors.js:         needsReorder = true;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if (!needsReorder) return;
+rsmax-vendors.js:     // 重新挂载：按新列表顺序处理
+rsmax-vendors.js:     // 先收集所有已挂载但位置不对的 VNode，将它们从 parent 中"解绑"再按新顺序挂载
+rsmax-vendors.js:     // 由于 VNode 是链表结构，我们需要特殊处理
+rsmax-vendors.js:     // 最简单且正确的方案：
+rsmax-vendors.js:     //   - 对每个新 VNode，如果已在正确位置则跳过
+rsmax-vendors.js:     //   - 否则 insertBefore 到正确位置
+rsmax-vendors.js:     // 先确保所有 newChildren 都已挂载在 parent 下（新增的可能还没挂载）
+rsmax-vendors.js:     // 然后按顺序重新排列
+rsmax-vendors.js:     // 第一遍：把未挂载的 VNode 追加到末尾
+rsmax-vendors.js:     var _iterator8 = _createForOfIteratorHelper(newChildren), _step8;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator8.s(); !(_step8 = _iterator8.n()).done;){
+rsmax-vendors.js:             var vnode = _step8.value;
+rsmax-vendors.js:             if (!mountedSet.has(vnode)) {
+rsmax-vendors.js:                 debugRenderLight('append new vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(vnode)));
+rsmax-vendors.js:                 parent.appendChild(vnode);
+rsmax-vendors.js:                 mountedSet.add(vnode);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     // 重新获取 children（可能已变化）
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator8.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator8.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var currentList = getChildVNodes(parent);
+rsmax-vendors.js:     // 第二遍：按新顺序用 insertBefore 调整位置
+rsmax-vendors.js:     // 从后往前处理：让每个 VNode 出现在正确的位置
+rsmax-vendors.js:     for(var targetIdx = newChildren.length - 1; targetIdx >= 0; targetIdx--){
+rsmax-vendors.js:         var target = newChildren[targetIdx];
+rsmax-vendors.js:         // 获取当前 target 的位置
+rsmax-vendors.js:         var currentIdx = currentList.indexOf(target);
+rsmax-vendors.js:         if (currentIdx === targetIdx) continue; // 位置正确
+rsmax-vendors.js:         // 需要把 target 移到 targetIdx 位置
+rsmax-vendors.js:         // 先移除再插入
+rsmax-vendors.js:         parent.removeChild(target);
+rsmax-vendors.js:         // 重新获取列表（removeChild 会改变链表）
+rsmax-vendors.js:         currentList = getChildVNodes(parent);
+rsmax-vendors.js:         // 找到目标位置的"下一个兄弟节点"（用于 insertBefore）
+rsmax-vendors.js:         var nextSibling = currentList[targetIdx] || null;
+rsmax-vendors.js:         if (nextSibling) {
+rsmax-vendors.js:             debugRenderLight('reorder vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)), "before=".concat(getDebugVNodeName(nextSibling)));
+rsmax-vendors.js:             parent.insertBefore(target, nextSibling);
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             debugRenderLight('move vnode to tail', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)));
+rsmax-vendors.js:             parent.appendChild(target);
+rsmax-vendors.js:         }
+rsmax-vendors.js:         // 更新 currentList
+rsmax-vendors.js:         currentList = getChildVNodes(parent);
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 渲染扁平 children 列表
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function renderChildrenFlatten(children, ctx, startIndex, keyedOldMap, keyedOldByIndex, consumedOld) {
+rsmax-vendors.js:     var result = [];
+rsmax-vendors.js:     for(var i = 0; i < children.length; i++){
+rsmax-vendors.js:         var vnodes = renderElement(children[i], ctx, startIndex + i, keyedOldMap, keyedOldByIndex, consumedOld);
+rsmax-vendors.js:         var _iterator9 = _createForOfIteratorHelper(vnodes), _step9;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator9.s(); !(_step9 = _iterator9.n()).done;){
+rsmax-vendors.js:                 var vnode = _step9.value;
+rsmax-vendors.js:                 result.push(vnode);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator9.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator9.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return result;
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 公共 API - render 入口
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function render(rootElement, container) {
+rsmax-vendors.js:     // 根元素扁平为列表
+rsmax-vendors.js:     var rootChildren = rootElement == null ? [] : flattenChildren([
+rsmax-vendors.js:         rootElement
+rsmax-vendors.js:     ]);
+rsmax-vendors.js:     debugRenderLight('render start', "rootChildren=".concat(rootChildren.length), "root=".concat(getDebugVNodeName(container.root)));
+rsmax-vendors.js:     // 获取 root 的当前子 VNode 列表（用于更新时复用）
+rsmax-vendors.js:     var oldChildVNodes = getChildVNodes(container.root);
+rsmax-vendors.js:     // 核心渲染：把 rootChildren 渲染到 container.root
+rsmax-vendors.js:     renderChildrenInto(rootChildren, container.root, container, null, oldChildVNodes);
+rsmax-vendors.js:     // flush VNode 更新到小程序
+rsmax-vendors.js:     container.applyUpdate();
+rsmax-vendors.js:     flushComponentLifecycles();
+rsmax-vendors.js:     // layout effects 同步执行
+rsmax-vendors.js:     (0, hooks_light_1.flushLayoutEffects)();
+rsmax-vendors.js:     // passive effects 异步调度
+rsmax-vendors.js:     (0, hooks_light_1.flushPassiveEffects)();
+rsmax-vendors.js:     return container.root;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports["default"] = render;
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 组件重新渲染
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: function reRenderComponent(component) {
+rsmax-vendors.js:     var _a;
+rsmax-vendors.js:     if (!component.mounted) return;
+rsmax-vendors.js:     debugRenderLight('reRender start', "component=".concat(component.componentName), "key=".concat((_a = component.key) !== null && _a !== void 0 ? _a : 'null'), "output=".concat(component.outputVNodes.length));
+rsmax-vendors.js:     component.dirty = false;
+rsmax-vendors.js:     var mountParent = findMountParentVNode(component);
+rsmax-vendors.js:     if (!mountParent) return;
+rsmax-vendors.js:     var oldOutput = component.outputVNodes.slice();
+rsmax-vendors.js:     var mountedChildren = getChildVNodes(mountParent);
+rsmax-vendors.js:     var oldOutputSet = new Set(oldOutput);
+rsmax-vendors.js:     var insertIndex = mountedChildren.findIndex(function(child) {
+rsmax-vendors.js:         return oldOutputSet.has(child);
+rsmax-vendors.js:     });
+rsmax-vendors.js:     if (insertIndex === -1) {
+rsmax-vendors.js:         insertIndex = mountedChildren.length;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var newVNodes = renderFunctionComponent({
+rsmax-vendors.js:         type: component.type,
+rsmax-vendors.js:         props: component.props,
+rsmax-vendors.js:         ref: component.ref,
+rsmax-vendors.js:         key: component.key
+rsmax-vendors.js:     }, {
+rsmax-vendors.js:         container: component.container,
+rsmax-vendors.js:         currentComponent: component.parent,
+rsmax-vendors.js:         parentVNode: mountParent,
+rsmax-vendors.js:         isFirstRender: false,
+rsmax-vendors.js:         oldVNodes: oldOutput,
+rsmax-vendors.js:         oldComponents: component.parent ? new Set(component.parent.children) : getRootComponents(mountParent),
+rsmax-vendors.js:         usedChildComponents: new Set()
+rsmax-vendors.js:     }, insertIndex);
+rsmax-vendors.js:     var nextChildren = mountedChildren.filter(function(child) {
+rsmax-vendors.js:         return !oldOutputSet.has(child);
+rsmax-vendors.js:     });
+rsmax-vendors.js:     nextChildren.splice.apply(nextChildren, [
+rsmax-vendors.js:         insertIndex,
+rsmax-vendors.js:         0
+rsmax-vendors.js:     ].concat(_toConsumableArray(newVNodes)));
+rsmax-vendors.js:     mountVNodesInOrder(mountParent, nextChildren, mountedChildren);
+rsmax-vendors.js:     // flush 到小程序
+rsmax-vendors.js:     component.container.applyUpdate();
+rsmax-vendors.js:     flushComponentLifecycles();
+rsmax-vendors.js:     (0, hooks_light_1.flushLayoutEffects)();
+rsmax-vendors.js:     (0, hooks_light_1.flushPassiveEffects)();
+rsmax-vendors.js: }
+rsmax-vendors.js: function findMountParentVNode(comp) {
+rsmax-vendors.js:     // 向上找最近的有 parentVNode 的祖先
+rsmax-vendors.js:     var current = comp;
+rsmax-vendors.js:     while(current){
+rsmax-vendors.js:         if (current.parentVNode) return current.parentVNode;
+rsmax-vendors.js:         current = current.parent;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     // fallback: 直接挂到 container.root
+rsmax-vendors.js:     return comp.container.root;
+rsmax-vendors.js: }
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 设置 reRender 回调
+rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: (0, hooks_light_1.setReRenderFn)(reRenderComponent);
+rsmax-vendors.js: 
+rsmax-vendors.js: }),
+rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+rsmax-vendors.js: "use strict";
+rsmax-vendors.js: 
 rsmax-vendors.js: var __importDefault = this && this.__importDefault || function(mod) {
 rsmax-vendors.js:     return mod && mod.__esModule ? mod : {
 rsmax-vendors.js:         "default": mod
@@ -5044,6 +6736,40 @@ rsmax-vendors.js:     });
 rsmax-vendors.js:     return getPublicRootInstance(container._rootContainer);
 rsmax-vendors.js: }
 rsmax-vendors.js: exports["default"] = render;
+rsmax-vendors.js: 
+rsmax-vendors.js: }),
+rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports, __webpack_require__) {
+rsmax-vendors.js: "use strict";
+rsmax-vendors.js: 
+rsmax-vendors.js: var __importDefault = this && this.__importDefault || function(mod) {
+rsmax-vendors.js:     return mod && mod.__esModule ? mod : {
+rsmax-vendors.js:         "default": mod
+rsmax-vendors.js:     };
+rsmax-vendors.js: };
+rsmax-vendors.js: Object.defineProperty(exports, "__esModule", ({
+rsmax-vendors.js:     value: true
+rsmax-vendors.js: }));
+rsmax-vendors.js: exports.renderLight = exports.render = exports.getRenderer = void 0;
+rsmax-vendors.js: var framework_shared_1 = __webpack_require__(<ID>);
+rsmax-vendors.js: var render_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: exports.render = render_1.default;
+rsmax-vendors.js: var render_light_1 = __importDefault(__webpack_require__(<ID>));
+rsmax-vendors.js: exports.renderLight = render_light_1.default;
+rsmax-vendors.js: var render_2 = __webpack_require__(<ID>);
+rsmax-vendors.js: var render_light_2 = __webpack_require__(<ID>);
+rsmax-vendors.js: var classicRenderer = {
+rsmax-vendors.js:     render: render_1.default,
+rsmax-vendors.js:     unstable_batchedUpdates: render_2.ReactReconcilerInst.batchedUpdates
+rsmax-vendors.js: };
+rsmax-vendors.js: var lightRenderer = {
+rsmax-vendors.js:     render: render_light_1.default,
+rsmax-vendors.js:     unstable_batchedUpdates: render_light_2.unstable_batchedUpdates
+rsmax-vendors.js: };
+rsmax-vendors.js: function getRenderer() {
+rsmax-vendors.js:     var renderer = framework_shared_1.RuntimeOptions.get('renderer');
+rsmax-vendors.js:     return renderer === 'light' ? lightRenderer : classicRenderer;
+rsmax-vendors.js: }
+rsmax-vendors.js: exports.getRenderer = getRenderer;
 rsmax-vendors.js: 
 rsmax-vendors.js: }),
 rsmax-vendors.js: <ID>: (function (__unused_webpack_module, exports) {
