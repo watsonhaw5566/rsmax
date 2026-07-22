@@ -1,7 +1,7 @@
 import { RuntimeOptions } from '@rsmax/framework-shared';
 import type { FiberRoot } from 'react-reconciler';
 import VNode, { type RawNode } from './VNode';
-import { unstable_batchedUpdates } from './index';
+import { getRenderer } from './renderer';
 import { generate } from './instanceId';
 import nativeEffector from './nativeEffect';
 
@@ -59,6 +59,11 @@ export default class Container {
     }
 
     const startTime = new Date().getTime();
+
+    if (RuntimeOptions.get('debug')) {
+      console.log(`[Container] applyUpdate: rootKey=${this.rootKey}, updateQueue length=${this.updateQueue.length}`);
+      console.log(`[Container] updateQueue:`, JSON.stringify(this.updateQueue, null, 2));
+    }
 
     if (typeof this.context.$spliceData === 'function') {
       let $batchedUpdates = (callback: () => void) => {
@@ -143,10 +148,11 @@ export default class Container {
   }
 
   createCallback(name: string, fn: (...params: any) => any) {
-    this.context[name] = (...args: any) => {
-      return unstable_batchedUpdates(args => {
+    this.context[name] = (...args: any[]) => {
+      const { unstable_batchedUpdates } = getRenderer();
+      return unstable_batchedUpdates(() => {
         return fn(...args);
-      }, args);
+      });
     };
   }
 

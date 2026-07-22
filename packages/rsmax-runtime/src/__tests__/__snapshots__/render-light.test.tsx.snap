@@ -1,0 +1,202 @@
+// Rstest Snapshot v1
+
+exports[`light renderer > render array children 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "a",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {
+            "className": "item-a",
+          },
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 5,
+              "text": "b",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {
+            "className": "item-b",
+          },
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 7,
+              "text": "c",
+              "type": "plain-text",
+            },
+          ],
+          "id": 6,
+          "props": {
+            "className": "item-c",
+          },
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 1,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`light renderer > render function component 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 2,
+          "text": "content",
+          "type": "plain-text",
+        },
+      ],
+      "id": 1,
+      "props": {
+        "className": "page",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`light renderer > render nested elements 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "nested",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {
+            "className": "inner",
+          },
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 1,
+      "props": {
+        "className": "outer",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`light renderer > render single host element with text 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "id": 2,
+          "text": "hello",
+          "type": "plain-text",
+        },
+      ],
+      "id": 1,
+      "props": {
+        "className": "foo",
+      },
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;
+
+exports[`light renderer > render with React.Fragment 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "id": 3,
+              "text": "first",
+              "type": "plain-text",
+            },
+          ],
+          "id": 2,
+          "props": {
+            "className": "f1",
+          },
+          "text": undefined,
+          "type": "view",
+        },
+        {
+          "children": [
+            {
+              "id": 5,
+              "text": "second",
+              "type": "plain-text",
+            },
+          ],
+          "id": 4,
+          "props": {
+            "className": "f2",
+          },
+          "text": undefined,
+          "type": "view",
+        },
+      ],
+      "id": 1,
+      "props": {},
+      "text": undefined,
+      "type": "view",
+    },
+  ],
+  "id": 0,
+  "props": undefined,
+  "text": undefined,
+  "type": "root",
+}
+`;

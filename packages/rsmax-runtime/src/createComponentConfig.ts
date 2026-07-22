@@ -1,7 +1,7 @@
 import { ComponentInstanceContext, RuntimeOptions } from '@rsmax/framework-shared';
 import * as React from 'react';
 import Container from './Container';
-import render from './render';
+import { getRenderer } from './renderer';
 
 export default function createComponentConfig(Component: React.ComponentType<any>) {
   const platform = RuntimeOptions.get('platform');
@@ -29,6 +29,7 @@ export default function createComponentConfig(Component: React.ComponentType<any
 
     config.detached = function () {
       this.container.clearUpdate();
+      const { render } = getRenderer();
       render(null, this.container);
     };
   } else {
@@ -47,6 +48,7 @@ export default function createComponentConfig(Component: React.ComponentType<any
 
     config.didUnmount = function () {
       this.container.clearUpdate();
+      const { render } = getRenderer();
       render(null, this.container);
     };
   }
@@ -62,6 +64,7 @@ export default function createComponentConfig(Component: React.ComponentType<any
     },
 
     render(this: any) {
+      const { render } = getRenderer();
       this.element = render(
         React.createElement(
           ComponentInstanceContext.Provider,

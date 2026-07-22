@@ -1,6 +1,8 @@
 import { api, Image, Text, View } from 'rsmax/one';
 import styles from './index.module.css';
 import logo from '../../../public/icon.png';
+import { usePageEvent } from 'rsmax/macro';
+import { useEffect } from 'react';
 
 export default () => {
   function handleClick() {
@@ -11,6 +13,14 @@ export default () => {
       })
       .then();
   }
+
+  useEffect(() => {
+    console.log('hello useEffect');
+  }, []);
+
+  usePageEvent('onShow', () => {
+    console.log('hello show');
+  });
   return (
     <View className={styles.app}>
       <View className={styles.header}>

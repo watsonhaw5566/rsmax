@@ -117,12 +117,13 @@ export function configureRuntimeOptions(config: Config, builder: Builder, templa
 
   const runtimeOptions = {
     pxToRpx: builder.options.pxToRpx,
-    debug: !!process.env.RSMAX_DEBUG,
+    debug: !!(builder.options.debug ?? process.env.RSMAX_DEBUG),
     platform: builder.target,
     pluginFiles: builder.api.getRuntimePluginFiles(),
     hostComponents: '[]',
     pageEvents: '{}',
     appEvents: '[]',
+    renderer: builder.options.renderer || 'classic',
   };
 
   config.plugin('rspack-virtual-modules').use(rspack.experiments.VirtualModulesPlugin, [
