@@ -5827,9 +5827,50 @@ components/react-greet/index.js: exports.useCallback = useCallback;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useContext
 components/react-greet/index.js: // ============================================================
+components/react-greet/index.js: // 组件 → 它订阅过的 context 集合（用于组件销毁时清理订阅）
+components/react-greet/index.js: var componentContexts = new Map();
+components/react-greet/index.js: function trackContextUsage(component, context) {
+components/react-greet/index.js:     if (!component || !context) return;
+components/react-greet/index.js:     var set = componentContexts.get(component);
+components/react-greet/index.js:     if (!set) {
+components/react-greet/index.js:         set = new Set();
+components/react-greet/index.js:         componentContexts.set(component, set);
+components/react-greet/index.js:     }
+components/react-greet/index.js:     if (set.has(context)) return;
+components/react-greet/index.js:     set.add(context);
+components/react-greet/index.js:     if (_typeof(context) === 'object') {
+components/react-greet/index.js:         if (!context._subscription) {
+components/react-greet/index.js:             context._subscription = {
+components/react-greet/index.js:                 subscribers: new Set()
+components/react-greet/index.js:             };
+components/react-greet/index.js:         }
+components/react-greet/index.js:         context._subscription.subscribers.add(component);
+components/react-greet/index.js:     }
+components/react-greet/index.js: }
+components/react-greet/index.js: function cleanupComponentContextSubscriptions(component) {
+components/react-greet/index.js:     var set = componentContexts.get(component);
+components/react-greet/index.js:     if (!set) return;
+components/react-greet/index.js:     var _iterator4 = _createForOfIteratorHelper(set), _step4;
+components/react-greet/index.js:     try {
+components/react-greet/index.js:         for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
+components/react-greet/index.js:             var context = _step4.value;
+components/react-greet/index.js:             if (context && context._subscription) {
+components/react-greet/index.js:                 context._subscription.subscribers.delete(component);
+components/react-greet/index.js:             }
+components/react-greet/index.js:         }
+components/react-greet/index.js:     } catch (err) {
+components/react-greet/index.js:         _iterator4.e(err);
+components/react-greet/index.js:     } finally{
+components/react-greet/index.js:         _iterator4.f();
+components/react-greet/index.js:     }
+components/react-greet/index.js:     componentContexts.delete(component);
+components/react-greet/index.js: }
 components/react-greet/index.js: function useContext(context) {
 components/react-greet/index.js:     var hook = getOrCreateHook('context');
 components/react-greet/index.js:     hook.state = context;
+components/react-greet/index.js:     if (exports.currentComponent) {
+components/react-greet/index.js:         trackContextUsage(exports.currentComponent, context);
+components/react-greet/index.js:     }
 components/react-greet/index.js:     if (context == null || _typeof(context) !== 'object') {
 components/react-greet/index.js:         return undefined;
 components/react-greet/index.js:     }
@@ -5873,10 +5914,10 @@ components/react-greet/index.js: // ============================================
 components/react-greet/index.js: function flushLayoutEffects() {
 components/react-greet/index.js:     while(layoutEffects.length > 0){
 components/react-greet/index.js:         var pending = layoutEffects.splice(0);
-components/react-greet/index.js:         var _iterator4 = _createForOfIteratorHelper(pending), _step4;
+components/react-greet/index.js:         var _iterator5 = _createForOfIteratorHelper(pending), _step5;
 components/react-greet/index.js:         try {
-components/react-greet/index.js:             for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
-components/react-greet/index.js:                 var _step4$value = _step4.value, node = _step4$value.node, hook = _step4$value.hook;
+components/react-greet/index.js:             for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
+components/react-greet/index.js:                 var _step5$value = _step5.value, node = _step5$value.node, hook = _step5$value.hook;
 components/react-greet/index.js:                 if (node.dirty) continue; // Skip if component was marked dirty during render
 components/react-greet/index.js:                 if (hook.effect) {
 components/react-greet/index.js:                     // Run previous cleanup
@@ -5899,9 +5940,9 @@ components/react-greet/index.js:                     }
 components/react-greet/index.js:                 }
 components/react-greet/index.js:             }
 components/react-greet/index.js:         } catch (err) {
-components/react-greet/index.js:             _iterator4.e(err);
+components/react-greet/index.js:             _iterator5.e(err);
 components/react-greet/index.js:         } finally{
-components/react-greet/index.js:             _iterator4.f();
+components/react-greet/index.js:             _iterator5.f();
 components/react-greet/index.js:         }
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
@@ -5910,10 +5951,10 @@ components/react-greet/index.js: function flushPassiveEffects() {
 components/react-greet/index.js:     if (passiveEffects.length === 0) return;
 components/react-greet/index.js:     scheduler_1.default.unstable_scheduleCallback(function() {
 components/react-greet/index.js:         var pending = passiveEffects.splice(0);
-components/react-greet/index.js:         var _iterator5 = _createForOfIteratorHelper(pending), _step5;
+components/react-greet/index.js:         var _iterator6 = _createForOfIteratorHelper(pending), _step6;
 components/react-greet/index.js:         try {
-components/react-greet/index.js:             for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
-components/react-greet/index.js:                 var _step5$value = _step5.value, node = _step5$value.node, hook = _step5$value.hook;
+components/react-greet/index.js:             for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
+components/react-greet/index.js:                 var _step6$value = _step6.value, node = _step6$value.node, hook = _step6$value.hook;
 components/react-greet/index.js:                 if (node.dirty) continue;
 components/react-greet/index.js:                 if (hook.effect) {
 components/react-greet/index.js:                     if (hook.effect.destroy) {
@@ -5934,9 +5975,9 @@ components/react-greet/index.js:                     }
 components/react-greet/index.js:                 }
 components/react-greet/index.js:             }
 components/react-greet/index.js:         } catch (err) {
-components/react-greet/index.js:             _iterator5.e(err);
+components/react-greet/index.js:             _iterator6.e(err);
 components/react-greet/index.js:         } finally{
-components/react-greet/index.js:             _iterator5.f();
+components/react-greet/index.js:             _iterator6.f();
 components/react-greet/index.js:         }
 components/react-greet/index.js:     });
 components/react-greet/index.js: }
@@ -5944,10 +5985,10 @@ components/react-greet/index.js: exports.flushPassiveEffects = flushPassiveEffec
 components/react-greet/index.js: function cleanupEffectsForNode(node) {
 components/react-greet/index.js:     var _a;
 components/react-greet/index.js:     if (!node.memoizedState) return;
-components/react-greet/index.js:     var _iterator6 = _createForOfIteratorHelper(node.memoizedState), _step6;
+components/react-greet/index.js:     var _iterator7 = _createForOfIteratorHelper(node.memoizedState), _step7;
 components/react-greet/index.js:     try {
-components/react-greet/index.js:         for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
-components/react-greet/index.js:             var hook = _step6.value;
+components/react-greet/index.js:         for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
+components/react-greet/index.js:             var hook = _step7.value;
 components/react-greet/index.js:             if ((_a = hook.effect) === null || _a === void 0 ? void 0 : _a.destroy) {
 components/react-greet/index.js:                 try {
 components/react-greet/index.js:                     hook.effect.destroy();
@@ -5956,11 +5997,13 @@ components/react-greet/index.js:                 // ignore
 components/react-greet/index.js:                 }
 components/react-greet/index.js:             }
 components/react-greet/index.js:         }
+components/react-greet/index.js:     // 同时清理对所有 context 的订阅
 components/react-greet/index.js:     } catch (err) {
-components/react-greet/index.js:         _iterator6.e(err);
+components/react-greet/index.js:         _iterator7.e(err);
 components/react-greet/index.js:     } finally{
-components/react-greet/index.js:         _iterator6.f();
+components/react-greet/index.js:         _iterator7.f();
 components/react-greet/index.js:     }
+components/react-greet/index.js:     cleanupComponentContextSubscriptions(node);
 components/react-greet/index.js: }
 components/react-greet/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
 components/react-greet/index.js: var reRenderComponent = function reRenderComponent() {
@@ -6594,19 +6637,7 @@ components/react-greet/index.js:  *   通过比对 old/new child 列表，基于
 components/react-greet/index.js:  *     - UPDATE: 复用 VNode，更新 props/text
 components/react-greet/index.js:  *     - INSERT: 新增 VNode，appendChild 或 insertBefore
 components/react-greet/index.js:  *     - DELETE: 删除 VNode，removeChild
-components/react-greet/index.js:  */ function _toConsumableArray(r) {
-components/react-greet/index.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-components/react-greet/index.js: }
-components/react-greet/index.js: function _nonIterableSpread() {
-components/react-greet/index.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-components/react-greet/index.js: }
-components/react-greet/index.js: function _iterableToArray(r) {
-components/react-greet/index.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-components/react-greet/index.js: }
-components/react-greet/index.js: function _arrayWithoutHoles(r) {
-components/react-greet/index.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-components/react-greet/index.js: }
-components/react-greet/index.js: function _createForOfIteratorHelper(r, e) {
+components/react-greet/index.js:  */ function _createForOfIteratorHelper(r, e) {
 components/react-greet/index.js:     var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
 components/react-greet/index.js:     if (!t) {
 components/react-greet/index.js:         if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
@@ -6651,12 +6682,24 @@ components/react-greet/index.js:             }
 components/react-greet/index.js:         }
 components/react-greet/index.js:     };
 components/react-greet/index.js: }
+components/react-greet/index.js: function _toConsumableArray(r) {
+components/react-greet/index.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
+components/react-greet/index.js: }
+components/react-greet/index.js: function _nonIterableSpread() {
+components/react-greet/index.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+components/react-greet/index.js: }
 components/react-greet/index.js: function _unsupportedIterableToArray(r, a) {
 components/react-greet/index.js:     if (r) {
 components/react-greet/index.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
 components/react-greet/index.js:         var t = ({}).toString.call(r).slice(8, -1);
 components/react-greet/index.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
 components/react-greet/index.js:     }
+components/react-greet/index.js: }
+components/react-greet/index.js: function _iterableToArray(r) {
+components/react-greet/index.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+components/react-greet/index.js: }
+components/react-greet/index.js: function _arrayWithoutHoles(r) {
+components/react-greet/index.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
 components/react-greet/index.js: }
 components/react-greet/index.js: function _arrayLikeToArray(r, a) {
 components/react-greet/index.js:     (null == a || a > r.length) && (a = r.length);
@@ -6807,26 +6850,43 @@ components/react-greet/index.js:     }
 components/react-greet/index.js:     out.push(children);
 components/react-greet/index.js:     return out;
 components/react-greet/index.js: }
-components/react-greet/index.js: function debugRenderLight() {
-components/react-greet/index.js:     if (framework_shared_1.RuntimeOptions.get('debug')) {
-components/react-greet/index.js:         var _console;
-components/react-greet/index.js:         for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
-components/react-greet/index.js:             args[_key] = arguments[_key];
-components/react-greet/index.js:         }
-components/react-greet/index.js:         (_console = console).log.apply(_console, [
-components/react-greet/index.js:             '[render-light]'
-components/react-greet/index.js:         ].concat(args));
+components/react-greet/index.js: var DEBUG_ENABLED_CACHE = {
+components/react-greet/index.js:     value: false,
+components/react-greet/index.js:     refreshedAt: 0
+components/react-greet/index.js: };
+components/react-greet/index.js: function isDebugEnabled() {
+components/react-greet/index.js:     var now = Date.now();
+components/react-greet/index.js:     if (now - DEBUG_ENABLED_CACHE.refreshedAt > 200) {
+components/react-greet/index.js:         DEBUG_ENABLED_CACHE.value = framework_shared_1.RuntimeOptions.get('debug');
+components/react-greet/index.js:         DEBUG_ENABLED_CACHE.refreshedAt = now;
 components/react-greet/index.js:     }
+components/react-greet/index.js:     return DEBUG_ENABLED_CACHE.value;
+components/react-greet/index.js: }
+components/react-greet/index.js: function debugRenderLight() {
+components/react-greet/index.js:     var _console;
+components/react-greet/index.js:     if (!isDebugEnabled()) return;
+components/react-greet/index.js:     for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+components/react-greet/index.js:         args[_key] = arguments[_key];
+components/react-greet/index.js:     }
+components/react-greet/index.js:     var resolved = args.map(function(a) {
+components/react-greet/index.js:         return typeof a === 'function' ? a() : a;
+components/react-greet/index.js:     });
+components/react-greet/index.js:     (_console = console).log.apply(_console, [
+components/react-greet/index.js:         '[render-light]'
+components/react-greet/index.js:     ].concat(_toConsumableArray(resolved)));
 components/react-greet/index.js: }
 components/react-greet/index.js: function getDebugTypeName(type) {
+components/react-greet/index.js:     if (!isDebugEnabled()) return '';
 components/react-greet/index.js:     if (typeof type === 'string') return type;
 components/react-greet/index.js:     var resolved = unwrapComponentType(type);
 components/react-greet/index.js:     return (resolved === null || resolved === void 0 ? void 0 : resolved.name) || (type === null || type === void 0 ? void 0 : type.name) || 'Anonymous';
 components/react-greet/index.js: }
 components/react-greet/index.js: function getDebugVNodeName(vnode) {
+components/react-greet/index.js:     if (!isDebugEnabled()) return '';
 components/react-greet/index.js:     return vnode ? "".concat(vnode.type, "#").concat(vnode.id) : 'null';
 components/react-greet/index.js: }
 components/react-greet/index.js: function getDebugElementName(element) {
+components/react-greet/index.js:     if (!isDebugEnabled()) return '';
 components/react-greet/index.js:     if (element == null) return String(element);
 components/react-greet/index.js:     if (typeof element === 'string' || typeof element === 'number') return "text:".concat(String(element));
 components/react-greet/index.js:     if (element instanceof VNode_1.default) return "vnode:".concat(getDebugVNodeName(element));
@@ -6834,6 +6894,21 @@ components/react-greet/index.js:     if (_typeof(element) === 'object' && 'type'
 components/react-greet/index.js:         return getDebugTypeName(element.type);
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return _typeof(element);
+components/react-greet/index.js: }
+components/react-greet/index.js: function getContextSubscription(context) {
+components/react-greet/index.js:     if (!context) return {
+components/react-greet/index.js:         subscribers: new Set()
+components/react-greet/index.js:     };
+components/react-greet/index.js:     if (!context._subscription) {
+components/react-greet/index.js:         context._subscription = {
+components/react-greet/index.js:             subscribers: new Set()
+components/react-greet/index.js:         };
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return context._subscription;
+components/react-greet/index.js: }
+components/react-greet/index.js: function subscribeContext(context, component) {
+components/react-greet/index.js:     if (!context) return;
+components/react-greet/index.js:     getContextSubscription(context).subscribers.add(component);
 components/react-greet/index.js: }
 components/react-greet/index.js: function isContextProviderType(type) {
 components/react-greet/index.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_PROVIDER_TYPE);
@@ -6858,13 +6933,21 @@ components/react-greet/index.js:     if ('_currentValue2' in context) return con
 components/react-greet/index.js:     return undefined;
 components/react-greet/index.js: }
 components/react-greet/index.js: function setContextCurrentValue(context, value) {
-components/react-greet/index.js:     if (!context || _typeof(context) !== 'object') return;
+components/react-greet/index.js:     if (!context || _typeof(context) !== 'object') return false;
+components/react-greet/index.js:     var changed = false;
 components/react-greet/index.js:     if ('_currentValue' in context) {
-components/react-greet/index.js:         context._currentValue = value;
+components/react-greet/index.js:         if (!Object.is(context._currentValue, value)) {
+components/react-greet/index.js:             context._currentValue = value;
+components/react-greet/index.js:             changed = true;
+components/react-greet/index.js:         }
 components/react-greet/index.js:     }
 components/react-greet/index.js:     if ('_currentValue2' in context) {
-components/react-greet/index.js:         context._currentValue2 = value;
+components/react-greet/index.js:         if (!Object.is(context._currentValue2, value)) {
+components/react-greet/index.js:             context._currentValue2 = value;
+components/react-greet/index.js:             changed = true;
+components/react-greet/index.js:         }
 components/react-greet/index.js:     }
+components/react-greet/index.js:     return changed;
 components/react-greet/index.js: }
 components/react-greet/index.js: var allComponents = new Set();
 components/react-greet/index.js: var pendingDidMount = new Set();
@@ -6938,6 +7021,40 @@ components/react-greet/index.js: function isSameComponentType(prevType, nextType
 components/react-greet/index.js:     if (prevType === nextType) return true;
 components/react-greet/index.js:     return unwrapComponentType(prevType) === unwrapComponentType(nextType);
 components/react-greet/index.js: }
+components/react-greet/index.js: function isMemoComponent(type) {
+components/react-greet/index.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_MEMO_TYPE);
+components/react-greet/index.js: }
+components/react-greet/index.js: function getMemoCompare(type) {
+components/react-greet/index.js:     if (!isMemoComponent(type)) return null;
+components/react-greet/index.js:     if (typeof type.compare === 'function') return type.compare;
+components/react-greet/index.js:     // 默认浅比较
+components/react-greet/index.js:     return function(prev, next) {
+components/react-greet/index.js:         if (prev === next) return true;
+components/react-greet/index.js:         if (prev == null || next == null) return false;
+components/react-greet/index.js:         var prevKeys = Object.keys(prev);
+components/react-greet/index.js:         var nextKeys = Object.keys(next);
+components/react-greet/index.js:         if (prevKeys.length !== nextKeys.length) return false;
+components/react-greet/index.js:         for(var _i3 = 0, _prevKeys = prevKeys; _i3 < _prevKeys.length; _i3++){
+components/react-greet/index.js:             var k = _prevKeys[_i3];
+components/react-greet/index.js:             if (!Object.prototype.hasOwnProperty.call(next, k)) return false;
+components/react-greet/index.js:             if (!Object.is(prev[k], next[k])) return false;
+components/react-greet/index.js:         }
+components/react-greet/index.js:         return true;
+components/react-greet/index.js:     };
+components/react-greet/index.js: }
+components/react-greet/index.js: function shallowEqualProps(a, b) {
+components/react-greet/index.js:     if (a === b) return true;
+components/react-greet/index.js:     if (a == null || b == null) return false;
+components/react-greet/index.js:     var aKeys = Object.keys(a);
+components/react-greet/index.js:     var bKeys = Object.keys(b);
+components/react-greet/index.js:     if (aKeys.length !== bKeys.length) return false;
+components/react-greet/index.js:     for(var _i4 = 0, _aKeys = aKeys; _i4 < _aKeys.length; _i4++){
+components/react-greet/index.js:         var k = _aKeys[_i4];
+components/react-greet/index.js:         if (!Object.prototype.hasOwnProperty.call(b, k)) return false;
+components/react-greet/index.js:         if (!Object.is(a[k], b[k])) return false;
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return true;
+components/react-greet/index.js: }
 components/react-greet/index.js: function findReusableComponent(components, key, type, parentVNode) {
 components/react-greet/index.js:     var _iterator = _createForOfIteratorHelper(components), _step;
 components/react-greet/index.js:     try {
@@ -6980,8 +7097,8 @@ components/react-greet/index.js: // ============================================
 components/react-greet/index.js: function processVNodeProps(props, vnode) {
 components/react-greet/index.js:     var result = {};
 components/react-greet/index.js:     var functionPropKeys = new Set();
-components/react-greet/index.js:     for(var _i3 = 0, _Object$keys = Object.keys(props); _i3 < _Object$keys.length; _i3++){
-components/react-greet/index.js:         var key = _Object$keys[_i3];
+components/react-greet/index.js:     for(var _i5 = 0, _Object$keys = Object.keys(props); _i5 < _Object$keys.length; _i5++){
+components/react-greet/index.js:         var key = _Object$keys[_i5];
 components/react-greet/index.js:         if (typeof props[key] === 'function') {
 components/react-greet/index.js:             functionPropKeys.add(key);
 components/react-greet/index.js:             result[key] = vnode.registerCallback(key, props[key]);
@@ -6997,8 +7114,8 @@ components/react-greet/index.js: }
 components/react-greet/index.js: function processPropsForDiff(props) {
 components/react-greet/index.js:     if (!props || _typeof(props) !== 'object') return props;
 components/react-greet/index.js:     var result = {};
-components/react-greet/index.js:     for(var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++){
-components/react-greet/index.js:         var key = _Object$keys2[_i4];
+components/react-greet/index.js:     for(var _i6 = 0, _Object$keys2 = Object.keys(props); _i6 < _Object$keys2.length; _i6++){
+components/react-greet/index.js:         var key = _Object$keys2[_i6];
 components/react-greet/index.js:         if (key === 'children' || key === 'ref') continue;
 components/react-greet/index.js:         result[key] = props[key];
 components/react-greet/index.js:     }
@@ -7180,11 +7297,14 @@ components/react-greet/index.js:             {
 components/react-greet/index.js:                 var _type = element.type;
 components/react-greet/index.js:                 var _props2 = element.props || {};
 components/react-greet/index.js:                 var renderChild = _props2.children;
+components/react-greet/index.js:                 var _context = getContextObjectFromType(_type);
+components/react-greet/index.js:                 if (ctx.currentComponent) {
+components/react-greet/index.js:                     subscribeContext(_context, ctx.currentComponent);
+components/react-greet/index.js:                 }
 components/react-greet/index.js:                 if (typeof renderChild !== 'function') {
 components/react-greet/index.js:                     debugRenderLight('consumer missing render fn', "type=".concat(getDebugTypeName(_type)));
 components/react-greet/index.js:                     return [];
 components/react-greet/index.js:                 }
-components/react-greet/index.js:                 var _context = getContextObjectFromType(_type);
 components/react-greet/index.js:                 var value = getContextCurrentValue(_context);
 components/react-greet/index.js:                 var childElement = null;
 components/react-greet/index.js:                 try {
@@ -7242,6 +7362,16 @@ components/react-greet/index.js:     var reusableComponent = findReusableCompone
 components/react-greet/index.js:     var comp = reusableComponent !== null && reusableComponent !== void 0 ? reusableComponent : createComponent(type, props, ref, ctx.container, ctx.currentComponent);
 components/react-greet/index.js:     var isMount = reusableComponent === null;
 components/react-greet/index.js:     debugRenderLight("component ".concat(isMount ? 'mount' : 'reuse'), "type=".concat(getDebugTypeName(type)), "key=".concat(key), "parent=".concat(getDebugVNodeName(ctx.parentVNode)), "prevOutput=".concat(comp.outputVNodes.length));
+components/react-greet/index.js:     // React.memo: props 浅比较，相同则跳过渲染，但保留已挂载的 VNode
+components/react-greet/index.js:     if (!isMount && isMemoComponent(type) && !comp.dirty) {
+components/react-greet/index.js:         var compareFn = getMemoCompare(type) || shallowEqualProps;
+components/react-greet/index.js:         if (compareFn(comp.props, props) && (ref == null || ref === comp.ref)) {
+components/react-greet/index.js:             debugRenderLight("memo skip update type=".concat(comp.componentName));
+components/react-greet/index.js:             comp.didRender = false;
+components/react-greet/index.js:             ctx.usedChildComponents.add(comp);
+components/react-greet/index.js:             return comp.outputVNodes.slice();
+components/react-greet/index.js:         }
+components/react-greet/index.js:     }
 components/react-greet/index.js:     comp.props = props;
 components/react-greet/index.js:     comp.ref = ref;
 components/react-greet/index.js:     comp.parentVNode = ctx.parentVNode;
@@ -7475,8 +7605,8 @@ components/react-greet/index.js: //   - 新增的 VNode: 直接 appendChild 或 
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: function mountVNodesInOrder(parent, newChildren, oldChildren) {
 components/react-greet/index.js:     debugRenderLight('mountVNodesInOrder', "parent=".concat(getDebugVNodeName(parent)), "new=".concat(newChildren.length), "old=".concat(oldChildren.length));
+components/react-greet/index.js:     // 快速路径 1：新列表为空 → 清空所有子节点
 components/react-greet/index.js:     if (newChildren.length === 0) {
-components/react-greet/index.js:         // 清空所有子节点
 components/react-greet/index.js:         var toRemove = getChildVNodes(parent);
 components/react-greet/index.js:         var _iterator6 = _createForOfIteratorHelper(toRemove), _step6;
 components/react-greet/index.js:         try {
@@ -7491,103 +7621,94 @@ components/react-greet/index.js:             _iterator6.f();
 components/react-greet/index.js:         }
 components/react-greet/index.js:         return;
 components/react-greet/index.js:     }
-components/react-greet/index.js:     // 为了简单和正确性，采用两步策略：
-components/react-greet/index.js:     // 1. 先从 parent 中移除所有旧的但不在新列表中的 VNode
-components/react-greet/index.js:     // 2. 按新顺序，把新 VNode 挂载到正确位置
+components/react-greet/index.js:     // 快速路径 2：oldChildren 为空 → 直接顺序 append，无需重排
+components/react-greet/index.js:     if (oldChildren.length === 0) {
+components/react-greet/index.js:         var _iterator7 = _createForOfIteratorHelper(newChildren), _step7;
+components/react-greet/index.js:         try {
+components/react-greet/index.js:             for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
+components/react-greet/index.js:                 var vnode = _step7.value;
+components/react-greet/index.js:                 parent.appendChild(vnode);
+components/react-greet/index.js:             }
+components/react-greet/index.js:         } catch (err) {
+components/react-greet/index.js:             _iterator7.e(err);
+components/react-greet/index.js:         } finally{
+components/react-greet/index.js:             _iterator7.f();
+components/react-greet/index.js:         }
+components/react-greet/index.js:         return;
+components/react-greet/index.js:     }
 components/react-greet/index.js:     var newSet = new Set(newChildren);
 components/react-greet/index.js:     // 第一步：删除不再需要的旧 VNode
-components/react-greet/index.js:     var _iterator7 = _createForOfIteratorHelper(oldChildren), _step7;
+components/react-greet/index.js:     var _iterator8 = _createForOfIteratorHelper(oldChildren), _step8;
 components/react-greet/index.js:     try {
-components/react-greet/index.js:         for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
-components/react-greet/index.js:             var oldChild = _step7.value;
+components/react-greet/index.js:         for(_iterator8.s(); !(_step8 = _iterator8.n()).done;){
+components/react-greet/index.js:             var oldChild = _step8.value;
 components/react-greet/index.js:             if (!newSet.has(oldChild)) {
-components/react-greet/index.js:                 // 这个旧 VNode 不在新列表中 → 删除
 components/react-greet/index.js:                 parent.removeChild(oldChild);
 components/react-greet/index.js:             }
 components/react-greet/index.js:         }
-components/react-greet/index.js:     // 第二步：按新顺序挂载
-components/react-greet/index.js:     // 策略：逐个检查当前 parent 的第一个子节点是否为期望的 VNode
-components/react-greet/index.js:     // 如果不是，则把期望的 VNode 用 insertBefore 或 appendChild 放到正确位置
-components/react-greet/index.js:     // 构建索引映射
-components/react-greet/index.js:     } catch (err) {
-components/react-greet/index.js:         _iterator7.e(err);
-components/react-greet/index.js:     } finally{
-components/react-greet/index.js:         _iterator7.f();
-components/react-greet/index.js:     }
-components/react-greet/index.js:     var newIndex = new Map();
-components/react-greet/index.js:     newChildren.forEach(function(vnode, idx) {
-components/react-greet/index.js:         return newIndex.set(vnode, idx);
-components/react-greet/index.js:     });
-components/react-greet/index.js:     // 简化方案：重新按顺序挂载
-components/react-greet/index.js:     // 先把所有新 VNode 从 parent 中临时移除（如果已存在）
-components/react-greet/index.js:     // 然后按顺序 append / insert
-components/react-greet/index.js:     // 但 VNode.removeChild 后，firstChild 会更新
-components/react-greet/index.js:     // 更简单的方法：按顺序遍历，确保每个新 VNode 在正确位置
-components/react-greet/index.js:     // 获取挂载前的 children 状态
-components/react-greet/index.js:     var mountedChildren = getChildVNodes(parent);
-components/react-greet/index.js:     var mountedSet = new Set(mountedChildren);
-components/react-greet/index.js:     // 检查是否已有正确顺序
-components/react-greet/index.js:     var needsReorder = false;
-components/react-greet/index.js:     if (mountedChildren.length === newChildren.length) {
-components/react-greet/index.js:         for(var i = 0; i < newChildren.length; i++){
-components/react-greet/index.js:             if (mountedChildren[i] !== newChildren[i]) {
-components/react-greet/index.js:                 needsReorder = true;
-components/react-greet/index.js:                 break;
-components/react-greet/index.js:             }
-components/react-greet/index.js:         }
-components/react-greet/index.js:     } else {
-components/react-greet/index.js:         needsReorder = true;
-components/react-greet/index.js:     }
-components/react-greet/index.js:     if (!needsReorder) return;
-components/react-greet/index.js:     // 重新挂载：按新列表顺序处理
-components/react-greet/index.js:     // 先收集所有已挂载但位置不对的 VNode，将它们从 parent 中"解绑"再按新顺序挂载
-components/react-greet/index.js:     // 由于 VNode 是链表结构，我们需要特殊处理
-components/react-greet/index.js:     // 最简单且正确的方案：
-components/react-greet/index.js:     //   - 对每个新 VNode，如果已在正确位置则跳过
-components/react-greet/index.js:     //   - 否则 insertBefore 到正确位置
-components/react-greet/index.js:     // 先确保所有 newChildren 都已挂载在 parent 下（新增的可能还没挂载）
-components/react-greet/index.js:     // 然后按顺序重新排列
-components/react-greet/index.js:     // 第一遍：把未挂载的 VNode 追加到末尾
-components/react-greet/index.js:     var _iterator8 = _createForOfIteratorHelper(newChildren), _step8;
-components/react-greet/index.js:     try {
-components/react-greet/index.js:         for(_iterator8.s(); !(_step8 = _iterator8.n()).done;){
-components/react-greet/index.js:             var vnode = _step8.value;
-components/react-greet/index.js:             if (!mountedSet.has(vnode)) {
-components/react-greet/index.js:                 debugRenderLight('append new vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(vnode)));
-components/react-greet/index.js:                 parent.appendChild(vnode);
-components/react-greet/index.js:                 mountedSet.add(vnode);
-components/react-greet/index.js:             }
-components/react-greet/index.js:         }
-components/react-greet/index.js:     // 重新获取 children（可能已变化）
+components/react-greet/index.js:     // 快速路径 3：新列表顺序恰好就是当前 children 顺序 → 跳过
 components/react-greet/index.js:     } catch (err) {
 components/react-greet/index.js:         _iterator8.e(err);
 components/react-greet/index.js:     } finally{
 components/react-greet/index.js:         _iterator8.f();
 components/react-greet/index.js:     }
-components/react-greet/index.js:     var currentList = getChildVNodes(parent);
-components/react-greet/index.js:     // 第二遍：按新顺序用 insertBefore 调整位置
-components/react-greet/index.js:     // 从后往前处理：让每个 VNode 出现在正确的位置
-components/react-greet/index.js:     for(var targetIdx = newChildren.length - 1; targetIdx >= 0; targetIdx--){
-components/react-greet/index.js:         var target = newChildren[targetIdx];
-components/react-greet/index.js:         // 获取当前 target 的位置
-components/react-greet/index.js:         var currentIdx = currentList.indexOf(target);
-components/react-greet/index.js:         if (currentIdx === targetIdx) continue; // 位置正确
-components/react-greet/index.js:         // 需要把 target 移到 targetIdx 位置
-components/react-greet/index.js:         // 先移除再插入
-components/react-greet/index.js:         parent.removeChild(target);
-components/react-greet/index.js:         // 重新获取列表（removeChild 会改变链表）
-components/react-greet/index.js:         currentList = getChildVNodes(parent);
-components/react-greet/index.js:         // 找到目标位置的"下一个兄弟节点"（用于 insertBefore）
-components/react-greet/index.js:         var nextSibling = currentList[targetIdx] || null;
-components/react-greet/index.js:         if (nextSibling) {
-components/react-greet/index.js:             debugRenderLight('reorder vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)), "before=".concat(getDebugVNodeName(nextSibling)));
-components/react-greet/index.js:             parent.insertBefore(target, nextSibling);
-components/react-greet/index.js:         } else {
-components/react-greet/index.js:             debugRenderLight('move vnode to tail', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)));
-components/react-greet/index.js:             parent.appendChild(target);
+components/react-greet/index.js:     var currentNode = parent.firstChild;
+components/react-greet/index.js:     var needsReorder = false;
+components/react-greet/index.js:     for(var i = 0; i < newChildren.length; i++){
+components/react-greet/index.js:         if (currentNode !== newChildren[i]) {
+components/react-greet/index.js:             needsReorder = true;
+components/react-greet/index.js:             break;
 components/react-greet/index.js:         }
-components/react-greet/index.js:         // 更新 currentList
-components/react-greet/index.js:         currentList = getChildVNodes(parent);
+components/react-greet/index.js:         currentNode = currentNode.nextSibling;
+components/react-greet/index.js:     }
+components/react-greet/index.js:     if (!needsReorder && currentNode === null) return;
+components/react-greet/index.js:     // 第二步：O(n) 算法按新顺序挂载
+components/react-greet/index.js:     // 先把新增节点（不在 parent 当前链表中的）追加到尾部
+components/react-greet/index.js:     var cursor = parent.firstChild;
+components/react-greet/index.js:     var alreadyMounted = new Set();
+components/react-greet/index.js:     while(cursor){
+components/react-greet/index.js:         alreadyMounted.add(cursor);
+components/react-greet/index.js:         cursor = cursor.nextSibling;
+components/react-greet/index.js:     }
+components/react-greet/index.js:     var _iterator9 = _createForOfIteratorHelper(newChildren), _step9;
+components/react-greet/index.js:     try {
+components/react-greet/index.js:         for(_iterator9.s(); !(_step9 = _iterator9.n()).done;){
+components/react-greet/index.js:             var _vnode2 = _step9.value;
+components/react-greet/index.js:             if (!alreadyMounted.has(_vnode2)) {
+components/react-greet/index.js:                 parent.appendChild(_vnode2);
+components/react-greet/index.js:             }
+components/react-greet/index.js:         }
+components/react-greet/index.js:     // 重排核心算法：O(n) 两指针扫描
+components/react-greet/index.js:     // expectedCursor 遍历 newChildren；actualCursor 沿链表前进
+components/react-greet/index.js:     // 当 actualCursor === expectedCursor 时，两指针同时前进；
+components/react-greet/index.js:     // 否则把 expectedCursor removeChild 后 insertBefore(actualCursor)
+components/react-greet/index.js:     } catch (err) {
+components/react-greet/index.js:         _iterator9.e(err);
+components/react-greet/index.js:     } finally{
+components/react-greet/index.js:         _iterator9.f();
+components/react-greet/index.js:     }
+components/react-greet/index.js:     var expectedIdx = 0;
+components/react-greet/index.js:     var actualCursor = parent.firstChild;
+components/react-greet/index.js:     var total = newChildren.length;
+components/react-greet/index.js:     while(expectedIdx < total){
+components/react-greet/index.js:         var expected = newChildren[expectedIdx];
+components/react-greet/index.js:         if (actualCursor === expected) {
+components/react-greet/index.js:             actualCursor = actualCursor.nextSibling;
+components/react-greet/index.js:             expectedIdx++;
+components/react-greet/index.js:             continue;
+components/react-greet/index.js:         }
+components/react-greet/index.js:         // 需要把 expected 插入到 actualCursor 之前
+components/react-greet/index.js:         parent.removeChild(expected);
+components/react-greet/index.js:         if (actualCursor) {
+components/react-greet/index.js:             debugRenderLight('reorder vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(expected)), "before=".concat(getDebugVNodeName(actualCursor)));
+components/react-greet/index.js:             parent.insertBefore(expected, actualCursor);
+components/react-greet/index.js:         } else {
+components/react-greet/index.js:             debugRenderLight('move vnode to tail', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(expected)));
+components/react-greet/index.js:             parent.appendChild(expected);
+components/react-greet/index.js:         }
+components/react-greet/index.js:         expectedIdx++;
+components/react-greet/index.js:     // actualCursor 不动，因为 expected 被移到了 actualCursor 之前
+components/react-greet/index.js:     // 下一轮 actualCursor 仍是当前待比对位置
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
 components/react-greet/index.js: // ============================================================
@@ -7597,16 +7718,16 @@ components/react-greet/index.js: function renderChildrenFlatten(children, ctx, s
 components/react-greet/index.js:     var result = [];
 components/react-greet/index.js:     for(var i = 0; i < children.length; i++){
 components/react-greet/index.js:         var vnodes = renderElement(children[i], ctx, startIndex + i, keyedOldMap, keyedOldByIndex, consumedOld);
-components/react-greet/index.js:         var _iterator9 = _createForOfIteratorHelper(vnodes), _step9;
+components/react-greet/index.js:         var _iterator0 = _createForOfIteratorHelper(vnodes), _step0;
 components/react-greet/index.js:         try {
-components/react-greet/index.js:             for(_iterator9.s(); !(_step9 = _iterator9.n()).done;){
-components/react-greet/index.js:                 var vnode = _step9.value;
+components/react-greet/index.js:             for(_iterator0.s(); !(_step0 = _iterator0.n()).done;){
+components/react-greet/index.js:                 var vnode = _step0.value;
 components/react-greet/index.js:                 result.push(vnode);
 components/react-greet/index.js:             }
 components/react-greet/index.js:         } catch (err) {
-components/react-greet/index.js:             _iterator9.e(err);
+components/react-greet/index.js:             _iterator0.e(err);
 components/react-greet/index.js:         } finally{
-components/react-greet/index.js:             _iterator9.f();
+components/react-greet/index.js:             _iterator0.f();
 components/react-greet/index.js:         }
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return result;
@@ -7638,9 +7759,15 @@ components/react-greet/index.js: // ============================================
 components/react-greet/index.js: // 组件重新渲染
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: function reRenderComponent(component) {
-components/react-greet/index.js:     var _a;
 components/react-greet/index.js:     if (!component.mounted) return;
-components/react-greet/index.js:     debugRenderLight('reRender start', "component=".concat(component.componentName), "key=".concat((_a = component.key) !== null && _a !== void 0 ? _a : 'null'), "output=".concat(component.outputVNodes.length));
+components/react-greet/index.js:     debugRenderLight('reRender start', function() {
+components/react-greet/index.js:         return "component=".concat(component.componentName);
+components/react-greet/index.js:     }), function() {
+components/react-greet/index.js:         var _a;
+components/react-greet/index.js:         return "key=".concat((_a = component.key) !== null && _a !== void 0 ? _a : 'null');
+components/react-greet/index.js:     }), function() {
+components/react-greet/index.js:         return "output=".concat(component.outputVNodes.length);
+components/react-greet/index.js:     });
 components/react-greet/index.js:     component.dirty = false;
 components/react-greet/index.js:     var mountParent = findMountParentVNode(component);
 components/react-greet/index.js:     if (!mountParent) return;
@@ -12247,9 +12374,50 @@ pages/react/index.js: exports.useCallback = useCallback;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useContext
 pages/react/index.js: // ============================================================
+pages/react/index.js: // 组件 → 它订阅过的 context 集合（用于组件销毁时清理订阅）
+pages/react/index.js: var componentContexts = new Map();
+pages/react/index.js: function trackContextUsage(component, context) {
+pages/react/index.js:     if (!component || !context) return;
+pages/react/index.js:     var set = componentContexts.get(component);
+pages/react/index.js:     if (!set) {
+pages/react/index.js:         set = new Set();
+pages/react/index.js:         componentContexts.set(component, set);
+pages/react/index.js:     }
+pages/react/index.js:     if (set.has(context)) return;
+pages/react/index.js:     set.add(context);
+pages/react/index.js:     if (_typeof(context) === 'object') {
+pages/react/index.js:         if (!context._subscription) {
+pages/react/index.js:             context._subscription = {
+pages/react/index.js:                 subscribers: new Set()
+pages/react/index.js:             };
+pages/react/index.js:         }
+pages/react/index.js:         context._subscription.subscribers.add(component);
+pages/react/index.js:     }
+pages/react/index.js: }
+pages/react/index.js: function cleanupComponentContextSubscriptions(component) {
+pages/react/index.js:     var set = componentContexts.get(component);
+pages/react/index.js:     if (!set) return;
+pages/react/index.js:     var _iterator4 = _createForOfIteratorHelper(set), _step4;
+pages/react/index.js:     try {
+pages/react/index.js:         for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
+pages/react/index.js:             var context = _step4.value;
+pages/react/index.js:             if (context && context._subscription) {
+pages/react/index.js:                 context._subscription.subscribers.delete(component);
+pages/react/index.js:             }
+pages/react/index.js:         }
+pages/react/index.js:     } catch (err) {
+pages/react/index.js:         _iterator4.e(err);
+pages/react/index.js:     } finally{
+pages/react/index.js:         _iterator4.f();
+pages/react/index.js:     }
+pages/react/index.js:     componentContexts.delete(component);
+pages/react/index.js: }
 pages/react/index.js: function useContext(context) {
 pages/react/index.js:     var hook = getOrCreateHook('context');
 pages/react/index.js:     hook.state = context;
+pages/react/index.js:     if (exports.currentComponent) {
+pages/react/index.js:         trackContextUsage(exports.currentComponent, context);
+pages/react/index.js:     }
 pages/react/index.js:     if (context == null || _typeof(context) !== 'object') {
 pages/react/index.js:         return undefined;
 pages/react/index.js:     }
@@ -12293,10 +12461,10 @@ pages/react/index.js: // =======================================================
 pages/react/index.js: function flushLayoutEffects() {
 pages/react/index.js:     while(layoutEffects.length > 0){
 pages/react/index.js:         var pending = layoutEffects.splice(0);
-pages/react/index.js:         var _iterator4 = _createForOfIteratorHelper(pending), _step4;
+pages/react/index.js:         var _iterator5 = _createForOfIteratorHelper(pending), _step5;
 pages/react/index.js:         try {
-pages/react/index.js:             for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
-pages/react/index.js:                 var _step4$value = _step4.value, node = _step4$value.node, hook = _step4$value.hook;
+pages/react/index.js:             for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
+pages/react/index.js:                 var _step5$value = _step5.value, node = _step5$value.node, hook = _step5$value.hook;
 pages/react/index.js:                 if (node.dirty) continue; // Skip if component was marked dirty during render
 pages/react/index.js:                 if (hook.effect) {
 pages/react/index.js:                     // Run previous cleanup
@@ -12319,9 +12487,9 @@ pages/react/index.js:                     }
 pages/react/index.js:                 }
 pages/react/index.js:             }
 pages/react/index.js:         } catch (err) {
-pages/react/index.js:             _iterator4.e(err);
+pages/react/index.js:             _iterator5.e(err);
 pages/react/index.js:         } finally{
-pages/react/index.js:             _iterator4.f();
+pages/react/index.js:             _iterator5.f();
 pages/react/index.js:         }
 pages/react/index.js:     }
 pages/react/index.js: }
@@ -12330,10 +12498,10 @@ pages/react/index.js: function flushPassiveEffects() {
 pages/react/index.js:     if (passiveEffects.length === 0) return;
 pages/react/index.js:     scheduler_1.default.unstable_scheduleCallback(function() {
 pages/react/index.js:         var pending = passiveEffects.splice(0);
-pages/react/index.js:         var _iterator5 = _createForOfIteratorHelper(pending), _step5;
+pages/react/index.js:         var _iterator6 = _createForOfIteratorHelper(pending), _step6;
 pages/react/index.js:         try {
-pages/react/index.js:             for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
-pages/react/index.js:                 var _step5$value = _step5.value, node = _step5$value.node, hook = _step5$value.hook;
+pages/react/index.js:             for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
+pages/react/index.js:                 var _step6$value = _step6.value, node = _step6$value.node, hook = _step6$value.hook;
 pages/react/index.js:                 if (node.dirty) continue;
 pages/react/index.js:                 if (hook.effect) {
 pages/react/index.js:                     if (hook.effect.destroy) {
@@ -12354,9 +12522,9 @@ pages/react/index.js:                     }
 pages/react/index.js:                 }
 pages/react/index.js:             }
 pages/react/index.js:         } catch (err) {
-pages/react/index.js:             _iterator5.e(err);
+pages/react/index.js:             _iterator6.e(err);
 pages/react/index.js:         } finally{
-pages/react/index.js:             _iterator5.f();
+pages/react/index.js:             _iterator6.f();
 pages/react/index.js:         }
 pages/react/index.js:     });
 pages/react/index.js: }
@@ -12364,10 +12532,10 @@ pages/react/index.js: exports.flushPassiveEffects = flushPassiveEffects;
 pages/react/index.js: function cleanupEffectsForNode(node) {
 pages/react/index.js:     var _a;
 pages/react/index.js:     if (!node.memoizedState) return;
-pages/react/index.js:     var _iterator6 = _createForOfIteratorHelper(node.memoizedState), _step6;
+pages/react/index.js:     var _iterator7 = _createForOfIteratorHelper(node.memoizedState), _step7;
 pages/react/index.js:     try {
-pages/react/index.js:         for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
-pages/react/index.js:             var hook = _step6.value;
+pages/react/index.js:         for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
+pages/react/index.js:             var hook = _step7.value;
 pages/react/index.js:             if ((_a = hook.effect) === null || _a === void 0 ? void 0 : _a.destroy) {
 pages/react/index.js:                 try {
 pages/react/index.js:                     hook.effect.destroy();
@@ -12376,11 +12544,13 @@ pages/react/index.js:                 // ignore
 pages/react/index.js:                 }
 pages/react/index.js:             }
 pages/react/index.js:         }
+pages/react/index.js:     // 同时清理对所有 context 的订阅
 pages/react/index.js:     } catch (err) {
-pages/react/index.js:         _iterator6.e(err);
+pages/react/index.js:         _iterator7.e(err);
 pages/react/index.js:     } finally{
-pages/react/index.js:         _iterator6.f();
+pages/react/index.js:         _iterator7.f();
 pages/react/index.js:     }
+pages/react/index.js:     cleanupComponentContextSubscriptions(node);
 pages/react/index.js: }
 pages/react/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
 pages/react/index.js: var reRenderComponent = function reRenderComponent() {
@@ -13014,19 +13184,7 @@ pages/react/index.js:  *   通过比对 old/new child 列表，基于 key 匹配
 pages/react/index.js:  *     - UPDATE: 复用 VNode，更新 props/text
 pages/react/index.js:  *     - INSERT: 新增 VNode，appendChild 或 insertBefore
 pages/react/index.js:  *     - DELETE: 删除 VNode，removeChild
-pages/react/index.js:  */ function _toConsumableArray(r) {
-pages/react/index.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-pages/react/index.js: }
-pages/react/index.js: function _nonIterableSpread() {
-pages/react/index.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-pages/react/index.js: }
-pages/react/index.js: function _iterableToArray(r) {
-pages/react/index.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-pages/react/index.js: }
-pages/react/index.js: function _arrayWithoutHoles(r) {
-pages/react/index.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-pages/react/index.js: }
-pages/react/index.js: function _createForOfIteratorHelper(r, e) {
+pages/react/index.js:  */ function _createForOfIteratorHelper(r, e) {
 pages/react/index.js:     var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
 pages/react/index.js:     if (!t) {
 pages/react/index.js:         if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
@@ -13071,12 +13229,24 @@ pages/react/index.js:             }
 pages/react/index.js:         }
 pages/react/index.js:     };
 pages/react/index.js: }
+pages/react/index.js: function _toConsumableArray(r) {
+pages/react/index.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
+pages/react/index.js: }
+pages/react/index.js: function _nonIterableSpread() {
+pages/react/index.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+pages/react/index.js: }
 pages/react/index.js: function _unsupportedIterableToArray(r, a) {
 pages/react/index.js:     if (r) {
 pages/react/index.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
 pages/react/index.js:         var t = ({}).toString.call(r).slice(8, -1);
 pages/react/index.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
 pages/react/index.js:     }
+pages/react/index.js: }
+pages/react/index.js: function _iterableToArray(r) {
+pages/react/index.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+pages/react/index.js: }
+pages/react/index.js: function _arrayWithoutHoles(r) {
+pages/react/index.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
 pages/react/index.js: }
 pages/react/index.js: function _arrayLikeToArray(r, a) {
 pages/react/index.js:     (null == a || a > r.length) && (a = r.length);
@@ -13227,26 +13397,43 @@ pages/react/index.js:     }
 pages/react/index.js:     out.push(children);
 pages/react/index.js:     return out;
 pages/react/index.js: }
-pages/react/index.js: function debugRenderLight() {
-pages/react/index.js:     if (framework_shared_1.RuntimeOptions.get('debug')) {
-pages/react/index.js:         var _console;
-pages/react/index.js:         for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
-pages/react/index.js:             args[_key] = arguments[_key];
-pages/react/index.js:         }
-pages/react/index.js:         (_console = console).log.apply(_console, [
-pages/react/index.js:             '[render-light]'
-pages/react/index.js:         ].concat(args));
+pages/react/index.js: var DEBUG_ENABLED_CACHE = {
+pages/react/index.js:     value: false,
+pages/react/index.js:     refreshedAt: 0
+pages/react/index.js: };
+pages/react/index.js: function isDebugEnabled() {
+pages/react/index.js:     var now = Date.now();
+pages/react/index.js:     if (now - DEBUG_ENABLED_CACHE.refreshedAt > 200) {
+pages/react/index.js:         DEBUG_ENABLED_CACHE.value = framework_shared_1.RuntimeOptions.get('debug');
+pages/react/index.js:         DEBUG_ENABLED_CACHE.refreshedAt = now;
 pages/react/index.js:     }
+pages/react/index.js:     return DEBUG_ENABLED_CACHE.value;
+pages/react/index.js: }
+pages/react/index.js: function debugRenderLight() {
+pages/react/index.js:     var _console;
+pages/react/index.js:     if (!isDebugEnabled()) return;
+pages/react/index.js:     for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+pages/react/index.js:         args[_key] = arguments[_key];
+pages/react/index.js:     }
+pages/react/index.js:     var resolved = args.map(function(a) {
+pages/react/index.js:         return typeof a === 'function' ? a() : a;
+pages/react/index.js:     });
+pages/react/index.js:     (_console = console).log.apply(_console, [
+pages/react/index.js:         '[render-light]'
+pages/react/index.js:     ].concat(_toConsumableArray(resolved)));
 pages/react/index.js: }
 pages/react/index.js: function getDebugTypeName(type) {
+pages/react/index.js:     if (!isDebugEnabled()) return '';
 pages/react/index.js:     if (typeof type === 'string') return type;
 pages/react/index.js:     var resolved = unwrapComponentType(type);
 pages/react/index.js:     return (resolved === null || resolved === void 0 ? void 0 : resolved.name) || (type === null || type === void 0 ? void 0 : type.name) || 'Anonymous';
 pages/react/index.js: }
 pages/react/index.js: function getDebugVNodeName(vnode) {
+pages/react/index.js:     if (!isDebugEnabled()) return '';
 pages/react/index.js:     return vnode ? "".concat(vnode.type, "#").concat(vnode.id) : 'null';
 pages/react/index.js: }
 pages/react/index.js: function getDebugElementName(element) {
+pages/react/index.js:     if (!isDebugEnabled()) return '';
 pages/react/index.js:     if (element == null) return String(element);
 pages/react/index.js:     if (typeof element === 'string' || typeof element === 'number') return "text:".concat(String(element));
 pages/react/index.js:     if (element instanceof VNode_1.default) return "vnode:".concat(getDebugVNodeName(element));
@@ -13254,6 +13441,21 @@ pages/react/index.js:     if (_typeof(element) === 'object' && 'type' in element
 pages/react/index.js:         return getDebugTypeName(element.type);
 pages/react/index.js:     }
 pages/react/index.js:     return _typeof(element);
+pages/react/index.js: }
+pages/react/index.js: function getContextSubscription(context) {
+pages/react/index.js:     if (!context) return {
+pages/react/index.js:         subscribers: new Set()
+pages/react/index.js:     };
+pages/react/index.js:     if (!context._subscription) {
+pages/react/index.js:         context._subscription = {
+pages/react/index.js:             subscribers: new Set()
+pages/react/index.js:         };
+pages/react/index.js:     }
+pages/react/index.js:     return context._subscription;
+pages/react/index.js: }
+pages/react/index.js: function subscribeContext(context, component) {
+pages/react/index.js:     if (!context) return;
+pages/react/index.js:     getContextSubscription(context).subscribers.add(component);
 pages/react/index.js: }
 pages/react/index.js: function isContextProviderType(type) {
 pages/react/index.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_PROVIDER_TYPE);
@@ -13278,13 +13480,21 @@ pages/react/index.js:     if ('_currentValue2' in context) return context._curre
 pages/react/index.js:     return undefined;
 pages/react/index.js: }
 pages/react/index.js: function setContextCurrentValue(context, value) {
-pages/react/index.js:     if (!context || _typeof(context) !== 'object') return;
+pages/react/index.js:     if (!context || _typeof(context) !== 'object') return false;
+pages/react/index.js:     var changed = false;
 pages/react/index.js:     if ('_currentValue' in context) {
-pages/react/index.js:         context._currentValue = value;
+pages/react/index.js:         if (!Object.is(context._currentValue, value)) {
+pages/react/index.js:             context._currentValue = value;
+pages/react/index.js:             changed = true;
+pages/react/index.js:         }
 pages/react/index.js:     }
 pages/react/index.js:     if ('_currentValue2' in context) {
-pages/react/index.js:         context._currentValue2 = value;
+pages/react/index.js:         if (!Object.is(context._currentValue2, value)) {
+pages/react/index.js:             context._currentValue2 = value;
+pages/react/index.js:             changed = true;
+pages/react/index.js:         }
 pages/react/index.js:     }
+pages/react/index.js:     return changed;
 pages/react/index.js: }
 pages/react/index.js: var allComponents = new Set();
 pages/react/index.js: var pendingDidMount = new Set();
@@ -13358,6 +13568,40 @@ pages/react/index.js: function isSameComponentType(prevType, nextType) {
 pages/react/index.js:     if (prevType === nextType) return true;
 pages/react/index.js:     return unwrapComponentType(prevType) === unwrapComponentType(nextType);
 pages/react/index.js: }
+pages/react/index.js: function isMemoComponent(type) {
+pages/react/index.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_MEMO_TYPE);
+pages/react/index.js: }
+pages/react/index.js: function getMemoCompare(type) {
+pages/react/index.js:     if (!isMemoComponent(type)) return null;
+pages/react/index.js:     if (typeof type.compare === 'function') return type.compare;
+pages/react/index.js:     // 默认浅比较
+pages/react/index.js:     return function(prev, next) {
+pages/react/index.js:         if (prev === next) return true;
+pages/react/index.js:         if (prev == null || next == null) return false;
+pages/react/index.js:         var prevKeys = Object.keys(prev);
+pages/react/index.js:         var nextKeys = Object.keys(next);
+pages/react/index.js:         if (prevKeys.length !== nextKeys.length) return false;
+pages/react/index.js:         for(var _i3 = 0, _prevKeys = prevKeys; _i3 < _prevKeys.length; _i3++){
+pages/react/index.js:             var k = _prevKeys[_i3];
+pages/react/index.js:             if (!Object.prototype.hasOwnProperty.call(next, k)) return false;
+pages/react/index.js:             if (!Object.is(prev[k], next[k])) return false;
+pages/react/index.js:         }
+pages/react/index.js:         return true;
+pages/react/index.js:     };
+pages/react/index.js: }
+pages/react/index.js: function shallowEqualProps(a, b) {
+pages/react/index.js:     if (a === b) return true;
+pages/react/index.js:     if (a == null || b == null) return false;
+pages/react/index.js:     var aKeys = Object.keys(a);
+pages/react/index.js:     var bKeys = Object.keys(b);
+pages/react/index.js:     if (aKeys.length !== bKeys.length) return false;
+pages/react/index.js:     for(var _i4 = 0, _aKeys = aKeys; _i4 < _aKeys.length; _i4++){
+pages/react/index.js:         var k = _aKeys[_i4];
+pages/react/index.js:         if (!Object.prototype.hasOwnProperty.call(b, k)) return false;
+pages/react/index.js:         if (!Object.is(a[k], b[k])) return false;
+pages/react/index.js:     }
+pages/react/index.js:     return true;
+pages/react/index.js: }
 pages/react/index.js: function findReusableComponent(components, key, type, parentVNode) {
 pages/react/index.js:     var _iterator = _createForOfIteratorHelper(components), _step;
 pages/react/index.js:     try {
@@ -13400,8 +13644,8 @@ pages/react/index.js: // =======================================================
 pages/react/index.js: function processVNodeProps(props, vnode) {
 pages/react/index.js:     var result = {};
 pages/react/index.js:     var functionPropKeys = new Set();
-pages/react/index.js:     for(var _i3 = 0, _Object$keys = Object.keys(props); _i3 < _Object$keys.length; _i3++){
-pages/react/index.js:         var key = _Object$keys[_i3];
+pages/react/index.js:     for(var _i5 = 0, _Object$keys = Object.keys(props); _i5 < _Object$keys.length; _i5++){
+pages/react/index.js:         var key = _Object$keys[_i5];
 pages/react/index.js:         if (typeof props[key] === 'function') {
 pages/react/index.js:             functionPropKeys.add(key);
 pages/react/index.js:             result[key] = vnode.registerCallback(key, props[key]);
@@ -13417,8 +13661,8 @@ pages/react/index.js: }
 pages/react/index.js: function processPropsForDiff(props) {
 pages/react/index.js:     if (!props || _typeof(props) !== 'object') return props;
 pages/react/index.js:     var result = {};
-pages/react/index.js:     for(var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++){
-pages/react/index.js:         var key = _Object$keys2[_i4];
+pages/react/index.js:     for(var _i6 = 0, _Object$keys2 = Object.keys(props); _i6 < _Object$keys2.length; _i6++){
+pages/react/index.js:         var key = _Object$keys2[_i6];
 pages/react/index.js:         if (key === 'children' || key === 'ref') continue;
 pages/react/index.js:         result[key] = props[key];
 pages/react/index.js:     }
@@ -13600,11 +13844,14 @@ pages/react/index.js:             {
 pages/react/index.js:                 var _type = element.type;
 pages/react/index.js:                 var _props2 = element.props || {};
 pages/react/index.js:                 var renderChild = _props2.children;
+pages/react/index.js:                 var _context = getContextObjectFromType(_type);
+pages/react/index.js:                 if (ctx.currentComponent) {
+pages/react/index.js:                     subscribeContext(_context, ctx.currentComponent);
+pages/react/index.js:                 }
 pages/react/index.js:                 if (typeof renderChild !== 'function') {
 pages/react/index.js:                     debugRenderLight('consumer missing render fn', "type=".concat(getDebugTypeName(_type)));
 pages/react/index.js:                     return [];
 pages/react/index.js:                 }
-pages/react/index.js:                 var _context = getContextObjectFromType(_type);
 pages/react/index.js:                 var value = getContextCurrentValue(_context);
 pages/react/index.js:                 var childElement = null;
 pages/react/index.js:                 try {
@@ -13662,6 +13909,16 @@ pages/react/index.js:     var reusableComponent = findReusableComponent(ctx.oldC
 pages/react/index.js:     var comp = reusableComponent !== null && reusableComponent !== void 0 ? reusableComponent : createComponent(type, props, ref, ctx.container, ctx.currentComponent);
 pages/react/index.js:     var isMount = reusableComponent === null;
 pages/react/index.js:     debugRenderLight("component ".concat(isMount ? 'mount' : 'reuse'), "type=".concat(getDebugTypeName(type)), "key=".concat(key), "parent=".concat(getDebugVNodeName(ctx.parentVNode)), "prevOutput=".concat(comp.outputVNodes.length));
+pages/react/index.js:     // React.memo: props 浅比较，相同则跳过渲染，但保留已挂载的 VNode
+pages/react/index.js:     if (!isMount && isMemoComponent(type) && !comp.dirty) {
+pages/react/index.js:         var compareFn = getMemoCompare(type) || shallowEqualProps;
+pages/react/index.js:         if (compareFn(comp.props, props) && (ref == null || ref === comp.ref)) {
+pages/react/index.js:             debugRenderLight("memo skip update type=".concat(comp.componentName));
+pages/react/index.js:             comp.didRender = false;
+pages/react/index.js:             ctx.usedChildComponents.add(comp);
+pages/react/index.js:             return comp.outputVNodes.slice();
+pages/react/index.js:         }
+pages/react/index.js:     }
 pages/react/index.js:     comp.props = props;
 pages/react/index.js:     comp.ref = ref;
 pages/react/index.js:     comp.parentVNode = ctx.parentVNode;
@@ -13895,8 +14152,8 @@ pages/react/index.js: //   - 新增的 VNode: 直接 appendChild 或 insertBefor
 pages/react/index.js: // ============================================================
 pages/react/index.js: function mountVNodesInOrder(parent, newChildren, oldChildren) {
 pages/react/index.js:     debugRenderLight('mountVNodesInOrder', "parent=".concat(getDebugVNodeName(parent)), "new=".concat(newChildren.length), "old=".concat(oldChildren.length));
+pages/react/index.js:     // 快速路径 1：新列表为空 → 清空所有子节点
 pages/react/index.js:     if (newChildren.length === 0) {
-pages/react/index.js:         // 清空所有子节点
 pages/react/index.js:         var toRemove = getChildVNodes(parent);
 pages/react/index.js:         var _iterator6 = _createForOfIteratorHelper(toRemove), _step6;
 pages/react/index.js:         try {
@@ -13911,103 +14168,94 @@ pages/react/index.js:             _iterator6.f();
 pages/react/index.js:         }
 pages/react/index.js:         return;
 pages/react/index.js:     }
-pages/react/index.js:     // 为了简单和正确性，采用两步策略：
-pages/react/index.js:     // 1. 先从 parent 中移除所有旧的但不在新列表中的 VNode
-pages/react/index.js:     // 2. 按新顺序，把新 VNode 挂载到正确位置
+pages/react/index.js:     // 快速路径 2：oldChildren 为空 → 直接顺序 append，无需重排
+pages/react/index.js:     if (oldChildren.length === 0) {
+pages/react/index.js:         var _iterator7 = _createForOfIteratorHelper(newChildren), _step7;
+pages/react/index.js:         try {
+pages/react/index.js:             for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
+pages/react/index.js:                 var vnode = _step7.value;
+pages/react/index.js:                 parent.appendChild(vnode);
+pages/react/index.js:             }
+pages/react/index.js:         } catch (err) {
+pages/react/index.js:             _iterator7.e(err);
+pages/react/index.js:         } finally{
+pages/react/index.js:             _iterator7.f();
+pages/react/index.js:         }
+pages/react/index.js:         return;
+pages/react/index.js:     }
 pages/react/index.js:     var newSet = new Set(newChildren);
 pages/react/index.js:     // 第一步：删除不再需要的旧 VNode
-pages/react/index.js:     var _iterator7 = _createForOfIteratorHelper(oldChildren), _step7;
+pages/react/index.js:     var _iterator8 = _createForOfIteratorHelper(oldChildren), _step8;
 pages/react/index.js:     try {
-pages/react/index.js:         for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
-pages/react/index.js:             var oldChild = _step7.value;
+pages/react/index.js:         for(_iterator8.s(); !(_step8 = _iterator8.n()).done;){
+pages/react/index.js:             var oldChild = _step8.value;
 pages/react/index.js:             if (!newSet.has(oldChild)) {
-pages/react/index.js:                 // 这个旧 VNode 不在新列表中 → 删除
 pages/react/index.js:                 parent.removeChild(oldChild);
 pages/react/index.js:             }
 pages/react/index.js:         }
-pages/react/index.js:     // 第二步：按新顺序挂载
-pages/react/index.js:     // 策略：逐个检查当前 parent 的第一个子节点是否为期望的 VNode
-pages/react/index.js:     // 如果不是，则把期望的 VNode 用 insertBefore 或 appendChild 放到正确位置
-pages/react/index.js:     // 构建索引映射
-pages/react/index.js:     } catch (err) {
-pages/react/index.js:         _iterator7.e(err);
-pages/react/index.js:     } finally{
-pages/react/index.js:         _iterator7.f();
-pages/react/index.js:     }
-pages/react/index.js:     var newIndex = new Map();
-pages/react/index.js:     newChildren.forEach(function(vnode, idx) {
-pages/react/index.js:         return newIndex.set(vnode, idx);
-pages/react/index.js:     });
-pages/react/index.js:     // 简化方案：重新按顺序挂载
-pages/react/index.js:     // 先把所有新 VNode 从 parent 中临时移除（如果已存在）
-pages/react/index.js:     // 然后按顺序 append / insert
-pages/react/index.js:     // 但 VNode.removeChild 后，firstChild 会更新
-pages/react/index.js:     // 更简单的方法：按顺序遍历，确保每个新 VNode 在正确位置
-pages/react/index.js:     // 获取挂载前的 children 状态
-pages/react/index.js:     var mountedChildren = getChildVNodes(parent);
-pages/react/index.js:     var mountedSet = new Set(mountedChildren);
-pages/react/index.js:     // 检查是否已有正确顺序
-pages/react/index.js:     var needsReorder = false;
-pages/react/index.js:     if (mountedChildren.length === newChildren.length) {
-pages/react/index.js:         for(var i = 0; i < newChildren.length; i++){
-pages/react/index.js:             if (mountedChildren[i] !== newChildren[i]) {
-pages/react/index.js:                 needsReorder = true;
-pages/react/index.js:                 break;
-pages/react/index.js:             }
-pages/react/index.js:         }
-pages/react/index.js:     } else {
-pages/react/index.js:         needsReorder = true;
-pages/react/index.js:     }
-pages/react/index.js:     if (!needsReorder) return;
-pages/react/index.js:     // 重新挂载：按新列表顺序处理
-pages/react/index.js:     // 先收集所有已挂载但位置不对的 VNode，将它们从 parent 中"解绑"再按新顺序挂载
-pages/react/index.js:     // 由于 VNode 是链表结构，我们需要特殊处理
-pages/react/index.js:     // 最简单且正确的方案：
-pages/react/index.js:     //   - 对每个新 VNode，如果已在正确位置则跳过
-pages/react/index.js:     //   - 否则 insertBefore 到正确位置
-pages/react/index.js:     // 先确保所有 newChildren 都已挂载在 parent 下（新增的可能还没挂载）
-pages/react/index.js:     // 然后按顺序重新排列
-pages/react/index.js:     // 第一遍：把未挂载的 VNode 追加到末尾
-pages/react/index.js:     var _iterator8 = _createForOfIteratorHelper(newChildren), _step8;
-pages/react/index.js:     try {
-pages/react/index.js:         for(_iterator8.s(); !(_step8 = _iterator8.n()).done;){
-pages/react/index.js:             var vnode = _step8.value;
-pages/react/index.js:             if (!mountedSet.has(vnode)) {
-pages/react/index.js:                 debugRenderLight('append new vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(vnode)));
-pages/react/index.js:                 parent.appendChild(vnode);
-pages/react/index.js:                 mountedSet.add(vnode);
-pages/react/index.js:             }
-pages/react/index.js:         }
-pages/react/index.js:     // 重新获取 children（可能已变化）
+pages/react/index.js:     // 快速路径 3：新列表顺序恰好就是当前 children 顺序 → 跳过
 pages/react/index.js:     } catch (err) {
 pages/react/index.js:         _iterator8.e(err);
 pages/react/index.js:     } finally{
 pages/react/index.js:         _iterator8.f();
 pages/react/index.js:     }
-pages/react/index.js:     var currentList = getChildVNodes(parent);
-pages/react/index.js:     // 第二遍：按新顺序用 insertBefore 调整位置
-pages/react/index.js:     // 从后往前处理：让每个 VNode 出现在正确的位置
-pages/react/index.js:     for(var targetIdx = newChildren.length - 1; targetIdx >= 0; targetIdx--){
-pages/react/index.js:         var target = newChildren[targetIdx];
-pages/react/index.js:         // 获取当前 target 的位置
-pages/react/index.js:         var currentIdx = currentList.indexOf(target);
-pages/react/index.js:         if (currentIdx === targetIdx) continue; // 位置正确
-pages/react/index.js:         // 需要把 target 移到 targetIdx 位置
-pages/react/index.js:         // 先移除再插入
-pages/react/index.js:         parent.removeChild(target);
-pages/react/index.js:         // 重新获取列表（removeChild 会改变链表）
-pages/react/index.js:         currentList = getChildVNodes(parent);
-pages/react/index.js:         // 找到目标位置的"下一个兄弟节点"（用于 insertBefore）
-pages/react/index.js:         var nextSibling = currentList[targetIdx] || null;
-pages/react/index.js:         if (nextSibling) {
-pages/react/index.js:             debugRenderLight('reorder vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)), "before=".concat(getDebugVNodeName(nextSibling)));
-pages/react/index.js:             parent.insertBefore(target, nextSibling);
-pages/react/index.js:         } else {
-pages/react/index.js:             debugRenderLight('move vnode to tail', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)));
-pages/react/index.js:             parent.appendChild(target);
+pages/react/index.js:     var currentNode = parent.firstChild;
+pages/react/index.js:     var needsReorder = false;
+pages/react/index.js:     for(var i = 0; i < newChildren.length; i++){
+pages/react/index.js:         if (currentNode !== newChildren[i]) {
+pages/react/index.js:             needsReorder = true;
+pages/react/index.js:             break;
 pages/react/index.js:         }
-pages/react/index.js:         // 更新 currentList
-pages/react/index.js:         currentList = getChildVNodes(parent);
+pages/react/index.js:         currentNode = currentNode.nextSibling;
+pages/react/index.js:     }
+pages/react/index.js:     if (!needsReorder && currentNode === null) return;
+pages/react/index.js:     // 第二步：O(n) 算法按新顺序挂载
+pages/react/index.js:     // 先把新增节点（不在 parent 当前链表中的）追加到尾部
+pages/react/index.js:     var cursor = parent.firstChild;
+pages/react/index.js:     var alreadyMounted = new Set();
+pages/react/index.js:     while(cursor){
+pages/react/index.js:         alreadyMounted.add(cursor);
+pages/react/index.js:         cursor = cursor.nextSibling;
+pages/react/index.js:     }
+pages/react/index.js:     var _iterator9 = _createForOfIteratorHelper(newChildren), _step9;
+pages/react/index.js:     try {
+pages/react/index.js:         for(_iterator9.s(); !(_step9 = _iterator9.n()).done;){
+pages/react/index.js:             var _vnode2 = _step9.value;
+pages/react/index.js:             if (!alreadyMounted.has(_vnode2)) {
+pages/react/index.js:                 parent.appendChild(_vnode2);
+pages/react/index.js:             }
+pages/react/index.js:         }
+pages/react/index.js:     // 重排核心算法：O(n) 两指针扫描
+pages/react/index.js:     // expectedCursor 遍历 newChildren；actualCursor 沿链表前进
+pages/react/index.js:     // 当 actualCursor === expectedCursor 时，两指针同时前进；
+pages/react/index.js:     // 否则把 expectedCursor removeChild 后 insertBefore(actualCursor)
+pages/react/index.js:     } catch (err) {
+pages/react/index.js:         _iterator9.e(err);
+pages/react/index.js:     } finally{
+pages/react/index.js:         _iterator9.f();
+pages/react/index.js:     }
+pages/react/index.js:     var expectedIdx = 0;
+pages/react/index.js:     var actualCursor = parent.firstChild;
+pages/react/index.js:     var total = newChildren.length;
+pages/react/index.js:     while(expectedIdx < total){
+pages/react/index.js:         var expected = newChildren[expectedIdx];
+pages/react/index.js:         if (actualCursor === expected) {
+pages/react/index.js:             actualCursor = actualCursor.nextSibling;
+pages/react/index.js:             expectedIdx++;
+pages/react/index.js:             continue;
+pages/react/index.js:         }
+pages/react/index.js:         // 需要把 expected 插入到 actualCursor 之前
+pages/react/index.js:         parent.removeChild(expected);
+pages/react/index.js:         if (actualCursor) {
+pages/react/index.js:             debugRenderLight('reorder vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(expected)), "before=".concat(getDebugVNodeName(actualCursor)));
+pages/react/index.js:             parent.insertBefore(expected, actualCursor);
+pages/react/index.js:         } else {
+pages/react/index.js:             debugRenderLight('move vnode to tail', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(expected)));
+pages/react/index.js:             parent.appendChild(expected);
+pages/react/index.js:         }
+pages/react/index.js:         expectedIdx++;
+pages/react/index.js:     // actualCursor 不动，因为 expected 被移到了 actualCursor 之前
+pages/react/index.js:     // 下一轮 actualCursor 仍是当前待比对位置
 pages/react/index.js:     }
 pages/react/index.js: }
 pages/react/index.js: // ============================================================
@@ -14017,16 +14265,16 @@ pages/react/index.js: function renderChildrenFlatten(children, ctx, startIndex, 
 pages/react/index.js:     var result = [];
 pages/react/index.js:     for(var i = 0; i < children.length; i++){
 pages/react/index.js:         var vnodes = renderElement(children[i], ctx, startIndex + i, keyedOldMap, keyedOldByIndex, consumedOld);
-pages/react/index.js:         var _iterator9 = _createForOfIteratorHelper(vnodes), _step9;
+pages/react/index.js:         var _iterator0 = _createForOfIteratorHelper(vnodes), _step0;
 pages/react/index.js:         try {
-pages/react/index.js:             for(_iterator9.s(); !(_step9 = _iterator9.n()).done;){
-pages/react/index.js:                 var vnode = _step9.value;
+pages/react/index.js:             for(_iterator0.s(); !(_step0 = _iterator0.n()).done;){
+pages/react/index.js:                 var vnode = _step0.value;
 pages/react/index.js:                 result.push(vnode);
 pages/react/index.js:             }
 pages/react/index.js:         } catch (err) {
-pages/react/index.js:             _iterator9.e(err);
+pages/react/index.js:             _iterator0.e(err);
 pages/react/index.js:         } finally{
-pages/react/index.js:             _iterator9.f();
+pages/react/index.js:             _iterator0.f();
 pages/react/index.js:         }
 pages/react/index.js:     }
 pages/react/index.js:     return result;
@@ -14058,9 +14306,15 @@ pages/react/index.js: // =======================================================
 pages/react/index.js: // 组件重新渲染
 pages/react/index.js: // ============================================================
 pages/react/index.js: function reRenderComponent(component) {
-pages/react/index.js:     var _a;
 pages/react/index.js:     if (!component.mounted) return;
-pages/react/index.js:     debugRenderLight('reRender start', "component=".concat(component.componentName), "key=".concat((_a = component.key) !== null && _a !== void 0 ? _a : 'null'), "output=".concat(component.outputVNodes.length));
+pages/react/index.js:     debugRenderLight('reRender start', function() {
+pages/react/index.js:         return "component=".concat(component.componentName);
+pages/react/index.js:     }), function() {
+pages/react/index.js:         var _a;
+pages/react/index.js:         return "key=".concat((_a = component.key) !== null && _a !== void 0 ? _a : 'null');
+pages/react/index.js:     }), function() {
+pages/react/index.js:         return "output=".concat(component.outputVNodes.length);
+pages/react/index.js:     });
 pages/react/index.js:     component.dirty = false;
 pages/react/index.js:     var mountParent = findMountParentVNode(component);
 pages/react/index.js:     if (!mountParent) return;
