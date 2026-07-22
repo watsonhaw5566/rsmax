@@ -320,9 +320,44 @@ export function useCallback<T extends Function>(callback: T, deps?: any[]): T {
 // useContext
 // ============================================================
 
+// 组件 → 它订阅过的 context 集合（用于组件销毁时清理订阅）
+const componentContexts: Map<LightNode, Set<any>> = new Map();
+
+function trackContextUsage(component: LightNode, context: any): void {
+  if (!component || !context) return;
+  let set = componentContexts.get(component);
+  if (!set) {
+    set = new Set();
+    componentContexts.set(component, set);
+  }
+  if (set.has(context)) return;
+  set.add(context);
+  if (typeof context === 'object') {
+    if (!context._subscription) {
+      context._subscription = { subscribers: new Set() };
+    }
+    context._subscription.subscribers.add(component);
+  }
+}
+
+function cleanupComponentContextSubscriptions(component: LightNode): void {
+  const set = componentContexts.get(component);
+  if (!set) return;
+  for (const context of set) {
+    if (context && context._subscription) {
+      context._subscription.subscribers.delete(component);
+    }
+  }
+  componentContexts.delete(component);
+}
+
 export function useContext<T>(context: any): T {
   const hook = getOrCreateHook('context');
   hook.state = context;
+
+  if (currentComponent) {
+    trackContextUsage(currentComponent, context);
+  }
 
   if (context == null || typeof context !== 'object') {
     return undefined as T;
@@ -437,6 +472,9 @@ export function cleanupEffectsForNode(node: LightNode): void {
       }
     }
   }
+
+  // 同时清理对所有 context 的订阅
+  cleanupComponentContextSubscriptions(node);
 }
 
 // ============================================================

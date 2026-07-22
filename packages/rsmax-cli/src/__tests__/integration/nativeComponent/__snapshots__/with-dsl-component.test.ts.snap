@@ -4806,9 +4806,50 @@ rsmax-vendors.js: exports.useCallback = useCallback;
 rsmax-vendors.js: // ============================================================
 rsmax-vendors.js: // useContext
 rsmax-vendors.js: // ============================================================
+rsmax-vendors.js: // 组件 → 它订阅过的 context 集合（用于组件销毁时清理订阅）
+rsmax-vendors.js: var componentContexts = new Map();
+rsmax-vendors.js: function trackContextUsage(component, context) {
+rsmax-vendors.js:     if (!component || !context) return;
+rsmax-vendors.js:     var set = componentContexts.get(component);
+rsmax-vendors.js:     if (!set) {
+rsmax-vendors.js:         set = new Set();
+rsmax-vendors.js:         componentContexts.set(component, set);
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if (set.has(context)) return;
+rsmax-vendors.js:     set.add(context);
+rsmax-vendors.js:     if (_typeof(context) === 'object') {
+rsmax-vendors.js:         if (!context._subscription) {
+rsmax-vendors.js:             context._subscription = {
+rsmax-vendors.js:                 subscribers: new Set()
+rsmax-vendors.js:             };
+rsmax-vendors.js:         }
+rsmax-vendors.js:         context._subscription.subscribers.add(component);
+rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: function cleanupComponentContextSubscriptions(component) {
+rsmax-vendors.js:     var set = componentContexts.get(component);
+rsmax-vendors.js:     if (!set) return;
+rsmax-vendors.js:     var _iterator4 = _createForOfIteratorHelper(set), _step4;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
+rsmax-vendors.js:             var context = _step4.value;
+rsmax-vendors.js:             if (context && context._subscription) {
+rsmax-vendors.js:                 context._subscription.subscribers.delete(component);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator4.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator4.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     componentContexts.delete(component);
+rsmax-vendors.js: }
 rsmax-vendors.js: function useContext(context) {
 rsmax-vendors.js:     var hook = getOrCreateHook('context');
 rsmax-vendors.js:     hook.state = context;
+rsmax-vendors.js:     if (exports.currentComponent) {
+rsmax-vendors.js:         trackContextUsage(exports.currentComponent, context);
+rsmax-vendors.js:     }
 rsmax-vendors.js:     if (context == null || _typeof(context) !== 'object') {
 rsmax-vendors.js:         return undefined;
 rsmax-vendors.js:     }
@@ -4852,10 +4893,10 @@ rsmax-vendors.js: // ===========================================================
 rsmax-vendors.js: function flushLayoutEffects() {
 rsmax-vendors.js:     while(layoutEffects.length > 0){
 rsmax-vendors.js:         var pending = layoutEffects.splice(0);
-rsmax-vendors.js:         var _iterator4 = _createForOfIteratorHelper(pending), _step4;
+rsmax-vendors.js:         var _iterator5 = _createForOfIteratorHelper(pending), _step5;
 rsmax-vendors.js:         try {
-rsmax-vendors.js:             for(_iterator4.s(); !(_step4 = _iterator4.n()).done;){
-rsmax-vendors.js:                 var _step4$value = _step4.value, node = _step4$value.node, hook = _step4$value.hook;
+rsmax-vendors.js:             for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
+rsmax-vendors.js:                 var _step5$value = _step5.value, node = _step5$value.node, hook = _step5$value.hook;
 rsmax-vendors.js:                 if (node.dirty) continue; // Skip if component was marked dirty during render
 rsmax-vendors.js:                 if (hook.effect) {
 rsmax-vendors.js:                     // Run previous cleanup
@@ -4878,9 +4919,9 @@ rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         } catch (err) {
-rsmax-vendors.js:             _iterator4.e(err);
+rsmax-vendors.js:             _iterator5.e(err);
 rsmax-vendors.js:         } finally{
-rsmax-vendors.js:             _iterator4.f();
+rsmax-vendors.js:             _iterator5.f();
 rsmax-vendors.js:         }
 rsmax-vendors.js:     }
 rsmax-vendors.js: }
@@ -4889,10 +4930,10 @@ rsmax-vendors.js: function flushPassiveEffects() {
 rsmax-vendors.js:     if (passiveEffects.length === 0) return;
 rsmax-vendors.js:     scheduler_1.default.unstable_scheduleCallback(function() {
 rsmax-vendors.js:         var pending = passiveEffects.splice(0);
-rsmax-vendors.js:         var _iterator5 = _createForOfIteratorHelper(pending), _step5;
+rsmax-vendors.js:         var _iterator6 = _createForOfIteratorHelper(pending), _step6;
 rsmax-vendors.js:         try {
-rsmax-vendors.js:             for(_iterator5.s(); !(_step5 = _iterator5.n()).done;){
-rsmax-vendors.js:                 var _step5$value = _step5.value, node = _step5$value.node, hook = _step5$value.hook;
+rsmax-vendors.js:             for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
+rsmax-vendors.js:                 var _step6$value = _step6.value, node = _step6$value.node, hook = _step6$value.hook;
 rsmax-vendors.js:                 if (node.dirty) continue;
 rsmax-vendors.js:                 if (hook.effect) {
 rsmax-vendors.js:                     if (hook.effect.destroy) {
@@ -4913,9 +4954,9 @@ rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         } catch (err) {
-rsmax-vendors.js:             _iterator5.e(err);
+rsmax-vendors.js:             _iterator6.e(err);
 rsmax-vendors.js:         } finally{
-rsmax-vendors.js:             _iterator5.f();
+rsmax-vendors.js:             _iterator6.f();
 rsmax-vendors.js:         }
 rsmax-vendors.js:     });
 rsmax-vendors.js: }
@@ -4923,10 +4964,10 @@ rsmax-vendors.js: exports.flushPassiveEffects = flushPassiveEffects;
 rsmax-vendors.js: function cleanupEffectsForNode(node) {
 rsmax-vendors.js:     var _a;
 rsmax-vendors.js:     if (!node.memoizedState) return;
-rsmax-vendors.js:     var _iterator6 = _createForOfIteratorHelper(node.memoizedState), _step6;
+rsmax-vendors.js:     var _iterator7 = _createForOfIteratorHelper(node.memoizedState), _step7;
 rsmax-vendors.js:     try {
-rsmax-vendors.js:         for(_iterator6.s(); !(_step6 = _iterator6.n()).done;){
-rsmax-vendors.js:             var hook = _step6.value;
+rsmax-vendors.js:         for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
+rsmax-vendors.js:             var hook = _step7.value;
 rsmax-vendors.js:             if ((_a = hook.effect) === null || _a === void 0 ? void 0 : _a.destroy) {
 rsmax-vendors.js:                 try {
 rsmax-vendors.js:                     hook.effect.destroy();
@@ -4935,11 +4976,13 @@ rsmax-vendors.js:                 // ignore
 rsmax-vendors.js:                 }
 rsmax-vendors.js:             }
 rsmax-vendors.js:         }
+rsmax-vendors.js:     // 同时清理对所有 context 的订阅
 rsmax-vendors.js:     } catch (err) {
-rsmax-vendors.js:         _iterator6.e(err);
+rsmax-vendors.js:         _iterator7.e(err);
 rsmax-vendors.js:     } finally{
-rsmax-vendors.js:         _iterator6.f();
+rsmax-vendors.js:         _iterator7.f();
 rsmax-vendors.js:     }
+rsmax-vendors.js:     cleanupComponentContextSubscriptions(node);
 rsmax-vendors.js: }
 rsmax-vendors.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
 rsmax-vendors.js: var reRenderComponent = function reRenderComponent() {
@@ -5583,19 +5626,7 @@ rsmax-vendors.js:  *   通过比对 old/new child 列表，基于 key 匹配决�
 rsmax-vendors.js:  *     - UPDATE: 复用 VNode，更新 props/text
 rsmax-vendors.js:  *     - INSERT: 新增 VNode，appendChild 或 insertBefore
 rsmax-vendors.js:  *     - DELETE: 删除 VNode，removeChild
-rsmax-vendors.js:  */ function _toConsumableArray(r) {
-rsmax-vendors.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-rsmax-vendors.js: }
-rsmax-vendors.js: function _nonIterableSpread() {
-rsmax-vendors.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-rsmax-vendors.js: }
-rsmax-vendors.js: function _iterableToArray(r) {
-rsmax-vendors.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-rsmax-vendors.js: }
-rsmax-vendors.js: function _arrayWithoutHoles(r) {
-rsmax-vendors.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
-rsmax-vendors.js: }
-rsmax-vendors.js: function _createForOfIteratorHelper(r, e) {
+rsmax-vendors.js:  */ function _createForOfIteratorHelper(r, e) {
 rsmax-vendors.js:     var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
 rsmax-vendors.js:     if (!t) {
 rsmax-vendors.js:         if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
@@ -5640,12 +5671,24 @@ rsmax-vendors.js:             }
 rsmax-vendors.js:         }
 rsmax-vendors.js:     };
 rsmax-vendors.js: }
+rsmax-vendors.js: function _toConsumableArray(r) {
+rsmax-vendors.js:     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
+rsmax-vendors.js: }
+rsmax-vendors.js: function _nonIterableSpread() {
+rsmax-vendors.js:     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+rsmax-vendors.js: }
 rsmax-vendors.js: function _unsupportedIterableToArray(r, a) {
 rsmax-vendors.js:     if (r) {
 rsmax-vendors.js:         if ("string" == typeof r) return _arrayLikeToArray(r, a);
 rsmax-vendors.js:         var t = ({}).toString.call(r).slice(8, -1);
 rsmax-vendors.js:         return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
 rsmax-vendors.js:     }
+rsmax-vendors.js: }
+rsmax-vendors.js: function _iterableToArray(r) {
+rsmax-vendors.js:     if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+rsmax-vendors.js: }
+rsmax-vendors.js: function _arrayWithoutHoles(r) {
+rsmax-vendors.js:     if (Array.isArray(r)) return _arrayLikeToArray(r);
 rsmax-vendors.js: }
 rsmax-vendors.js: function _arrayLikeToArray(r, a) {
 rsmax-vendors.js:     (null == a || a > r.length) && (a = r.length);
@@ -5796,26 +5839,43 @@ rsmax-vendors.js:     }
 rsmax-vendors.js:     out.push(children);
 rsmax-vendors.js:     return out;
 rsmax-vendors.js: }
-rsmax-vendors.js: function debugRenderLight() {
-rsmax-vendors.js:     if (framework_shared_1.RuntimeOptions.get('debug')) {
-rsmax-vendors.js:         var _console;
-rsmax-vendors.js:         for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
-rsmax-vendors.js:             args[_key] = arguments[_key];
-rsmax-vendors.js:         }
-rsmax-vendors.js:         (_console = console).log.apply(_console, [
-rsmax-vendors.js:             '[render-light]'
-rsmax-vendors.js:         ].concat(args));
+rsmax-vendors.js: var DEBUG_ENABLED_CACHE = {
+rsmax-vendors.js:     value: false,
+rsmax-vendors.js:     refreshedAt: 0
+rsmax-vendors.js: };
+rsmax-vendors.js: function isDebugEnabled() {
+rsmax-vendors.js:     var now = Date.now();
+rsmax-vendors.js:     if (now - DEBUG_ENABLED_CACHE.refreshedAt > 200) {
+rsmax-vendors.js:         DEBUG_ENABLED_CACHE.value = framework_shared_1.RuntimeOptions.get('debug');
+rsmax-vendors.js:         DEBUG_ENABLED_CACHE.refreshedAt = now;
 rsmax-vendors.js:     }
+rsmax-vendors.js:     return DEBUG_ENABLED_CACHE.value;
+rsmax-vendors.js: }
+rsmax-vendors.js: function debugRenderLight() {
+rsmax-vendors.js:     var _console;
+rsmax-vendors.js:     if (!isDebugEnabled()) return;
+rsmax-vendors.js:     for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+rsmax-vendors.js:         args[_key] = arguments[_key];
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var resolved = args.map(function(a) {
+rsmax-vendors.js:         return typeof a === 'function' ? a() : a;
+rsmax-vendors.js:     });
+rsmax-vendors.js:     (_console = console).log.apply(_console, [
+rsmax-vendors.js:         '[render-light]'
+rsmax-vendors.js:     ].concat(_toConsumableArray(resolved)));
 rsmax-vendors.js: }
 rsmax-vendors.js: function getDebugTypeName(type) {
+rsmax-vendors.js:     if (!isDebugEnabled()) return '';
 rsmax-vendors.js:     if (typeof type === 'string') return type;
 rsmax-vendors.js:     var resolved = unwrapComponentType(type);
 rsmax-vendors.js:     return (resolved === null || resolved === void 0 ? void 0 : resolved.name) || (type === null || type === void 0 ? void 0 : type.name) || 'Anonymous';
 rsmax-vendors.js: }
 rsmax-vendors.js: function getDebugVNodeName(vnode) {
+rsmax-vendors.js:     if (!isDebugEnabled()) return '';
 rsmax-vendors.js:     return vnode ? "".concat(vnode.type, "#").concat(vnode.id) : 'null';
 rsmax-vendors.js: }
 rsmax-vendors.js: function getDebugElementName(element) {
+rsmax-vendors.js:     if (!isDebugEnabled()) return '';
 rsmax-vendors.js:     if (element == null) return String(element);
 rsmax-vendors.js:     if (typeof element === 'string' || typeof element === 'number') return "text:".concat(String(element));
 rsmax-vendors.js:     if (element instanceof VNode_1.default) return "vnode:".concat(getDebugVNodeName(element));
@@ -5823,6 +5883,21 @@ rsmax-vendors.js:     if (_typeof(element) === 'object' && 'type' in element) {
 rsmax-vendors.js:         return getDebugTypeName(element.type);
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return _typeof(element);
+rsmax-vendors.js: }
+rsmax-vendors.js: function getContextSubscription(context) {
+rsmax-vendors.js:     if (!context) return {
+rsmax-vendors.js:         subscribers: new Set()
+rsmax-vendors.js:     };
+rsmax-vendors.js:     if (!context._subscription) {
+rsmax-vendors.js:         context._subscription = {
+rsmax-vendors.js:             subscribers: new Set()
+rsmax-vendors.js:         };
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return context._subscription;
+rsmax-vendors.js: }
+rsmax-vendors.js: function subscribeContext(context, component) {
+rsmax-vendors.js:     if (!context) return;
+rsmax-vendors.js:     getContextSubscription(context).subscribers.add(component);
 rsmax-vendors.js: }
 rsmax-vendors.js: function isContextProviderType(type) {
 rsmax-vendors.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_PROVIDER_TYPE);
@@ -5847,13 +5922,21 @@ rsmax-vendors.js:     if ('_currentValue2' in context) return context._currentVa
 rsmax-vendors.js:     return undefined;
 rsmax-vendors.js: }
 rsmax-vendors.js: function setContextCurrentValue(context, value) {
-rsmax-vendors.js:     if (!context || _typeof(context) !== 'object') return;
+rsmax-vendors.js:     if (!context || _typeof(context) !== 'object') return false;
+rsmax-vendors.js:     var changed = false;
 rsmax-vendors.js:     if ('_currentValue' in context) {
-rsmax-vendors.js:         context._currentValue = value;
+rsmax-vendors.js:         if (!Object.is(context._currentValue, value)) {
+rsmax-vendors.js:             context._currentValue = value;
+rsmax-vendors.js:             changed = true;
+rsmax-vendors.js:         }
 rsmax-vendors.js:     }
 rsmax-vendors.js:     if ('_currentValue2' in context) {
-rsmax-vendors.js:         context._currentValue2 = value;
+rsmax-vendors.js:         if (!Object.is(context._currentValue2, value)) {
+rsmax-vendors.js:             context._currentValue2 = value;
+rsmax-vendors.js:             changed = true;
+rsmax-vendors.js:         }
 rsmax-vendors.js:     }
+rsmax-vendors.js:     return changed;
 rsmax-vendors.js: }
 rsmax-vendors.js: var allComponents = new Set();
 rsmax-vendors.js: var pendingDidMount = new Set();
@@ -5927,6 +6010,40 @@ rsmax-vendors.js: function isSameComponentType(prevType, nextType) {
 rsmax-vendors.js:     if (prevType === nextType) return true;
 rsmax-vendors.js:     return unwrapComponentType(prevType) === unwrapComponentType(nextType);
 rsmax-vendors.js: }
+rsmax-vendors.js: function isMemoComponent(type) {
+rsmax-vendors.js:     return _typeof(type) === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_MEMO_TYPE);
+rsmax-vendors.js: }
+rsmax-vendors.js: function getMemoCompare(type) {
+rsmax-vendors.js:     if (!isMemoComponent(type)) return null;
+rsmax-vendors.js:     if (typeof type.compare === 'function') return type.compare;
+rsmax-vendors.js:     // 默认浅比较
+rsmax-vendors.js:     return function(prev, next) {
+rsmax-vendors.js:         if (prev === next) return true;
+rsmax-vendors.js:         if (prev == null || next == null) return false;
+rsmax-vendors.js:         var prevKeys = Object.keys(prev);
+rsmax-vendors.js:         var nextKeys = Object.keys(next);
+rsmax-vendors.js:         if (prevKeys.length !== nextKeys.length) return false;
+rsmax-vendors.js:         for(var _i3 = 0, _prevKeys = prevKeys; _i3 < _prevKeys.length; _i3++){
+rsmax-vendors.js:             var k = _prevKeys[_i3];
+rsmax-vendors.js:             if (!Object.prototype.hasOwnProperty.call(next, k)) return false;
+rsmax-vendors.js:             if (!Object.is(prev[k], next[k])) return false;
+rsmax-vendors.js:         }
+rsmax-vendors.js:         return true;
+rsmax-vendors.js:     };
+rsmax-vendors.js: }
+rsmax-vendors.js: function shallowEqualProps(a, b) {
+rsmax-vendors.js:     if (a === b) return true;
+rsmax-vendors.js:     if (a == null || b == null) return false;
+rsmax-vendors.js:     var aKeys = Object.keys(a);
+rsmax-vendors.js:     var bKeys = Object.keys(b);
+rsmax-vendors.js:     if (aKeys.length !== bKeys.length) return false;
+rsmax-vendors.js:     for(var _i4 = 0, _aKeys = aKeys; _i4 < _aKeys.length; _i4++){
+rsmax-vendors.js:         var k = _aKeys[_i4];
+rsmax-vendors.js:         if (!Object.prototype.hasOwnProperty.call(b, k)) return false;
+rsmax-vendors.js:         if (!Object.is(a[k], b[k])) return false;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     return true;
+rsmax-vendors.js: }
 rsmax-vendors.js: function findReusableComponent(components, key, type, parentVNode) {
 rsmax-vendors.js:     var _iterator = _createForOfIteratorHelper(components), _step;
 rsmax-vendors.js:     try {
@@ -5969,8 +6086,8 @@ rsmax-vendors.js: // ===========================================================
 rsmax-vendors.js: function processVNodeProps(props, vnode) {
 rsmax-vendors.js:     var result = {};
 rsmax-vendors.js:     var functionPropKeys = new Set();
-rsmax-vendors.js:     for(var _i3 = 0, _Object$keys = Object.keys(props); _i3 < _Object$keys.length; _i3++){
-rsmax-vendors.js:         var key = _Object$keys[_i3];
+rsmax-vendors.js:     for(var _i5 = 0, _Object$keys = Object.keys(props); _i5 < _Object$keys.length; _i5++){
+rsmax-vendors.js:         var key = _Object$keys[_i5];
 rsmax-vendors.js:         if (typeof props[key] === 'function') {
 rsmax-vendors.js:             functionPropKeys.add(key);
 rsmax-vendors.js:             result[key] = vnode.registerCallback(key, props[key]);
@@ -5986,8 +6103,8 @@ rsmax-vendors.js: }
 rsmax-vendors.js: function processPropsForDiff(props) {
 rsmax-vendors.js:     if (!props || _typeof(props) !== 'object') return props;
 rsmax-vendors.js:     var result = {};
-rsmax-vendors.js:     for(var _i4 = 0, _Object$keys2 = Object.keys(props); _i4 < _Object$keys2.length; _i4++){
-rsmax-vendors.js:         var key = _Object$keys2[_i4];
+rsmax-vendors.js:     for(var _i6 = 0, _Object$keys2 = Object.keys(props); _i6 < _Object$keys2.length; _i6++){
+rsmax-vendors.js:         var key = _Object$keys2[_i6];
 rsmax-vendors.js:         if (key === 'children' || key === 'ref') continue;
 rsmax-vendors.js:         result[key] = props[key];
 rsmax-vendors.js:     }
@@ -6100,7 +6217,7 @@ rsmax-vendors.js:                     // 更新 ref（如果有）
 rsmax-vendors.js:                     if (ref) {
 rsmax-vendors.js:                         if (typeof ref === 'function') {
 rsmax-vendors.js:                             ref(_reuse);
-rsmax-vendors.js:                         } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                         } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                             ref.current = _reuse;
 rsmax-vendors.js:                         }
 rsmax-vendors.js:                     }
@@ -6119,7 +6236,7 @@ rsmax-vendors.js:                 // 设置 ref（如果有）
 rsmax-vendors.js:                 if (ref) {
 rsmax-vendors.js:                     if (typeof ref === 'function') {
 rsmax-vendors.js:                         ref(_vnode);
-rsmax-vendors.js:                     } else if (_typeof(ref) === 'object' && ref !== null) {
+rsmax-vendors.js:                     } else if (_typeof(ref) === 'object') {
 rsmax-vendors.js:                         ref.current = _vnode;
 rsmax-vendors.js:                     }
 rsmax-vendors.js:                 }
@@ -6169,11 +6286,14 @@ rsmax-vendors.js:             {
 rsmax-vendors.js:                 var _type = element.type;
 rsmax-vendors.js:                 var _props2 = element.props || {};
 rsmax-vendors.js:                 var renderChild = _props2.children;
+rsmax-vendors.js:                 var _context = getContextObjectFromType(_type);
+rsmax-vendors.js:                 if (ctx.currentComponent) {
+rsmax-vendors.js:                     subscribeContext(_context, ctx.currentComponent);
+rsmax-vendors.js:                 }
 rsmax-vendors.js:                 if (typeof renderChild !== 'function') {
 rsmax-vendors.js:                     debugRenderLight('consumer missing render fn', "type=".concat(getDebugTypeName(_type)));
 rsmax-vendors.js:                     return [];
 rsmax-vendors.js:                 }
-rsmax-vendors.js:                 var _context = getContextObjectFromType(_type);
 rsmax-vendors.js:                 var value = getContextCurrentValue(_context);
 rsmax-vendors.js:                 var childElement = null;
 rsmax-vendors.js:                 try {
@@ -6231,6 +6351,16 @@ rsmax-vendors.js:     var reusableComponent = findReusableComponent(ctx.oldCompo
 rsmax-vendors.js:     var comp = reusableComponent !== null && reusableComponent !== void 0 ? reusableComponent : createComponent(type, props, ref, ctx.container, ctx.currentComponent);
 rsmax-vendors.js:     var isMount = reusableComponent === null;
 rsmax-vendors.js:     debugRenderLight("component ".concat(isMount ? 'mount' : 'reuse'), "type=".concat(getDebugTypeName(type)), "key=".concat(key), "parent=".concat(getDebugVNodeName(ctx.parentVNode)), "prevOutput=".concat(comp.outputVNodes.length));
+rsmax-vendors.js:     // React.memo: props 浅比较，相同则跳过渲染，但保留已挂载的 VNode
+rsmax-vendors.js:     if (!isMount && isMemoComponent(type) && !comp.dirty) {
+rsmax-vendors.js:         var compareFn = getMemoCompare(type) || shallowEqualProps;
+rsmax-vendors.js:         if (compareFn(comp.props, props) && (ref == null || ref === comp.ref)) {
+rsmax-vendors.js:             debugRenderLight("memo skip update type=".concat(comp.componentName));
+rsmax-vendors.js:             comp.didRender = false;
+rsmax-vendors.js:             ctx.usedChildComponents.add(comp);
+rsmax-vendors.js:             return comp.outputVNodes.slice();
+rsmax-vendors.js:         }
+rsmax-vendors.js:     }
 rsmax-vendors.js:     comp.props = props;
 rsmax-vendors.js:     comp.ref = ref;
 rsmax-vendors.js:     comp.parentVNode = ctx.parentVNode;
@@ -6464,8 +6594,8 @@ rsmax-vendors.js: //   - 新增的 VNode: 直接 appendChild 或 insertBefore
 rsmax-vendors.js: // ============================================================
 rsmax-vendors.js: function mountVNodesInOrder(parent, newChildren, oldChildren) {
 rsmax-vendors.js:     debugRenderLight('mountVNodesInOrder', "parent=".concat(getDebugVNodeName(parent)), "new=".concat(newChildren.length), "old=".concat(oldChildren.length));
+rsmax-vendors.js:     // 快速路径 1：新列表为空 → 清空所有子节点
 rsmax-vendors.js:     if (newChildren.length === 0) {
-rsmax-vendors.js:         // 清空所有子节点
 rsmax-vendors.js:         var toRemove = getChildVNodes(parent);
 rsmax-vendors.js:         var _iterator6 = _createForOfIteratorHelper(toRemove), _step6;
 rsmax-vendors.js:         try {
@@ -6480,103 +6610,94 @@ rsmax-vendors.js:             _iterator6.f();
 rsmax-vendors.js:         }
 rsmax-vendors.js:         return;
 rsmax-vendors.js:     }
-rsmax-vendors.js:     // 为了简单和正确性，采用两步策略：
-rsmax-vendors.js:     // 1. 先从 parent 中移除所有旧的但不在新列表中的 VNode
-rsmax-vendors.js:     // 2. 按新顺序，把新 VNode 挂载到正确位置
+rsmax-vendors.js:     // 快速路径 2：oldChildren 为空 → 直接顺序 append，无需重排
+rsmax-vendors.js:     if (oldChildren.length === 0) {
+rsmax-vendors.js:         var _iterator7 = _createForOfIteratorHelper(newChildren), _step7;
+rsmax-vendors.js:         try {
+rsmax-vendors.js:             for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
+rsmax-vendors.js:                 var vnode = _step7.value;
+rsmax-vendors.js:                 parent.appendChild(vnode);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         } catch (err) {
+rsmax-vendors.js:             _iterator7.e(err);
+rsmax-vendors.js:         } finally{
+rsmax-vendors.js:             _iterator7.f();
+rsmax-vendors.js:         }
+rsmax-vendors.js:         return;
+rsmax-vendors.js:     }
 rsmax-vendors.js:     var newSet = new Set(newChildren);
 rsmax-vendors.js:     // 第一步：删除不再需要的旧 VNode
-rsmax-vendors.js:     var _iterator7 = _createForOfIteratorHelper(oldChildren), _step7;
+rsmax-vendors.js:     var _iterator8 = _createForOfIteratorHelper(oldChildren), _step8;
 rsmax-vendors.js:     try {
-rsmax-vendors.js:         for(_iterator7.s(); !(_step7 = _iterator7.n()).done;){
-rsmax-vendors.js:             var oldChild = _step7.value;
+rsmax-vendors.js:         for(_iterator8.s(); !(_step8 = _iterator8.n()).done;){
+rsmax-vendors.js:             var oldChild = _step8.value;
 rsmax-vendors.js:             if (!newSet.has(oldChild)) {
-rsmax-vendors.js:                 // 这个旧 VNode 不在新列表中 → 删除
 rsmax-vendors.js:                 parent.removeChild(oldChild);
 rsmax-vendors.js:             }
 rsmax-vendors.js:         }
-rsmax-vendors.js:     // 第二步：按新顺序挂载
-rsmax-vendors.js:     // 策略：逐个检查当前 parent 的第一个子节点是否为期望的 VNode
-rsmax-vendors.js:     // 如果不是，则把期望的 VNode 用 insertBefore 或 appendChild 放到正确位置
-rsmax-vendors.js:     // 构建索引映射
-rsmax-vendors.js:     } catch (err) {
-rsmax-vendors.js:         _iterator7.e(err);
-rsmax-vendors.js:     } finally{
-rsmax-vendors.js:         _iterator7.f();
-rsmax-vendors.js:     }
-rsmax-vendors.js:     var newIndex = new Map();
-rsmax-vendors.js:     newChildren.forEach(function(vnode, idx) {
-rsmax-vendors.js:         return newIndex.set(vnode, idx);
-rsmax-vendors.js:     });
-rsmax-vendors.js:     // 简化方案：重新按顺序挂载
-rsmax-vendors.js:     // 先把所有新 VNode 从 parent 中临时移除（如果已存在）
-rsmax-vendors.js:     // 然后按顺序 append / insert
-rsmax-vendors.js:     // 但 VNode.removeChild 后，firstChild 会更新
-rsmax-vendors.js:     // 更简单的方法：按顺序遍历，确保每个新 VNode 在正确位置
-rsmax-vendors.js:     // 获取挂载前的 children 状态
-rsmax-vendors.js:     var mountedChildren = getChildVNodes(parent);
-rsmax-vendors.js:     var mountedSet = new Set(mountedChildren);
-rsmax-vendors.js:     // 检查是否已有正确顺序
-rsmax-vendors.js:     var needsReorder = false;
-rsmax-vendors.js:     if (mountedChildren.length === newChildren.length) {
-rsmax-vendors.js:         for(var i = 0; i < newChildren.length; i++){
-rsmax-vendors.js:             if (mountedChildren[i] !== newChildren[i]) {
-rsmax-vendors.js:                 needsReorder = true;
-rsmax-vendors.js:                 break;
-rsmax-vendors.js:             }
-rsmax-vendors.js:         }
-rsmax-vendors.js:     } else {
-rsmax-vendors.js:         needsReorder = true;
-rsmax-vendors.js:     }
-rsmax-vendors.js:     if (!needsReorder) return;
-rsmax-vendors.js:     // 重新挂载：按新列表顺序处理
-rsmax-vendors.js:     // 先收集所有已挂载但位置不对的 VNode，将它们从 parent 中"解绑"再按新顺序挂载
-rsmax-vendors.js:     // 由于 VNode 是链表结构，我们需要特殊处理
-rsmax-vendors.js:     // 最简单且正确的方案：
-rsmax-vendors.js:     //   - 对每个新 VNode，如果已在正确位置则跳过
-rsmax-vendors.js:     //   - 否则 insertBefore 到正确位置
-rsmax-vendors.js:     // 先确保所有 newChildren 都已挂载在 parent 下（新增的可能还没挂载）
-rsmax-vendors.js:     // 然后按顺序重新排列
-rsmax-vendors.js:     // 第一遍：把未挂载的 VNode 追加到末尾
-rsmax-vendors.js:     var _iterator8 = _createForOfIteratorHelper(newChildren), _step8;
-rsmax-vendors.js:     try {
-rsmax-vendors.js:         for(_iterator8.s(); !(_step8 = _iterator8.n()).done;){
-rsmax-vendors.js:             var vnode = _step8.value;
-rsmax-vendors.js:             if (!mountedSet.has(vnode)) {
-rsmax-vendors.js:                 debugRenderLight('append new vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(vnode)));
-rsmax-vendors.js:                 parent.appendChild(vnode);
-rsmax-vendors.js:                 mountedSet.add(vnode);
-rsmax-vendors.js:             }
-rsmax-vendors.js:         }
-rsmax-vendors.js:     // 重新获取 children（可能已变化）
+rsmax-vendors.js:     // 快速路径 3：新列表顺序恰好就是当前 children 顺序 → 跳过
 rsmax-vendors.js:     } catch (err) {
 rsmax-vendors.js:         _iterator8.e(err);
 rsmax-vendors.js:     } finally{
 rsmax-vendors.js:         _iterator8.f();
 rsmax-vendors.js:     }
-rsmax-vendors.js:     var currentList = getChildVNodes(parent);
-rsmax-vendors.js:     // 第二遍：按新顺序用 insertBefore 调整位置
-rsmax-vendors.js:     // 从后往前处理：让每个 VNode 出现在正确的位置
-rsmax-vendors.js:     for(var targetIdx = newChildren.length - 1; targetIdx >= 0; targetIdx--){
-rsmax-vendors.js:         var target = newChildren[targetIdx];
-rsmax-vendors.js:         // 获取当前 target 的位置
-rsmax-vendors.js:         var currentIdx = currentList.indexOf(target);
-rsmax-vendors.js:         if (currentIdx === targetIdx) continue; // 位置正确
-rsmax-vendors.js:         // 需要把 target 移到 targetIdx 位置
-rsmax-vendors.js:         // 先移除再插入
-rsmax-vendors.js:         parent.removeChild(target);
-rsmax-vendors.js:         // 重新获取列表（removeChild 会改变链表）
-rsmax-vendors.js:         currentList = getChildVNodes(parent);
-rsmax-vendors.js:         // 找到目标位置的"下一个兄弟节点"（用于 insertBefore）
-rsmax-vendors.js:         var nextSibling = currentList[targetIdx] || null;
-rsmax-vendors.js:         if (nextSibling) {
-rsmax-vendors.js:             debugRenderLight('reorder vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)), "before=".concat(getDebugVNodeName(nextSibling)));
-rsmax-vendors.js:             parent.insertBefore(target, nextSibling);
-rsmax-vendors.js:         } else {
-rsmax-vendors.js:             debugRenderLight('move vnode to tail', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(target)));
-rsmax-vendors.js:             parent.appendChild(target);
+rsmax-vendors.js:     var currentNode = parent.firstChild;
+rsmax-vendors.js:     var needsReorder = false;
+rsmax-vendors.js:     for(var i = 0; i < newChildren.length; i++){
+rsmax-vendors.js:         if (currentNode !== newChildren[i]) {
+rsmax-vendors.js:             needsReorder = true;
+rsmax-vendors.js:             break;
 rsmax-vendors.js:         }
-rsmax-vendors.js:         // 更新 currentList
-rsmax-vendors.js:         currentList = getChildVNodes(parent);
+rsmax-vendors.js:         currentNode = currentNode.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     if (!needsReorder && currentNode === null) return;
+rsmax-vendors.js:     // 第二步：O(n) 算法按新顺序挂载
+rsmax-vendors.js:     // 先把新增节点（不在 parent 当前链表中的）追加到尾部
+rsmax-vendors.js:     var cursor = parent.firstChild;
+rsmax-vendors.js:     var alreadyMounted = new Set();
+rsmax-vendors.js:     while(cursor){
+rsmax-vendors.js:         alreadyMounted.add(cursor);
+rsmax-vendors.js:         cursor = cursor.nextSibling;
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var _iterator9 = _createForOfIteratorHelper(newChildren), _step9;
+rsmax-vendors.js:     try {
+rsmax-vendors.js:         for(_iterator9.s(); !(_step9 = _iterator9.n()).done;){
+rsmax-vendors.js:             var _vnode2 = _step9.value;
+rsmax-vendors.js:             if (!alreadyMounted.has(_vnode2)) {
+rsmax-vendors.js:                 parent.appendChild(_vnode2);
+rsmax-vendors.js:             }
+rsmax-vendors.js:         }
+rsmax-vendors.js:     // 重排核心算法：O(n) 两指针扫描
+rsmax-vendors.js:     // expectedCursor 遍历 newChildren；actualCursor 沿链表前进
+rsmax-vendors.js:     // 当 actualCursor === expectedCursor 时，两指针同时前进；
+rsmax-vendors.js:     // 否则把 expectedCursor removeChild 后 insertBefore(actualCursor)
+rsmax-vendors.js:     } catch (err) {
+rsmax-vendors.js:         _iterator9.e(err);
+rsmax-vendors.js:     } finally{
+rsmax-vendors.js:         _iterator9.f();
+rsmax-vendors.js:     }
+rsmax-vendors.js:     var expectedIdx = 0;
+rsmax-vendors.js:     var actualCursor = parent.firstChild;
+rsmax-vendors.js:     var total = newChildren.length;
+rsmax-vendors.js:     while(expectedIdx < total){
+rsmax-vendors.js:         var expected = newChildren[expectedIdx];
+rsmax-vendors.js:         if (actualCursor === expected) {
+rsmax-vendors.js:             actualCursor = actualCursor.nextSibling;
+rsmax-vendors.js:             expectedIdx++;
+rsmax-vendors.js:             continue;
+rsmax-vendors.js:         }
+rsmax-vendors.js:         // 需要把 expected 插入到 actualCursor 之前
+rsmax-vendors.js:         parent.removeChild(expected);
+rsmax-vendors.js:         if (actualCursor) {
+rsmax-vendors.js:             debugRenderLight('reorder vnode', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(expected)), "before=".concat(getDebugVNodeName(actualCursor)));
+rsmax-vendors.js:             parent.insertBefore(expected, actualCursor);
+rsmax-vendors.js:         } else {
+rsmax-vendors.js:             debugRenderLight('move vnode to tail', "parent=".concat(getDebugVNodeName(parent)), "child=".concat(getDebugVNodeName(expected)));
+rsmax-vendors.js:             parent.appendChild(expected);
+rsmax-vendors.js:         }
+rsmax-vendors.js:         expectedIdx++;
+rsmax-vendors.js:     // actualCursor 不动，因为 expected 被移到了 actualCursor 之前
+rsmax-vendors.js:     // 下一轮 actualCursor 仍是当前待比对位置
 rsmax-vendors.js:     }
 rsmax-vendors.js: }
 rsmax-vendors.js: // ============================================================
@@ -6586,16 +6707,16 @@ rsmax-vendors.js: function renderChildrenFlatten(children, ctx, startIndex, keye
 rsmax-vendors.js:     var result = [];
 rsmax-vendors.js:     for(var i = 0; i < children.length; i++){
 rsmax-vendors.js:         var vnodes = renderElement(children[i], ctx, startIndex + i, keyedOldMap, keyedOldByIndex, consumedOld);
-rsmax-vendors.js:         var _iterator9 = _createForOfIteratorHelper(vnodes), _step9;
+rsmax-vendors.js:         var _iterator0 = _createForOfIteratorHelper(vnodes), _step0;
 rsmax-vendors.js:         try {
-rsmax-vendors.js:             for(_iterator9.s(); !(_step9 = _iterator9.n()).done;){
-rsmax-vendors.js:                 var vnode = _step9.value;
+rsmax-vendors.js:             for(_iterator0.s(); !(_step0 = _iterator0.n()).done;){
+rsmax-vendors.js:                 var vnode = _step0.value;
 rsmax-vendors.js:                 result.push(vnode);
 rsmax-vendors.js:             }
 rsmax-vendors.js:         } catch (err) {
-rsmax-vendors.js:             _iterator9.e(err);
+rsmax-vendors.js:             _iterator0.e(err);
 rsmax-vendors.js:         } finally{
-rsmax-vendors.js:             _iterator9.f();
+rsmax-vendors.js:             _iterator0.f();
 rsmax-vendors.js:         }
 rsmax-vendors.js:     }
 rsmax-vendors.js:     return result;
@@ -6627,9 +6748,15 @@ rsmax-vendors.js: // ===========================================================
 rsmax-vendors.js: // 组件重新渲染
 rsmax-vendors.js: // ============================================================
 rsmax-vendors.js: function reRenderComponent(component) {
-rsmax-vendors.js:     var _a;
 rsmax-vendors.js:     if (!component.mounted) return;
-rsmax-vendors.js:     debugRenderLight('reRender start', "component=".concat(component.componentName), "key=".concat((_a = component.key) !== null && _a !== void 0 ? _a : 'null'), "output=".concat(component.outputVNodes.length));
+rsmax-vendors.js:     debugRenderLight('reRender start', function() {
+rsmax-vendors.js:         return "component=".concat(component.componentName);
+rsmax-vendors.js:     }), function() {
+rsmax-vendors.js:         var _a;
+rsmax-vendors.js:         return "key=".concat((_a = component.key) !== null && _a !== void 0 ? _a : 'null');
+rsmax-vendors.js:     }), function() {
+rsmax-vendors.js:         return "output=".concat(component.outputVNodes.length);
+rsmax-vendors.js:     });
 rsmax-vendors.js:     component.dirty = false;
 rsmax-vendors.js:     var mountParent = findMountParentVNode(component);
 rsmax-vendors.js:     if (!mountParent) return;
