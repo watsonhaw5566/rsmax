@@ -38,13 +38,14 @@ export default function rspackConfig(builder: Builder): Configuration {
   config.output.publicPath('/');
   config.output.library({ type: 'commonjs2' });
   config.optimization.runtimeChunk({ name: 'runtime' });
+  config.optimization.usedExports(true);
   config.optimization.splitChunks({
     cacheGroups: {
       rsmaxVendors: {
         name: 'rsmax-vendors',
-        test: /[\\/]node_modules[\\/]/,
+        test: /[\\/]node_modules[\\/]|[\\/]packages[\\/]rsmax[^\\/]*[\\/]((esm|cjs)[\\/]|[^\\/]*\.js$)/,
         chunks: 'initial',
-        minChunks: 2,
+        minChunks: 1,
         minSize: 0,
       },
     },

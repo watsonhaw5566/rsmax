@@ -16,6 +16,8 @@ const resolveReact = (options: Options): string => {
   return path.dirname(slash(react));
 };
 
+const rsmaxOneRoot = path.dirname(require.resolve('@rsmax/one'));
+
 export default (options: Options, _target: Platform) => {
   const config: Alias = {
     'regenerator-runtime': require.resolve('regenerator-runtime'),
@@ -25,14 +27,23 @@ export default (options: Options, _target: Platform) => {
     'react-reconciler': 'react-reconciler/cjs/react-reconciler.production.min.js',
     '@rsmax/runtime': require.resolve('@rsmax/runtime'),
     '@rsmax/shared': require.resolve('@rsmax/shared'),
+    // 按需：当前构建目标的 API 和 host 组件，直接 alias 到目标平台文件
+    // rspack 在依赖图分析阶段就不会接触到非目标平台的代码
+    '@rsmax/one/api/adapters': path.join(rsmaxOneRoot, `api/adapters/${_target}.js`),
+    '@rsmax/one/api/current': path.join(rsmaxOneRoot, `api/adapters/${_target}.js`),
+    '@rsmax/one/adapter/current': path.join(rsmaxOneRoot, `adapters/${_target}.js`),
+    '@rsmax/one/components/current': path.join(rsmaxOneRoot, `hostComponents/${_target}/index.js`),
+    'rsmax/one/api/adapters': path.join(rsmaxOneRoot, `api/adapters/${_target}.js`),
+    'rsmax/one/api/current': path.join(rsmaxOneRoot, `api/adapters/${_target}.js`),
+    'rsmax/one/adapter/current': path.join(rsmaxOneRoot, `adapters/${_target}.js`),
+    'rsmax/one/components/current': path.join(rsmaxOneRoot, `hostComponents/${_target}/index.js`),
   };
 
   if (options.renderer === 'light') {
     const runtimeRenderPath = slash(path.resolve(require.resolve('@rsmax/runtime'), '../render.js'));
-    const runtimeLightShimPath = slash(
+    config[runtimeRenderPath] = slash(
       path.resolve(require.resolve('@rsmax/runtime'), '../render-light-classic-shim.js')
     );
-    config[runtimeRenderPath] = runtimeLightShimPath;
   }
 
   return config;

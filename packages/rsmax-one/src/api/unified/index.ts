@@ -1,4 +1,4 @@
-import { getCurrentAPI, initAPI } from '../adapters';
+import { getCurrentAPI, initAPI } from '@rsmax/one/api/current';
 import type { UnifiedAPI } from './types';
 
 export { initAPI };

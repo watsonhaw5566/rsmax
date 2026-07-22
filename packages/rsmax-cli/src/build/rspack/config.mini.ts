@@ -6,7 +6,7 @@ import moduleResolver from 'babel-plugin-module-resolver';
 import { lifecycleApp } from 'babel-preset-rsmax';
 import ejs from 'ejs';
 import { RspackChain as Config } from 'rspack-chain';
-import { moduleMatcher, targetExtensions } from '../../extensions';
+import { targetExtensions } from '../../extensions';
 import type Builder from '../Builder';
 import baseConfig from './baseConfig';
 import { addCSSRule, cssConfig } from './config/css';
@@ -45,6 +45,7 @@ export default function rspackConfig(builder: Builder): Configuration {
   config.output.globalObject(meta.global);
   config.output.publicPath(publicPath);
   config.optimization.runtimeChunk({ name: 'runtime' });
+  config.optimization.usedExports(true);
   config.optimization.splitChunks({
     cacheGroups: {
       rsmaxStyles: {
@@ -56,9 +57,9 @@ export default function rspackConfig(builder: Builder): Configuration {
       },
       rsmaxVendors: {
         name: 'rsmax-vendors',
-        test: moduleMatcher,
+        test: /[\\/]node_modules[\\/]|[\\/]packages[\\/]rsmax[^\\/]*[\\/]((esm|cjs)[\\/]|[^\\/]*\.js$)/,
         chunks: 'initial',
-        minChunks: 2,
+        minChunks: 1,
         minSize: 0,
         priority: 2,
       },

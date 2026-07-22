@@ -3,6 +3,7 @@ import styles from './index.module.css';
 import logo from '../../../public/icon.png';
 import { usePageEvent } from 'rsmax/macro';
 import { useEffect } from 'react';
+import dayjs from 'dayjs';
 
 export default () => {
   function handleClick() {
@@ -13,6 +14,8 @@ export default () => {
       })
       .then();
   }
+
+  console.log(dayjs().format('YYYY-MM-DD'));
 
   useEffect(() => {
     console.log('hello useEffect');

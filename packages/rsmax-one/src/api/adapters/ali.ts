@@ -1,4 +1,4 @@
-import type { UnifiedAPI, SystemInfo } from '../unified/types';
+import type { UnifiedAPI, SystemInfo } from '../unified';
 import { promisify } from '@rsmax/framework-shared';
 
 declare const my: any;
@@ -91,3 +91,21 @@ export const aliAPI: UnifiedAPI = {
   clearStorage: () => promisify(my.clearStorage)(),
   clearStorageSync: () => my.clearStorageSync(),
 };
+
+import type { Platform } from '../unified';
+
+export function getCurrentPlatform(): Platform {
+  return 'ali';
+}
+
+export function getCurrentAPI(): UnifiedAPI {
+  return aliAPI;
+}
+
+export function setCurrentPlatform(_platform: Platform): void {
+  // 一份小程序产物只服务一个构建目标平台，运行时无需切换
+}
+
+export function initAPI(_platform?: Platform): UnifiedAPI {
+  return aliAPI;
+}

@@ -1,4 +1,4 @@
-import type { UnifiedAPI, SystemInfo } from '../unified/types';
+import type { UnifiedAPI, SystemInfo } from '../unified';
 import { promisify } from '@rsmax/framework-shared';
 
 declare const tt: any;
@@ -90,3 +90,21 @@ export const toutiaoAPI: UnifiedAPI = {
   clearStorage: () => promisify(tt.clearStorage)(),
   clearStorageSync: () => tt.clearStorageSync(),
 };
+
+import type { Platform } from '../unified';
+
+export function getCurrentPlatform(): Platform {
+  return 'toutiao';
+}
+
+export function getCurrentAPI(): UnifiedAPI {
+  return toutiaoAPI;
+}
+
+export function setCurrentPlatform(_platform: Platform): void {
+  // 一份小程序产物只服务一个构建目标平台，运行时无需切换
+}
+
+export function initAPI(_platform?: Platform): UnifiedAPI {
+  return toutiaoAPI;
+}
