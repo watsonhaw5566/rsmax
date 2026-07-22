@@ -145,23 +145,37 @@ function flattenChildren(children: any, out: any[] = []): any[] {
   return out;
 }
 
-function debugRenderLight(...args: any[]): void {
-  if (RuntimeOptions.get('debug')) {
-    console.log('[render-light]', ...args);
+const DEBUG_ENABLED_CACHE = { value: false as boolean, refreshedAt: 0 };
+
+function isDebugEnabled(): boolean {
+  const now = Date.now();
+  if (now - DEBUG_ENABLED_CACHE.refreshedAt > 200) {
+    DEBUG_ENABLED_CACHE.value = RuntimeOptions.get('debug');
+    DEBUG_ENABLED_CACHE.refreshedAt = now;
   }
+  return DEBUG_ENABLED_CACHE.value;
+}
+
+function debugRenderLight(...args: Array<string | (() => string)>): void {
+  if (!isDebugEnabled()) return;
+  const resolved = args.map(a => (typeof a === 'function' ? (a as () => string)() : a));
+  console.log('[render-light]', ...resolved);
 }
 
 function getDebugTypeName(type: any): string {
+  if (!isDebugEnabled()) return '';
   if (typeof type === 'string') return type;
   const resolved = unwrapComponentType(type);
   return resolved?.name || type?.name || 'Anonymous';
 }
 
 function getDebugVNodeName(vnode: VNode | null): string {
+  if (!isDebugEnabled()) return '';
   return vnode ? `${vnode.type}#${vnode.id}` : 'null';
 }
 
 function getDebugElementName(element: any): string {
+  if (!isDebugEnabled()) return '';
   if (element == null) return String(element);
   if (typeof element === 'string' || typeof element === 'number') return `text:${String(element)}`;
   if (element instanceof VNode) return `vnode:${getDebugVNodeName(element)}`;
@@ -169,6 +183,27 @@ function getDebugElementName(element: any): string {
     return getDebugTypeName((element as any).type);
   }
   return typeof element;
+}
+
+// ============================================================
+// Context 订阅机制 —— Provider value 变化时仅通知订阅者
+// ============================================================
+
+interface ContextSubscription {
+  subscribers: Set<LightComponent>;
+}
+
+function getContextSubscription(context: any): ContextSubscription {
+  if (!context) return { subscribers: new Set() };
+  if (!context._subscription) {
+    context._subscription = { subscribers: new Set() };
+  }
+  return context._subscription;
+}
+
+function subscribeContext(context: any, component: LightComponent): void {
+  if (!context) return;
+  getContextSubscription(context).subscribers.add(component);
 }
 
 function isContextProviderType(type: any): boolean {
@@ -196,14 +231,22 @@ function getContextCurrentValue(context: any): any {
   return undefined;
 }
 
-function setContextCurrentValue(context: any, value: any): void {
-  if (!context || typeof context !== 'object') return;
+function setContextCurrentValue(context: any, value: any): boolean {
+  if (!context || typeof context !== 'object') return false;
+  let changed = false;
   if ('_currentValue' in context) {
-    context._currentValue = value;
+    if (!Object.is(context._currentValue, value)) {
+      context._currentValue = value;
+      changed = true;
+    }
   }
   if ('_currentValue2' in context) {
-    context._currentValue2 = value;
+    if (!Object.is(context._currentValue2, value)) {
+      context._currentValue2 = value;
+      changed = true;
+    }
   }
+  return changed;
 }
 
 // ============================================================
@@ -326,6 +369,41 @@ function flushComponentLifecycles(): void {
 function isSameComponentType(prevType: any, nextType: any): boolean {
   if (prevType === nextType) return true;
   return unwrapComponentType(prevType) === unwrapComponentType(nextType);
+}
+
+function isMemoComponent(type: any): boolean {
+  return typeof type === 'object' && type !== null && compareTypeSymbol(type.$$typeof, REACT_MEMO_TYPE);
+}
+
+function getMemoCompare(type: any): ((prev: any, next: any) => boolean) | null {
+  if (!isMemoComponent(type)) return null;
+  if (typeof type.compare === 'function') return type.compare;
+  // 默认浅比较
+  return (prev: any, next: any) => {
+    if (prev === next) return true;
+    if (prev == null || next == null) return false;
+    const prevKeys = Object.keys(prev);
+    const nextKeys = Object.keys(next);
+    if (prevKeys.length !== nextKeys.length) return false;
+    for (const k of prevKeys) {
+      if (!Object.prototype.hasOwnProperty.call(next, k)) return false;
+      if (!Object.is(prev[k], next[k])) return false;
+    }
+    return true;
+  };
+}
+
+function shallowEqualProps(a: any, b: any): boolean {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  const aKeys = Object.keys(a);
+  const bKeys = Object.keys(b);
+  if (aKeys.length !== bKeys.length) return false;
+  for (const k of aKeys) {
+    if (!Object.prototype.hasOwnProperty.call(b, k)) return false;
+    if (!Object.is(a[k], b[k])) return false;
+  }
+  return true;
 }
 
 function findReusableComponent(
@@ -557,7 +635,7 @@ function renderElement(
         if (ref) {
           if (typeof ref === 'function') {
             ref(reuse);
-          } else if (typeof ref === 'object' && ref !== null) {
+          } else if (typeof ref === 'object') {
             (ref as any).current = reuse;
           }
         }
@@ -581,7 +659,7 @@ function renderElement(
       if (ref) {
         if (typeof ref === 'function') {
           ref(vnode);
-        } else if (typeof ref === 'object' && ref !== null) {
+        } else if (typeof ref === 'object') {
           (ref as any).current = vnode;
         }
       }
@@ -637,11 +715,14 @@ function renderElement(
       const type = element.type;
       const props = element.props || {};
       const renderChild = props.children;
+      const context = getContextObjectFromType(type);
+      if (ctx.currentComponent) {
+        subscribeContext(context, ctx.currentComponent);
+      }
       if (typeof renderChild !== 'function') {
         debugRenderLight('consumer missing render fn', `type=${getDebugTypeName(type)}`);
         return [];
       }
-      const context = getContextObjectFromType(type);
       const value = getContextCurrentValue(context);
       let childElement: any = null;
       try {
@@ -717,6 +798,18 @@ function renderFunctionComponent(element: any, ctx: RenderContext, index: number
     `parent=${getDebugVNodeName(ctx.parentVNode)}`,
     `prevOutput=${comp.outputVNodes.length}`
   );
+
+  // React.memo: props 浅比较，相同则跳过渲染，但保留已挂载的 VNode
+  if (!isMount && isMemoComponent(type) && !comp.dirty) {
+    const compareFn = getMemoCompare(type) || shallowEqualProps;
+    if (compareFn(comp.props, props) && (ref == null || ref === comp.ref)) {
+      debugRenderLight(`memo skip update type=${comp.componentName}`);
+      comp.didRender = false;
+      ctx.usedChildComponents.add(comp);
+      return comp.outputVNodes.slice();
+    }
+  }
+
   comp.props = props;
   comp.ref = ref;
   comp.parentVNode = ctx.parentVNode;
@@ -976,8 +1069,9 @@ function mountVNodesInOrder(parent: VNode, newChildren: VNode[], oldChildren: VN
     `new=${newChildren.length}`,
     `old=${oldChildren.length}`
   );
+
+  // 快速路径 1：新列表为空 → 清空所有子节点
   if (newChildren.length === 0) {
-    // 清空所有子节点
     const toRemove = getChildVNodes(parent);
     for (const child of toRemove) {
       parent.removeChild(child);
@@ -985,115 +1079,88 @@ function mountVNodesInOrder(parent: VNode, newChildren: VNode[], oldChildren: VN
     return;
   }
 
-  // 为了简单和正确性，采用两步策略：
-  // 1. 先从 parent 中移除所有旧的但不在新列表中的 VNode
-  // 2. 按新顺序，把新 VNode 挂载到正确位置
+  // 快速路径 2：oldChildren 为空 → 直接顺序 append，无需重排
+  if (oldChildren.length === 0) {
+    for (const vnode of newChildren) {
+      parent.appendChild(vnode);
+    }
+    return;
+  }
 
   const newSet = new Set(newChildren);
 
   // 第一步：删除不再需要的旧 VNode
   for (const oldChild of oldChildren) {
     if (!newSet.has(oldChild)) {
-      // 这个旧 VNode 不在新列表中 → 删除
       parent.removeChild(oldChild);
     }
   }
 
-  // 第二步：按新顺序挂载
-  // 策略：逐个检查当前 parent 的第一个子节点是否为期望的 VNode
-  // 如果不是，则把期望的 VNode 用 insertBefore 或 appendChild 放到正确位置
-
-  // 构建索引映射
-  const newIndex = new Map<VNode, number>();
-  newChildren.forEach((vnode, idx) => newIndex.set(vnode, idx));
-
-  // 简化方案：重新按顺序挂载
-  // 先把所有新 VNode 从 parent 中临时移除（如果已存在）
-  // 然后按顺序 append / insert
-
-  // 但 VNode.removeChild 后，firstChild 会更新
-  // 更简单的方法：按顺序遍历，确保每个新 VNode 在正确位置
-
-  // 获取挂载前的 children 状态
-  let mountedChildren = getChildVNodes(parent);
-  const mountedSet = new Set(mountedChildren);
-
-  // 检查是否已有正确顺序
+  // 快速路径 3：新列表顺序恰好就是当前 children 顺序 → 跳过
+  let currentNode: VNode | null = parent.firstChild;
   let needsReorder = false;
-  if (mountedChildren.length === newChildren.length) {
-    for (let i = 0; i < newChildren.length; i++) {
-      if (mountedChildren[i] !== newChildren[i]) {
-        needsReorder = true;
-        break;
-      }
+  for (let i = 0; i < newChildren.length; i++) {
+    if (currentNode !== newChildren[i]) {
+      needsReorder = true;
+      break;
     }
-  } else {
-    needsReorder = true;
+    currentNode = currentNode.nextSibling;
+  }
+  if (!needsReorder && currentNode === null) return;
+
+  // 第二步：O(n) 算法按新顺序挂载
+  // 先把新增节点（不在 parent 当前链表中的）追加到尾部
+  let cursor: VNode | null = parent.firstChild;
+  const alreadyMounted = new Set<VNode>();
+  while (cursor) {
+    alreadyMounted.add(cursor);
+    cursor = cursor.nextSibling;
   }
 
-  if (!needsReorder) return;
-
-  // 重新挂载：按新列表顺序处理
-  // 先收集所有已挂载但位置不对的 VNode，将它们从 parent 中"解绑"再按新顺序挂载
-  // 由于 VNode 是链表结构，我们需要特殊处理
-
-  // 最简单且正确的方案：
-  //   - 对每个新 VNode，如果已在正确位置则跳过
-  //   - 否则 insertBefore 到正确位置
-
-  // 先确保所有 newChildren 都已挂载在 parent 下（新增的可能还没挂载）
-  // 然后按顺序重新排列
-
-  // 第一遍：把未挂载的 VNode 追加到末尾
   for (const vnode of newChildren) {
-    if (!mountedSet.has(vnode)) {
-      debugRenderLight('append new vnode', `parent=${getDebugVNodeName(parent)}`, `child=${getDebugVNodeName(vnode)}`);
+    if (!alreadyMounted.has(vnode)) {
       parent.appendChild(vnode);
-      mountedSet.add(vnode);
     }
   }
 
-  // 重新获取 children（可能已变化）
-  let currentList = getChildVNodes(parent);
+  // 重排核心算法：O(n) 两指针扫描
+  // expectedCursor 遍历 newChildren；actualCursor 沿链表前进
+  // 当 actualCursor === expectedCursor 时，两指针同时前进；
+  // 否则把 expectedCursor removeChild 后 insertBefore(actualCursor)
+  let expectedIdx = 0;
+  let actualCursor: VNode | null = parent.firstChild;
+  const total = newChildren.length;
 
-  // 第二遍：按新顺序用 insertBefore 调整位置
-  // 从后往前处理：让每个 VNode 出现在正确的位置
-  for (let targetIdx = newChildren.length - 1; targetIdx >= 0; targetIdx--) {
-    const target = newChildren[targetIdx];
-    // 获取当前 target 的位置
-    const currentIdx = currentList.indexOf(target);
+  while (expectedIdx < total) {
+    const expected = newChildren[expectedIdx];
 
-    if (currentIdx === targetIdx) continue; // 位置正确
+    if (actualCursor === expected) {
+      actualCursor = actualCursor.nextSibling;
+      expectedIdx++;
+      continue;
+    }
 
-    // 需要把 target 移到 targetIdx 位置
-    // 先移除再插入
-    parent.removeChild(target);
-
-    // 重新获取列表（removeChild 会改变链表）
-    currentList = getChildVNodes(parent);
-
-    // 找到目标位置的"下一个兄弟节点"（用于 insertBefore）
-    const nextSibling = currentList[targetIdx] || null;
-
-    if (nextSibling) {
+    // 需要把 expected 插入到 actualCursor 之前
+    parent.removeChild(expected);
+    if (actualCursor) {
       debugRenderLight(
         'reorder vnode',
         `parent=${getDebugVNodeName(parent)}`,
-        `child=${getDebugVNodeName(target)}`,
-        `before=${getDebugVNodeName(nextSibling)}`
+        `child=${getDebugVNodeName(expected)}`,
+        `before=${getDebugVNodeName(actualCursor)}`
       );
-      parent.insertBefore(target, nextSibling);
+      parent.insertBefore(expected, actualCursor);
     } else {
       debugRenderLight(
         'move vnode to tail',
         `parent=${getDebugVNodeName(parent)}`,
-        `child=${getDebugVNodeName(target)}`
+        `child=${getDebugVNodeName(expected)}`
       );
-      parent.appendChild(target);
+      parent.appendChild(expected);
     }
-
-    // 更新 currentList
-    currentList = getChildVNodes(parent);
+    expectedIdx++;
+    // actualCursor 不动，因为 expected 被移到了 actualCursor 之前
+    // 下一轮 actualCursor 仍是当前待比对位置
   }
 }
 
@@ -1156,9 +1223,9 @@ function reRenderComponent(component: LightComponent): void {
 
   debugRenderLight(
     'reRender start',
-    `component=${component.componentName}`,
-    `key=${component.key ?? 'null'}`,
-    `output=${component.outputVNodes.length}`
+    () => `component=${component.componentName}`,
+    () => `key=${component.key ?? 'null'}`,
+    () => `output=${component.outputVNodes.length}`
   );
   component.dirty = false;
   const mountParent = findMountParentVNode(component);
