@@ -2443,13 +2443,64 @@ components/react-greet/index.js: __webpack_require__.r(__webpack_exports__);
 components/react-greet/index.js: __webpack_require__.d(__webpack_exports__, {
 components/react-greet/index.js:   promisify: () => (promisify)
 components/react-greet/index.js: });
+components/react-greet/index.js: function _typeof(o) {
+components/react-greet/index.js:     "@babel/helpers - typeof";
+components/react-greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/react-greet/index.js:         return typeof o;
+components/react-greet/index.js:     } : function(o) {
+components/react-greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/react-greet/index.js:     }, _typeof(o);
+components/react-greet/index.js: }
+components/react-greet/index.js: function ownKeys(e, r) {
+components/react-greet/index.js:     var t = Object.keys(e);
+components/react-greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/react-greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/react-greet/index.js:         r && (o = o.filter(function(r) {
+components/react-greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/react-greet/index.js:         })), t.push.apply(t, o);
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return t;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _objectSpread(e) {
+components/react-greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/react-greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/react-greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/react-greet/index.js:             _defineProperty(e, r, t[r]);
+components/react-greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/react-greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/react-greet/index.js:         });
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _defineProperty(e, r, t) {
+components/react-greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/react-greet/index.js:         value: t,
+components/react-greet/index.js:         enumerable: !0,
+components/react-greet/index.js:         configurable: !0,
+components/react-greet/index.js:         writable: !0
+components/react-greet/index.js:     }) : e[r] = t, e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPropertyKey(t) {
+components/react-greet/index.js:     var i = _toPrimitive(t, "string");
+components/react-greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPrimitive(t, r) {
+components/react-greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/react-greet/index.js:     var e = t[Symbol.toPrimitive];
+components/react-greet/index.js:     if (void 0 !== e) {
+components/react-greet/index.js:         var i = e.call(t, r || "default");
+components/react-greet/index.js:         if ("object" != _typeof(i)) return i;
+components/react-greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return ("string" === r ? String : Number)(t);
+components/react-greet/index.js: }
 components/react-greet/index.js: function promisify(api) {
 components/react-greet/index.js:     // @ts-ignore
 components/react-greet/index.js:     return function() {
 components/react-greet/index.js:         var arg = arguments.length > 0 && arguments[<ID>] !== undefined ? arguments[<ID>] : {};
 components/react-greet/index.js:         return new Promise(function(resolve, reject) {
 components/react-greet/index.js:             var promisifyArg = arg;
-components/react-greet/index.js:             api(Object.assign(Object.assign({}, promisifyArg), {
+components/react-greet/index.js:             api(_objectSpread(_objectSpread({}, promisifyArg), {}, {
 components/react-greet/index.js:                 success: function success(res) {
 components/react-greet/index.js:                     if (promisifyArg && typeof promisifyArg.success === 'function') {
 components/react-greet/index.js:                         promisifyArg.success(res);
@@ -2525,10 +2576,65 @@ components/react-greet/index.js:
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-one/cjs/api/adapters/ali.js"(__unused_webpack_module, exports, __webpack_require__) {
 components/react-greet/index.js: 
+components/react-greet/index.js: function _typeof(o) {
+components/react-greet/index.js:     "@babel/helpers - typeof";
+components/react-greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/react-greet/index.js:         return typeof o;
+components/react-greet/index.js:     } : function(o) {
+components/react-greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/react-greet/index.js:     }, _typeof(o);
+components/react-greet/index.js: }
+components/react-greet/index.js: function ownKeys(e, r) {
+components/react-greet/index.js:     var t = Object.keys(e);
+components/react-greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/react-greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/react-greet/index.js:         r && (o = o.filter(function(r) {
+components/react-greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/react-greet/index.js:         })), t.push.apply(t, o);
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return t;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _objectSpread(e) {
+components/react-greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/react-greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/react-greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/react-greet/index.js:             _defineProperty(e, r, t[r]);
+components/react-greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/react-greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/react-greet/index.js:         });
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _defineProperty(e, r, t) {
+components/react-greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/react-greet/index.js:         value: t,
+components/react-greet/index.js:         enumerable: !0,
+components/react-greet/index.js:         configurable: !0,
+components/react-greet/index.js:         writable: !0
+components/react-greet/index.js:     }) : e[r] = t, e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPropertyKey(t) {
+components/react-greet/index.js:     var i = _toPrimitive(t, "string");
+components/react-greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPrimitive(t, r) {
+components/react-greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/react-greet/index.js:     var e = t[Symbol.toPrimitive];
+components/react-greet/index.js:     if (void 0 !== e) {
+components/react-greet/index.js:         var i = e.call(t, r || "default");
+components/react-greet/index.js:         if ("object" != _typeof(i)) return i;
+components/react-greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return ("string" === r ? String : Number)(t);
+components/react-greet/index.js: }
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.initAPI = exports.setCurrentPlatform = exports.getCurrentAPI = exports.getCurrentPlatform = exports.aliAPI = void 0;
+components/react-greet/index.js: exports.aliAPI = void 0;
+components/react-greet/index.js: exports.getCurrentPlatform = getCurrentPlatform;
+components/react-greet/index.js: exports.getCurrentAPI = getCurrentAPI;
+components/react-greet/index.js: exports.setCurrentPlatform = setCurrentPlatform;
+components/react-greet/index.js: exports.initAPI = initAPI;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: exports.aliAPI = {
 components/react-greet/index.js:     getSystemInfo: function getSystemInfo() {
@@ -2595,7 +2701,7 @@ components/react-greet/index.js:     },
 components/react-greet/index.js:     request: function request(options) {
 components/react-greet/index.js:         return new Promise(function(resolve, reject) {
 components/react-greet/index.js:             var _a;
-components/react-greet/index.js:             my.request(Object.assign(Object.assign({}, options), {
+components/react-greet/index.js:             my.request(_objectSpread(_objectSpread({}, options), {}, {
 components/react-greet/index.js:                 method: (_a = options.method) === null || _a === void 0 ? void 0 : _a.toUpperCase(),
 components/react-greet/index.js:                 success: function success(res) {
 components/react-greet/index.js:                     return resolve(res);
@@ -2608,7 +2714,7 @@ components/react-greet/index.js:         });
 components/react-greet/index.js:     },
 components/react-greet/index.js:     uploadFile: function uploadFile(options) {
 components/react-greet/index.js:         return new Promise(function(resolve, reject) {
-components/react-greet/index.js:             my.uploadFile(Object.assign(Object.assign({}, options), {
+components/react-greet/index.js:             my.uploadFile(_objectSpread(_objectSpread({}, options), {}, {
 components/react-greet/index.js:                 success: function success(res) {
 components/react-greet/index.js:                     return resolve(res);
 components/react-greet/index.js:                 },
@@ -2620,7 +2726,7 @@ components/react-greet/index.js:         });
 components/react-greet/index.js:     },
 components/react-greet/index.js:     downloadFile: function downloadFile(options) {
 components/react-greet/index.js:         return new Promise(function(resolve, reject) {
-components/react-greet/index.js:             my.downloadFile(Object.assign(Object.assign({}, options), {
+components/react-greet/index.js:             my.downloadFile(_objectSpread(_objectSpread({}, options), {}, {
 components/react-greet/index.js:                 success: function success(res) {
 components/react-greet/index.js:                     return resolve(res);
 components/react-greet/index.js:                 },
@@ -2660,19 +2766,15 @@ components/react-greet/index.js: };
 components/react-greet/index.js: function getCurrentPlatform() {
 components/react-greet/index.js:     return 'ali';
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.getCurrentPlatform = getCurrentPlatform;
 components/react-greet/index.js: function getCurrentAPI() {
 components/react-greet/index.js:     return exports.aliAPI;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.getCurrentAPI = getCurrentAPI;
 components/react-greet/index.js: function setCurrentPlatform(_platform) {
 components/react-greet/index.js: // 一份小程序产物只服务一个构建目标平台，运行时无需切换
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.setCurrentPlatform = setCurrentPlatform;
 components/react-greet/index.js: function initAPI(_platform) {
 components/react-greet/index.js:     return exports.aliAPI;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.initAPI = initAPI;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-one/esm/api/unified/index.js"(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -2703,6 +2805,57 @@ components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___d
 components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../../../../../rsmax-one/esm/createHostComponent.js");
 components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
+components/react-greet/index.js: function _typeof(o) {
+components/react-greet/index.js:     "@babel/helpers - typeof";
+components/react-greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/react-greet/index.js:         return typeof o;
+components/react-greet/index.js:     } : function(o) {
+components/react-greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/react-greet/index.js:     }, _typeof(o);
+components/react-greet/index.js: }
+components/react-greet/index.js: function ownKeys(e, r) {
+components/react-greet/index.js:     var t = Object.keys(e);
+components/react-greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/react-greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/react-greet/index.js:         r && (o = o.filter(function(r) {
+components/react-greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/react-greet/index.js:         })), t.push.apply(t, o);
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return t;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _objectSpread(e) {
+components/react-greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/react-greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/react-greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/react-greet/index.js:             _defineProperty(e, r, t[r]);
+components/react-greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/react-greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/react-greet/index.js:         });
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _defineProperty(e, r, t) {
+components/react-greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/react-greet/index.js:         value: t,
+components/react-greet/index.js:         enumerable: !0,
+components/react-greet/index.js:         configurable: !0,
+components/react-greet/index.js:         writable: !0
+components/react-greet/index.js:     }) : e[r] = t, e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPropertyKey(t) {
+components/react-greet/index.js:     var i = _toPrimitive(t, "string");
+components/react-greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPrimitive(t, r) {
+components/react-greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/react-greet/index.js:     var e = t[Symbol.toPrimitive];
+components/react-greet/index.js:     if (void 0 !== e) {
+components/react-greet/index.js:         var i = e.call(t, r || "default");
+components/react-greet/index.js:         if ("object" != _typeof(i)) return i;
+components/react-greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return ("string" === r ? String : Number)(t);
+components/react-greet/index.js: }
 components/react-greet/index.js: 
 components/react-greet/index.js: var createTapCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
 components/react-greet/index.js: var createTouchStartCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
@@ -3406,11 +3559,11 @@ components/react-greet/index.js:             return __WEBPACK_IMPORTED_MODULE_3_
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
 components/react-greet/index.js: function createUnifiedComponent(componentName, customConfig) {
-components/react-greet/index.js:     var config = Object.assign(Object.assign({}, componentConfigs[componentName]), customConfig);
+components/react-greet/index.js:     var config = _objectSpread(_objectSpread({}, componentConfigs[componentName]), customConfig);
 components/react-greet/index.js:     var tagName = config.tagName, alias = config.alias, customDefaultProps = config.defaultProps, eventHandlers = config.eventHandlers;
 components/react-greet/index.js:     var Component = function Component(props, ref) {
 components/react-greet/index.js:         var platformDefaultProps = currentPlatformComponentProps[componentName] || {};
-components/react-greet/index.js:         var inputProps = Object.assign({}, props);
+components/react-greet/index.js:         var inputProps = _objectSpread({}, props);
 components/react-greet/index.js:         assignDefaultProps(inputProps, platformDefaultProps);
 components/react-greet/index.js:         if (customDefaultProps) {
 components/react-greet/index.js:             assignDefaultProps(inputProps, customDefaultProps);
@@ -3546,6 +3699,57 @@ components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ =
 components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
 components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 components/react-greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
+components/react-greet/index.js: function _typeof(o) {
+components/react-greet/index.js:     "@babel/helpers - typeof";
+components/react-greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/react-greet/index.js:         return typeof o;
+components/react-greet/index.js:     } : function(o) {
+components/react-greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/react-greet/index.js:     }, _typeof(o);
+components/react-greet/index.js: }
+components/react-greet/index.js: function ownKeys(e, r) {
+components/react-greet/index.js:     var t = Object.keys(e);
+components/react-greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/react-greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/react-greet/index.js:         r && (o = o.filter(function(r) {
+components/react-greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/react-greet/index.js:         })), t.push.apply(t, o);
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return t;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _objectSpread(e) {
+components/react-greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/react-greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/react-greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/react-greet/index.js:             _defineProperty(e, r, t[r]);
+components/react-greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/react-greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/react-greet/index.js:         });
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _defineProperty(e, r, t) {
+components/react-greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/react-greet/index.js:         value: t,
+components/react-greet/index.js:         enumerable: !0,
+components/react-greet/index.js:         configurable: !0,
+components/react-greet/index.js:         writable: !0
+components/react-greet/index.js:     }) : e[r] = t, e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPropertyKey(t) {
+components/react-greet/index.js:     var i = _toPrimitive(t, "string");
+components/react-greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPrimitive(t, r) {
+components/react-greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/react-greet/index.js:     var e = t[Symbol.toPrimitive];
+components/react-greet/index.js:     if (void 0 !== e) {
+components/react-greet/index.js:         var i = e.call(t, r || "default");
+components/react-greet/index.js:         if ("object" != _typeof(i)) return i;
+components/react-greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return ("string" === r ? String : Number)(t);
+components/react-greet/index.js: }
 components/react-greet/index.js: 
 components/react-greet/index.js: function createTarget(target, detail) {
 components/react-greet/index.js:     return {
@@ -3657,7 +3861,7 @@ components/react-greet/index.js: var createImageLoadCallback = (0,__WEBPACK_IMPO
 components/react-greet/index.js: var createImageErrorCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(createCallback);
 components/react-greet/index.js: function createHostComponent(name, alias, defaults) {
 components/react-greet/index.js:     var Component = function Component(props, ref) {
-components/react-greet/index.js:         var inputProps = Object.assign({}, props);
+components/react-greet/index.js:         var inputProps = _objectSpread({}, props);
 components/react-greet/index.js:         // 默认属性根据平台在这里设置
 components/react-greet/index.js:         if (defaults) {
 components/react-greet/index.js:             assignDefaultProps(inputProps, defaults);
@@ -4133,7 +4337,7 @@ components/react-greet/index.js:
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.createPortal = void 0;
+components/react-greet/index.js: exports.createPortal = createPortal;
 components/react-greet/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
 components/react-greet/index.js: function createPortal(children, containerInfo, key) {
 components/react-greet/index.js:     return {
@@ -4145,7 +4349,6 @@ components/react-greet/index.js:         containerInfo: containerInfo,
 components/react-greet/index.js:         implementation: null
 components/react-greet/index.js:     };
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.createPortal = createPortal;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js"(__unused_webpack_module, exports) {
@@ -4192,19 +4395,29 @@ components/react-greet/index.js:     });
 components/react-greet/index.js: } : function(o, v) {
 components/react-greet/index.js:     o["default"] = v;
 components/react-greet/index.js: });
-components/react-greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/react-greet/index.js:     if (mod && mod.__esModule) return mod;
-components/react-greet/index.js:     var result = {};
-components/react-greet/index.js:     if (mod != null) {
-components/react-greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/react-greet/index.js:     }
-components/react-greet/index.js:     __setModuleDefault(result, mod);
-components/react-greet/index.js:     return result;
-components/react-greet/index.js: };
+components/react-greet/index.js: var __importStar = this && this.__importStar || function() {
+components/react-greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/react-greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/react-greet/index.js:             var ar = [];
+components/react-greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/react-greet/index.js:             return ar;
+components/react-greet/index.js:         };
+components/react-greet/index.js:         return _ownKeys(o);
+components/react-greet/index.js:     };
+components/react-greet/index.js:     return function(mod) {
+components/react-greet/index.js:         if (mod && mod.__esModule) return mod;
+components/react-greet/index.js:         var result = {};
+components/react-greet/index.js:         if (mod != null) {
+components/react-greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/react-greet/index.js:         }
+components/react-greet/index.js:         __setModuleDefault(result, mod);
+components/react-greet/index.js:         return result;
+components/react-greet/index.js:     };
+components/react-greet/index.js: }();
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.createCallbackProxy = void 0;
+components/react-greet/index.js: exports.createCallbackProxy = createCallbackProxy;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 components/react-greet/index.js: var stopPropagation_1 = __importStar(__webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"));
@@ -4244,7 +4457,6 @@ components/react-greet/index.js:             syntheticEvent
 components/react-greet/index.js:         ].concat(restParams));
 components/react-greet/index.js:     };
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.createCallbackProxy = createCallbackProxy;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -4252,7 +4464,9 @@ components/react-greet/index.js:
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.validate = exports.isPropagationStopped = void 0;
+components/react-greet/index.js: exports.isPropagationStopped = void 0;
+components/react-greet/index.js: exports.validate = validate;
+components/react-greet/index.js: exports["default"] = stopPropagation;
 components/react-greet/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 components/react-greet/index.js: exports.isPropagationStopped = {};
 components/react-greet/index.js: constants_1.SYNTHETIC_TYPES.forEach(function(type) {
@@ -4276,12 +4490,10 @@ components/react-greet/index.js:         return;
 components/react-greet/index.js:     }
 components/react-greet/index.js:     validate(parent, eventType);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.validate = validate;
 components/react-greet/index.js: function stopPropagation(node, eventType) {
 components/react-greet/index.js:     exports.isPropagationStopped[eventType] = true;
 components/react-greet/index.js:     validate(node, eventType);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = stopPropagation;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/VNode.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -4400,15 +4612,25 @@ components/react-greet/index.js:     });
 components/react-greet/index.js: } : function(o, v) {
 components/react-greet/index.js:     o["default"] = v;
 components/react-greet/index.js: });
-components/react-greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/react-greet/index.js:     if (mod && mod.__esModule) return mod;
-components/react-greet/index.js:     var result = {};
-components/react-greet/index.js:     if (mod != null) {
-components/react-greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/react-greet/index.js:     }
-components/react-greet/index.js:     __setModuleDefault(result, mod);
-components/react-greet/index.js:     return result;
-components/react-greet/index.js: };
+components/react-greet/index.js: var __importStar = this && this.__importStar || function() {
+components/react-greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/react-greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/react-greet/index.js:             var ar = [];
+components/react-greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/react-greet/index.js:             return ar;
+components/react-greet/index.js:         };
+components/react-greet/index.js:         return _ownKeys(o);
+components/react-greet/index.js:     };
+components/react-greet/index.js:     return function(mod) {
+components/react-greet/index.js:         if (mod && mod.__esModule) return mod;
+components/react-greet/index.js:         var result = {};
+components/react-greet/index.js:         if (mod != null) {
+components/react-greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/react-greet/index.js:         }
+components/react-greet/index.js:         __setModuleDefault(result, mod);
+components/react-greet/index.js:         return result;
+components/react-greet/index.js:     };
+components/react-greet/index.js: }();
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
@@ -4936,15 +5158,25 @@ components/react-greet/index.js:     });
 components/react-greet/index.js: } : function(o, v) {
 components/react-greet/index.js:     o["default"] = v;
 components/react-greet/index.js: });
-components/react-greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/react-greet/index.js:     if (mod && mod.__esModule) return mod;
-components/react-greet/index.js:     var result = {};
-components/react-greet/index.js:     if (mod != null) {
-components/react-greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/react-greet/index.js:     }
-components/react-greet/index.js:     __setModuleDefault(result, mod);
-components/react-greet/index.js:     return result;
-components/react-greet/index.js: };
+components/react-greet/index.js: var __importStar = this && this.__importStar || function() {
+components/react-greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/react-greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/react-greet/index.js:             var ar = [];
+components/react-greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/react-greet/index.js:             return ar;
+components/react-greet/index.js:         };
+components/react-greet/index.js:         return _ownKeys(o);
+components/react-greet/index.js:     };
+components/react-greet/index.js:     return function(mod) {
+components/react-greet/index.js:         if (mod && mod.__esModule) return mod;
+components/react-greet/index.js:         var result = {};
+components/react-greet/index.js:         if (mod != null) {
+components/react-greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/react-greet/index.js:         }
+components/react-greet/index.js:         __setModuleDefault(result, mod);
+components/react-greet/index.js:         return result;
+components/react-greet/index.js:     };
+components/react-greet/index.js: }();
 components/react-greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/react-greet/index.js:     return mod && mod.__esModule ? mod : {
 components/react-greet/index.js:         "default": mod
@@ -4953,6 +5185,7 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
+components/react-greet/index.js: exports["default"] = createAppConfig;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/react-greet/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
@@ -5065,7 +5298,6 @@ components/react-greet/index.js:         return framework_shared_1.RuntimeOption
 components/react-greet/index.js:     };
 components/react-greet/index.js:     return createConfig(WrappedApp);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = createAppConfig;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/createComponentConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -5097,15 +5329,25 @@ components/react-greet/index.js:     });
 components/react-greet/index.js: } : function(o, v) {
 components/react-greet/index.js:     o["default"] = v;
 components/react-greet/index.js: });
-components/react-greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/react-greet/index.js:     if (mod && mod.__esModule) return mod;
-components/react-greet/index.js:     var result = {};
-components/react-greet/index.js:     if (mod != null) {
-components/react-greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/react-greet/index.js:     }
-components/react-greet/index.js:     __setModuleDefault(result, mod);
-components/react-greet/index.js:     return result;
-components/react-greet/index.js: };
+components/react-greet/index.js: var __importStar = this && this.__importStar || function() {
+components/react-greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/react-greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/react-greet/index.js:             var ar = [];
+components/react-greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/react-greet/index.js:             return ar;
+components/react-greet/index.js:         };
+components/react-greet/index.js:         return _ownKeys(o);
+components/react-greet/index.js:     };
+components/react-greet/index.js:     return function(mod) {
+components/react-greet/index.js:         if (mod && mod.__esModule) return mod;
+components/react-greet/index.js:         var result = {};
+components/react-greet/index.js:         if (mod != null) {
+components/react-greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/react-greet/index.js:         }
+components/react-greet/index.js:         __setModuleDefault(result, mod);
+components/react-greet/index.js:         return result;
+components/react-greet/index.js:     };
+components/react-greet/index.js: }();
 components/react-greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/react-greet/index.js:     return mod && mod.__esModule ? mod : {
 components/react-greet/index.js:         "default": mod
@@ -5114,6 +5356,7 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
+components/react-greet/index.js: exports["default"] = createComponentConfig;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/react-greet/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -5179,11 +5422,61 @@ components/react-greet/index.js:         }
 components/react-greet/index.js:     };
 components/react-greet/index.js:     return config;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = createComponentConfig;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/createHostComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 components/react-greet/index.js: 
+components/react-greet/index.js: function _typeof(o) {
+components/react-greet/index.js:     "@babel/helpers - typeof";
+components/react-greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/react-greet/index.js:         return typeof o;
+components/react-greet/index.js:     } : function(o) {
+components/react-greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/react-greet/index.js:     }, _typeof(o);
+components/react-greet/index.js: }
+components/react-greet/index.js: function ownKeys(e, r) {
+components/react-greet/index.js:     var t = Object.keys(e);
+components/react-greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/react-greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/react-greet/index.js:         r && (o = o.filter(function(r) {
+components/react-greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/react-greet/index.js:         })), t.push.apply(t, o);
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return t;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _objectSpread(e) {
+components/react-greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/react-greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/react-greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/react-greet/index.js:             _defineProperty(e, r, t[r]);
+components/react-greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/react-greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/react-greet/index.js:         });
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _defineProperty(e, r, t) {
+components/react-greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/react-greet/index.js:         value: t,
+components/react-greet/index.js:         enumerable: !0,
+components/react-greet/index.js:         configurable: !0,
+components/react-greet/index.js:         writable: !0
+components/react-greet/index.js:     }) : e[r] = t, e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPropertyKey(t) {
+components/react-greet/index.js:     var i = _toPrimitive(t, "string");
+components/react-greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPrimitive(t, r) {
+components/react-greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/react-greet/index.js:     var e = t[Symbol.toPrimitive];
+components/react-greet/index.js:     if (void 0 !== e) {
+components/react-greet/index.js:         var i = e.call(t, r || "default");
+components/react-greet/index.js:         if ("object" != _typeof(i)) return i;
+components/react-greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return ("string" === r ? String : Number)(t);
+components/react-greet/index.js: }
 components/react-greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/react-greet/index.js:     return mod && mod.__esModule ? mod : {
 components/react-greet/index.js:         "default": mod
@@ -5192,6 +5485,7 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
+components/react-greet/index.js: exports["default"] = createHostComponent;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/react-greet/index.js: function createHostComponent(name, component) {
@@ -5199,7 +5493,7 @@ components/react-greet/index.js:     if (component) {
 components/react-greet/index.js:         return component;
 components/react-greet/index.js:     }
 components/react-greet/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-components/react-greet/index.js:         var element = react_1.default.createElement(name, Object.assign(Object.assign({}, props), {
+components/react-greet/index.js:         var element = react_1.default.createElement(name, _objectSpread(_objectSpread({}, props), {}, {
 components/react-greet/index.js:             ref: ref
 components/react-greet/index.js:         }));
 components/react-greet/index.js:         element = framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponentElement(element);
@@ -5208,11 +5502,61 @@ components/react-greet/index.js:     });
 components/react-greet/index.js:     Component.displayName = name;
 components/react-greet/index.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponent(Component);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = createHostComponent;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/createNativeComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 components/react-greet/index.js: 
+components/react-greet/index.js: function _typeof(o) {
+components/react-greet/index.js:     "@babel/helpers - typeof";
+components/react-greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/react-greet/index.js:         return typeof o;
+components/react-greet/index.js:     } : function(o) {
+components/react-greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/react-greet/index.js:     }, _typeof(o);
+components/react-greet/index.js: }
+components/react-greet/index.js: function ownKeys(e, r) {
+components/react-greet/index.js:     var t = Object.keys(e);
+components/react-greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/react-greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/react-greet/index.js:         r && (o = o.filter(function(r) {
+components/react-greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/react-greet/index.js:         })), t.push.apply(t, o);
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return t;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _objectSpread(e) {
+components/react-greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/react-greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/react-greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/react-greet/index.js:             _defineProperty(e, r, t[r]);
+components/react-greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/react-greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/react-greet/index.js:         });
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _defineProperty(e, r, t) {
+components/react-greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/react-greet/index.js:         value: t,
+components/react-greet/index.js:         enumerable: !0,
+components/react-greet/index.js:         configurable: !0,
+components/react-greet/index.js:         writable: !0
+components/react-greet/index.js:     }) : e[r] = t, e;
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPropertyKey(t) {
+components/react-greet/index.js:     var i = _toPrimitive(t, "string");
+components/react-greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/react-greet/index.js: }
+components/react-greet/index.js: function _toPrimitive(t, r) {
+components/react-greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/react-greet/index.js:     var e = t[Symbol.toPrimitive];
+components/react-greet/index.js:     if (void 0 !== e) {
+components/react-greet/index.js:         var i = e.call(t, r || "default");
+components/react-greet/index.js:         if ("object" != _typeof(i)) return i;
+components/react-greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/react-greet/index.js:     }
+components/react-greet/index.js:     return ("string" === r ? String : Number)(t);
+components/react-greet/index.js: }
 components/react-greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/react-greet/index.js:     return mod && mod.__esModule ? mod : {
 components/react-greet/index.js:         "default": mod
@@ -5221,10 +5565,11 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
+components/react-greet/index.js: exports["default"] = createNativeComponent;
 components/react-greet/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/react-greet/index.js: function createNativeComponent(name) {
 components/react-greet/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-components/react-greet/index.js:         var newProps = Object.assign({}, props);
+components/react-greet/index.js:         var newProps = _objectSpread({}, props);
 components/react-greet/index.js:         newProps.__ref = typeof ref === 'function' ? ref : function(e) {
 components/react-greet/index.js:             if (ref) {
 components/react-greet/index.js:                 ref.current = e;
@@ -5235,7 +5580,6 @@ components/react-greet/index.js:     });
 components/react-greet/index.js:     Component.displayName = name;
 components/react-greet/index.js:     return Component;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = createNativeComponent;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/createPageConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -5272,7 +5616,8 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.resetPageId = void 0;
+components/react-greet/index.js: exports.resetPageId = resetPageId;
+components/react-greet/index.js: exports["default"] = createPageConfig;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/react-greet/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -5290,7 +5635,6 @@ components/react-greet/index.js: // for testing
 components/react-greet/index.js: function resetPageId() {
 components/react-greet/index.js:     idCounter = 0;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.resetPageId = resetPageId;
 components/react-greet/index.js: function createPageConfig(Page, name) {
 components/react-greet/index.js:     var _a;
 components/react-greet/index.js:     var app;
@@ -5462,7 +5806,6 @@ components/react-greet/index.js:         config: config,
 components/react-greet/index.js:         page: name
 components/react-greet/index.js:     });
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = createPageConfig;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/hooks-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -5551,7 +5894,25 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.setReRenderFn = exports.cleanupEffectsForNode = exports.flushPassiveEffects = exports.flushLayoutEffects = exports.useDebugValue = exports.useImperativeHandle = exports.useContext = exports.useCallback = exports.useMemo = exports.useRef = exports.useLayoutEffect = exports.useEffect = exports.useReducer = exports.useState = exports.batchedUpdates = exports.scheduleComponentUpdate = exports.popRenderContext = exports.pushRenderContext = exports.currentComponent = void 0;
+components/react-greet/index.js: exports.currentComponent = void 0;
+components/react-greet/index.js: exports.pushRenderContext = pushRenderContext;
+components/react-greet/index.js: exports.popRenderContext = popRenderContext;
+components/react-greet/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
+components/react-greet/index.js: exports.batchedUpdates = batchedUpdates;
+components/react-greet/index.js: exports.useState = useState;
+components/react-greet/index.js: exports.useReducer = useReducer;
+components/react-greet/index.js: exports.useEffect = useEffect;
+components/react-greet/index.js: exports.useLayoutEffect = useLayoutEffect;
+components/react-greet/index.js: exports.useRef = useRef;
+components/react-greet/index.js: exports.useMemo = useMemo;
+components/react-greet/index.js: exports.useCallback = useCallback;
+components/react-greet/index.js: exports.useContext = useContext;
+components/react-greet/index.js: exports.useImperativeHandle = useImperativeHandle;
+components/react-greet/index.js: exports.useDebugValue = useDebugValue;
+components/react-greet/index.js: exports.flushLayoutEffects = flushLayoutEffects;
+components/react-greet/index.js: exports.flushPassiveEffects = flushPassiveEffects;
+components/react-greet/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
+components/react-greet/index.js: exports.setReRenderFn = setReRenderFn;
 components/react-greet/index.js: var scheduler_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/scheduler/index.js"));
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // Rendering Context
@@ -5568,7 +5929,6 @@ components/react-greet/index.js:     exports.currentComponent = node;
 components/react-greet/index.js:     currentHookIndex = 0;
 components/react-greet/index.js:     if (!node.memoizedState) node.memoizedState = [];
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.pushRenderContext = pushRenderContext;
 components/react-greet/index.js: function popRenderContext() {
 components/react-greet/index.js:     var ctx = renderStack.pop();
 components/react-greet/index.js:     if (ctx) {
@@ -5576,7 +5936,6 @@ components/react-greet/index.js:         exports.currentComponent = ctx.componen
 components/react-greet/index.js:         currentHookIndex = ctx.hookIndex;
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.popRenderContext = popRenderContext;
 components/react-greet/index.js: /** Effects scheduled via useEffect - run after paint */ var passiveEffects = [];
 components/react-greet/index.js: /** Effects scheduled via useLayoutEffect - run before paint */ var layoutEffects = [];
 components/react-greet/index.js: // ============================================================
@@ -5595,7 +5954,6 @@ components/react-greet/index.js:             flushDirtyComponents();
 components/react-greet/index.js:         });
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
 components/react-greet/index.js: function flushDirtyComponents() {
 components/react-greet/index.js:     var dirty = Array.from(dirtyComponents);
 components/react-greet/index.js:     dirtyComponents.clear();
@@ -5632,7 +5990,6 @@ components/react-greet/index.js:             }
 components/react-greet/index.js:         }
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.batchedUpdates = batchedUpdates;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // Core Hook Helpers
 components/react-greet/index.js: // ============================================================
@@ -5707,7 +6064,6 @@ components/react-greet/index.js:         hook.state,
 components/react-greet/index.js:         setState
 components/react-greet/index.js:     ];
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useState = useState;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useReducer
 components/react-greet/index.js: // ============================================================
@@ -5751,7 +6107,6 @@ components/react-greet/index.js:         hook.state,
 components/react-greet/index.js:         dispatch
 components/react-greet/index.js:     ];
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useReducer = useReducer;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useEffect
 components/react-greet/index.js: // ============================================================
@@ -5769,7 +6124,6 @@ components/react-greet/index.js:             hook: hook
 components/react-greet/index.js:         });
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useEffect = useEffect;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useLayoutEffect
 components/react-greet/index.js: // ============================================================
@@ -5787,7 +6141,6 @@ components/react-greet/index.js:             hook: hook
 components/react-greet/index.js:         });
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useLayoutEffect = useLayoutEffect;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useRef
 components/react-greet/index.js: // ============================================================
@@ -5800,7 +6153,6 @@ components/react-greet/index.js:         };
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return hook.state;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useRef = useRef;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useMemo
 components/react-greet/index.js: // ============================================================
@@ -5814,7 +6166,6 @@ components/react-greet/index.js:         };
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return hook.memo.value;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useMemo = useMemo;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useCallback
 components/react-greet/index.js: // ============================================================
@@ -5823,7 +6174,6 @@ components/react-greet/index.js:     return useMemo(function() {
 components/react-greet/index.js:         return callback;
 components/react-greet/index.js:     }, deps);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useCallback = useCallback;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useContext
 components/react-greet/index.js: // ============================================================
@@ -5882,7 +6232,6 @@ components/react-greet/index.js:         return context._currentValue2;
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return undefined;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useContext = useContext;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // useImperativeHandle / useDebugValue
 components/react-greet/index.js: // ============================================================
@@ -5903,11 +6252,9 @@ components/react-greet/index.js:             };
 components/react-greet/index.js:         }
 components/react-greet/index.js:     }, deps);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useImperativeHandle = useImperativeHandle;
 components/react-greet/index.js: function useDebugValue(_value) {
 components/react-greet/index.js: // noop
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useDebugValue = useDebugValue;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // Effect Flushing (called by render-light.ts)
 components/react-greet/index.js: // ============================================================
@@ -5946,7 +6293,6 @@ components/react-greet/index.js:             _iterator5.f();
 components/react-greet/index.js:         }
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.flushLayoutEffects = flushLayoutEffects;
 components/react-greet/index.js: function flushPassiveEffects() {
 components/react-greet/index.js:     if (passiveEffects.length === 0) return;
 components/react-greet/index.js:     scheduler_1.default.unstable_scheduleCallback(function() {
@@ -5981,7 +6327,6 @@ components/react-greet/index.js:             _iterator6.f();
 components/react-greet/index.js:         }
 components/react-greet/index.js:     });
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.flushPassiveEffects = flushPassiveEffects;
 components/react-greet/index.js: function cleanupEffectsForNode(node) {
 components/react-greet/index.js:     var _a;
 components/react-greet/index.js:     if (!node.memoizedState) return;
@@ -6005,14 +6350,12 @@ components/react-greet/index.js:         _iterator7.f();
 components/react-greet/index.js:     }
 components/react-greet/index.js:     cleanupComponentContextSubscriptions(node);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
 components/react-greet/index.js: var reRenderComponent = function reRenderComponent() {
 components/react-greet/index.js:     throw new Error('reRenderComponent not set - render-light.ts must set this');
 components/react-greet/index.js: };
 components/react-greet/index.js: function setReRenderFn(fn) {
 components/react-greet/index.js:     reRenderComponent = fn;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.setReRenderFn = setReRenderFn;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/hooks/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -6025,7 +6368,11 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.useQuery = exports.useNativeEffect = exports.useComponentInstance = exports.usePageInstance = exports.useAppEvent = exports.usePageEvent = void 0;
+components/react-greet/index.js: exports.useQuery = exports.useNativeEffect = void 0;
+components/react-greet/index.js: exports.usePageEvent = usePageEvent;
+components/react-greet/index.js: exports.useAppEvent = useAppEvent;
+components/react-greet/index.js: exports.usePageInstance = usePageInstance;
+components/react-greet/index.js: exports.useComponentInstance = useComponentInstance;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
 components/react-greet/index.js: function usePageEvent(eventName, callback) {
@@ -6038,7 +6385,6 @@ components/react-greet/index.js:     (0, hooks_light_1.useLayoutEffect)(function
 components/react-greet/index.js:         return (0, framework_shared_1.registerLifecycle)(pageInstance, lifeCycle, callback);
 components/react-greet/index.js:     });
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.usePageEvent = usePageEvent;
 components/react-greet/index.js: function useAppEvent(eventName, callback) {
 components/react-greet/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 components/react-greet/index.js:         return (0, framework_shared_1.useAppEvent)(eventName, callback);
@@ -6048,21 +6394,18 @@ components/react-greet/index.js:     (0, hooks_light_1.useLayoutEffect)(function
 components/react-greet/index.js:         return (0, framework_shared_1.registerLifecycle)(framework_shared_1.AppInstanceContext, lifeCycle, callback);
 components/react-greet/index.js:     });
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useAppEvent = useAppEvent;
 components/react-greet/index.js: function usePageInstance() {
 components/react-greet/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 components/react-greet/index.js:         return (0, framework_shared_1.usePageInstance)();
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.usePageInstance = usePageInstance;
 components/react-greet/index.js: function useComponentInstance() {
 components/react-greet/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 components/react-greet/index.js:         return (0, framework_shared_1.useComponentInstance)();
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.ComponentInstanceContext);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.useComponentInstance = useComponentInstance;
 components/react-greet/index.js: var useNativeEffect_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks/useNativeEffect.js");
 components/react-greet/index.js: Object.defineProperty(exports, "useNativeEffect", ({
 components/react-greet/index.js:     enumerable: true,
@@ -6089,6 +6432,7 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
+components/react-greet/index.js: exports["default"] = useNativeEffect;
 components/react-greet/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 components/react-greet/index.js: var nativeEffect_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/nativeEffect.js"));
 components/react-greet/index.js: function useNativeEffect(listener, deps) {
@@ -6096,7 +6440,6 @@ components/react-greet/index.js:     (0, react_1.useLayoutEffect)(function() {
 components/react-greet/index.js:         return nativeEffect_1.default.connect(listener, !!deps);
 components/react-greet/index.js:     }, deps);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = useNativeEffect;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/hooks/useQuery.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -6104,6 +6447,7 @@ components/react-greet/index.js:
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
+components/react-greet/index.js: exports["default"] = useQuery;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 components/react-greet/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
@@ -6111,7 +6455,6 @@ components/react-greet/index.js: function useQuery() {
 components/react-greet/index.js:     var pageInstance = framework_shared_1.RuntimeOptions.get('renderer') === 'light' ? (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext) : (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
 components/react-greet/index.js:     return pageInstance.query;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = useQuery;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/diffProperties.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -6119,6 +6462,7 @@ components/react-greet/index.js:
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
+components/react-greet/index.js: exports["default"] = diffProperties;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var STYLE = [
 components/react-greet/index.js:     'style',
@@ -6207,7 +6551,6 @@ components/react-greet/index.js:         }
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return updatePayload.length ? updatePayload : null;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = diffProperties;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -6408,7 +6751,8 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.unstable_batchedUpdates = exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+components/react-greet/index.js: exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+components/react-greet/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var render_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render.js");
 components/react-greet/index.js: var render_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render-light.js");
@@ -6490,7 +6834,6 @@ components/react-greet/index.js:         return (0, render_light_1.unstable_batc
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return render_1.ReactReconcilerInst.batchedUpdates(callback, null);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 components/react-greet/index.js: exports["default"] = {
 components/react-greet/index.js:     unstable_batchedUpdates: unstable_batchedUpdates
 components/react-greet/index.js: };
@@ -6501,18 +6844,17 @@ components/react-greet/index.js:
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.generate = exports.reset = void 0;
+components/react-greet/index.js: exports.reset = reset;
+components/react-greet/index.js: exports.generate = generate;
 components/react-greet/index.js: var instanceId = 0;
 components/react-greet/index.js: function reset() {
 components/react-greet/index.js:     instanceId = 0;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.reset = reset;
 components/react-greet/index.js: function generate() {
 components/react-greet/index.js:     var id = instanceId;
 components/react-greet/index.js:     instanceId += 1;
 components/react-greet/index.js:     return id;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.generate = generate;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/nativeEffect.js"(__unused_webpack_module, exports) {
@@ -6562,7 +6904,9 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.propAlias = exports.getAlias = void 0;
+components/react-greet/index.js: exports.getAlias = getAlias;
+components/react-greet/index.js: exports.propAlias = propAlias;
+components/react-greet/index.js: exports["default"] = propsAlias;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var plainStyle_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/utils/plainStyle/index.js"));
 components/react-greet/index.js: function getAlias(prop, type) {
@@ -6575,7 +6919,6 @@ components/react-greet/index.js:         return prop.replace(new RegExp("^".conc
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return (_b = (_a = hostComponent === null || hostComponent === void 0 ? void 0 : hostComponent.alias) === null || _a === void 0 ? void 0 : _a[prop]) !== null && _b !== void 0 ? _b : prop;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.getAlias = getAlias;
 components/react-greet/index.js: function getValue(prop, value) {
 components/react-greet/index.js:     if (prop.toLowerCase().endsWith('style') && Object.prototype.toString.call(value) === '[object Object]') {
 components/react-greet/index.js:         return (0, plainStyle_1.default)(value);
@@ -6588,7 +6931,6 @@ components/react-greet/index.js:         getAlias(prop, type),
 components/react-greet/index.js:         getValue(prop, value)
 components/react-greet/index.js:     ];
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.propAlias = propAlias;
 components/react-greet/index.js: function propsAlias(props, type) {
 components/react-greet/index.js:     if (!props) {
 components/react-greet/index.js:         return props;
@@ -6609,7 +6951,6 @@ components/react-greet/index.js:         }
 components/react-greet/index.js:     }
 components/react-greet/index.js:     return aliasProps;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = propsAlias;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/render-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -6738,15 +7079,25 @@ components/react-greet/index.js:     });
 components/react-greet/index.js: } : function(o, v) {
 components/react-greet/index.js:     o["default"] = v;
 components/react-greet/index.js: });
-components/react-greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/react-greet/index.js:     if (mod && mod.__esModule) return mod;
-components/react-greet/index.js:     var result = {};
-components/react-greet/index.js:     if (mod != null) {
-components/react-greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/react-greet/index.js:     }
-components/react-greet/index.js:     __setModuleDefault(result, mod);
-components/react-greet/index.js:     return result;
-components/react-greet/index.js: };
+components/react-greet/index.js: var __importStar = this && this.__importStar || function() {
+components/react-greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/react-greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/react-greet/index.js:             var ar = [];
+components/react-greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/react-greet/index.js:             return ar;
+components/react-greet/index.js:         };
+components/react-greet/index.js:         return _ownKeys(o);
+components/react-greet/index.js:     };
+components/react-greet/index.js:     return function(mod) {
+components/react-greet/index.js:         if (mod && mod.__esModule) return mod;
+components/react-greet/index.js:         var result = {};
+components/react-greet/index.js:         if (mod != null) {
+components/react-greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/react-greet/index.js:         }
+components/react-greet/index.js:         __setModuleDefault(result, mod);
+components/react-greet/index.js:         return result;
+components/react-greet/index.js:     };
+components/react-greet/index.js: }();
 components/react-greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/react-greet/index.js:     return mod && mod.__esModule ? mod : {
 components/react-greet/index.js:         "default": mod
@@ -6757,6 +7108,7 @@ components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
 components/react-greet/index.js: exports.unstable_batchedUpdates = exports.batchedUpdates = void 0;
+components/react-greet/index.js: exports["default"] = render;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/react-greet/index.js: var VNode_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/VNode.js"));
@@ -7754,7 +8106,6 @@ components/react-greet/index.js:     // passive effects 异步调度
 components/react-greet/index.js:     (0, hooks_light_1.flushPassiveEffects)();
 components/react-greet/index.js:     return container.root;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = render;
 components/react-greet/index.js: // ============================================================
 components/react-greet/index.js: // 组件重新渲染
 components/react-greet/index.js: // ============================================================
@@ -7835,6 +8186,7 @@ components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
 components/react-greet/index.js: exports.ReactReconcilerInst = void 0;
+components/react-greet/index.js: exports["default"] = render;
 components/react-greet/index.js: var react_reconciler_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react-reconciler@0.29.0_react@18.3.1/node_modules/react-reconciler/cjs/react-reconciler.production.min.js"));
 components/react-greet/index.js: var hostConfig_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/hostConfig/index.js"));
 components/react-greet/index.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -7857,7 +8209,6 @@ components/react-greet/index.js:     // ignore
 components/react-greet/index.js:     });
 components/react-greet/index.js:     return getPublicRootInstance(container._rootContainer);
 components/react-greet/index.js: }
-components/react-greet/index.js: exports["default"] = render;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/renderer.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -7870,7 +8221,8 @@ components/react-greet/index.js: };
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.renderLight = exports.render = exports.getRenderer = void 0;
+components/react-greet/index.js: exports.renderLight = exports.render = void 0;
+components/react-greet/index.js: exports.getRenderer = getRenderer;
 components/react-greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/react-greet/index.js: var render_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/render.js"));
 components/react-greet/index.js: exports.render = render_1.default;
@@ -7890,7 +8242,6 @@ components/react-greet/index.js: function getRenderer() {
 components/react-greet/index.js:     var renderer = framework_shared_1.RuntimeOptions.get('renderer');
 components/react-greet/index.js:     return renderer === 'light' ? lightRenderer : classicRenderer;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.getRenderer = getRenderer;
 components/react-greet/index.js: 
 components/react-greet/index.js: },
 components/react-greet/index.js: "../../../../../../rsmax-runtime/cjs/scheduler/index.js"(__unused_webpack_module, exports) {
@@ -7898,7 +8249,10 @@ components/react-greet/index.js:
 components/react-greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/react-greet/index.js:     value: true
 components/react-greet/index.js: }));
-components/react-greet/index.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+components/react-greet/index.js: exports.unstable_now = void 0;
+components/react-greet/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+components/react-greet/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+components/react-greet/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 components/react-greet/index.js: var taskQueue = [];
 components/react-greet/index.js: var taskIdCounter = 0;
 components/react-greet/index.js: exports.unstable_now = Date.now;
@@ -7920,7 +8274,6 @@ components/react-greet/index.js:         }
 components/react-greet/index.js:     });
 components/react-greet/index.js:     return id;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
 components/react-greet/index.js: function unstable_cancelCallback(id) {
 components/react-greet/index.js:     var index = taskQueue.findIndex(function(t) {
 components/react-greet/index.js:         return t.id === id;
@@ -7929,11 +8282,9 @@ components/react-greet/index.js:     if (index !== -1) {
 components/react-greet/index.js:         taskQueue.splice(index, 1);
 components/react-greet/index.js:     }
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
 components/react-greet/index.js: function unstable_shouldYield() {
 components/react-greet/index.js:     return false;
 components/react-greet/index.js: }
-components/react-greet/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 components/react-greet/index.js: exports["default"] = {
 components/react-greet/index.js:     unstable_scheduleCallback: unstable_scheduleCallback,
 components/react-greet/index.js:     unstable_cancelCallback: unstable_cancelCallback,
@@ -8990,13 +9341,64 @@ pages/react/index.js: __webpack_require__.r(__webpack_exports__);
 pages/react/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/react/index.js:   promisify: () => (promisify)
 pages/react/index.js: });
+pages/react/index.js: function _typeof(o) {
+pages/react/index.js:     "@babel/helpers - typeof";
+pages/react/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/react/index.js:         return typeof o;
+pages/react/index.js:     } : function(o) {
+pages/react/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/react/index.js:     }, _typeof(o);
+pages/react/index.js: }
+pages/react/index.js: function ownKeys(e, r) {
+pages/react/index.js:     var t = Object.keys(e);
+pages/react/index.js:     if (Object.getOwnPropertySymbols) {
+pages/react/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/react/index.js:         r && (o = o.filter(function(r) {
+pages/react/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/react/index.js:         })), t.push.apply(t, o);
+pages/react/index.js:     }
+pages/react/index.js:     return t;
+pages/react/index.js: }
+pages/react/index.js: function _objectSpread(e) {
+pages/react/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/react/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/react/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/react/index.js:             _defineProperty(e, r, t[r]);
+pages/react/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/react/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/react/index.js:         });
+pages/react/index.js:     }
+pages/react/index.js:     return e;
+pages/react/index.js: }
+pages/react/index.js: function _defineProperty(e, r, t) {
+pages/react/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/react/index.js:         value: t,
+pages/react/index.js:         enumerable: !0,
+pages/react/index.js:         configurable: !0,
+pages/react/index.js:         writable: !0
+pages/react/index.js:     }) : e[r] = t, e;
+pages/react/index.js: }
+pages/react/index.js: function _toPropertyKey(t) {
+pages/react/index.js:     var i = _toPrimitive(t, "string");
+pages/react/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/react/index.js: }
+pages/react/index.js: function _toPrimitive(t, r) {
+pages/react/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/react/index.js:     var e = t[Symbol.toPrimitive];
+pages/react/index.js:     if (void 0 !== e) {
+pages/react/index.js:         var i = e.call(t, r || "default");
+pages/react/index.js:         if ("object" != _typeof(i)) return i;
+pages/react/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/react/index.js:     }
+pages/react/index.js:     return ("string" === r ? String : Number)(t);
+pages/react/index.js: }
 pages/react/index.js: function promisify(api) {
 pages/react/index.js:     // @ts-ignore
 pages/react/index.js:     return function() {
 pages/react/index.js:         var arg = arguments.length > 0 && arguments[<ID>] !== undefined ? arguments[<ID>] : {};
 pages/react/index.js:         return new Promise(function(resolve, reject) {
 pages/react/index.js:             var promisifyArg = arg;
-pages/react/index.js:             api(Object.assign(Object.assign({}, promisifyArg), {
+pages/react/index.js:             api(_objectSpread(_objectSpread({}, promisifyArg), {}, {
 pages/react/index.js:                 success: function success(res) {
 pages/react/index.js:                     if (promisifyArg && typeof promisifyArg.success === 'function') {
 pages/react/index.js:                         promisifyArg.success(res);
@@ -9072,10 +9474,65 @@ pages/react/index.js:
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-one/cjs/api/adapters/ali.js"(__unused_webpack_module, exports, __webpack_require__) {
 pages/react/index.js: 
+pages/react/index.js: function _typeof(o) {
+pages/react/index.js:     "@babel/helpers - typeof";
+pages/react/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/react/index.js:         return typeof o;
+pages/react/index.js:     } : function(o) {
+pages/react/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/react/index.js:     }, _typeof(o);
+pages/react/index.js: }
+pages/react/index.js: function ownKeys(e, r) {
+pages/react/index.js:     var t = Object.keys(e);
+pages/react/index.js:     if (Object.getOwnPropertySymbols) {
+pages/react/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/react/index.js:         r && (o = o.filter(function(r) {
+pages/react/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/react/index.js:         })), t.push.apply(t, o);
+pages/react/index.js:     }
+pages/react/index.js:     return t;
+pages/react/index.js: }
+pages/react/index.js: function _objectSpread(e) {
+pages/react/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/react/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/react/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/react/index.js:             _defineProperty(e, r, t[r]);
+pages/react/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/react/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/react/index.js:         });
+pages/react/index.js:     }
+pages/react/index.js:     return e;
+pages/react/index.js: }
+pages/react/index.js: function _defineProperty(e, r, t) {
+pages/react/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/react/index.js:         value: t,
+pages/react/index.js:         enumerable: !0,
+pages/react/index.js:         configurable: !0,
+pages/react/index.js:         writable: !0
+pages/react/index.js:     }) : e[r] = t, e;
+pages/react/index.js: }
+pages/react/index.js: function _toPropertyKey(t) {
+pages/react/index.js:     var i = _toPrimitive(t, "string");
+pages/react/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/react/index.js: }
+pages/react/index.js: function _toPrimitive(t, r) {
+pages/react/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/react/index.js:     var e = t[Symbol.toPrimitive];
+pages/react/index.js:     if (void 0 !== e) {
+pages/react/index.js:         var i = e.call(t, r || "default");
+pages/react/index.js:         if ("object" != _typeof(i)) return i;
+pages/react/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/react/index.js:     }
+pages/react/index.js:     return ("string" === r ? String : Number)(t);
+pages/react/index.js: }
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.initAPI = exports.setCurrentPlatform = exports.getCurrentAPI = exports.getCurrentPlatform = exports.aliAPI = void 0;
+pages/react/index.js: exports.aliAPI = void 0;
+pages/react/index.js: exports.getCurrentPlatform = getCurrentPlatform;
+pages/react/index.js: exports.getCurrentAPI = getCurrentAPI;
+pages/react/index.js: exports.setCurrentPlatform = setCurrentPlatform;
+pages/react/index.js: exports.initAPI = initAPI;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: exports.aliAPI = {
 pages/react/index.js:     getSystemInfo: function getSystemInfo() {
@@ -9142,7 +9599,7 @@ pages/react/index.js:     },
 pages/react/index.js:     request: function request(options) {
 pages/react/index.js:         return new Promise(function(resolve, reject) {
 pages/react/index.js:             var _a;
-pages/react/index.js:             my.request(Object.assign(Object.assign({}, options), {
+pages/react/index.js:             my.request(_objectSpread(_objectSpread({}, options), {}, {
 pages/react/index.js:                 method: (_a = options.method) === null || _a === void 0 ? void 0 : _a.toUpperCase(),
 pages/react/index.js:                 success: function success(res) {
 pages/react/index.js:                     return resolve(res);
@@ -9155,7 +9612,7 @@ pages/react/index.js:         });
 pages/react/index.js:     },
 pages/react/index.js:     uploadFile: function uploadFile(options) {
 pages/react/index.js:         return new Promise(function(resolve, reject) {
-pages/react/index.js:             my.uploadFile(Object.assign(Object.assign({}, options), {
+pages/react/index.js:             my.uploadFile(_objectSpread(_objectSpread({}, options), {}, {
 pages/react/index.js:                 success: function success(res) {
 pages/react/index.js:                     return resolve(res);
 pages/react/index.js:                 },
@@ -9167,7 +9624,7 @@ pages/react/index.js:         });
 pages/react/index.js:     },
 pages/react/index.js:     downloadFile: function downloadFile(options) {
 pages/react/index.js:         return new Promise(function(resolve, reject) {
-pages/react/index.js:             my.downloadFile(Object.assign(Object.assign({}, options), {
+pages/react/index.js:             my.downloadFile(_objectSpread(_objectSpread({}, options), {}, {
 pages/react/index.js:                 success: function success(res) {
 pages/react/index.js:                     return resolve(res);
 pages/react/index.js:                 },
@@ -9207,19 +9664,15 @@ pages/react/index.js: };
 pages/react/index.js: function getCurrentPlatform() {
 pages/react/index.js:     return 'ali';
 pages/react/index.js: }
-pages/react/index.js: exports.getCurrentPlatform = getCurrentPlatform;
 pages/react/index.js: function getCurrentAPI() {
 pages/react/index.js:     return exports.aliAPI;
 pages/react/index.js: }
-pages/react/index.js: exports.getCurrentAPI = getCurrentAPI;
 pages/react/index.js: function setCurrentPlatform(_platform) {
 pages/react/index.js: // 一份小程序产物只服务一个构建目标平台，运行时无需切换
 pages/react/index.js: }
-pages/react/index.js: exports.setCurrentPlatform = setCurrentPlatform;
 pages/react/index.js: function initAPI(_platform) {
 pages/react/index.js:     return exports.aliAPI;
 pages/react/index.js: }
-pages/react/index.js: exports.initAPI = initAPI;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-one/esm/api/unified/index.js"(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -9250,6 +9703,57 @@ pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*
 pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../../../../../rsmax-one/esm/createHostComponent.js");
 pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
+pages/react/index.js: function _typeof(o) {
+pages/react/index.js:     "@babel/helpers - typeof";
+pages/react/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/react/index.js:         return typeof o;
+pages/react/index.js:     } : function(o) {
+pages/react/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/react/index.js:     }, _typeof(o);
+pages/react/index.js: }
+pages/react/index.js: function ownKeys(e, r) {
+pages/react/index.js:     var t = Object.keys(e);
+pages/react/index.js:     if (Object.getOwnPropertySymbols) {
+pages/react/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/react/index.js:         r && (o = o.filter(function(r) {
+pages/react/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/react/index.js:         })), t.push.apply(t, o);
+pages/react/index.js:     }
+pages/react/index.js:     return t;
+pages/react/index.js: }
+pages/react/index.js: function _objectSpread(e) {
+pages/react/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/react/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/react/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/react/index.js:             _defineProperty(e, r, t[r]);
+pages/react/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/react/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/react/index.js:         });
+pages/react/index.js:     }
+pages/react/index.js:     return e;
+pages/react/index.js: }
+pages/react/index.js: function _defineProperty(e, r, t) {
+pages/react/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/react/index.js:         value: t,
+pages/react/index.js:         enumerable: !0,
+pages/react/index.js:         configurable: !0,
+pages/react/index.js:         writable: !0
+pages/react/index.js:     }) : e[r] = t, e;
+pages/react/index.js: }
+pages/react/index.js: function _toPropertyKey(t) {
+pages/react/index.js:     var i = _toPrimitive(t, "string");
+pages/react/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/react/index.js: }
+pages/react/index.js: function _toPrimitive(t, r) {
+pages/react/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/react/index.js:     var e = t[Symbol.toPrimitive];
+pages/react/index.js:     if (void 0 !== e) {
+pages/react/index.js:         var i = e.call(t, r || "default");
+pages/react/index.js:         if ("object" != _typeof(i)) return i;
+pages/react/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/react/index.js:     }
+pages/react/index.js:     return ("string" === r ? String : Number)(t);
+pages/react/index.js: }
 pages/react/index.js: 
 pages/react/index.js: var createTapCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
 pages/react/index.js: var createTouchStartCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
@@ -9953,11 +10457,11 @@ pages/react/index.js:             return __WEBPACK_IMPORTED_MODULE_3__.createCal
 pages/react/index.js:     }
 pages/react/index.js: }
 pages/react/index.js: function createUnifiedComponent(componentName, customConfig) {
-pages/react/index.js:     var config = Object.assign(Object.assign({}, componentConfigs[componentName]), customConfig);
+pages/react/index.js:     var config = _objectSpread(_objectSpread({}, componentConfigs[componentName]), customConfig);
 pages/react/index.js:     var tagName = config.tagName, alias = config.alias, customDefaultProps = config.defaultProps, eventHandlers = config.eventHandlers;
 pages/react/index.js:     var Component = function Component(props, ref) {
 pages/react/index.js:         var platformDefaultProps = currentPlatformComponentProps[componentName] || {};
-pages/react/index.js:         var inputProps = Object.assign({}, props);
+pages/react/index.js:         var inputProps = _objectSpread({}, props);
 pages/react/index.js:         assignDefaultProps(inputProps, platformDefaultProps);
 pages/react/index.js:         if (customDefaultProps) {
 pages/react/index.js:             assignDefaultProps(inputProps, customDefaultProps);
@@ -10093,6 +10597,57 @@ pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_
 pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
 pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 pages/react/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
+pages/react/index.js: function _typeof(o) {
+pages/react/index.js:     "@babel/helpers - typeof";
+pages/react/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/react/index.js:         return typeof o;
+pages/react/index.js:     } : function(o) {
+pages/react/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/react/index.js:     }, _typeof(o);
+pages/react/index.js: }
+pages/react/index.js: function ownKeys(e, r) {
+pages/react/index.js:     var t = Object.keys(e);
+pages/react/index.js:     if (Object.getOwnPropertySymbols) {
+pages/react/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/react/index.js:         r && (o = o.filter(function(r) {
+pages/react/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/react/index.js:         })), t.push.apply(t, o);
+pages/react/index.js:     }
+pages/react/index.js:     return t;
+pages/react/index.js: }
+pages/react/index.js: function _objectSpread(e) {
+pages/react/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/react/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/react/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/react/index.js:             _defineProperty(e, r, t[r]);
+pages/react/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/react/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/react/index.js:         });
+pages/react/index.js:     }
+pages/react/index.js:     return e;
+pages/react/index.js: }
+pages/react/index.js: function _defineProperty(e, r, t) {
+pages/react/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/react/index.js:         value: t,
+pages/react/index.js:         enumerable: !0,
+pages/react/index.js:         configurable: !0,
+pages/react/index.js:         writable: !0
+pages/react/index.js:     }) : e[r] = t, e;
+pages/react/index.js: }
+pages/react/index.js: function _toPropertyKey(t) {
+pages/react/index.js:     var i = _toPrimitive(t, "string");
+pages/react/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/react/index.js: }
+pages/react/index.js: function _toPrimitive(t, r) {
+pages/react/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/react/index.js:     var e = t[Symbol.toPrimitive];
+pages/react/index.js:     if (void 0 !== e) {
+pages/react/index.js:         var i = e.call(t, r || "default");
+pages/react/index.js:         if ("object" != _typeof(i)) return i;
+pages/react/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/react/index.js:     }
+pages/react/index.js:     return ("string" === r ? String : Number)(t);
+pages/react/index.js: }
 pages/react/index.js: 
 pages/react/index.js: function createTarget(target, detail) {
 pages/react/index.js:     return {
@@ -10204,7 +10759,7 @@ pages/react/index.js: var createImageLoadCallback = (0,__WEBPACK_IMPORTED_MODULE
 pages/react/index.js: var createImageErrorCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(createCallback);
 pages/react/index.js: function createHostComponent(name, alias, defaults) {
 pages/react/index.js:     var Component = function Component(props, ref) {
-pages/react/index.js:         var inputProps = Object.assign({}, props);
+pages/react/index.js:         var inputProps = _objectSpread({}, props);
 pages/react/index.js:         // 默认属性根据平台在这里设置
 pages/react/index.js:         if (defaults) {
 pages/react/index.js:             assignDefaultProps(inputProps, defaults);
@@ -10680,7 +11235,7 @@ pages/react/index.js:
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.createPortal = void 0;
+pages/react/index.js: exports.createPortal = createPortal;
 pages/react/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
 pages/react/index.js: function createPortal(children, containerInfo, key) {
 pages/react/index.js:     return {
@@ -10692,7 +11247,6 @@ pages/react/index.js:         containerInfo: containerInfo,
 pages/react/index.js:         implementation: null
 pages/react/index.js:     };
 pages/react/index.js: }
-pages/react/index.js: exports.createPortal = createPortal;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js"(__unused_webpack_module, exports) {
@@ -10739,19 +11293,29 @@ pages/react/index.js:     });
 pages/react/index.js: } : function(o, v) {
 pages/react/index.js:     o["default"] = v;
 pages/react/index.js: });
-pages/react/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/react/index.js:     if (mod && mod.__esModule) return mod;
-pages/react/index.js:     var result = {};
-pages/react/index.js:     if (mod != null) {
-pages/react/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/react/index.js:     }
-pages/react/index.js:     __setModuleDefault(result, mod);
-pages/react/index.js:     return result;
-pages/react/index.js: };
+pages/react/index.js: var __importStar = this && this.__importStar || function() {
+pages/react/index.js:     var _ownKeys = function ownKeys(o) {
+pages/react/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/react/index.js:             var ar = [];
+pages/react/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/react/index.js:             return ar;
+pages/react/index.js:         };
+pages/react/index.js:         return _ownKeys(o);
+pages/react/index.js:     };
+pages/react/index.js:     return function(mod) {
+pages/react/index.js:         if (mod && mod.__esModule) return mod;
+pages/react/index.js:         var result = {};
+pages/react/index.js:         if (mod != null) {
+pages/react/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/react/index.js:         }
+pages/react/index.js:         __setModuleDefault(result, mod);
+pages/react/index.js:         return result;
+pages/react/index.js:     };
+pages/react/index.js: }();
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.createCallbackProxy = void 0;
+pages/react/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 pages/react/index.js: var stopPropagation_1 = __importStar(__webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"));
@@ -10791,7 +11355,6 @@ pages/react/index.js:             syntheticEvent
 pages/react/index.js:         ].concat(restParams));
 pages/react/index.js:     };
 pages/react/index.js: }
-pages/react/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -10799,7 +11362,9 @@ pages/react/index.js:
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.validate = exports.isPropagationStopped = void 0;
+pages/react/index.js: exports.isPropagationStopped = void 0;
+pages/react/index.js: exports.validate = validate;
+pages/react/index.js: exports["default"] = stopPropagation;
 pages/react/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 pages/react/index.js: exports.isPropagationStopped = {};
 pages/react/index.js: constants_1.SYNTHETIC_TYPES.forEach(function(type) {
@@ -10823,12 +11388,10 @@ pages/react/index.js:         return;
 pages/react/index.js:     }
 pages/react/index.js:     validate(parent, eventType);
 pages/react/index.js: }
-pages/react/index.js: exports.validate = validate;
 pages/react/index.js: function stopPropagation(node, eventType) {
 pages/react/index.js:     exports.isPropagationStopped[eventType] = true;
 pages/react/index.js:     validate(node, eventType);
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = stopPropagation;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/VNode.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -10947,15 +11510,25 @@ pages/react/index.js:     });
 pages/react/index.js: } : function(o, v) {
 pages/react/index.js:     o["default"] = v;
 pages/react/index.js: });
-pages/react/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/react/index.js:     if (mod && mod.__esModule) return mod;
-pages/react/index.js:     var result = {};
-pages/react/index.js:     if (mod != null) {
-pages/react/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/react/index.js:     }
-pages/react/index.js:     __setModuleDefault(result, mod);
-pages/react/index.js:     return result;
-pages/react/index.js: };
+pages/react/index.js: var __importStar = this && this.__importStar || function() {
+pages/react/index.js:     var _ownKeys = function ownKeys(o) {
+pages/react/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/react/index.js:             var ar = [];
+pages/react/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/react/index.js:             return ar;
+pages/react/index.js:         };
+pages/react/index.js:         return _ownKeys(o);
+pages/react/index.js:     };
+pages/react/index.js:     return function(mod) {
+pages/react/index.js:         if (mod && mod.__esModule) return mod;
+pages/react/index.js:         var result = {};
+pages/react/index.js:         if (mod != null) {
+pages/react/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/react/index.js:         }
+pages/react/index.js:         __setModuleDefault(result, mod);
+pages/react/index.js:         return result;
+pages/react/index.js:     };
+pages/react/index.js: }();
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
@@ -11483,15 +12056,25 @@ pages/react/index.js:     });
 pages/react/index.js: } : function(o, v) {
 pages/react/index.js:     o["default"] = v;
 pages/react/index.js: });
-pages/react/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/react/index.js:     if (mod && mod.__esModule) return mod;
-pages/react/index.js:     var result = {};
-pages/react/index.js:     if (mod != null) {
-pages/react/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/react/index.js:     }
-pages/react/index.js:     __setModuleDefault(result, mod);
-pages/react/index.js:     return result;
-pages/react/index.js: };
+pages/react/index.js: var __importStar = this && this.__importStar || function() {
+pages/react/index.js:     var _ownKeys = function ownKeys(o) {
+pages/react/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/react/index.js:             var ar = [];
+pages/react/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/react/index.js:             return ar;
+pages/react/index.js:         };
+pages/react/index.js:         return _ownKeys(o);
+pages/react/index.js:     };
+pages/react/index.js:     return function(mod) {
+pages/react/index.js:         if (mod && mod.__esModule) return mod;
+pages/react/index.js:         var result = {};
+pages/react/index.js:         if (mod != null) {
+pages/react/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/react/index.js:         }
+pages/react/index.js:         __setModuleDefault(result, mod);
+pages/react/index.js:         return result;
+pages/react/index.js:     };
+pages/react/index.js: }();
 pages/react/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/react/index.js:     return mod && mod.__esModule ? mod : {
 pages/react/index.js:         "default": mod
@@ -11500,6 +12083,7 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
+pages/react/index.js: exports["default"] = createAppConfig;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/react/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
@@ -11612,7 +12196,6 @@ pages/react/index.js:         return framework_shared_1.RuntimeOptions.get('plug
 pages/react/index.js:     };
 pages/react/index.js:     return createConfig(WrappedApp);
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = createAppConfig;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/createComponentConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -11644,15 +12227,25 @@ pages/react/index.js:     });
 pages/react/index.js: } : function(o, v) {
 pages/react/index.js:     o["default"] = v;
 pages/react/index.js: });
-pages/react/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/react/index.js:     if (mod && mod.__esModule) return mod;
-pages/react/index.js:     var result = {};
-pages/react/index.js:     if (mod != null) {
-pages/react/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/react/index.js:     }
-pages/react/index.js:     __setModuleDefault(result, mod);
-pages/react/index.js:     return result;
-pages/react/index.js: };
+pages/react/index.js: var __importStar = this && this.__importStar || function() {
+pages/react/index.js:     var _ownKeys = function ownKeys(o) {
+pages/react/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/react/index.js:             var ar = [];
+pages/react/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/react/index.js:             return ar;
+pages/react/index.js:         };
+pages/react/index.js:         return _ownKeys(o);
+pages/react/index.js:     };
+pages/react/index.js:     return function(mod) {
+pages/react/index.js:         if (mod && mod.__esModule) return mod;
+pages/react/index.js:         var result = {};
+pages/react/index.js:         if (mod != null) {
+pages/react/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/react/index.js:         }
+pages/react/index.js:         __setModuleDefault(result, mod);
+pages/react/index.js:         return result;
+pages/react/index.js:     };
+pages/react/index.js: }();
 pages/react/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/react/index.js:     return mod && mod.__esModule ? mod : {
 pages/react/index.js:         "default": mod
@@ -11661,6 +12254,7 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
+pages/react/index.js: exports["default"] = createComponentConfig;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/react/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -11726,11 +12320,61 @@ pages/react/index.js:         }
 pages/react/index.js:     };
 pages/react/index.js:     return config;
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = createComponentConfig;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/createHostComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 pages/react/index.js: 
+pages/react/index.js: function _typeof(o) {
+pages/react/index.js:     "@babel/helpers - typeof";
+pages/react/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/react/index.js:         return typeof o;
+pages/react/index.js:     } : function(o) {
+pages/react/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/react/index.js:     }, _typeof(o);
+pages/react/index.js: }
+pages/react/index.js: function ownKeys(e, r) {
+pages/react/index.js:     var t = Object.keys(e);
+pages/react/index.js:     if (Object.getOwnPropertySymbols) {
+pages/react/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/react/index.js:         r && (o = o.filter(function(r) {
+pages/react/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/react/index.js:         })), t.push.apply(t, o);
+pages/react/index.js:     }
+pages/react/index.js:     return t;
+pages/react/index.js: }
+pages/react/index.js: function _objectSpread(e) {
+pages/react/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/react/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/react/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/react/index.js:             _defineProperty(e, r, t[r]);
+pages/react/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/react/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/react/index.js:         });
+pages/react/index.js:     }
+pages/react/index.js:     return e;
+pages/react/index.js: }
+pages/react/index.js: function _defineProperty(e, r, t) {
+pages/react/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/react/index.js:         value: t,
+pages/react/index.js:         enumerable: !0,
+pages/react/index.js:         configurable: !0,
+pages/react/index.js:         writable: !0
+pages/react/index.js:     }) : e[r] = t, e;
+pages/react/index.js: }
+pages/react/index.js: function _toPropertyKey(t) {
+pages/react/index.js:     var i = _toPrimitive(t, "string");
+pages/react/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/react/index.js: }
+pages/react/index.js: function _toPrimitive(t, r) {
+pages/react/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/react/index.js:     var e = t[Symbol.toPrimitive];
+pages/react/index.js:     if (void 0 !== e) {
+pages/react/index.js:         var i = e.call(t, r || "default");
+pages/react/index.js:         if ("object" != _typeof(i)) return i;
+pages/react/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/react/index.js:     }
+pages/react/index.js:     return ("string" === r ? String : Number)(t);
+pages/react/index.js: }
 pages/react/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/react/index.js:     return mod && mod.__esModule ? mod : {
 pages/react/index.js:         "default": mod
@@ -11739,6 +12383,7 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
+pages/react/index.js: exports["default"] = createHostComponent;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/react/index.js: function createHostComponent(name, component) {
@@ -11746,7 +12391,7 @@ pages/react/index.js:     if (component) {
 pages/react/index.js:         return component;
 pages/react/index.js:     }
 pages/react/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-pages/react/index.js:         var element = react_1.default.createElement(name, Object.assign(Object.assign({}, props), {
+pages/react/index.js:         var element = react_1.default.createElement(name, _objectSpread(_objectSpread({}, props), {}, {
 pages/react/index.js:             ref: ref
 pages/react/index.js:         }));
 pages/react/index.js:         element = framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponentElement(element);
@@ -11755,11 +12400,61 @@ pages/react/index.js:     });
 pages/react/index.js:     Component.displayName = name;
 pages/react/index.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponent(Component);
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = createHostComponent;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/createNativeComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 pages/react/index.js: 
+pages/react/index.js: function _typeof(o) {
+pages/react/index.js:     "@babel/helpers - typeof";
+pages/react/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/react/index.js:         return typeof o;
+pages/react/index.js:     } : function(o) {
+pages/react/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/react/index.js:     }, _typeof(o);
+pages/react/index.js: }
+pages/react/index.js: function ownKeys(e, r) {
+pages/react/index.js:     var t = Object.keys(e);
+pages/react/index.js:     if (Object.getOwnPropertySymbols) {
+pages/react/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/react/index.js:         r && (o = o.filter(function(r) {
+pages/react/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/react/index.js:         })), t.push.apply(t, o);
+pages/react/index.js:     }
+pages/react/index.js:     return t;
+pages/react/index.js: }
+pages/react/index.js: function _objectSpread(e) {
+pages/react/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/react/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/react/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/react/index.js:             _defineProperty(e, r, t[r]);
+pages/react/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/react/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/react/index.js:         });
+pages/react/index.js:     }
+pages/react/index.js:     return e;
+pages/react/index.js: }
+pages/react/index.js: function _defineProperty(e, r, t) {
+pages/react/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/react/index.js:         value: t,
+pages/react/index.js:         enumerable: !0,
+pages/react/index.js:         configurable: !0,
+pages/react/index.js:         writable: !0
+pages/react/index.js:     }) : e[r] = t, e;
+pages/react/index.js: }
+pages/react/index.js: function _toPropertyKey(t) {
+pages/react/index.js:     var i = _toPrimitive(t, "string");
+pages/react/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/react/index.js: }
+pages/react/index.js: function _toPrimitive(t, r) {
+pages/react/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/react/index.js:     var e = t[Symbol.toPrimitive];
+pages/react/index.js:     if (void 0 !== e) {
+pages/react/index.js:         var i = e.call(t, r || "default");
+pages/react/index.js:         if ("object" != _typeof(i)) return i;
+pages/react/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/react/index.js:     }
+pages/react/index.js:     return ("string" === r ? String : Number)(t);
+pages/react/index.js: }
 pages/react/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/react/index.js:     return mod && mod.__esModule ? mod : {
 pages/react/index.js:         "default": mod
@@ -11768,10 +12463,11 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
+pages/react/index.js: exports["default"] = createNativeComponent;
 pages/react/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/react/index.js: function createNativeComponent(name) {
 pages/react/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-pages/react/index.js:         var newProps = Object.assign({}, props);
+pages/react/index.js:         var newProps = _objectSpread({}, props);
 pages/react/index.js:         newProps.__ref = typeof ref === 'function' ? ref : function(e) {
 pages/react/index.js:             if (ref) {
 pages/react/index.js:                 ref.current = e;
@@ -11782,7 +12478,6 @@ pages/react/index.js:     });
 pages/react/index.js:     Component.displayName = name;
 pages/react/index.js:     return Component;
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = createNativeComponent;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/createPageConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -11819,7 +12514,8 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.resetPageId = void 0;
+pages/react/index.js: exports.resetPageId = resetPageId;
+pages/react/index.js: exports["default"] = createPageConfig;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/react/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -11837,7 +12533,6 @@ pages/react/index.js: // for testing
 pages/react/index.js: function resetPageId() {
 pages/react/index.js:     idCounter = 0;
 pages/react/index.js: }
-pages/react/index.js: exports.resetPageId = resetPageId;
 pages/react/index.js: function createPageConfig(Page, name) {
 pages/react/index.js:     var _a;
 pages/react/index.js:     var app;
@@ -12009,7 +12704,6 @@ pages/react/index.js:         config: config,
 pages/react/index.js:         page: name
 pages/react/index.js:     });
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = createPageConfig;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/hooks-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12098,7 +12792,25 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.setReRenderFn = exports.cleanupEffectsForNode = exports.flushPassiveEffects = exports.flushLayoutEffects = exports.useDebugValue = exports.useImperativeHandle = exports.useContext = exports.useCallback = exports.useMemo = exports.useRef = exports.useLayoutEffect = exports.useEffect = exports.useReducer = exports.useState = exports.batchedUpdates = exports.scheduleComponentUpdate = exports.popRenderContext = exports.pushRenderContext = exports.currentComponent = void 0;
+pages/react/index.js: exports.currentComponent = void 0;
+pages/react/index.js: exports.pushRenderContext = pushRenderContext;
+pages/react/index.js: exports.popRenderContext = popRenderContext;
+pages/react/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
+pages/react/index.js: exports.batchedUpdates = batchedUpdates;
+pages/react/index.js: exports.useState = useState;
+pages/react/index.js: exports.useReducer = useReducer;
+pages/react/index.js: exports.useEffect = useEffect;
+pages/react/index.js: exports.useLayoutEffect = useLayoutEffect;
+pages/react/index.js: exports.useRef = useRef;
+pages/react/index.js: exports.useMemo = useMemo;
+pages/react/index.js: exports.useCallback = useCallback;
+pages/react/index.js: exports.useContext = useContext;
+pages/react/index.js: exports.useImperativeHandle = useImperativeHandle;
+pages/react/index.js: exports.useDebugValue = useDebugValue;
+pages/react/index.js: exports.flushLayoutEffects = flushLayoutEffects;
+pages/react/index.js: exports.flushPassiveEffects = flushPassiveEffects;
+pages/react/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
+pages/react/index.js: exports.setReRenderFn = setReRenderFn;
 pages/react/index.js: var scheduler_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/scheduler/index.js"));
 pages/react/index.js: // ============================================================
 pages/react/index.js: // Rendering Context
@@ -12115,7 +12827,6 @@ pages/react/index.js:     exports.currentComponent = node;
 pages/react/index.js:     currentHookIndex = 0;
 pages/react/index.js:     if (!node.memoizedState) node.memoizedState = [];
 pages/react/index.js: }
-pages/react/index.js: exports.pushRenderContext = pushRenderContext;
 pages/react/index.js: function popRenderContext() {
 pages/react/index.js:     var ctx = renderStack.pop();
 pages/react/index.js:     if (ctx) {
@@ -12123,7 +12834,6 @@ pages/react/index.js:         exports.currentComponent = ctx.component;
 pages/react/index.js:         currentHookIndex = ctx.hookIndex;
 pages/react/index.js:     }
 pages/react/index.js: }
-pages/react/index.js: exports.popRenderContext = popRenderContext;
 pages/react/index.js: /** Effects scheduled via useEffect - run after paint */ var passiveEffects = [];
 pages/react/index.js: /** Effects scheduled via useLayoutEffect - run before paint */ var layoutEffects = [];
 pages/react/index.js: // ============================================================
@@ -12142,7 +12852,6 @@ pages/react/index.js:             flushDirtyComponents();
 pages/react/index.js:         });
 pages/react/index.js:     }
 pages/react/index.js: }
-pages/react/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
 pages/react/index.js: function flushDirtyComponents() {
 pages/react/index.js:     var dirty = Array.from(dirtyComponents);
 pages/react/index.js:     dirtyComponents.clear();
@@ -12179,7 +12888,6 @@ pages/react/index.js:             }
 pages/react/index.js:         }
 pages/react/index.js:     }
 pages/react/index.js: }
-pages/react/index.js: exports.batchedUpdates = batchedUpdates;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // Core Hook Helpers
 pages/react/index.js: // ============================================================
@@ -12254,7 +12962,6 @@ pages/react/index.js:         hook.state,
 pages/react/index.js:         setState
 pages/react/index.js:     ];
 pages/react/index.js: }
-pages/react/index.js: exports.useState = useState;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useReducer
 pages/react/index.js: // ============================================================
@@ -12298,7 +13005,6 @@ pages/react/index.js:         hook.state,
 pages/react/index.js:         dispatch
 pages/react/index.js:     ];
 pages/react/index.js: }
-pages/react/index.js: exports.useReducer = useReducer;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useEffect
 pages/react/index.js: // ============================================================
@@ -12316,7 +13022,6 @@ pages/react/index.js:             hook: hook
 pages/react/index.js:         });
 pages/react/index.js:     }
 pages/react/index.js: }
-pages/react/index.js: exports.useEffect = useEffect;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useLayoutEffect
 pages/react/index.js: // ============================================================
@@ -12334,7 +13039,6 @@ pages/react/index.js:             hook: hook
 pages/react/index.js:         });
 pages/react/index.js:     }
 pages/react/index.js: }
-pages/react/index.js: exports.useLayoutEffect = useLayoutEffect;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useRef
 pages/react/index.js: // ============================================================
@@ -12347,7 +13051,6 @@ pages/react/index.js:         };
 pages/react/index.js:     }
 pages/react/index.js:     return hook.state;
 pages/react/index.js: }
-pages/react/index.js: exports.useRef = useRef;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useMemo
 pages/react/index.js: // ============================================================
@@ -12361,7 +13064,6 @@ pages/react/index.js:         };
 pages/react/index.js:     }
 pages/react/index.js:     return hook.memo.value;
 pages/react/index.js: }
-pages/react/index.js: exports.useMemo = useMemo;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useCallback
 pages/react/index.js: // ============================================================
@@ -12370,7 +13072,6 @@ pages/react/index.js:     return useMemo(function() {
 pages/react/index.js:         return callback;
 pages/react/index.js:     }, deps);
 pages/react/index.js: }
-pages/react/index.js: exports.useCallback = useCallback;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useContext
 pages/react/index.js: // ============================================================
@@ -12429,7 +13130,6 @@ pages/react/index.js:         return context._currentValue2;
 pages/react/index.js:     }
 pages/react/index.js:     return undefined;
 pages/react/index.js: }
-pages/react/index.js: exports.useContext = useContext;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // useImperativeHandle / useDebugValue
 pages/react/index.js: // ============================================================
@@ -12450,11 +13150,9 @@ pages/react/index.js:             };
 pages/react/index.js:         }
 pages/react/index.js:     }, deps);
 pages/react/index.js: }
-pages/react/index.js: exports.useImperativeHandle = useImperativeHandle;
 pages/react/index.js: function useDebugValue(_value) {
 pages/react/index.js: // noop
 pages/react/index.js: }
-pages/react/index.js: exports.useDebugValue = useDebugValue;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // Effect Flushing (called by render-light.ts)
 pages/react/index.js: // ============================================================
@@ -12493,7 +13191,6 @@ pages/react/index.js:             _iterator5.f();
 pages/react/index.js:         }
 pages/react/index.js:     }
 pages/react/index.js: }
-pages/react/index.js: exports.flushLayoutEffects = flushLayoutEffects;
 pages/react/index.js: function flushPassiveEffects() {
 pages/react/index.js:     if (passiveEffects.length === 0) return;
 pages/react/index.js:     scheduler_1.default.unstable_scheduleCallback(function() {
@@ -12528,7 +13225,6 @@ pages/react/index.js:             _iterator6.f();
 pages/react/index.js:         }
 pages/react/index.js:     });
 pages/react/index.js: }
-pages/react/index.js: exports.flushPassiveEffects = flushPassiveEffects;
 pages/react/index.js: function cleanupEffectsForNode(node) {
 pages/react/index.js:     var _a;
 pages/react/index.js:     if (!node.memoizedState) return;
@@ -12552,14 +13248,12 @@ pages/react/index.js:         _iterator7.f();
 pages/react/index.js:     }
 pages/react/index.js:     cleanupComponentContextSubscriptions(node);
 pages/react/index.js: }
-pages/react/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
 pages/react/index.js: var reRenderComponent = function reRenderComponent() {
 pages/react/index.js:     throw new Error('reRenderComponent not set - render-light.ts must set this');
 pages/react/index.js: };
 pages/react/index.js: function setReRenderFn(fn) {
 pages/react/index.js:     reRenderComponent = fn;
 pages/react/index.js: }
-pages/react/index.js: exports.setReRenderFn = setReRenderFn;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/hooks/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12572,7 +13266,11 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.useQuery = exports.useNativeEffect = exports.useComponentInstance = exports.usePageInstance = exports.useAppEvent = exports.usePageEvent = void 0;
+pages/react/index.js: exports.useQuery = exports.useNativeEffect = void 0;
+pages/react/index.js: exports.usePageEvent = usePageEvent;
+pages/react/index.js: exports.useAppEvent = useAppEvent;
+pages/react/index.js: exports.usePageInstance = usePageInstance;
+pages/react/index.js: exports.useComponentInstance = useComponentInstance;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
 pages/react/index.js: function usePageEvent(eventName, callback) {
@@ -12585,7 +13283,6 @@ pages/react/index.js:     (0, hooks_light_1.useLayoutEffect)(function() {
 pages/react/index.js:         return (0, framework_shared_1.registerLifecycle)(pageInstance, lifeCycle, callback);
 pages/react/index.js:     });
 pages/react/index.js: }
-pages/react/index.js: exports.usePageEvent = usePageEvent;
 pages/react/index.js: function useAppEvent(eventName, callback) {
 pages/react/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 pages/react/index.js:         return (0, framework_shared_1.useAppEvent)(eventName, callback);
@@ -12595,21 +13292,18 @@ pages/react/index.js:     (0, hooks_light_1.useLayoutEffect)(function() {
 pages/react/index.js:         return (0, framework_shared_1.registerLifecycle)(framework_shared_1.AppInstanceContext, lifeCycle, callback);
 pages/react/index.js:     });
 pages/react/index.js: }
-pages/react/index.js: exports.useAppEvent = useAppEvent;
 pages/react/index.js: function usePageInstance() {
 pages/react/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 pages/react/index.js:         return (0, framework_shared_1.usePageInstance)();
 pages/react/index.js:     }
 pages/react/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext);
 pages/react/index.js: }
-pages/react/index.js: exports.usePageInstance = usePageInstance;
 pages/react/index.js: function useComponentInstance() {
 pages/react/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 pages/react/index.js:         return (0, framework_shared_1.useComponentInstance)();
 pages/react/index.js:     }
 pages/react/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.ComponentInstanceContext);
 pages/react/index.js: }
-pages/react/index.js: exports.useComponentInstance = useComponentInstance;
 pages/react/index.js: var useNativeEffect_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks/useNativeEffect.js");
 pages/react/index.js: Object.defineProperty(exports, "useNativeEffect", ({
 pages/react/index.js:     enumerable: true,
@@ -12636,6 +13330,7 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
+pages/react/index.js: exports["default"] = useNativeEffect;
 pages/react/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 pages/react/index.js: var nativeEffect_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/nativeEffect.js"));
 pages/react/index.js: function useNativeEffect(listener, deps) {
@@ -12643,7 +13338,6 @@ pages/react/index.js:     (0, react_1.useLayoutEffect)(function() {
 pages/react/index.js:         return nativeEffect_1.default.connect(listener, !!deps);
 pages/react/index.js:     }, deps);
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = useNativeEffect;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/hooks/useQuery.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12651,6 +13345,7 @@ pages/react/index.js:
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
+pages/react/index.js: exports["default"] = useQuery;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 pages/react/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
@@ -12658,7 +13353,6 @@ pages/react/index.js: function useQuery() {
 pages/react/index.js:     var pageInstance = framework_shared_1.RuntimeOptions.get('renderer') === 'light' ? (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext) : (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
 pages/react/index.js:     return pageInstance.query;
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = useQuery;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/diffProperties.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12666,6 +13360,7 @@ pages/react/index.js:
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
+pages/react/index.js: exports["default"] = diffProperties;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var STYLE = [
 pages/react/index.js:     'style',
@@ -12754,7 +13449,6 @@ pages/react/index.js:         }
 pages/react/index.js:     }
 pages/react/index.js:     return updatePayload.length ? updatePayload : null;
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = diffProperties;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12955,7 +13649,8 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.unstable_batchedUpdates = exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+pages/react/index.js: exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+pages/react/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var render_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render.js");
 pages/react/index.js: var render_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render-light.js");
@@ -13037,7 +13732,6 @@ pages/react/index.js:         return (0, render_light_1.unstable_batchedUpdates)
 pages/react/index.js:     }
 pages/react/index.js:     return render_1.ReactReconcilerInst.batchedUpdates(callback, null);
 pages/react/index.js: }
-pages/react/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 pages/react/index.js: exports["default"] = {
 pages/react/index.js:     unstable_batchedUpdates: unstable_batchedUpdates
 pages/react/index.js: };
@@ -13048,18 +13742,17 @@ pages/react/index.js:
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.generate = exports.reset = void 0;
+pages/react/index.js: exports.reset = reset;
+pages/react/index.js: exports.generate = generate;
 pages/react/index.js: var instanceId = 0;
 pages/react/index.js: function reset() {
 pages/react/index.js:     instanceId = 0;
 pages/react/index.js: }
-pages/react/index.js: exports.reset = reset;
 pages/react/index.js: function generate() {
 pages/react/index.js:     var id = instanceId;
 pages/react/index.js:     instanceId += 1;
 pages/react/index.js:     return id;
 pages/react/index.js: }
-pages/react/index.js: exports.generate = generate;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/nativeEffect.js"(__unused_webpack_module, exports) {
@@ -13109,7 +13802,9 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.propAlias = exports.getAlias = void 0;
+pages/react/index.js: exports.getAlias = getAlias;
+pages/react/index.js: exports.propAlias = propAlias;
+pages/react/index.js: exports["default"] = propsAlias;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var plainStyle_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/utils/plainStyle/index.js"));
 pages/react/index.js: function getAlias(prop, type) {
@@ -13122,7 +13817,6 @@ pages/react/index.js:         return prop.replace(new RegExp("^".concat(prefix))
 pages/react/index.js:     }
 pages/react/index.js:     return (_b = (_a = hostComponent === null || hostComponent === void 0 ? void 0 : hostComponent.alias) === null || _a === void 0 ? void 0 : _a[prop]) !== null && _b !== void 0 ? _b : prop;
 pages/react/index.js: }
-pages/react/index.js: exports.getAlias = getAlias;
 pages/react/index.js: function getValue(prop, value) {
 pages/react/index.js:     if (prop.toLowerCase().endsWith('style') && Object.prototype.toString.call(value) === '[object Object]') {
 pages/react/index.js:         return (0, plainStyle_1.default)(value);
@@ -13135,7 +13829,6 @@ pages/react/index.js:         getAlias(prop, type),
 pages/react/index.js:         getValue(prop, value)
 pages/react/index.js:     ];
 pages/react/index.js: }
-pages/react/index.js: exports.propAlias = propAlias;
 pages/react/index.js: function propsAlias(props, type) {
 pages/react/index.js:     if (!props) {
 pages/react/index.js:         return props;
@@ -13156,7 +13849,6 @@ pages/react/index.js:         }
 pages/react/index.js:     }
 pages/react/index.js:     return aliasProps;
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = propsAlias;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/render-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -13285,15 +13977,25 @@ pages/react/index.js:     });
 pages/react/index.js: } : function(o, v) {
 pages/react/index.js:     o["default"] = v;
 pages/react/index.js: });
-pages/react/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/react/index.js:     if (mod && mod.__esModule) return mod;
-pages/react/index.js:     var result = {};
-pages/react/index.js:     if (mod != null) {
-pages/react/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/react/index.js:     }
-pages/react/index.js:     __setModuleDefault(result, mod);
-pages/react/index.js:     return result;
-pages/react/index.js: };
+pages/react/index.js: var __importStar = this && this.__importStar || function() {
+pages/react/index.js:     var _ownKeys = function ownKeys(o) {
+pages/react/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/react/index.js:             var ar = [];
+pages/react/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/react/index.js:             return ar;
+pages/react/index.js:         };
+pages/react/index.js:         return _ownKeys(o);
+pages/react/index.js:     };
+pages/react/index.js:     return function(mod) {
+pages/react/index.js:         if (mod && mod.__esModule) return mod;
+pages/react/index.js:         var result = {};
+pages/react/index.js:         if (mod != null) {
+pages/react/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/react/index.js:         }
+pages/react/index.js:         __setModuleDefault(result, mod);
+pages/react/index.js:         return result;
+pages/react/index.js:     };
+pages/react/index.js: }();
 pages/react/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/react/index.js:     return mod && mod.__esModule ? mod : {
 pages/react/index.js:         "default": mod
@@ -13304,6 +14006,7 @@ pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
 pages/react/index.js: exports.unstable_batchedUpdates = exports.batchedUpdates = void 0;
+pages/react/index.js: exports["default"] = render;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/react/index.js: var VNode_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/VNode.js"));
@@ -14301,7 +15004,6 @@ pages/react/index.js:     // passive effects 异步调度
 pages/react/index.js:     (0, hooks_light_1.flushPassiveEffects)();
 pages/react/index.js:     return container.root;
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = render;
 pages/react/index.js: // ============================================================
 pages/react/index.js: // 组件重新渲染
 pages/react/index.js: // ============================================================
@@ -14382,6 +15084,7 @@ pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
 pages/react/index.js: exports.ReactReconcilerInst = void 0;
+pages/react/index.js: exports["default"] = render;
 pages/react/index.js: var react_reconciler_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react-reconciler@0.29.0_react@18.3.1/node_modules/react-reconciler/cjs/react-reconciler.production.min.js"));
 pages/react/index.js: var hostConfig_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/hostConfig/index.js"));
 pages/react/index.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -14404,7 +15107,6 @@ pages/react/index.js:     // ignore
 pages/react/index.js:     });
 pages/react/index.js:     return getPublicRootInstance(container._rootContainer);
 pages/react/index.js: }
-pages/react/index.js: exports["default"] = render;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/renderer.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -14417,7 +15119,8 @@ pages/react/index.js: };
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.renderLight = exports.render = exports.getRenderer = void 0;
+pages/react/index.js: exports.renderLight = exports.render = void 0;
+pages/react/index.js: exports.getRenderer = getRenderer;
 pages/react/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/react/index.js: var render_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/render.js"));
 pages/react/index.js: exports.render = render_1.default;
@@ -14437,7 +15140,6 @@ pages/react/index.js: function getRenderer() {
 pages/react/index.js:     var renderer = framework_shared_1.RuntimeOptions.get('renderer');
 pages/react/index.js:     return renderer === 'light' ? lightRenderer : classicRenderer;
 pages/react/index.js: }
-pages/react/index.js: exports.getRenderer = getRenderer;
 pages/react/index.js: 
 pages/react/index.js: },
 pages/react/index.js: "../../../../../../rsmax-runtime/cjs/scheduler/index.js"(__unused_webpack_module, exports) {
@@ -14445,7 +15147,10 @@ pages/react/index.js:
 pages/react/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/react/index.js:     value: true
 pages/react/index.js: }));
-pages/react/index.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+pages/react/index.js: exports.unstable_now = void 0;
+pages/react/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+pages/react/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+pages/react/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 pages/react/index.js: var taskQueue = [];
 pages/react/index.js: var taskIdCounter = 0;
 pages/react/index.js: exports.unstable_now = Date.now;
@@ -14467,7 +15172,6 @@ pages/react/index.js:         }
 pages/react/index.js:     });
 pages/react/index.js:     return id;
 pages/react/index.js: }
-pages/react/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
 pages/react/index.js: function unstable_cancelCallback(id) {
 pages/react/index.js:     var index = taskQueue.findIndex(function(t) {
 pages/react/index.js:         return t.id === id;
@@ -14476,11 +15180,9 @@ pages/react/index.js:     if (index !== -1) {
 pages/react/index.js:         taskQueue.splice(index, 1);
 pages/react/index.js:     }
 pages/react/index.js: }
-pages/react/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
 pages/react/index.js: function unstable_shouldYield() {
 pages/react/index.js:     return false;
 pages/react/index.js: }
-pages/react/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 pages/react/index.js: exports["default"] = {
 pages/react/index.js:     unstable_scheduleCallback: unstable_scheduleCallback,
 pages/react/index.js:     unstable_cancelCallback: unstable_cancelCallback,
