@@ -4,7 +4,7 @@
     "rootDir": "src",
     "outDir": "esm",
     "baseUrl": ".",
-    "lib": ["es2015", "DOM"],
+    "lib": ["es2019", "DOM"],
     "declaration": true,
     "jsx": "react",
     "types": ["@types/node", "@rstest/core/globals"],

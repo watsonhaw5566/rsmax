@@ -9,6 +9,7 @@
     "clean": "lerna clean",
     "clean:packages": "lerna run clean",
     "format": "prettier --write .",
+    "postinstall": "simple-git-hooks",
     "lint": "rslint .",
     "prepack": "pnpm run readme:copy",
     "postpack": "pnpm run readme:clean",
@@ -17,7 +18,6 @@
     "prerelease": "pnpm lint && pnpm build && pnpm simple-git-hooks",
     "release": "lerna publish",
     "release:canary": "lerna publish --canary --dist-tag canary --preid canary",
-    "postinstall": "simple-git-hooks",
     "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
     "test": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test",
     "test:cov": "lerna run --ignore babel-preset-rsmax --ignore e2e-* --stream test -- --collect-coverage",
@@ -52,7 +52,7 @@
     "rimraf": "^6.0.1",
     "rsmax": "workspace:*",
     "simple-git-hooks": "^2.13.0",
-    "typescript": "^4.7.4"
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0",

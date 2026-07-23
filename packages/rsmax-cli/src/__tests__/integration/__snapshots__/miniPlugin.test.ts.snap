@@ -1368,13 +1368,64 @@ components/greet/index.js: __webpack_require__.r(__webpack_exports__);
 components/greet/index.js: __webpack_require__.d(__webpack_exports__, {
 components/greet/index.js:   promisify: () => (promisify)
 components/greet/index.js: });
+components/greet/index.js: function _typeof(o) {
+components/greet/index.js:     "@babel/helpers - typeof";
+components/greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/greet/index.js:         return typeof o;
+components/greet/index.js:     } : function(o) {
+components/greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/greet/index.js:     }, _typeof(o);
+components/greet/index.js: }
+components/greet/index.js: function ownKeys(e, r) {
+components/greet/index.js:     var t = Object.keys(e);
+components/greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/greet/index.js:         r && (o = o.filter(function(r) {
+components/greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/greet/index.js:         })), t.push.apply(t, o);
+components/greet/index.js:     }
+components/greet/index.js:     return t;
+components/greet/index.js: }
+components/greet/index.js: function _objectSpread(e) {
+components/greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/greet/index.js:             _defineProperty(e, r, t[r]);
+components/greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/greet/index.js:         });
+components/greet/index.js:     }
+components/greet/index.js:     return e;
+components/greet/index.js: }
+components/greet/index.js: function _defineProperty(e, r, t) {
+components/greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/greet/index.js:         value: t,
+components/greet/index.js:         enumerable: !0,
+components/greet/index.js:         configurable: !0,
+components/greet/index.js:         writable: !0
+components/greet/index.js:     }) : e[r] = t, e;
+components/greet/index.js: }
+components/greet/index.js: function _toPropertyKey(t) {
+components/greet/index.js:     var i = _toPrimitive(t, "string");
+components/greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/greet/index.js: }
+components/greet/index.js: function _toPrimitive(t, r) {
+components/greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/greet/index.js:     var e = t[Symbol.toPrimitive];
+components/greet/index.js:     if (void 0 !== e) {
+components/greet/index.js:         var i = e.call(t, r || "default");
+components/greet/index.js:         if ("object" != _typeof(i)) return i;
+components/greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/greet/index.js:     }
+components/greet/index.js:     return ("string" === r ? String : Number)(t);
+components/greet/index.js: }
 components/greet/index.js: function promisify(api) {
 components/greet/index.js:     // @ts-ignore
 components/greet/index.js:     return function() {
 components/greet/index.js:         var arg = arguments.length > 0 && arguments[<ID>] !== undefined ? arguments[<ID>] : {};
 components/greet/index.js:         return new Promise(function(resolve, reject) {
 components/greet/index.js:             var promisifyArg = arg;
-components/greet/index.js:             api(Object.assign(Object.assign({}, promisifyArg), {
+components/greet/index.js:             api(_objectSpread(_objectSpread({}, promisifyArg), {}, {
 components/greet/index.js:                 success: function success(res) {
 components/greet/index.js:                     if (promisifyArg && typeof promisifyArg.success === 'function') {
 components/greet/index.js:                         promisifyArg.success(res);
@@ -1450,10 +1501,65 @@ components/greet/index.js:
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-one/cjs/api/adapters/ali.js"(__unused_webpack_module, exports, __webpack_require__) {
 components/greet/index.js: 
+components/greet/index.js: function _typeof(o) {
+components/greet/index.js:     "@babel/helpers - typeof";
+components/greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/greet/index.js:         return typeof o;
+components/greet/index.js:     } : function(o) {
+components/greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/greet/index.js:     }, _typeof(o);
+components/greet/index.js: }
+components/greet/index.js: function ownKeys(e, r) {
+components/greet/index.js:     var t = Object.keys(e);
+components/greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/greet/index.js:         r && (o = o.filter(function(r) {
+components/greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/greet/index.js:         })), t.push.apply(t, o);
+components/greet/index.js:     }
+components/greet/index.js:     return t;
+components/greet/index.js: }
+components/greet/index.js: function _objectSpread(e) {
+components/greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/greet/index.js:             _defineProperty(e, r, t[r]);
+components/greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/greet/index.js:         });
+components/greet/index.js:     }
+components/greet/index.js:     return e;
+components/greet/index.js: }
+components/greet/index.js: function _defineProperty(e, r, t) {
+components/greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/greet/index.js:         value: t,
+components/greet/index.js:         enumerable: !0,
+components/greet/index.js:         configurable: !0,
+components/greet/index.js:         writable: !0
+components/greet/index.js:     }) : e[r] = t, e;
+components/greet/index.js: }
+components/greet/index.js: function _toPropertyKey(t) {
+components/greet/index.js:     var i = _toPrimitive(t, "string");
+components/greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/greet/index.js: }
+components/greet/index.js: function _toPrimitive(t, r) {
+components/greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/greet/index.js:     var e = t[Symbol.toPrimitive];
+components/greet/index.js:     if (void 0 !== e) {
+components/greet/index.js:         var i = e.call(t, r || "default");
+components/greet/index.js:         if ("object" != _typeof(i)) return i;
+components/greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/greet/index.js:     }
+components/greet/index.js:     return ("string" === r ? String : Number)(t);
+components/greet/index.js: }
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.initAPI = exports.setCurrentPlatform = exports.getCurrentAPI = exports.getCurrentPlatform = exports.aliAPI = void 0;
+components/greet/index.js: exports.aliAPI = void 0;
+components/greet/index.js: exports.getCurrentPlatform = getCurrentPlatform;
+components/greet/index.js: exports.getCurrentAPI = getCurrentAPI;
+components/greet/index.js: exports.setCurrentPlatform = setCurrentPlatform;
+components/greet/index.js: exports.initAPI = initAPI;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: exports.aliAPI = {
 components/greet/index.js:     getSystemInfo: function getSystemInfo() {
@@ -1520,7 +1626,7 @@ components/greet/index.js:     },
 components/greet/index.js:     request: function request(options) {
 components/greet/index.js:         return new Promise(function(resolve, reject) {
 components/greet/index.js:             var _a;
-components/greet/index.js:             my.request(Object.assign(Object.assign({}, options), {
+components/greet/index.js:             my.request(_objectSpread(_objectSpread({}, options), {}, {
 components/greet/index.js:                 method: (_a = options.method) === null || _a === void 0 ? void 0 : _a.toUpperCase(),
 components/greet/index.js:                 success: function success(res) {
 components/greet/index.js:                     return resolve(res);
@@ -1533,7 +1639,7 @@ components/greet/index.js:         });
 components/greet/index.js:     },
 components/greet/index.js:     uploadFile: function uploadFile(options) {
 components/greet/index.js:         return new Promise(function(resolve, reject) {
-components/greet/index.js:             my.uploadFile(Object.assign(Object.assign({}, options), {
+components/greet/index.js:             my.uploadFile(_objectSpread(_objectSpread({}, options), {}, {
 components/greet/index.js:                 success: function success(res) {
 components/greet/index.js:                     return resolve(res);
 components/greet/index.js:                 },
@@ -1545,7 +1651,7 @@ components/greet/index.js:         });
 components/greet/index.js:     },
 components/greet/index.js:     downloadFile: function downloadFile(options) {
 components/greet/index.js:         return new Promise(function(resolve, reject) {
-components/greet/index.js:             my.downloadFile(Object.assign(Object.assign({}, options), {
+components/greet/index.js:             my.downloadFile(_objectSpread(_objectSpread({}, options), {}, {
 components/greet/index.js:                 success: function success(res) {
 components/greet/index.js:                     return resolve(res);
 components/greet/index.js:                 },
@@ -1585,19 +1691,15 @@ components/greet/index.js: };
 components/greet/index.js: function getCurrentPlatform() {
 components/greet/index.js:     return 'ali';
 components/greet/index.js: }
-components/greet/index.js: exports.getCurrentPlatform = getCurrentPlatform;
 components/greet/index.js: function getCurrentAPI() {
 components/greet/index.js:     return exports.aliAPI;
 components/greet/index.js: }
-components/greet/index.js: exports.getCurrentAPI = getCurrentAPI;
 components/greet/index.js: function setCurrentPlatform(_platform) {
 components/greet/index.js: // 一份小程序产物只服务一个构建目标平台，运行时无需切换
 components/greet/index.js: }
-components/greet/index.js: exports.setCurrentPlatform = setCurrentPlatform;
 components/greet/index.js: function initAPI(_platform) {
 components/greet/index.js:     return exports.aliAPI;
 components/greet/index.js: }
-components/greet/index.js: exports.initAPI = initAPI;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-one/esm/api/unified/index.js"(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -1628,6 +1730,57 @@ components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../../../../../rsmax-one/esm/createHostComponent.js");
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
+components/greet/index.js: function _typeof(o) {
+components/greet/index.js:     "@babel/helpers - typeof";
+components/greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/greet/index.js:         return typeof o;
+components/greet/index.js:     } : function(o) {
+components/greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/greet/index.js:     }, _typeof(o);
+components/greet/index.js: }
+components/greet/index.js: function ownKeys(e, r) {
+components/greet/index.js:     var t = Object.keys(e);
+components/greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/greet/index.js:         r && (o = o.filter(function(r) {
+components/greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/greet/index.js:         })), t.push.apply(t, o);
+components/greet/index.js:     }
+components/greet/index.js:     return t;
+components/greet/index.js: }
+components/greet/index.js: function _objectSpread(e) {
+components/greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/greet/index.js:             _defineProperty(e, r, t[r]);
+components/greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/greet/index.js:         });
+components/greet/index.js:     }
+components/greet/index.js:     return e;
+components/greet/index.js: }
+components/greet/index.js: function _defineProperty(e, r, t) {
+components/greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/greet/index.js:         value: t,
+components/greet/index.js:         enumerable: !0,
+components/greet/index.js:         configurable: !0,
+components/greet/index.js:         writable: !0
+components/greet/index.js:     }) : e[r] = t, e;
+components/greet/index.js: }
+components/greet/index.js: function _toPropertyKey(t) {
+components/greet/index.js:     var i = _toPrimitive(t, "string");
+components/greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/greet/index.js: }
+components/greet/index.js: function _toPrimitive(t, r) {
+components/greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/greet/index.js:     var e = t[Symbol.toPrimitive];
+components/greet/index.js:     if (void 0 !== e) {
+components/greet/index.js:         var i = e.call(t, r || "default");
+components/greet/index.js:         if ("object" != _typeof(i)) return i;
+components/greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/greet/index.js:     }
+components/greet/index.js:     return ("string" === r ? String : Number)(t);
+components/greet/index.js: }
 components/greet/index.js: 
 components/greet/index.js: var createTapCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
 components/greet/index.js: var createTouchStartCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
@@ -2331,11 +2484,11 @@ components/greet/index.js:             return __WEBPACK_IMPORTED_MODULE_3__.crea
 components/greet/index.js:     }
 components/greet/index.js: }
 components/greet/index.js: function createUnifiedComponent(componentName, customConfig) {
-components/greet/index.js:     var config = Object.assign(Object.assign({}, componentConfigs[componentName]), customConfig);
+components/greet/index.js:     var config = _objectSpread(_objectSpread({}, componentConfigs[componentName]), customConfig);
 components/greet/index.js:     var tagName = config.tagName, alias = config.alias, customDefaultProps = config.defaultProps, eventHandlers = config.eventHandlers;
 components/greet/index.js:     var Component = function Component(props, ref) {
 components/greet/index.js:         var platformDefaultProps = currentPlatformComponentProps[componentName] || {};
-components/greet/index.js:         var inputProps = Object.assign({}, props);
+components/greet/index.js:         var inputProps = _objectSpread({}, props);
 components/greet/index.js:         assignDefaultProps(inputProps, platformDefaultProps);
 components/greet/index.js:         if (customDefaultProps) {
 components/greet/index.js:             assignDefaultProps(inputProps, customDefaultProps);
@@ -2471,6 +2624,57 @@ components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __web
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 components/greet/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
+components/greet/index.js: function _typeof(o) {
+components/greet/index.js:     "@babel/helpers - typeof";
+components/greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/greet/index.js:         return typeof o;
+components/greet/index.js:     } : function(o) {
+components/greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/greet/index.js:     }, _typeof(o);
+components/greet/index.js: }
+components/greet/index.js: function ownKeys(e, r) {
+components/greet/index.js:     var t = Object.keys(e);
+components/greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/greet/index.js:         r && (o = o.filter(function(r) {
+components/greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/greet/index.js:         })), t.push.apply(t, o);
+components/greet/index.js:     }
+components/greet/index.js:     return t;
+components/greet/index.js: }
+components/greet/index.js: function _objectSpread(e) {
+components/greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/greet/index.js:             _defineProperty(e, r, t[r]);
+components/greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/greet/index.js:         });
+components/greet/index.js:     }
+components/greet/index.js:     return e;
+components/greet/index.js: }
+components/greet/index.js: function _defineProperty(e, r, t) {
+components/greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/greet/index.js:         value: t,
+components/greet/index.js:         enumerable: !0,
+components/greet/index.js:         configurable: !0,
+components/greet/index.js:         writable: !0
+components/greet/index.js:     }) : e[r] = t, e;
+components/greet/index.js: }
+components/greet/index.js: function _toPropertyKey(t) {
+components/greet/index.js:     var i = _toPrimitive(t, "string");
+components/greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/greet/index.js: }
+components/greet/index.js: function _toPrimitive(t, r) {
+components/greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/greet/index.js:     var e = t[Symbol.toPrimitive];
+components/greet/index.js:     if (void 0 !== e) {
+components/greet/index.js:         var i = e.call(t, r || "default");
+components/greet/index.js:         if ("object" != _typeof(i)) return i;
+components/greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/greet/index.js:     }
+components/greet/index.js:     return ("string" === r ? String : Number)(t);
+components/greet/index.js: }
 components/greet/index.js: 
 components/greet/index.js: function createTarget(target, detail) {
 components/greet/index.js:     return {
@@ -2582,7 +2786,7 @@ components/greet/index.js: var createImageLoadCallback = (0,__WEBPACK_IMPORTED_M
 components/greet/index.js: var createImageErrorCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(createCallback);
 components/greet/index.js: function createHostComponent(name, alias, defaults) {
 components/greet/index.js:     var Component = function Component(props, ref) {
-components/greet/index.js:         var inputProps = Object.assign({}, props);
+components/greet/index.js:         var inputProps = _objectSpread({}, props);
 components/greet/index.js:         // 默认属性根据平台在这里设置
 components/greet/index.js:         if (defaults) {
 components/greet/index.js:             assignDefaultProps(inputProps, defaults);
@@ -3058,7 +3262,7 @@ components/greet/index.js:
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.createPortal = void 0;
+components/greet/index.js: exports.createPortal = createPortal;
 components/greet/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
 components/greet/index.js: function createPortal(children, containerInfo, key) {
 components/greet/index.js:     return {
@@ -3070,7 +3274,6 @@ components/greet/index.js:         containerInfo: containerInfo,
 components/greet/index.js:         implementation: null
 components/greet/index.js:     };
 components/greet/index.js: }
-components/greet/index.js: exports.createPortal = createPortal;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js"(__unused_webpack_module, exports) {
@@ -3117,19 +3320,29 @@ components/greet/index.js:     });
 components/greet/index.js: } : function(o, v) {
 components/greet/index.js:     o["default"] = v;
 components/greet/index.js: });
-components/greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/greet/index.js:     if (mod && mod.__esModule) return mod;
-components/greet/index.js:     var result = {};
-components/greet/index.js:     if (mod != null) {
-components/greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/greet/index.js:     }
-components/greet/index.js:     __setModuleDefault(result, mod);
-components/greet/index.js:     return result;
-components/greet/index.js: };
+components/greet/index.js: var __importStar = this && this.__importStar || function() {
+components/greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/greet/index.js:             var ar = [];
+components/greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/greet/index.js:             return ar;
+components/greet/index.js:         };
+components/greet/index.js:         return _ownKeys(o);
+components/greet/index.js:     };
+components/greet/index.js:     return function(mod) {
+components/greet/index.js:         if (mod && mod.__esModule) return mod;
+components/greet/index.js:         var result = {};
+components/greet/index.js:         if (mod != null) {
+components/greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/greet/index.js:         }
+components/greet/index.js:         __setModuleDefault(result, mod);
+components/greet/index.js:         return result;
+components/greet/index.js:     };
+components/greet/index.js: }();
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.createCallbackProxy = void 0;
+components/greet/index.js: exports.createCallbackProxy = createCallbackProxy;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 components/greet/index.js: var stopPropagation_1 = __importStar(__webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"));
@@ -3169,7 +3382,6 @@ components/greet/index.js:             syntheticEvent
 components/greet/index.js:         ].concat(restParams));
 components/greet/index.js:     };
 components/greet/index.js: }
-components/greet/index.js: exports.createCallbackProxy = createCallbackProxy;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -3177,7 +3389,9 @@ components/greet/index.js:
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.validate = exports.isPropagationStopped = void 0;
+components/greet/index.js: exports.isPropagationStopped = void 0;
+components/greet/index.js: exports.validate = validate;
+components/greet/index.js: exports["default"] = stopPropagation;
 components/greet/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 components/greet/index.js: exports.isPropagationStopped = {};
 components/greet/index.js: constants_1.SYNTHETIC_TYPES.forEach(function(type) {
@@ -3201,12 +3415,10 @@ components/greet/index.js:         return;
 components/greet/index.js:     }
 components/greet/index.js:     validate(parent, eventType);
 components/greet/index.js: }
-components/greet/index.js: exports.validate = validate;
 components/greet/index.js: function stopPropagation(node, eventType) {
 components/greet/index.js:     exports.isPropagationStopped[eventType] = true;
 components/greet/index.js:     validate(node, eventType);
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = stopPropagation;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/VNode.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -3325,15 +3537,25 @@ components/greet/index.js:     });
 components/greet/index.js: } : function(o, v) {
 components/greet/index.js:     o["default"] = v;
 components/greet/index.js: });
-components/greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/greet/index.js:     if (mod && mod.__esModule) return mod;
-components/greet/index.js:     var result = {};
-components/greet/index.js:     if (mod != null) {
-components/greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/greet/index.js:     }
-components/greet/index.js:     __setModuleDefault(result, mod);
-components/greet/index.js:     return result;
-components/greet/index.js: };
+components/greet/index.js: var __importStar = this && this.__importStar || function() {
+components/greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/greet/index.js:             var ar = [];
+components/greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/greet/index.js:             return ar;
+components/greet/index.js:         };
+components/greet/index.js:         return _ownKeys(o);
+components/greet/index.js:     };
+components/greet/index.js:     return function(mod) {
+components/greet/index.js:         if (mod && mod.__esModule) return mod;
+components/greet/index.js:         var result = {};
+components/greet/index.js:         if (mod != null) {
+components/greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/greet/index.js:         }
+components/greet/index.js:         __setModuleDefault(result, mod);
+components/greet/index.js:         return result;
+components/greet/index.js:     };
+components/greet/index.js: }();
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
@@ -3861,15 +4083,25 @@ components/greet/index.js:     });
 components/greet/index.js: } : function(o, v) {
 components/greet/index.js:     o["default"] = v;
 components/greet/index.js: });
-components/greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/greet/index.js:     if (mod && mod.__esModule) return mod;
-components/greet/index.js:     var result = {};
-components/greet/index.js:     if (mod != null) {
-components/greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/greet/index.js:     }
-components/greet/index.js:     __setModuleDefault(result, mod);
-components/greet/index.js:     return result;
-components/greet/index.js: };
+components/greet/index.js: var __importStar = this && this.__importStar || function() {
+components/greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/greet/index.js:             var ar = [];
+components/greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/greet/index.js:             return ar;
+components/greet/index.js:         };
+components/greet/index.js:         return _ownKeys(o);
+components/greet/index.js:     };
+components/greet/index.js:     return function(mod) {
+components/greet/index.js:         if (mod && mod.__esModule) return mod;
+components/greet/index.js:         var result = {};
+components/greet/index.js:         if (mod != null) {
+components/greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/greet/index.js:         }
+components/greet/index.js:         __setModuleDefault(result, mod);
+components/greet/index.js:         return result;
+components/greet/index.js:     };
+components/greet/index.js: }();
 components/greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/greet/index.js:     return mod && mod.__esModule ? mod : {
 components/greet/index.js:         "default": mod
@@ -3878,6 +4110,7 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
+components/greet/index.js: exports["default"] = createAppConfig;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/greet/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
@@ -3990,7 +4223,6 @@ components/greet/index.js:         return framework_shared_1.RuntimeOptions.get(
 components/greet/index.js:     };
 components/greet/index.js:     return createConfig(WrappedApp);
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = createAppConfig;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/createComponentConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -4022,15 +4254,25 @@ components/greet/index.js:     });
 components/greet/index.js: } : function(o, v) {
 components/greet/index.js:     o["default"] = v;
 components/greet/index.js: });
-components/greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/greet/index.js:     if (mod && mod.__esModule) return mod;
-components/greet/index.js:     var result = {};
-components/greet/index.js:     if (mod != null) {
-components/greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/greet/index.js:     }
-components/greet/index.js:     __setModuleDefault(result, mod);
-components/greet/index.js:     return result;
-components/greet/index.js: };
+components/greet/index.js: var __importStar = this && this.__importStar || function() {
+components/greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/greet/index.js:             var ar = [];
+components/greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/greet/index.js:             return ar;
+components/greet/index.js:         };
+components/greet/index.js:         return _ownKeys(o);
+components/greet/index.js:     };
+components/greet/index.js:     return function(mod) {
+components/greet/index.js:         if (mod && mod.__esModule) return mod;
+components/greet/index.js:         var result = {};
+components/greet/index.js:         if (mod != null) {
+components/greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/greet/index.js:         }
+components/greet/index.js:         __setModuleDefault(result, mod);
+components/greet/index.js:         return result;
+components/greet/index.js:     };
+components/greet/index.js: }();
 components/greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/greet/index.js:     return mod && mod.__esModule ? mod : {
 components/greet/index.js:         "default": mod
@@ -4039,6 +4281,7 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
+components/greet/index.js: exports["default"] = createComponentConfig;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/greet/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -4104,11 +4347,61 @@ components/greet/index.js:         }
 components/greet/index.js:     };
 components/greet/index.js:     return config;
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = createComponentConfig;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/createHostComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 components/greet/index.js: 
+components/greet/index.js: function _typeof(o) {
+components/greet/index.js:     "@babel/helpers - typeof";
+components/greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/greet/index.js:         return typeof o;
+components/greet/index.js:     } : function(o) {
+components/greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/greet/index.js:     }, _typeof(o);
+components/greet/index.js: }
+components/greet/index.js: function ownKeys(e, r) {
+components/greet/index.js:     var t = Object.keys(e);
+components/greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/greet/index.js:         r && (o = o.filter(function(r) {
+components/greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/greet/index.js:         })), t.push.apply(t, o);
+components/greet/index.js:     }
+components/greet/index.js:     return t;
+components/greet/index.js: }
+components/greet/index.js: function _objectSpread(e) {
+components/greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/greet/index.js:             _defineProperty(e, r, t[r]);
+components/greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/greet/index.js:         });
+components/greet/index.js:     }
+components/greet/index.js:     return e;
+components/greet/index.js: }
+components/greet/index.js: function _defineProperty(e, r, t) {
+components/greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/greet/index.js:         value: t,
+components/greet/index.js:         enumerable: !0,
+components/greet/index.js:         configurable: !0,
+components/greet/index.js:         writable: !0
+components/greet/index.js:     }) : e[r] = t, e;
+components/greet/index.js: }
+components/greet/index.js: function _toPropertyKey(t) {
+components/greet/index.js:     var i = _toPrimitive(t, "string");
+components/greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/greet/index.js: }
+components/greet/index.js: function _toPrimitive(t, r) {
+components/greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/greet/index.js:     var e = t[Symbol.toPrimitive];
+components/greet/index.js:     if (void 0 !== e) {
+components/greet/index.js:         var i = e.call(t, r || "default");
+components/greet/index.js:         if ("object" != _typeof(i)) return i;
+components/greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/greet/index.js:     }
+components/greet/index.js:     return ("string" === r ? String : Number)(t);
+components/greet/index.js: }
 components/greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/greet/index.js:     return mod && mod.__esModule ? mod : {
 components/greet/index.js:         "default": mod
@@ -4117,6 +4410,7 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
+components/greet/index.js: exports["default"] = createHostComponent;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/greet/index.js: function createHostComponent(name, component) {
@@ -4124,7 +4418,7 @@ components/greet/index.js:     if (component) {
 components/greet/index.js:         return component;
 components/greet/index.js:     }
 components/greet/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-components/greet/index.js:         var element = react_1.default.createElement(name, Object.assign(Object.assign({}, props), {
+components/greet/index.js:         var element = react_1.default.createElement(name, _objectSpread(_objectSpread({}, props), {}, {
 components/greet/index.js:             ref: ref
 components/greet/index.js:         }));
 components/greet/index.js:         element = framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponentElement(element);
@@ -4133,11 +4427,61 @@ components/greet/index.js:     });
 components/greet/index.js:     Component.displayName = name;
 components/greet/index.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponent(Component);
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = createHostComponent;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/createNativeComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 components/greet/index.js: 
+components/greet/index.js: function _typeof(o) {
+components/greet/index.js:     "@babel/helpers - typeof";
+components/greet/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+components/greet/index.js:         return typeof o;
+components/greet/index.js:     } : function(o) {
+components/greet/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+components/greet/index.js:     }, _typeof(o);
+components/greet/index.js: }
+components/greet/index.js: function ownKeys(e, r) {
+components/greet/index.js:     var t = Object.keys(e);
+components/greet/index.js:     if (Object.getOwnPropertySymbols) {
+components/greet/index.js:         var o = Object.getOwnPropertySymbols(e);
+components/greet/index.js:         r && (o = o.filter(function(r) {
+components/greet/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+components/greet/index.js:         })), t.push.apply(t, o);
+components/greet/index.js:     }
+components/greet/index.js:     return t;
+components/greet/index.js: }
+components/greet/index.js: function _objectSpread(e) {
+components/greet/index.js:     for(var r = 1; r < arguments.length; r++){
+components/greet/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+components/greet/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+components/greet/index.js:             _defineProperty(e, r, t[r]);
+components/greet/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+components/greet/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+components/greet/index.js:         });
+components/greet/index.js:     }
+components/greet/index.js:     return e;
+components/greet/index.js: }
+components/greet/index.js: function _defineProperty(e, r, t) {
+components/greet/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+components/greet/index.js:         value: t,
+components/greet/index.js:         enumerable: !0,
+components/greet/index.js:         configurable: !0,
+components/greet/index.js:         writable: !0
+components/greet/index.js:     }) : e[r] = t, e;
+components/greet/index.js: }
+components/greet/index.js: function _toPropertyKey(t) {
+components/greet/index.js:     var i = _toPrimitive(t, "string");
+components/greet/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+components/greet/index.js: }
+components/greet/index.js: function _toPrimitive(t, r) {
+components/greet/index.js:     if ("object" != _typeof(t) || !t) return t;
+components/greet/index.js:     var e = t[Symbol.toPrimitive];
+components/greet/index.js:     if (void 0 !== e) {
+components/greet/index.js:         var i = e.call(t, r || "default");
+components/greet/index.js:         if ("object" != _typeof(i)) return i;
+components/greet/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+components/greet/index.js:     }
+components/greet/index.js:     return ("string" === r ? String : Number)(t);
+components/greet/index.js: }
 components/greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/greet/index.js:     return mod && mod.__esModule ? mod : {
 components/greet/index.js:         "default": mod
@@ -4146,10 +4490,11 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
+components/greet/index.js: exports["default"] = createNativeComponent;
 components/greet/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/greet/index.js: function createNativeComponent(name) {
 components/greet/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-components/greet/index.js:         var newProps = Object.assign({}, props);
+components/greet/index.js:         var newProps = _objectSpread({}, props);
 components/greet/index.js:         newProps.__ref = typeof ref === 'function' ? ref : function(e) {
 components/greet/index.js:             if (ref) {
 components/greet/index.js:                 ref.current = e;
@@ -4160,7 +4505,6 @@ components/greet/index.js:     });
 components/greet/index.js:     Component.displayName = name;
 components/greet/index.js:     return Component;
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = createNativeComponent;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/createPageConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -4197,7 +4541,8 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.resetPageId = void 0;
+components/greet/index.js: exports.resetPageId = resetPageId;
+components/greet/index.js: exports["default"] = createPageConfig;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/greet/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -4215,7 +4560,6 @@ components/greet/index.js: // for testing
 components/greet/index.js: function resetPageId() {
 components/greet/index.js:     idCounter = 0;
 components/greet/index.js: }
-components/greet/index.js: exports.resetPageId = resetPageId;
 components/greet/index.js: function createPageConfig(Page, name) {
 components/greet/index.js:     var _a;
 components/greet/index.js:     var app;
@@ -4387,7 +4731,6 @@ components/greet/index.js:         config: config,
 components/greet/index.js:         page: name
 components/greet/index.js:     });
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = createPageConfig;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/hooks-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -4476,7 +4819,25 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.setReRenderFn = exports.cleanupEffectsForNode = exports.flushPassiveEffects = exports.flushLayoutEffects = exports.useDebugValue = exports.useImperativeHandle = exports.useContext = exports.useCallback = exports.useMemo = exports.useRef = exports.useLayoutEffect = exports.useEffect = exports.useReducer = exports.useState = exports.batchedUpdates = exports.scheduleComponentUpdate = exports.popRenderContext = exports.pushRenderContext = exports.currentComponent = void 0;
+components/greet/index.js: exports.currentComponent = void 0;
+components/greet/index.js: exports.pushRenderContext = pushRenderContext;
+components/greet/index.js: exports.popRenderContext = popRenderContext;
+components/greet/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
+components/greet/index.js: exports.batchedUpdates = batchedUpdates;
+components/greet/index.js: exports.useState = useState;
+components/greet/index.js: exports.useReducer = useReducer;
+components/greet/index.js: exports.useEffect = useEffect;
+components/greet/index.js: exports.useLayoutEffect = useLayoutEffect;
+components/greet/index.js: exports.useRef = useRef;
+components/greet/index.js: exports.useMemo = useMemo;
+components/greet/index.js: exports.useCallback = useCallback;
+components/greet/index.js: exports.useContext = useContext;
+components/greet/index.js: exports.useImperativeHandle = useImperativeHandle;
+components/greet/index.js: exports.useDebugValue = useDebugValue;
+components/greet/index.js: exports.flushLayoutEffects = flushLayoutEffects;
+components/greet/index.js: exports.flushPassiveEffects = flushPassiveEffects;
+components/greet/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
+components/greet/index.js: exports.setReRenderFn = setReRenderFn;
 components/greet/index.js: var scheduler_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/scheduler/index.js"));
 components/greet/index.js: // ============================================================
 components/greet/index.js: // Rendering Context
@@ -4493,7 +4854,6 @@ components/greet/index.js:     exports.currentComponent = node;
 components/greet/index.js:     currentHookIndex = 0;
 components/greet/index.js:     if (!node.memoizedState) node.memoizedState = [];
 components/greet/index.js: }
-components/greet/index.js: exports.pushRenderContext = pushRenderContext;
 components/greet/index.js: function popRenderContext() {
 components/greet/index.js:     var ctx = renderStack.pop();
 components/greet/index.js:     if (ctx) {
@@ -4501,7 +4861,6 @@ components/greet/index.js:         exports.currentComponent = ctx.component;
 components/greet/index.js:         currentHookIndex = ctx.hookIndex;
 components/greet/index.js:     }
 components/greet/index.js: }
-components/greet/index.js: exports.popRenderContext = popRenderContext;
 components/greet/index.js: /** Effects scheduled via useEffect - run after paint */ var passiveEffects = [];
 components/greet/index.js: /** Effects scheduled via useLayoutEffect - run before paint */ var layoutEffects = [];
 components/greet/index.js: // ============================================================
@@ -4520,7 +4879,6 @@ components/greet/index.js:             flushDirtyComponents();
 components/greet/index.js:         });
 components/greet/index.js:     }
 components/greet/index.js: }
-components/greet/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
 components/greet/index.js: function flushDirtyComponents() {
 components/greet/index.js:     var dirty = Array.from(dirtyComponents);
 components/greet/index.js:     dirtyComponents.clear();
@@ -4557,7 +4915,6 @@ components/greet/index.js:             }
 components/greet/index.js:         }
 components/greet/index.js:     }
 components/greet/index.js: }
-components/greet/index.js: exports.batchedUpdates = batchedUpdates;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // Core Hook Helpers
 components/greet/index.js: // ============================================================
@@ -4632,7 +4989,6 @@ components/greet/index.js:         hook.state,
 components/greet/index.js:         setState
 components/greet/index.js:     ];
 components/greet/index.js: }
-components/greet/index.js: exports.useState = useState;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useReducer
 components/greet/index.js: // ============================================================
@@ -4676,7 +5032,6 @@ components/greet/index.js:         hook.state,
 components/greet/index.js:         dispatch
 components/greet/index.js:     ];
 components/greet/index.js: }
-components/greet/index.js: exports.useReducer = useReducer;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useEffect
 components/greet/index.js: // ============================================================
@@ -4694,7 +5049,6 @@ components/greet/index.js:             hook: hook
 components/greet/index.js:         });
 components/greet/index.js:     }
 components/greet/index.js: }
-components/greet/index.js: exports.useEffect = useEffect;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useLayoutEffect
 components/greet/index.js: // ============================================================
@@ -4712,7 +5066,6 @@ components/greet/index.js:             hook: hook
 components/greet/index.js:         });
 components/greet/index.js:     }
 components/greet/index.js: }
-components/greet/index.js: exports.useLayoutEffect = useLayoutEffect;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useRef
 components/greet/index.js: // ============================================================
@@ -4725,7 +5078,6 @@ components/greet/index.js:         };
 components/greet/index.js:     }
 components/greet/index.js:     return hook.state;
 components/greet/index.js: }
-components/greet/index.js: exports.useRef = useRef;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useMemo
 components/greet/index.js: // ============================================================
@@ -4739,7 +5091,6 @@ components/greet/index.js:         };
 components/greet/index.js:     }
 components/greet/index.js:     return hook.memo.value;
 components/greet/index.js: }
-components/greet/index.js: exports.useMemo = useMemo;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useCallback
 components/greet/index.js: // ============================================================
@@ -4748,7 +5099,6 @@ components/greet/index.js:     return useMemo(function() {
 components/greet/index.js:         return callback;
 components/greet/index.js:     }, deps);
 components/greet/index.js: }
-components/greet/index.js: exports.useCallback = useCallback;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useContext
 components/greet/index.js: // ============================================================
@@ -4807,7 +5157,6 @@ components/greet/index.js:         return context._currentValue2;
 components/greet/index.js:     }
 components/greet/index.js:     return undefined;
 components/greet/index.js: }
-components/greet/index.js: exports.useContext = useContext;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // useImperativeHandle / useDebugValue
 components/greet/index.js: // ============================================================
@@ -4828,11 +5177,9 @@ components/greet/index.js:             };
 components/greet/index.js:         }
 components/greet/index.js:     }, deps);
 components/greet/index.js: }
-components/greet/index.js: exports.useImperativeHandle = useImperativeHandle;
 components/greet/index.js: function useDebugValue(_value) {
 components/greet/index.js: // noop
 components/greet/index.js: }
-components/greet/index.js: exports.useDebugValue = useDebugValue;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // Effect Flushing (called by render-light.ts)
 components/greet/index.js: // ============================================================
@@ -4871,7 +5218,6 @@ components/greet/index.js:             _iterator5.f();
 components/greet/index.js:         }
 components/greet/index.js:     }
 components/greet/index.js: }
-components/greet/index.js: exports.flushLayoutEffects = flushLayoutEffects;
 components/greet/index.js: function flushPassiveEffects() {
 components/greet/index.js:     if (passiveEffects.length === 0) return;
 components/greet/index.js:     scheduler_1.default.unstable_scheduleCallback(function() {
@@ -4906,7 +5252,6 @@ components/greet/index.js:             _iterator6.f();
 components/greet/index.js:         }
 components/greet/index.js:     });
 components/greet/index.js: }
-components/greet/index.js: exports.flushPassiveEffects = flushPassiveEffects;
 components/greet/index.js: function cleanupEffectsForNode(node) {
 components/greet/index.js:     var _a;
 components/greet/index.js:     if (!node.memoizedState) return;
@@ -4930,14 +5275,12 @@ components/greet/index.js:         _iterator7.f();
 components/greet/index.js:     }
 components/greet/index.js:     cleanupComponentContextSubscriptions(node);
 components/greet/index.js: }
-components/greet/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
 components/greet/index.js: var reRenderComponent = function reRenderComponent() {
 components/greet/index.js:     throw new Error('reRenderComponent not set - render-light.ts must set this');
 components/greet/index.js: };
 components/greet/index.js: function setReRenderFn(fn) {
 components/greet/index.js:     reRenderComponent = fn;
 components/greet/index.js: }
-components/greet/index.js: exports.setReRenderFn = setReRenderFn;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/hooks/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -4950,7 +5293,11 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.useQuery = exports.useNativeEffect = exports.useComponentInstance = exports.usePageInstance = exports.useAppEvent = exports.usePageEvent = void 0;
+components/greet/index.js: exports.useQuery = exports.useNativeEffect = void 0;
+components/greet/index.js: exports.usePageEvent = usePageEvent;
+components/greet/index.js: exports.useAppEvent = useAppEvent;
+components/greet/index.js: exports.usePageInstance = usePageInstance;
+components/greet/index.js: exports.useComponentInstance = useComponentInstance;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
 components/greet/index.js: function usePageEvent(eventName, callback) {
@@ -4963,7 +5310,6 @@ components/greet/index.js:     (0, hooks_light_1.useLayoutEffect)(function() {
 components/greet/index.js:         return (0, framework_shared_1.registerLifecycle)(pageInstance, lifeCycle, callback);
 components/greet/index.js:     });
 components/greet/index.js: }
-components/greet/index.js: exports.usePageEvent = usePageEvent;
 components/greet/index.js: function useAppEvent(eventName, callback) {
 components/greet/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 components/greet/index.js:         return (0, framework_shared_1.useAppEvent)(eventName, callback);
@@ -4973,21 +5319,18 @@ components/greet/index.js:     (0, hooks_light_1.useLayoutEffect)(function() {
 components/greet/index.js:         return (0, framework_shared_1.registerLifecycle)(framework_shared_1.AppInstanceContext, lifeCycle, callback);
 components/greet/index.js:     });
 components/greet/index.js: }
-components/greet/index.js: exports.useAppEvent = useAppEvent;
 components/greet/index.js: function usePageInstance() {
 components/greet/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 components/greet/index.js:         return (0, framework_shared_1.usePageInstance)();
 components/greet/index.js:     }
 components/greet/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext);
 components/greet/index.js: }
-components/greet/index.js: exports.usePageInstance = usePageInstance;
 components/greet/index.js: function useComponentInstance() {
 components/greet/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 components/greet/index.js:         return (0, framework_shared_1.useComponentInstance)();
 components/greet/index.js:     }
 components/greet/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.ComponentInstanceContext);
 components/greet/index.js: }
-components/greet/index.js: exports.useComponentInstance = useComponentInstance;
 components/greet/index.js: var useNativeEffect_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks/useNativeEffect.js");
 components/greet/index.js: Object.defineProperty(exports, "useNativeEffect", ({
 components/greet/index.js:     enumerable: true,
@@ -5014,6 +5357,7 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
+components/greet/index.js: exports["default"] = useNativeEffect;
 components/greet/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 components/greet/index.js: var nativeEffect_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/nativeEffect.js"));
 components/greet/index.js: function useNativeEffect(listener, deps) {
@@ -5021,7 +5365,6 @@ components/greet/index.js:     (0, react_1.useLayoutEffect)(function() {
 components/greet/index.js:         return nativeEffect_1.default.connect(listener, !!deps);
 components/greet/index.js:     }, deps);
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = useNativeEffect;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/hooks/useQuery.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -5029,6 +5372,7 @@ components/greet/index.js:
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
+components/greet/index.js: exports["default"] = useQuery;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 components/greet/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
@@ -5036,7 +5380,6 @@ components/greet/index.js: function useQuery() {
 components/greet/index.js:     var pageInstance = framework_shared_1.RuntimeOptions.get('renderer') === 'light' ? (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext) : (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
 components/greet/index.js:     return pageInstance.query;
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = useQuery;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/diffProperties.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -5044,6 +5387,7 @@ components/greet/index.js:
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
+components/greet/index.js: exports["default"] = diffProperties;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var STYLE = [
 components/greet/index.js:     'style',
@@ -5132,7 +5476,6 @@ components/greet/index.js:         }
 components/greet/index.js:     }
 components/greet/index.js:     return updatePayload.length ? updatePayload : null;
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = diffProperties;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -5333,7 +5676,8 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.unstable_batchedUpdates = exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+components/greet/index.js: exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+components/greet/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var render_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render.js");
 components/greet/index.js: var render_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render-light.js");
@@ -5415,7 +5759,6 @@ components/greet/index.js:         return (0, render_light_1.unstable_batchedUpd
 components/greet/index.js:     }
 components/greet/index.js:     return render_1.ReactReconcilerInst.batchedUpdates(callback, null);
 components/greet/index.js: }
-components/greet/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 components/greet/index.js: exports["default"] = {
 components/greet/index.js:     unstable_batchedUpdates: unstable_batchedUpdates
 components/greet/index.js: };
@@ -5426,18 +5769,17 @@ components/greet/index.js:
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.generate = exports.reset = void 0;
+components/greet/index.js: exports.reset = reset;
+components/greet/index.js: exports.generate = generate;
 components/greet/index.js: var instanceId = 0;
 components/greet/index.js: function reset() {
 components/greet/index.js:     instanceId = 0;
 components/greet/index.js: }
-components/greet/index.js: exports.reset = reset;
 components/greet/index.js: function generate() {
 components/greet/index.js:     var id = instanceId;
 components/greet/index.js:     instanceId += 1;
 components/greet/index.js:     return id;
 components/greet/index.js: }
-components/greet/index.js: exports.generate = generate;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/nativeEffect.js"(__unused_webpack_module, exports) {
@@ -5487,7 +5829,9 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.propAlias = exports.getAlias = void 0;
+components/greet/index.js: exports.getAlias = getAlias;
+components/greet/index.js: exports.propAlias = propAlias;
+components/greet/index.js: exports["default"] = propsAlias;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var plainStyle_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/utils/plainStyle/index.js"));
 components/greet/index.js: function getAlias(prop, type) {
@@ -5500,7 +5844,6 @@ components/greet/index.js:         return prop.replace(new RegExp("^".concat(pre
 components/greet/index.js:     }
 components/greet/index.js:     return (_b = (_a = hostComponent === null || hostComponent === void 0 ? void 0 : hostComponent.alias) === null || _a === void 0 ? void 0 : _a[prop]) !== null && _b !== void 0 ? _b : prop;
 components/greet/index.js: }
-components/greet/index.js: exports.getAlias = getAlias;
 components/greet/index.js: function getValue(prop, value) {
 components/greet/index.js:     if (prop.toLowerCase().endsWith('style') && Object.prototype.toString.call(value) === '[object Object]') {
 components/greet/index.js:         return (0, plainStyle_1.default)(value);
@@ -5513,7 +5856,6 @@ components/greet/index.js:         getAlias(prop, type),
 components/greet/index.js:         getValue(prop, value)
 components/greet/index.js:     ];
 components/greet/index.js: }
-components/greet/index.js: exports.propAlias = propAlias;
 components/greet/index.js: function propsAlias(props, type) {
 components/greet/index.js:     if (!props) {
 components/greet/index.js:         return props;
@@ -5534,7 +5876,6 @@ components/greet/index.js:         }
 components/greet/index.js:     }
 components/greet/index.js:     return aliasProps;
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = propsAlias;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/render-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -5663,15 +6004,25 @@ components/greet/index.js:     });
 components/greet/index.js: } : function(o, v) {
 components/greet/index.js:     o["default"] = v;
 components/greet/index.js: });
-components/greet/index.js: var __importStar = this && this.__importStar || function(mod) {
-components/greet/index.js:     if (mod && mod.__esModule) return mod;
-components/greet/index.js:     var result = {};
-components/greet/index.js:     if (mod != null) {
-components/greet/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-components/greet/index.js:     }
-components/greet/index.js:     __setModuleDefault(result, mod);
-components/greet/index.js:     return result;
-components/greet/index.js: };
+components/greet/index.js: var __importStar = this && this.__importStar || function() {
+components/greet/index.js:     var _ownKeys = function ownKeys(o) {
+components/greet/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+components/greet/index.js:             var ar = [];
+components/greet/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+components/greet/index.js:             return ar;
+components/greet/index.js:         };
+components/greet/index.js:         return _ownKeys(o);
+components/greet/index.js:     };
+components/greet/index.js:     return function(mod) {
+components/greet/index.js:         if (mod && mod.__esModule) return mod;
+components/greet/index.js:         var result = {};
+components/greet/index.js:         if (mod != null) {
+components/greet/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+components/greet/index.js:         }
+components/greet/index.js:         __setModuleDefault(result, mod);
+components/greet/index.js:         return result;
+components/greet/index.js:     };
+components/greet/index.js: }();
 components/greet/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 components/greet/index.js:     return mod && mod.__esModule ? mod : {
 components/greet/index.js:         "default": mod
@@ -5682,6 +6033,7 @@ components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
 components/greet/index.js: exports.unstable_batchedUpdates = exports.batchedUpdates = void 0;
+components/greet/index.js: exports["default"] = render;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 components/greet/index.js: var VNode_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/VNode.js"));
@@ -6679,7 +7031,6 @@ components/greet/index.js:     // passive effects 异步调度
 components/greet/index.js:     (0, hooks_light_1.flushPassiveEffects)();
 components/greet/index.js:     return container.root;
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = render;
 components/greet/index.js: // ============================================================
 components/greet/index.js: // 组件重新渲染
 components/greet/index.js: // ============================================================
@@ -6760,6 +7111,7 @@ components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
 components/greet/index.js: exports.ReactReconcilerInst = void 0;
+components/greet/index.js: exports["default"] = render;
 components/greet/index.js: var react_reconciler_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react-reconciler@0.29.0_react@18.3.1/node_modules/react-reconciler/cjs/react-reconciler.production.min.js"));
 components/greet/index.js: var hostConfig_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/hostConfig/index.js"));
 components/greet/index.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -6782,7 +7134,6 @@ components/greet/index.js:     // ignore
 components/greet/index.js:     });
 components/greet/index.js:     return getPublicRootInstance(container._rootContainer);
 components/greet/index.js: }
-components/greet/index.js: exports["default"] = render;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/renderer.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -6795,7 +7146,8 @@ components/greet/index.js: };
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.renderLight = exports.render = exports.getRenderer = void 0;
+components/greet/index.js: exports.renderLight = exports.render = void 0;
+components/greet/index.js: exports.getRenderer = getRenderer;
 components/greet/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 components/greet/index.js: var render_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/render.js"));
 components/greet/index.js: exports.render = render_1.default;
@@ -6815,7 +7167,6 @@ components/greet/index.js: function getRenderer() {
 components/greet/index.js:     var renderer = framework_shared_1.RuntimeOptions.get('renderer');
 components/greet/index.js:     return renderer === 'light' ? lightRenderer : classicRenderer;
 components/greet/index.js: }
-components/greet/index.js: exports.getRenderer = getRenderer;
 components/greet/index.js: 
 components/greet/index.js: },
 components/greet/index.js: "../../../../../../rsmax-runtime/cjs/scheduler/index.js"(__unused_webpack_module, exports) {
@@ -6823,7 +7174,10 @@ components/greet/index.js:
 components/greet/index.js: Object.defineProperty(exports, "__esModule", ({
 components/greet/index.js:     value: true
 components/greet/index.js: }));
-components/greet/index.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+components/greet/index.js: exports.unstable_now = void 0;
+components/greet/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+components/greet/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+components/greet/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 components/greet/index.js: var taskQueue = [];
 components/greet/index.js: var taskIdCounter = 0;
 components/greet/index.js: exports.unstable_now = Date.now;
@@ -6845,7 +7199,6 @@ components/greet/index.js:         }
 components/greet/index.js:     });
 components/greet/index.js:     return id;
 components/greet/index.js: }
-components/greet/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
 components/greet/index.js: function unstable_cancelCallback(id) {
 components/greet/index.js:     var index = taskQueue.findIndex(function(t) {
 components/greet/index.js:         return t.id === id;
@@ -6854,11 +7207,9 @@ components/greet/index.js:     if (index !== -1) {
 components/greet/index.js:         taskQueue.splice(index, 1);
 components/greet/index.js:     }
 components/greet/index.js: }
-components/greet/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
 components/greet/index.js: function unstable_shouldYield() {
 components/greet/index.js:     return false;
 components/greet/index.js: }
-components/greet/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 components/greet/index.js: exports["default"] = {
 components/greet/index.js:     unstable_scheduleCallback: unstable_scheduleCallback,
 components/greet/index.js:     unstable_cancelCallback: unstable_cancelCallback,
@@ -8352,13 +8703,64 @@ pages/index/index.js: __webpack_require__.r(__webpack_exports__);
 pages/index/index.js: __webpack_require__.d(__webpack_exports__, {
 pages/index/index.js:   promisify: () => (promisify)
 pages/index/index.js: });
+pages/index/index.js: function _typeof(o) {
+pages/index/index.js:     "@babel/helpers - typeof";
+pages/index/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/index/index.js:         return typeof o;
+pages/index/index.js:     } : function(o) {
+pages/index/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/index/index.js:     }, _typeof(o);
+pages/index/index.js: }
+pages/index/index.js: function ownKeys(e, r) {
+pages/index/index.js:     var t = Object.keys(e);
+pages/index/index.js:     if (Object.getOwnPropertySymbols) {
+pages/index/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/index/index.js:         r && (o = o.filter(function(r) {
+pages/index/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/index/index.js:         })), t.push.apply(t, o);
+pages/index/index.js:     }
+pages/index/index.js:     return t;
+pages/index/index.js: }
+pages/index/index.js: function _objectSpread(e) {
+pages/index/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/index/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/index/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/index/index.js:             _defineProperty(e, r, t[r]);
+pages/index/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/index/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/index/index.js:         });
+pages/index/index.js:     }
+pages/index/index.js:     return e;
+pages/index/index.js: }
+pages/index/index.js: function _defineProperty(e, r, t) {
+pages/index/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/index/index.js:         value: t,
+pages/index/index.js:         enumerable: !0,
+pages/index/index.js:         configurable: !0,
+pages/index/index.js:         writable: !0
+pages/index/index.js:     }) : e[r] = t, e;
+pages/index/index.js: }
+pages/index/index.js: function _toPropertyKey(t) {
+pages/index/index.js:     var i = _toPrimitive(t, "string");
+pages/index/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/index/index.js: }
+pages/index/index.js: function _toPrimitive(t, r) {
+pages/index/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/index/index.js:     var e = t[Symbol.toPrimitive];
+pages/index/index.js:     if (void 0 !== e) {
+pages/index/index.js:         var i = e.call(t, r || "default");
+pages/index/index.js:         if ("object" != _typeof(i)) return i;
+pages/index/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/index/index.js:     }
+pages/index/index.js:     return ("string" === r ? String : Number)(t);
+pages/index/index.js: }
 pages/index/index.js: function promisify(api) {
 pages/index/index.js:     // @ts-ignore
 pages/index/index.js:     return function() {
 pages/index/index.js:         var arg = arguments.length > 0 && arguments[<ID>] !== undefined ? arguments[<ID>] : {};
 pages/index/index.js:         return new Promise(function(resolve, reject) {
 pages/index/index.js:             var promisifyArg = arg;
-pages/index/index.js:             api(Object.assign(Object.assign({}, promisifyArg), {
+pages/index/index.js:             api(_objectSpread(_objectSpread({}, promisifyArg), {}, {
 pages/index/index.js:                 success: function success(res) {
 pages/index/index.js:                     if (promisifyArg && typeof promisifyArg.success === 'function') {
 pages/index/index.js:                         promisifyArg.success(res);
@@ -8434,10 +8836,65 @@ pages/index/index.js:
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-one/cjs/api/adapters/ali.js"(__unused_webpack_module, exports, __webpack_require__) {
 pages/index/index.js: 
+pages/index/index.js: function _typeof(o) {
+pages/index/index.js:     "@babel/helpers - typeof";
+pages/index/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/index/index.js:         return typeof o;
+pages/index/index.js:     } : function(o) {
+pages/index/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/index/index.js:     }, _typeof(o);
+pages/index/index.js: }
+pages/index/index.js: function ownKeys(e, r) {
+pages/index/index.js:     var t = Object.keys(e);
+pages/index/index.js:     if (Object.getOwnPropertySymbols) {
+pages/index/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/index/index.js:         r && (o = o.filter(function(r) {
+pages/index/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/index/index.js:         })), t.push.apply(t, o);
+pages/index/index.js:     }
+pages/index/index.js:     return t;
+pages/index/index.js: }
+pages/index/index.js: function _objectSpread(e) {
+pages/index/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/index/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/index/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/index/index.js:             _defineProperty(e, r, t[r]);
+pages/index/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/index/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/index/index.js:         });
+pages/index/index.js:     }
+pages/index/index.js:     return e;
+pages/index/index.js: }
+pages/index/index.js: function _defineProperty(e, r, t) {
+pages/index/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/index/index.js:         value: t,
+pages/index/index.js:         enumerable: !0,
+pages/index/index.js:         configurable: !0,
+pages/index/index.js:         writable: !0
+pages/index/index.js:     }) : e[r] = t, e;
+pages/index/index.js: }
+pages/index/index.js: function _toPropertyKey(t) {
+pages/index/index.js:     var i = _toPrimitive(t, "string");
+pages/index/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/index/index.js: }
+pages/index/index.js: function _toPrimitive(t, r) {
+pages/index/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/index/index.js:     var e = t[Symbol.toPrimitive];
+pages/index/index.js:     if (void 0 !== e) {
+pages/index/index.js:         var i = e.call(t, r || "default");
+pages/index/index.js:         if ("object" != _typeof(i)) return i;
+pages/index/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/index/index.js:     }
+pages/index/index.js:     return ("string" === r ? String : Number)(t);
+pages/index/index.js: }
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.initAPI = exports.setCurrentPlatform = exports.getCurrentAPI = exports.getCurrentPlatform = exports.aliAPI = void 0;
+pages/index/index.js: exports.aliAPI = void 0;
+pages/index/index.js: exports.getCurrentPlatform = getCurrentPlatform;
+pages/index/index.js: exports.getCurrentAPI = getCurrentAPI;
+pages/index/index.js: exports.setCurrentPlatform = setCurrentPlatform;
+pages/index/index.js: exports.initAPI = initAPI;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: exports.aliAPI = {
 pages/index/index.js:     getSystemInfo: function getSystemInfo() {
@@ -8504,7 +8961,7 @@ pages/index/index.js:     },
 pages/index/index.js:     request: function request(options) {
 pages/index/index.js:         return new Promise(function(resolve, reject) {
 pages/index/index.js:             var _a;
-pages/index/index.js:             my.request(Object.assign(Object.assign({}, options), {
+pages/index/index.js:             my.request(_objectSpread(_objectSpread({}, options), {}, {
 pages/index/index.js:                 method: (_a = options.method) === null || _a === void 0 ? void 0 : _a.toUpperCase(),
 pages/index/index.js:                 success: function success(res) {
 pages/index/index.js:                     return resolve(res);
@@ -8517,7 +8974,7 @@ pages/index/index.js:         });
 pages/index/index.js:     },
 pages/index/index.js:     uploadFile: function uploadFile(options) {
 pages/index/index.js:         return new Promise(function(resolve, reject) {
-pages/index/index.js:             my.uploadFile(Object.assign(Object.assign({}, options), {
+pages/index/index.js:             my.uploadFile(_objectSpread(_objectSpread({}, options), {}, {
 pages/index/index.js:                 success: function success(res) {
 pages/index/index.js:                     return resolve(res);
 pages/index/index.js:                 },
@@ -8529,7 +8986,7 @@ pages/index/index.js:         });
 pages/index/index.js:     },
 pages/index/index.js:     downloadFile: function downloadFile(options) {
 pages/index/index.js:         return new Promise(function(resolve, reject) {
-pages/index/index.js:             my.downloadFile(Object.assign(Object.assign({}, options), {
+pages/index/index.js:             my.downloadFile(_objectSpread(_objectSpread({}, options), {}, {
 pages/index/index.js:                 success: function success(res) {
 pages/index/index.js:                     return resolve(res);
 pages/index/index.js:                 },
@@ -8569,19 +9026,15 @@ pages/index/index.js: };
 pages/index/index.js: function getCurrentPlatform() {
 pages/index/index.js:     return 'ali';
 pages/index/index.js: }
-pages/index/index.js: exports.getCurrentPlatform = getCurrentPlatform;
 pages/index/index.js: function getCurrentAPI() {
 pages/index/index.js:     return exports.aliAPI;
 pages/index/index.js: }
-pages/index/index.js: exports.getCurrentAPI = getCurrentAPI;
 pages/index/index.js: function setCurrentPlatform(_platform) {
 pages/index/index.js: // 一份小程序产物只服务一个构建目标平台，运行时无需切换
 pages/index/index.js: }
-pages/index/index.js: exports.setCurrentPlatform = setCurrentPlatform;
 pages/index/index.js: function initAPI(_platform) {
 pages/index/index.js:     return exports.aliAPI;
 pages/index/index.js: }
-pages/index/index.js: exports.initAPI = initAPI;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-one/esm/api/unified/index.js"(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -8612,6 +9065,57 @@ pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0___default = /*
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../../../../../rsmax-one/esm/createHostComponent.js");
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
+pages/index/index.js: function _typeof(o) {
+pages/index/index.js:     "@babel/helpers - typeof";
+pages/index/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/index/index.js:         return typeof o;
+pages/index/index.js:     } : function(o) {
+pages/index/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/index/index.js:     }, _typeof(o);
+pages/index/index.js: }
+pages/index/index.js: function ownKeys(e, r) {
+pages/index/index.js:     var t = Object.keys(e);
+pages/index/index.js:     if (Object.getOwnPropertySymbols) {
+pages/index/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/index/index.js:         r && (o = o.filter(function(r) {
+pages/index/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/index/index.js:         })), t.push.apply(t, o);
+pages/index/index.js:     }
+pages/index/index.js:     return t;
+pages/index/index.js: }
+pages/index/index.js: function _objectSpread(e) {
+pages/index/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/index/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/index/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/index/index.js:             _defineProperty(e, r, t[r]);
+pages/index/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/index/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/index/index.js:         });
+pages/index/index.js:     }
+pages/index/index.js:     return e;
+pages/index/index.js: }
+pages/index/index.js: function _defineProperty(e, r, t) {
+pages/index/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/index/index.js:         value: t,
+pages/index/index.js:         enumerable: !0,
+pages/index/index.js:         configurable: !0,
+pages/index/index.js:         writable: !0
+pages/index/index.js:     }) : e[r] = t, e;
+pages/index/index.js: }
+pages/index/index.js: function _toPropertyKey(t) {
+pages/index/index.js:     var i = _toPrimitive(t, "string");
+pages/index/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/index/index.js: }
+pages/index/index.js: function _toPrimitive(t, r) {
+pages/index/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/index/index.js:     var e = t[Symbol.toPrimitive];
+pages/index/index.js:     if (void 0 !== e) {
+pages/index/index.js:         var i = e.call(t, r || "default");
+pages/index/index.js:         if ("object" != _typeof(i)) return i;
+pages/index/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/index/index.js:     }
+pages/index/index.js:     return ("string" === r ? String : Number)(t);
+pages/index/index.js: }
 pages/index/index.js: 
 pages/index/index.js: var createTapCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
 pages/index/index.js: var createTouchStartCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(__WEBPACK_IMPORTED_MODULE_3__.createCallback);
@@ -9315,11 +9819,11 @@ pages/index/index.js:             return __WEBPACK_IMPORTED_MODULE_3__.createCal
 pages/index/index.js:     }
 pages/index/index.js: }
 pages/index/index.js: function createUnifiedComponent(componentName, customConfig) {
-pages/index/index.js:     var config = Object.assign(Object.assign({}, componentConfigs[componentName]), customConfig);
+pages/index/index.js:     var config = _objectSpread(_objectSpread({}, componentConfigs[componentName]), customConfig);
 pages/index/index.js:     var tagName = config.tagName, alias = config.alias, customDefaultProps = config.defaultProps, eventHandlers = config.eventHandlers;
 pages/index/index.js:     var Component = function Component(props, ref) {
 pages/index/index.js:         var platformDefaultProps = currentPlatformComponentProps[componentName] || {};
-pages/index/index.js:         var inputProps = Object.assign({}, props);
+pages/index/index.js:         var inputProps = _objectSpread({}, props);
 pages/index/index.js:         assignDefaultProps(inputProps, platformDefaultProps);
 pages/index/index.js:         if (customDefaultProps) {
 pages/index/index.js:             assignDefaultProps(inputProps, customDefaultProps);
@@ -9455,6 +9959,57 @@ pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_0__ = __webpack_
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../../../../../../node_modules/.pnpm/memoize-one@5.2.1/node_modules/memoize-one/dist/memoize-one.esm.js");
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 pages/index/index.js: /* import */var __WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__);
+pages/index/index.js: function _typeof(o) {
+pages/index/index.js:     "@babel/helpers - typeof";
+pages/index/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/index/index.js:         return typeof o;
+pages/index/index.js:     } : function(o) {
+pages/index/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/index/index.js:     }, _typeof(o);
+pages/index/index.js: }
+pages/index/index.js: function ownKeys(e, r) {
+pages/index/index.js:     var t = Object.keys(e);
+pages/index/index.js:     if (Object.getOwnPropertySymbols) {
+pages/index/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/index/index.js:         r && (o = o.filter(function(r) {
+pages/index/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/index/index.js:         })), t.push.apply(t, o);
+pages/index/index.js:     }
+pages/index/index.js:     return t;
+pages/index/index.js: }
+pages/index/index.js: function _objectSpread(e) {
+pages/index/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/index/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/index/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/index/index.js:             _defineProperty(e, r, t[r]);
+pages/index/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/index/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/index/index.js:         });
+pages/index/index.js:     }
+pages/index/index.js:     return e;
+pages/index/index.js: }
+pages/index/index.js: function _defineProperty(e, r, t) {
+pages/index/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/index/index.js:         value: t,
+pages/index/index.js:         enumerable: !0,
+pages/index/index.js:         configurable: !0,
+pages/index/index.js:         writable: !0
+pages/index/index.js:     }) : e[r] = t, e;
+pages/index/index.js: }
+pages/index/index.js: function _toPropertyKey(t) {
+pages/index/index.js:     var i = _toPrimitive(t, "string");
+pages/index/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/index/index.js: }
+pages/index/index.js: function _toPrimitive(t, r) {
+pages/index/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/index/index.js:     var e = t[Symbol.toPrimitive];
+pages/index/index.js:     if (void 0 !== e) {
+pages/index/index.js:         var i = e.call(t, r || "default");
+pages/index/index.js:         if ("object" != _typeof(i)) return i;
+pages/index/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/index/index.js:     }
+pages/index/index.js:     return ("string" === r ? String : Number)(t);
+pages/index/index.js: }
 pages/index/index.js: 
 pages/index/index.js: function createTarget(target, detail) {
 pages/index/index.js:     return {
@@ -9566,7 +10121,7 @@ pages/index/index.js: var createImageLoadCallback = (0,__WEBPACK_IMPORTED_MODULE
 pages/index/index.js: var createImageErrorCallback = (0,__WEBPACK_IMPORTED_MODULE_2__["default"])(createCallback);
 pages/index/index.js: function createHostComponent(name, alias, defaults) {
 pages/index/index.js:     var Component = function Component(props, ref) {
-pages/index/index.js:         var inputProps = Object.assign({}, props);
+pages/index/index.js:         var inputProps = _objectSpread({}, props);
 pages/index/index.js:         // 默认属性根据平台在这里设置
 pages/index/index.js:         if (defaults) {
 pages/index/index.js:             assignDefaultProps(inputProps, defaults);
@@ -10042,7 +10597,7 @@ pages/index/index.js:
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.createPortal = void 0;
+pages/index/index.js: exports.createPortal = createPortal;
 pages/index/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
 pages/index/index.js: function createPortal(children, containerInfo, key) {
 pages/index/index.js:     return {
@@ -10054,7 +10609,6 @@ pages/index/index.js:         containerInfo: containerInfo,
 pages/index/index.js:         implementation: null
 pages/index/index.js:     };
 pages/index/index.js: }
-pages/index/index.js: exports.createPortal = createPortal;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js"(__unused_webpack_module, exports) {
@@ -10101,19 +10655,29 @@ pages/index/index.js:     });
 pages/index/index.js: } : function(o, v) {
 pages/index/index.js:     o["default"] = v;
 pages/index/index.js: });
-pages/index/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index/index.js:     if (mod && mod.__esModule) return mod;
-pages/index/index.js:     var result = {};
-pages/index/index.js:     if (mod != null) {
-pages/index/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index/index.js:     }
-pages/index/index.js:     __setModuleDefault(result, mod);
-pages/index/index.js:     return result;
-pages/index/index.js: };
+pages/index/index.js: var __importStar = this && this.__importStar || function() {
+pages/index/index.js:     var _ownKeys = function ownKeys(o) {
+pages/index/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index/index.js:             var ar = [];
+pages/index/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index/index.js:             return ar;
+pages/index/index.js:         };
+pages/index/index.js:         return _ownKeys(o);
+pages/index/index.js:     };
+pages/index/index.js:     return function(mod) {
+pages/index/index.js:         if (mod && mod.__esModule) return mod;
+pages/index/index.js:         var result = {};
+pages/index/index.js:         if (mod != null) {
+pages/index/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index/index.js:         }
+pages/index/index.js:         __setModuleDefault(result, mod);
+pages/index/index.js:         return result;
+pages/index/index.js:     };
+pages/index/index.js: }();
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.createCallbackProxy = void 0;
+pages/index/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 pages/index/index.js: var stopPropagation_1 = __importStar(__webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"));
@@ -10153,7 +10717,6 @@ pages/index/index.js:             syntheticEvent
 pages/index/index.js:         ].concat(restParams));
 pages/index/index.js:     };
 pages/index/index.js: }
-pages/index/index.js: exports.createCallbackProxy = createCallbackProxy;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/SyntheticEvent/stopPropagation.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -10161,7 +10724,9 @@ pages/index/index.js:
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.validate = exports.isPropagationStopped = void 0;
+pages/index/index.js: exports.isPropagationStopped = void 0;
+pages/index/index.js: exports.validate = validate;
+pages/index/index.js: exports["default"] = stopPropagation;
 pages/index/index.js: var constants_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/SyntheticEvent/constants.js");
 pages/index/index.js: exports.isPropagationStopped = {};
 pages/index/index.js: constants_1.SYNTHETIC_TYPES.forEach(function(type) {
@@ -10185,12 +10750,10 @@ pages/index/index.js:         return;
 pages/index/index.js:     }
 pages/index/index.js:     validate(parent, eventType);
 pages/index/index.js: }
-pages/index/index.js: exports.validate = validate;
 pages/index/index.js: function stopPropagation(node, eventType) {
 pages/index/index.js:     exports.isPropagationStopped[eventType] = true;
 pages/index/index.js:     validate(node, eventType);
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = stopPropagation;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/VNode.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -10309,15 +10872,25 @@ pages/index/index.js:     });
 pages/index/index.js: } : function(o, v) {
 pages/index/index.js:     o["default"] = v;
 pages/index/index.js: });
-pages/index/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index/index.js:     if (mod && mod.__esModule) return mod;
-pages/index/index.js:     var result = {};
-pages/index/index.js:     if (mod != null) {
-pages/index/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index/index.js:     }
-pages/index/index.js:     __setModuleDefault(result, mod);
-pages/index/index.js:     return result;
-pages/index/index.js: };
+pages/index/index.js: var __importStar = this && this.__importStar || function() {
+pages/index/index.js:     var _ownKeys = function ownKeys(o) {
+pages/index/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index/index.js:             var ar = [];
+pages/index/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index/index.js:             return ar;
+pages/index/index.js:         };
+pages/index/index.js:         return _ownKeys(o);
+pages/index/index.js:     };
+pages/index/index.js:     return function(mod) {
+pages/index/index.js:         if (mod && mod.__esModule) return mod;
+pages/index/index.js:         var result = {};
+pages/index/index.js:         if (mod != null) {
+pages/index/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index/index.js:         }
+pages/index/index.js:         __setModuleDefault(result, mod);
+pages/index/index.js:         return result;
+pages/index/index.js:     };
+pages/index/index.js: }();
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
@@ -10845,15 +11418,25 @@ pages/index/index.js:     });
 pages/index/index.js: } : function(o, v) {
 pages/index/index.js:     o["default"] = v;
 pages/index/index.js: });
-pages/index/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index/index.js:     if (mod && mod.__esModule) return mod;
-pages/index/index.js:     var result = {};
-pages/index/index.js:     if (mod != null) {
-pages/index/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index/index.js:     }
-pages/index/index.js:     __setModuleDefault(result, mod);
-pages/index/index.js:     return result;
-pages/index/index.js: };
+pages/index/index.js: var __importStar = this && this.__importStar || function() {
+pages/index/index.js:     var _ownKeys = function ownKeys(o) {
+pages/index/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index/index.js:             var ar = [];
+pages/index/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index/index.js:             return ar;
+pages/index/index.js:         };
+pages/index/index.js:         return _ownKeys(o);
+pages/index/index.js:     };
+pages/index/index.js:     return function(mod) {
+pages/index/index.js:         if (mod && mod.__esModule) return mod;
+pages/index/index.js:         var result = {};
+pages/index/index.js:         if (mod != null) {
+pages/index/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index/index.js:         }
+pages/index/index.js:         __setModuleDefault(result, mod);
+pages/index/index.js:         return result;
+pages/index/index.js:     };
+pages/index/index.js: }();
 pages/index/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/index/index.js:     return mod && mod.__esModule ? mod : {
 pages/index/index.js:         "default": mod
@@ -10862,6 +11445,7 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
+pages/index/index.js: exports["default"] = createAppConfig;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/index/index.js: var react_is_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react-is@18.3.1/node_modules/react-is/index.js");
@@ -10974,7 +11558,6 @@ pages/index/index.js:         return framework_shared_1.RuntimeOptions.get('plug
 pages/index/index.js:     };
 pages/index/index.js:     return createConfig(WrappedApp);
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = createAppConfig;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/createComponentConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -11006,15 +11589,25 @@ pages/index/index.js:     });
 pages/index/index.js: } : function(o, v) {
 pages/index/index.js:     o["default"] = v;
 pages/index/index.js: });
-pages/index/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index/index.js:     if (mod && mod.__esModule) return mod;
-pages/index/index.js:     var result = {};
-pages/index/index.js:     if (mod != null) {
-pages/index/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index/index.js:     }
-pages/index/index.js:     __setModuleDefault(result, mod);
-pages/index/index.js:     return result;
-pages/index/index.js: };
+pages/index/index.js: var __importStar = this && this.__importStar || function() {
+pages/index/index.js:     var _ownKeys = function ownKeys(o) {
+pages/index/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index/index.js:             var ar = [];
+pages/index/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index/index.js:             return ar;
+pages/index/index.js:         };
+pages/index/index.js:         return _ownKeys(o);
+pages/index/index.js:     };
+pages/index/index.js:     return function(mod) {
+pages/index/index.js:         if (mod && mod.__esModule) return mod;
+pages/index/index.js:         var result = {};
+pages/index/index.js:         if (mod != null) {
+pages/index/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index/index.js:         }
+pages/index/index.js:         __setModuleDefault(result, mod);
+pages/index/index.js:         return result;
+pages/index/index.js:     };
+pages/index/index.js: }();
 pages/index/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/index/index.js:     return mod && mod.__esModule ? mod : {
 pages/index/index.js:         "default": mod
@@ -11023,6 +11616,7 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
+pages/index/index.js: exports["default"] = createComponentConfig;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/index/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -11088,11 +11682,61 @@ pages/index/index.js:         }
 pages/index/index.js:     };
 pages/index/index.js:     return config;
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = createComponentConfig;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/createHostComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 pages/index/index.js: 
+pages/index/index.js: function _typeof(o) {
+pages/index/index.js:     "@babel/helpers - typeof";
+pages/index/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/index/index.js:         return typeof o;
+pages/index/index.js:     } : function(o) {
+pages/index/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/index/index.js:     }, _typeof(o);
+pages/index/index.js: }
+pages/index/index.js: function ownKeys(e, r) {
+pages/index/index.js:     var t = Object.keys(e);
+pages/index/index.js:     if (Object.getOwnPropertySymbols) {
+pages/index/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/index/index.js:         r && (o = o.filter(function(r) {
+pages/index/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/index/index.js:         })), t.push.apply(t, o);
+pages/index/index.js:     }
+pages/index/index.js:     return t;
+pages/index/index.js: }
+pages/index/index.js: function _objectSpread(e) {
+pages/index/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/index/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/index/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/index/index.js:             _defineProperty(e, r, t[r]);
+pages/index/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/index/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/index/index.js:         });
+pages/index/index.js:     }
+pages/index/index.js:     return e;
+pages/index/index.js: }
+pages/index/index.js: function _defineProperty(e, r, t) {
+pages/index/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/index/index.js:         value: t,
+pages/index/index.js:         enumerable: !0,
+pages/index/index.js:         configurable: !0,
+pages/index/index.js:         writable: !0
+pages/index/index.js:     }) : e[r] = t, e;
+pages/index/index.js: }
+pages/index/index.js: function _toPropertyKey(t) {
+pages/index/index.js:     var i = _toPrimitive(t, "string");
+pages/index/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/index/index.js: }
+pages/index/index.js: function _toPrimitive(t, r) {
+pages/index/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/index/index.js:     var e = t[Symbol.toPrimitive];
+pages/index/index.js:     if (void 0 !== e) {
+pages/index/index.js:         var i = e.call(t, r || "default");
+pages/index/index.js:         if ("object" != _typeof(i)) return i;
+pages/index/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/index/index.js:     }
+pages/index/index.js:     return ("string" === r ? String : Number)(t);
+pages/index/index.js: }
 pages/index/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/index/index.js:     return mod && mod.__esModule ? mod : {
 pages/index/index.js:         "default": mod
@@ -11101,6 +11745,7 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
+pages/index/index.js: exports["default"] = createHostComponent;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/index/index.js: function createHostComponent(name, component) {
@@ -11108,7 +11753,7 @@ pages/index/index.js:     if (component) {
 pages/index/index.js:         return component;
 pages/index/index.js:     }
 pages/index/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-pages/index/index.js:         var element = react_1.default.createElement(name, Object.assign(Object.assign({}, props), {
+pages/index/index.js:         var element = react_1.default.createElement(name, _objectSpread(_objectSpread({}, props), {}, {
 pages/index/index.js:             ref: ref
 pages/index/index.js:         }));
 pages/index/index.js:         element = framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponentElement(element);
@@ -11117,11 +11762,61 @@ pages/index/index.js:     });
 pages/index/index.js:     Component.displayName = name;
 pages/index/index.js:     return framework_shared_1.RuntimeOptions.get('pluginDriver').onCreateHostComponent(Component);
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = createHostComponent;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/createNativeComponent.js"(__unused_webpack_module, exports, __webpack_require__) {
 pages/index/index.js: 
+pages/index/index.js: function _typeof(o) {
+pages/index/index.js:     "@babel/helpers - typeof";
+pages/index/index.js:     return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+pages/index/index.js:         return typeof o;
+pages/index/index.js:     } : function(o) {
+pages/index/index.js:         return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+pages/index/index.js:     }, _typeof(o);
+pages/index/index.js: }
+pages/index/index.js: function ownKeys(e, r) {
+pages/index/index.js:     var t = Object.keys(e);
+pages/index/index.js:     if (Object.getOwnPropertySymbols) {
+pages/index/index.js:         var o = Object.getOwnPropertySymbols(e);
+pages/index/index.js:         r && (o = o.filter(function(r) {
+pages/index/index.js:             return Object.getOwnPropertyDescriptor(e, r).enumerable;
+pages/index/index.js:         })), t.push.apply(t, o);
+pages/index/index.js:     }
+pages/index/index.js:     return t;
+pages/index/index.js: }
+pages/index/index.js: function _objectSpread(e) {
+pages/index/index.js:     for(var r = 1; r < arguments.length; r++){
+pages/index/index.js:         var t = null != arguments[r] ? arguments[r] : {};
+pages/index/index.js:         r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+pages/index/index.js:             _defineProperty(e, r, t[r]);
+pages/index/index.js:         }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+pages/index/index.js:             Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+pages/index/index.js:         });
+pages/index/index.js:     }
+pages/index/index.js:     return e;
+pages/index/index.js: }
+pages/index/index.js: function _defineProperty(e, r, t) {
+pages/index/index.js:     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+pages/index/index.js:         value: t,
+pages/index/index.js:         enumerable: !0,
+pages/index/index.js:         configurable: !0,
+pages/index/index.js:         writable: !0
+pages/index/index.js:     }) : e[r] = t, e;
+pages/index/index.js: }
+pages/index/index.js: function _toPropertyKey(t) {
+pages/index/index.js:     var i = _toPrimitive(t, "string");
+pages/index/index.js:     return "symbol" == _typeof(i) ? i : i + "";
+pages/index/index.js: }
+pages/index/index.js: function _toPrimitive(t, r) {
+pages/index/index.js:     if ("object" != _typeof(t) || !t) return t;
+pages/index/index.js:     var e = t[Symbol.toPrimitive];
+pages/index/index.js:     if (void 0 !== e) {
+pages/index/index.js:         var i = e.call(t, r || "default");
+pages/index/index.js:         if ("object" != _typeof(i)) return i;
+pages/index/index.js:         throw new TypeError("@@toPrimitive must return a primitive value.");
+pages/index/index.js:     }
+pages/index/index.js:     return ("string" === r ? String : Number)(t);
+pages/index/index.js: }
 pages/index/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/index/index.js:     return mod && mod.__esModule ? mod : {
 pages/index/index.js:         "default": mod
@@ -11130,10 +11825,11 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
+pages/index/index.js: exports["default"] = createNativeComponent;
 pages/index/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/index/index.js: function createNativeComponent(name) {
 pages/index/index.js:     var Component = react_1.default.forwardRef(function(props, ref) {
-pages/index/index.js:         var newProps = Object.assign({}, props);
+pages/index/index.js:         var newProps = _objectSpread({}, props);
 pages/index/index.js:         newProps.__ref = typeof ref === 'function' ? ref : function(e) {
 pages/index/index.js:             if (ref) {
 pages/index/index.js:                 ref.current = e;
@@ -11144,7 +11840,6 @@ pages/index/index.js:     });
 pages/index/index.js:     Component.displayName = name;
 pages/index/index.js:     return Component;
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = createNativeComponent;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/createPageConfig.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -11181,7 +11876,8 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.resetPageId = void 0;
+pages/index/index.js: exports.resetPageId = resetPageId;
+pages/index/index.js: exports["default"] = createPageConfig;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var react_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/index/index.js: var Container_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/Container.js"));
@@ -11199,7 +11895,6 @@ pages/index/index.js: // for testing
 pages/index/index.js: function resetPageId() {
 pages/index/index.js:     idCounter = 0;
 pages/index/index.js: }
-pages/index/index.js: exports.resetPageId = resetPageId;
 pages/index/index.js: function createPageConfig(Page, name) {
 pages/index/index.js:     var _a;
 pages/index/index.js:     var app;
@@ -11371,7 +12066,6 @@ pages/index/index.js:         config: config,
 pages/index/index.js:         page: name
 pages/index/index.js:     });
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = createPageConfig;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/hooks-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -11460,7 +12154,25 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.setReRenderFn = exports.cleanupEffectsForNode = exports.flushPassiveEffects = exports.flushLayoutEffects = exports.useDebugValue = exports.useImperativeHandle = exports.useContext = exports.useCallback = exports.useMemo = exports.useRef = exports.useLayoutEffect = exports.useEffect = exports.useReducer = exports.useState = exports.batchedUpdates = exports.scheduleComponentUpdate = exports.popRenderContext = exports.pushRenderContext = exports.currentComponent = void 0;
+pages/index/index.js: exports.currentComponent = void 0;
+pages/index/index.js: exports.pushRenderContext = pushRenderContext;
+pages/index/index.js: exports.popRenderContext = popRenderContext;
+pages/index/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
+pages/index/index.js: exports.batchedUpdates = batchedUpdates;
+pages/index/index.js: exports.useState = useState;
+pages/index/index.js: exports.useReducer = useReducer;
+pages/index/index.js: exports.useEffect = useEffect;
+pages/index/index.js: exports.useLayoutEffect = useLayoutEffect;
+pages/index/index.js: exports.useRef = useRef;
+pages/index/index.js: exports.useMemo = useMemo;
+pages/index/index.js: exports.useCallback = useCallback;
+pages/index/index.js: exports.useContext = useContext;
+pages/index/index.js: exports.useImperativeHandle = useImperativeHandle;
+pages/index/index.js: exports.useDebugValue = useDebugValue;
+pages/index/index.js: exports.flushLayoutEffects = flushLayoutEffects;
+pages/index/index.js: exports.flushPassiveEffects = flushPassiveEffects;
+pages/index/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
+pages/index/index.js: exports.setReRenderFn = setReRenderFn;
 pages/index/index.js: var scheduler_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/scheduler/index.js"));
 pages/index/index.js: // ============================================================
 pages/index/index.js: // Rendering Context
@@ -11477,7 +12189,6 @@ pages/index/index.js:     exports.currentComponent = node;
 pages/index/index.js:     currentHookIndex = 0;
 pages/index/index.js:     if (!node.memoizedState) node.memoizedState = [];
 pages/index/index.js: }
-pages/index/index.js: exports.pushRenderContext = pushRenderContext;
 pages/index/index.js: function popRenderContext() {
 pages/index/index.js:     var ctx = renderStack.pop();
 pages/index/index.js:     if (ctx) {
@@ -11485,7 +12196,6 @@ pages/index/index.js:         exports.currentComponent = ctx.component;
 pages/index/index.js:         currentHookIndex = ctx.hookIndex;
 pages/index/index.js:     }
 pages/index/index.js: }
-pages/index/index.js: exports.popRenderContext = popRenderContext;
 pages/index/index.js: /** Effects scheduled via useEffect - run after paint */ var passiveEffects = [];
 pages/index/index.js: /** Effects scheduled via useLayoutEffect - run before paint */ var layoutEffects = [];
 pages/index/index.js: // ============================================================
@@ -11504,7 +12214,6 @@ pages/index/index.js:             flushDirtyComponents();
 pages/index/index.js:         });
 pages/index/index.js:     }
 pages/index/index.js: }
-pages/index/index.js: exports.scheduleComponentUpdate = scheduleComponentUpdate;
 pages/index/index.js: function flushDirtyComponents() {
 pages/index/index.js:     var dirty = Array.from(dirtyComponents);
 pages/index/index.js:     dirtyComponents.clear();
@@ -11541,7 +12250,6 @@ pages/index/index.js:             }
 pages/index/index.js:         }
 pages/index/index.js:     }
 pages/index/index.js: }
-pages/index/index.js: exports.batchedUpdates = batchedUpdates;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // Core Hook Helpers
 pages/index/index.js: // ============================================================
@@ -11616,7 +12324,6 @@ pages/index/index.js:         hook.state,
 pages/index/index.js:         setState
 pages/index/index.js:     ];
 pages/index/index.js: }
-pages/index/index.js: exports.useState = useState;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useReducer
 pages/index/index.js: // ============================================================
@@ -11660,7 +12367,6 @@ pages/index/index.js:         hook.state,
 pages/index/index.js:         dispatch
 pages/index/index.js:     ];
 pages/index/index.js: }
-pages/index/index.js: exports.useReducer = useReducer;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useEffect
 pages/index/index.js: // ============================================================
@@ -11678,7 +12384,6 @@ pages/index/index.js:             hook: hook
 pages/index/index.js:         });
 pages/index/index.js:     }
 pages/index/index.js: }
-pages/index/index.js: exports.useEffect = useEffect;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useLayoutEffect
 pages/index/index.js: // ============================================================
@@ -11696,7 +12401,6 @@ pages/index/index.js:             hook: hook
 pages/index/index.js:         });
 pages/index/index.js:     }
 pages/index/index.js: }
-pages/index/index.js: exports.useLayoutEffect = useLayoutEffect;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useRef
 pages/index/index.js: // ============================================================
@@ -11709,7 +12413,6 @@ pages/index/index.js:         };
 pages/index/index.js:     }
 pages/index/index.js:     return hook.state;
 pages/index/index.js: }
-pages/index/index.js: exports.useRef = useRef;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useMemo
 pages/index/index.js: // ============================================================
@@ -11723,7 +12426,6 @@ pages/index/index.js:         };
 pages/index/index.js:     }
 pages/index/index.js:     return hook.memo.value;
 pages/index/index.js: }
-pages/index/index.js: exports.useMemo = useMemo;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useCallback
 pages/index/index.js: // ============================================================
@@ -11732,7 +12434,6 @@ pages/index/index.js:     return useMemo(function() {
 pages/index/index.js:         return callback;
 pages/index/index.js:     }, deps);
 pages/index/index.js: }
-pages/index/index.js: exports.useCallback = useCallback;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useContext
 pages/index/index.js: // ============================================================
@@ -11791,7 +12492,6 @@ pages/index/index.js:         return context._currentValue2;
 pages/index/index.js:     }
 pages/index/index.js:     return undefined;
 pages/index/index.js: }
-pages/index/index.js: exports.useContext = useContext;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // useImperativeHandle / useDebugValue
 pages/index/index.js: // ============================================================
@@ -11812,11 +12512,9 @@ pages/index/index.js:             };
 pages/index/index.js:         }
 pages/index/index.js:     }, deps);
 pages/index/index.js: }
-pages/index/index.js: exports.useImperativeHandle = useImperativeHandle;
 pages/index/index.js: function useDebugValue(_value) {
 pages/index/index.js: // noop
 pages/index/index.js: }
-pages/index/index.js: exports.useDebugValue = useDebugValue;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // Effect Flushing (called by render-light.ts)
 pages/index/index.js: // ============================================================
@@ -11855,7 +12553,6 @@ pages/index/index.js:             _iterator5.f();
 pages/index/index.js:         }
 pages/index/index.js:     }
 pages/index/index.js: }
-pages/index/index.js: exports.flushLayoutEffects = flushLayoutEffects;
 pages/index/index.js: function flushPassiveEffects() {
 pages/index/index.js:     if (passiveEffects.length === 0) return;
 pages/index/index.js:     scheduler_1.default.unstable_scheduleCallback(function() {
@@ -11890,7 +12587,6 @@ pages/index/index.js:             _iterator6.f();
 pages/index/index.js:         }
 pages/index/index.js:     });
 pages/index/index.js: }
-pages/index/index.js: exports.flushPassiveEffects = flushPassiveEffects;
 pages/index/index.js: function cleanupEffectsForNode(node) {
 pages/index/index.js:     var _a;
 pages/index/index.js:     if (!node.memoizedState) return;
@@ -11914,14 +12610,12 @@ pages/index/index.js:         _iterator7.f();
 pages/index/index.js:     }
 pages/index/index.js:     cleanupComponentContextSubscriptions(node);
 pages/index/index.js: }
-pages/index/index.js: exports.cleanupEffectsForNode = cleanupEffectsForNode;
 pages/index/index.js: var reRenderComponent = function reRenderComponent() {
 pages/index/index.js:     throw new Error('reRenderComponent not set - render-light.ts must set this');
 pages/index/index.js: };
 pages/index/index.js: function setReRenderFn(fn) {
 pages/index/index.js:     reRenderComponent = fn;
 pages/index/index.js: }
-pages/index/index.js: exports.setReRenderFn = setReRenderFn;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/hooks/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -11934,7 +12628,11 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.useQuery = exports.useNativeEffect = exports.useComponentInstance = exports.usePageInstance = exports.useAppEvent = exports.usePageEvent = void 0;
+pages/index/index.js: exports.useQuery = exports.useNativeEffect = void 0;
+pages/index/index.js: exports.usePageEvent = usePageEvent;
+pages/index/index.js: exports.useAppEvent = useAppEvent;
+pages/index/index.js: exports.usePageInstance = usePageInstance;
+pages/index/index.js: exports.useComponentInstance = useComponentInstance;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
 pages/index/index.js: function usePageEvent(eventName, callback) {
@@ -11947,7 +12645,6 @@ pages/index/index.js:     (0, hooks_light_1.useLayoutEffect)(function() {
 pages/index/index.js:         return (0, framework_shared_1.registerLifecycle)(pageInstance, lifeCycle, callback);
 pages/index/index.js:     });
 pages/index/index.js: }
-pages/index/index.js: exports.usePageEvent = usePageEvent;
 pages/index/index.js: function useAppEvent(eventName, callback) {
 pages/index/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 pages/index/index.js:         return (0, framework_shared_1.useAppEvent)(eventName, callback);
@@ -11957,21 +12654,18 @@ pages/index/index.js:     (0, hooks_light_1.useLayoutEffect)(function() {
 pages/index/index.js:         return (0, framework_shared_1.registerLifecycle)(framework_shared_1.AppInstanceContext, lifeCycle, callback);
 pages/index/index.js:     });
 pages/index/index.js: }
-pages/index/index.js: exports.useAppEvent = useAppEvent;
 pages/index/index.js: function usePageInstance() {
 pages/index/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 pages/index/index.js:         return (0, framework_shared_1.usePageInstance)();
 pages/index/index.js:     }
 pages/index/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext);
 pages/index/index.js: }
-pages/index/index.js: exports.usePageInstance = usePageInstance;
 pages/index/index.js: function useComponentInstance() {
 pages/index/index.js:     if (framework_shared_1.RuntimeOptions.get('renderer') !== 'light') {
 pages/index/index.js:         return (0, framework_shared_1.useComponentInstance)();
 pages/index/index.js:     }
 pages/index/index.js:     return (0, hooks_light_1.useContext)(framework_shared_1.ComponentInstanceContext);
 pages/index/index.js: }
-pages/index/index.js: exports.useComponentInstance = useComponentInstance;
 pages/index/index.js: var useNativeEffect_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks/useNativeEffect.js");
 pages/index/index.js: Object.defineProperty(exports, "useNativeEffect", ({
 pages/index/index.js:     enumerable: true,
@@ -11998,6 +12692,7 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
+pages/index/index.js: exports["default"] = useNativeEffect;
 pages/index/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 pages/index/index.js: var nativeEffect_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/nativeEffect.js"));
 pages/index/index.js: function useNativeEffect(listener, deps) {
@@ -12005,7 +12700,6 @@ pages/index/index.js:     (0, react_1.useLayoutEffect)(function() {
 pages/index/index.js:         return nativeEffect_1.default.connect(listener, !!deps);
 pages/index/index.js:     }, deps);
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = useNativeEffect;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/hooks/useQuery.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12013,6 +12707,7 @@ pages/index/index.js:
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
+pages/index/index.js: exports["default"] = useQuery;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var react_1 = __webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js");
 pages/index/index.js: var hooks_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/hooks-light.js");
@@ -12020,7 +12715,6 @@ pages/index/index.js: function useQuery() {
 pages/index/index.js:     var pageInstance = framework_shared_1.RuntimeOptions.get('renderer') === 'light' ? (0, hooks_light_1.useContext)(framework_shared_1.PageInstanceContext) : (0, react_1.useContext)(framework_shared_1.PageInstanceContext);
 pages/index/index.js:     return pageInstance.query;
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = useQuery;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/diffProperties.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12028,6 +12722,7 @@ pages/index/index.js:
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
+pages/index/index.js: exports["default"] = diffProperties;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var STYLE = [
 pages/index/index.js:     'style',
@@ -12116,7 +12811,6 @@ pages/index/index.js:         }
 pages/index/index.js:     }
 pages/index/index.js:     return updatePayload.length ? updatePayload : null;
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = diffProperties;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/hostConfig/index.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12317,7 +13011,8 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.unstable_batchedUpdates = exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+pages/index/index.js: exports.PluginDriver = exports.RuntimeOptions = exports.createPortal = exports.createHostComponent = exports.createNativeComponent = exports.createComponentConfig = exports.createPageConfig = exports.createAppConfig = exports.renderLight = exports.render = void 0;
+pages/index/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var render_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render.js");
 pages/index/index.js: var render_light_1 = __webpack_require__("../../../../../../rsmax-runtime/cjs/render-light.js");
@@ -12399,7 +13094,6 @@ pages/index/index.js:         return (0, render_light_1.unstable_batchedUpdates)
 pages/index/index.js:     }
 pages/index/index.js:     return render_1.ReactReconcilerInst.batchedUpdates(callback, null);
 pages/index/index.js: }
-pages/index/index.js: exports.unstable_batchedUpdates = unstable_batchedUpdates;
 pages/index/index.js: exports["default"] = {
 pages/index/index.js:     unstable_batchedUpdates: unstable_batchedUpdates
 pages/index/index.js: };
@@ -12410,18 +13104,17 @@ pages/index/index.js:
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.generate = exports.reset = void 0;
+pages/index/index.js: exports.reset = reset;
+pages/index/index.js: exports.generate = generate;
 pages/index/index.js: var instanceId = 0;
 pages/index/index.js: function reset() {
 pages/index/index.js:     instanceId = 0;
 pages/index/index.js: }
-pages/index/index.js: exports.reset = reset;
 pages/index/index.js: function generate() {
 pages/index/index.js:     var id = instanceId;
 pages/index/index.js:     instanceId += 1;
 pages/index/index.js:     return id;
 pages/index/index.js: }
-pages/index/index.js: exports.generate = generate;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/nativeEffect.js"(__unused_webpack_module, exports) {
@@ -12471,7 +13164,9 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.propAlias = exports.getAlias = void 0;
+pages/index/index.js: exports.getAlias = getAlias;
+pages/index/index.js: exports.propAlias = propAlias;
+pages/index/index.js: exports["default"] = propsAlias;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var plainStyle_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/utils/plainStyle/index.js"));
 pages/index/index.js: function getAlias(prop, type) {
@@ -12484,7 +13179,6 @@ pages/index/index.js:         return prop.replace(new RegExp("^".concat(prefix))
 pages/index/index.js:     }
 pages/index/index.js:     return (_b = (_a = hostComponent === null || hostComponent === void 0 ? void 0 : hostComponent.alias) === null || _a === void 0 ? void 0 : _a[prop]) !== null && _b !== void 0 ? _b : prop;
 pages/index/index.js: }
-pages/index/index.js: exports.getAlias = getAlias;
 pages/index/index.js: function getValue(prop, value) {
 pages/index/index.js:     if (prop.toLowerCase().endsWith('style') && Object.prototype.toString.call(value) === '[object Object]') {
 pages/index/index.js:         return (0, plainStyle_1.default)(value);
@@ -12497,7 +13191,6 @@ pages/index/index.js:         getAlias(prop, type),
 pages/index/index.js:         getValue(prop, value)
 pages/index/index.js:     ];
 pages/index/index.js: }
-pages/index/index.js: exports.propAlias = propAlias;
 pages/index/index.js: function propsAlias(props, type) {
 pages/index/index.js:     if (!props) {
 pages/index/index.js:         return props;
@@ -12518,7 +13211,6 @@ pages/index/index.js:         }
 pages/index/index.js:     }
 pages/index/index.js:     return aliasProps;
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = propsAlias;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/render-light.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -12647,15 +13339,25 @@ pages/index/index.js:     });
 pages/index/index.js: } : function(o, v) {
 pages/index/index.js:     o["default"] = v;
 pages/index/index.js: });
-pages/index/index.js: var __importStar = this && this.__importStar || function(mod) {
-pages/index/index.js:     if (mod && mod.__esModule) return mod;
-pages/index/index.js:     var result = {};
-pages/index/index.js:     if (mod != null) {
-pages/index/index.js:         for(var k in mod)if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-pages/index/index.js:     }
-pages/index/index.js:     __setModuleDefault(result, mod);
-pages/index/index.js:     return result;
-pages/index/index.js: };
+pages/index/index.js: var __importStar = this && this.__importStar || function() {
+pages/index/index.js:     var _ownKeys = function ownKeys(o) {
+pages/index/index.js:         _ownKeys = Object.getOwnPropertyNames || function(o) {
+pages/index/index.js:             var ar = [];
+pages/index/index.js:             for(var k in o)if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+pages/index/index.js:             return ar;
+pages/index/index.js:         };
+pages/index/index.js:         return _ownKeys(o);
+pages/index/index.js:     };
+pages/index/index.js:     return function(mod) {
+pages/index/index.js:         if (mod && mod.__esModule) return mod;
+pages/index/index.js:         var result = {};
+pages/index/index.js:         if (mod != null) {
+pages/index/index.js:             for(var k = _ownKeys(mod), i = 0; i < k.length; i++)if (k[i] !== "default") __createBinding(result, mod, k[i]);
+pages/index/index.js:         }
+pages/index/index.js:         __setModuleDefault(result, mod);
+pages/index/index.js:         return result;
+pages/index/index.js:     };
+pages/index/index.js: }();
 pages/index/index.js: var __importDefault = this && this.__importDefault || function(mod) {
 pages/index/index.js:     return mod && mod.__esModule ? mod : {
 pages/index/index.js:         "default": mod
@@ -12666,6 +13368,7 @@ pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
 pages/index/index.js: exports.unstable_batchedUpdates = exports.batchedUpdates = void 0;
+pages/index/index.js: exports["default"] = render;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var React = __importStar(__webpack_require__("../../../../../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"));
 pages/index/index.js: var VNode_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/VNode.js"));
@@ -13663,7 +14366,6 @@ pages/index/index.js:     // passive effects 异步调度
 pages/index/index.js:     (0, hooks_light_1.flushPassiveEffects)();
 pages/index/index.js:     return container.root;
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = render;
 pages/index/index.js: // ============================================================
 pages/index/index.js: // 组件重新渲染
 pages/index/index.js: // ============================================================
@@ -13744,6 +14446,7 @@ pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
 pages/index/index.js: exports.ReactReconcilerInst = void 0;
+pages/index/index.js: exports["default"] = render;
 pages/index/index.js: var react_reconciler_1 = __importDefault(__webpack_require__("../../../../../../../node_modules/.pnpm/react-reconciler@0.29.0_react@18.3.1/node_modules/react-reconciler/cjs/react-reconciler.production.min.js"));
 pages/index/index.js: var hostConfig_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/hostConfig/index.js"));
 pages/index/index.js: exports.ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig_1.default);
@@ -13766,7 +14469,6 @@ pages/index/index.js:     // ignore
 pages/index/index.js:     });
 pages/index/index.js:     return getPublicRootInstance(container._rootContainer);
 pages/index/index.js: }
-pages/index/index.js: exports["default"] = render;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/renderer.js"(__unused_webpack_module, exports, __webpack_require__) {
@@ -13779,7 +14481,8 @@ pages/index/index.js: };
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.renderLight = exports.render = exports.getRenderer = void 0;
+pages/index/index.js: exports.renderLight = exports.render = void 0;
+pages/index/index.js: exports.getRenderer = getRenderer;
 pages/index/index.js: var framework_shared_1 = __webpack_require__("../../../../../../rsmax-framework-shared/esm/index.js");
 pages/index/index.js: var render_1 = __importDefault(__webpack_require__("../../../../../../rsmax-runtime/cjs/render.js"));
 pages/index/index.js: exports.render = render_1.default;
@@ -13799,7 +14502,6 @@ pages/index/index.js: function getRenderer() {
 pages/index/index.js:     var renderer = framework_shared_1.RuntimeOptions.get('renderer');
 pages/index/index.js:     return renderer === 'light' ? lightRenderer : classicRenderer;
 pages/index/index.js: }
-pages/index/index.js: exports.getRenderer = getRenderer;
 pages/index/index.js: 
 pages/index/index.js: },
 pages/index/index.js: "../../../../../../rsmax-runtime/cjs/scheduler/index.js"(__unused_webpack_module, exports) {
@@ -13807,7 +14509,10 @@ pages/index/index.js:
 pages/index/index.js: Object.defineProperty(exports, "__esModule", ({
 pages/index/index.js:     value: true
 pages/index/index.js: }));
-pages/index/index.js: exports.unstable_shouldYield = exports.unstable_cancelCallback = exports.unstable_scheduleCallback = exports.unstable_now = void 0;
+pages/index/index.js: exports.unstable_now = void 0;
+pages/index/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
+pages/index/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
+pages/index/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 pages/index/index.js: var taskQueue = [];
 pages/index/index.js: var taskIdCounter = 0;
 pages/index/index.js: exports.unstable_now = Date.now;
@@ -13829,7 +14534,6 @@ pages/index/index.js:         }
 pages/index/index.js:     });
 pages/index/index.js:     return id;
 pages/index/index.js: }
-pages/index/index.js: exports.unstable_scheduleCallback = unstable_scheduleCallback;
 pages/index/index.js: function unstable_cancelCallback(id) {
 pages/index/index.js:     var index = taskQueue.findIndex(function(t) {
 pages/index/index.js:         return t.id === id;
@@ -13838,11 +14542,9 @@ pages/index/index.js:     if (index !== -1) {
 pages/index/index.js:         taskQueue.splice(index, 1);
 pages/index/index.js:     }
 pages/index/index.js: }
-pages/index/index.js: exports.unstable_cancelCallback = unstable_cancelCallback;
 pages/index/index.js: function unstable_shouldYield() {
 pages/index/index.js:     return false;
 pages/index/index.js: }
-pages/index/index.js: exports.unstable_shouldYield = unstable_shouldYield;
 pages/index/index.js: exports["default"] = {
 pages/index/index.js:     unstable_scheduleCallback: unstable_scheduleCallback,
 pages/index/index.js:     unstable_cancelCallback: unstable_cancelCallback,
