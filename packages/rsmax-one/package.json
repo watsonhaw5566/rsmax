@@ -42,7 +42,6 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
-    "postbuild": "node ./scripts/postbuild.js",
     "build:cjs": "tsc --module CommonJS --outDir cjs",
     "clean": "rimraf cjs esm tsconfig.tsbuildinfo",
     "test": "rstest run"
