@@ -49,6 +49,15 @@ export type Options = BuildOptions & PluginOptions;
 
 export type Config = Partial<Options>;
 
+export function defineConfig<T extends Config>(config: T): T;
+export function defineConfig<T extends Config>(config: (options: { env: NodeJS.ProcessEnv }) => T): T;
+export function defineConfig(config: Config | ((options: { env: NodeJS.ProcessEnv }) => Config)): Config {
+  if (typeof config === 'function') {
+    return config({ env: process.env });
+  }
+  return config;
+}
+
 // ==================== 入口信息 ====================
 
 export interface EntryInfo {
