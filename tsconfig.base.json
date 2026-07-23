@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "target": "ES2017",
+    "target": "ES2019",
     "strict": true,
     "composite": true,
     "noImplicitAny": true,
