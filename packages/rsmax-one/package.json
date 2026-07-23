@@ -4,9 +4,6 @@
   "description": "Rsmax 小程序多端方案",
   "repository": "git+https://github.com/remaxjs/remax.git",
   "license": "MIT",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "typings": "./esm/index.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -39,6 +36,9 @@
       "require": "./cjs/node/toutiao/index.js"
     }
   },
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "typings": "./esm/index.d.ts",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
