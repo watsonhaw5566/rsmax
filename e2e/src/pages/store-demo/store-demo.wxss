@@ -1,0 +1,99 @@
+.container {
+  padding: 32rpx;
+  background: #f5f6fa;
+  min-height: 100vh;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.counter-label {
+  font-size: 28rpx;
+  color: #666;
+  display: block;
+  text-align: center;
+}
+
+.counter-value {
+  font-size: 96rpx;
+  font-weight: bold;
+  color: #3b82f6;
+  display: block;
+  text-align: center;
+  margin-top: 16rpx;
+}
+
+.btn-row {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+  justify-content: center;
+}
+
+.btn {
+  flex: 1;
+  font-size: 30rpx;
+  border-radius: 12rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border: none;
+  padding: 0 24rpx;
+}
+
+.btn::after {
+  border: none;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.tip-card {
+  background: #f0f9ff;
+  border-left: 8rpx solid #3b82f6;
+}
+
+.tip-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #1e40af;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: #3b82f6;
+  line-height: 1.6;
+  display: block;
+}

@@ -1,9 +1,0 @@
-lib
-dist
-node_modules
-tests
-__tests__
-packages/**/templates/*.ejs
-cjs
-esm
-pnpm-lock.yaml

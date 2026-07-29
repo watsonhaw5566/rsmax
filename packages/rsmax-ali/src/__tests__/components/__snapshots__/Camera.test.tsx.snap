@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Camera > render correctly 1`] = `
-<camera
-  id="my-camera"
-/>
-`;

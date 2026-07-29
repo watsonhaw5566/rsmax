@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Mask > render correctly 1`] = `
-<mask
-  hidden={false}
->
-  text
-</mask>
-`;

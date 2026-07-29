@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`StoreCoupon > render correctly 1`] = `
-<store-coupon
-  appid="123"
-  className="class"
-  couponId="456"
-/>
-`;

@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`PanGestureHandler > render correctly 1`] = `
-<pan-gesture-handler
-  className="class"
->
-  text
-</pan-gesture-handler>
-`;

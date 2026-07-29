@@ -1,0 +1,25 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36rpx;
+  height: 36rpx;
+  padding: 0 12rpx;
+  border-radius: 36rpx;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 22rpx;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.badge-dot {
+  min-width: 18rpx;
+  height: 18rpx;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.badge-text {
+  line-height: 1;
+}

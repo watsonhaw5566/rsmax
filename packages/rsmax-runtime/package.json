@@ -1,56 +1,6 @@
 {
   "name": "@rsmax/runtime",
-  "version": "1.4.0",
-  "description": "Rsmax 是一个全新的基于 React 的小程序开发框架",
-  "keywords": [
-    "react",
-    "miniapp",
-    "mini-program",
-    "wechat"
-  ],
-  "homepage": "https://remax.wdchiphop.cn",
-  "bugs": {
-    "url": "https://github.com/remaxjs/remax/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/remaxjs/remax.git"
-  },
-  "license": "MIT",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "typings": "./esm/index.d.ts",
-  "scripts": {
-    "prebuild": "npm run clean",
-    "build": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir cjs",
-    "clean": "rimraf esm cjs tsconfig.tsbuildinfo",
-    "test": "rstest run"
-  },
-  "dependencies": {
-    "@rsmax/framework-shared": "workspace:*",
-    "@rsmax/shared": "workspace:*",
-    "@rsmax/web": "workspace:*",
-    "qs": "^6.9.3",
-    "react-is": "^18.3.0",
-    "react-reconciler": "0.29.0",
-    "scheduler": "0.23.2"
-  },
-  "devDependencies": {
-    "@rsmax/types": "workspace:*",
-    "@types/lodash.merge": "^4.6.6",
-    "@types/node": "^18",
-    "@types/qs": "^6.9.3",
-    "@types/react": "^18.3.0",
-    "@types/react-is": "^18.3.0",
-    "@types/react-reconciler": "0.28.8",
-    "@types/react-test-renderer": "^18.3.0",
-    "object-path-immutable": "^4.0.2",
-    "react-test-renderer": "^18.3.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "esnext": "./esm/index.js",
-  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
+  "version": "0.1.0",
+  "description": "RSmax JSX runtime for WeChat Mini Program",
+  "main": "index.js"
 }

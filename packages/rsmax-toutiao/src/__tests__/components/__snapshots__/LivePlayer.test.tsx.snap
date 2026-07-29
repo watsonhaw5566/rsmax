@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`LivePlayer > render correctly 1`] = `
-<live-player
-  src="www.123.com"
->
-  text
-</live-player>
-`;

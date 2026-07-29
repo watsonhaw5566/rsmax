@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`LivePreview > render correctly 1`] = `
-<live-preview
-  awemeId="123"
-/>
-`;

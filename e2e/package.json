@@ -1,0 +1,13 @@
+{
+  "name": "@rsmax/example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "rsmax build src -o dist",
+    "dev": "rsmax dev src -o dist"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.21",
+    "@vant/weapp": "^1.11.7"
+  }
+}
