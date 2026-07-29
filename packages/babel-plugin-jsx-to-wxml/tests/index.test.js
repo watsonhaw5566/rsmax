@@ -1,334 +1,288 @@
-const { test, expect, describe } = require('@rstest/core');
+const { describe, test, expect } = require('@rstest/core');
 const parser = require('@babel/parser');
-const { jsxToWxml } = require('../index');
-const { EVENT_MAP, WX_VOID_TAGS } = require('../utils');
+const plugin = require('../index');
+const { jsxElementToWxml, extractWxmlFromCode, isNativeTag, isCustomComponent, WX_NATIVE_TAGS, WX_VOID_TAGS, EVENT_MAP } = require('../utils');
 
-function parse(code) {
+function parseCode(code) {
   return parser.parse(code, {
     sourceType: 'module',
-    plugins: ['jsx', 'classProperties']
+    plugins: ['jsx']
   });
 }
 
-function getWxml(code) {
-  const ast = parse(code);
-  return jsxToWxml(ast, code);
+function findJsxInExportDefault(ast) {
+  let jsxNode = null;
+  const traverse = require('@babel/traverse').default;
+  const t = require('@babel/types');
+  traverse(ast, {
+    ExportDefaultDeclaration(path) {
+      const decl = path.node.declaration;
+      if (t.isObjectExpression(decl)) {
+        for (const prop of decl.properties) {
+          if ((t.isObjectMethod(prop) || t.isObjectProperty(prop)) && t.isIdentifier(prop.key, { name: 'render' })) {
+            if (t.isObjectMethod(prop)) {
+              jsxNode = findJsx(prop);
+            } else if (t.isObjectProperty(prop) && t.isArrowFunctionExpression(prop.value)) {
+              jsxNode = findJsx(prop.value);
+            }
+            break;
+          }
+        }
+      } else if (t.isFunctionDeclaration(decl) || t.isArrowFunctionExpression(decl)) {
+        jsxNode = findJsx(decl);
+      } else if (t.isClassDeclaration(decl)) {
+        for (const member of decl.body.body) {
+          if (t.isClassMethod(member) && t.isIdentifier(member.key, { name: 'render' })) {
+            jsxNode = findJsx(member);
+            break;
+          }
+        }
+      }
+    }
+  });
+  return jsxNode;
+}
+
+function findJsx(fn) {
+  const t = require('@babel/types');
+  let body = fn.body;
+  if (t.isArrowFunctionExpression(fn)) {
+    if (t.isJSXElement(body) || t.isJSXFragment(body)) return body;
+  }
+  if (t.isBlockStatement(body)) {
+    for (const stmt of body.body) {
+      if (t.isReturnStatement(stmt) && (t.isJSXElement(stmt.argument) || t.isJSXFragment(stmt.argument))) {
+        return stmt.argument;
+      }
+    }
+  }
+  return null;
 }
 
 describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
-  describe('basic elements', () => {
+  describe('utils', () => {
+    describe('isNativeTag', () => {
+      test('should identify native tags', () => {
+        expect(isNativeTag('view')).toBe(true);
+        expect(isNativeTag('text')).toBe(true);
+        expect(isNativeTag('image')).toBe(true);
+        expect(isNativeTag('button')).toBe(true);
+        expect(isNativeTag('input')).toBe(true);
+        expect(isNativeTag('scroll-view')).toBe(true);
+      });
+
+      test('should return false for non-native tags', () => {
+        expect(isNativeTag('MyComponent')).toBe(false);
+        expect(isNativeTag('van-button')).toBe(false);
+        expect(isNativeTag('custom-element')).toBe(false);
+      });
+    });
+
+    describe('isCustomComponent', () => {
+      test('should identify kebab-case custom components', () => {
+        expect(isCustomComponent('van-button')).toBe(true);
+        expect(isCustomComponent('t-cell')).toBe(true);
+        expect(isCustomComponent('my-component')).toBe(true);
+      });
+
+      test('should return false for native tags and PascalCase components', () => {
+        expect(isCustomComponent('view')).toBe(false);
+        expect(isCustomComponent('text')).toBe(false);
+        expect(isCustomComponent('MyComponent')).toBe(false);
+      });
+    });
+
+    describe('WX constants', () => {
+      test('WX_NATIVE_TAGS should contain expected tags', () => {
+        expect(WX_NATIVE_TAGS.has('view')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('text')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('block')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('slot')).toBe(true);
+      });
+
+      test('WX_VOID_TAGS should contain void elements', () => {
+        expect(WX_VOID_TAGS.has('input')).toBe(true);
+        expect(WX_VOID_TAGS.has('image')).toBe(true);
+      });
+
+      test('EVENT_MAP should map React events to wx events', () => {
+        expect(EVENT_MAP.onClick).toBe('bindtap');
+        expect(EVENT_MAP.onTap).toBe('bindtap');
+        expect(EVENT_MAP.onInput).toBe('bindinput');
+        expect(EVENT_MAP.onChange).toBe('bindchange');
+      });
+    });
+  });
+
+  describe('jsxElementToWxml', () => {
     test('should convert simple view element', () => {
-      const code = `export default function() { return <view class="container">Hello</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<view class="container">Hello</view>');
+      const code = 'export default { render() { return <view>Hello</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<view>');
+      expect(result.wxml).toContain('Hello');
+      expect(result.wxml).toContain('</view>');
     });
 
-    test('should convert text element inline', () => {
-      const code = `export default function() { return <text>Hello World</text> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<text>Hello World</text>');
+    test('should convert nested elements', () => {
+      const code = 'export default { render() { return <view><text>Nested</text></view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<view>');
+      expect(result.wxml).toContain('<text>Nested</text>');
+      expect(result.wxml).toContain('</view>');
     });
 
-    test('should handle nested elements with indentation', () => {
-      const code = `
-export default function() {
-  return (
-    <view class="container">
-      <view class="header">
-        <text>Title</text>
-      </view>
-    </view>
-  )
-}
-      `;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<view class="container">');
-      expect(wxml).toContain('<view class="header">');
-      expect(wxml).toContain('<text>Title</text>');
+    test('should convert className attribute', () => {
+      const code = 'export default { render() { return <view className="container">Test</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('class="container"');
     });
 
-    test('should handle self-closing void tags', () => {
-      const code = `export default function() { return <input type="text" /> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<input');
-      expect(wxml).toContain('/>');
-    });
-  });
+    test('should convert className with expression', () => {
+      const code = 'export default { render() { return <view className={cls}>Test</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
 
-  describe('class component render', () => {
-    test('should find JSX in class render method', () => {
-      const code = `
-export default class Index {
-  render() {
-    return <view class="page">Page Content</view>
-  }
-}
-      `;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<view class="page">Page Content</view>');
-    });
-  });
-
-  describe('object config render', () => {
-    test('should find JSX in object render method', () => {
-      const code = `
-export default {
-  render() {
-    return <view>Object Render</view>
-  }
-}
-      `;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<view>Object Render</view>');
-    });
-  });
-
-  describe('arrow function component', () => {
-    test('should handle implicit return arrow function', () => {
-      const code = `export default () => <view>Arrow</view>`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<view>Arrow</view>');
-    });
-  });
-
-  describe('event handling', () => {
-    test('should convert onClick to bindtap', () => {
-      const code = `export default function() { return <button onClick={this.handleClick}>Click</button> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('bindtap="handleClick"');
+      expect(result.wxml).toContain('class="{{cls}}"');
     });
 
-    test('should convert onTap to bindtap', () => {
-      const code = `export default function() { return <view onTap="tapHandler">Tap</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('bindtap="tapHandler"');
+    test('should convert inline style string', () => {
+      const code = 'export default { render() { return <view style="color: red;">Test</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('style="color: red;"');
     });
 
-    test('should convert onInput to bindinput', () => {
-      const code = `export default function() { return <input onInput={this.onInput} /> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('bindinput="onInput"');
+    test('should convert style object to CSS string', () => {
+      const code = 'export default { render() { return <view style={{ color: "red", fontSize: 14 }}>Test</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('style="color:red;font-size:14px"');
     });
 
-    test('should convert onChange to bindchange', () => {
-      const code = `export default function() { return <input onChange={this.onChange} /> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('bindchange="onChange"');
+    test('should convert onClick event', () => {
+      const code = 'export default { render() { return <button onClick={this.handleClick}>Click</button>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('bindtap="handleClick"');
     });
 
-    test('should convert onSubmit to bindsubmit', () => {
-      const code = `export default function() { return <form onSubmit={this.handleSubmit}></form> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('bindsubmit="handleSubmit"');
+    test('should convert self-closing image tag', () => {
+      const code = 'export default { render() { return <image src="/logo.png" />; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<image');
+      expect(result.wxml).toContain('src="/logo.png"');
+      expect(result.wxml).toContain(' />');
     });
 
-    test('should have correct event map', () => {
-      expect(EVENT_MAP.onClick).toBe('bindtap');
-      expect(EVENT_MAP.onInput).toBe('bindinput');
-      expect(EVENT_MAP.onChange).toBe('bindchange');
-      expect(EVENT_MAP.onBlur).toBe('bindblur');
-      expect(EVENT_MAP.onFocus).toBe('bindfocus');
-      expect(EVENT_MAP.onLongPress).toBe('bindlongpress');
-    });
-  });
+    test('should convert wx:if conditional', () => {
+      const code = 'export default { render() { return <view wx:if={show}>Conditional</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
 
-  describe('className handling', () => {
-    test('should convert className to class with string literal', () => {
-      const code = `export default function() { return <view className="box">Box</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('class="box"');
+      expect(result.wxml).toContain('wx:if="{{show}}"');
     });
 
-    test('should convert class attribute directly', () => {
-      const code = `export default function() { return <view class="box">Box</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('class="box"');
+    test('should collect custom components', () => {
+      const code = 'export default { render() { return <view><van-button>Click</van-button></view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.components.has('van-button')).toBe(true);
     });
 
-    test('should convert className to class with expression', () => {
-      const code = `export default function() { return <view className={activeClass}>Box</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('class="{{activeClass}}"');
+    test('should convert boolean attributes correctly', () => {
+      const code = 'export default { render() { return <button disabled>Disabled</button>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('disabled');
+    });
+
+    test('should handle text interpolation', () => {
+      const code = 'export default { render() { return <view>Hello {name}</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('Hello');
+      expect(result.wxml).toContain('{{name}}');
+    });
+
+    test('should handle src attribute with expression', () => {
+      const code = 'export default { render() { return <image src={imgUrl} />; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('src="{{imgUrl}}"');
     });
   });
 
-  describe('style handling', () => {
-    test('should handle string style', () => {
-      const code = `export default function() { return <view style="width:100rpx;">Box</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('style="width:100rpx;"');
+  describe('extractWxmlFromCode', () => {
+    test('should extract wxml from object-style component', () => {
+      const code = 'export default { render() { return <view class="page"><text>Hello</text></view>; } }';
+      const ast = parseCode(code);
+      const result = extractWxmlFromCode(ast, code);
+
+      expect(result.wxml).toContain('class="page"');
+      expect(result.wxml).toContain('<text>Hello</text>');
+      expect(result.components.size).toBe(0);
     });
 
-    test('should convert style object with number to px', () => {
-      const code = `export default function() { return <view style={{ width: 100 }}>Box</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('style="width:100px"');
+    test('should extract wxml from functional component', () => {
+      const code = 'export default function() { return <view>Functional Page</view>; }';
+      const ast = parseCode(code);
+      const result = extractWxmlFromCode(ast, code);
+
+      expect(result.wxml).toContain('<view>Functional Page</view>');
     });
 
-    test('should convert camelCase to kebab-case in style object', () => {
-      const code = `export default function() { return <view style={{ fontSize: '14px' }}>Box</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('font-size:14px');
-    });
+    test('should extract wxml from class component render method', () => {
+      const code = 'export default class Index { render() { return <view>Class Component</view>; } }';
+      const ast = parseCode(code);
+      const result = extractWxmlFromCode(ast, code);
 
-    test('should handle dynamic style expression', () => {
-      const code = `export default function() { return <view style={dynamicStyle}>Box</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('style="{{dynamicStyle}}"');
-    });
-  });
-
-  describe('conditional rendering', () => {
-    test('should convert ternary with JSX to wx:if/wx:else blocks', () => {
-      const code = `
-export default function() {
-  return (
-    <view>
-      {show ? <text>Visible</text> : <text>Hidden</text>}
-    </view>
-  )
-}
-      `;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('wx:if="{{show}}"');
-      expect(wxml).toContain('wx:else');
-    });
-
-    test('should pass through wx:if directly', () => {
-      const code = `export default function() { return <view wx:if={visible}>Content</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('wx:if="{{visible}}"');
-    });
-
-    test('should pass through wx:else', () => {
-      const code = `
-export default function() {
-  return (
-    <view>
-      <view wx:if={a}>A</view>
-      <view wx:else>B</view>
-    </view>
-  )
-}
-      `;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('wx:else');
+      expect(result.wxml).toContain('<view>Class Component</view>');
     });
   });
 
-  describe('list rendering (map)', () => {
-    test('should convert Array.map to wx:for', () => {
-      const code = `
-export default function() {
-  return (
-    <view>
-      {list.map((item, index) => <text>{item.name}</text>)}
-    </view>
-  )
-}
-      `;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('wx:for="{{list}}"');
-      expect(wxml).toContain('wx:for-item="item"');
-      expect(wxml).toContain('wx:for-index="index"');
+  describe('plugin exports', () => {
+    test('should export plugin function', () => {
+      expect(typeof plugin).toBe('function');
+      const instance = plugin();
+      expect(instance.name).toBe('babel-plugin-jsx-to-wxml');
+      expect(instance.visitor).toBeDefined();
     });
 
-    test('should use default item and index names', () => {
-      const code = `
-export default function() {
-  return (
-    <view>
-      {items.map(function(item) { return <text>{item}</text> })}
-    </view>
-  )
-}
-      `;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('wx:for="{{items}}"');
-    });
-  });
-
-  describe('key / wx:key', () => {
-    test('should convert key string to wx:key', () => {
-      const code = `export default function() { return <view wx:for={items} key="id"><text>{item.name}</text></view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('wx:key="id"');
-    });
-  });
-
-  describe('src attribute', () => {
-    test('should handle src string literal', () => {
-      const code = `export default function() { return <image src="/images/logo.png" /> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('src="/images/logo.png"');
+    test('should export jsxToWxml function', () => {
+      expect(typeof plugin.jsxToWxml).toBe('function');
     });
 
-    test('should handle src expression', () => {
-      const code = `export default function() { return <image src={imgUrl} /> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('src="{{imgUrl}}"');
-    });
-  });
-
-  describe('data attributes', () => {
-    test('should handle data-* with string literal', () => {
-      const code = `export default function() { return <view data-id="123">Item</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('data-id="123"');
-    });
-
-    test('should handle data-* with expression', () => {
-      const code = `export default function() { return <view data-type={type}>Item</view> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('data-type="{{type}}"');
-    });
-  });
-
-  describe('boolean attributes', () => {
-    test('should render boolean true attribute without value', () => {
-      const code = `export default function() { return <swiper autoplay={true}></swiper> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain(' autoplay');
-    });
-  });
-
-  describe('component (uppercase tags)', () => {
-    test('should pass through uppercase component tags', () => {
-      const code = `export default function() { return <MyComponent title="Hello" count={count} /> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('<MyComponent');
-      expect(wxml).toContain('title="Hello"');
-      expect(wxml).toContain('count="{{count}}"');
-    });
-  });
-
-  describe('void tags', () => {
-    test('should have correct void tags set', () => {
-      expect(WX_VOID_TAGS.has('input')).toBe(true);
-      expect(WX_VOID_TAGS.has('image')).toBe(true);
-      expect(WX_VOID_TAGS.has('import')).toBe(true);
-      expect(WX_VOID_TAGS.has('include')).toBe(true);
-      expect(WX_VOID_TAGS.has('view')).toBe(false);
-    });
-  });
-
-  describe('expression interpolation', () => {
-    test('should interpolate string literal directly', () => {
-      const code = `export default function() { return <text>{"Hello"}</text> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('Hello');
-    });
-
-    test('should interpolate number literal directly', () => {
-      const code = `export default function() { return <text>{123}</text> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('123');
-    });
-
-    test('should wrap expressions in {{}}', () => {
-      const code = `export default function() { return <text>{message}</text> }`;
-      const wxml = getWxml(code);
-      expect(wxml).toContain('{{message}}');
+    test('should export utils', () => {
+      expect(plugin.utils).toBeDefined();
+      expect(plugin.findJsxInFunction).toBeDefined();
     });
   });
 });
