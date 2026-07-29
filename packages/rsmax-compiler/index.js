@@ -14,6 +14,7 @@ const {logger} = require("rslog");
 const RUNTIME_SOURCE = require.resolve('@rsmax/runtime');
 const STORE_SOURCE = require.resolve('@rsmax/store');
 const STORE_MIDDLEWARE_SOURCE = require.resolve('@rsmax/store/middleware');
+const I18N_SOURCE = require.resolve('@rsmax/i18n');
 
 const STYLE_EXTS = ['.wxss', '.css', '.less', '.scss', '.sass'];
 const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.svg'];
@@ -45,6 +46,7 @@ function analyzeFile(ast) {
     let hasRsmaxImport = false;
     let hasStoreCore = false;
     let hasStoreMiddleware = false;
+    let hasI18n = false;
 
     traverse(ast, {
         ExportDefaultDeclaration(path) {
@@ -65,6 +67,9 @@ function analyzeFile(ast) {
                 hasStoreCore = true;
                 hasStoreMiddleware = true;
             }
+            if (t.isStringLiteral(path.node.source, {value: '@rsmax/i18n'})) {
+                hasI18n = true;
+            }
         },
         VariableDeclaration(path) {
             if (path.node.declarations.length === 1) {
@@ -80,6 +85,7 @@ function analyzeFile(ast) {
                         hasStoreCore = true;
                         hasStoreMiddleware = true;
                     }
+                    if (src === '@rsmax/i18n') hasI18n = true;
                 }
             }
         }
@@ -91,9 +97,11 @@ function analyzeFile(ast) {
         hasRsmaxImport,
         hasStoreCore,
         hasStoreMiddleware,
+        hasI18n,
         needsRuntime: isFunctionalExport || hasRsmaxImport,
         needsStoreCore: hasStoreCore,
-        needsStoreMiddleware: hasStoreMiddleware
+        needsStoreMiddleware: hasStoreMiddleware,
+        needsI18n: hasI18n
     };
 }
 
@@ -116,6 +124,11 @@ function usesStore(ast) {
 function usesStoreMiddleware(ast) {
     const info = analyzeFile(ast);
     return info.needsStoreMiddleware;
+}
+
+function usesI18n(ast) {
+    const info = analyzeFile(ast);
+    return info.needsI18n;
 }
 
 function hasEsModuleSyntax(ast) {
@@ -155,14 +168,101 @@ function calculateStoreMiddlewarePath(targetFileDir, targetRoot) {
     return relative.split(path.sep).join('/') + '/rsmax-store-middleware.js';
 }
 
+function calculateI18nPath(targetFileDir, targetRoot) {
+    const relative = path.relative(targetFileDir, targetRoot);
+    if (relative === '') return './rsmax-i18n.js';
+    return relative.split(path.sep).join('/') + '/rsmax-i18n.js';
+}
+
+/**
+ * Find the project's locales directory.
+ * Priority: <projectRoot>/locales (conventional), then <srcDir>/locales.
+ * Returns the absolute path to the locales dir, or null if not found.
+ */
+function findLocalesDir(projectRoot, srcDir) {
+    const candidates = [
+        path.join(projectRoot, 'locales'),
+        path.join(srcDir, 'locales'),
+    ];
+    for (const dir of candidates) {
+        if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
+            return dir;
+        }
+    }
+    return null;
+}
+
+let i18nCopiedOnce = false;
+
+/**
+ * Copy @rsmax/i18n runtime to dist root, copy locale JSON files from project,
+ * and generate rsmax-i18n-locales.js that registers all locale messages.
+ * Returns the list of locale codes discovered (e.g. ['en', 'zh-CN']).
+ */
+async function ensureI18nCopied(targetRoot, projectRoot, srcDir) {
+    const i18nTarget = path.join(targetRoot, 'rsmax-i18n.js');
+    if (!fs.existsSync(i18nTarget)) {
+        fs.copySync(I18N_SOURCE, i18nTarget);
+    }
+
+    const localesDir = findLocalesDir(projectRoot, srcDir);
+    let locales = [];
+    if (localesDir) {
+        // Always regenerate the locales module (locale files may have been added/changed)
+        locales = await copyLocalesAndGenerate(localesDir, targetRoot);
+    } else if (!i18nCopiedOnce) {
+        // No locales dir found — generate an empty locales module so require() doesn't fail
+        const localesModule = path.join(targetRoot, 'rsmax-i18n-locales.js');
+        if (!fs.existsSync(localesModule)) {
+            fs.writeFileSync(localesModule, 'module.exports = {};\n');
+        }
+    }
+
+    i18nCopiedOnce = true;
+    return locales;
+}
+
+async function copyLocalesAndGenerate(localesDir, targetRoot) {
+    const targetLocalesDir = path.join(targetRoot, 'locales');
+    fs.ensureDirSync(targetLocalesDir);
+
+    // Find all .js locale files in the locales directory (flat, e.g. en.js, zh-CN.js)
+    const entries = fs.readdirSync(localesDir);
+    const localeCodes = [];
+    const entries_js = [];
+
+    for (const entry of entries) {
+        const fullPath = path.join(localesDir, entry);
+        const stat = fs.statSync(fullPath);
+        if (stat.isFile() && entry.endsWith('.js')) {
+            const localeCode = entry.replace(/\.js$/, '');
+            localeCodes.push(localeCode);
+            // Copy .js locale file directly to dist/locales/
+            fs.copySync(fullPath, path.join(targetLocalesDir, entry));
+            // Add a lazy require entry so locale files are only loaded when the language is used
+            entries_js.push(`  '${localeCode}': function() { return require('./locales/${entry}'); }`);
+        }
+    }
+
+    // Generate rsmax-i18n-locales.js
+    const localesModule = path.join(targetRoot, 'rsmax-i18n-locales.js');
+    const content = entries_js.length > 0
+        ? 'module.exports = {\n' + entries_js.join(',\n') + '\n};\n'
+        : 'module.exports = {};\n';
+    fs.writeFileSync(localesModule, content);
+
+    return localeCodes;
+}
+
 function transformJsCode(ast, code, type = 'page', paths = {}) {
     const {
         runtimePath = './rsmax-runtime.js',
         storePath = './rsmax-store.js',
-        storeMiddlewarePath = './rsmax-store-middleware.js'
+        storeMiddlewarePath = './rsmax-store-middleware.js',
+        i18nPath = './rsmax-i18n.js'
     } = paths;
     const result = babel.transformFromAstSync(ast, code, {
-        plugins: [[transformJsPlugin, {type, runtimePath, storePath, storeMiddlewarePath}]],
+        plugins: [[transformJsPlugin, {type, runtimePath, storePath, storeMiddlewarePath, i18nPath}]],
         configFile: false,
         babelrc: false,
         generatorOpts: {retainLines: false, compact: false}
@@ -488,7 +588,7 @@ async function compileFile(sourcePath, targetPath, options = {}) {
     const ext = path.extname(sourcePath);
     const basename = path.basename(sourcePath, ext);
     const targetDir = path.dirname(targetPath);
-    const {targetRoot} = options;
+    const {targetRoot, projectRoot, srcDir} = options;
     const compiledCache = options.compiledCache || new Map();
 
     await fs.ensureDir(targetDir);
@@ -510,12 +610,16 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             const needsRuntimeInFile = usesRuntime(ast);
             const needsStoreCoreInFile = usesStore(ast);
             const needsStoreMwInFile = usesStoreMiddleware(ast);
+            const needsI18nInFile = usesI18n(ast);
 
             if (needsRuntimeInFile && targetRoot) {
                 await ensureRuntimeCopied(targetRoot);
             }
             if (targetRoot && (needsStoreCoreInFile || needsStoreMwInFile)) {
                 await ensureStoreCopied(targetRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+            }
+            if (needsI18nInFile && targetRoot) {
+                await ensureI18nCopied(targetRoot, projectRoot, srcDir);
             }
 
             const collected = collectStyleImports(ast, sourceJsDir);
@@ -559,6 +663,9 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             if (needsStoreMwInFile && targetRoot) {
                 paths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetDir, targetRoot);
             }
+            if (needsI18nInFile && targetRoot) {
+                paths.i18nPath = calculateI18nPath(targetDir, targetRoot);
+            }
 
             const jsCode = transformJsCode(ast, code, fileType, paths);
             const jsTargetPath = path.join(targetDir, basename + '.js');
@@ -567,8 +674,12 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
             const needsStoreCoreInFile = usesStore(ast);
             const needsStoreMwInFile = usesStoreMiddleware(ast);
+            const needsI18nInFile = usesI18n(ast);
             if (targetRoot && (needsStoreCoreInFile || needsStoreMwInFile)) {
                 await ensureStoreCopied(targetRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+            }
+            if (needsI18nInFile && targetRoot) {
+                await ensureI18nCopied(targetRoot, projectRoot, srcDir);
             }
             const modulePaths = {};
             if (needsStoreCoreInFile && targetRoot) {
@@ -576,6 +687,9 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             }
             if (needsStoreMwInFile && targetRoot) {
                 modulePaths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetDir, targetRoot);
+            }
+            if (needsI18nInFile && targetRoot) {
+                modulePaths.i18nPath = calculateI18nPath(targetDir, targetRoot);
             }
             const jsCode = babelTransformModule(ast, code, modulePaths);
             await fs.writeFile(targetPath, jsCode, 'utf-8');
@@ -706,6 +820,9 @@ async function compileDir(sourceDir, targetDir, options = {}) {
 async function compile(sourceDir, targetDir, options = {}) {
     logger.log(`[rsmax] Compiling ${sourceDir} -> ${targetDir}`);
 
+    // Reset idempotent-copy flags for a fresh build
+    i18nCopiedOnce = false;
+
     // Ensure target directory exists, but do NOT empty it (incremental build).
     // miniprogram_npm and other existing files are preserved across builds.
     // Use `rsmax clean` for a full clean build.
@@ -728,7 +845,7 @@ async function compile(sourceDir, targetDir, options = {}) {
     const installedPresets = detectInstalledLibraries(projectPkg);
     const componentResolver = buildResolver(projectConfig, installedPresets);
 
-    await compileDir(sourceDir, targetDir, {targetRoot: targetDir, componentResolver});
+    await compileDir(sourceDir, targetDir, {targetRoot: targetDir, projectRoot, srcDir: sourceDir, componentResolver});
 
     logger.success('[rsmax] Compilation complete!');
 }
@@ -782,11 +899,15 @@ async function watch(sourceDir, targetDir, options = {}) {
             const needsRuntimeInFile = usesRuntime(ast);
             const needsStoreCoreInFile = usesStore(ast);
             const needsStoreMwInFile = usesStoreMiddleware(ast);
+            const needsI18nInFile = usesI18n(ast);
             if (needsRuntimeInFile) {
                 await ensureRuntimeCopied(targetDir);
             }
             if (needsStoreCoreInFile || needsStoreMwInFile) {
                 await ensureStoreCopied(targetDir, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+            }
+            if (needsI18nInFile) {
+                await ensureI18nCopied(targetDir, projectRoot, sourceDir);
             }
 
             const {moduleStyles, plainStyles, importSources} = collectStyleImports(ast, sourceJsDir);
@@ -830,6 +951,9 @@ async function watch(sourceDir, targetDir, options = {}) {
             if (needsStoreMwInFile) {
                 paths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetFileDir, targetDir);
             }
+            if (needsI18nInFile) {
+                paths.i18nPath = calculateI18nPath(targetFileDir, targetDir);
+            }
 
             const jsCode = transformJsCode(ast, code, fileType, paths);
             await fs.writeFile(path.join(targetFileDir, basename + '.js'), jsCode, 'utf-8');
@@ -861,8 +985,12 @@ async function watch(sourceDir, targetDir, options = {}) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
             const needsStoreCoreInFile = usesStore(ast);
             const needsStoreMwInFile = usesStoreMiddleware(ast);
+            const needsI18nInFile = usesI18n(ast);
             if (needsStoreCoreInFile || needsStoreMwInFile) {
                 await ensureStoreCopied(targetDir, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+            }
+            if (needsI18nInFile) {
+                await ensureI18nCopied(targetDir, projectRoot, sourceDir);
             }
             const modulePaths = {};
             if (needsStoreCoreInFile) {
@@ -870,6 +998,9 @@ async function watch(sourceDir, targetDir, options = {}) {
             }
             if (needsStoreMwInFile) {
                 modulePaths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetFileDir, targetDir);
+            }
+            if (needsI18nInFile) {
+                modulePaths.i18nPath = calculateI18nPath(targetFileDir, targetDir);
             }
             const jsCode = babelTransformModule(ast, code, modulePaths);
             await fs.writeFile(targetPath, jsCode, 'utf-8');
@@ -1108,6 +1239,7 @@ module.exports = {
     calculateRuntimePath,
     calculateStorePath,
     calculateStoreMiddlewarePath,
+    calculateI18nPath,
     getFileType,
     compileStyle,
     compileStyleFile,

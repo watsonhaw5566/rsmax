@@ -164,6 +164,42 @@ describe('@rsmax/babel-plugin-transform-js', () => {
       expect(result).toContain('./rsmax-store.js');
       expect(result).not.toContain('@rsmax/store');
     });
+
+    test('should rewrite @rsmax/i18n import when i18nPath is provided', () => {
+      const code = [
+        'import { useI18n, t } from "@rsmax/i18n";',
+        'export default {};'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page', i18nPath: './rsmax-i18n.js' });
+
+      expect(result).toContain('./rsmax-i18n.js');
+      expect(result).not.toContain('@rsmax/i18n');
+    });
+
+    test('should rewrite @rsmax/i18n require() when i18nPath is provided', () => {
+      const code = [
+        'const { useI18n, t } = require("@rsmax/i18n");',
+        'export default {};'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page', i18nPath: './rsmax-i18n.js' });
+
+      expect(result).toContain('./rsmax-i18n.js');
+      expect(result).not.toContain('@rsmax/i18n');
+    });
+
+    test('should NOT rewrite @rsmax/i18n import when i18nPath is NOT provided', () => {
+      const code = [
+        'import { useI18n } from "@rsmax/i18n";',
+        'export default {};'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toContain('@rsmax/i18n');
+      expect(result).not.toContain('./rsmax-i18n.js');
+    });
   });
 
   describe('transformModule', () => {

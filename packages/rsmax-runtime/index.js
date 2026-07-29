@@ -24,6 +24,7 @@ function _initHooks(instance, firstRun) {
   hookIndex = 0;
   currentInstance = instance;
   isFirstRun = firstRun;
+  globalThis.__RSMAX_CURRENT_INSTANCE__ = instance;
 }
 
 function useState(initialValue, key) {

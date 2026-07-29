@@ -13,6 +13,7 @@
 - **第三方 UI 库** — 自动识别并注册 Vant Weapp、TDesign MiniProgram、Ant Design Mini 组件
 - **npm 包支持** — ES6 `import` 自动转为 CommonJS `require()`
 - **状态管理** — 类 Zustand 的轻量级状态管理 `@rsmax/store`，支持微信缓存持久化
+- **国际化（i18n）** — 基于 JS 模块的多语言支持，编译器按需加载，JSX 中 `t('key')` 自动转为 WXML 数据绑定
 - **静态资源** — `public/` 目录下的文件直接复制到产物根目录，支持绝对路径引用
 - **监听模式** — `rsmax dev` 监听文件变化，增量编译
 - **miniprogram_npm 保护** — 构建时自动保留微信开发者工具生成的 `miniprogram_npm` 目录
@@ -51,6 +52,9 @@ your-project/
 │   │   │   └── index.json      # 页面配置（可选）
 │   │   └── ...
 │   └── components/             # 自定义组件
+├── locales/                    # 多语言文件目录（可选）
+│   ├── zh-CN.js                # 中文语言包
+│   └── en.js                   # 英文语言包
 ├── project.config.json         # 微信开发者工具项目配置
 ├── package.json
 └── rsmax.config.js             # rsmax 配置（可选）
@@ -415,6 +419,221 @@ export const counterStore = create(
 ### 示例演示
 
 完整示例可查看 e2e 项目中的 [store-demo 页面](file:///Users/wangjue/WebstormProjects/rsmax/rsmax-jsx/e2e/src/pages/store-demo/index.jsx)。
+
+## 国际化（@rsmax/i18n）
+
+框架内置了基于 JS 模块的轻量级国际化方案 `@rsmax/i18n`，支持多语言切换、变量插值、嵌套键值，且通过编译器实现**按需加载**——只有使用了 `@rsmax/i18n` 的页面/组件才会引入运行时和语言包文件。
+
+### 目录结构
+
+在项目根目录创建 `locales/` 文件夹（也支持放在 `src/locales/`），放置 JS 语言包文件，文件名即为语言代码：
+
+```
+locales/
+├── zh-CN.js      # 简体中文
+├── en.js         # 英文
+└── ja.js         # 日文（可选）
+```
+
+### 创建语言包
+
+每个语言包通过 `module.exports` 导出一个嵌套对象，支持点号路径访问，使用 `{name}` 语法标记变量插值位置：
+
+```js
+// locales/zh-CN.js
+module.exports = {
+  app: {
+    name: '我的应用'
+  },
+  home: {
+    title: '首页',
+    greeting: '你好，{name}！',
+    items: {
+      count: '共 {count} 条记录'
+    }
+  },
+  common: {
+    confirm: '确定',
+    cancel: '取消'
+  }
+};
+```
+
+```js
+// locales/en.js
+module.exports = {
+  app: {
+    name: 'My App'
+  },
+  home: {
+    title: 'Home',
+    greeting: 'Hello, {name}!',
+    items: {
+      count: '{count} items total'
+    }
+  },
+  common: {
+    confirm: 'Confirm',
+    cancel: 'Cancel'
+  }
+};
+```
+
+### 在 App 入口初始化
+
+在 `app.js` 中初始化 i18n，设置默认语言：
+
+```js
+// src/app.js
+import { initI18n } from '@rsmax/i18n';
+
+initI18n({
+  locale: 'zh-CN',        // 默认语言
+  fallbackLocale: 'zh-CN' // 兜底语言（当翻译缺失时使用）
+});
+
+App({
+  onLaunch() {
+    console.log('App launched');
+  }
+});
+```
+
+### 在页面/组件中使用
+
+使用 `useI18n()` Hook 获取翻译函数和语言控制方法，在 JSX 中直接调用 `t('key')`：
+
+```jsx
+// src/pages/index/index.jsx
+import { useState } from '@rsmax/runtime';
+import { useI18n, t, setLocale } from '@rsmax/i18n';
+
+export default function HomePage() {
+  const { locale } = useI18n(); // 初始化 i18n，自动注入 data.__i18n
+  const [name] = useState('World');
+
+  const switchToZh = () => setLocale('zh-CN');
+  const switchToEn = () => setLocale('en');
+
+  return (
+    <view class="container">
+      {/* 基础翻译 */}
+      <text>{t('home.title')}</text>
+
+      {/* 变量插值 — 在 JSX 中使用 state 变量展示插值结果 */}
+      <text>{t('home.greeting', { name })}</text>
+      <text>{t('home.items.count', { count: 10 })}</text>
+
+      {/* 嵌套键访问 */}
+      <text>{t('common.confirm')}</text>
+
+      {/* 语言切换 */}
+      <button onClick={switchToZh}>中文</button>
+      <button onClick={switchToEn}>English</button>
+
+      <text>当前语言: {locale}</text>
+    </view>
+  );
+}
+```
+
+> **注意**：由于 WXML 模板中无法执行 JavaScript 函数调用，JSX 中的 `t('key')` 会在编译时被转换为 `{{__i18n['key']}}` 数据绑定，这意味着模板中 `t()` 的参数必须是**字符串字面量**，不能是变量或表达式。对于带变量插值的场景，可在 JS 逻辑中调用 `i18nT('key', params)` 计算结果后通过 `setState` 绑定到视图。
+
+### 编译原理
+
+编译器会自动处理以下工作：
+
+1. **按需检测**：编译每个 JS/JSX 文件时，检测是否 `import`/`require` 了 `@rsmax/i18n`。只有使用了 i18n 的文件才会触发运行时复制。
+2. **路径重写**：将源码中的 `import { t } from '@rsmax/i18n'` 自动重写为本地相对路径（如 `require('../../rsmax-i18n.js')`）。
+3. **运行时复制**：首次检测到 i18n 使用时，将 `rsmax-i18n.js` 运行时复制到 dist 根目录。
+4. **语言包处理**：扫描 `locales/` 目录，将所有 `.js` 语言包直接复制到 `dist/locales/`，并生成 `rsmax-i18n-locales.js` 模块。每个语言包用函数包裹实现**懒加载**——只有切换到对应语言时才会 `require` 对应的语言包文件。
+5. **WXML 转换**：JSX 中的 `t('key')` 调用在编译阶段被转换为 WXML 的 `{{__i18n['key']}}` 数据绑定，模板中无需函数调用即可直接渲染翻译文本。
+
+### API 参考
+
+#### initI18n(options)
+
+在 App 入口初始化全局 i18n 实例，返回 i18n 实例。
+
+```js
+initI18n({
+  locale: 'zh-CN',         // 默认语言，默认 'zh-CN'
+  fallbackLocale: 'en',    // 兜底语言，翻译缺失时回退到此语言
+  messages: {              // 可选：内联消息（无需 locales 文件）
+    'zh-CN': { hi: '你好' },
+    'en': { hi: 'Hello' }
+  }
+});
+```
+
+#### useI18n()
+
+在组件/页面的 setup 函数中调用，返回 `{ t, locale, setLocale, addMessages }`。调用后会：
+- 自动将当前语言的扁平消息注入到 `data.__i18n` 中
+- 订阅语言切换事件，语言变化时自动调用 `setData` 更新视图
+- 页面卸载时自动取消订阅
+
+```js
+const { t, locale, setLocale, addMessages } = useI18n();
+```
+
+#### t(key, params?)
+
+翻译函数，根据当前语言返回对应的文本。支持点号分隔的嵌套键名和 `{name}` 变量插值。
+
+```js
+t('home.title');                        // "首页"
+t('home.greeting', { name: '张三' });    // "你好，张三！"
+t('nonexistent.key');                   // key 不存在时返回 key 本身
+```
+
+> **注意**：在 JSX 模板中直接使用 `t('key')` 时，编译器会自动转换为数据绑定。在 JS 逻辑代码中（如事件处理函数、useEffect 中），`t()` 作为普通函数调用正常工作。
+
+#### setLocale(locale)
+
+切换当前语言。切换后所有已挂载的组件会自动更新翻译内容，返回 Promise。
+
+```js
+setLocale('en').then(() => {
+  console.log('语言已切换');
+});
+```
+
+#### getLocale()
+
+获取当前语言代码。
+
+```js
+const current = getLocale(); // 'zh-CN'
+```
+
+#### addMessages(locale, messages)
+
+动态添加翻译消息（适用于从后端加载语言包的场景）。添加后如果是当前语言，会立即触发视图更新。
+
+```js
+addMessages('fr', {
+  home: { title: 'Accueil' }
+});
+```
+
+#### getI18n()
+
+获取全局 i18n 实例（主要用于非组件环境，如工具函数中）。
+
+```js
+const i18n = getI18n();
+console.log(i18n.t('home.title'));
+```
+
+### 按需加载说明
+
+编译器实现了精确的按需加载：
+
+- **未使用 `@rsmax/i18n`** 的项目：不会复制任何 i18n 相关文件到 dist 目录
+- **部分页面使用**：只有 import 了 `@rsmax/i18n` 的文件会被重写引用路径，但运行时和语言包只需复制一次（到 dist 根目录）
+- **语言包懒加载**：运行时不会一次性加载所有语言包，只有调用 `setLocale()` 切换到某语言时，才会 `require` 对应的语言文件
+- **watch 模式**：开发模式下 locales 目录新增/修改语言包文件会自动重新生成语言包模块
 
 ## 静态资源（public 目录）
 
@@ -817,11 +1036,12 @@ export default {
 | 包 | 说明 |
 |----|------|
 | `rsmax` | CLI 入口，提供 build/dev/clean 命令 |
-| `@rsmax/compiler` | 编译器核心：JSX→WXML、JS 转换、样式编译、CSS Modules、组件解析 |
+| `@rsmax/compiler` | 编译器核心：JSX→WXML、JS 转换、样式编译、CSS Modules、组件解析、i18n 按需加载 |
 | `@rsmax/runtime` | 运行时：Hooks 实现（useState/useEffect/useContext/useStore 等）、Page/Component/App 包装器、promisify 工具函数 |
 | `@rsmax/store` | 类 Zustand 状态管理库，支持微信缓存持久化中间件 |
-| `@rsmax/babel-plugin-jsx-to-wxml` | Babel 插件：JSX AST → WXML 字符串转换 |
-| `@rsmax/babel-plugin-transform-js` | Babel 插件：转换 ES6 import、注入 rsmax runtime、处理 CSS Modules 和 store 引用 |
+| `@rsmax/i18n` | 国际化运行时：基于 JS 模块的多语言支持，含 useI18n Hook、语言切换、变量插值、懒加载 |
+| `@rsmax/babel-plugin-jsx-to-wxml` | Babel 插件：JSX AST → WXML 字符串转换（含 t() → __i18n 数据绑定转换） |
+| `@rsmax/babel-plugin-transform-js` | Babel 插件：转换 ES6 import、注入 rsmax runtime、处理 CSS Modules、store 和 i18n 路径重写 |
 | `@rsmax/postcss-px2units` | PostCSS 插件：px → rpx 单位转换 |
 
 ## License

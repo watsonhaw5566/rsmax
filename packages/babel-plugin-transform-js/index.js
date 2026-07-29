@@ -11,6 +11,8 @@ const RUNTIME_UTILS = ['promisify'];
 const RSMAX_MODULE = '@rsmax/runtime';
 const STORE_MODULE = '@rsmax/store';
 const STORE_MIDDLEWARE_MODULE = '@rsmax/store/middleware';
+const I18N_MODULE = '@rsmax/i18n';
+const I18N_EXPORTS = ['useI18n', 'initI18n', 't', 'setLocale', 'getLocale', 'addMessages', 'getI18n', 'createI18n'];
 
 function isRenderMethod(member) {
   return (t.isClassMethod(member) || t.isObjectMethod(member)) &&
@@ -149,10 +151,12 @@ module.exports = function() {
           state.rsmaxImported = new Map();
           state.storeImported = new Map(); // localName -> importedName for @rsmax/store
           state.storeMwImported = new Map(); // localName -> importedName for @rsmax/store/middleware
+          state.i18nImported = new Map(); // localName -> importedName for @rsmax/i18n
           state.hasRsmaxImport = false;
           state.usesHooks = false;
           state.usesStore = false;
           state.usesStoreMiddleware = false;
+          state.usesI18n = false;
           state.runtimeId = null;
         }
       },
@@ -204,6 +208,25 @@ module.exports = function() {
                 state.storeMwImported.set(spec.local.name, spec.imported.name);
               } else if (t.isImportDefaultSpecifier(spec) || t.isImportNamespaceSpecifier(spec)) {
                 state.storeMwImported.set(spec.local.name, '__default');
+              }
+            });
+
+            const stmts = convertImportToRequire(path.node.specifiers, sourceLit);
+            if (stmts.length === 1) path.replaceWith(stmts[0]);
+            else path.replaceWithMultiple(stmts);
+          }
+        } else if (t.isStringLiteral(path.node.source, { value: I18N_MODULE })) {
+          // @rsmax/i18n → rewrite to local rsmax-i18n.js (only if i18nPath is provided)
+          const fileOpts = state.opts || {};
+          if (fileOpts.i18nPath) {
+            state.usesI18n = true;
+            const sourceLit = t.stringLiteral(fileOpts.i18nPath);
+
+            path.node.specifiers.forEach(spec => {
+              if (t.isImportSpecifier(spec) && t.isIdentifier(spec.imported)) {
+                state.i18nImported.set(spec.local.name, spec.imported.name);
+              } else if (t.isImportDefaultSpecifier(spec) || t.isImportNamespaceSpecifier(spec)) {
+                state.i18nImported.set(spec.local.name, '__default');
               }
             });
 
@@ -282,6 +305,27 @@ module.exports = function() {
                   });
                 } else if (t.isIdentifier(decl.id)) {
                   state.storeMwImported.set(decl.id.name, '__default');
+                }
+              }
+              return;
+            }
+
+            if (reqSource === I18N_MODULE) {
+              if (fileOpts.i18nPath) {
+                state.usesI18n = true;
+                decl.init.arguments[0] = t.stringLiteral(fileOpts.i18nPath);
+                if (t.isObjectPattern(decl.id)) {
+                  decl.id.properties.forEach(prop => {
+                    if (t.isObjectProperty(prop) && t.isIdentifier(prop.key)) {
+                      const keyName = prop.key.name;
+                      const localName = t.isIdentifier(prop.value) ? prop.value.name : keyName;
+                      if (I18N_EXPORTS.includes(keyName)) {
+                        state.i18nImported.set(localName, keyName);
+                      }
+                    }
+                  });
+                } else if (t.isIdentifier(decl.id)) {
+                  state.i18nImported.set(decl.id.name, '__default');
                 }
               }
               return;
@@ -746,10 +790,11 @@ module.exports.transformJS = function(ast, code, options = {}) {
     type = 'page',
     runtimePath = './rsmax-runtime.js',
     storePath,
-    storeMiddlewarePath
+    storeMiddlewarePath,
+    i18nPath
   } = options;
   const result = babel.transformFromAstSync(ast, code, {
-    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath }]],
+    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath, i18nPath }]],
     configFile: false,
     babelrc: false,
     generatorOpts: { retainLines: false, compact: false, quotes: 'single' }
@@ -769,8 +814,10 @@ function esmToCjsPlugin() {
         enter(path, state) {
           state.storeImported = new Map();
           state.storeMwImported = new Map();
+          state.i18nImported = new Map();
           state.usesStore = false;
           state.usesStoreMiddleware = false;
+          state.usesI18n = false;
         },
         exit(path, state) {
           // Convert remaining export statements
@@ -780,13 +827,16 @@ function esmToCjsPlugin() {
         const fileOpts = state.opts || {};
         let sourceValue = path.node.source.value;
 
-        // Rewrite @rsmax/store paths only if explicit paths are provided
+        // Rewrite @rsmax paths only if explicit paths are provided
         if (sourceValue === STORE_MODULE && fileOpts.storePath) {
           state.usesStore = true;
           sourceValue = fileOpts.storePath;
         } else if (sourceValue === STORE_MIDDLEWARE_MODULE && fileOpts.storeMiddlewarePath) {
           state.usesStoreMiddleware = true;
           sourceValue = fileOpts.storeMiddlewarePath;
+        } else if (sourceValue === I18N_MODULE && fileOpts.i18nPath) {
+          state.usesI18n = true;
+          sourceValue = fileOpts.i18nPath;
         }
 
         const sourceLit = t.stringLiteral(sourceValue);
@@ -917,10 +967,11 @@ function esmToCjsPlugin() {
 module.exports.transformModule = function(ast, code, options = {}) {
   const {
     storePath,
-    storeMiddlewarePath
+    storeMiddlewarePath,
+    i18nPath
   } = options;
   const result = babel.transformFromAstSync(ast, code, {
-    plugins: [[esmToCjsPlugin, { storePath, storeMiddlewarePath }]],
+    plugins: [[esmToCjsPlugin, { storePath, storeMiddlewarePath, i18nPath }]],
     configFile: false,
     babelrc: false,
     generatorOpts: { retainLines: false, compact: false, quotes: 'single' }

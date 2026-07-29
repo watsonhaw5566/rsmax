@@ -266,6 +266,40 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
 
       expect(result.wxml).toContain('<view>Class Component</view>');
     });
+
+    test('should convert t("key") call in JSX text to __i18n data binding', () => {
+      const code = `import { t } from '@rsmax/i18n';
+export default function Index() {
+  return <view>{t('hello')}</view>;
+}`;
+      const ast = parseCode(code);
+      const result = extractWxmlFromCode(ast, code);
+
+      expect(result.wxml).toContain("{{__i18n['hello']}}");
+      expect(result.wxml).not.toContain("t('hello')");
+    });
+
+    test('should convert t("nested.key") call in JSX text to __i18n data binding', () => {
+      const code = `import { t } from '@rsmax/i18n';
+export default function Index() {
+  return <text>{t('page.home.title')}</text>;
+}`;
+      const ast = parseCode(code);
+      const result = extractWxmlFromCode(ast, code);
+
+      expect(result.wxml).toContain("{{__i18n['page.home.title']}}");
+    });
+
+    test('should NOT convert non-t() calls', () => {
+      const code = `export default function Index() {
+  return <view>{formatMessage('hello')}</view>;
+}`;
+      const ast = parseCode(code);
+      const result = extractWxmlFromCode(ast, code);
+
+      expect(result.wxml).toContain('formatMessage');
+      expect(result.wxml).not.toContain('__i18n');
+    });
   });
 
   describe('plugin exports', () => {

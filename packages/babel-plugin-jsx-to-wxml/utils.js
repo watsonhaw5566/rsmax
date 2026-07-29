@@ -47,7 +47,31 @@ function getExpressionCode(code, expr) {
   if (t.isTemplateLiteral(expr)) {
     return convertTemplateLiteral(code, expr);
   }
+  // Transform t('key') or i18n.t('key') calls in JSX expressions to __i18n data lookups
+  if (t.isCallExpression(expr)) {
+    const i18nKey = extractI18nKey(expr);
+    if (i18nKey) {
+      return "__i18n['" + i18nKey.replace(/'/g, "\\'") + "']";
+    }
+  }
   return getNodeCode(code, expr);
+}
+
+function extractI18nKey(callExpr) {
+  if (!t.isCallExpression(callExpr)) return null;
+  if (callExpr.arguments.length === 0) return null;
+  const firstArg = callExpr.arguments[0];
+  if (!t.isStringLiteral(firstArg)) return null;
+  const callee = callExpr.callee;
+  // t('key')
+  if (t.isIdentifier(callee, { name: 't' })) {
+    return firstArg.value;
+  }
+  // i18n.t('key') - callee is MemberExpression `xxx.t` where xxx is an identifier (not `this`, not a nested member)
+  if (t.isMemberExpression(callee) && !callee.computed && t.isIdentifier(callee.property, { name: 't' }) && t.isIdentifier(callee.object)) {
+    return firstArg.value;
+  }
+  return null;
 }
 
 function convertTemplateLiteral(code, node) {

@@ -81,6 +81,9 @@ importers:
       '@rsmax/babel-plugin-transform-js':
         specifier: workspace:*
         version: link:../babel-plugin-transform-js
+      '@rsmax/i18n':
+        specifier: workspace:*
+        version: link:../rsmax-i18n
       '@rsmax/postcss-px2units':
         specifier: ^0.3.0
         version: 0.3.0
@@ -108,6 +111,8 @@ importers:
       sass:
         specifier: ^1.69.0
         version: 1.102.0
+
+  packages/rsmax-i18n: {}
 
   packages/rsmax-runtime: {}
 

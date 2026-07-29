@@ -10,6 +10,7 @@
     "@babel/types": "^7.23.0",
     "@rsmax/babel-plugin-jsx-to-wxml": "workspace:*",
     "@rsmax/babel-plugin-transform-js": "workspace:*",
+    "@rsmax/i18n": "workspace:*",
     "@rsmax/postcss-px2units": "^0.3.0",
     "@rsmax/runtime": "workspace:*",
     "@rsmax/store": "workspace:*",

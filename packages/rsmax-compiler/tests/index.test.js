@@ -10,6 +10,7 @@ const {
   calculateRuntimePath,
   calculateStorePath,
   calculateStoreMiddlewarePath,
+  calculateI18nPath,
   getFileType,
   isModuleFile,
   isStyleFile
@@ -38,6 +39,12 @@ describe('rsmax-compiler', () => {
     test('calculateStoreMiddlewarePath should return correct relative path', () => {
       expect(calculateStoreMiddlewarePath('/project/dist', '/project/dist')).toBe('./rsmax-store-middleware.js');
       expect(calculateStoreMiddlewarePath('/project/dist/pages', '/project/dist')).toBe('../rsmax-store-middleware.js');
+    });
+
+    test('calculateI18nPath should return correct relative path', () => {
+      expect(calculateI18nPath('/project/dist', '/project/dist')).toBe('./rsmax-i18n.js');
+      expect(calculateI18nPath('/project/dist/pages', '/project/dist')).toBe('../rsmax-i18n.js');
+      expect(calculateI18nPath('/project/dist/pages/home', '/project/dist')).toBe('../../rsmax-i18n.js');
     });
   });
 
@@ -100,6 +107,24 @@ describe('rsmax-compiler', () => {
 
       expect(result).toContain('Page(');
       expect(result).toContain('data:');
+    });
+
+    test('should rewrite @rsmax/i18n imports when i18nPath is provided', () => {
+      const code = [
+        'import { useI18n, t } from "@rsmax/i18n";',
+        'export default function Index() {',
+        '  const { t: i18nT } = useI18n();',
+        '  return <view>{t("hello")}</view>;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJsCode(ast, code, 'page', {
+        runtimePath: './rsmax-runtime.js',
+        i18nPath: './rsmax-i18n.js'
+      });
+
+      expect(result).toContain('./rsmax-i18n.js');
+      expect(result).not.toContain('@rsmax/i18n');
     });
   });
 
