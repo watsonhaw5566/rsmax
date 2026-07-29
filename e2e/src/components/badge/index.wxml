@@ -1,0 +1,3 @@
+<view class="badge {{type === 'dot' ? 'badge-dot' : ''}}">
+  <text class="badge-text" wx:if="{{type !== 'dot'}}">{{value}}</text>
+</view>

@@ -1,3 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`ScrollView > render correctly 1`] = `<scroll-view />`;

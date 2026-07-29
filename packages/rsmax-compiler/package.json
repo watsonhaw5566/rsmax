@@ -1,0 +1,23 @@
+{
+  "name": "@rsmax/compiler",
+  "version": "0.1.0",
+  "description": "Rsmax JSX compiler for WeChat Mini Program",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/parser": "^7.23.0",
+    "@babel/traverse": "^7.23.0",
+    "@babel/types": "^7.23.0",
+    "@rsmax/babel-plugin-jsx-to-wxml": "workspace:*",
+    "@rsmax/babel-plugin-transform-js": "workspace:*",
+    "@rsmax/postcss-px2units": "^0.3.0",
+    "@rsmax/runtime": "workspace:*",
+    "@rsmax/store": "workspace:*",
+    "chokidar": "^4.0.0",
+    "fs-extra": "^11.1.1",
+    "less": "^4.2.0",
+    "postcss": "^8.4.0",
+    "rslog": "^2.3.0",
+    "sass": "^1.69.0"
+  }
+}

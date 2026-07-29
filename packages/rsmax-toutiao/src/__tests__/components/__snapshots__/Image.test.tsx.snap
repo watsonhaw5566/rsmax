@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Image > render correctly 1`] = `
-<image
-  className="class"
-  lazyLoad={false}
-  mode="scaleToFill"
-/>
-`;

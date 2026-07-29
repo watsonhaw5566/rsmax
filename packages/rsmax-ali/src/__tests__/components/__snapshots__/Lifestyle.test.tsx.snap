@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Lifestyle > render correctly 1`] = `
-<lifestyle
-  publicId=""
-/>
-`;

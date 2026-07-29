@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`DoubleTapGestureHandler > render correctly 1`] = `
-<double-tap-gesture-handler
-  className="class"
->
-  text
-</double-tap-gesture-handler>
-`;

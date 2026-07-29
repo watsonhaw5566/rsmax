@@ -1,9 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`VoipRoom > render correctly 1`] = `
-<voip-room
-  devicePosition="front"
-  mode="camera"
-  openId="openId"
-/>
-`;

@@ -1,3 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Switch > render correctly 1`] = `<switch />`;

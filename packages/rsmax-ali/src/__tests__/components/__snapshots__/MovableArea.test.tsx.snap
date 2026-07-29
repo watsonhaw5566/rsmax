@@ -1,8 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`MovableArea > render correctly 1`] = `
-<movable-area
-  height={10}
-  width={10}
-/>
-`;

@@ -1,7 +1,0 @@
-// Rstest Snapshot v1
-
-exports[`Canvas > render correctly 1`] = `
-<canvas
-  disableScroll={false}
-/>
-`;

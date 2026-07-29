@@ -1,44 +1,15 @@
 {
   "name": "rsmax",
-  "version": "1.4.0",
-  "description": "Rsmax 是一个全新的基于 React 的小程序开发框架",
-  "keywords": [
-    "react",
-    "miniapp",
-    "mini-program",
-    "wechat"
-  ],
-  "homepage": "https://remax.wdchiphop.cn",
-  "bugs": {
-    "url": "https://github.com/remaxjs/remax/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/remaxjs/remax.git"
-  },
-  "license": "MIT",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "types": "./esm/index.d.ts",
+  "version": "0.1.0",
+  "description": "Rsmax JSX - JSX for WeChat Mini Program",
+  "main": "index.js",
   "bin": {
-    "rsmax": "./bin/rsmax"
-  },
-  "scripts": {
-    "prebuild": "rm -rf cjs esm",
-    "build": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir cjs",
-    "prepack": "pnpm build"
+    "rsmax": "./bin/rsmax.js"
   },
   "dependencies": {
-    "@rsmax/cli": "workspace:*",
-    "@rsmax/macro": "workspace:*",
-    "@rsmax/one": "workspace:*",
+    "@rsmax/compiler": "workspace:*",
     "@rsmax/runtime": "workspace:*",
-    "@rsmax/types": "workspace:*",
-    "@rsmax/web": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "d2ff644810449152d124a9da76218bcd9fdfff46"
+    "cac": "^6.7.14",
+    "rslog": "^2.3.0"
+  }
 }
