@@ -92,7 +92,10 @@ describe('@rsmax/runtime', () => {
       const promisified = promisify(api);
       try {
         await promisified({ fail: customFail });
-      } catch (e) {}
+        expect(true).toBe(false);
+      } catch (e) {
+        expect(e).toEqual(failError);
+      }
       expect(customFail.callCount).toBe(1);
       expect(customFail.calls[0][0]).toEqual(failError);
     });
