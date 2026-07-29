@@ -40,10 +40,6 @@ your-project/
 │   ├── app.js                  # App 入口
 │   ├── app.json                # 小程序配置
 │   ├── app.wxss                # 全局样式
-│   ├── public/                 # 静态资源目录（文件直接复制到 dist 根目录）
-│   │   ├── icon.png            # → dist/icon.png
-│   │   └── images/
-│   │       └── logo.png        # → dist/images/logo.png
 │   ├── pages/
 │   │   ├── index/
 │   │   │   ├── index.jsx       # 页面逻辑 + JSX 模板
@@ -55,6 +51,10 @@ your-project/
 ├── locales/                    # 多语言文件目录（可选）
 │   ├── zh-CN.js                # 中文语言包
 │   └── en.js                   # 英文语言包
+├── public/                     # 静态资源目录（可选，与 src/ 同级）
+│   ├── icon.png                # → dist/icon.png
+│   └── images/
+│       └── logo.png            # → dist/images/logo.png
 ├── project.config.json         # 微信开发者工具项目配置
 ├── package.json
 └── rsmax.config.js             # rsmax 配置（可选）
@@ -637,16 +637,23 @@ console.log(i18n.t('home.title'));
 
 ## 静态资源（public 目录）
 
-`src/public/` 目录用于存放不需要编译处理的静态资源，这些文件会**直接复制到 dist 产物的根目录**，保持原有的目录结构。
+`public/` 目录用于存放不需要编译处理的静态资源，这些文件会**直接复制到 dist 产物的根目录**，保持原有的目录结构。
+
+`public/` 支持两种放置位置（与 `locales/` 目录一致）：
+- **项目根目录**（与 `src/` 同级）：推荐方式，如 `public/icon.png` → `dist/icon.png`
+- **源码目录内**：放在 `src/public/` 下，仅当项目根目录没有 `public/` 时生效
+
+> **优先级**：项目根目录的 `public/` 优先于 `src/public/`，两者同时存在时只使用根目录的。
 
 ### 使用方式
 
-将静态文件放入 `src/public/` 目录：
+将静态文件放入 `public/` 目录：
 
 ```
-src/public/
+public/
 ├── icon.png
 ├── logo.svg
+├── sitemap.json
 └── images/
     └── banner.jpg
 ```
@@ -657,6 +664,7 @@ src/public/
 dist/
 ├── icon.png
 ├── logo.svg
+├── sitemap.json
 └── images/
     └── banner.jpg
 ```
@@ -688,6 +696,7 @@ dist/
 - 修改文件 → 自动更新
 - 删除文件 → 自动从 dist 移除
 - 新增/删除子目录 → 自动同步
+- 项目根目录 public 和 src/public 均支持监听
 
 ## JSX 语法
 

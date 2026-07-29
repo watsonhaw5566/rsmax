@@ -1,4 +1,4 @@
-const { describe, test, expect } = require('@rstest/core');
+const { describe, test, expect, beforeEach, afterEach } = require('@rstest/core');
 const parser = require('@babel/parser');
 const path = require('node:path');
 const os = require('node:os');
@@ -13,7 +13,8 @@ const {
   calculateI18nPath,
   getFileType,
   isModuleFile,
-  isStyleFile
+  isStyleFile,
+  compile
 } = require('../index');
 
 function parseCode(code) {
@@ -141,6 +142,91 @@ describe('rsmax-compiler', () => {
       } finally {
         await fs.remove(tmpDir);
       }
+    });
+  });
+
+  describe('public directory support', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+    let projectRoot;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-public-test-'));
+      projectRoot = tmpDir;
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(srcDir);
+      // Minimal app.js and app.json so compilation succeeds
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({pages: []}), 'utf-8');
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should copy public/ from project root (sibling of src/) to dist root', async () => {
+      const publicDir = path.join(projectRoot, 'public');
+      await fs.ensureDir(publicDir);
+      await fs.writeFile(path.join(publicDir, 'sitemap.json'), JSON.stringify({desc: 'test'}), 'utf-8');
+      await fs.writeFile(path.join(publicDir, 'project.config.json'), JSON.stringify({appid: 'test'}), 'utf-8');
+      await fs.ensureDir(path.join(publicDir, 'images'));
+      await fs.writeFile(path.join(publicDir, 'images', 'logo.png'), 'fake-png-bytes', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // Public assets copied to dist root
+      expect(await fs.pathExists(path.join(distDir, 'sitemap.json'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'project.config.json'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'images', 'logo.png'))).toBe(true);
+      // Compiled source files still exist
+      expect(await fs.pathExists(path.join(distDir, 'app.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'app.json'))).toBe(true);
+    });
+
+    test('should copy public/ from inside src/ to dist root when no project-root public exists', async () => {
+      const publicDir = path.join(srcDir, 'public');
+      await fs.ensureDir(publicDir);
+      await fs.writeFile(path.join(publicDir, 'sitemap.json'), JSON.stringify({desc: 'src-public'}), 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'sitemap.json'))).toBe(true);
+      const sitemap = await fs.readJson(path.join(distDir, 'sitemap.json'));
+      expect(sitemap.desc).toBe('src-public');
+      // src/public should NOT appear as a subdirectory in dist
+      expect(await fs.pathExists(path.join(distDir, 'public'))).toBe(false);
+    });
+
+    test('should prefer project-root public/ over src/public (project root takes priority)', async () => {
+      const projectPublic = path.join(projectRoot, 'public');
+      const srcPublic = path.join(srcDir, 'public');
+      await fs.ensureDir(projectPublic);
+      await fs.ensureDir(srcPublic);
+      await fs.writeFile(path.join(projectPublic, 'test.txt'), 'from-project-root', 'utf-8');
+      await fs.writeFile(path.join(srcPublic, 'test.txt'), 'from-src', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const content = await fs.readFile(path.join(distDir, 'test.txt'), 'utf-8');
+      expect(content).toBe('from-project-root');
+    });
+
+    test('should not fail when no public directory exists', async () => {
+      await expect(compile(srcDir, distDir)).resolves.toBeUndefined();
+    });
+
+    test('should copy nested directories in public/', async () => {
+      const publicDir = path.join(projectRoot, 'public');
+      await fs.ensureDir(path.join(publicDir, 'images', 'icons'));
+      await fs.writeFile(path.join(publicDir, 'images', 'icons', 'tab-home.png'), 'tab-home', 'utf-8');
+      await fs.writeFile(path.join(publicDir, 'images', 'bg.jpg'), 'bg', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'images', 'icons', 'tab-home.png'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'images', 'bg.jpg'))).toBe(true);
     });
   });
 });

@@ -192,6 +192,25 @@ function findLocalesDir(projectRoot, srcDir) {
     return null;
 }
 
+/**
+ * Find the project's public directory for static assets.
+ * Priority: <projectRoot>/public (conventional, same level as src/),
+ *           then <srcDir>/public (public inside source directory).
+ * Returns the absolute path to the public dir, or null if not found.
+ */
+function findPublicDir(projectRoot, srcDir) {
+    const candidates = [
+        path.join(projectRoot, 'public'),
+        path.join(srcDir, 'public'),
+    ];
+    for (const dir of candidates) {
+        if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
+            return dir;
+        }
+    }
+    return null;
+}
+
 let i18nCopiedOnce = false;
 
 /**
@@ -310,10 +329,10 @@ async function ensureStoreCopied(targetDir, options = {}) {
  * Files in public/ are copied directly to dist/, preserving directory structure:
  *   public/icon.png → dist/icon.png
  *   public/images/logo.png → dist/images/logo.png
+ * Accepts an already-resolved publicDir path (from findPublicDir).
  */
-async function copyPublicDir(sourceDir, targetDir) {
-    const publicDir = path.join(sourceDir, 'public');
-    if (!await fs.pathExists(publicDir)) {
+async function copyPublicDir(publicDir, targetDir) {
+    if (!publicDir || !await fs.pathExists(publicDir)) {
         return;
     }
 
@@ -828,14 +847,18 @@ async function compile(sourceDir, targetDir, options = {}) {
     // Use `rsmax clean` for a full clean build.
     await fs.ensureDir(targetDir);
 
+    // Resolve project root (parent of sourceDir) and find public directory
+    const projectRoot = path.dirname(sourceDir);
+
     // Copy public directory static assets to target root (overwrites existing files)
-    await copyPublicDir(sourceDir, targetDir);
+    // public/ can be at project root (sibling of src/) or inside src/
+    const publicDir = findPublicDir(projectRoot, sourceDir);
+    await copyPublicDir(publicDir, targetDir);
 
     // Load project config and detect installed UI libraries
     // Note: Do NOT copy package.json into targetDir (miniprogramRoot).
     // When using packNpmManually, DevTools uses packNpmRelationList to find package.json;
     // a package.json inside miniprogramRoot without adjacent node_modules can cause issues.
-    const projectRoot = path.dirname(sourceDir);
     const projectPkgPath = path.join(projectRoot, 'package.json');
     let projectPkg = {};
     if (await fs.pathExists(projectPkgPath)) {
@@ -845,7 +868,7 @@ async function compile(sourceDir, targetDir, options = {}) {
     const installedPresets = detectInstalledLibraries(projectPkg);
     const componentResolver = buildResolver(projectConfig, installedPresets);
 
-    await compileDir(sourceDir, targetDir, {targetRoot: targetDir, projectRoot, srcDir: sourceDir, componentResolver});
+    await compileDir(sourceDir, targetDir, {targetRoot: targetDir, projectRoot, srcDir: sourceDir, componentResolver, publicDir});
 
     logger.success('[rsmax] Compilation complete!');
 }
@@ -868,6 +891,9 @@ async function watch(sourceDir, targetDir, options = {}) {
     const installedPresets = detectInstalledLibraries(projectPkg);
     const watchComponentResolver = buildResolver(projectConfig, installedPresets);
 
+    // Resolve public directory for watch mode (supports project root or src/)
+    const resolvedPublicDir = findPublicDir(projectRoot, sourceDir);
+
     const ignored = [
         /node_modules/,
         /\.git/,
@@ -877,7 +903,14 @@ async function watch(sourceDir, targetDir, options = {}) {
         }
     ];
 
-    const watcher = chokidar.watch(sourceDir, {
+    // Watch sourceDir, plus project-root public if it exists outside sourceDir
+    const watchPaths = [sourceDir];
+    const projectPublicDir = path.join(projectRoot, 'public');
+    if (resolvedPublicDir === projectPublicDir && await fs.pathExists(projectPublicDir)) {
+        watchPaths.push(projectPublicDir);
+    }
+
+    const watcher = chokidar.watch(watchPaths, {
         ignored,
         persistent: true,
         ignoreInitial: true
@@ -1059,21 +1092,38 @@ async function watch(sourceDir, targetDir, options = {}) {
      * Files in public/ map directly to dist root:
      *   public/icon.png → dist/icon.png
      *   public/images/logo.png → dist/images/logo.png
+     * Supports public/ at project root (sibling of src/) or inside src/.
      * Returns null for the public directory itself (to avoid accidentally deleting dist root).
      */
     function getPublicTargetPath(filePath) {
-        const normalizedSource = path.resolve(sourceDir);
         const normalizedFile = path.resolve(filePath);
-        const publicDir = path.join(normalizedSource, 'public');
-        // Don't map the public directory itself - that would point to dist root
-        if (normalizedFile === publicDir) {
-            return {isPublicRoot: true};
-        }
-        if (normalizedFile.startsWith(publicDir + path.sep)) {
-            const relativeToPublic = path.relative(publicDir, normalizedFile);
-            return {targetPath: path.join(targetDir, relativeToPublic)};
+        // Check both possible public directory locations
+        const publicCandidates = [
+            path.resolve(projectRoot, 'public'),
+            path.resolve(sourceDir, 'public'),
+        ];
+        for (const publicDir of publicCandidates) {
+            // Don't map the public directory itself - that would point to dist root
+            if (normalizedFile === publicDir) {
+                return {isPublicRoot: true};
+            }
+            if (normalizedFile.startsWith(publicDir + path.sep)) {
+                const relativeToPublic = path.relative(publicDir, normalizedFile);
+                return {targetPath: path.join(targetDir, relativeToPublic)};
+            }
         }
         return null;
+    }
+
+    function getDisplayRelPath(filePath) {
+        // For files inside sourceDir, show relative-to-src path;
+        // otherwise show relative-to-projectRoot path (e.g. public/foo.png)
+        const resolved = path.resolve(filePath);
+        const srcResolved = path.resolve(sourceDir);
+        if (resolved.startsWith(srcResolved + path.sep)) {
+            return path.relative(sourceDir, filePath);
+        }
+        return path.relative(projectRoot, filePath);
     }
 
     async function handleFileEvent(event, filePath) {
@@ -1085,12 +1135,16 @@ async function watch(sourceDir, targetDir, options = {}) {
             try {
                 await fs.ensureDir(path.dirname(publicInfo.targetPath));
                 await fs.copy(filePath, publicInfo.targetPath);
-                const relPath = path.relative(sourceDir, filePath);
-                logger.log(`[rsmax] ${event}: ${relPath} (public asset)`);
+                logger.log(`[rsmax] ${event}: ${getDisplayRelPath(filePath)} (public asset)`);
             } catch (err) {
-                const relPath = path.relative(sourceDir, filePath);
-                logger.error(`[rsmax] Error ${event.toLowerCase()} ${relPath}:`, err.message);
+                logger.error(`[rsmax] Error ${event.toLowerCase()} ${getDisplayRelPath(filePath)}:`, err.message);
             }
+            return;
+        }
+
+        // Ignore file events from outside sourceDir (e.g. files in projectRoot that aren't public/)
+        const resolvedFile = path.resolve(filePath);
+        if (!resolvedFile.startsWith(path.resolve(sourceDir) + path.sep)) {
             return;
         }
 
@@ -1124,14 +1178,18 @@ async function watch(sourceDir, targetDir, options = {}) {
             if (publicInfo.targetPath) {
                 try {
                     await fs.remove(publicInfo.targetPath);
-                    const relPath = path.relative(sourceDir, filePath);
-                    logger.log(`[rsmax] Removed: ${relPath} (public asset)`);
+                    logger.log(`[rsmax] Removed: ${getDisplayRelPath(filePath)} (public asset)`);
                 } catch (err) {
-                    const relPath = path.relative(sourceDir, filePath);
-                    logger.error(`[rsmax] Error removing ${relPath}:`, err.message);
+                    logger.error(`[rsmax] Error removing ${getDisplayRelPath(filePath)}:`, err.message);
                 }
             }
             // If publicInfo.isPublicRoot, do nothing (don't delete dist)
+            return;
+        }
+
+        // Ignore unlink events from outside sourceDir
+        const resolvedFile = path.resolve(filePath);
+        if (!resolvedFile.startsWith(path.resolve(sourceDir) + path.sep)) {
             return;
         }
 
@@ -1173,11 +1231,9 @@ async function watch(sourceDir, targetDir, options = {}) {
             if (publicInfo.targetPath) {
                 try {
                     await fs.remove(publicInfo.targetPath);
-                    const relPath = path.relative(sourceDir, dirPath);
-                    logger.log(`[rsmax] Removed directory: ${relPath} (public asset)`);
+                    logger.log(`[rsmax] Removed directory: ${getDisplayRelPath(dirPath)} (public asset)`);
                 } catch (err) {
-                    const relPath = path.relative(sourceDir, dirPath);
-                    logger.error(`[rsmax] Error removing directory ${relPath}:`, err.message);
+                    logger.error(`[rsmax] Error removing directory ${getDisplayRelPath(dirPath)}:`, err.message);
                 }
             }
             // If publicInfo.isPublicRoot (the public/ dir itself), trigger a full rebuild is safest
@@ -1185,6 +1241,11 @@ async function watch(sourceDir, targetDir, options = {}) {
                 logger.log('[rsmax] public/ directory removed, triggering full rebuild...');
                 await compile(sourceDir, targetDir);
             }
+            return;
+        }
+        // Ignore directory events from outside sourceDir
+        const resolvedDir = path.resolve(dirPath);
+        if (!resolvedDir.startsWith(path.resolve(sourceDir) + path.sep)) {
             return;
         }
         // For non-public directories, remove corresponding target directory
