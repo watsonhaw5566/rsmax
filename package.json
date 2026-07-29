@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "description": "A simple JSX-based WeChat Mini Program framework using Babel",
-  "packageManager": "pnpm@9.0.0",
   "scripts": {
     "e2e:build": "rsmax build e2e/src -o e2e/dist",
     "e2e:dev": "rsmax dev e2e/src -o e2e/dist",
@@ -27,5 +26,9 @@
   "devDependencies": {
     "@rslint/core": "^0.7.2",
     "@rstest/core": "^0.11.4"
+  },
+  "engines": {
+    "node": "^20",
+    "pnpm": "^10.0"
   }
 }
