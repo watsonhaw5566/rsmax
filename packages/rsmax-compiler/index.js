@@ -7,7 +7,7 @@ const path = require('node:path');
 const {jsxToWxml} = require('@rsmax/babel-plugin-jsx-to-wxml');
 const transformJsPlugin = require('@rsmax/babel-plugin-transform-js');
 const {transformModule: babelTransformModule} = transformJsPlugin;
-const {processStyle, isModuleFile, isStyleFile, MODULE_EXT_PATTERN} = require('./css-modules');
+const {processStyle, isModuleFile, isStyleFile} = require('./css-modules');
 const {loadProjectConfig, detectInstalledLibraries, buildResolver, resolveComponents} = require('./component-resolver');
 const {logger} = require("rslog");
 
@@ -112,7 +112,7 @@ function collectWxsImports(ast) {
                     const basename = path.basename(source, WXS_EXT);
                     moduleName = basename.replace(/[^a-zA-Z0-9_]/g, '_');
                 }
-                wxsImports.push({ module: moduleName, src: source });
+                wxsImports.push({module: moduleName, src: source});
             }
         },
         VariableDeclaration(path) {
@@ -132,7 +132,7 @@ function collectWxsImports(ast) {
                             const basename = path.basename(src, WXS_EXT);
                             moduleName = basename.replace(/[^a-zA-Z0-9_]/g, '_');
                         }
-                        wxsImports.push({ module: moduleName, src });
+                        wxsImports.push({module: moduleName, src});
                     }
                 }
             }
@@ -329,12 +329,25 @@ function findPublicDir(projectRoot, srcDir) {
  * @param targetRoot - root directory where rsmax-i18n.js should be placed
  * @param projectRoot - project root (parent of srcDir) for finding locales/
  * @param srcDir - source directory, used as fallback for locales lookup
- * @param localesState - per-build state object to avoid duplicate locale regeneration
+ * @param localesState - per-build state object with a `copiedRoots` Set to avoid
+ *                       redundant regeneration across files in the same build
  */
 async function ensureI18nCopied(targetRoot, projectRoot, srcDir, localesState) {
     const i18nTarget = path.join(targetRoot, 'rsmax-i18n.js');
     if (!fs.existsSync(i18nTarget)) {
         fs.copySync(I18N_SOURCE, i18nTarget);
+    }
+
+    // Track which target roots have already had locales generated in this build
+    // to avoid redundant file copies when multiple pages in the same root use i18n
+    if (localesState) {
+        if (!localesState.copiedRoots) {
+            localesState.copiedRoots = new Set();
+        }
+        if (localesState.copiedRoots.has(targetRoot)) {
+            return [];
+        }
+        localesState.copiedRoots.add(targetRoot);
     }
 
     const localesDir = findLocalesDir(projectRoot, srcDir);
@@ -350,9 +363,6 @@ async function ensureI18nCopied(targetRoot, projectRoot, srcDir, localesState) {
         }
     }
 
-    if (localesState) {
-        localesState.copied = true;
-    }
     return locales;
 }
 
@@ -360,12 +370,24 @@ async function copyLocalesAndGenerate(localesDir, targetRoot) {
     const targetLocalesDir = path.join(targetRoot, 'locales');
     fs.ensureDirSync(targetLocalesDir);
 
+    // Clean stale locale files from target before copying (handles deletions in watch mode)
+    const staleEntries = fs.readdirSync(targetLocalesDir);
+    const sourceEntries = fs.readdirSync(localesDir);
+    const sourceFiles = new Set(sourceEntries.filter(e => {
+        const fullPath = path.join(localesDir, e);
+        return fs.existsSync(fullPath) && fs.statSync(fullPath).isFile() && e.endsWith('.js');
+    }));
+    for (const entry of staleEntries) {
+        if (!sourceFiles.has(entry)) {
+            fs.removeSync(path.join(targetLocalesDir, entry));
+        }
+    }
+
     // Find all .js locale files in the locales directory (flat, e.g. en.js, zh-CN.js)
-    const entries = fs.readdirSync(localesDir);
     const localeCodes = [];
     const entries_js = [];
 
-    for (const entry of entries) {
+    for (const entry of sourceEntries) {
         const fullPath = path.join(localesDir, entry);
         const stat = fs.statSync(fullPath);
         if (stat.isFile() && entry.endsWith('.js')) {
@@ -1035,8 +1057,8 @@ async function compile(sourceDir, targetDir, options = {}) {
         logger.log(`[rsmax] Found subPackages: ${names}`);
     }
 
-    // Per-build state to avoid redundant work for i18n/runtime copies
-    const localesState = { copied: false };
+    // Per-build state to avoid redundant i18n locale regeneration per target root
+    const localesState = {copiedRoots: new Set()};
 
     // Pre-create independent sub-package output directories
     await ensureIndependentSubPackageRuntimes(targetDir, subPackages, projectRoot, sourceDir);
@@ -1074,10 +1096,12 @@ async function watch(sourceDir, targetDir, options = {}) {
 
     // Parse subPackages for watch mode
     const watchSubPackages = await parseSubPackages(sourceDir);
-    const watchLocalesState = { copied: false };
 
     // Resolve public directory for watch mode (supports project root or src/)
     const resolvedPublicDir = findPublicDir(projectRoot, sourceDir);
+
+    // Also watch projectRoot/locales if it exists (conventional locale location)
+    const projectLocalesDir = path.join(projectRoot, 'locales');
 
     const ignored = [
         /node_modules/,
@@ -1088,11 +1112,14 @@ async function watch(sourceDir, targetDir, options = {}) {
         }
     ];
 
-    // Watch sourceDir, plus project-root public if it exists outside sourceDir
+    // Watch sourceDir, plus project-root public/ and locales/ if they exist outside sourceDir
     const watchPaths = [sourceDir];
     const projectPublicDir = path.join(projectRoot, 'public');
     if (resolvedPublicDir === projectPublicDir && await fs.pathExists(projectPublicDir)) {
         watchPaths.push(projectPublicDir);
+    }
+    if (await fs.pathExists(projectLocalesDir) && !projectLocalesDir.startsWith(path.resolve(sourceDir) + path.sep)) {
+        watchPaths.push(projectLocalesDir);
     }
 
     const watcher = chokidar.watch(watchPaths, {
@@ -1195,7 +1222,8 @@ async function watch(sourceDir, targetDir, options = {}) {
                 await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
             if (needsI18nInFile) {
-                await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, watchLocalesState);
+                // Fresh state per event (watch mode processes one file at a time)
+                await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, null);
             }
 
             // Collect WXS imports (import m from './tools.wxs')
@@ -1286,7 +1314,7 @@ async function watch(sourceDir, targetDir, options = {}) {
                 await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
             if (needsI18nInFile) {
-                await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, watchLocalesState);
+                await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, null);
             }
             const modulePaths = {};
             if (needsStoreCoreInFile) {
@@ -1428,6 +1456,44 @@ async function watch(sourceDir, targetDir, options = {}) {
         return path.relative(projectRoot, filePath);
     }
 
+    /**
+     * Regenerate i18n locales (copy locale files + regenerate rsmax-i18n-locales.js)
+     * for all relevant roots: main target root and all independent subpackage roots.
+     * Called when a locale file changes in watch mode.
+     */
+    async function regenerateAllI18n() {
+        const roots = [targetDir];
+        for (const sp of watchSubPackages) {
+            if (sp.independent) {
+                roots.push(path.join(targetDir, sp.root));
+            }
+        }
+        for (const root of roots) {
+            // Only regenerate if rsmax-i18n.js exists in this root (i18n is actually used)
+            if (fs.existsSync(path.join(root, 'rsmax-i18n.js'))) {
+                await ensureI18nCopied(root, projectRoot, sourceDir, null);
+            }
+        }
+    }
+
+    /**
+     * Check if a file path is inside the locales directory (either projectRoot/locales
+     * or sourceDir/locales). Returns the matched locales dir or null.
+     */
+    function getLocalesDirForFile(filePath) {
+        const resolved = path.resolve(filePath);
+        const candidates = [
+            path.resolve(projectRoot, 'locales'),
+            path.resolve(sourceDir, 'locales'),
+        ];
+        for (const dir of candidates) {
+            if (resolved === dir || resolved.startsWith(dir + path.sep)) {
+                return dir;
+            }
+        }
+        return null;
+    }
+
     async function handleFileEvent(event, filePath) {
         const ext = path.extname(filePath);
 
@@ -1444,7 +1510,19 @@ async function watch(sourceDir, targetDir, options = {}) {
             return;
         }
 
-        // Ignore file events from outside sourceDir (e.g. files in projectRoot that aren't public/)
+        // Handle locale file changes (projectRoot/locales or src/locales)
+        const localesDir = getLocalesDirForFile(filePath);
+        if (localesDir) {
+            try {
+                await regenerateAllI18n();
+                logger.log(`[rsmax] ${event}: ${getDisplayRelPath(filePath)} (locale file - regenerated i18n)`);
+            } catch (err) {
+                logger.error(`[rsmax] Error regenerating i18n for ${getDisplayRelPath(filePath)}:`, err.message);
+            }
+            return;
+        }
+
+        // Ignore file events from outside sourceDir (e.g. files in projectRoot that aren't public/ or locales/)
         const resolvedFile = path.resolve(filePath);
         if (!resolvedFile.startsWith(path.resolve(sourceDir) + path.sep)) {
             return;
@@ -1488,6 +1566,17 @@ async function watch(sourceDir, targetDir, options = {}) {
                 }
             }
             // If publicInfo.isPublicRoot, do nothing (don't delete dist)
+            return;
+        }
+
+        // Handle locale file deletion
+        if (getLocalesDirForFile(filePath)) {
+            try {
+                await regenerateAllI18n();
+                logger.log(`[rsmax] Removed: ${getDisplayRelPath(filePath)} (locale file - regenerated i18n)`);
+            } catch (err) {
+                logger.error(`[rsmax] Error regenerating i18n for removed ${getDisplayRelPath(filePath)}:`, err.message);
+            }
             return;
         }
 

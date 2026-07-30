@@ -591,4 +591,312 @@ module.exports = { format: format };`;
       expect(await fs.pathExists(path.join(distDir, 'pages', 'index', 'index.js'))).toBe(true);
     });
   });
+
+  describe('plugin component support', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+    let projectRoot;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-plugin-test-'));
+      projectRoot = tmpDir;
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(srcDir);
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        plugins: {
+          myPlugin: { version: '1.0.0', provider: 'wxid_demo' }
+        }
+      }), 'utf-8');
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should auto-register exact plugin:// components in page JSON via rsmax.config.js', async () => {
+      // rsmax.config.js with exact plugin component mapping
+      await fs.writeFile(path.join(projectRoot, 'rsmax.config.js'),
+        'module.exports = {\n' +
+        '  components: {\n' +
+        "    'hello-comp': 'plugin://myPlugin/hello-component'\n" +
+        '  }\n' +
+        '};\n', 'utf-8');
+
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><hello-comp name="world" /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const pageJson = await fs.readJson(path.join(distDir, 'pages', 'index', 'index.json'));
+      expect(pageJson.usingComponents).toBeDefined();
+      expect(pageJson.usingComponents['hello-comp']).toBe('plugin://myPlugin/hello-component');
+    });
+
+    test('should auto-register prefix-mapped plugin components', async () => {
+      await fs.writeFile(path.join(projectRoot, 'rsmax.config.js'),
+        'module.exports = {\n' +
+        '  components: {\n' +
+        "    'mp': { plugin: 'myPlugin' }\n" +
+        '  }\n' +
+        '};\n', 'utf-8');
+
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><mp-hello /><mp-list /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const pageJson = await fs.readJson(path.join(distDir, 'pages', 'index', 'index.json'));
+      expect(pageJson.usingComponents['mp-hello']).toBe('plugin://myPlugin/hello');
+      expect(pageJson.usingComponents['mp-list']).toBe('plugin://myPlugin/list');
+    });
+
+    test('should preserve user-written usingComponents and merge auto-resolved ones', async () => {
+      await fs.writeFile(path.join(projectRoot, 'rsmax.config.js'),
+        'module.exports = {\n' +
+        '  components: {\n' +
+        "    'mp': { plugin: 'myPlugin' }\n" +
+        '  }\n' +
+        '};\n', 'utf-8');
+
+      // Page with its own json declaring a local component
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.json'),
+        JSON.stringify({ usingComponents: { 'local-comp': '../../components/local/index' } }), 'utf-8');
+
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><local-comp /><mp-hello /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const pageJson = await fs.readJson(path.join(distDir, 'pages', 'index', 'index.json'));
+      expect(pageJson.usingComponents['local-comp']).toBe('../../components/local/index');
+      expect(pageJson.usingComponents['mp-hello']).toBe('plugin://myPlugin/hello');
+    });
+
+    test('should not interfere with non-plugin kebab-case tags not in config', async () => {
+      // No rsmax.config.js — custom kebab tags without config will be collected
+      // but resolveComponents will produce empty entries (resolver returns null)
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><unknown-tag /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const jsonPath = path.join(distDir, 'pages', 'index', 'index.json');
+      if (await fs.pathExists(jsonPath)) {
+        const pageJson = await fs.readJson(jsonPath);
+        // Either no usingComponents, or unknown-tag is not present
+        if (pageJson.usingComponents) {
+          expect(pageJson.usingComponents['unknown-tag']).toBeUndefined();
+        }
+      }
+      // Compilation succeeds
+      expect(await fs.pathExists(path.join(distDir, 'pages', 'index', 'index.js'))).toBe(true);
+    });
+  });
+
+  describe('i18n in subPackages', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+    let projectRoot;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-i18n-subpkg-test-'));
+      projectRoot = tmpDir;
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(srcDir);
+
+      // App entry (no i18n import in app.js itself)
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.wxss'), '', 'utf-8');
+
+      // Locales directory at project root
+      const localesDir = path.join(projectRoot, 'locales');
+      await fs.ensureDir(localesDir);
+      await fs.writeFile(path.join(localesDir, 'zh-CN.js'),
+        'module.exports = { hello: "你好", sub: { title: "分包标题" } };\n', 'utf-8');
+      await fs.writeFile(path.join(localesDir, 'en.js'),
+        'module.exports = { hello: "Hello", sub: { title: "Sub Title" } };\n', 'utf-8');
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('regular sub-package page using i18n should resolve to main root runtime', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subPackages: [
+          { root: 'packageA', pages: ['pages/detail/index'] }
+        ]
+      }), 'utf-8');
+
+      // Main page with no i18n
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() { return <view><text>Main</text></view>; }\n', 'utf-8');
+
+      // Sub-package page uses i18n
+      const subPageDir = path.join(srcDir, 'packageA', 'pages', 'detail');
+      await fs.ensureDir(subPageDir);
+      await fs.writeFile(path.join(subPageDir, 'index.jsx'),
+        'import { t } from "@rsmax/i18n";\n' +
+        'export default function Detail() {\n' +
+        '  return <view><text>{t("hello")}</text></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // i18n runtime placed in MAIN root (regular sub-package shares main runtime)
+      expect(await fs.pathExists(path.join(distDir, 'rsmax-i18n.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'rsmax-i18n-locales.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'locales', 'zh-CN.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'locales', 'en.js'))).toBe(true);
+
+      // i18n runtime NOT copied into sub-package root
+      expect(await fs.pathExists(path.join(distDir, 'packageA', 'rsmax-i18n.js'))).toBe(false);
+      expect(await fs.pathExists(path.join(distDir, 'packageA', 'locales'))).toBe(false);
+
+      // Sub-package page JS should require i18n from main root (3 levels up)
+      const subJs = await fs.readFile(path.join(distDir, 'packageA', 'pages', 'detail', 'index.js'), 'utf-8');
+      expect(subJs).toContain('../../../rsmax-i18n.js');
+      expect(subJs).not.toContain('@rsmax/i18n');
+
+      // Locales module lazy-requires are relative to rsmax-i18n-locales.js (main root)
+      const localesModule = await fs.readFile(path.join(distDir, 'rsmax-i18n-locales.js'), 'utf-8');
+      expect(localesModule).toContain("require('./locales/zh-CN.js')");
+      expect(localesModule).toContain("require('./locales/en.js')");
+    });
+
+    test('independent sub-package page using i18n should have its own i18n copy', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subPackages: [
+          { root: 'pkgIndep', pages: ['pages/home/index'], independent: true }
+        ]
+      }), 'utf-8');
+
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() { return <view><text>Main</text></view>; }\n', 'utf-8');
+
+      // Independent sub-package page uses i18n
+      const subPageDir = path.join(srcDir, 'pkgIndep', 'pages', 'home');
+      await fs.ensureDir(subPageDir);
+      await fs.writeFile(path.join(subPageDir, 'index.jsx'),
+        'import { t, useI18n } from "@rsmax/i18n";\n' +
+        'export default function Home() {\n' +
+        '  const { t: i18nT } = useI18n();\n' +
+        '  return <view><text>{t("sub.title")}</text></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // Main root should NOT have i18n files (no main-page uses i18n, but independent
+      // subpackage pre-creates runtime only; i18n is copied per-demand)
+      // Actually: independent sub-package ensureIndependentSubPackageRuntimes only copies runtime,
+      // not i18n. So i18n should ONLY be in the sub-package root because only the sub-package uses it.
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'rsmax-i18n.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'rsmax-i18n-locales.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'locales', 'zh-CN.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'locales', 'en.js'))).toBe(true);
+
+      // Sub-package page JS should require i18n relative to sub-package root (2 levels up)
+      const subJs = await fs.readFile(path.join(distDir, 'pkgIndep', 'pages', 'home', 'index.js'), 'utf-8');
+      expect(subJs).toContain('../../rsmax-i18n.js');
+      expect(subJs).not.toContain('@rsmax/i18n');
+
+      // Locales module in sub-package root uses correct relative path
+      const localesModule = await fs.readFile(path.join(distDir, 'pkgIndep', 'rsmax-i18n-locales.js'), 'utf-8');
+      expect(localesModule).toContain("require('./locales/zh-CN.js')");
+    });
+
+    test('both main package and independent sub-package using i18n get separate copies', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subPackages: [
+          { root: 'pkgIndep', pages: ['pages/home/index'], independent: true }
+        ]
+      }), 'utf-8');
+
+      // Main page ALSO uses i18n
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'import { t } from "@rsmax/i18n";\n' +
+        'export default function Index() { return <view><text>{t("hello")}</text></view>; }\n', 'utf-8');
+
+      const subPageDir = path.join(srcDir, 'pkgIndep', 'pages', 'home');
+      await fs.ensureDir(subPageDir);
+      await fs.writeFile(path.join(subPageDir, 'index.jsx'),
+        'import { t } from "@rsmax/i18n";\n' +
+        'export default function Home() { return <view><text>{t("hello")}</text></view>; }\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // Both roots should have i18n runtime and locales
+      expect(await fs.pathExists(path.join(distDir, 'rsmax-i18n.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'rsmax-i18n-locales.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'locales', 'zh-CN.js'))).toBe(true);
+
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'rsmax-i18n.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'rsmax-i18n-locales.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'locales', 'zh-CN.js'))).toBe(true);
+
+      // Main page uses ./rsmax-i18n.js
+      const mainJs = await fs.readFile(path.join(distDir, 'pages', 'index', 'index.js'), 'utf-8');
+      expect(mainJs).toContain('./rsmax-i18n.js');
+
+      // Sub page uses ../../rsmax-i18n.js (relative to sub-package root)
+      const subJs = await fs.readFile(path.join(distDir, 'pkgIndep', 'pages', 'home', 'index.js'), 'utf-8');
+      expect(subJs).toContain('../../rsmax-i18n.js');
+    });
+
+    test('sub-package component using i18n resolves path correctly', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subPackages: [
+          { root: 'packageA', pages: ['pages/detail/index'] }
+        ]
+      }), 'utf-8');
+
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() { return <view><text>Main</text></view>; }\n', 'utf-8');
+
+      // Sub-package page
+      const subPageDir = path.join(srcDir, 'packageA', 'pages', 'detail');
+      await fs.ensureDir(subPageDir);
+      await fs.writeFile(path.join(subPageDir, 'index.jsx'),
+        'import { t } from "@rsmax/i18n";\n' +
+        'export default function Detail() { return <view><text>{t("hello")}</text></view>; }\n', 'utf-8');
+
+      // Sub-package component deeper in tree also uses i18n
+      const subCompDir = path.join(srcDir, 'packageA', 'components', 'tag');
+      await fs.ensureDir(subCompDir);
+      await fs.writeFile(path.join(subCompDir, 'index.jsx'),
+        'import { t } from "@rsmax/i18n";\n' +
+        'export default function Tag() { return <view><text>{t("hello")}</text></view>; }\n', 'utf-8');
+      await fs.writeFile(path.join(subCompDir, 'index.json'), JSON.stringify({ component: true }), 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // Sub-package component path: packageA/components/tag → relative to main root is ../../..
+      const compJs = await fs.readFile(path.join(distDir, 'packageA', 'components', 'tag', 'index.js'), 'utf-8');
+      expect(compJs).toContain('../../../rsmax-i18n.js');
+      expect(compJs).toContain('Component(');
+    });
+  });
 });
