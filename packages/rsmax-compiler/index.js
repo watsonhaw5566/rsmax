@@ -983,7 +983,21 @@ async function compileFile(sourcePath, targetPath, options = {}) {
     } else if (ext === WXS_EXT) {
         // Copy .wxs files directly to target
         await fs.copy(sourcePath, targetPath);
-    } else if (ext === '.json' || ext === '.wxml' || IMAGE_EXTS.includes(ext)) {
+    } else if (ext === '.json') {
+        // Skip standalone .json copy if a same-named .js/.jsx exists next to it.
+        // The JS/JSX handler (line ~887) already reads this .json, merges usingComponents,
+        // and writes the final version to target. Copying again here would overwrite
+        // the merged result if file traversal order puts .jsx/.js before .json.
+        const baseDir = path.dirname(sourcePath);
+        const baseName = path.basename(sourcePath, '.json');
+        const pairedJs = path.join(baseDir, baseName + '.js');
+        const pairedJsx = path.join(baseDir, baseName + '.jsx');
+        if (await fs.pathExists(pairedJs) || await fs.pathExists(pairedJsx)) {
+            // Already handled by the JS/JSX branch; skip to avoid overwriting merged config.
+            return;
+        }
+        await fs.copy(sourcePath, targetPath);
+    } else if (ext === '.wxml' || IMAGE_EXTS.includes(ext)) {
         await fs.copy(sourcePath, targetPath);
     } else {
         await fs.copy(sourcePath, targetPath);
