@@ -86,9 +86,23 @@ function detectInstalledLibraries(packageJson) {
 /**
  * Build a resolver function that maps tag names to component paths.
  * Priority:
- *   1. Exact tag match in config.components (direct path)
- *   2. Prefix match in config.components (custom preset)
+ *   1. Exact tag match in config.components (direct path or plugin:// URL)
+ *   2. Prefix match in config.components (custom preset or plugin prefix)
  *   3. Auto-detected built-in presets (vant/tdesign)
+ *
+ * Supported config.components shapes:
+ *   // Exact tag -> npm/local path
+ *   'custom-tag': 'path/to/custom/tag/index',
+ *   // Exact tag -> plugin component
+ *   'hello-comp': 'plugin://myPlugin/hello-component',
+ *   // Prefix -> npm package (default resolver: <prefix>-<comp> -> <pkg>/<comp>/index)
+ *   'my': 'my-ui-lib',
+ *   // Prefix -> custom resolver object
+ *   'x': { packageName: 'my-x-lib', resolve(tagName) { return `...`; } },
+ *   // Prefix -> mini-program plugin (plugin:// URL)
+ *   'mp': { plugin: 'myPlugin' },
+ *   // Prefix -> plugin with custom resolve
+ *   'txv': { plugin: 'tencentvideo', resolve(tagName) { return `plugin://tencentvideo/${tagName.slice(4)}`; } }
  */
 function buildResolver(config, installedPresets) {
   const customComponents = (config && config.components) || {};
@@ -97,20 +111,54 @@ function buildResolver(config, installedPresets) {
 
   for (const [key, value] of Object.entries(customComponents)) {
     if (key.includes('-')) {
-      // Exact tag name mapping (e.g. 'custom-tag': 'path/to/component')
+      // Exact tag name mapping (e.g. 'custom-tag': 'path/to/component' or 'plugin://...')
       exactMap[key] = value;
     } else {
-      // Prefix mapping (e.g. 'my': 'my-lib' or 'my': { packageName, resolve })
+      // Prefix mapping (e.g. 'my': 'my-lib', 'mp': { plugin: 'myPlugin' }, 'x': { packageName, resolve })
       if (typeof value === 'string') {
-        prefixMap[key] = {
-          packageName: value,
-          resolve(tagName) {
-            const compName = tagName.slice(key.length + 1);
-            return `${value}/${compName}/index`;
-          }
-        };
+        if (value.startsWith('plugin://')) {
+          // Prefix mapped directly to a plugin URL prefix (rare, but treat as exact plugin root)
+          prefixMap[key] = {
+            plugin: value.slice('plugin://'.length),
+            resolve(tagName) {
+              const compName = tagName.slice(key.length + 1);
+              return `${value}/${compName}`;
+            }
+          };
+        } else {
+          prefixMap[key] = {
+            packageName: value,
+            resolve(tagName) {
+              const compName = tagName.slice(key.length + 1);
+              return `${value}/${compName}/index`;
+            }
+          };
+        }
       } else if (value && typeof value === 'object') {
-        prefixMap[key] = value;
+        if (typeof value.resolve === 'function') {
+          // User-supplied resolver — use as-is
+          prefixMap[key] = value;
+        } else if (value.plugin) {
+          // Plugin prefix: { plugin: 'pluginName' } -> plugin://pluginName/<comp>
+          const pluginName = value.plugin;
+          prefixMap[key] = {
+            plugin: pluginName,
+            resolve(tagName) {
+              const compName = tagName.slice(key.length + 1);
+              return `plugin://${pluginName}/${compName}`;
+            }
+          };
+        } else if (value.packageName) {
+          // Package prefix without custom resolve: default to <pkg>/<comp>/index
+          const pkg = value.packageName;
+          prefixMap[key] = {
+            packageName: pkg,
+            resolve(tagName) {
+              const compName = tagName.slice(key.length + 1);
+              return `${pkg}/${compName}/index`;
+            }
+          };
+        }
       }
     }
   }

@@ -1033,6 +1033,83 @@ module.exports = {
 };
 ```
 
+### 使用小程序插件组件
+
+在 `app.json` 声明插件后，可通过 `rsmax.config.js` 配置插件组件的便捷映射，**无需再手动写页面/组件 `.json` 的 `usingComponents`**。
+
+**第一步：在 `app.json` 中声明插件**（微信小程序标准方式）：
+
+```json
+{
+  "plugins": {
+    "myPlugin": {
+      "version": "1.0.0",
+      "provider": "wxidxxxxxxxxxx"
+    }
+  }
+}
+```
+
+**第二步：在 `rsmax.config.js` 中配置组件映射**，支持两种方式：
+
+```js
+// rsmax.config.js
+module.exports = {
+  components: {
+    // 方式一：精确映射——标签名 → plugin:// 完整路径
+    'hello-comp': 'plugin://myPlugin/hello-component',
+    'city-select': 'plugin://cityPlugin/select',
+
+    // 方式二：前缀映射（推荐，适合插件提供多个组件）
+    // 使用 <mp-xxx /> 自动映射为 plugin://myPlugin/xxx
+    'mp': { plugin: 'myPlugin' },
+
+    // 方式三：前缀映射 + 自定义 resolve（插件命名非标准时使用）
+    'txv': {
+      plugin: 'tencentvideo',
+      resolve(tagName) {
+        // txv-videoview → plugin://tencentvideo/videoview
+        return `plugin://tencentvideo/${tagName.slice(4)}`;
+      }
+    }
+  }
+};
+```
+
+**第三步：在 JSX 中直接使用插件组件标签**：
+
+```jsx
+// 精确映射用法
+export default function Index() {
+  return (
+    <view>
+      <hello-comp name="world" />
+      <mp-hello />
+      <mp-list data-source={list} />
+    </view>
+  );
+}
+```
+
+编译后会自动在页面 `.json` 的 `usingComponents` 中生成：
+
+```json
+{
+  "usingComponents": {
+    "hello-comp": "plugin://myPlugin/hello-component",
+    "mp-hello": "plugin://myPlugin/hello",
+    "mp-list": "plugin://myPlugin/list"
+  }
+}
+```
+
+插件的 JS API（如 `requirePlugin`）按微信小程序官方方式直接调用即可，编译器不做拦截：
+
+```js
+const myPlugin = requirePlugin('myPlugin');
+myPlugin.someMethod();
+```
+
 ## npm 包使用
 
 ```jsx

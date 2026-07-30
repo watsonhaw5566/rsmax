@@ -97,6 +97,65 @@ describe('component-resolver', () => {
       expect(resolver('unknown-component')).toBeNull();
       expect(resolver('view')).toBeNull();
     });
+
+    test('should resolve exact plugin:// mapping', () => {
+      const config = {
+        components: {
+          'hello-comp': 'plugin://myPlugin/hello-component',
+          'city-select': 'plugin://cityPlugin/select'
+        }
+      };
+      const resolver = buildResolver(config, {});
+      expect(resolver('hello-comp')).toBe('plugin://myPlugin/hello-component');
+      expect(resolver('city-select')).toBe('plugin://cityPlugin/select');
+    });
+
+    test('should resolve plugin prefix with { plugin: "name" } shorthand', () => {
+      const config = {
+        components: {
+          'mp': { plugin: 'myPlugin' }
+        }
+      };
+      const resolver = buildResolver(config, {});
+      expect(resolver('mp-hello')).toBe('plugin://myPlugin/hello');
+      expect(resolver('mp-list')).toBe('plugin://myPlugin/list');
+      expect(resolver('mp-user-card')).toBe('plugin://myPlugin/user-card');
+    });
+
+    test('should resolve plugin prefix with custom resolve function', () => {
+      const config = {
+        components: {
+          'txv': {
+            plugin: 'tencentvideo',
+            resolve(tagName) {
+              return 'plugin://tencentvideo/' + tagName.slice(4);
+            }
+          }
+        }
+      };
+      const resolver = buildResolver(config, {});
+      expect(resolver('txv-videoview')).toBe('plugin://tencentvideo/videoview');
+    });
+
+    test('should resolve prefix mapped to plugin:// URL string directly', () => {
+      const config = {
+        components: {
+          'p': 'plugin://somePlugin'
+        }
+      };
+      const resolver = buildResolver(config, {});
+      expect(resolver('p-foo')).toBe('plugin://somePlugin/foo');
+    });
+
+    test('should allow packageName prefix without custom resolve (default <pkg>/<comp>/index)', () => {
+      const config = {
+        components: {
+          'x': { packageName: 'my-x-lib' }
+        }
+      };
+      const resolver = buildResolver(config, {});
+      expect(resolver('x-foo')).toBe('my-x-lib/foo/index');
+    });
   });
 
   describe('resolveComponents', () => {
