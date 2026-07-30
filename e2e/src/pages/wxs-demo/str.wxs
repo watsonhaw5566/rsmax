@@ -1,0 +1,19 @@
+// String utility functions
+function toUpperCase(s) {
+  return s.toUpperCase();
+}
+
+function toLowerCase(s) {
+  return s.toLowerCase();
+}
+
+function truncate(s, len) {
+  if (s.length <= len) return s;
+  return s.substring(0, len) + '...';
+}
+
+module.exports = {
+  toUpperCase: toUpperCase,
+  toLowerCase: toLowerCase,
+  truncate: truncate
+};

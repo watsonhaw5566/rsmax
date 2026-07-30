@@ -162,6 +162,14 @@ module.exports = function() {
       },
 
       ImportDeclaration(path, state) {
+        const sourceValue = path.node.source.value;
+
+        // Remove .wxs imports - WXS modules are referenced in WXML, not in JS
+        if (sourceValue.endsWith('.wxs')) {
+          path.remove();
+          return;
+        }
+
         if (t.isStringLiteral(path.node.source, { value: RSMAX_MODULE })) {
           state.hasRsmaxImport = true;
           state.usesHooks = true;
@@ -254,6 +262,12 @@ module.exports = function() {
               t.isStringLiteral(decl.init.arguments[0])) {
             const reqSource = decl.init.arguments[0].value;
             const fileOpts = state.opts || {};
+
+            // Remove require('./xxx.wxs') - WXS modules are referenced in WXML, not in JS
+            if (reqSource.endsWith('.wxs')) {
+              path.remove();
+              return;
+            }
 
             if (reqSource === RSMAX_MODULE) {
               state.hasRsmaxImport = true;
@@ -826,6 +840,12 @@ function esmToCjsPlugin() {
       ImportDeclaration(path, state) {
         const fileOpts = state.opts || {};
         let sourceValue = path.node.source.value;
+
+        // Remove .wxs imports - WXS modules are referenced in WXML, not in JS
+        if (sourceValue.endsWith('.wxs')) {
+          path.remove();
+          return;
+        }
 
         // Rewrite @rsmax paths only if explicit paths are provided
         if (sourceValue === STORE_MODULE && fileOpts.storePath) {

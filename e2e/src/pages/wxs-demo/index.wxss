@@ -1,0 +1,134 @@
+.container {
+  padding: 20rpx;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+}
+
+.header {
+  background: linear-gradient(135deg, #07c160 0%, #06ad56 100%);
+  padding: 40rpx 30rpx;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+  display: block;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.counter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40rpx;
+  padding: 20rpx 0;
+  margin-bottom: 20rpx;
+}
+
+.counter button {
+  width: 80rpx;
+  height: 80rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.counter button::after {
+  border: none;
+}
+
+.btn-add {
+  background: #07c160;
+  color: #fff;
+}
+
+.btn-sub {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.count-text {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #07c160;
+  min-width: 100rpx;
+  text-align: center;
+}
+
+.result-box {
+  background-color: #f9fafb;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.result-box text {
+  display: block;
+  font-size: 28rpx;
+  color: #555555;
+  padding: 8rpx 0;
+}
+
+.price-display {
+  text-align: center;
+  padding: 30rpx 0;
+}
+
+.price {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #07c160;
+}
+
+.info-card {
+  background-color: #f0f9f4;
+  border: 2rpx solid #07c160;
+}
+
+.info-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #07c160;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.info-text {
+  font-size: 24rpx;
+  color: #555555;
+  display: block;
+  padding: 6rpx 0;
+  font-family: monospace;
+}

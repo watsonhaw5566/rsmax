@@ -44,6 +44,12 @@ export default function Index() {
         });
     };
 
+    const goToWxsDemo = () => {
+        wx.navigateTo({
+            url: '/pages/wxs-demo/index'
+        });
+    };
+
   return (
     <view class="container">
       <view class="header">
@@ -84,6 +90,9 @@ export default function Index() {
             </view>
             <view className="nav-link" onClick={goToI18nDemo}>
                 <text>@rsmax/i18n 国际化 Demo →</text>
+            </view>
+            <view className="nav-link" onClick={goToWxsDemo}>
+                <text>WXS 模块支持 Demo →</text>
             </view>
         </view>
 

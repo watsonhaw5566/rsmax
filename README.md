@@ -14,6 +14,7 @@
 - **npm 包支持** — ES6 `import` 自动转为 CommonJS `require()`
 - **状态管理** — 类 Zustand 的轻量级状态管理 `@rsmax/store`，支持微信缓存持久化
 - **国际化（i18n）** — 基于 JS 模块的多语言支持，编译器按需加载，JSX 中 `t('key')` 自动转为 WXML 数据绑定
+- **WXS 模块支持** — 通过 `import` 引用外部 `.wxs` 文件，编译器自动注入 WXML 标签并复制文件
 - **静态资源** — `public/` 目录下的文件直接复制到产物根目录，支持绝对路径引用
 - **监听模式** — `rsmax dev` 监听文件变化，增量编译
 - **miniprogram_npm 保护** — 构建时自动保留微信开发者工具生成的 `miniprogram_npm` 目录
@@ -775,6 +776,72 @@ Vant 等 UI 库的 boolean 属性支持 JSX 简写：
 ```jsx
 <view data-id={item.id} onClick={handleClick}>...</view>
 ```
+
+### WXS 模块
+
+rsmax 支持通过 ES Module `import` 语法引用外部 `.wxs` 文件。编译器会自动：
+
+1. 将 `.wxs` 文件复制到目标目录
+2. 从 JS 中移除 `.wxs` 的 import 语句（WXS 运行在渲染层，不在 JS 逻辑层执行）
+3. 在生成的 WXML 文件头部自动注入 `<wxs src="..." module="..." />` 标签
+
+**使用方式：**
+
+```jsx
+// pages/index/index.jsx
+import { useState } from '@rsmax/runtime';
+import tools from './tools.wxs';
+
+export default function Index() {
+  const [price] = useState(99.9);
+
+  return (
+    <view>
+      <text>{tools.formatPrice(price)}</text>
+      <text>{tools.toUpperCase('hello')}</text>
+    </view>
+  );
+}
+```
+
+对应的 WXS 文件（与页面放在同一目录）：
+
+```javascript
+// pages/index/tools.wxs
+function formatPrice(price) {
+  return '¥' + price.toFixed(2);
+}
+
+function toUpperCase(str) {
+  return str.toUpperCase();
+}
+
+module.exports = {
+  formatPrice: formatPrice,
+  toUpperCase: toUpperCase
+};
+```
+
+编译后的 WXML：
+
+```xml
+<wxs module="tools" src="./tools.wxs" />
+<view>
+  <text>{{tools.formatPrice(price)}}</text>
+  <text>{{tools.toUpperCase('hello')}}</text>
+</view>
+```
+
+**支持 import 多个 WXS 模块：**
+
+```jsx
+import math from './math.wxs';
+import str from './str.wxs';
+
+// 在模板中分别调用 math.double(num), str.toUpperCase(name) 等
+```
+
+> **注意**：WXS 函数在 WXML 表达式中调用时，直接使用 import 的模块名访问即可（如 `tools.formatPrice(price)`），编译器会自动去除 `this.data.` 前缀。
 
 ## 样式
 
