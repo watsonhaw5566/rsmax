@@ -477,4 +477,118 @@ module.exports = { format: format };`;
       expect(await fs.pathExists(path.join(distDir, 'pkgAlias', 'pages', 'p', 'index.js'))).toBe(true);
     });
   });
+
+  describe('plugin component support', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+    let projectRoot;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-plugin-test-'));
+      projectRoot = tmpDir;
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(srcDir);
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        plugins: {
+          myPlugin: { version: '1.0.0', provider: 'wxid_demo' }
+        }
+      }), 'utf-8');
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should auto-register exact plugin:// components in page JSON via rsmax.config.js', async () => {
+      // rsmax.config.js with exact plugin component mapping
+      await fs.writeFile(path.join(projectRoot, 'rsmax.config.js'),
+        'module.exports = {\n' +
+        '  components: {\n' +
+        "    'hello-comp': 'plugin://myPlugin/hello-component'\n" +
+        '  }\n' +
+        '};\n', 'utf-8');
+
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><hello-comp name="world" /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const pageJson = await fs.readJson(path.join(distDir, 'pages', 'index', 'index.json'));
+      expect(pageJson.usingComponents).toBeDefined();
+      expect(pageJson.usingComponents['hello-comp']).toBe('plugin://myPlugin/hello-component');
+    });
+
+    test('should auto-register prefix-mapped plugin components', async () => {
+      await fs.writeFile(path.join(projectRoot, 'rsmax.config.js'),
+        'module.exports = {\n' +
+        '  components: {\n' +
+        "    'mp': { plugin: 'myPlugin' }\n" +
+        '  }\n' +
+        '};\n', 'utf-8');
+
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><mp-hello /><mp-list /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const pageJson = await fs.readJson(path.join(distDir, 'pages', 'index', 'index.json'));
+      expect(pageJson.usingComponents['mp-hello']).toBe('plugin://myPlugin/hello');
+      expect(pageJson.usingComponents['mp-list']).toBe('plugin://myPlugin/list');
+    });
+
+    test('should preserve user-written usingComponents and merge auto-resolved ones', async () => {
+      await fs.writeFile(path.join(projectRoot, 'rsmax.config.js'),
+        'module.exports = {\n' +
+        '  components: {\n' +
+        "    'mp': { plugin: 'myPlugin' }\n" +
+        '  }\n' +
+        '};\n', 'utf-8');
+
+      // Page with its own json declaring a local component
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.json'),
+        JSON.stringify({ usingComponents: { 'local-comp': '../../components/local/index' } }), 'utf-8');
+
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><local-comp /><mp-hello /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const pageJson = await fs.readJson(path.join(distDir, 'pages', 'index', 'index.json'));
+      expect(pageJson.usingComponents['local-comp']).toBe('../../components/local/index');
+      expect(pageJson.usingComponents['mp-hello']).toBe('plugin://myPlugin/hello');
+    });
+
+    test('should not interfere with non-plugin kebab-case tags not in config', async () => {
+      // No rsmax.config.js — custom kebab tags without config will be collected
+      // but resolveComponents will produce empty entries (resolver returns null)
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() {\n' +
+        '  return <view><unknown-tag /></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const jsonPath = path.join(distDir, 'pages', 'index', 'index.json');
+      if (await fs.pathExists(jsonPath)) {
+        const pageJson = await fs.readJson(jsonPath);
+        // Either no usingComponents, or unknown-tag is not present
+        if (pageJson.usingComponents) {
+          expect(pageJson.usingComponents['unknown-tag']).toBeUndefined();
+        }
+      }
+      // Compilation succeeds
+      expect(await fs.pathExists(path.join(distDir, 'pages', 'index', 'index.js'))).toBe(true);
+    });
+  });
 });
