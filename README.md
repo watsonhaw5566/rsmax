@@ -1296,7 +1296,6 @@ export default {
 | `@rsmax/i18n` | 国际化运行时：基于 JS 模块的多语言支持，含 useI18n Hook、语言切换、变量插值、懒加载 |
 | `@rsmax/babel-plugin-jsx-to-wxml` | Babel 插件：JSX AST → WXML 字符串转换（含 t() → __i18n 数据绑定转换） |
 | `@rsmax/babel-plugin-transform-js` | Babel 插件：转换 ES6 import、注入 rsmax runtime、处理 CSS Modules、store 和 i18n 路径重写 |
-| `@rsmax/postcss-px2units` | PostCSS 插件：px → rpx 单位转换 |
 
 ## License
 
