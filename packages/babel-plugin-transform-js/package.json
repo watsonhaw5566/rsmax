@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/babel-plugin-transform-js",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0-beta.1",
   "description": "Babel plugin to transform JS logic for WeChat Mini Program",
   "main": "index.js",
   "dependencies": {
