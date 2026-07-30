@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/runtime",
-  "version": "0.1.0",
+  "version": "2.0.0-beta.0",
   "description": "RSmax JSX runtime for WeChat Mini Program",
   "main": "index.js"
 }

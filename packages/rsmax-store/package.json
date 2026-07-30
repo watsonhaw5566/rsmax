@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/store",
-  "version": "0.1.0",
+  "version": "2.0.0-beta.0",
   "description": "Zustand-like state management for Rsmax JSX (WeChat Mini Program)",
   "exports": {
     ".": "./index.js",

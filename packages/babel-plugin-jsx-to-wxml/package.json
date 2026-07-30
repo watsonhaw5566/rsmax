@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/babel-plugin-jsx-to-wxml",
-  "version": "0.1.0",
+  "version": "2.0.0-beta.0",
   "description": "Babel plugin to convert JSX to WeChat Mini Program WXML",
   "main": "index.js",
   "dependencies": {

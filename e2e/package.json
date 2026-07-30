@@ -1,6 +1,6 @@
 {
   "name": "@rsmax/example",
-  "version": "0.1.0",
+  "version": "2.0.0-beta.0",
   "private": true,
   "scripts": {
     "build": "rsmax build src -o dist",
