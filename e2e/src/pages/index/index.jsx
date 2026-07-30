@@ -50,6 +50,12 @@ export default function Index() {
         });
     };
 
+    const goToSubPackage = () => {
+        wx.navigateTo({
+            url: '/packageA/pages/detail/index'
+        });
+    };
+
   return (
     <view class="container">
       <view class="header">
@@ -93,6 +99,9 @@ export default function Index() {
             </view>
             <view className="nav-link" onClick={goToWxsDemo}>
                 <text>WXS 模块支持 Demo →</text>
+            </view>
+            <view className="nav-link" onClick={goToSubPackage}>
+                <text>subPackages 分包加载 Demo →</text>
             </view>
         </view>
 

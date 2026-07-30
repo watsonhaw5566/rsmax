@@ -168,6 +168,107 @@ export default {
 };
 ```
 
+## 分包支持（subPackages）
+
+rsmax 完整支持微信小程序的[分包加载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/basic.html)机制，包括**普通分包**和**独立分包**（independent subpackages）。你只需按照微信小程序的标准规范在 `app.json` 中声明 `subPackages`（或 `subpackages`），rsmax 编译器会自动处理：
+
+- 分包内页面/组件的 JSX 编译
+- 运行时文件（`rsmax-runtime.js`、`rsmax-store.js`、`rsmax-i18n.js`）的相对路径计算
+- 普通分包复用主包运行时，不额外拷贝运行时文件
+- 独立分包自动在分包根目录独立拷贝运行时文件
+
+### 配置示例
+
+在 `app.json` 中声明分包：
+
+```json
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subPackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/detail/index",
+        "pages/list/index"
+      ]
+    },
+    {
+      "root": "packageB",
+      "pages": [
+        "pages/home/index"
+      ],
+      "independent": true
+    }
+  ]
+}
+```
+
+### 目录结构
+
+```
+src/
+├── app.js
+├── app.json
+├── app.wxss
+├── pages/
+│   └── index/          # 主包页面
+│       └── index.jsx
+├── packageA/           # 普通分包
+│   ├── pages/
+│   │   ├── detail/
+│   │   │   └── index.jsx
+│   │   └── list/
+│   │       └── index.jsx
+│   └── components/     # 分包内自定义组件
+│       └── badge/
+│           └── index.jsx
+└── packageB/           # 独立分包
+    └── pages/
+        └── home/
+            └── index.jsx
+```
+
+### 分包内页面编写
+
+分包页面和组件的写法与主包完全一致，直接使用 Hooks / Options API 即可，无需做任何额外改动：
+
+```jsx
+// src/packageA/pages/detail/index.jsx
+import { useState, useEffect } from '@rsmax/runtime';
+
+export default function Detail() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log('subpackage page mounted');
+  });
+
+  return (
+    <view className="container">
+      <text>分包页面 count: {count}</text>
+      <button onClick={() => setCount(count + 1)}>+1</button>
+    </view>
+  );
+}
+```
+
+### 独立分包注意事项
+
+- 独立分包会在其分包根目录下自动独立拷贝一份 `rsmax-runtime.js`（以及 store/i18n 运行时文件），保证独立运行
+- 独立分包中的组件/页面不应依赖主包资源（遵循微信小程序官方约束）
+- `@rsmax/runtime`、`@rsmax/store`、`@rsmax/i18n` 的 import 仍然正常使用，编译器会自动处理路径
+
+### 路径规则总结
+
+| 场景 | 运行时位置 | 运行时引用路径 |
+|------|-----------|----------------|
+| 主包页面 | 主包根目录 | `./rsmax-runtime.js`（页面同根） |
+| 普通分包页面 | 主包根目录（共享） | `../../../../rsmax-runtime.js`（从分包页面回溯到主包） |
+| 独立分包页面 | 分包根目录（独立拷贝） | `../../rsmax-runtime.js`（回溯到分包根） |
+| 分包内组件 | 与同包页面一致 | 根据所在包自动计算 |
+
 ## Hooks API
 
 ### useState

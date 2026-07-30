@@ -8,6 +8,14 @@
     "pages/i18n-demo/index",
     "pages/wxs-demo/index"
   ],
+  "subPackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/detail/index"
+      ]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

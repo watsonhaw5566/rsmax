@@ -1,0 +1,25 @@
+.badge {
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.badge-success {
+  background: #e8f7ee;
+  color: #07c160;
+}
+
+.badge-warning {
+  background: #fff7e6;
+  color: #fa8c16;
+}
+
+.badge-info {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+
+.badge-text {
+  font-size: 24rpx;
+}
