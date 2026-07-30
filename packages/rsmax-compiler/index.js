@@ -729,8 +729,19 @@ async function findAndCompileStyle(sourceBasePath, targetWxssPath, importedStyle
 
         if (compiledCache.has(stylePath)) {
             const cached = compiledCache.get(stylePath);
-            if (path.resolve(cached.targetWxssPath) !== path.resolve(targetWxssPath)) {
-                await fs.copy(cached.targetWxssPath, targetWxssPath);
+            const resolvedCached = path.resolve(cached.targetWxssPath);
+            const resolvedTarget = path.resolve(targetWxssPath);
+            if (resolvedCached !== resolvedTarget) {
+                await fs.copy(resolvedCached, resolvedTarget);
+            } else if (!await fs.pathExists(resolvedTarget)) {
+                // Upstream (JS/JSX handler) may have removed the file via fs.remove()
+                // before calling this function. Re-create it from source.
+                if (ext === '.wxss') {
+                    await fs.copy(stylePath, resolvedTarget);
+                } else {
+                    const {css} = await compileStyleFile(stylePath);
+                    await fs.writeFile(resolvedTarget, css, 'utf-8');
+                }
             }
             return {found: true};
         }
@@ -945,16 +956,30 @@ async function compileFile(sourcePath, targetPath, options = {}) {
         if (options.skipStyleCompilation) return;
         // Skip module style files in standalone mode - they are inlined into the importing page's wxss
         if (isModuleFile(sourcePath)) return;
-        if (compiledCache && compiledCache.has(sourcePath)) return;
         const targetWxssPath = path.join(targetDir, basename + '.wxss');
+        if (compiledCache && compiledCache.has(sourcePath)) {
+            // Already compiled (e.g. by findAndCompileStyle from JS handler).
+            // Ensure target exists — it may have been removed/recreated since caching.
+            if (!await fs.pathExists(targetWxssPath)) {
+                await fs.ensureDir(path.dirname(targetWxssPath));
+                const {css} = await compileStyleFile(sourcePath);
+                await fs.writeFile(targetWxssPath, css, 'utf-8');
+            }
+            return;
+        }
         await fs.ensureDir(path.dirname(targetWxssPath));
         const {css} = await compileStyleFile(sourcePath);
         await fs.writeFile(targetWxssPath, css, 'utf-8');
-        compiledCache.set(sourcePath, {targetWxssPath, classNames: null});
+        if (compiledCache) compiledCache.set(sourcePath, {targetWxssPath, classNames: null});
     } else if (ext === '.wxss') {
-        if (compiledCache && compiledCache.has(sourcePath)) return;
+        if (compiledCache && compiledCache.has(sourcePath)) {
+            if (!await fs.pathExists(targetPath)) {
+                await fs.copy(sourcePath, targetPath);
+            }
+            return;
+        }
         await fs.copy(sourcePath, targetPath);
-        compiledCache.set(sourcePath, {targetWxssPath: targetPath, classNames: null});
+        if (compiledCache) compiledCache.set(sourcePath, {targetWxssPath: targetPath, classNames: null});
     } else if (ext === WXS_EXT) {
         // Copy .wxs files directly to target
         await fs.copy(sourcePath, targetPath);
@@ -1209,6 +1234,9 @@ async function watch(sourceDir, targetDir, options = {}) {
 
         const shouldTransform = ext === '.jsx' || needsTransform(ast);
         let customComponents = new Set();
+        let wxssImports = [];
+        let moduleInlineCss = [];
+        let importSources = new Set();
 
         if (shouldTransform) {
             const needsRuntimeInFile = usesRuntime(ast);
@@ -1229,10 +1257,9 @@ async function watch(sourceDir, targetDir, options = {}) {
             // Collect WXS imports (import m from './tools.wxs')
             const wxsImports = collectWxsImports(ast);
 
-            const {moduleStyles, plainStyles, importSources} = collectStyleImports(ast, sourceJsDir);
-            let wxssImports = [];
+            const {moduleStyles, plainStyles, importSources: impSrcs} = collectStyleImports(ast, sourceJsDir);
+            importSources = impSrcs;
             let moduleStylesMappings = [];
-            let moduleInlineCss = [];
 
             for (const style of plainStyles) {
                 if (!await fs.pathExists(style.resolvedPath)) continue;
@@ -1278,33 +1305,6 @@ async function watch(sourceDir, targetDir, options = {}) {
 
             const jsCode = transformJsCode(ast, code, fileType, paths);
             await fs.writeFile(path.join(targetFileDir, basename + '.js'), jsCode, 'utf-8');
-
-            const wxssTarget = path.join(targetFileDir, basename + '.wxss');
-            // Remove old wxss first to avoid stale inlined module CSS being carried over
-            // when the file has no same-named non-module style (e.g. only *.module.less)
-            await fs.remove(wxssTarget);
-            await findAndCompileStyle(filePath.replace(ext, ''), wxssTarget, importSources, compiledCache);
-
-            let wxssContent = '';
-            if (await fs.pathExists(wxssTarget)) {
-                wxssContent = await fs.readFile(wxssTarget, 'utf-8');
-            }
-
-            const importStatements = wxssImports
-                .filter(w => path.resolve(w) !== path.resolve(wxssTarget))
-                .map(w => `@import "${getWxssImportPath(path.dirname(wxssTarget), w)}";`)
-                .join('\n');
-
-            if (importStatements) {
-                wxssContent = importStatements + '\n' + wxssContent;
-            }
-            if (moduleInlineCss.length > 0) {
-                const inlineContent = moduleInlineCss.join('\n');
-                wxssContent = wxssContent + (wxssContent ? '\n' : '') + inlineContent;
-            }
-            if (wxssContent || moduleInlineCss.length > 0) {
-                await fs.writeFile(wxssTarget, wxssContent, 'utf-8');
-            }
         } else if (hasEsModuleSyntax(ast)) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
             const needsStoreCoreInFile = usesStore(ast);
@@ -1361,6 +1361,33 @@ async function watch(sourceDir, targetDir, options = {}) {
             || fileType === 'component';
         if (shouldWriteJson) {
             await fs.writeJson(jsonTarget, pageConfig, {spaces: 2});
+        }
+
+        // Compile same-named style file and merge with imported/inlined styles
+        // (applies to ALL JS files, not just shouldTransform ones)
+        const wxssTarget = path.join(targetFileDir, basename + '.wxss');
+        await fs.remove(wxssTarget);
+        await findAndCompileStyle(filePath.replace(ext, ''), wxssTarget, importSources, compiledCache);
+
+        let wxssContent = '';
+        if (await fs.pathExists(wxssTarget)) {
+            wxssContent = await fs.readFile(wxssTarget, 'utf-8');
+        }
+
+        const importStatements = wxssImports
+            .filter(w => path.resolve(w) !== path.resolve(wxssTarget))
+            .map(w => `@import "${getWxssImportPath(path.dirname(wxssTarget), w)}";`)
+            .join('\n');
+
+        if (importStatements) {
+            wxssContent = importStatements + '\n' + wxssContent;
+        }
+        if (moduleInlineCss.length > 0) {
+            const inlineContent = moduleInlineCss.join('\n');
+            wxssContent = wxssContent + (wxssContent ? '\n' : '') + inlineContent;
+        }
+        if (wxssContent || wxssImports.length > 0 || moduleInlineCss.length > 0) {
+            await fs.writeFile(wxssTarget, wxssContent, 'utf-8');
         }
 
         // Update style dependency map for this JS file
