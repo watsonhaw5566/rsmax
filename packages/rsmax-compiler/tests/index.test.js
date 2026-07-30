@@ -899,4 +899,85 @@ module.exports = { format: format };`;
       expect(compJs).toContain('Component(');
     });
   });
+
+  describe('app global styles compilation', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-appstyle-test-'));
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(srcDir);
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'export default function Index() { return <view><text>Hello</text></view>; }\n', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({pages: ['pages/index/index']}), 'utf-8');
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should copy app.wxss to dist/app.wxss', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.wxss'), 'page { background: #fff; }', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'app.wxss'))).toBe(true);
+      const content = await fs.readFile(path.join(distDir, 'app.wxss'), 'utf-8');
+      expect(content).toContain('background');
+    });
+
+    test('should compile app.less to dist/app.wxss', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.less'),
+        '@bg: #f5f5f5;\npage { background-color: @bg; }\n.container { padding: 20px; }', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'app.wxss'))).toBe(true);
+      const content = await fs.readFile(path.join(distDir, 'app.wxss'), 'utf-8');
+      expect(content).toContain('#f5f5f5');
+      expect(content).toContain('padding: 20rpx'); // px→rpx conversion
+    });
+
+    test('should compile app.css to dist/app.wxss', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.css'), 'page { color: red; }', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'app.wxss'))).toBe(true);
+      const content = await fs.readFile(path.join(distDir, 'app.wxss'), 'utf-8');
+      expect(content).toContain('color: red');
+    });
+
+    test('should compile app.scss to dist/app.wxss', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.scss'),
+        '$color: #333;\npage { color: $color; }', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'app.wxss'))).toBe(true);
+      const content = await fs.readFile(path.join(distDir, 'app.wxss'), 'utf-8');
+      expect(content).toContain('#333');
+    });
+
+    test('should compile app.wxss when app.js uses ES module syntax (import) but no export default', async () => {
+      // This is the case for e2e/src/app.js which uses import but no export default
+      await fs.writeFile(path.join(srcDir, 'app.js'),
+        'import { initI18n } from "@rsmax/i18n";\ninitI18n({ locale: "zh-CN" });\nApp({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.wxss'), 'page { background: #f5f5f5; }', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'app.wxss'))).toBe(true);
+      const content = await fs.readFile(path.join(distDir, 'app.wxss'), 'utf-8');
+      expect(content).toContain('background: #f5f5f5');
+    });
+  });
 });
