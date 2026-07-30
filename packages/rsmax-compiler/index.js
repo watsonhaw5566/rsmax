@@ -21,6 +21,59 @@ const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.svg'];
 const PREPROCESSOR_EXTS = ['.css', '.less', '.scss', '.sass'];
 const WXS_EXT = '.wxs';
 
+/**
+ * Parse app.json to extract subPackages (also aliased as subpackages) configuration.
+ * Returns an array of normalized sub-package descriptors:
+ *   { root: 'packageA', pages: [...], independent: false, name?: '...' }
+ * Returns empty array if no subPackages defined.
+ */
+async function parseSubPackages(srcDir) {
+    const appJsonPath = path.join(srcDir, 'app.json');
+    if (!await fs.pathExists(appJsonPath)) return [];
+    try {
+        const appConfig = await fs.readJson(appJsonPath);
+        const raw = appConfig.subPackages || appConfig.subpackages || [];
+        return raw.map(sp => ({
+            root: sp.root.replace(/\/+$/, ''),
+            pages: sp.pages || [],
+            independent: !!sp.independent,
+            name: sp.name || undefined
+        }));
+    } catch (e) {
+        logger.warn('[rsmax] Failed to parse app.json subPackages:', e.message);
+        return [];
+    }
+}
+
+/**
+ * Determine if a given file path (relative to srcDir) resides inside any subPackage root.
+ * Returns the matching subPackage descriptor, or null for main-package files.
+ */
+function findSubPackageForFile(relativePath, subPackages) {
+    if (!subPackages || subPackages.length === 0) return null;
+    const normalized = relativePath.replace(/\\/g, '/');
+    for (const sp of subPackages) {
+        const rootWithSep = sp.root + '/';
+        if (normalized === sp.root || normalized.startsWith(rootWithSep)) {
+            return sp;
+        }
+    }
+    return null;
+}
+
+/**
+ * Get the effective "runtime root" for require-path calculation and runtime-copy target.
+ * - For main-package files: targetRoot (dist/)
+ * - For regular sub-packages: targetRoot (dist/) — they share runtime with main package
+ * - For independent sub-packages: targetRoot/<sp.root> — they have their own runtime copy
+ */
+function getEffectiveTargetRoot(targetDir, targetRoot, subPackage) {
+    if (subPackage && subPackage.independent) {
+        return path.join(targetRoot, subPackage.root);
+    }
+    return targetRoot;
+}
+
 async function parseFile(filePath) {
     const code = await fs.readFile(filePath, 'utf-8');
     const ast = parser.parse(code, {
@@ -268,14 +321,17 @@ function findPublicDir(projectRoot, srcDir) {
     return null;
 }
 
-let i18nCopiedOnce = false;
-
 /**
- * Copy @rsmax/i18n runtime to dist root, copy locale JSON files from project,
+ * Copy @rsmax/i18n runtime to targetRoot, copy locale JS files from project,
  * and generate rsmax-i18n-locales.js that registers all locale messages.
  * Returns the list of locale codes discovered (e.g. ['en', 'zh-CN']).
+ *
+ * @param targetRoot - root directory where rsmax-i18n.js should be placed
+ * @param projectRoot - project root (parent of srcDir) for finding locales/
+ * @param srcDir - source directory, used as fallback for locales lookup
+ * @param localesState - per-build state object to avoid duplicate locale regeneration
  */
-async function ensureI18nCopied(targetRoot, projectRoot, srcDir) {
+async function ensureI18nCopied(targetRoot, projectRoot, srcDir, localesState) {
     const i18nTarget = path.join(targetRoot, 'rsmax-i18n.js');
     if (!fs.existsSync(i18nTarget)) {
         fs.copySync(I18N_SOURCE, i18nTarget);
@@ -286,7 +342,7 @@ async function ensureI18nCopied(targetRoot, projectRoot, srcDir) {
     if (localesDir) {
         // Always regenerate the locales module (locale files may have been added/changed)
         locales = await copyLocalesAndGenerate(localesDir, targetRoot);
-    } else if (!i18nCopiedOnce) {
+    } else {
         // No locales dir found — generate an empty locales module so require() doesn't fail
         const localesModule = path.join(targetRoot, 'rsmax-i18n-locales.js');
         if (!fs.existsSync(localesModule)) {
@@ -294,7 +350,9 @@ async function ensureI18nCopied(targetRoot, projectRoot, srcDir) {
         }
     }
 
-    i18nCopiedOnce = true;
+    if (localesState) {
+        localesState.copied = true;
+    }
     return locales;
 }
 
@@ -346,13 +404,20 @@ function transformJsCode(ast, code, type = 'page', paths = {}) {
     return result.code;
 }
 
-function getFileType(filePath) {
+function getFileType(filePath, srcDir, subPackages) {
     const basename = path.basename(filePath);
     if (basename === 'app.js' || basename === 'app.jsx') {
         return 'app';
     }
-    const normalizedPath = filePath.replace(/\\/g, '/');
-    if (normalizedPath.includes('/components/')) {
+    // Determine relative path from srcDir to identify components directories
+    // regardless of whether the file is in the main package or a sub-package
+    let relativeToSrc = filePath;
+    if (srcDir && filePath.startsWith(srcDir)) {
+        relativeToSrc = path.relative(srcDir, filePath);
+    }
+    const normalizedPath = relativeToSrc.replace(/\\/g, '/');
+    // Match both top-level and sub-package components/ directories
+    if (/\/components\//.test('/' + normalizedPath) || normalizedPath.startsWith('components/')) {
         return 'component';
     }
     return 'page';
@@ -664,14 +729,22 @@ async function compileFile(sourcePath, targetPath, options = {}) {
     const ext = path.extname(sourcePath);
     const basename = path.basename(sourcePath, ext);
     const targetDir = path.dirname(targetPath);
-    const {targetRoot, projectRoot, srcDir} = options;
+    const {targetRoot, projectRoot, srcDir, subPackages} = options;
     const compiledCache = options.compiledCache || new Map();
+
+    // Determine if this file belongs to a sub-package, and compute the effective runtime root
+    let subPackage = null;
+    if (srcDir && subPackages && subPackages.length > 0) {
+        const relPath = path.relative(srcDir, sourcePath);
+        subPackage = findSubPackageForFile(relPath, subPackages);
+    }
+    const effectiveRoot = getEffectiveTargetRoot(targetDir, targetRoot, subPackage);
 
     await fs.ensureDir(targetDir);
 
     if (ext === '.jsx' || ext === '.js') {
         const {ast, code} = await parseFile(sourcePath);
-        const fileType = getFileType(sourcePath);
+        const fileType = getFileType(sourcePath, srcDir, subPackages);
         const shouldTransform = needsTransform(ast, ext);
         const sourceJsDir = path.dirname(sourcePath);
         const targetJsDir = targetDir;
@@ -688,14 +761,14 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             const needsStoreMwInFile = usesStoreMiddleware(ast);
             const needsI18nInFile = usesI18n(ast);
 
-            if (needsRuntimeInFile && targetRoot) {
-                await ensureRuntimeCopied(targetRoot);
+            if (needsRuntimeInFile && effectiveRoot) {
+                await ensureRuntimeCopied(effectiveRoot);
             }
-            if (targetRoot && (needsStoreCoreInFile || needsStoreMwInFile)) {
-                await ensureStoreCopied(targetRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+            if (effectiveRoot && (needsStoreCoreInFile || needsStoreMwInFile)) {
+                await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
-            if (needsI18nInFile && targetRoot) {
-                await ensureI18nCopied(targetRoot, projectRoot, srcDir);
+            if (needsI18nInFile && effectiveRoot) {
+                await ensureI18nCopied(effectiveRoot, projectRoot, srcDir, options.localesState);
             }
 
             // Collect WXS imports (import m from './tools.wxs')
@@ -735,17 +808,17 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             }
 
             const paths = {};
-            if (needsRuntimeInFile && targetRoot) {
-                paths.runtimePath = calculateRuntimePath(targetDir, targetRoot);
+            if (needsRuntimeInFile && effectiveRoot) {
+                paths.runtimePath = calculateRuntimePath(targetDir, effectiveRoot);
             }
-            if (needsStoreCoreInFile && targetRoot) {
-                paths.storePath = calculateStorePath(targetDir, targetRoot);
+            if (needsStoreCoreInFile && effectiveRoot) {
+                paths.storePath = calculateStorePath(targetDir, effectiveRoot);
             }
-            if (needsStoreMwInFile && targetRoot) {
-                paths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetDir, targetRoot);
+            if (needsStoreMwInFile && effectiveRoot) {
+                paths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetDir, effectiveRoot);
             }
-            if (needsI18nInFile && targetRoot) {
-                paths.i18nPath = calculateI18nPath(targetDir, targetRoot);
+            if (needsI18nInFile && effectiveRoot) {
+                paths.i18nPath = calculateI18nPath(targetDir, effectiveRoot);
             }
 
             const jsCode = transformJsCode(ast, code, fileType, paths);
@@ -756,21 +829,21 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             const needsStoreCoreInFile = usesStore(ast);
             const needsStoreMwInFile = usesStoreMiddleware(ast);
             const needsI18nInFile = usesI18n(ast);
-            if (targetRoot && (needsStoreCoreInFile || needsStoreMwInFile)) {
-                await ensureStoreCopied(targetRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+            if (effectiveRoot && (needsStoreCoreInFile || needsStoreMwInFile)) {
+                await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
-            if (needsI18nInFile && targetRoot) {
-                await ensureI18nCopied(targetRoot, projectRoot, srcDir);
+            if (needsI18nInFile && effectiveRoot) {
+                await ensureI18nCopied(effectiveRoot, projectRoot, srcDir, options.localesState);
             }
             const modulePaths = {};
-            if (needsStoreCoreInFile && targetRoot) {
-                modulePaths.storePath = calculateStorePath(targetDir, targetRoot);
+            if (needsStoreCoreInFile && effectiveRoot) {
+                modulePaths.storePath = calculateStorePath(targetDir, effectiveRoot);
             }
-            if (needsStoreMwInFile && targetRoot) {
-                modulePaths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetDir, targetRoot);
+            if (needsStoreMwInFile && effectiveRoot) {
+                modulePaths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetDir, effectiveRoot);
             }
-            if (needsI18nInFile && targetRoot) {
-                modulePaths.i18nPath = calculateI18nPath(targetDir, targetRoot);
+            if (needsI18nInFile && effectiveRoot) {
+                modulePaths.i18nPath = calculateI18nPath(targetDir, effectiveRoot);
             }
             const jsCode = babelTransformModule(ast, code, modulePaths);
             await fs.writeFile(targetPath, jsCode, 'utf-8');
@@ -903,11 +976,31 @@ async function compileDir(sourceDir, targetDir, options = {}) {
     }
 }
 
+/**
+ * Ensure that independent sub-packages have their own copy of runtime files
+ * (rsmax-runtime.js, rsmax-store.js, rsmax-i18n.js) in their root directory,
+ * because independent sub-packages cannot depend on the main package.
+ */
+async function ensureIndependentSubPackageRuntimes(targetRoot, subPackages, projectRoot, srcDir) {
+    for (const sp of subPackages) {
+        if (!sp.independent) continue;
+        const spRoot = path.join(targetRoot, sp.root);
+        await fs.ensureDir(spRoot);
+        // Always copy runtime files to independent sub-package roots
+        await ensureRuntimeCopied(spRoot);
+        // Copy store/i18n only if there are files in the sub-package that need them.
+        // Since we can't know before scanning, we copy them proactively when the
+        // sub-package directory exists in source — but to keep it simple and safe,
+        // we do a quick scan for imports before copying; if found in any file of
+        // the sub-package, ensure the file is present. The compileFile step will
+        // also call ensureStoreCopied/ensureI18nCopied with effectiveRoot as needed,
+        // so this pre-copy is just a safety net.
+        // (The per-file logic already handles this correctly via effectiveRoot.)
+    }
+}
+
 async function compile(sourceDir, targetDir, options = {}) {
     logger.log(`[rsmax] Compiling ${sourceDir} -> ${targetDir}`);
-
-    // Reset idempotent-copy flags for a fresh build
-    i18nCopiedOnce = false;
 
     // Ensure target directory exists, but do NOT empty it (incremental build).
     // miniprogram_npm and other existing files are preserved across builds.
@@ -935,7 +1028,28 @@ async function compile(sourceDir, targetDir, options = {}) {
     const installedPresets = detectInstalledLibraries(projectPkg);
     const componentResolver = buildResolver(projectConfig, installedPresets);
 
-    await compileDir(sourceDir, targetDir, {targetRoot: targetDir, projectRoot, srcDir: sourceDir, componentResolver, publicDir});
+    // Parse subPackages configuration from app.json
+    const subPackages = await parseSubPackages(sourceDir);
+    if (subPackages.length > 0) {
+        const names = subPackages.map(sp => sp.root + (sp.independent ? ' (independent)' : '')).join(', ');
+        logger.log(`[rsmax] Found subPackages: ${names}`);
+    }
+
+    // Per-build state to avoid redundant work for i18n/runtime copies
+    const localesState = { copied: false };
+
+    // Pre-create independent sub-package output directories
+    await ensureIndependentSubPackageRuntimes(targetDir, subPackages, projectRoot, sourceDir);
+
+    await compileDir(sourceDir, targetDir, {
+        targetRoot: targetDir,
+        projectRoot,
+        srcDir: sourceDir,
+        subPackages,
+        componentResolver,
+        publicDir,
+        localesState
+    });
 
     logger.success('[rsmax] Compilation complete!');
 }
@@ -957,6 +1071,10 @@ async function watch(sourceDir, targetDir, options = {}) {
     const projectConfig = await loadProjectConfig(projectRoot);
     const installedPresets = detectInstalledLibraries(projectPkg);
     const watchComponentResolver = buildResolver(projectConfig, installedPresets);
+
+    // Parse subPackages for watch mode
+    const watchSubPackages = await parseSubPackages(sourceDir);
+    const watchLocalesState = { copied: false };
 
     // Resolve public directory for watch mode (supports project root or src/)
     const resolvedPublicDir = findPublicDir(projectRoot, sourceDir);
@@ -1052,9 +1170,15 @@ async function watch(sourceDir, targetDir, options = {}) {
         const {ast, code} = await parseFile(filePath);
         const basename = path.basename(filePath, ext);
         const targetFileDir = path.dirname(targetPath);
-        const fileType = getFileType(filePath);
+        const fileType = getFileType(filePath, sourceDir, watchSubPackages);
         const sourceJsDir = path.dirname(filePath);
         const compiledCache = new Map();
+
+        // Determine sub-package context for this file
+        let subPackage = null;
+        const relPath = path.relative(sourceDir, filePath);
+        subPackage = findSubPackageForFile(relPath, watchSubPackages);
+        const effectiveRoot = getEffectiveTargetRoot(targetFileDir, targetDir, subPackage);
 
         const shouldTransform = ext === '.jsx' || needsTransform(ast);
         let customComponents = new Set();
@@ -1065,13 +1189,13 @@ async function watch(sourceDir, targetDir, options = {}) {
             const needsStoreMwInFile = usesStoreMiddleware(ast);
             const needsI18nInFile = usesI18n(ast);
             if (needsRuntimeInFile) {
-                await ensureRuntimeCopied(targetDir);
+                await ensureRuntimeCopied(effectiveRoot);
             }
             if (needsStoreCoreInFile || needsStoreMwInFile) {
-                await ensureStoreCopied(targetDir, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+                await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
             if (needsI18nInFile) {
-                await ensureI18nCopied(targetDir, projectRoot, sourceDir);
+                await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, watchLocalesState);
             }
 
             // Collect WXS imports (import m from './tools.wxs')
@@ -1112,16 +1236,16 @@ async function watch(sourceDir, targetDir, options = {}) {
 
             const paths = {};
             if (needsRuntimeInFile) {
-                paths.runtimePath = calculateRuntimePath(targetFileDir, targetDir);
+                paths.runtimePath = calculateRuntimePath(targetFileDir, effectiveRoot);
             }
             if (needsStoreCoreInFile) {
-                paths.storePath = calculateStorePath(targetFileDir, targetDir);
+                paths.storePath = calculateStorePath(targetFileDir, effectiveRoot);
             }
             if (needsStoreMwInFile) {
-                paths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetFileDir, targetDir);
+                paths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetFileDir, effectiveRoot);
             }
             if (needsI18nInFile) {
-                paths.i18nPath = calculateI18nPath(targetFileDir, targetDir);
+                paths.i18nPath = calculateI18nPath(targetFileDir, effectiveRoot);
             }
 
             const jsCode = transformJsCode(ast, code, fileType, paths);
@@ -1159,20 +1283,20 @@ async function watch(sourceDir, targetDir, options = {}) {
             const needsStoreMwInFile = usesStoreMiddleware(ast);
             const needsI18nInFile = usesI18n(ast);
             if (needsStoreCoreInFile || needsStoreMwInFile) {
-                await ensureStoreCopied(targetDir, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
+                await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
             if (needsI18nInFile) {
-                await ensureI18nCopied(targetDir, projectRoot, sourceDir);
+                await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, watchLocalesState);
             }
             const modulePaths = {};
             if (needsStoreCoreInFile) {
-                modulePaths.storePath = calculateStorePath(targetFileDir, targetDir);
+                modulePaths.storePath = calculateStorePath(targetFileDir, effectiveRoot);
             }
             if (needsStoreMwInFile) {
-                modulePaths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetFileDir, targetDir);
+                modulePaths.storeMiddlewarePath = calculateStoreMiddlewarePath(targetFileDir, effectiveRoot);
             }
             if (needsI18nInFile) {
-                modulePaths.i18nPath = calculateI18nPath(targetFileDir, targetDir);
+                modulePaths.i18nPath = calculateI18nPath(targetFileDir, effectiveRoot);
             }
             const jsCode = babelTransformModule(ast, code, modulePaths);
             await fs.writeFile(targetPath, jsCode, 'utf-8');
@@ -1511,6 +1635,9 @@ module.exports = {
     calculateStoreMiddlewarePath,
     calculateI18nPath,
     getFileType,
+    parseSubPackages,
+    findSubPackageForFile,
+    getEffectiveTargetRoot,
     compileStyle,
     compileStyleFile,
     collectStyleImports,

@@ -14,7 +14,10 @@ const {
   getFileType,
   isModuleFile,
   isStyleFile,
-  compile
+  compile,
+  parseSubPackages,
+  findSubPackageForFile,
+  getEffectiveTargetRoot
 } = require('../index');
 
 function parseCode(code) {
@@ -51,18 +54,64 @@ describe('rsmax-compiler', () => {
 
   describe('getFileType', () => {
     test('should detect app files', () => {
-      expect(getFileType('/project/src/app.js')).toBe('app');
-      expect(getFileType('/project/src/app.jsx')).toBe('app');
+      expect(getFileType('/project/src/app.js', '/project/src')).toBe('app');
+      expect(getFileType('/project/src/app.jsx', '/project/src')).toBe('app');
     });
 
     test('should detect component files in components directory', () => {
-      expect(getFileType('/project/src/components/button/index.js')).toBe('component');
-      expect(getFileType('/project/src/components/MyComponent.jsx')).toBe('component');
+      expect(getFileType('/project/src/components/button/index.js', '/project/src')).toBe('component');
+      expect(getFileType('/project/src/components/MyComponent.jsx', '/project/src')).toBe('component');
+    });
+
+    test('should detect component files inside sub-package components/ directory', () => {
+      const subPackages = [{ root: 'packageA', pages: ['pages/detail/index'], independent: false }];
+      expect(getFileType('/project/src/packageA/components/badge/index.js', '/project/src', subPackages)).toBe('component');
+      expect(getFileType('/project/src/packageA/components/card/index.jsx', '/project/src', subPackages)).toBe('component');
     });
 
     test('should detect page files', () => {
-      expect(getFileType('/project/src/pages/index/index.js')).toBe('page');
-      expect(getFileType('/project/src/home.jsx')).toBe('page');
+      expect(getFileType('/project/src/pages/index/index.js', '/project/src')).toBe('page');
+      expect(getFileType('/project/src/home.jsx', '/project/src')).toBe('page');
+    });
+
+    test('should detect page files inside sub-packages', () => {
+      const subPackages = [{ root: 'packageA', pages: ['pages/detail/index'], independent: false }];
+      expect(getFileType('/project/src/packageA/pages/detail/index.js', '/project/src', subPackages)).toBe('page');
+    });
+  });
+
+  describe('subPackages utilities', () => {
+    test('findSubPackageForFile should match files inside a sub-package root', () => {
+      const subPackages = [
+        { root: 'packageA', pages: ['pages/detail/index'], independent: false },
+        { root: 'pkgB', pages: ['pages/home/index'], independent: true }
+      ];
+      expect(findSubPackageForFile('packageA/pages/detail/index.js', subPackages)).not.toBeNull();
+      expect(findSubPackageForFile('packageA/pages/detail/index.js', subPackages).root).toBe('packageA');
+      expect(findSubPackageForFile('pkgB/pages/home/index.js', subPackages).root).toBe('pkgB');
+      expect(findSubPackageForFile('pages/index/index.js', subPackages)).toBeNull();
+      expect(findSubPackageForFile('app.js', subPackages)).toBeNull();
+    });
+
+    test('findSubPackageForFile should handle nested sub-package roots', () => {
+      const subPackages = [{ root: 'modules/profile', pages: ['pages/index/index'], independent: false }];
+      const result = findSubPackageForFile('modules/profile/pages/index/index.js', subPackages);
+      expect(result).not.toBeNull();
+      expect(result.root).toBe('modules/profile');
+    });
+
+    test('getEffectiveTargetRoot should return main root for regular sub-packages', () => {
+      const sp = { root: 'packageA', independent: false };
+      expect(getEffectiveTargetRoot('/dist/packageA/pages/detail', '/dist', sp)).toBe('/dist');
+    });
+
+    test('getEffectiveTargetRoot should return sub-package root for independent sub-packages', () => {
+      const sp = { root: 'pkgB', independent: true };
+      expect(getEffectiveTargetRoot('/dist/pkgB/pages/home', '/dist', sp)).toBe(path.join('/dist', 'pkgB'));
+    });
+
+    test('getEffectiveTargetRoot should return main root for non-sub-package files', () => {
+      expect(getEffectiveTargetRoot('/dist/pages/index', '/dist', null)).toBe('/dist');
     });
   });
 
@@ -289,6 +338,143 @@ module.exports = { format: format };`;
       await compile(srcDir, distDir);
 
       expect(await fs.pathExists(path.join(distDir, 'pages', 'wxs-demo', 'helpers.wxs'))).toBe(true);
+    });
+  });
+
+  describe('subPackages compilation', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+    let projectRoot;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-subpkg-test-'));
+      projectRoot = tmpDir;
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(srcDir);
+      // Main app
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.wxss'), '', 'utf-8');
+      // Main package page
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'import { useState } from "@rsmax/runtime";\n' +
+        'export default function Index() {\n' +
+        '  const [msg] = useState("hello");\n' +
+        '  return <view><text>{msg}</text></view>;\n' +
+        '}\n', 'utf-8');
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should compile sub-package pages with correct relative runtime paths', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subPackages: [
+          { root: 'packageA', pages: ['pages/detail/index'] }
+        ]
+      }), 'utf-8');
+
+      const subPageDir = path.join(srcDir, 'packageA', 'pages', 'detail');
+      await fs.ensureDir(subPageDir);
+      await fs.writeFile(path.join(subPageDir, 'index.jsx'),
+        'import { useState } from "@rsmax/runtime";\n' +
+        'export default function Detail() {\n' +
+        '  const [count] = useState(0);\n' +
+        '  return <view><text>{count}</text></view>;\n' +
+        '}\n', 'utf-8');
+      await fs.writeFile(path.join(subPageDir, 'index.wxss'), '.container{padding:20rpx;}', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'app.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'pages', 'index', 'index.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'rsmax-runtime.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'packageA', 'pages', 'detail', 'index.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'packageA', 'pages', 'detail', 'index.wxml'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'packageA', 'pages', 'detail', 'index.wxss'))).toBe(true);
+      // Regular sub-package shares main runtime, no copy in sub-package root
+      expect(await fs.pathExists(path.join(distDir, 'packageA', 'rsmax-runtime.js'))).toBe(false);
+
+      const subJs = await fs.readFile(path.join(distDir, 'packageA', 'pages', 'detail', 'index.js'), 'utf-8');
+      expect(subJs).toContain('../../../rsmax-runtime.js');
+      expect(subJs).toContain('Page(');
+    });
+
+    test('should copy independent sub-package runtime to its own root', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subPackages: [
+          { root: 'pkgIndep', pages: ['pages/home/index'], independent: true }
+        ]
+      }), 'utf-8');
+
+      const subPageDir = path.join(srcDir, 'pkgIndep', 'pages', 'home');
+      await fs.ensureDir(subPageDir);
+      await fs.writeFile(path.join(subPageDir, 'index.jsx'),
+        'import { useState } from "@rsmax/runtime";\n' +
+        'export default function Home() {\n' +
+        '  return <view><text>Independent</text></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'rsmax-runtime.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'pkgIndep', 'pages', 'home', 'index.js'))).toBe(true);
+
+      const subJs = await fs.readFile(path.join(distDir, 'pkgIndep', 'pages', 'home', 'index.js'), 'utf-8');
+      expect(subJs).toContain('../../rsmax-runtime.js');
+    });
+
+    test('should recognize sub-package components as Component type', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subPackages: [
+          { root: 'packageA', pages: ['pages/detail/index'] }
+        ]
+      }), 'utf-8');
+
+      const compDir = path.join(srcDir, 'packageA', 'components', 'tag');
+      await fs.ensureDir(compDir);
+      await fs.writeFile(path.join(compDir, 'index.jsx'),
+        'export default function Tag({ label }) {\n' +
+        '  return <view class="tag"><text>{label}</text></view>;\n' +
+        '}\n', 'utf-8');
+      await fs.writeFile(path.join(compDir, 'index.json'), JSON.stringify({component: true}), 'utf-8');
+
+      const pageDir = path.join(srcDir, 'packageA', 'pages', 'detail');
+      await fs.ensureDir(pageDir);
+      await fs.writeFile(path.join(pageDir, 'index.jsx'),
+        'export default function Detail() { return <view><text>hi</text></view>; }\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const compJs = await fs.readFile(path.join(distDir, 'packageA', 'components', 'tag', 'index.js'), 'utf-8');
+      expect(compJs).toContain('Component(');
+      expect(compJs).not.toContain('Page(');
+
+      const compJson = await fs.readJson(path.join(distDir, 'packageA', 'components', 'tag', 'index.json'));
+      expect(compJson.component).toBe(true);
+    });
+
+    test('should support both subpackages and subPackages aliases in app.json', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        subpackages: [
+          { root: 'pkgAlias', pages: ['pages/p/index'] }
+        ]
+      }), 'utf-8');
+
+      const pDir = path.join(srcDir, 'pkgAlias', 'pages', 'p');
+      await fs.ensureDir(pDir);
+      await fs.writeFile(path.join(pDir, 'index.jsx'),
+        'export default function P() { return <view><text>P</text></view>; }\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+      expect(await fs.pathExists(path.join(distDir, 'pkgAlias', 'pages', 'p', 'index.js'))).toBe(true);
     });
   });
 });
