@@ -1330,27 +1330,7 @@ async function watch(sourceDir, targetDir, options = {}) {
         }
     }
 
-    function scanJsForStyleDeps(jsFilePath) {
-        const resolvedJs = path.resolve(jsFilePath);
-        if (!fs.existsSync(jsFilePath)) return;
-        try {
-            const code = fs.readFileSync(jsFilePath, 'utf-8');
-            const ast = parser.parse(code, {
-                sourceType: 'module',
-                plugins: ['jsx', 'classProperties']
-            });
-            const sourceJsDir = path.dirname(jsFilePath);
-            const {moduleStyles, plainStyles} = collectStyleImports(ast, sourceJsDir);
-            for (const s of moduleStyles) {
-                registerStyleDependency(s.resolvedPath, resolvedJs);
-            }
-            for (const s of plainStyles) {
-                registerStyleDependency(s.resolvedPath, resolvedJs);
-            }
-        } catch (e) {
-            // Ignore parse errors during dependency scan
-        }
-    }
+
 
     function scanDirForStyleDeps(dir) {
         if (!fs.existsSync(dir)) return;
@@ -1372,8 +1352,32 @@ async function watch(sourceDir, targetDir, options = {}) {
     // Build initial dependency map after the first compile
     scanDirForStyleDeps(sourceDir);
 
+    function scanJsForStyleDeps(jsFilePath) {
+        const resolvedJs = path.resolve(jsFilePath);
+        if (!fs.existsSync(jsFilePath)) return;
+        try {
+            const code = fs.readFileSync(jsFilePath, 'utf-8');
+            const ast = parser.parse(code, {
+                sourceType: 'module',
+                plugins: ['jsx', 'classProperties']
+            });
+            const sourceJsDir = path.dirname(jsFilePath);
+            // Use combined analysis (single traverse) instead of collectStyleImports
+            const {styleImports} = analyzeFileCombined(ast, sourceJsDir);
+            for (const s of styleImports.moduleStyles) {
+                registerStyleDependency(s.resolvedPath, resolvedJs);
+            }
+            for (const s of styleImports.plainStyles) {
+                registerStyleDependency(s.resolvedPath, resolvedJs);
+            }
+        } catch (e) {
+            // Ignore parse errors during dependency scan
+        }
+    }
+
     async function handleJsFileEvent(filePath, targetPath) {
         const ext = path.extname(filePath);
+        const resolvedJs = path.resolve(filePath);
         const {ast, code} = await parseFile(filePath);
         const basename = path.basename(filePath, ext);
         const targetFileDir = path.dirname(targetPath);
@@ -1387,17 +1391,29 @@ async function watch(sourceDir, targetDir, options = {}) {
         subPackage = findSubPackageForFile(relPath, watchSubPackages);
         const effectiveRoot = getEffectiveTargetRoot(targetFileDir, targetDir, subPackage);
 
-        const shouldTransform = ext === '.jsx' || needsTransform(ast);
+        // Single-pass AST analysis (replaces 7+ separate traversals)
+        const {fileInfo, wxsImports, styleImports} = analyzeFileCombined(ast, sourceJsDir);
+        const shouldTransform = ext === '.jsx' || fileInfo.hasExportDefault;
+
+        // Update style dependencies for this file
+        removeStyleDependenciesFor(resolvedJs);
+        for (const s of styleImports.moduleStyles) {
+            registerStyleDependency(s.resolvedPath, resolvedJs);
+        }
+        for (const s of styleImports.plainStyles) {
+            registerStyleDependency(s.resolvedPath, resolvedJs);
+        }
+
         let customComponents = new Set();
         let wxssImports = [];
         let moduleInlineCss = [];
-        let importSources = new Set();
+        let importSources = styleImports.importSources;
 
         if (shouldTransform) {
-            const needsRuntimeInFile = usesRuntime(ast);
-            const needsStoreCoreInFile = usesStore(ast);
-            const needsStoreMwInFile = usesStoreMiddleware(ast);
-            const needsI18nInFile = usesI18n(ast);
+            const needsRuntimeInFile = fileInfo.needsRuntime;
+            const needsStoreCoreInFile = fileInfo.needsStoreCore;
+            const needsStoreMwInFile = fileInfo.needsStoreMiddleware;
+            const needsI18nInFile = fileInfo.needsI18n;
             if (needsRuntimeInFile) {
                 await ensureRuntimeCopied(effectiveRoot);
             }
@@ -1409,11 +1425,7 @@ async function watch(sourceDir, targetDir, options = {}) {
                 await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, null);
             }
 
-            // Collect WXS imports (import m from './tools.wxs')
-            const wxsImports = collectWxsImports(ast);
-
-            const {moduleStyles, plainStyles, importSources: impSrcs} = collectStyleImports(ast, sourceJsDir);
-            importSources = impSrcs;
+            const {moduleStyles, plainStyles} = styleImports;
             let moduleStylesMappings = [];
 
             for (const style of plainStyles) {
@@ -1460,11 +1472,11 @@ async function watch(sourceDir, targetDir, options = {}) {
 
             const jsCode = transformJsCode(ast, code, fileType, paths);
             await fs.writeFile(path.join(targetFileDir, basename + '.js'), jsCode, 'utf-8');
-        } else if (hasEsModuleSyntax(ast)) {
+        } else if (fileInfo.hasExportDefault || hasEsModuleSyntax(ast)) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
-            const needsStoreCoreInFile = usesStore(ast);
-            const needsStoreMwInFile = usesStoreMiddleware(ast);
-            const needsI18nInFile = usesI18n(ast);
+            const needsStoreCoreInFile = fileInfo.needsStoreCore;
+            const needsStoreMwInFile = fileInfo.needsStoreMiddleware;
+            const needsI18nInFile = fileInfo.needsI18n;
             if (needsStoreCoreInFile || needsStoreMwInFile) {
                 await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
