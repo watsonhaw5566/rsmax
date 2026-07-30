@@ -215,6 +215,147 @@ function analyzeFile(ast) {
     };
 }
 
+/**
+ * Combined single-pass analysis: analyzeFile + collectWxsImports + collectStyleImports.
+ * Reduces 7 AST traversals to 1 for files that need transformation.
+ */
+function analyzeFileCombined(ast, sourceJsDir) {
+    // analyzeFile results
+    let hasExportDefault = false;
+    let isFunctionalExport = false;
+    let hasRsmaxImport = false;
+    let hasStoreCore = false;
+    let hasStoreMiddleware = false;
+    let hasI18n = false;
+    // collectWxsImports results
+    const wxsImports = [];
+    // collectStyleImports results
+    const moduleStyles = [];
+    const plainStyles = [];
+    const importSources = new Set();
+
+    traverse(ast, {
+        ExportDefaultDeclaration(nodePath) {
+            hasExportDefault = true;
+            const decl = nodePath.node.declaration;
+            if (t.isFunctionDeclaration(decl) || t.isArrowFunctionExpression(decl)) {
+                isFunctionalExport = true;
+            }
+        },
+        ImportDeclaration(nodePath) {
+            const source = nodePath.node.source.value;
+            // analyzeFile logic
+            if (source === '@rsmax/runtime') hasRsmaxImport = true;
+            if (source === '@rsmax/store') hasStoreCore = true;
+            if (source === '@rsmax/store/middleware') {
+                hasStoreCore = true;
+                hasStoreMiddleware = true;
+            }
+            if (source === '@rsmax/i18n') hasI18n = true;
+            // collectWxsImports logic
+            if (source.endsWith(WXS_EXT)) {
+                let moduleName = null;
+                nodePath.node.specifiers.forEach(spec => {
+                    if (t.isImportDefaultSpecifier(spec) || t.isImportNamespaceSpecifier(spec)) {
+                        moduleName = spec.local.name;
+                    }
+                });
+                if (!moduleName) {
+                    const basename = path.basename(source, WXS_EXT);
+                    moduleName = basename.replace(/[^a-zA-Z0-9_]/g, '_');
+                }
+                wxsImports.push({module: moduleName, src: source});
+            }
+            // collectStyleImports logic
+            if (sourceJsDir && isStyleFile(source)) {
+                const resolvedPath = resolveStyleImport(sourceJsDir, source);
+                const isMod = isModuleFile(source) || isModuleFile(resolvedPath);
+                importSources.add(resolvedPath);
+                if (isMod) {
+                    let localName = 'styles';
+                    nodePath.node.specifiers.forEach(spec => {
+                        if (t.isImportDefaultSpecifier(spec) || t.isImportNamespaceSpecifier(spec)) {
+                            localName = spec.local.name;
+                        }
+                    });
+                    moduleStyles.push({source, resolvedPath, localName});
+                } else {
+                    plainStyles.push({source, resolvedPath});
+                }
+                nodePath.remove();
+            }
+        },
+        VariableDeclaration(nodePath) {
+            if (nodePath.node.declarations.length !== 1) return;
+            const decl = nodePath.node.declarations[0];
+            if (!t.isCallExpression(decl.init)) return;
+            if (!t.isIdentifier(decl.init.callee, {name: 'require'})) return;
+            if (decl.init.arguments.length !== 1) return;
+            if (!t.isStringLiteral(decl.init.arguments[0])) return;
+
+            const src = decl.init.arguments[0].value;
+            // analyzeFile logic
+            if (src === '@rsmax/runtime') hasRsmaxImport = true;
+            if (src === '@rsmax/store') hasStoreCore = true;
+            if (src === '@rsmax/store/middleware') {
+                hasStoreCore = true;
+                hasStoreMiddleware = true;
+            }
+            if (src === '@rsmax/i18n') hasI18n = true;
+            // collectWxsImports logic
+            if (src.endsWith(WXS_EXT)) {
+                let moduleName = null;
+                if (t.isIdentifier(decl.id)) {
+                    moduleName = decl.id.name;
+                } else {
+                    const basename = path.basename(src, WXS_EXT);
+                    moduleName = basename.replace(/[^a-zA-Z0-9_]/g, '_');
+                }
+                wxsImports.push({module: moduleName, src});
+            }
+            // collectStyleImports logic
+            if (sourceJsDir && isStyleFile(src)) {
+                const resolvedPath = resolveStyleImport(sourceJsDir, src);
+                const isMod = isModuleFile(src) || isModuleFile(resolvedPath);
+                importSources.add(resolvedPath);
+                if (isMod) {
+                    let localName = 'styles';
+                    if (t.isIdentifier(decl.id)) {
+                        localName = decl.id.name;
+                    } else if (t.isObjectPattern(decl.id)) {
+                        const prop = decl.id.properties.find(p => t.isObjectProperty(p) && t.isIdentifier(p.key, {name: 'default'}));
+                        if (prop && t.isIdentifier(prop.value)) localName = prop.value.name;
+                    }
+                    moduleStyles.push({source: src, resolvedPath, localName});
+                    nodePath.remove();
+                } else {
+                    plainStyles.push({source: src, resolvedPath});
+                    nodePath.remove();
+                }
+            }
+        }
+    });
+
+    const fileInfo = {
+        hasExportDefault,
+        isFunctionalExport,
+        hasRsmaxImport,
+        hasStoreCore,
+        hasStoreMiddleware,
+        hasI18n,
+        needsRuntime: isFunctionalExport || hasRsmaxImport,
+        needsStoreCore: hasStoreCore,
+        needsStoreMiddleware: hasStoreMiddleware,
+        needsI18n: hasI18n
+    };
+
+    return {
+        fileInfo,
+        wxsImports,
+        styleImports: {moduleStyles, plainStyles, importSources}
+    };
+}
+
 function needsTransform(ast, ext) {
     if (ext === '.jsx') return true;
     const info = analyzeFile(ast);
@@ -778,9 +919,12 @@ async function compileFile(sourcePath, targetPath, options = {}) {
     if (ext === '.jsx' || ext === '.js') {
         const {ast, code} = await parseFile(sourcePath);
         const fileType = getFileType(sourcePath, srcDir, subPackages);
-        const shouldTransform = needsTransform(ast, ext);
         const sourceJsDir = path.dirname(sourcePath);
         const targetJsDir = targetDir;
+
+        // Single-pass AST analysis (replaces 7 separate traversals)
+        const {fileInfo, wxsImports, styleImports} = analyzeFileCombined(ast, sourceJsDir);
+        const shouldTransform = ext === '.jsx' || fileInfo.hasExportDefault;
 
         let wxssImports = [];
         let moduleStylesMappings = [];
@@ -789,10 +933,10 @@ async function compileFile(sourcePath, targetPath, options = {}) {
         let customComponents = new Set();
 
         if (shouldTransform) {
-            const needsRuntimeInFile = usesRuntime(ast);
-            const needsStoreCoreInFile = usesStore(ast);
-            const needsStoreMwInFile = usesStoreMiddleware(ast);
-            const needsI18nInFile = usesI18n(ast);
+            const needsRuntimeInFile = fileInfo.needsRuntime;
+            const needsStoreCoreInFile = fileInfo.needsStoreCore;
+            const needsStoreMwInFile = fileInfo.needsStoreMiddleware;
+            const needsI18nInFile = fileInfo.needsI18n;
 
             if (needsRuntimeInFile && effectiveRoot) {
                 await ensureRuntimeCopied(effectiveRoot);
@@ -804,12 +948,9 @@ async function compileFile(sourcePath, targetPath, options = {}) {
                 await ensureI18nCopied(effectiveRoot, projectRoot, srcDir, options.localesState);
             }
 
-            // Collect WXS imports (import m from './tools.wxs')
-            const wxsImports = collectWxsImports(ast);
-
-            const collected = collectStyleImports(ast, sourceJsDir);
-            importSources = collected.importSources;
-            const {moduleStyles, plainStyles} = collected;
+            // Use results from analyzeFileCombined (already collected in single pass)
+            importSources = styleImports.importSources;
+            const {moduleStyles, plainStyles} = styleImports;
 
             for (const style of plainStyles) {
                 if (!await fs.pathExists(style.resolvedPath)) continue;
@@ -859,9 +1000,9 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             await fs.writeFile(jsTargetPath, jsCode, 'utf-8');
         } else if (hasEsModuleSyntax(ast)) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
-            const needsStoreCoreInFile = usesStore(ast);
-            const needsStoreMwInFile = usesStoreMiddleware(ast);
-            const needsI18nInFile = usesI18n(ast);
+            const needsStoreCoreInFile = fileInfo.needsStoreCore;
+            const needsStoreMwInFile = fileInfo.needsStoreMiddleware;
+            const needsI18nInFile = fileInfo.needsI18n;
             if (effectiveRoot && (needsStoreCoreInFile || needsStoreMwInFile)) {
                 await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
@@ -1189,27 +1330,7 @@ async function watch(sourceDir, targetDir, options = {}) {
         }
     }
 
-    function scanJsForStyleDeps(jsFilePath) {
-        const resolvedJs = path.resolve(jsFilePath);
-        if (!fs.existsSync(jsFilePath)) return;
-        try {
-            const code = fs.readFileSync(jsFilePath, 'utf-8');
-            const ast = parser.parse(code, {
-                sourceType: 'module',
-                plugins: ['jsx', 'classProperties']
-            });
-            const sourceJsDir = path.dirname(jsFilePath);
-            const {moduleStyles, plainStyles} = collectStyleImports(ast, sourceJsDir);
-            for (const s of moduleStyles) {
-                registerStyleDependency(s.resolvedPath, resolvedJs);
-            }
-            for (const s of plainStyles) {
-                registerStyleDependency(s.resolvedPath, resolvedJs);
-            }
-        } catch (e) {
-            // Ignore parse errors during dependency scan
-        }
-    }
+
 
     function scanDirForStyleDeps(dir) {
         if (!fs.existsSync(dir)) return;
@@ -1231,8 +1352,32 @@ async function watch(sourceDir, targetDir, options = {}) {
     // Build initial dependency map after the first compile
     scanDirForStyleDeps(sourceDir);
 
+    function scanJsForStyleDeps(jsFilePath) {
+        const resolvedJs = path.resolve(jsFilePath);
+        if (!fs.existsSync(jsFilePath)) return;
+        try {
+            const code = fs.readFileSync(jsFilePath, 'utf-8');
+            const ast = parser.parse(code, {
+                sourceType: 'module',
+                plugins: ['jsx', 'classProperties']
+            });
+            const sourceJsDir = path.dirname(jsFilePath);
+            // Use combined analysis (single traverse) instead of collectStyleImports
+            const {styleImports} = analyzeFileCombined(ast, sourceJsDir);
+            for (const s of styleImports.moduleStyles) {
+                registerStyleDependency(s.resolvedPath, resolvedJs);
+            }
+            for (const s of styleImports.plainStyles) {
+                registerStyleDependency(s.resolvedPath, resolvedJs);
+            }
+        } catch (e) {
+            // Ignore parse errors during dependency scan
+        }
+    }
+
     async function handleJsFileEvent(filePath, targetPath) {
         const ext = path.extname(filePath);
+        const resolvedJs = path.resolve(filePath);
         const {ast, code} = await parseFile(filePath);
         const basename = path.basename(filePath, ext);
         const targetFileDir = path.dirname(targetPath);
@@ -1246,17 +1391,29 @@ async function watch(sourceDir, targetDir, options = {}) {
         subPackage = findSubPackageForFile(relPath, watchSubPackages);
         const effectiveRoot = getEffectiveTargetRoot(targetFileDir, targetDir, subPackage);
 
-        const shouldTransform = ext === '.jsx' || needsTransform(ast);
+        // Single-pass AST analysis (replaces 7+ separate traversals)
+        const {fileInfo, wxsImports, styleImports} = analyzeFileCombined(ast, sourceJsDir);
+        const shouldTransform = ext === '.jsx' || fileInfo.hasExportDefault;
+
+        // Update style dependencies for this file
+        removeStyleDependenciesFor(resolvedJs);
+        for (const s of styleImports.moduleStyles) {
+            registerStyleDependency(s.resolvedPath, resolvedJs);
+        }
+        for (const s of styleImports.plainStyles) {
+            registerStyleDependency(s.resolvedPath, resolvedJs);
+        }
+
         let customComponents = new Set();
         let wxssImports = [];
         let moduleInlineCss = [];
-        let importSources = new Set();
+        let importSources = styleImports.importSources;
 
         if (shouldTransform) {
-            const needsRuntimeInFile = usesRuntime(ast);
-            const needsStoreCoreInFile = usesStore(ast);
-            const needsStoreMwInFile = usesStoreMiddleware(ast);
-            const needsI18nInFile = usesI18n(ast);
+            const needsRuntimeInFile = fileInfo.needsRuntime;
+            const needsStoreCoreInFile = fileInfo.needsStoreCore;
+            const needsStoreMwInFile = fileInfo.needsStoreMiddleware;
+            const needsI18nInFile = fileInfo.needsI18n;
             if (needsRuntimeInFile) {
                 await ensureRuntimeCopied(effectiveRoot);
             }
@@ -1268,11 +1425,7 @@ async function watch(sourceDir, targetDir, options = {}) {
                 await ensureI18nCopied(effectiveRoot, projectRoot, sourceDir, null);
             }
 
-            // Collect WXS imports (import m from './tools.wxs')
-            const wxsImports = collectWxsImports(ast);
-
-            const {moduleStyles, plainStyles, importSources: impSrcs} = collectStyleImports(ast, sourceJsDir);
-            importSources = impSrcs;
+            const {moduleStyles, plainStyles} = styleImports;
             let moduleStylesMappings = [];
 
             for (const style of plainStyles) {
@@ -1319,11 +1472,11 @@ async function watch(sourceDir, targetDir, options = {}) {
 
             const jsCode = transformJsCode(ast, code, fileType, paths);
             await fs.writeFile(path.join(targetFileDir, basename + '.js'), jsCode, 'utf-8');
-        } else if (hasEsModuleSyntax(ast)) {
+        } else if (fileInfo.hasExportDefault || hasEsModuleSyntax(ast)) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
-            const needsStoreCoreInFile = usesStore(ast);
-            const needsStoreMwInFile = usesStoreMiddleware(ast);
-            const needsI18nInFile = usesI18n(ast);
+            const needsStoreCoreInFile = fileInfo.needsStoreCore;
+            const needsStoreMwInFile = fileInfo.needsStoreMiddleware;
+            const needsI18nInFile = fileInfo.needsI18n;
             if (needsStoreCoreInFile || needsStoreMwInFile) {
                 await ensureStoreCopied(effectiveRoot, {core: needsStoreCoreInFile, middleware: needsStoreMwInFile});
             }
@@ -1762,5 +1915,7 @@ module.exports = {
     processStyle,
     isModuleFile,
     isStyleFile,
+    analyzeFile,
+    analyzeFileCombined,
     RUNTIME_SOURCE
 };
