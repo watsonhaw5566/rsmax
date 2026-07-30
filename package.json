@@ -1,25 +1,25 @@
 {
-  "root": true,
   "version": "0.1.0",
   "private": true,
   "description": "A simple JSX-based WeChat Mini Program framework using Babel",
-  "scripts": {
-    "e2e:build": "rsmax build e2e/src -o e2e/dist",
-    "e2e:dev": "rsmax dev e2e/src -o e2e/dist",
-    "e2e:clean": "rsmax clean e2e/dist",
-    "test": "rstest run",
-    "test:watch": "rstest",
-    "lint": "rslint .",
-    "clean:node_modules": "rm -rf node_modules packages/*/node_modules e2e/node_modules"
-  },
   "keywords": [
     "wechat",
     "miniprogram",
     "jsx",
     "babel"
   ],
-  "author": "",
   "license": "MIT",
+  "author": "",
+  "scripts": {
+    "clean:node_modules": "rm -rf node_modules packages/*/node_modules e2e/node_modules",
+    "e2e:build": "rsmax build e2e/src -o e2e/dist",
+    "e2e:clean": "rsmax clean e2e/dist",
+    "e2e:dev": "rsmax dev e2e/src -o e2e/dist",
+    "lint": "rslint .",
+    "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
+    "test": "rstest run",
+    "test:watch": "rstest"
+  },
   "dependencies": {
     "rsmax": "workspace:*"
   },
@@ -30,5 +30,6 @@
   "engines": {
     "node": "^20",
     "pnpm": "^10.0"
-  }
+  },
+  "root": true
 }
