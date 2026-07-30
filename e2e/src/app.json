@@ -5,7 +5,8 @@
     "pages/hooks/hooks",
     "pages/ui-demo/ui-demo",
     "pages/store-demo/index",
-    "pages/i18n-demo/index"
+    "pages/i18n-demo/index",
+    "pages/wxs-demo/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

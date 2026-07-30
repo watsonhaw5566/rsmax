@@ -229,4 +229,66 @@ describe('rsmax-compiler', () => {
       expect(await fs.pathExists(path.join(distDir, 'images', 'bg.jpg'))).toBe(true);
     });
   });
+
+  describe('WXS support', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-wxs-test-'));
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(path.join(srcDir, 'pages', 'wxs-demo'));
+      // Minimal app files
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({pages: ['pages/wxs-demo/index']}), 'utf-8');
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should inject wxs tags in WXML when importing .wxs file', async () => {
+      const pageJsx = `import tools from './tools.wxs';
+export default {
+  data: { name: 'World' },
+  render() {
+    return <view><text>{tools.greet(this.data.name)}</text></view>;
+  }
+};`;
+      const toolsWxs = `function greet(name) { return 'Hello, ' + name + '!'; }
+module.exports = { greet: greet };`;
+      await fs.writeFile(path.join(srcDir, 'pages', 'wxs-demo', 'index.jsx'), pageJsx, 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'pages', 'wxs-demo', 'tools.wxs'), toolsWxs, 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // WXS file should be copied to dist
+      expect(await fs.pathExists(path.join(distDir, 'pages', 'wxs-demo', 'tools.wxs'))).toBe(true);
+
+      // WXML should contain the wxs tag injected at the top
+      const wxml = await fs.readFile(path.join(distDir, 'pages', 'wxs-demo', 'index.wxml'), 'utf-8');
+      expect(wxml).toContain('<wxs module="tools" src="./tools.wxs" />');
+      expect(wxml).toContain('<view');
+      expect(wxml).toContain('{{tools.greet(name)}}');
+
+      // JS should NOT contain .wxs import
+      const js = await fs.readFile(path.join(distDir, 'pages', 'wxs-demo', 'index.js'), 'utf-8');
+      expect(js).not.toContain("import tools from './tools.wxs'");
+      expect(js).not.toContain("require('./tools.wxs')");
+    });
+
+    test('should copy .wxs files placed alongside pages to dist', async () => {
+      await fs.writeFile(path.join(srcDir, 'pages', 'wxs-demo', 'index.js'),
+        'Page({ data: {} })', 'utf-8');
+      const utilsWxs = `function format(n) { return n + ''; }
+module.exports = { format: format };`;
+      await fs.writeFile(path.join(srcDir, 'pages', 'wxs-demo', 'helpers.wxs'), utilsWxs, 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'pages', 'wxs-demo', 'helpers.wxs'))).toBe(true);
+    });
+  });
 });

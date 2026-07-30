@@ -18,8 +18,8 @@ const I18N_SOURCE = require.resolve('@rsmax/i18n');
 
 const STYLE_EXTS = ['.wxss', '.css', '.less', '.scss', '.sass'];
 const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.svg'];
-const STATIC_EXTS = [...STYLE_EXTS, '.json', '.wxml', ...IMAGE_EXTS];
 const PREPROCESSOR_EXTS = ['.css', '.less', '.scss', '.sass'];
+const WXS_EXT = '.wxs';
 
 async function parseFile(filePath) {
     const code = await fs.readFile(filePath, 'utf-8');
@@ -32,12 +32,69 @@ async function parseFile(filePath) {
 
 function extractWxml(ast, code) {
     const result = jsxToWxml(ast, code);
-    // jsxToWxml now returns { wxml, components }
     if (result && typeof result === 'object' && 'wxml' in result) {
         return result;
     }
-    // Backward compatibility (in case of old format)
     return {wxml: result, components: new Set()};
+}
+
+/**
+ * Collect WXS imports from AST: import m from './tools.wxs'
+ * Returns array of { module: localName, src: importPath }
+ */
+function collectWxsImports(ast) {
+    const wxsImports = [];
+    traverse(ast, {
+        ImportDeclaration(path) {
+            const source = path.node.source.value;
+            if (source.endsWith(WXS_EXT)) {
+                let moduleName = null;
+                path.node.specifiers.forEach(spec => {
+                    if (t.isImportDefaultSpecifier(spec) || t.isImportNamespaceSpecifier(spec)) {
+                        moduleName = spec.local.name;
+                    }
+                });
+                // Use filename without extension as default module name if no default import
+                if (!moduleName) {
+                    const basename = path.basename(source, WXS_EXT);
+                    moduleName = basename.replace(/[^a-zA-Z0-9_]/g, '_');
+                }
+                wxsImports.push({ module: moduleName, src: source });
+            }
+        },
+        VariableDeclaration(path) {
+            // Handle: const m = require('./tools.wxs')
+            if (path.node.declarations.length === 1) {
+                const decl = path.node.declarations[0];
+                if (t.isCallExpression(decl.init) &&
+                    t.isIdentifier(decl.init.callee, {name: 'require'}) &&
+                    decl.init.arguments.length === 1 &&
+                    t.isStringLiteral(decl.init.arguments[0])) {
+                    const src = decl.init.arguments[0].value;
+                    if (src.endsWith(WXS_EXT)) {
+                        let moduleName = null;
+                        if (t.isIdentifier(decl.id)) {
+                            moduleName = decl.id.name;
+                        } else {
+                            const basename = path.basename(src, WXS_EXT);
+                            moduleName = basename.replace(/[^a-zA-Z0-9_]/g, '_');
+                        }
+                        wxsImports.push({ module: moduleName, src });
+                    }
+                }
+            }
+        }
+    });
+    return wxsImports;
+}
+
+/**
+ * Inject wxs tags at the beginning of WXML content.
+ */
+function prependWxsTags(wxmlContent, wxsImports) {
+    if (wxsImports.length === 0) return wxmlContent;
+    const tags = wxsImports.map(imp => `<wxs module="${imp.module}" src="${imp.src}" />`).join('\n');
+    return tags + '\n' + wxmlContent;
 }
 
 function analyzeFile(ast) {
@@ -641,6 +698,9 @@ async function compileFile(sourcePath, targetPath, options = {}) {
                 await ensureI18nCopied(targetRoot, projectRoot, srcDir);
             }
 
+            // Collect WXS imports (import m from './tools.wxs')
+            const wxsImports = collectWxsImports(ast);
+
             const collected = collectStyleImports(ast, sourceJsDir);
             importSources = collected.importSources;
             const {moduleStyles, plainStyles} = collected;
@@ -667,9 +727,11 @@ async function compileFile(sourcePath, targetPath, options = {}) {
 
             const {wxml, components} = extractWxml(ast, code);
             customComponents = components || new Set();
+
             if (wxml && fileType !== 'app') {
+                const finalWxml = prependWxsTags(wxml, wxsImports);
                 const wxmlPath = path.join(targetDir, basename + '.wxml');
-                await fs.writeFile(wxmlPath, wxml, 'utf-8');
+                await fs.writeFile(wxmlPath, finalWxml, 'utf-8');
             }
 
             const paths = {};
@@ -798,6 +860,9 @@ async function compileFile(sourcePath, targetPath, options = {}) {
         if (compiledCache && compiledCache.has(sourcePath)) return;
         await fs.copy(sourcePath, targetPath);
         compiledCache.set(sourcePath, {targetWxssPath: targetPath, classNames: null});
+    } else if (ext === WXS_EXT) {
+        // Copy .wxs files directly to target
+        await fs.copy(sourcePath, targetPath);
     } else if (ext === '.json' || ext === '.wxml' || IMAGE_EXTS.includes(ext)) {
         await fs.copy(sourcePath, targetPath);
     } else {
@@ -1009,6 +1074,9 @@ async function watch(sourceDir, targetDir, options = {}) {
                 await ensureI18nCopied(targetDir, projectRoot, sourceDir);
             }
 
+            // Collect WXS imports (import m from './tools.wxs')
+            const wxsImports = collectWxsImports(ast);
+
             const {moduleStyles, plainStyles, importSources} = collectStyleImports(ast, sourceJsDir);
             let wxssImports = [];
             let moduleStylesMappings = [];
@@ -1035,9 +1103,11 @@ async function watch(sourceDir, targetDir, options = {}) {
 
             const {wxml, components} = extractWxml(ast, code);
             customComponents = components || new Set();
+
             if (wxml && fileType !== 'app') {
+                const finalWxml = prependWxsTags(wxml, wxsImports);
                 const wxmlPath = path.join(targetFileDir, basename + '.wxml');
-                await fs.writeFile(wxmlPath, wxml, 'utf-8');
+                await fs.writeFile(wxmlPath, finalWxml, 'utf-8');
             }
 
             const paths = {};
@@ -1266,6 +1336,8 @@ async function watch(sourceDir, targetDir, options = {}) {
                 await handleJsFileEvent(filePath, targetPath);
             } else if (STYLE_EXTS.includes(ext)) {
                 await handleStyleFileEvent(filePath, targetPath);
+            } else if (ext === WXS_EXT) {
+                await fs.copy(filePath, targetPath);
             } else {
                 await fs.copy(filePath, targetPath);
             }

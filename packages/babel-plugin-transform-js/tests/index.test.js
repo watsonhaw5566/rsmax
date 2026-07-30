@@ -246,6 +246,42 @@ describe('@rsmax/babel-plugin-transform-js', () => {
     });
   });
 
+  describe('WXS support', () => {
+    test('should remove .wxs import declarations from ES modules', () => {
+      const code = `import tools from './tools.wxs';
+import { useState } from '@rsmax/runtime';
+export default { data: { count: 0 } };`;
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page', runtimePath: './rsmax-runtime.js' });
+
+      expect(result).not.toContain("import tools from './tools.wxs'");
+      expect(result).toContain('Page(');
+    });
+
+    test('should remove const m = require("./xxx.wxs")', () => {
+      const code = `const tools = require('./tools.wxs');
+export default { data: { count: 0 } };`;
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).not.toContain("require('./tools.wxs')");
+      expect(result).toContain('Page(');
+    });
+
+    test('should remove .wxs import in esmToCjs plugin', () => {
+      const code = `import tools from './format.wxs';
+import { t } from '@rsmax/i18n';
+const msg = t('hello');
+export default msg;`;
+      const ast = parseCode(code);
+      const result = transformModule(ast, code);
+
+      expect(result).not.toContain("import tools from './format.wxs'");
+      expect(result).not.toContain('./format.wxs');
+      expect(result).toContain('module.exports');
+    });
+  });
+
   describe('plugin exports', () => {
     test('should export plugin function', () => {
       expect(typeof plugin).toBe('function');

@@ -1,6 +1,5 @@
 const t = require('@babel/types');
 
-// Known WeChat Mini Program native tags (not custom components)
 const WX_NATIVE_TAGS = new Set([
   'view', 'text', 'image', 'input', 'button', 'scroll-view', 'swiper', 'swiper-item',
   'movable-view', 'movable-area', 'cover-view', 'cover-image', 'icon', 'text',
@@ -43,18 +42,24 @@ function getNodeCode(code, node) {
   return code.substring(node.start, node.end);
 }
 
+function stripThisPrefix(exprCode) {
+  let result = exprCode.replace(/this\.data\./g, '');
+  result = result.replace(/\bthis\./g, '');
+  return result;
+}
+
 function getExpressionCode(code, expr) {
   if (t.isTemplateLiteral(expr)) {
     return convertTemplateLiteral(code, expr);
   }
-  // Transform t('key') or i18n.t('key') calls in JSX expressions to __i18n data lookups
   if (t.isCallExpression(expr)) {
     const i18nKey = extractI18nKey(expr);
     if (i18nKey) {
       return "__i18n['" + i18nKey.replace(/'/g, "\\'") + "']";
     }
   }
-  return getNodeCode(code, expr);
+  const raw = getNodeCode(code, expr);
+  return stripThisPrefix(raw);
 }
 
 function extractI18nKey(callExpr) {
@@ -63,11 +68,9 @@ function extractI18nKey(callExpr) {
   const firstArg = callExpr.arguments[0];
   if (!t.isStringLiteral(firstArg)) return null;
   const callee = callExpr.callee;
-  // t('key')
   if (t.isIdentifier(callee, { name: 't' })) {
     return firstArg.value;
   }
-  // i18n.t('key') - callee is MemberExpression `xxx.t` where xxx is an identifier (not `this`, not a nested member)
   if (t.isMemberExpression(callee) && !callee.computed && t.isIdentifier(callee.property, { name: 't' }) && t.isIdentifier(callee.object)) {
     return firstArg.value;
   }
@@ -135,8 +138,6 @@ function isNativeTag(tagName) {
   return WX_NATIVE_TAGS.has(tagName);
 }
 
-// Custom components in WeChat Mini Programs use kebab-case with hyphens (e.g. van-button, t-cell)
-// React-style components start with uppercase (e.g. MyComponent)
 function isCustomComponent(tagName) {
   if (isNativeTag(tagName)) return false;
   if (isComponentName(tagName)) return false;
@@ -149,6 +150,7 @@ function getWxTagName(tagName) {
 
 function convertExpression(code, container) {
   const expr = container.expression;
+  if (!expr || t.isJSXEmptyExpression(expr)) return '';
   if (t.isStringLiteral(expr)) return expr.value;
   if (t.isNumericLiteral(expr)) return String(expr.value);
   return `{{${getExpressionCode(code, expr)}}}`;
@@ -277,20 +279,16 @@ function buildAttributes(code, openingElement, tagName, isComponent) {
           attributes += ` ${attrName}="{{${getExpressionCode(code, attr.value.expression)}}}"`;
         }
       } else if (isComponent) {
-        // Convert camelCase prop names to kebab-case for mini program components
-        // (e.g. loadingText -> loading-text, contentPosition -> content-position)
         const propName = /[A-Z]/.test(attrName)
           ? attrName.replace(/([A-Z])/g, '-$1').toLowerCase()
           : attrName;
         if (attr.value === null) {
-          // Valueless boolean attribute: <van-button plain> -> plain
           attributes += ` ${propName}`;
         } else if (t.isJSXExpressionContainer(attr.value)) {
           if (t.isBooleanLiteral(attr.value.expression)) {
             if (attr.value.expression.value) {
               attributes += ` ${propName}`;
             }
-            // false -> omit attribute entirely
           } else {
             attributes += ` ${propName}="{{${getExpressionCode(code, attr.value.expression)}}}"`;
           }
@@ -309,7 +307,6 @@ function buildAttributes(code, openingElement, tagName, isComponent) {
             attributes += ` ${attrName}="true"`;
           }
         } else if (attr.value === null) {
-          // Valueless boolean attribute on native element: <button disabled> -> disabled
           attributes += ` ${attrName}`;
         } else if (t.isJSXExpressionContainer(attr.value)) {
           if (t.isBooleanLiteral(attr.value.expression)) {
@@ -354,7 +351,6 @@ function formatNode(code, node, indent, collectedComponents) {
     tagName = openingElement.name.property.name;
   }
   
-  // Collect custom components (kebab-case tags that are not native)
   if (collectedComponents && isCustomComponent(tagName)) {
     collectedComponents.add(tagName);
   }

@@ -1,0 +1,23 @@
+// External WXS module - math utilities
+function add(a, b) {
+  return a + b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function double(n) {
+  return n * 2;
+}
+
+function formatPrice(price) {
+  return '¥' + price.toFixed(2);
+}
+
+module.exports = {
+  add: add,
+  multiply: multiply,
+  double: double,
+  formatPrice: formatPrice
+};
