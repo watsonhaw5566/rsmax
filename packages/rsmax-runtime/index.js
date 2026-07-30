@@ -3,6 +3,29 @@ let hookIndex = 0;
 let isRerunning = false;
 let isFirstRun = false;
 
+// --- setState 批处理 ---
+// 在同一微任务中收集所有 setState 调用，合并为一次 setData + 一次 rerender
+const _batchQueue = new Map(); // instance -> { pendingData }
+let _batchScheduled = false;
+
+function _scheduleBatchFlush() {
+  if (_batchScheduled) return;
+  _batchScheduled = true;
+  Promise.resolve().then(_flushBatch);
+}
+
+function _flushBatch() {
+  _batchScheduled = false;
+  const queue = new Map(_batchQueue);
+  _batchQueue.clear();
+  queue.forEach((pendingData, instance) => {
+    if (instance._destroyed) return;
+    instance.setData(pendingData, () => {
+      _rerender(instance);
+    });
+  });
+}
+
 function getInstance() {
   if (!currentInstance) {
     throw new Error('Hooks can only be called inside a functional component.');
@@ -43,11 +66,13 @@ function useState(initialValue, key) {
     const oldVal = instance.data[hook.key];
     const newVal = typeof updater === 'function' ? updater(oldVal) : updater;
     if (oldVal !== newVal) {
-      const updateData = {};
-      updateData[hook.key] = newVal;
-      instance.setData(updateData, () => {
-        _rerender(instance);
-      });
+      // 立即更新 instance.data 以保证后续读取一致性
+      instance.data[hook.key] = newVal;
+      // 合并到批处理队列
+      const pending = _batchQueue.get(instance) || {};
+      pending[hook.key] = newVal;
+      _batchQueue.set(instance, pending);
+      _scheduleBatchFlush();
     }
   };
   
@@ -461,5 +486,8 @@ module.exports = {
   createApp,
   createPage,
   createComponent,
-  promisify
+  promisify,
+  // 内部方法，供测试使用
+  _flushBatch,
+  _batchQueue
 };

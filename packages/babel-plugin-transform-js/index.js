@@ -456,22 +456,6 @@ module.exports = function() {
             }
           }
 
-          function cloneDeep(node) {
-            if (!node) return node;
-            if (Array.isArray(node)) {
-              return node.map(n => cloneDeep(n));
-            }
-            if (typeof node === 'object' && node.type) {
-              const newNode = {};
-              for (const key of Object.keys(node)) {
-                if (key === 'loc' || key === 'start' || key === 'end' || key === 'leadingComments' || key === 'trailingComments' || key === 'innerComments') continue;
-                newNode[key] = cloneDeep(node[key]);
-              }
-              return newNode;
-            }
-            return node;
-          }
-
           function getHookRuntimeName(node, state) {
             if (t.isIdentifier(node)) {
               const name = node.name;
@@ -527,7 +511,7 @@ module.exports = function() {
                       t.memberExpression(t.identifier(runtimeId), t.identifier('useState')),
                       args
                     );
-                    newDeclarators.push(t.variableDeclarator(cloneDeep(decl.id), hookCall));
+                    newDeclarators.push(t.variableDeclarator(t.cloneNode(decl.id, true, true), hookCall));
                   }
                 } else if (t.isIdentifier(decl.id) && t.isCallExpression(decl.init)) {
                   // Check if this is a useStore call: const count = useStore(store, selector)
@@ -543,7 +527,7 @@ module.exports = function() {
                       t.memberExpression(t.identifier(runtimeId), t.identifier('useStore')),
                       args
                     );
-                    newDeclarators.push(t.variableDeclarator(cloneDeep(decl.id), hookCall));
+                    newDeclarators.push(t.variableDeclarator(t.cloneNode(decl.id, true, true), hookCall));
                   } else if (t.isArrowFunctionExpression(decl.init) || t.isFunctionExpression(decl.init)) {
                     const name = decl.id.name;
                     const isHook = ALL_HOOKS.includes(name) || state.rsmaxImported.has(name);
