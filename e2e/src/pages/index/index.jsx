@@ -80,10 +80,10 @@ export default function Index() {
                 <text>Go to UI Demo →</text>
             </view>
             <view className="nav-link" onClick={goToStoreDemo}>
-                <text>rsmax-store 状态管理 Demo →</text>
+                <text>@rsmax/store 状态管理 Demo →</text>
             </view>
             <view className="nav-link" onClick={goToI18nDemo}>
-                <text>rsmax-i18n 国际化 Demo →</text>
+                <text>@rsmax/i18n 国际化 Demo →</text>
             </view>
         </view>
 
