@@ -980,4 +980,60 @@ module.exports = { format: format };`;
       expect(content).toContain('background: #f5f5f5');
     });
   });
+
+  describe('standalone config files', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-config-test-'));
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(srcDir);
+      await fs.ensureDir(path.join(srcDir, 'pages', 'index'));
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.js'),
+        'Page({ data: {} })', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.wxml'),
+        '<view>Hello</view>', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.json'),
+        JSON.stringify({pages: ['pages/index/index']}), 'utf-8');
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should copy theme.json to dist root', async () => {
+      await fs.writeFile(path.join(srcDir, 'theme.json'),
+        JSON.stringify({light: {bgColor: '#fff'}, dark: {bgColor: '#000'}}), 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'theme.json'))).toBe(true);
+      const content = await fs.readJson(path.join(distDir, 'theme.json'));
+      expect(content.light.bgColor).toBe('#fff');
+    });
+
+    test('should copy sitemap.json to dist root', async () => {
+      await fs.writeFile(path.join(srcDir, 'sitemap.json'),
+        JSON.stringify({desc: 'about', rules: []}), 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'sitemap.json'))).toBe(true);
+    });
+
+    test('should copy standalone .json files in pages directory (not paired with JS)', async () => {
+      // A standalone JSON config file without a same-named JS should be copied
+      const pageDir = path.join(srcDir, 'pages', 'index');
+      await fs.writeFile(path.join(pageDir, 'extra.json'),
+        JSON.stringify({key: 'value'}), 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      expect(await fs.pathExists(path.join(distDir, 'pages', 'index', 'extra.json'))).toBe(true);
+    });
+  });
 });
