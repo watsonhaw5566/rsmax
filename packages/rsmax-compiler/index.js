@@ -751,6 +751,8 @@ async function compileFile(sourcePath, targetPath, options = {}) {
         }
 
         const wxssTarget = path.join(targetDir, basename + '.wxss');
+        // Remove old wxss first to ensure clean rebuild (no stale inlined module CSS)
+        await fs.remove(wxssTarget);
         await findAndCompileStyle(
             sourcePath.replace(ext, ''),
             wxssTarget,
@@ -916,6 +918,70 @@ async function watch(sourceDir, targetDir, options = {}) {
         ignoreInitial: true
     });
 
+    // Track style -> JS file dependencies for hot reload of CSS Modules
+    // Key: absolute resolved style file path, Value: Set of absolute JS/JSX file paths that import it
+    const styleDependents = new Map();
+
+    function registerStyleDependency(stylePath, jsFilePath) {
+        const resolvedStyle = path.resolve(stylePath);
+        if (!styleDependents.has(resolvedStyle)) {
+            styleDependents.set(resolvedStyle, new Set());
+        }
+        styleDependents.get(resolvedStyle).add(path.resolve(jsFilePath));
+    }
+
+    function removeStyleDependenciesFor(jsFilePath) {
+        const resolvedJs = path.resolve(jsFilePath);
+        for (const [stylePath, dependents] of styleDependents) {
+            dependents.delete(resolvedJs);
+            if (dependents.size === 0) {
+                styleDependents.delete(stylePath);
+            }
+        }
+    }
+
+    function scanJsForStyleDeps(jsFilePath) {
+        const resolvedJs = path.resolve(jsFilePath);
+        if (!fs.existsSync(jsFilePath)) return;
+        try {
+            const code = fs.readFileSync(jsFilePath, 'utf-8');
+            const ast = parser.parse(code, {
+                sourceType: 'module',
+                plugins: ['jsx', 'classProperties']
+            });
+            const sourceJsDir = path.dirname(jsFilePath);
+            const {moduleStyles, plainStyles} = collectStyleImports(ast, sourceJsDir);
+            for (const s of moduleStyles) {
+                registerStyleDependency(s.resolvedPath, resolvedJs);
+            }
+            for (const s of plainStyles) {
+                registerStyleDependency(s.resolvedPath, resolvedJs);
+            }
+        } catch (e) {
+            // Ignore parse errors during dependency scan
+        }
+    }
+
+    function scanDirForStyleDeps(dir) {
+        if (!fs.existsSync(dir)) return;
+        const entries = fs.readdirSync(dir, {withFileTypes: true});
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === '.git') continue;
+                scanDirForStyleDeps(fullPath);
+            } else if (entry.isFile()) {
+                const ext = path.extname(entry.name);
+                if (ext === '.js' || ext === '.jsx') {
+                    scanJsForStyleDeps(fullPath);
+                }
+            }
+        }
+    }
+
+    // Build initial dependency map after the first compile
+    scanDirForStyleDeps(sourceDir);
+
     async function handleJsFileEvent(filePath, targetPath) {
         const ext = path.extname(filePath);
         const {ast, code} = await parseFile(filePath);
@@ -992,6 +1058,9 @@ async function watch(sourceDir, targetDir, options = {}) {
             await fs.writeFile(path.join(targetFileDir, basename + '.js'), jsCode, 'utf-8');
 
             const wxssTarget = path.join(targetFileDir, basename + '.wxss');
+            // Remove old wxss first to avoid stale inlined module CSS being carried over
+            // when the file has no same-named non-module style (e.g. only *.module.less)
+            await fs.remove(wxssTarget);
             await findAndCompileStyle(filePath.replace(ext, ''), wxssTarget, importSources, compiledCache);
 
             let wxssContent = '';
@@ -1071,20 +1140,59 @@ async function watch(sourceDir, targetDir, options = {}) {
         if (shouldWriteJson) {
             await fs.writeJson(jsonTarget, pageConfig, {spaces: 2});
         }
+
+        // Update style dependency map for this JS file
+        if (shouldTransform) {
+            removeStyleDependenciesFor(filePath);
+            const freshCode = await fs.readFile(filePath, 'utf-8');
+            const freshAst = parser.parse(freshCode, {
+                sourceType: 'module',
+                plugins: ['jsx', 'classProperties']
+            });
+            const {moduleStyles: ms, plainStyles: ps} = collectStyleImports(freshAst, path.dirname(filePath));
+            for (const s of ms) registerStyleDependency(s.resolvedPath, filePath);
+            for (const s of ps) registerStyleDependency(s.resolvedPath, filePath);
+        }
     }
 
     async function handleStyleFileEvent(filePath, targetPath) {
         const ext = path.extname(filePath);
-        if (ext === '.wxss') {
-            await fs.copy(filePath, targetPath);
+        const isModule = isModuleFile(filePath);
+
+        // For CSS Module files (.module.less/.module.css/.module.scss/.module.sass),
+        // do NOT generate a standalone .wxss file. Instead, find all JS/JSX files
+        // that import this module and trigger their recompilation so that the
+        // inlined CSS and scoped class-name mappings are regenerated.
+        if (isModule) {
+            const resolvedStyle = path.resolve(filePath);
+            const dependents = styleDependents.get(resolvedStyle);
+            if (dependents && dependents.size > 0) {
+                for (const jsFile of dependents) {
+                    const jsExt = path.extname(jsFile);
+                    const jsRelative = path.relative(sourceDir, jsFile);
+                    const jsTarget = path.join(targetDir, jsRelative);
+                    try {
+                        await handleJsFileEvent(jsFile, jsTarget);
+                        logger.log(`[rsmax] Changed: ${jsRelative} (style dep: ${path.basename(filePath)})`);
+                    } catch (err) {
+                        logger.error(`[rsmax] Error recompiling dependent ${jsRelative}:`, err.message);
+                    }
+                }
+            }
             return;
         }
-        const basename = path.basename(filePath, ext);
-        const targetFileDir = path.dirname(targetPath);
-        const targetWxssPath = path.join(targetFileDir, basename + '.wxss');
-        await fs.ensureDir(path.dirname(targetWxssPath));
-        const {css} = await compileStyleFile(filePath);
-        await fs.writeFile(targetWxssPath, css, 'utf-8');
+
+        // Non-module style files (.less/.scss/.sass/.css, not *.module.*): compile to standalone .wxss
+        if (ext === '.wxss') {
+            await fs.copy(filePath, targetPath);
+        } else {
+            const basename = path.basename(filePath, ext);
+            const targetFileDir = path.dirname(targetPath);
+            const targetWxssPath = path.join(targetFileDir, basename + '.wxss');
+            await fs.ensureDir(path.dirname(targetWxssPath));
+            const {css} = await compileStyleFile(filePath);
+            await fs.writeFile(targetWxssPath, css, 'utf-8');
+        }
     }
 
     /**
@@ -1198,21 +1306,50 @@ async function watch(sourceDir, targetDir, options = {}) {
         const basename = path.basename(filePath, ext);
 
         try {
-            if (STYLE_EXTS.includes(ext) && ext !== '.wxss') {
-                const targetWxssPath = path.join(targetDir, path.dirname(relativePath), basename + '.wxss');
-                const sourceBasePath = filePath.replace(ext, '');
-
-                let hasOtherStyle = false;
-                for (const otherExt of STYLE_EXTS) {
-                    if (otherExt !== ext && await fs.pathExists(sourceBasePath + otherExt)) {
-                        hasOtherStyle = true;
-                        await handleFileEvent('Changed', sourceBasePath + otherExt);
-                        break;
+            if (ext === '.js' || ext === '.jsx') {
+                // JS file removed: clean up style dependency entries
+                removeStyleDependenciesFor(filePath);
+                const targetPath = path.join(targetDir, relativePath);
+                await fs.remove(targetPath);
+            } else if (STYLE_EXTS.includes(ext)) {
+                const isModule = isModuleFile(filePath);
+                if (isModule) {
+                    // Module style removed: trigger recompilation of dependent JS files
+                    // so the inlined CSS is removed, then clean up dependency map
+                    const dependents = styleDependents.get(path.resolve(filePath));
+                    if (dependents && dependents.size > 0) {
+                        for (const jsFile of [...dependents]) {
+                            const jsRelative = path.relative(sourceDir, jsFile);
+                            const jsTarget = path.join(targetDir, jsRelative);
+                            try {
+                                await handleJsFileEvent(jsFile, jsTarget);
+                                logger.log(`[rsmax] Changed: ${jsRelative} (style dep removed: ${path.basename(filePath)})`);
+                            } catch (err) {
+                                logger.error(`[rsmax] Error recompiling dependent ${jsRelative}:`, err.message);
+                            }
+                        }
                     }
-                }
+                    styleDependents.delete(path.resolve(filePath));
+                } else if (ext !== '.wxss') {
+                    const targetWxssPath = path.join(targetDir, path.dirname(relativePath), basename + '.wxss');
+                    const sourceBasePath = filePath.replace(ext, '');
 
-                if (!hasOtherStyle) {
-                    await fs.remove(targetWxssPath);
+                    let hasOtherStyle = false;
+                    for (const otherExt of STYLE_EXTS) {
+                        if (otherExt !== ext && await fs.pathExists(sourceBasePath + otherExt) && !isModuleFile(sourceBasePath + otherExt)) {
+                            hasOtherStyle = true;
+                            await handleFileEvent('Changed', sourceBasePath + otherExt);
+                            break;
+                        }
+                    }
+
+                    if (!hasOtherStyle) {
+                        await fs.remove(targetWxssPath);
+                    }
+                } else {
+                    // .wxss removed
+                    const targetPath = path.join(targetDir, relativePath);
+                    await fs.remove(targetPath);
                 }
             } else {
                 const targetPath = path.join(targetDir, relativePath);
