@@ -115,7 +115,7 @@ rsmax dev src -o dist
 rsmax clean [output]
 ```
 
-清理输出目录，保留 `miniprogram_npm`。
+清理输出目录
 
 ## 编写页面
 
