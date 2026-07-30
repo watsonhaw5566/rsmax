@@ -36,7 +36,7 @@
 .counter-value {
   font-size: 96rpx;
   font-weight: bold;
-  color: #3b82f6;
+  color: #07c160;
   display: block;
   text-align: center;
   margin-top: 16rpx;
@@ -64,7 +64,7 @@
 }
 
 .btn-primary {
-  background: #3b82f6;
+  background: #07c160;
   color: #fff;
 }
 
@@ -80,20 +80,20 @@
 
 .tip-card {
   background: #f0f9ff;
-  border-left: 8rpx solid #3b82f6;
+  border-left: 8rpx solid #07c160;
 }
 
 .tip-title {
   font-size: 30rpx;
   font-weight: bold;
-  color: #1e40af;
+  color: #07c160;
   display: block;
   margin-bottom: 12rpx;
 }
 
 .tip-text {
   font-size: 26rpx;
-  color: #3b82f6;
+  color: #07c160;
   line-height: 1.6;
   display: block;
 }
