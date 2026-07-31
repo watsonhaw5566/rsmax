@@ -1027,6 +1027,86 @@ export default function Page() {
 > 2. 子组件会被挂载到页面根节点，不受父级样式和定位影响。
 > 3. 适合用于实现全局 Toast、Modal、Popup 等需要脱离层级限制的组件。
 
+### 自定义 TabBar（custom-tab-bar）
+
+rsmax 支持微信小程序的[自定义 TabBar](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html)。在 `src/` 目录下创建 `custom-tab-bar/` 目录，其中的 JSX 文件会被自动编译为 `Component`（而非 `Page`），JSON 配置中会自动添加 `"component": true`。
+
+**目录结构：**
+
+```
+src/
+├── app.jsx
+├── app.json
+├── pages/
+│   └── index/
+│       └── index.jsx
+└── custom-tab-bar/
+    └── index.jsx    ← TabBar 组件
+```
+
+**app.json 配置：**
+
+```json
+{
+  "pages": ["pages/index/index", "pages/my/index"],
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/my/index", "text": "我的" }
+    ]
+  }
+}
+```
+
+**custom-tab-bar/index.jsx：**
+
+```jsx
+import { useState, useEffect } from '@rsmax/runtime';
+
+export default function CustomTabBar() {
+  const [selected, setSelected] = useState(0);
+
+  const tabs = [
+    { pagePath: '/pages/index/index', text: '首页', icon: '🏠' },
+    { pagePath: '/pages/my/index', text: '我的', icon: '👤' }
+  ];
+
+  function switchTab(e) {
+    const index = e.currentTarget.dataset.index;
+    const url = tabs[index].pagePath;
+    wx.switchTab({ url });
+    setSelected(index);
+  }
+
+  return (
+    <view className="tab-bar">
+      {tabs.map((tab, index) => (
+        <view
+          key={tab.pagePath}
+          className={"tab-item" + (selected === index ? " active" : "")}
+          data-index={index}
+          onClick={switchTab}
+        >
+          <text className="icon">{tab.icon}</text>
+          <text className="text">{tab.text}</text>
+        </view>
+      ))}
+    </view>
+  );
+}
+```
+
+> **注意**：
+> 1. `custom-tab-bar/` 目录必须放在 `src/` 根目录下（与 `pages/` 同级）。
+> 2. 需要在 `app.json` 的 `tabBar` 字段中设置 `"custom": true`。
+> 3. TabBar 组件使用 `Component` 构造器（非 `Page`），支持 `useState`、`useEffect` 等 hooks。
+> 4. 切换 Tab 需使用 `wx.switchTab()`，不能使用 `wx.navigateTo()`。
+> 5. TabBar 的选中状态需要在各页面 `onShow` 中通过 `getTabBar()` 主动更新，具体参考微信官方文档。
+
 ### 事件绑定
 
 | JSX 事件 | 小程序事件 |

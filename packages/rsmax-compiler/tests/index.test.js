@@ -79,6 +79,17 @@ describe('rsmax-compiler', () => {
       const subPackages = [{ root: 'packageA', pages: ['pages/detail/index'], independent: false }];
       expect(getFileType('/project/src/packageA/pages/detail/index.js', '/project/src', subPackages)).toBe('page');
     });
+
+    test('should detect custom-tab-bar files as component', () => {
+      expect(getFileType('/project/src/custom-tab-bar/index.js', '/project/src')).toBe('component');
+      expect(getFileType('/project/src/custom-tab-bar/index.jsx', '/project/src')).toBe('component');
+      expect(getFileType('C:\\project\\src\\custom-tab-bar\\index.jsx', 'C:\\project\\src')).toBe('component');
+    });
+
+    test('should detect custom-tab-bar inside sub-packages as component', () => {
+      const subPackages = [{ root: 'packageA', pages: ['pages/detail/index'], independent: false }];
+      expect(getFileType('/project/src/packageA/custom-tab-bar/index.js', '/project/src', subPackages)).toBe('component');
+    });
   });
 
   describe('subPackages utilities', () => {
@@ -1035,6 +1046,58 @@ module.exports = { format: format };`;
       await compile(srcDir, distDir);
 
       expect(await fs.pathExists(path.join(distDir, 'pages', 'index', 'extra.json'))).toBe(true);
+    });
+
+    test('should compile custom-tab-bar directory as Component (not Page)', async () => {
+      // Create a minimal project with custom-tab-bar
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        tabBar: {
+          custom: true,
+          color: '#000000',
+          selectedColor: '#000000',
+          backgroundColor: '#ffffff',
+          list: [
+            { pagePath: 'pages/index/index', text: 'Home' }
+          ]
+        }
+      }), 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.jsx'),
+        'export default function App() { return <text>app</text>; }\n', 'utf-8');
+
+      const pageDir = path.join(srcDir, 'pages', 'index');
+      await fs.ensureDir(pageDir);
+      await fs.writeFile(path.join(pageDir, 'index.jsx'),
+        'export default function Index() { return <view><text>Home</text></view>; }\n', 'utf-8');
+
+      // Create custom-tab-bar component
+      const tabBarDir = path.join(srcDir, 'custom-tab-bar');
+      await fs.ensureDir(tabBarDir);
+      await fs.writeFile(path.join(tabBarDir, 'index.jsx'),
+        `import { useState } from '@rsmax/runtime';
+export default function CustomTabBar() {
+  const [selected, setSelected] = useState(0);
+  return (
+    <view class="tab-bar">
+      <view class="tab-item">首页</view>
+    </view>
+  );
+}
+`, 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // Verify custom-tab-bar is compiled as Component, not Page
+      const tabBarJs = await fs.readFile(path.join(distDir, 'custom-tab-bar', 'index.js'), 'utf-8');
+      expect(tabBarJs).toContain('Component(');
+      expect(tabBarJs).not.toContain('Page(');
+
+      // Verify JSON has component: true (auto-generated)
+      const tabBarJson = await fs.readJson(path.join(distDir, 'custom-tab-bar', 'index.json'));
+      expect(tabBarJson.component).toBe(true);
+
+      // Verify WXML is generated
+      expect(await fs.pathExists(path.join(distDir, 'custom-tab-bar', 'index.wxml'))).toBe(true);
     });
   });
 
