@@ -9,7 +9,9 @@
     "babel"
   ],
   "license": "MIT",
-  "author": "",
+  "authors": [
+    "watsonhaw"
+  ],
   "scripts": {
     "clean:node_modules": "rm -rf node_modules packages/*/node_modules e2e/node_modules",
     "e2e:build": "rsmax build e2e/src -o e2e/dist",
@@ -18,7 +20,8 @@
     "lint": "rslint .",
     "sort-package-json": "pnpx sort-package-json \"./package.json\" \"packages/*/package.json\"",
     "test": "rstest run",
-    "test:watch": "rstest"
+    "test:watch": "rstest",
+    "prepublish": "npm run lint && npm run test"
   },
   "dependencies": {
     "rsmax": "workspace:*"
