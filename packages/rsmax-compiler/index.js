@@ -142,11 +142,38 @@ function collectWxsImports(ast) {
 }
 
 /**
- * Inject wxs tags at the beginning of WXML content.
+ * Inject wxs tags into WXML content.
+ * If the first element is <page-meta>, insert wxs after it to ensure
+ * page-meta remains the first node (required by WeChat Mini Program).
  */
 function prependWxsTags(wxmlContent, wxsImports) {
     if (wxsImports.length === 0) return wxmlContent;
     const tags = wxsImports.map(imp => `<wxs module="${imp.module}" src="${imp.src}" />`).join('\n');
+
+    const trimmed = wxmlContent.trimStart();
+
+    // Try to match self-closing <page-meta ... /> first
+    // Handles: <page-meta/>, <page-meta />, <page-meta attr="v"/>, <page-meta attr="v" />
+    const selfCloseMatch = /^<page-meta(\s[^>]*)?\/>/i.exec(trimmed);
+    if (selfCloseMatch) {
+        const endPos = selfCloseMatch[0].length;
+        return trimmed.slice(0, endPos) + '\n' + tags + '\n' + trimmed.slice(endPos);
+    }
+
+    // Try to match open tag <page-meta ...> (not self-closing)
+    // Handles: <page-meta>, <page-meta attr="v">
+    const openMatch = /^<page-meta(\s[^>]*)?>/i.exec(trimmed);
+    if (openMatch) {
+        // Find the corresponding closing tag after the opening tag
+        const afterOpen = trimmed.slice(openMatch[0].length);
+        const closeMatch = /<\/page-meta\s*>/i.exec(afterOpen);
+        if (closeMatch) {
+            const endPos = openMatch[0].length + closeMatch.index + closeMatch[0].length;
+            return trimmed.slice(0, endPos) + '\n' + tags + '\n' + trimmed.slice(endPos);
+        }
+    }
+
+    // No page-meta at root, prepend as usual
     return tags + '\n' + wxmlContent;
 }
 
@@ -1912,6 +1939,7 @@ module.exports = {
     compileStyleFile,
     collectStyleImports,
     injectModuleStylesConst,
+    prependWxsTags,
     processStyle,
     isModuleFile,
     isStyleFile,

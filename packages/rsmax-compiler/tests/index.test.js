@@ -17,7 +17,8 @@ const {
   compile,
   parseSubPackages,
   findSubPackageForFile,
-  getEffectiveTargetRoot
+  getEffectiveTargetRoot,
+  prependWxsTags
 } = require('../index');
 
 function parseCode(code) {
@@ -1034,6 +1035,76 @@ module.exports = { format: format };`;
       await compile(srcDir, distDir);
 
       expect(await fs.pathExists(path.join(distDir, 'pages', 'index', 'extra.json'))).toBe(true);
+    });
+  });
+
+  describe('prependWxsTags', () => {
+    test('should prepend wxs tags when no page-meta present', () => {
+      const wxml = '<view><text>Hello</text></view>';
+      const wxsImports = [{ module: 'tools', src: './tools.wxs' }];
+      const result = prependWxsTags(wxml, wxsImports);
+
+      expect(result.startsWith('<wxs module="tools" src="./tools.wxs" />')).toBe(true);
+      expect(result).toContain('<view><text>Hello</text></view>');
+    });
+
+    test('should insert wxs tags after self-closing page-meta', () => {
+      const wxml = '<page-meta page-style="bg:#fff" />\n<view><text>Hello</text></view>';
+      const wxsImports = [{ module: 'tools', src: './tools.wxs' }];
+      const result = prependWxsTags(wxml, wxsImports);
+
+      // page-meta must be the very first element
+      expect(result.indexOf('<page-meta')).toBe(0);
+      // wxs should be after page-meta closes
+      expect(result.indexOf('<wxs')).toBeGreaterThan(result.indexOf('/>'));
+      expect(result).toContain('<wxs module="tools" src="./tools.wxs" />');
+      expect(result).toContain('<view><text>Hello</text></view>');
+    });
+
+    test('should insert wxs tags after page-meta with closing tag and navigation-bar child', () => {
+      const wxml = '<page-meta background-text-style="dark">\n  <navigation-bar title="Home" />\n</page-meta>\n<view class="container">Content</view>';
+      const wxsImports = [{ module: 'fmt', src: './fmt.wxs' }];
+      const result = prependWxsTags(wxml, wxsImports);
+
+      // page-meta must be first
+      expect(result.trimStart().startsWith('<page-meta')).toBe(true);
+      // wxs should appear after </page-meta>
+      const closePos = result.indexOf('</page-meta>');
+      const wxsPos = result.indexOf('<wxs');
+      expect(wxsPos).toBeGreaterThan(closePos);
+      expect(result).toContain('<wxs module="fmt" src="./fmt.wxs" />');
+      expect(result).toContain('<navigation-bar title="Home" />');
+      expect(result).toContain('<view class="container">Content</view>');
+    });
+
+    test('should return original wxml unchanged when no wxs imports', () => {
+      const wxml = '<page-meta />\n<view>Hi</view>';
+      const result = prependWxsTags(wxml, []);
+      expect(result).toBe(wxml);
+    });
+
+    test('should handle page-meta without attributes', () => {
+      const wxml = '<page-meta></page-meta>\n<view>Hi</view>';
+      const wxsImports = [{ module: 'u', src: './u.wxs' }];
+      const result = prependWxsTags(wxml, wxsImports);
+
+      expect(result.trimStart().startsWith('<page-meta>')).toBe(true);
+      const closePos = result.indexOf('</page-meta>');
+      const wxsPos = result.indexOf('<wxs');
+      expect(wxsPos).toBeGreaterThan(closePos);
+    });
+
+    test('should insert multiple wxs tags correctly after page-meta', () => {
+      const wxml = '<page-meta />\n<view>Hi</view>';
+      const wxsImports = [
+        { module: 'a', src: './a.wxs' },
+        { module: 'b', src: './b.wxs' }
+      ];
+      const result = prependWxsTags(wxml, wxsImports);
+
+      expect(result.trimStart().startsWith('<page-meta')).toBe(true);
+      expect(result).toContain('<wxs module="a" src="./a.wxs" />');
+      expect(result).toContain('<wxs module="b" src="./b.wxs" />');
     });
   });
 });

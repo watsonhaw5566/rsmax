@@ -7,7 +7,7 @@ const WX_NATIVE_TAGS = new Set([
   'form', 'input', 'textarea', 'label', 'picker', 'picker-view', 'picker-view-column',
   'slider', 'switch', 'editor', 'navigator', 'audio', 'image', 'video', 'camera',
   'live-player', 'live-pusher', 'map', 'canvas', 'open-data', 'web-view', 'ad',
-  'official-account', 'ad-custom', 'page-meta', 'block', 'slot',
+  'official-account', 'ad-custom', 'page-meta', 'navigation-bar', 'block', 'slot',
   'import', 'include', 'template', 'wxs'
 ]);
 
@@ -341,6 +341,10 @@ function collectInlineContent(code, children) {
 
 function formatNode(code, node, indent, collectedComponents) {
   if (!node) return [];
+  
+  if (t.isJSXFragment(node)) {
+    return formatChildren(code, node.children, indent, collectedComponents);
+  }
   
   const openingElement = node.openingElement;
   let tagName = '';

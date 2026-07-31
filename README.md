@@ -824,6 +824,117 @@ dist/
 ))}
 ```
 
+### Fragment（空标签）
+
+使用 JSX Fragment `<>...</>` 可以返回多个根级元素而不产生额外的包裹节点，这在使用 `page-meta` 时尤为重要：
+
+```jsx
+export default function Index() {
+  return (
+    <>
+      <page-meta page-style="background-color: #f5f5f5;">
+        <navigation-bar title="首页" />
+      </page-meta>
+      <view className="container">
+        <text>页面内容</text>
+      </view>
+    </>
+  );
+}
+```
+
+Fragment 在编译后会被展开，不会产生任何包裹标签，子节点直接成为 WXML 的根级节点。
+
+### page-meta 和 navigation-bar
+
+rsmax 原生支持微信小程序的 `page-meta` 和 `navigation-bar` 组件，用于动态修改页面属性（如背景色、导航栏样式等）。
+
+> **重要**：微信小程序要求 `page-meta` 必须是页面模板中的**第一个节点**。rsmax 编译器会自动处理 WXS 标签的注入位置，确保 `page-meta` 始终位于最前。
+
+**基础用法：**
+
+```jsx
+export default function Page() {
+  return (
+    <>
+      <page-meta
+        page-style="background-color: #f5f5f5;"
+        root-font-size="16px"
+        background-text-style="dark"
+      >
+        <navigation-bar
+          title="我的页面"
+          background-color="#ffffff"
+          front-color="#000000"
+        />
+      </page-meta>
+      <view className="container">
+        <text>Hello World</text>
+      </view>
+    </>
+  );
+}
+```
+
+**动态绑定属性：**
+
+```jsx
+import { useState } from '@rsmax/runtime';
+
+export default function Page() {
+  const [bgColor, setBgColor] = useState('#ffffff');
+  const [title, setTitle] = useState('首页');
+
+  return (
+    <>
+      <page-meta page-style={`background-color: ${bgColor};`}>
+        <navigation-bar title={title} />
+      </page-meta>
+      <view>
+        <button onClick={() => setBgColor('#f0f0f0')}>切换背景</button>
+      </view>
+    </>
+  );
+}
+```
+
+**page-meta 支持的属性（kebab-case）：**
+
+| 属性 | 说明 |
+|------|------|
+| `page-style` | 页面根节点样式 |
+| `root-font-size` | 页面根元素字体大小 |
+| `background-text-style` | 下拉背景字体、loading 图的样式（dark/light） |
+| `background-color` | 窗口背景色 |
+| `background-color-top` | 顶部窗口背景色 |
+| `background-color-bottom` | 底部窗口背景色 |
+| `scroll-top` | 滚动位置（需设置 `scroll-view` 为页面滚动） |
+| `page-style-open` | 进入/离开动画期间页面样式 |
+| `page-style-close` | 离开动画期间页面样式 |
+
+**navigation-bar 支持的属性：**
+
+| 属性 | 说明 |
+|------|------|
+| `title` | 导航栏标题 |
+| `background-color` | 导航栏背景色 |
+| `front-color` | 前景颜色（含标题、按钮），仅支持 #000000/#ffffff |
+| `color-animation-duration` | 颜色变化动画时长 |
+| `color-animation-timing-func` | 颜色变化动画 timing function |
+| `loading` | 是否显示导航栏加载动画 |
+| `title-image` | 导航栏图片地址（替代标题文字） |
+
+**支持的事件：**
+
+- `page-meta`：`onScroll`（bindscroll）、`onResize`（bindresize）
+- `navigation-bar`：无自定义事件
+
+> **注意**：
+> 1. 必须使用 Fragment `<>...</>` 将 `page-meta` 和页面内容包裹在一起，使 `page-meta` 成为根级第一个节点。
+> 2. 一个页面只能有一个 `page-meta`。
+> 3. `navigation-bar` 必须是 `page-meta` 的直接子节点。
+> 4. 属性名使用 kebab-case 形式（如 `page-style` 而非 `pageStyle`），与微信官方文档一致。
+
 ### 事件绑定
 
 | JSX 事件 | 小程序事件 |
