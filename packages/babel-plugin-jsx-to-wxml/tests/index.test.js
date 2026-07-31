@@ -100,6 +100,8 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
         expect(WX_NATIVE_TAGS.has('slot')).toBe(true);
         expect(WX_NATIVE_TAGS.has('page-meta')).toBe(true);
         expect(WX_NATIVE_TAGS.has('navigation-bar')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('page-container')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('root-portal')).toBe(true);
       });
 
       test('WX_VOID_TAGS should contain void elements', () => {
@@ -320,6 +322,51 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
 
       expect(result.wxml).toContain('page-style="{{pageStyle}}"');
       expect(result.wxml).toContain('root-font-size="16px"');
+    });
+
+    test('should recognize page-container as native tag with event binding', () => {
+      const code = `export default function() {
+        return (
+          <view>
+            <page-container show={show} overlay={true} position="bottom" onBeforeEnter={handleBeforeEnter} onClickOverlay={handleClickOverlay}>
+              <view class="popup">Popup content</view>
+            </page-container>
+          </view>
+        );
+      }`;
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<page-container');
+      expect(result.wxml).toContain('show="{{show}}"');
+      expect(result.wxml).toContain('overlay');
+      expect(result.wxml).toContain('position="bottom"');
+      expect(result.wxml).toContain('bindbeforeenter="handleBeforeEnter"');
+      expect(result.wxml).toContain('bindclickoverlay="handleClickOverlay"');
+      expect(result.wxml).toContain('<view class="popup">Popup content</view>');
+      expect(result.wxml).toContain('</page-container>');
+      expect(result.components.size).toBe(0);
+    });
+
+    test('should recognize root-portal as native tag', () => {
+      const code = `export default function() {
+        return (
+          <view>
+            <root-portal>
+              <view class="modal">Modal content</view>
+            </root-portal>
+          </view>
+        );
+      }`;
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<root-portal>');
+      expect(result.wxml).toContain('<view class="modal">Modal content</view>');
+      expect(result.wxml).toContain('</root-portal>');
+      expect(result.components.size).toBe(0);
     });
   });
 

@@ -935,6 +935,98 @@ export default function Page() {
 > 3. `navigation-bar` 必须是 `page-meta` 的直接子节点。
 > 4. 属性名使用 kebab-case 形式（如 `page-style` 而非 `pageStyle`），与微信官方文档一致。
 
+### page-container（页面容器）
+
+`page-container` 用于在页面内弹出一个全屏覆盖层，类似弹窗/抽屉效果，支持从各个方向滑入。
+
+```jsx
+import { useState } from '@rsmax/runtime';
+
+export default function Page() {
+  const [showPopup, setShowPopup] = useState(false);
+
+  return (
+    <>
+      <page-meta>
+        <navigation-bar title="Page Container Demo" />
+      </page-meta>
+      <view className="container">
+        <button onClick={() => setShowPopup(true)}>打开弹窗</button>
+      </view>
+      <page-container
+        show={showPopup}
+        overlay={true}
+        position="bottom"
+        round={true}
+        onBeforeEnter={() => console.log('进入前')}
+        onEnter={() => console.log('进入中')}
+        onAfterEnter={() => console.log('进入后')}
+        onBeforeLeave={() => console.log('离开前')}
+        onLeave={() => console.log('离开中')}
+        onAfterLeave={() => setShowPopup(false)}
+        onClickOverlay={() => setShowPopup(false)}
+      >
+        <view className="popup-content">
+          <text>这是一个底部弹出层</text>
+        </view>
+      </page-container>
+    </>
+  );
+}
+```
+
+**page-container 常用属性：**
+
+| 属性 | 说明 |
+|------|------|
+| `show` | 是否显示容器 |
+| `overlay` | 是否显示遮罩层 |
+| `position` | 弹出位置：top/bottom/right/center |
+| `round` | 是否显示圆角 |
+| `close-on-slide-down` | 是否开启下滑关闭 |
+| `overlay-style` | 遮罩层自定义样式 |
+| `custom-style` | 弹出层自定义样式 |
+| `duration` | 动画时长（毫秒） |
+
+**支持的事件：** `onBeforeEnter`、`onEnter`、`onAfterEnter`、`onBeforeLeave`、`onLeave`、`onAfterLeave`、`onClickOverlay`
+
+> **注意**：
+> 1. 一个页面只能有一个 `page-container`。
+> 2. 组件支持嵌套在页面任意位置（无需像 `page-meta` 那样必须在第一个位置）。
+> 3. 属性名使用 kebab-case 形式。
+
+### root-portal（根 Portal）
+
+`root-portal` 可以将子组件渲染到页面的根节点，类似于 React 的 `createPortal`，适合实现弹窗、Toast 等需要脱离文档流的组件。
+
+```jsx
+export default function Page() {
+  return (
+    <view className="container">
+      <text>页面内容</text>
+      
+      {/* 这个 view 会被渲染到页面根节点 */}
+      <root-portal>
+        <view className="global-toast">
+          <text>全局提示消息</text>
+        </view>
+      </root-portal>
+    </view>
+  );
+}
+```
+
+**root-portal 属性：**
+
+| 属性 | 说明 |
+|------|------|
+| `enable` | 是否启用 portal，默认 true |
+
+> **注意**：
+> 1. `root-portal` 可以在页面中多次使用。
+> 2. 子组件会被挂载到页面根节点，不受父级样式和定位影响。
+> 3. 适合用于实现全局 Toast、Modal、Popup 等需要脱离层级限制的组件。
+
 ### 事件绑定
 
 | JSX 事件 | 小程序事件 |

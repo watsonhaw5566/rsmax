@@ -7,7 +7,8 @@ const WX_NATIVE_TAGS = new Set([
   'form', 'input', 'textarea', 'label', 'picker', 'picker-view', 'picker-view-column',
   'slider', 'switch', 'editor', 'navigator', 'audio', 'image', 'video', 'camera',
   'live-player', 'live-pusher', 'map', 'canvas', 'open-data', 'web-view', 'ad',
-  'official-account', 'ad-custom', 'page-meta', 'navigation-bar', 'block', 'slot',
+  'official-account', 'ad-custom', 'page-meta', 'navigation-bar', 'page-container',
+  'root-portal', 'block', 'slot',
   'import', 'include', 'template', 'wxs'
 ]);
 
@@ -34,7 +35,17 @@ const EVENT_MAP = {
   onTouchEnd: 'bindtouchend',
   onScroll: 'bindscroll',
   onLoad: 'bindload',
-  onError: 'binderror'
+  onError: 'binderror',
+  // page-container events
+  onBeforeEnter: 'bindbeforeenter',
+  onEnter: 'bindenter',
+  onAfterEnter: 'bindafterenter',
+  onBeforeLeave: 'bindbeforeleave',
+  onLeave: 'bindleave',
+  onAfterLeave: 'bindafterleave',
+  onClickOverlay: 'bindclickoverlay',
+  // page-meta events
+  onResize: 'bindresize'
 };
 
 function getNodeCode(code, node) {
