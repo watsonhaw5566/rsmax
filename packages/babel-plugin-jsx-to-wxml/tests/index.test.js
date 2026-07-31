@@ -98,6 +98,10 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
         expect(WX_NATIVE_TAGS.has('text')).toBe(true);
         expect(WX_NATIVE_TAGS.has('block')).toBe(true);
         expect(WX_NATIVE_TAGS.has('slot')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('page-meta')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('navigation-bar')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('page-container')).toBe(true);
+        expect(WX_NATIVE_TAGS.has('root-portal')).toBe(true);
       });
 
       test('WX_VOID_TAGS should contain void elements', () => {
@@ -237,6 +241,132 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
       const result = jsxElementToWxml(code, jsxNode);
 
       expect(result.wxml).toContain('src="{{imgUrl}}"');
+    });
+
+    test('should recognize page-meta as native tag', () => {
+      const code = 'export default { render() { return <page-meta page-style="background: #fff;" />; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<page-meta');
+      expect(result.wxml).toContain('page-style="background: #fff;"');
+      expect(result.components.size).toBe(0);
+    });
+
+    test('should recognize navigation-bar as native tag', () => {
+      const code = 'export default { render() { return <page-meta><navigation-bar title="首页" /></page-meta>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<page-meta>');
+      expect(result.wxml).toContain('<navigation-bar');
+      expect(result.wxml).toContain('title="首页"');
+      expect(result.components.size).toBe(0);
+    });
+
+    test('should expand JSX Fragment without wrapper element', () => {
+      const code = `export default function() {
+        return (
+          <>
+            <page-meta page-style="bg" />
+            <view>Content</view>
+          </>
+        );
+      }`;
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      // Should not contain any Fragment wrapper
+      expect(result.wxml).not.toContain('Fragment');
+      expect(result.wxml).not.toContain('<>');
+      // Should contain both children at root level
+      expect(result.wxml).toContain('<page-meta');
+      expect(result.wxml).toContain('<view>Content</view>');
+    });
+
+    test('should expand JSX Fragment with page-meta and navigation-bar', () => {
+      const code = `export default function() {
+        return (
+          <>
+            <page-meta background-text-style="dark">
+              <navigation-bar title="Test Page" background-color="#fff" />
+            </page-meta>
+            <view className="container">
+              <text>Hello World</text>
+            </view>
+          </>
+        );
+      }`;
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<page-meta');
+      expect(result.wxml).toContain('background-text-style="dark"');
+      expect(result.wxml).toContain('<navigation-bar');
+      expect(result.wxml).toContain('title="Test Page"');
+      expect(result.wxml).toContain('background-color="#fff"');
+      expect(result.wxml).toContain('</page-meta>');
+      expect(result.wxml).toContain('class="container"');
+      expect(result.wxml).toContain('<text>Hello World</text>');
+    });
+
+    test('should handle kebab-case attributes on page-meta with expressions', () => {
+      const code = 'export default { render() { return <page-meta page-style={pageStyle} root-font-size="16px" />; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('page-style="{{pageStyle}}"');
+      expect(result.wxml).toContain('root-font-size="16px"');
+    });
+
+    test('should recognize page-container as native tag with event binding', () => {
+      const code = `export default function() {
+        return (
+          <view>
+            <page-container show={show} overlay={true} position="bottom" onBeforeEnter={handleBeforeEnter} onClickOverlay={handleClickOverlay}>
+              <view class="popup">Popup content</view>
+            </page-container>
+          </view>
+        );
+      }`;
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<page-container');
+      expect(result.wxml).toContain('show="{{show}}"');
+      expect(result.wxml).toContain('overlay');
+      expect(result.wxml).toContain('position="bottom"');
+      expect(result.wxml).toContain('bindbeforeenter="handleBeforeEnter"');
+      expect(result.wxml).toContain('bindclickoverlay="handleClickOverlay"');
+      expect(result.wxml).toContain('<view class="popup">Popup content</view>');
+      expect(result.wxml).toContain('</page-container>');
+      expect(result.components.size).toBe(0);
+    });
+
+    test('should recognize root-portal as native tag', () => {
+      const code = `export default function() {
+        return (
+          <view>
+            <root-portal>
+              <view class="modal">Modal content</view>
+            </root-portal>
+          </view>
+        );
+      }`;
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('<root-portal>');
+      expect(result.wxml).toContain('<view class="modal">Modal content</view>');
+      expect(result.wxml).toContain('</root-portal>');
+      expect(result.components.size).toBe(0);
     });
   });
 
