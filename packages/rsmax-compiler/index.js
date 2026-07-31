@@ -610,6 +610,10 @@ function getFileType(filePath, srcDir, subPackages) {
     if (/\/components\//.test('/' + normalizedPath) || normalizedPath.startsWith('components/')) {
         return 'component';
     }
+    // custom-tab-bar/ directory contains a Component (not a Page)
+    if (normalizedPath.startsWith('custom-tab-bar/') || /\/custom-tab-bar\//.test('/' + normalizedPath)) {
+        return 'component';
+    }
     return 'page';
 }
 

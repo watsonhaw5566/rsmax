@@ -243,6 +243,15 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
       expect(result.wxml).toContain('src="{{imgUrl}}"');
     });
 
+    test('should preserve static absolute src path (for public assets)', () => {
+      const code = 'export default { render() { return <image src="/images/tab-home.png" />; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('src="/images/tab-home.png"');
+    });
+
     test('should recognize page-meta as native tag', () => {
       const code = 'export default { render() { return <page-meta page-style="background: #fff;" />; } }';
       const ast = parseCode(code);
