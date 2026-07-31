@@ -1099,6 +1099,108 @@ export default function CustomTabBar() {
       // Verify WXML is generated
       expect(await fs.pathExists(path.join(distDir, 'custom-tab-bar', 'index.wxml'))).toBe(true);
     });
+
+    test('should support public static assets in custom-tab-bar (image src absolute path)', async () => {
+      // Create project-root public/ with tab icons
+      const projectRoot = path.dirname(srcDir);
+      const publicDir = path.join(projectRoot, 'public');
+      await fs.ensureDir(path.join(publicDir, 'images'));
+      await fs.writeFile(path.join(publicDir, 'images', 'tab-home.png'), 'png-data', 'utf-8');
+      await fs.writeFile(path.join(publicDir, 'images', 'tab-home-active.png'), 'png-active-data', 'utf-8');
+
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        tabBar: { custom: true, list: [{ pagePath: 'pages/index/index', text: 'Home' }] }
+      }), 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.jsx'),
+        'export default function App() { return <text>app</text>; }\n', 'utf-8');
+
+      const pageDir = path.join(srcDir, 'pages', 'index');
+      await fs.ensureDir(pageDir);
+      await fs.writeFile(path.join(pageDir, 'index.jsx'),
+        'export default function Index() { return <view><text>Home</text></view>; }\n', 'utf-8');
+
+      // custom-tab-bar using image with absolute path to public asset
+      const tabBarDir = path.join(srcDir, 'custom-tab-bar');
+      await fs.ensureDir(tabBarDir);
+      await fs.writeFile(path.join(tabBarDir, 'index.jsx'),
+        `export default function CustomTabBar() {
+  return (
+    <view class="tab-bar">
+      <image class="icon" src="/images/tab-home.png" />
+      <text>Home</text>
+    </view>
+  );
+}
+`, 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // Public assets should be copied to dist root
+      expect(await fs.pathExists(path.join(distDir, 'images', 'tab-home.png'))).toBe(true);
+      expect(await fs.pathExists(path.join(distDir, 'images', 'tab-home-active.png'))).toBe(true);
+
+      // WXML should preserve absolute src path
+      const tabBarWxml = await fs.readFile(path.join(distDir, 'custom-tab-bar', 'index.wxml'), 'utf-8');
+      expect(tabBarWxml).toContain('src="/images/tab-home.png"');
+    });
+
+    test('should support wxss/css/less/scss styles in custom-tab-bar directory', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index'],
+        tabBar: { custom: true, list: [{ pagePath: 'pages/index/index', text: 'Home' }] }
+      }), 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.jsx'),
+        'export default function App() { return <text>app</text>; }\n', 'utf-8');
+
+      const pageDir = path.join(srcDir, 'pages', 'index');
+      await fs.ensureDir(pageDir);
+      await fs.writeFile(path.join(pageDir, 'index.jsx'),
+        'export default function Index() { return <view><text>Home</text></view>; }\n', 'utf-8');
+
+      // custom-tab-bar with less styles
+      const tabBarDir = path.join(srcDir, 'custom-tab-bar');
+      await fs.ensureDir(tabBarDir);
+      await fs.writeFile(path.join(tabBarDir, 'index.jsx'),
+        `import './index.less';
+export default function CustomTabBar() {
+  return (
+    <view className="tab-bar">
+      <view className="tab-item">Home</view>
+    </view>
+  );
+}
+`, 'utf-8');
+      // Write a less file - it should be compiled to wxss
+      await fs.writeFile(path.join(tabBarDir, 'index.less'),
+        '.tab-bar { display: flex; .tab-item { color: #333; } }\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      // Verify wxss is generated (less compiled to wxss)
+      const wxssPath = path.join(distDir, 'custom-tab-bar', 'index.wxss');
+      expect(await fs.pathExists(wxssPath)).toBe(true);
+      const wxssContent = await fs.readFile(wxssPath, 'utf-8');
+      expect(wxssContent).toContain('.tab-bar');
+      expect(wxssContent).toContain('display: flex');
+
+      // Verify WXML uses class attribute (className compiled correctly)
+      const wxmlPath = path.join(distDir, 'custom-tab-bar', 'index.wxml');
+      expect(await fs.pathExists(wxmlPath)).toBe(true);
+      const wxmlContent = await fs.readFile(wxmlPath, 'utf-8');
+      expect(wxmlContent).toContain('class="tab-bar"');
+      expect(wxmlContent).toContain('class="tab-item"');
+
+      // Verify JS is compiled as Component
+      const jsPath = path.join(distDir, 'custom-tab-bar', 'index.js');
+      expect(await fs.pathExists(jsPath)).toBe(true);
+      const jsContent = await fs.readFile(jsPath, 'utf-8');
+      expect(jsContent).toContain('Component(');
+      expect(jsContent).not.toContain('Page(');
+      // Style import should be removed from JS (injected into wxss)
+      expect(jsContent).not.toContain("import './index.less'");
+      expect(jsContent).not.toContain("require('./index.less')");
+    });
   });
 
   describe('prependWxsTags', () => {

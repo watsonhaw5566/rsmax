@@ -1065,14 +1065,14 @@ src/
 **custom-tab-bar/index.jsx：**
 
 ```jsx
-import { useState, useEffect } from '@rsmax/runtime';
+import { useState } from '@rsmax/runtime';
 
 export default function CustomTabBar() {
   const [selected, setSelected] = useState(0);
 
   const tabs = [
-    { pagePath: '/pages/index/index', text: '首页', icon: '🏠' },
-    { pagePath: '/pages/my/index', text: '我的', icon: '👤' }
+    { pagePath: '/pages/index/index', text: '首页', icon: '/images/tab-home.png', selectedIcon: '/images/tab-home-active.png' },
+    { pagePath: '/pages/my/index', text: '我的', icon: '/images/tab-my.png', selectedIcon: '/images/tab-my-active.png' }
   ];
 
   function switchTab(e) {
@@ -1091,10 +1091,45 @@ export default function CustomTabBar() {
           data-index={index}
           onClick={switchTab}
         >
-          <text className="icon">{tab.icon}</text>
+          <image
+            className="icon"
+            src={selected === index ? tab.selectedIcon : tab.icon}
+          />
           <text className="text">{tab.text}</text>
         </view>
       ))}
+    </view>
+  );
+}
+```
+
+图标文件放置在 `public/` 目录下（与 `src/` 同级），会被自动复制到小程序根目录：
+
+```
+project/
+├── public/
+│   └── images/
+│       ├── tab-home.png          ← 首页图标（未选中）
+│       ├── tab-home-active.png   ← 首页图标（选中）
+│       ├── tab-my.png
+│       └── tab-my-active.png
+├── src/
+│   ├── custom-tab-bar/
+│   │   ├── index.jsx    ← TabBar 组件
+│   │   └── index.less   ← 样式（支持 .wxss/.css/.less/.scss/.sass）
+│   └── pages/
+└── app.json
+```
+
+样式文件与 JSX 同名会被自动编译/复制（如 `index.less` → `index.wxss`），也可以在 JSX 中通过 `import './index.less'` 显式导入。支持 CSS Modules（`.module.less` 等）：
+
+```jsx
+import styles from './index.module.less';
+
+export default function CustomTabBar() {
+  return (
+    <view className={styles.tabBar}>
+      <view className={styles.tabItem}>首页</view>
     </view>
   );
 }
@@ -1106,6 +1141,7 @@ export default function CustomTabBar() {
 > 3. TabBar 组件使用 `Component` 构造器（非 `Page`），支持 `useState`、`useEffect` 等 hooks。
 > 4. 切换 Tab 需使用 `wx.switchTab()`，不能使用 `wx.navigateTo()`。
 > 5. TabBar 的选中状态需要在各页面 `onShow` 中通过 `getTabBar()` 主动更新，具体参考微信官方文档。
+> 6. 在 JSX 中引用静态资源图片时，使用以 `/` 开头的绝对路径（如 `/images/tab-home.png`），该路径相对于小程序根目录解析，可正确访问 `public/` 目录下的资源。`public/images/tab-home.png` 编译后位于 `dist/images/tab-home.png`，因此 `/images/tab-home.png` 能正确加载。
 
 ### 事件绑定
 
