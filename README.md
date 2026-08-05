@@ -1594,6 +1594,229 @@ export default {
 };
 ```
 
+## 渐进式迁移指南
+
+rsmax-jsx 被设计为**天然支持渐进式使用**，你不需要一次性将整个原生小程序项目全部重写。原生小程序文件（`.wxml`/`.wxss`/原生 `.js`）和 rsmax-jsx 文件（`.jsx`/带 `export default` 的 `.js`）可以完美共存于同一个项目中，编译器会根据文件类型和内容自动选择合适的处理方式。
+
+### 核心判断逻辑
+
+编译器的文件处理规则非常简单：
+
+| 文件类型 | 处理方式 | 说明 |
+|---------|---------|------|
+| `.jsx` | **编译为小程序页面/组件** | 总是走 rsmax 编译流程，生成对应的 `.js`/`.wxml`/`.wxss` |
+| `.js` + 有 `export default` | **编译为小程序页面/组件** | 按 Page/Component 处理，支持 render 方法或函数式组件 |
+| `.js` + 无 `export default` | **直接复制 / 转换为 CommonJS** | 普通工具库原样保留，ES6 import/export 转 require/module.exports |
+| `.wxml` `.wxss` `.wxs` `.json` | **直接复制** | 原生文件原样输出到 dist |
+| 图片、字体等静态资源 | **直接复制** | 原样保留 |
+| `public/` 目录文件 | **复制到 dist 根目录** | 保持原目录结构 |
+
+---
+
+### 方案一：按页面迁移（最推荐）
+
+从最简单的页面开始，逐个将原生页面迁移到 JSX，其他页面保持原生不动。
+
+**迁移前（原生）**：
+```
+src/pages/legacy/
+├── index.js        ← Page({...})
+├── index.wxml      ← WXML 模板
+├── index.wxss
+└── index.json
+```
+
+**迁移步骤**：
+1. 删除 `index.wxml`
+2. 将 `index.js` 重命名为 `index.jsx`（或保持 `.js` 后缀，改用 `export default`）
+3. 用 JSX 的 `render()` 方法（或函数式组件）重写模板，逻辑代码大部分可复用
+
+**迁移后（JSX）**：
+```jsx
+// src/pages/legacy/index.jsx
+export default {
+  data: {
+    list: []
+  },
+  onLoad() {
+    // 原有逻辑代码基本不动
+  },
+  // 用 render() + JSX 替代原来的 index.wxml
+  render() {
+    return (
+      <view class="list">
+        {this.data.list.map(item => (
+          <view key={item.id} class="item">{item.title}</view>
+        ))}
+      </view>
+    );
+  }
+};
+```
+
+**`app.json` 中的页面路径无需修改**，编译器仍会输出 `pages/legacy/index.js` 和对应的 `.wxml`。
+
+---
+
+### 方案二：按组件迁移
+
+先迁移小组件，积累经验后再迁移页面。JSX 编译后的组件与原生小程序组件**完全兼容**，可以被原生页面正常引用。
+
+```
+src/components/
+├── old-card/           ← 保持原生组件
+│   ├── index.js        (Component({...}))
+│   ├── index.wxml
+│   └── index.wxss
+└── new-button/         ← 新组件用 JSX
+    └── index.jsx
+```
+
+**在原生页面中使用 JSX 编译的组件**（和引用原生组件一模一样）：
+
+```json
+// pages/index/index.json
+{
+  "usingComponents": {
+    "new-button": "/components/new-button/index"
+  }
+}
+```
+
+```xml
+<!-- pages/index/index.wxml -->
+<new-button type="primary" bind:click="handleClick">点击</new-button>
+```
+
+同样，**JSX 页面中也可以直接使用原生组件**，无需做任何特殊处理。
+
+---
+
+### 方案三：先用 Options API，再切 Hooks
+
+如果团队暂时对函数式组件 + Hooks 的风格不熟悉，可以先用接近原生小程序的 Options API 写法过渡，之后再逐步重构为 Hooks 风格。
+
+**阶段 1：Options API（和原生小程序几乎一样）**：
+```jsx
+export default {
+  data: { count: 0 },
+  onShow() {
+    console.log('page show');
+  },
+  increment() {
+    this.setData({ count: this.data.count + 1 });
+  },
+  render() {
+    return (
+      <view>
+        <text>{this.data.count}</text>
+        <button onClick={this.increment}>+1</button>
+      </view>
+    );
+  }
+};
+```
+
+**阶段 2：函数式组件 + Hooks**（待团队熟悉后再改）：
+```jsx
+import { useState, usePageEvent } from '@rsmax/runtime';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  usePageEvent('onShow', () => {
+    console.log('page show');
+  });
+
+  const increment = () => setCount(count + 1);
+
+  return (
+    <view>
+      <text>{count}</text>
+      <button onClick={increment}>+1</button>
+    </view>
+  );
+}
+```
+
+两种写法的编译输出是等价的，可以在项目中长期共存。
+
+---
+
+### 方案四：按分包迁移
+
+如果项目使用了小程序分包机制，可以选择将**新增功能的分包全部用 JSX 编写**，已有分包保持原生不动。
+
+```json
+// app.json
+{
+  "pages": [
+    "pages/home/index",      // 主包页面：保持原生
+    "pages/my/index"         // 主包页面：保持原生
+  ],
+  "subPackages": [
+    {
+      "root": "legacyPackage",
+      "pages": [...]          // 旧分包：保持原生
+    },
+    {
+      "root": "newPackage",
+      "pages": [...]          // ✅ 新分包：全部用 JSX
+    }
+  ]
+}
+```
+
+分包内的页面和组件写法与主包完全一致，编译器会自动处理运行时的相对路径引用和独立分包的运行时拷贝。
+
+---
+
+### 迁移过程中的互通性
+
+在迁移过程中，两种写法之间的**互操作是完全无缝**的：
+
+- ✅ 原生页面 → 引用 JSX 编译的自定义组件
+- ✅ JSX 页面 → 引用原生自定义组件（在 `.json` 中声明即可，或直接在 JSX 中使用已知前缀的 UI 库）
+- ✅ 原生页面的样式文件（`.wxss` / `.less` / `.scss`）无需修改，直接被编译器识别
+- ✅ 工具函数、Store 等 JS 模块可以在两种页面中完全共享
+- ✅ `app.js`、`app.json`、`app.wxss` 完全兼容原生写法
+
+---
+
+### 迁移注意事项
+
+1. **同一页面二选一**：单个页面要么用「`index.js` + `index.wxml` 原生组合」，要么用「`index.jsx`」。不要在页面目录下同时存在 `.wxml` 和对应同名的 `.jsx`（后者会生成自己的 `.wxml`，发生覆盖）。
+
+2. **样式文件可先复用**：页面级样式文件（如 `index.wxss`、`index.less`）在迁移后**无需修改文件名**，编译器会自动识别同名样式文件并编译/复制为 `index.wxss`。
+
+3. **`miniprogram_npm` 自动保护**：构建过程中不会清空 `dist/miniprogram_npm`，已有的第三方原生小程序 npm 包可正常使用。
+
+4. **`app.json` 路径不变**：无论页面是原生还是 JSX，`app.json` 中 `pages` 和 `subPackages` 里的路径写法完全一样（都写 `pages/xxx/index`，不带扩展名）。
+
+5. **原生 `.wxs` 直接复制**：如果你的 WXML 里用到了 WXS 文件，迁移后在 JSX 中可以改用 `import tools from './tools.wxs'` 的方式引用（编译器会自动注入 `<wxs>` 标签），也可以先不迁移 WXML，保留原生写法。
+
+---
+
+### 推荐迁移路径
+
+对于中大型原生小程序项目，推荐按以下顺序逐步迁移，风险最低：
+
+```
+① 工具函数/常量 → 无改动，直接复用
+    ↓
+② 新增公共组件 → 全部用 JSX 编写
+    ↓
+③ 样式文件 → 无需改动，直接复用
+    ↓
+④ 简单列表页面 → 先从纯展示页面练手
+    ↓
+⑤ 复杂表单页面 → 熟悉后迁移交互复杂的页面
+    ↓
+⑥ 页面主入口 → 最后迁移首页等核心页面
+```
+
+每个阶段都可以独立验证，发现问题随时回退（将 `.jsx` 改回 `.js` + `.wxml` 即可）。
+
 ## 注意事项
 
 1. **构建 npm**：首次使用第三方 npm 包或 UI 库后，需在微信开发者工具中执行「工具 → 构建 npm」。后续 rsmax build/dev 会自动保留 `miniprogram_npm`，无需重复构建。
