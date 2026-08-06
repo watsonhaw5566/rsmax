@@ -11,11 +11,12 @@ const cli = cac('rsmax');
 cli
   .command('build <source>', 'Build the mini program project')
   .option('-o, --output <output>', 'Output directory', { default: 'dist' })
+  .option('-m, --mode <mode>', 'Environment mode (development/production/...)', { default: 'production' })
   .action(async (source, options) => {
     const sourceDir = path.resolve(process.cwd(), source);
     const outputDir = path.resolve(process.cwd(), options.output);
     try {
-      await compile(sourceDir, outputDir);
+      await compile(sourceDir, outputDir, { mode: options.mode });
     } catch (err) {
       logger.error('Build failed:', err);
       process.exit(1);
@@ -25,11 +26,12 @@ cli
 cli
   .command('dev <source>', 'Development mode with watch')
   .option('-o, --output <output>', 'Output directory', { default: 'dist' })
+  .option('-m, --mode <mode>', 'Environment mode (development/production/...)', { default: 'development' })
   .action(async (source, options) => {
     const sourceDir = path.resolve(process.cwd(), source);
     const outputDir = path.resolve(process.cwd(), options.output);
     try {
-      await watch(sourceDir, outputDir);
+      await watch(sourceDir, outputDir, { mode: options.mode });
     } catch (err) {
       logger.error('Dev server error:', err);
       process.exit(1);

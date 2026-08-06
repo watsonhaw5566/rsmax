@@ -8,6 +8,7 @@
 - **Hooks API** — `useState`、`useEffect`、`useContext`、`usePageEvent`、`useAppEvent` 等 React 风格 Hooks
 - **API Promise 化** — 内置 `promisify` 工具函数，将小程序回调 API 转换为 Promise，支持 async/await
 - **两种编程范式** — 支持函数式组件（Hooks）和 Options API（传统小程序 Page/Component 配置）
+- **环境变量注入（编译时替换）** — 零依赖、无运行时开销；支持 `.env` 文件、系统 `RSMAX_*` 环境变量、`rsmax.config.js` 的 `define` 三层来源，`process.env.XXX` 编译时替换为字面量
 - **CSS Modules** — `.module.less` / `.module.css` / `.module.scss` 自动局部作用域，class 名自动 hash
 - **样式预处理** — 内置 Less/Sass 支持，px 自动转 rpx（1px → 1rpx，按 750rpx 设计稿）
 - **第三方 UI 库** — 自动识别并注册 Vant Weapp、TDesign MiniProgram、Ant Design Mini 组件
@@ -88,25 +89,47 @@ your-project/
 ### build — 构建项目
 
 ```bash
-rsmax build <source> -o <output>
+rsmax build <source> -o <output> [-m, --mode <mode>]
 ```
 
 将源码编译输出到 dist 目录。编译前会清空输出目录，但保留 `miniprogram_npm`。
 
+**选项：**
+
+| 参数 | 别名 | 说明 | 默认值 |
+|------|------|------|--------|
+| `-o, --output <output>` | - | 输出目录 | `dist` |
+| `-m, --mode <mode>` | - | 环境模式（development/production/test 等任意自定义），决定加载的 `.env.<mode>` 文件和注入的 `process.env.NODE_ENV/MODE` 值 | `production` |
+
 ```bash
+# 生产环境构建（默认）
 rsmax build src -o dist
+
+# 预发环境构建
+rsmax build src -o dist -m staging
 ```
 
 ### dev — 开发模式（监听）
 
 ```bash
-rsmax dev <source> -o <output>
+rsmax dev <source> -o <output> [-m, --mode <mode>]
 ```
 
 监听源文件变化，增量编译。
 
+**选项：**
+
+| 参数 | 别名 | 说明 | 默认值 |
+|------|------|------|--------|
+| `-o, --output <output>` | - | 输出目录 | `dist` |
+| `-m, --mode <mode>` | - | 环境模式，决定加载的 `.env.<mode>` 文件 | `development` |
+
 ```bash
+# 开发模式（默认 mode=development）
 rsmax dev src -o dist
+
+# 开发模式 + 使用预发环境接口
+rsmax dev src -o dist --mode staging
 ```
 
 ### clean — 清理输出目录
@@ -268,6 +291,223 @@ export default function Detail() {
 | 普通分包页面 | 主包根目录（共享） | `../../../../rsmax-runtime.js`（从分包页面回溯到主包） |
 | 独立分包页面 | 分包根目录（独立拷贝） | `../../rsmax-runtime.js`（回溯到分包根） |
 | 分包内组件 | 与同包页面一致 | 根据所在包自动计算 |
+
+## 环境变量注入（编译时 Define 替换）
+
+Rsmax 提供**零依赖、无运行时开销**的轻量级变量注入方案。所有 `process.env.XXX` 在**编译阶段被静态替换为字面量**，小程序运行时无需加载 Dotenv 等任何库，打包体积和运行时性能均零损耗。
+
+> 设计原则：编译时静态替换（类似 Vite 的 `import.meta.env` / Webpack 的 `DefinePlugin`），不是运行时读取。
+
+### 三层变量来源（优先级从低到高）
+
+```
+优先级 1（最低）   .env 文件（4 种类型，按加载顺序依次覆盖）
+   │
+优先级 2           系统环境变量（RSMAX_ 前缀 + 白名单 NODE_ENV/ENV/MODE）
+   │
+优先级 3（最高）   rsmax.config.js 中的 define 配置
+```
+
+> **注意**：CLI 的 `--mode` 参数会强制注入 `process.env.NODE_ENV` 和 `process.env.MODE`，优先级高于 `.env` 文件和系统环境变量，但低于 `define` 配置（即 `define` 可以覆盖一切）。
+
+### 第一层：.env 文件（4 种，支持覆盖链）
+
+在项目根目录（与 `rsmax.config.js` 同级）创建 `.env` 系列文件，支持 4 种加载类型（后者覆盖前者）：
+
+| 文件名 | 说明 | 何时加载 |
+|--------|------|----------|
+| `.env` | **默认**配置，所有环境都会加载 | 始终加载 |
+| `.env.local` | **本地个人**覆盖，不应提交到 git | 始终加载（优先级高于 `.env`） |
+| `.env.<mode>` | **指定环境**的配置（如 `.env.production`） | 当 `--mode <mode>` 匹配时加载 |
+| `.env.<mode>.local` | **指定环境的本地个人**覆盖 | 当 `--mode <mode>` 匹配时加载（优先级最高） |
+
+`.env` 文件语法兼容 Dotenv 主流用法：
+
+```dotenv
+# 简单键值对
+API_BASE=https://api.example.com
+APP_NAME=我的小程序
+
+# 支持引号包裹（单/双引号都可以），包含空格或特殊字符时推荐
+MOTTO="Hello World"
+SECRET_KEY='abc123'
+
+# 支持 export 前缀（可与 shell source 命令兼容）
+export DEBUG=true
+
+# 支持 ${VAR} 和 $VAR 引用同一文件中前面的变量
+HOST=localhost
+PORT=8080
+BASE_URL=http://${HOST}:${PORT}
+FULL_URL=$BASE_URL/api
+
+# 井号开头的行为注释（注释不能出现在行首以外除非前面有空格）
+APP_TITLE=测试应用 # 这是行尾注释
+```
+
+示例项目结构：
+
+```
+your-project/
+├── .env                      # 公共默认
+├── .env.local                # 本地个人覆盖（建议加入 .gitignore）
+├── .env.development          # 开发环境
+├── .env.development.local    # 开发环境本地私钥
+├── .env.production           # 生产环境
+├── .env.staging              # 预发环境
+├── src/
+└── rsmax.config.js
+```
+
+### 第二层：系统环境变量
+
+系统环境变量在编译时从 `process.env` 读取，**仅以下两类会被注入**（避免将无关的系统变量意外注入到小程序包）：
+
+1. **`RSMAX_` 前缀** — 所有以 `RSMAX_` 开头的变量名会被原样注入（包含前缀）：
+   ```bash
+   # 例：CI/CD 脚本中设置
+   RSMAX_DEPLOY_VERSION=$(git rev-parse --short HEAD)
+   RSMAX_UPLOAD_TOKEN=xxxxxxxxxxxx
+   ```
+   代码中直接使用 `process.env.RSMAX_DEPLOY_VERSION`、`process.env.RSMAX_UPLOAD_TOKEN`。
+
+2. **白名单** — `NODE_ENV`、`ENV`、`MODE` 三个常用变量（不带前缀也可注入）。
+
+> 提示：为避免命名冲突和安全泄漏，推荐始终使用 `RSMAX_` 前缀（除 `NODE_ENV/MODE` 外）。
+
+### 第三层（最高优先级）：rsmax.config.js 的 define 配置
+
+在项目根目录 `rsmax.config.js` 中通过 `define` 字段注入（或覆盖）任意变量：
+
+```js
+// rsmax.config.js
+module.exports = {
+  // 组件映射等其他配置...
+  components: { /* ... */ },
+
+  // 编译时 Define 变量（优先级最高，可覆盖 .env 和系统环境变量）
+  define: {
+    // 支持 string / number / boolean / null / undefined / 可 JSON 序列化的对象数组
+    API_BASE: 'https://api.rsmax.dev',
+    TIMEOUT: 10000,
+    DEBUG: true,
+    ENABLE_MOCK: process.env.CI ? false : true,
+    FEATURE_FLAGS: {
+      enableNewUserGuide: true,
+      enableDarkMode: false
+    },
+    // 你甚至可以强制覆盖 NODE_ENV（极少需要）
+    // NODE_ENV: 'production'
+  }
+};
+```
+
+### 在代码中使用（process.env.XXX）
+
+#### 1. 点访问 / 方括号访问（推荐）
+
+```jsx
+// pages/index/index.jsx
+import { useEffect, useState } from '@rsmax/runtime';
+
+export default function Home() {
+  const [userList, setUserList] = useState([]);
+
+  useEffect(async () => {
+    // 编译时替换为字面量：https://api.example.com/users
+    const resp = await wx.request({
+      url: process.env.API_BASE + '/users',
+      timeout: process.env.TIMEOUT
+    });
+    setUserList(resp.data);
+  }, []);
+
+  return (
+    <view>
+      <text>当前环境：{process.env.NODE_ENV}</text>
+      {process.env.DEBUG && <text class="tag-dev">调试模式</text>}
+    </view>
+  );
+}
+```
+
+#### 2. 解构赋值
+
+```jsx
+const { API_BASE, DEBUG, TIMEOUT } = process.env;
+
+// 解构后 API_BASE / DEBUG / TIMEOUT 都是已替换的字面量常量
+console.log(API_BASE, DEBUG, TIMEOUT);
+```
+
+#### 3. 内置的 NODE_ENV / MODE
+
+无论是否配置，`process.env.NODE_ENV` 和 `process.env.MODE` 始终可用：
+- 默认值（未指定时）：`dev` 命令为 `development`，`build` 命令为 `production`
+- 运行 `rsmax dev src -m staging` 时，两者都是 `'staging'`
+- 可用于常见的「环境判断」代码：
+  ```jsx
+  if (process.env.NODE_ENV === 'production') {
+    // 生产环境才启用的统计上报
+    wx.reportMonitor('perf_page_load', duration);
+  }
+  ```
+
+### 常用场景示例
+
+**场景：开发/生产接口地址切换**
+
+```dotenv
+# .env.development（开发环境）
+API_BASE=https://dev-api.example.com
+DEBUG=true
+MOCK_ENABLED=true
+```
+
+```dotenv
+# .env.production（生产环境）
+API_BASE=https://api.example.com
+DEBUG=false
+MOCK_ENABLED=false
+```
+
+```bash
+# 开发模式 → 自动加载 .env + .env.development + 对应 local 文件
+rsmax dev src -o dist
+
+# 生产构建 → 自动加载 .env + .env.production + 对应 local 文件
+rsmax build src -o dist
+```
+
+**场景：CI/CD 中注入版本号**
+
+```bash
+# Jenkins / GitHub Actions 等流水线脚本
+export RSMAX_BUILD_VERSION="v$(cat package.json | grep version | head -1 | awk -F: '{print $2}' | sed 's/[\",]//g' | tr -d '[[:space:]]')-$(git rev-parse --short HEAD)"
+rsmax build src -o dist -m production
+```
+
+代码中直接读取：
+```jsx
+console.log('构建版本：', process.env.RSMAX_BUILD_VERSION);
+// 输出类似：构建版本：v1.2.3-a1b2c3d
+```
+
+### 注意事项
+
+1. **纯编译时替换，不支持动态拼接键名**：
+   ```jsx
+   // ✅ 正确：静态确定的键名
+   const url = process.env.API_BASE;
+
+   // ❌ 错误：运行时才知道访问哪个键（无法静态分析，不会被替换）
+   const key = 'API_BASE';
+   const url = process.env[key]; // 该表达式不会被替换，会报错
+   ```
+
+2. **对象/数组字面量会以 `JSON.parse(...)` 形式注入**，性能开销可忽略；如需更轻量可先在 `define` 中扁平化为多个标量。
+
+3. **不要在代码中注入密码、私钥等超高敏感信息**：编译后的值是**明文**写在产物 JS 文件中的（与所有同类方案一致），任何用户都可以反编译看到。建议仅注入非敏感的配置（接口域名、功能开关、版本号等）。
 
 ## Hooks API
 
