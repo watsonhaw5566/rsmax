@@ -1,6 +1,94 @@
 const t = require('@babel/types');
 const babel = require('@babel/core');
 
+/**
+ * 编译时替换：将 process.env.VAR / process.env['VAR'] 替换为字面量
+ * 支持的 define 值类型：string / number / boolean / null / undefined / 可 JSON 序列化的对象
+ */
+function buildDefineLiteral(value) {
+  if (value === undefined) return t.identifier('undefined');
+  if (value === null) return t.nullLiteral();
+  if (typeof value === 'boolean') return t.booleanLiteral(value);
+  if (typeof value === 'number') return t.numericLiteral(value);
+  if (typeof value === 'string') return t.stringLiteral(value);
+  // 对象/数组：通过 JSON.parse 在运行时反序列化，避免 babel 构造复杂 AST
+  try {
+    const json = JSON.stringify(value);
+    return t.callExpression(
+      t.memberExpression(t.identifier('JSON'), t.identifier('parse')),
+      [t.stringLiteral(json)]
+    );
+  } catch (e) {
+    return t.identifier('undefined');
+  }
+}
+
+/**
+ * 创建 define visitor：遍历 AST，将 process.env.XXX / process.env['XXX'] 替换为字面量
+ */
+function createDefineVisitor(defineObj) {
+  if (!defineObj || Object.keys(defineObj).length === 0) return {};
+
+  return {
+    MemberExpression(nodePath) {
+      const node = nodePath.node;
+      // 匹配 process.env
+      const isProcessEnv =
+        t.isIdentifier(node.object) &&
+        node.object.name === 'process' &&
+        t.isIdentifier(node.property) &&
+        node.property.name === 'env' &&
+        node.computed === false;
+
+      if (!isProcessEnv) return;
+
+      // 如果父节点也是 MemberExpression（即 process.env.KEY），则替换父节点
+      const parent = nodePath.parent;
+      if (t.isMemberExpression(parent) && parent.object === node) {
+        let key = null;
+        if (t.isIdentifier(parent.property) && !parent.computed) {
+          key = parent.property.name;
+        } else if (t.isStringLiteral(parent.property)) {
+          key = parent.property.value;
+        }
+        if (key && Object.prototype.hasOwnProperty.call(defineObj, key)) {
+          nodePath.parentPath.replaceWith(buildDefineLiteral(defineObj[key]));
+          nodePath.parentPath.skip();
+          return;
+        }
+      }
+
+      // 直接访问 process.env 整体：构造成一个对象字面量（避免 process is not defined）
+      const props = Object.entries(defineObj).map(([k, v]) =>
+        t.objectProperty(
+          t.isValidIdentifier(k) ? t.identifier(k) : t.stringLiteral(k),
+          buildDefineLiteral(v)
+        )
+      );
+      nodePath.replaceWith(t.objectExpression(props));
+      nodePath.skip();
+    },
+    // 兜底：匹配 const { API_BASE } = process.env 的解构场景
+    VariableDeclarator(nodePath) {
+      const init = nodePath.node.init;
+      if (!init) return;
+      const isProcessEnv =
+        t.isMemberExpression(init) &&
+        t.isIdentifier(init.object) && init.object.name === 'process' &&
+        t.isIdentifier(init.property) && init.property.name === 'env' &&
+        !init.computed;
+      if (!isProcessEnv) return;
+      const props = Object.entries(defineObj).map(([k, v]) =>
+        t.objectProperty(
+          t.isValidIdentifier(k) ? t.identifier(k) : t.stringLiteral(k),
+          buildDefineLiteral(v)
+        )
+      );
+      nodePath.node.init = t.objectExpression(props);
+    }
+  };
+}
+
 const ALL_HOOKS = [
   'useState', 'useEffect', 'useContext', 'useQuery', 'useStore',
   'usePageEvent', 'useComponentEvent', 'useAppEvent', 'createContext'
@@ -158,6 +246,13 @@ module.exports = function() {
           state.usesStoreMiddleware = false;
           state.usesI18n = false;
           state.runtimeId = null;
+
+          // 先跑一轮 define 替换（在其他 visitor 执行之前）
+          const defineVars = (state.opts && state.opts.define) || {};
+          if (Object.keys(defineVars).length > 0) {
+            const visitor = createDefineVisitor(defineVars);
+            path.traverse(visitor, state);
+          }
         }
       },
 
@@ -789,10 +884,11 @@ module.exports.transformJS = function(ast, code, options = {}) {
     runtimePath = './rsmax-runtime.js',
     storePath,
     storeMiddlewarePath,
-    i18nPath
+    i18nPath,
+    define
   } = options;
   const result = babel.transformFromAstSync(ast, code, {
-    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath, i18nPath }]],
+    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define }]],
     configFile: false,
     babelrc: false,
     generatorOpts: { retainLines: false, compact: false, quotes: 'single' }
@@ -972,10 +1068,20 @@ module.exports.transformModule = function(ast, code, options = {}) {
   const {
     storePath,
     storeMiddlewarePath,
-    i18nPath
+    i18nPath,
+    define
   } = options;
+  // 先用 define 替换，再做 ESM->CJS
+  const plugins = [];
+  if (define && Object.keys(define).length > 0) {
+    plugins.push([{
+      name: 'babel-plugin-transform-define-inline',
+      visitor: createDefineVisitor(define)
+    }]);
+  }
+  plugins.push([esmToCjsPlugin, { storePath, storeMiddlewarePath, i18nPath }]);
   const result = babel.transformFromAstSync(ast, code, {
-    plugins: [[esmToCjsPlugin, { storePath, storeMiddlewarePath, i18nPath }]],
+    plugins,
     configFile: false,
     babelrc: false,
     generatorOpts: { retainLines: false, compact: false, quotes: 'single' }
