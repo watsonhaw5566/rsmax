@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build:
+  node-ci:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -29,6 +29,5 @@ jobs:
       - name: install, build, and test
         run: |
           pnpm install --frozen-lockfile
-          npx update-browserslist-db@latest
-          pnpm build
+          pnpm lint
           pnpm test
