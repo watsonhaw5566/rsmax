@@ -112,6 +112,8 @@ export default function webBaseConfig(config: Config, builder: Builder) {
 
   if (typeof builder.options.configRspack === 'function') {
     builder.options.configRspack(context);
+  } else if (typeof builder.options.configWebpack === 'function') {
+    builder.options.configWebpack(context);
   }
   builder.api.configRspack(context);
 
