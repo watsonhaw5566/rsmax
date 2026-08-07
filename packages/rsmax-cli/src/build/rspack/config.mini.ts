@@ -230,6 +230,8 @@ export default function rspackConfig(builder: Builder): Configuration {
 
   if (typeof builder.options.configRspack === 'function') {
     builder.options.configRspack(context);
+  } else if (typeof builder.options.configWebpack === 'function') {
+    builder.options.configWebpack(context);
   }
   builder.api.configRspack(context);
 

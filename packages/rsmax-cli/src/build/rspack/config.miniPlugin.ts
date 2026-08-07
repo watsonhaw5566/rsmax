@@ -214,6 +214,9 @@ export default function rspackConfig(builder: Builder): Configuration {
   if (typeof builder.options.configRspack === 'function') {
     // @ts-ignore
     builder.options.configRspack(context);
+  } else if (typeof builder.options.configWebpack === 'function') {
+    // @ts-ignore
+    builder.options.configWebpack(context);
   }
   // @ts-ignore
   builder.api.configRspack(context);

@@ -29,6 +29,7 @@ export interface BuildOptions {
   compressTemplate?: boolean;
   UNSAFE_wechatTemplateDepth: number | { [key: string]: number };
   configRspack?: (params: { config: RspackChainConfig; rspack: unknown }) => void;
+  configWebpack?: (params: { config: RspackChainConfig; rspack: unknown }) => void;
   plugins: Plugin[];
   port?: number;
   watch?: boolean;
@@ -460,6 +461,11 @@ export interface Plugin {
    * 修改 rspack 配置
    */
   configRspack?: (params: { config: RspackChainConfig }) => void;
+
+  /**
+   * 修改 webpack 配置（兼容旧版插件，等价于 configRspack）
+   */
+  configWebpack?: (params: { config: RspackChainConfig }) => void;
 
   /**
    * 修改 babel 配置

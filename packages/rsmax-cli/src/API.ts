@@ -114,6 +114,8 @@ export default class API {
     this.plugins.forEach(plugin => {
       if (typeof plugin.configRspack === 'function') {
         plugin.configRspack(params);
+      } else if (typeof plugin.configWebpack === 'function') {
+        plugin.configWebpack(params);
       }
     });
   }
