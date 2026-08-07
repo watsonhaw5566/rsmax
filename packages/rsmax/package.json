@@ -30,12 +30,15 @@
     "prepack": "pnpm build"
   },
   "dependencies": {
+    "@rsmax/ali": "workspace:*",
     "@rsmax/cli": "workspace:*",
     "@rsmax/macro": "workspace:*",
     "@rsmax/one": "workspace:*",
     "@rsmax/runtime": "workspace:*",
+    "@rsmax/toutiao": "workspace:*",
     "@rsmax/types": "workspace:*",
-    "@rsmax/web": "workspace:*"
+    "@rsmax/web": "workspace:*",
+    "@rsmax/wechat": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

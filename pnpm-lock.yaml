@@ -79,7 +79,7 @@ importers:
     dependencies:
       '@rsmax/plugin-less':
         specifier: ^1.0.0
-        version: 1.0.1(@rspack/core@1.7.12(@swc/helpers@0.5.17))(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
+        version: 1.0.1(@rspack/core@1.7.12(@swc/helpers@0.5.17))(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       antd-mini:
         specifier: ^2.15.0
         version: 2.36.9
@@ -91,7 +91,7 @@ importers:
         version: 18.3.1
       rsmax:
         specifier: '*'
-        version: 1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
+        version: 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
     devDependencies:
       '@types/expect-puppeteer':
         specifier: ^4.4.0
@@ -125,7 +125,7 @@ importers:
         version: 16.14.0
       rsmax:
         specifier: '*'
-        version: 1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
+        version: 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
 
   packages/babel-plugin-rsmax-host-component:
     dependencies:
@@ -213,6 +213,9 @@ importers:
 
   packages/rsmax:
     dependencies:
+      '@rsmax/ali':
+        specifier: workspace:*
+        version: link:../rsmax-ali
       '@rsmax/cli':
         specifier: workspace:*
         version: link:../rsmax-cli
@@ -225,12 +228,18 @@ importers:
       '@rsmax/runtime':
         specifier: workspace:*
         version: link:../rsmax-runtime
+      '@rsmax/toutiao':
+        specifier: workspace:*
+        version: link:../rsmax-toutiao
       '@rsmax/types':
         specifier: workspace:*
         version: link:../rsmax-types
       '@rsmax/web':
         specifier: workspace:*
         version: link:../rsmax-web
+      '@rsmax/wechat':
+        specifier: workspace:*
+        version: link:../rsmax-wechat
 
   packages/rsmax-ali:
     dependencies:
@@ -295,7 +304,7 @@ importers:
         version: 7.27.1
       '@rsdoctor/cli':
         specifier: ^1.5.0
-        version: 1.5.13(@rsdoctor/client@1.5.13)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
+        version: 1.5.13(@rsdoctor/client@1.5.14)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       '@rsdoctor/rspack-plugin':
         specifier: ^1.5.0
         version: 1.5.14(@emnapi/core@1.5.0)(@emnapi/runtime@1.5.0)(@rsbuild/core@1.5.0(@emnapi/core@1.5.0)(@emnapi/runtime@1.5.0))(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
@@ -2000,28 +2009,24 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@nx/nx-linux-arm64-musl@19.8.14':
     resolution: {integrity: sha512-ltty/PDWqkYgu/6Ye65d7v5nh3D6e0n3SacoKRs2Vtfz5oHYRUkSKizKIhEVfRNuHn3d9j8ve1fdcCN4SDPUBQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@nx/nx-linux-x64-gnu@19.8.14':
     resolution: {integrity: sha512-JzE3BuO9RCBVdgai18CCze6KUzG0AozE0TtYFxRokfSC05NU3nUhd/o62UsOl7s6Bqt/9nwrW7JC8pNDiCi9OQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@nx/nx-linux-x64-musl@19.8.14':
     resolution: {integrity: sha512-2rPvDOQLb7Wd6YiU88FMBiLtYco0dVXF99IJBRGAWv+WTI7MNr47OyK2ze+JOsbYY1d8aOGUvckUvCCZvZKEfg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@nx/nx-win32-arm64-msvc@19.8.14':
     resolution: {integrity: sha512-JxW+YPS+EjhUsLw9C6wtk9pQTG3psyFwxhab8y/dgk2s4AOTLyIm0XxgcCJVvB6i4uv+s1g0QXRwp6+q3IR6hg==}
@@ -2119,37 +2124,31 @@ packages:
     resolution: {integrity: sha512-u2ndfeEUrW898eXM+qPxIN8TvTPjI90NDQBRgaxxkOfNw3xaotloeiZGz5+Yzlfxgvxr9DY9FdYkqhUhSnGhOw==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@oxc-resolver/binding-linux-arm64-musl@5.3.0':
     resolution: {integrity: sha512-TzbjmFkcnESGuVItQ2diKacX8vu5G0bH3BHmIlmY4OSRLyoAlrJFwGKAHmh6C9+Amfcjo2rx8vdm7swzmsGC6Q==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@oxc-resolver/binding-linux-riscv64-gnu@5.3.0':
     resolution: {integrity: sha512-NH3pjAqh8nuN29iRuRfTY42Vn03ctoR9VE8llfoUKUfhHUjFHYOXK5VSkhjj1usG8AeuesvqrQnLptCRQVTi/Q==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@oxc-resolver/binding-linux-s390x-gnu@5.3.0':
     resolution: {integrity: sha512-tuZtkK9sJYh2MC2uhol1M/8IMTB6ZQ5jmqP2+k5XNXnOb/im94Y5uV/u2lXwVyIuKHZZHtr+0d1HrOiNahoKpw==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@oxc-resolver/binding-linux-x64-gnu@5.3.0':
     resolution: {integrity: sha512-VzhPYmZCtoES/ThcPdGSmMop7JlwgqtSvlgtKCW15ByV2JKyl8kHAHnPSBfpIooXb0ehFnRdxFtL9qtAEWy01g==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@oxc-resolver/binding-linux-x64-musl@5.3.0':
     resolution: {integrity: sha512-Hi39cWzul24rGljN4Vf1lxjXzQdCrdxO5oCT7KJP4ndSlqIUODJnfnMAP1YhcnIRvNvk+5E6sZtnEmFUd/4d8Q==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@oxc-resolver/binding-wasm32-wasi@5.3.0':
     resolution: {integrity: sha512-ddujvHhP3chmHnSXRlkPVUeYj4/B7eLZwL4yUid+df3WCbVh6DgoT9RmllZn21AhxgKtMdekDdyVJYKFd8tl4A==}
@@ -2286,25 +2285,21 @@ packages:
     resolution: {integrity: sha512-S6yRUXaH0c+K4jFPSz2jOdqDx6IzFqp9J9QFv7IqtZSZCj0fszam1xKrWfaR5eBMeF/WhP3gJFxZMsHRjt6zvw==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rslint/native-linux-arm64-musl@0.6.2':
     resolution: {integrity: sha512-t32ryxYDsfqdiJyAm3QaPH2Tk6nwEgPvHTqBw6zQicPlWQdOI2vgFfNJSLFCiYnlPthRCu7zez6RTcrbEScn3w==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rslint/native-linux-x64-gnu@0.6.2':
     resolution: {integrity: sha512-7OERRKE+G11r8mkxFIYXeBQ1D782SN/NXYaOekBBnPT0S/Dd1LLK7gdBkUoyXbfLslKWgjAc5/ijfNIk4tFDhw==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rslint/native-linux-x64-musl@0.6.2':
     resolution: {integrity: sha512-fuz2ASX8jxm0OuOoM8CGK7GIqTPVG/w7VZG3bMqfPgdGFsElyCgbEud29uz0NwIxWitEVqIsyR+hfHN/AAOdsQ==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rslint/native-win32-arm64-msvc@0.6.2':
     resolution: {integrity: sha512-e2TFf7jMX7KzeMUj0FyaAiAs/EeQn2SFyYRWBXn0yGzo41y7lwuBC3JdPqfi08aNNyjWnDS5HtBt3B4Tm1Ursw==}
@@ -2417,73 +2412,61 @@ packages:
     resolution: {integrity: sha512-Bvmk8h3tRhN9UgOtH+vK0SgFM3qEO36eJz7oddOl4lJQxBf2GNA87bGtkMtX+AVPz/PUn7r82uWxrlVNQHAbFg==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-arm64-gnu@1.6.0-beta.1':
     resolution: {integrity: sha512-UyUoh5RXHTWCktqPVnqoc5rwlWyLkWqGu6ga+iyJHDxdxlrHFfwJnTSnCd4y8cRadf7CrmjHElxE61GU3WCYhw==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-arm64-gnu@1.7.12':
     resolution: {integrity: sha512-C8owWG+yvo7X0oVLIXetkoJhIFBP1LYNcAQqtgLmJnQLQDklGuP83dKC+zISGQWpjawHfZ1ER96vLgoTrxKZdw==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-arm64-musl@1.5.0':
     resolution: {integrity: sha512-bH7UwkbACDYT37YnN9kkhaF9niFFK9ndcdNvYFFr1oUT4W9Ie3V9b41EXijqp3pyh0mDSeeLPFY0aEx1t3e7Pw==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-linux-arm64-musl@1.6.0-beta.1':
     resolution: {integrity: sha512-JAXVKHQieN4Ruvs7MstvsPUtRBSAROqJ0abCh4rXdV+FzncKp/ZkdfjQploDhBWtWfU8rPvIjaxeZcPfHMI5/A==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-linux-arm64-musl@1.7.12':
     resolution: {integrity: sha512-i51WWI64aRpsfSki6rN0aepPqXkVfS+vZM7+4bWDcmnhUmdMvhIPcYg0QRk3DtyJnu33jqNLM0WHY78k00NyfA==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-linux-x64-gnu@1.5.0':
     resolution: {integrity: sha512-xZ5dwNrE5KtpQyMd9israpJTcTQ3UYUUq23fTcNc79xE5aspkGixDFAYoql4YkhO0O+JWRmdSaFAn6jD+IQWQA==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-x64-gnu@1.6.0-beta.1':
     resolution: {integrity: sha512-LqAos71CJS5/V4knX9T7T68oGz0XPRZ2IJmI3jEByRlNcyZdxYeQ7Dw09JO9Y5Xj0T+0cudOeL2MxHcD3gTF/w==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-x64-gnu@1.7.12':
     resolution: {integrity: sha512-MSos0FuPEefqo9V92ULd5hggKG29EkSNg1zDcypy0OkpsKh5pfjVxTLYFXgTcVyFoUQQbdG8zFBzYbwmJ8V4ew==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-x64-musl@1.5.0':
     resolution: {integrity: sha512-mv65jYvcyYPkPZJ9kjSvTAcH0o7C5jfICWCQcMmN1tCGD3b8gmf9GqSZ8e+W/JkuvrJ05qTo/PvEq9nhu+pNIg==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-linux-x64-musl@1.6.0-beta.1':
     resolution: {integrity: sha512-E4dRMzIHYaoYkgmDTFLrgnGtdspbAuVbLfaPF9AWW5YkQn52obGAgbbNb1wi1JJ5f29nTBoLauYCucEO5IGFvA==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-linux-x64-musl@1.7.12':
     resolution: {integrity: sha512-JcAMVKXOnjfpC3coWjCFPWD3Yl8RBw6a+IXQQ8mfRlHaHMIiOv8IfZqx15XRxMUn49CtP7Z0Na8iiAg2aKrcfw==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-wasm32-wasi@1.5.0':
     resolution: {integrity: sha512-8rVpl6xfaAFJgo1wCd+emksfl+/8nlehrtkmjY9bj79Ou+kp07L9e1B+UU0jfs8e7aLPntQuF68kzLHwYLzWIQ==}
@@ -2605,25 +2588,21 @@ packages:
     resolution: {integrity: sha512-wGvkxm2G4mNTztslaOzLzx5JuySQSy5DcOWEZxHcjJJzp5L3ODbYLK18HtUc6cvmaVOmjaGrrYPrqJJ0hHTVFg==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/resolver-binding-linux-arm64-musl@0.2.8':
     resolution: {integrity: sha512-EqRJ9zLQsLAvyDKJKVZ45BSqRIMS12f5HtJdy3KkAHU14ZmsGv8e5IKkwUZN5CNBRad8xVlOMMx3dOfF4whJzg==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/resolver-binding-linux-x64-gnu@0.2.8':
     resolution: {integrity: sha512-eXbeotNCTntL4/+mxJRVCxK63YeWzTfp0F3POeHJFSs6Nt0f2J/mZNFlasJmd6xm7zvE80h/HWOwbwjRBLcElA==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/resolver-binding-linux-x64-musl@0.2.8':
     resolution: {integrity: sha512-KWFHlOWGkT+eMngoUgPGXrDi+rU04VCh9jyk0U6Ot2RTWvhGxwKykjmLS+CWZI/EBrzr9A6g2U3jzKTMNz9oCw==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/resolver-binding-wasm32-wasi@0.2.8':
     resolution: {integrity: sha512-I6GIhgICFViE88jejIV74oiiWHnpLpQ5ogaZM1ozM9KDnfqcHoX0IVEyrIh5KqA8iLDyhuoFSW+Hf0qN7VTBBQ==}
@@ -2745,28 +2724,24 @@ packages:
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@swc/core-linux-arm64-musl@1.11.29':
     resolution: {integrity: sha512-PwjB10BC0N+Ce7RU/L23eYch6lXFHz7r3NFavIcwDNa/AAqywfxyxh13OeRy+P0cg7NDpWEETWspXeI4Ek8otw==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@swc/core-linux-x64-gnu@1.11.29':
     resolution: {integrity: sha512-i62vBVoPaVe9A3mc6gJG07n0/e7FVeAvdD9uzZTtGLiuIfVfIBta8EMquzvf+POLycSk79Z6lRhGPZPJPYiQaA==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@swc/core-linux-x64-musl@1.11.29':
     resolution: {integrity: sha512-YER0XU1xqFdK0hKkfSVX1YIyCvMDI7K07GIpefPvcfyNGs38AXKhb2byySDjbVxkdl4dycaxxhRyhQ2gKSlsFQ==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@swc/core-win32-arm64-msvc@1.11.29':
     resolution: {integrity: sha512-po+WHw+k9g6FAg5IJ+sMwtA/fIUL3zPQ4m/uJgONBATCVnDDkyW6dBA49uHNVtSEvjvhuD8DVWdFP847YTcITw==}
@@ -9202,9 +9177,9 @@ snapshots:
     optionalDependencies:
       '@rsbuild/core': 1.5.0(@emnapi/core@1.5.0)(@emnapi/runtime@1.5.0)
 
-  '@rsdoctor/cli@1.5.13(@rsdoctor/client@1.5.13)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))':
+  '@rsdoctor/cli@1.5.13(@rsdoctor/client@1.5.14)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))':
     dependencies:
-      '@rsdoctor/client': 1.5.13
+      '@rsdoctor/client': 1.5.14
       '@rsdoctor/graph': 1.5.13(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       '@rsdoctor/sdk': 1.5.13(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       '@rsdoctor/types': 1.5.13(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
@@ -9217,9 +9192,9 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/cli@1.5.13(@rsdoctor/client@1.5.13)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))':
+  '@rsdoctor/cli@1.5.13(@rsdoctor/client@1.5.14)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))':
     dependencies:
-      '@rsdoctor/client': 1.5.13
+      '@rsdoctor/client': 1.5.14
       '@rsdoctor/graph': 1.5.13(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       '@rsdoctor/sdk': 1.5.13(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       '@rsdoctor/types': 1.5.13(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
@@ -9683,18 +9658,18 @@ snapshots:
       - react
       - supports-color
 
-  '@rsmax/cli@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))':
+  '@rsmax/cli@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))':
     dependencies:
       '@babel/core': 7.27.1
       '@babel/helper-module-imports': 7.27.1
       '@babel/parser': 7.27.2
       '@babel/types': 7.27.1
-      '@rsdoctor/cli': 1.5.13(@rsdoctor/client@1.5.13)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
+      '@rsdoctor/cli': 1.5.13(@rsdoctor/client@1.5.14)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       '@rsdoctor/rspack-plugin': 1.5.14(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       '@rsmax/build-store': 1.3.13(react@16.14.0)
       '@rsmax/macro': 1.3.13(react@16.14.0)
       '@rsmax/plugin-devtools': 1.3.13(react@16.14.0)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
-      '@rsmax/plugin-error-screen': 1.3.13(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
+      '@rsmax/plugin-error-screen': 1.3.13(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
       '@rsmax/postcss-px2units': 0.2.1
       '@rsmax/postcss-tag': 1.3.13
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
@@ -9754,18 +9729,18 @@ snapshots:
       - webpack
       - webpack-cli
 
-  '@rsmax/cli@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))':
+  '@rsmax/cli@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))':
     dependencies:
       '@babel/core': 7.27.1
       '@babel/helper-module-imports': 7.27.1
       '@babel/parser': 7.27.2
       '@babel/types': 7.27.1
-      '@rsdoctor/cli': 1.5.13(@rsdoctor/client@1.5.13)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
+      '@rsdoctor/cli': 1.5.13(@rsdoctor/client@1.5.14)(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       '@rsdoctor/rspack-plugin': 1.5.14(@rspack/core@1.7.12(@swc/helpers@0.5.17))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       '@rsmax/build-store': 1.3.13(react@18.3.1)
       '@rsmax/macro': 1.3.13(react@18.3.1)
       '@rsmax/plugin-devtools': 1.3.13(react@18.3.1)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
-      '@rsmax/plugin-error-screen': 1.3.13(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
+      '@rsmax/plugin-error-screen': 1.3.13(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
       '@rsmax/postcss-px2units': 0.2.1
       '@rsmax/postcss-tag': 1.3.13
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -9843,11 +9818,11 @@ snapshots:
       - react
       - supports-color
 
-  '@rsmax/one@1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))':
+  '@rsmax/one@1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))':
     dependencies:
       '@rsmax/ali': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
       '@rsmax/framework-shared': 1.3.13
-      '@rsmax/redbox-react': 1.0.4(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
+      '@rsmax/redbox-react': 1.0.4(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
       '@rsmax/toutiao': 1.3.13(react@16.14.0)
       '@rsmax/web': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
@@ -9861,11 +9836,11 @@ snapshots:
       - rsmax
       - supports-color
 
-  '@rsmax/one@1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))':
+  '@rsmax/one@1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))':
     dependencies:
       '@rsmax/ali': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rsmax/framework-shared': 1.3.13
-      '@rsmax/redbox-react': 1.0.4(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
+      '@rsmax/redbox-react': 1.0.4(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rsmax/toutiao': 1.3.13(react@18.3.1)
       '@rsmax/web': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -9903,9 +9878,9 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@rsmax/plugin-error-screen@1.3.13(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))':
+  '@rsmax/plugin-error-screen@1.3.13(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))':
     dependencies:
-      '@rsmax/redbox-react': 1.0.4(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
+      '@rsmax/redbox-react': 1.0.4(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
       '@rsmax/shared': 1.3.13(react@16.14.0)
       rspack-plugin-virtual-module: 1.0.1
     transitivePeerDependencies:
@@ -9913,9 +9888,9 @@ snapshots:
       - rsmax
       - supports-color
 
-  '@rsmax/plugin-error-screen@1.3.13(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))':
+  '@rsmax/plugin-error-screen@1.3.13(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))':
     dependencies:
-      '@rsmax/redbox-react': 1.0.4(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
+      '@rsmax/redbox-react': 1.0.4(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
       '@rsmax/shared': 1.3.13(react@18.3.1)
       rspack-plugin-virtual-module: 1.0.1
     transitivePeerDependencies:
@@ -9923,11 +9898,11 @@ snapshots:
       - rsmax
       - supports-color
 
-  '@rsmax/plugin-less@1.0.1(@rspack/core@1.7.12(@swc/helpers@0.5.17))(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))':
+  '@rsmax/plugin-less@1.0.1(@rspack/core@1.7.12(@swc/helpers@0.5.17))(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))':
     dependencies:
       less: 4.3.0
       less-loader: 12.3.0(@rspack/core@1.7.12(@swc/helpers@0.5.17))(less@4.3.0)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
-      rsmax: 1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
+      rsmax: 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
     transitivePeerDependencies:
       - '@rspack/core'
       - webpack
@@ -9939,22 +9914,22 @@ snapshots:
 
   '@rsmax/postcss-tag@1.3.13': {}
 
-  '@rsmax/redbox-react@1.0.4(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))':
+  '@rsmax/redbox-react@1.0.4(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))':
     dependencies:
       error-stack-parser-es: 1.0.5
       object-assign: 4.1.1
       prop-types: 15.8.1
       react: 16.14.0
-      rsmax: 1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
+      rsmax: 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       sourcemapped-stacktrace: 1.1.11
 
-  '@rsmax/redbox-react@1.0.4(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))':
+  '@rsmax/redbox-react@1.0.4(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))':
     dependencies:
       error-stack-parser-es: 1.0.5
       object-assign: 4.1.1
       prop-types: 15.8.1
       react: 18.3.1
-      rsmax: 1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
+      rsmax: 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       sourcemapped-stacktrace: 1.1.11
 
   '@rsmax/runtime@1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)':
@@ -14732,12 +14707,12 @@ snapshots:
 
   rslog@2.1.3: {}
 
-  rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))):
+  rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))):
     dependencies:
       '@rsmax/ali': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
-      '@rsmax/cli': 1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
+      '@rsmax/cli': 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       '@rsmax/macro': 1.3.13(react@16.14.0)
-      '@rsmax/one': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
+      '@rsmax/one': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))))
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@16.14.0))(react@16.14.0)
       '@rsmax/toutiao': 1.3.13(react@16.14.0)
       '@rsmax/types': 1.3.13
@@ -14761,12 +14736,12 @@ snapshots:
       - webpack
       - webpack-cli
 
-  rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)):
+  rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)):
     dependencies:
       '@rsmax/ali': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rsmax/cli': 1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
+      '@rsmax/cli': 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15))
       '@rsmax/macro': 1.3.13(react@18.3.1)
-      '@rsmax/one': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.13)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
+      '@rsmax/one': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rsmax@1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@swc/types@0.1.27)(@types/express@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@4.9.5)(webpack@5.99.8(@swc/core@1.11.29(@swc/helpers@0.5.17))(postcss@8.5.15)))
       '@rsmax/runtime': 1.3.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rsmax/toutiao': 1.3.13(react@18.3.1)
       '@rsmax/types': 1.3.13
