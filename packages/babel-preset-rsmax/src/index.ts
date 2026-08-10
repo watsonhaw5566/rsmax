@@ -1,4 +1,6 @@
 import { declare } from '@babel/helper-plugin-utils';
+import hostComponent from './plugins/host-component';
+import * as lifecycle from './plugins/lifecycle';
 
 interface PresetOption {
   react?: boolean | { [key: string]: any };
@@ -34,3 +36,4 @@ function preset(api: any, presetOption: PresetOption) {
 }
 
 export default declare(preset);
+export { hostComponent, lifecycle };

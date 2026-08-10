@@ -124,67 +124,11 @@ importers:
         specifier: '*'
         version: 1.3.13(@rsdoctor/client@1.5.14)(@swc/helpers@0.5.17)(@types/express@4.17.21)(react-dom@18.3.1(react@16.14.0))(react@16.14.0)(typescript@4.9.5)(webpack@5.99.8)
 
-  packages/babel-plugin-rsmax-host-component:
-    dependencies:
-      '@babel/helper-plugin-utils':
-        specifier: ^7.10.4
-        version: 7.27.1
-      '@babel/traverse':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@babel/types':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@rsmax/ali':
-        specifier: workspace:*
-        version: link:../rsmax-ali
-      '@rsmax/build-store':
-        specifier: workspace:*
-        version: link:../rsmax-build-store
-      '@rsmax/macro':
-        specifier: workspace:*
-        version: link:../rsmax-macro
-      '@rsmax/shared':
-        specifier: workspace:*
-        version: link:../rsmax-shared
-      '@rsmax/types':
-        specifier: workspace:*
-        version: link:../rsmax-types
-      lodash:
-        specifier: ^4.17.11
-        version: 4.17.21
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@babel/plugin-syntax-jsx':
-        specifier: ^7.10.4
-        version: 7.27.1(@babel/core@7.27.1)
-
-  packages/babel-plugin-rsmax-lifecycle:
-    dependencies:
-      '@babel/helper-plugin-utils':
-        specifier: ^7.10.4
-        version: 7.27.1
-      '@babel/traverse':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@babel/types':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@rsmax/shared':
-        specifier: workspace:*
-        version: link:../rsmax-shared
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.11.0
-        version: 7.27.1
-      '@rsmax/build-store':
-        specifier: workspace:*
-        version: link:../rsmax-build-store
-
   packages/babel-preset-rsmax:
     dependencies:
+      '@babel/core':
+        specifier: ^7.11.0
+        version: 7.27.1
       '@babel/helper-plugin-utils':
         specifier: ^7.24.7
         version: 7.27.1
@@ -194,13 +138,24 @@ importers:
       '@babel/preset-react':
         specifier: ^7.24.7
         version: 7.27.1(@babel/core@7.27.1)
+      '@babel/traverse':
+        specifier: ^7.11.0
+        version: 7.27.1
+      '@babel/types':
+        specifier: ^7.11.0
+        version: 7.27.1
+      '@rsmax/build-store':
+        specifier: workspace:*
+        version: link:../rsmax-build-store
+      '@rsmax/shared':
+        specifier: workspace:*
+        version: link:../rsmax-shared
+      '@rsmax/types':
+        specifier: workspace:*
+        version: link:../rsmax-types
       lodash:
         specifier: ^4.17.15
         version: 4.17.21
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.7.4
-        version: 7.27.1
 
   packages/postcss-rsmax-tag:
     devDependencies:
@@ -290,12 +245,12 @@ importers:
       '@babel/core':
         specifier: ^7.7.4
         version: 7.27.1
-      '@babel/helper-module-imports':
-        specifier: ^7.7.4
-        version: 7.27.1
       '@babel/parser':
         specifier: ^7.7.4
         version: 7.27.2
+      '@babel/traverse':
+        specifier: ^7.7.4
+        version: 7.27.1
       '@babel/types':
         specifier: ^7.7.4
         version: 7.27.1
@@ -347,12 +302,6 @@ importers:
       babel-plugin-module-resolver:
         specifier: ^5.0.2
         version: 5.0.2
-      babel-plugin-rsmax-host-component:
-        specifier: workspace:*
-        version: link:../babel-plugin-rsmax-host-component
-      babel-plugin-rsmax-lifecycle:
-        specifier: workspace:*
-        version: link:../babel-plugin-rsmax-lifecycle
       babel-preset-rsmax:
         specifier: workspace:*
         version: link:../babel-preset-rsmax
@@ -420,9 +369,6 @@ importers:
         specifier: ^18.1.3
         version: 18.1.3
     devDependencies:
-      '@babel/traverse':
-        specifier: ^7.7.4
-        version: 7.27.1
       '@rsmax/ali':
         specifier: workspace:*
         version: link:../rsmax-ali
