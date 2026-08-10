@@ -27,6 +27,7 @@
   "dependencies": {
     "@babel/core": "^7.7.4",
     "@babel/parser": "^7.7.4",
+    "@babel/preset-typescript": "^7.24.7",
     "@babel/traverse": "^7.7.4",
     "@babel/types": "^7.7.4",
     "@rsdoctor/cli": "^1.5.0",
