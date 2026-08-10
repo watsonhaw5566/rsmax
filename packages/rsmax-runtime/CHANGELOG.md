@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/remaxjs/remax/compare/v1.4.0...v1.5.0) (2026-08-10)
+
+### Bug Fixes
+
+- **runtime:** React.forwardRef 类型定义 ([1e8c3dd](https://github.com/remaxjs/remax/commit/1e8c3dd2beb0dfce568fd8579e18d12d03bb3324))
+
 # [1.4.0](https://github.com/remaxjs/remax/compare/v1.3.14...v1.4.0) (2026-06-17)
 
 **Note:** Version bump only for package @rsmax/runtime

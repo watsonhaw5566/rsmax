@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/watsonhaw5566/rsmax/compare/v1.4.0...v1.5.0) (2026-08-10)
+
+### Bug Fixes
+
+- **cli:** 修复 configWebpack hook 的兼容 ([#140](https://github.com/watsonhaw5566/rsmax/issues/140)) ([53c5171](https://github.com/watsonhaw5566/rsmax/commit/53c5171ddb4b7cd212331e5de24af08cb46dff9e))
+
 # [1.4.0](https://github.com/watsonhaw5566/rsmax/compare/v1.3.14...v1.4.0) (2026-06-17)
 
 ### Bug Fixes

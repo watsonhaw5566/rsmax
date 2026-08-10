@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/remaxjs/remax/compare/v1.4.0...v1.5.0) (2026-08-10)
+
+### Bug Fixes
+
+- **cli:** 修复 configWebpack hook 的兼容 ([#140](https://github.com/remaxjs/remax/issues/140)) ([53c5171](https://github.com/remaxjs/remax/commit/53c5171ddb4b7cd212331e5de24af08cb46dff9e))
+
+### Features
+
+- **wechat:** 更新微信组件、API ([#94](https://github.com/remaxjs/remax/issues/94)) ([25f7d14](https://github.com/remaxjs/remax/commit/25f7d14f8ae931f003e3a1d8e9770e04a2d858b6))
+
 # [1.4.0](https://github.com/remaxjs/remax/compare/v1.3.14...v1.4.0) (2026-06-17)
 
 ### Bug Fixes
