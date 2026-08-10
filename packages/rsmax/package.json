@@ -26,8 +26,7 @@
   "scripts": {
     "prebuild": "rm -rf cjs esm",
     "build": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir cjs",
-    "prepack": "pnpm build"
+    "build:cjs": "tsc --module CommonJS --outDir cjs"
   },
   "dependencies": {
     "@rsmax/ali": "workspace:*",
