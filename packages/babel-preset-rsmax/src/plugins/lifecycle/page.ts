@@ -21,7 +21,6 @@ export default (options: Options) => {
       Store.pageEvents.delete(importer);
     },
     visitor: {
-      // 解析 class properties 编译后的代码
       StringLiteral: (path: NodePath<t.StringLiteral>, state: any) => {
         if (skip) {
           return;
@@ -30,7 +29,6 @@ export default (options: Options) => {
         const { node } = path;
         const importer = slash(state.file.opts.filename);
 
-        // 只要生命周期 Literal 存在就标记为用到了生命周期
         if (!lifecycleEvents.includes(node.value)) {
           return;
         }
@@ -45,7 +43,6 @@ export default (options: Options) => {
         const { node } = path;
         const importer = slash(state.file.opts.filename);
 
-        // 只要生命周期 Identifer 存在就标记为用到了生命周期
         if (!lifecycleEvents.includes(node.name)) {
           return;
         }

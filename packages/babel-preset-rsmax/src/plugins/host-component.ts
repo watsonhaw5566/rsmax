@@ -20,7 +20,6 @@ export default function hostComponent(options: Options) {
     api.assertVersion(7);
 
     function shouldRegisterProp(propName: string, isNative: boolean, hostComponent?: HostComponent) {
-      // key 属性
       if (propName === 'key') {
         return true;
       }
@@ -29,24 +28,20 @@ export default function hostComponent(options: Options) {
         return true;
       }
 
-      // 原生组件的属性都要注册
       if (isNative) {
         return true;
       }
 
-      // host component 上的标准属性
       if (hostComponent?.alias?.[propName]) {
         return true;
       }
 
       const prefix = `${options.target}-`;
 
-      // 平台特定属性
       if (propName.startsWith(prefix)) {
         return true;
       }
 
-      // data 属性
       if (propName.startsWith('data-')) {
         return true;
       }
@@ -86,13 +81,10 @@ export default function hostComponent(options: Options) {
         props.push(propName);
       });
 
-      return (
-        props
-          // 无需收集 slot 字段
-          .filter(p => p !== 'slot')
-          .map(prop => aliasProp(prop, options.hostComponents.get('view')))
-          .sort()
-      );
+      return props
+        .filter(p => p !== 'slot')
+        .map(prop => aliasProp(prop, options.hostComponents.get('view')))
+        .sort();
     }
 
     function isSlotView(componentName: string, node?: t.JSXElement) {
@@ -133,12 +125,6 @@ export default function hostComponent(options: Options) {
             propName = `${prop.namespace.name}:${prop.name.name}`;
           }
 
-          /**
-           * React 运行时读不到 key
-           * 所以在这里如果发现组件上设置了 key
-           * 就再设置一个别名 __key
-           * 然后在模板里写死 key="{{item.props.__key}}"
-           */
           if (propName === 'key') {
             node.openingElement.attributes.push(t.jsxAttribute(t.jsxIdentifier('__key'), attr.value));
           }
@@ -155,7 +141,6 @@ export default function hostComponent(options: Options) {
         return Array.from(
           new Set(
             props
-              // 剔除 ref，在 axml 特殊处理
               .filter(p => p !== 'ref')
               .filter(Boolean)
               .map(prop => prop.replace('className', 'class'))
@@ -166,7 +151,6 @@ export default function hostComponent(options: Options) {
       return Array.from(
         new Set(
           props
-            // 静态编译辅助字段
             .filter(p => !options.skipProps.includes(p))
             .filter(Boolean)
             .map(prop => aliasProp(prop, hostComponent))
@@ -191,15 +175,13 @@ export default function hostComponent(options: Options) {
 
       const bindingPath = binding.path;
 
-      // binding
       if (!bindingPath || !t.isImportSpecifier(bindingPath.node)) {
         return;
       }
 
       const importPath = bindingPath.parentPath;
 
-      // @ts-ignore
-      if (t.isImportDeclaration(importPath) && t.isIdentifier(bindingPath.node.imported)) {
+      if (importPath && t.isImportDeclaration(importPath.node) && t.isIdentifier(bindingPath.node.imported)) {
         return kebabCase(bindingPath.node.imported.name);
       }
 
@@ -214,7 +196,6 @@ export default function hostComponent(options: Options) {
       let props: string[] | undefined = [];
 
       if (isSlotView(id, node)) {
-        // isSlotView 确保了 node 一定存在
         props = registerSlotViewProps(node!);
 
         Store.slotView.props = Array.from(new Set([...Store.slotView.props, ...props]));
@@ -258,15 +239,13 @@ export default function hostComponent(options: Options) {
 
       const bindingPath = binding.path;
 
-      // binding
       if (!bindingPath) {
         return false;
       }
 
       const importPath = bindingPath.parentPath;
 
-      // @ts-ignore
-      if (t.isImportDeclaration(importPath)) {
+      if (importPath && t.isImportDeclaration(importPath.node)) {
         const importNode = importPath.node as t.ImportDeclaration;
         const source = importNode.source.value;
         const props = getProps('', node, true) || [];
@@ -287,18 +266,17 @@ export default function hostComponent(options: Options) {
         t.isVariableDeclarator(bindingPath.node) &&
         t.isCallExpression(bindingPath.node.init) &&
         t.isIdentifier(bindingPath.node.init.callee) &&
-        (bindingPath.node.init.callee as any).name === 'createNativeComponent'
+        (bindingPath.node.init.callee as t.Identifier).name === 'createNativeComponent'
       ) {
         const arg0 = bindingPath.node.init.arguments[0];
         if (t.isStringLiteral(arg0)) {
           const id = arg0.value;
-          // 通过 id 找到已注册的插件组件（macro 先执行注册）
-          const component = Array.from(Store.pluginComponents.values()).find(c => c.id === id);
+          const component = Array.from(Store.pluginComponents.values()).find((c: any) => c.id === id);
           if (!component) {
             return;
           }
           const props = getProps('', node, true) || [];
-          props.forEach(component.props.add, component.props);
+          props.forEach((component as any).props.add, (component as any).props);
         }
       }
     }
@@ -310,7 +288,6 @@ export default function hostComponent(options: Options) {
 
           if (hostComponentName) {
             registerHostComponentManifest(hostComponentName, path.node);
-            // 渐进式层级统计：计算当前元素祖先链中同名宿主组件出现次数
             const ancestry = path.getAncestry();
             let sameCount = 0;
             for (const ap of ancestry) {
@@ -352,15 +329,13 @@ export default function hostComponent(options: Options) {
 
             const bindingPath = binding.path;
 
-            // binding
             if (!bindingPath) {
               return false;
             }
 
             const importPath = bindingPath.parentPath;
 
-            // @ts-ignore
-            if (t.isImportDeclaration(importPath)) {
+            if (importPath && t.isImportDeclaration(importPath.node)) {
               const importNode = importPath.node as t.ImportDeclaration;
               const source = importNode.source.value;
 
