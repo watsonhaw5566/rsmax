@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/watsonhaw5566/rsmax/compare/v1.4.0...v1.5.0) (2026-08-10)
+
+### Features
+
+- **wechat:** 更新微信组件、API ([#94](https://github.com/watsonhaw5566/rsmax/issues/94)) ([25f7d14](https://github.com/watsonhaw5566/rsmax/commit/25f7d14f8ae931f003e3a1d8e9770e04a2d858b6))
+
 # [1.4.0](https://github.com/watsonhaw5566/rsmax/compare/v1.3.14...v1.4.0) (2026-06-17)
 
 ### Bug Fixes

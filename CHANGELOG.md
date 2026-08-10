@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/watsonhaw5566/rsmax/compare/v1.4.0...v1.5.0) (2026-08-10)
+
+### Bug Fixes
+
+- **cli:** 修复 configWebpack hook 的兼容 ([#140](https://github.com/watsonhaw5566/rsmax/issues/140)) ([53c5171](https://github.com/watsonhaw5566/rsmax/commit/53c5171ddb4b7cd212331e5de24af08cb46dff9e))
+- **runtime:** React.forwardRef 类型定义 ([1e8c3dd](https://github.com/watsonhaw5566/rsmax/commit/1e8c3dd2beb0dfce568fd8579e18d12d03bb3324))
+- **toutiao:** 修复 EditorPortal 组件 ([#87](https://github.com/watsonhaw5566/rsmax/issues/87)) ([fc91e58](https://github.com/watsonhaw5566/rsmax/commit/fc91e589fe970e73d86b91dea67d3498a3415553))
+- **wechat:** 修复 EditorPortal 组件 ([#87](https://github.com/watsonhaw5566/rsmax/issues/87)) ([#88](https://github.com/watsonhaw5566/rsmax/issues/88)) ([36944c0](https://github.com/watsonhaw5566/rsmax/commit/36944c06b14e7bf2ccd1abab1285d6fb44493b49))
+
+### Features
+
+- **wechat:** 更新微信组件、API ([#94](https://github.com/watsonhaw5566/rsmax/issues/94)) ([25f7d14](https://github.com/watsonhaw5566/rsmax/commit/25f7d14f8ae931f003e3a1d8e9770e04a2d858b6))
+
 # [1.4.0](https://github.com/watsonhaw5566/rsmax/compare/v1.3.14...v1.4.0) (2026-06-17)
 
 ### Bug Fixes
