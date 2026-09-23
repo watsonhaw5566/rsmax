@@ -35,7 +35,7 @@ rsmax dev src -o dist
 
 ## 文档
 
-完整文档请访问 **docs 目录**（基于 VitePress）：
+[完整文档请访问](rsmax.watsonhaw.top)
 
 ```bash
 pnpm docs:dev      # 本地预览
