@@ -14,6 +14,9 @@
   ],
   "scripts": {
     "clean:node_modules": "rm -rf node_modules packages/*/node_modules e2e/node_modules",
+    "docs:build": "pnpm --filter docs build",
+    "docs:dev": "pnpm --filter docs dev",
+    "docs:preview": "pnpm --filter docs preview",
     "e2e:build": "rsmax build e2e/src -o e2e/dist",
     "e2e:clean": "rsmax clean e2e/dist",
     "e2e:dev": "rsmax dev e2e/src -o e2e/dist",

@@ -4,5 +4,8 @@
 dist
 node_modules
 
+docs/.vitepress/cache
+docs/.vitepress/dist
+
 e2e/project.config.json
 e2e/project.private.config.json

@@ -1,7 +1,13 @@
 packages:
   - 'packages/*'
   - 'e2e'
+  - 'docs'
 
 trustPolicy: no-downgrade
 blockExoticSubdeps: true
 minimumReleaseAge: 10080
+
+# vite >= 5.4.20 的发布信任证据由 trusted publisher 降级为 provenance，
+# 会触发 no-downgrade 策略；VitePress 1.x 仅需 vite ^5.4.14，固定到 5.4.19
+overrides:
+  vitepress>vite: 5.4.19
