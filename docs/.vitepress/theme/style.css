@@ -1,0 +1,52 @@
+/*
+ * 品牌主题色：rgb(7, 193, 96) / #07c160（与 logo 同色）
+ * 仅使用该色的同色系明暗变体，覆盖 VitePress 品牌色变量。
+ *
+ * 色阶约定：
+ *   浅色模式下 brand-1/2 为加深的文字/链接色（保证白底对比度），
+ *   brand-3 为品牌原色（按钮、强调），4-6 逐级变浅，soft 为低透明底色。
+ */
+
+:root {
+  --vp-c-brand-1: #069c51;
+  --vp-c-brand-2: #07ad59;
+  --vp-c-brand-3: #07c160;
+  --vp-c-brand-4: #40d387;
+  --vp-c-brand-5: #86e3b1;
+  --vp-c-brand-6: #c8f2db;
+  --vp-c-brand-soft: rgba(7, 193, 96, 0.14);
+
+  /* 按钮 */
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-bg: #07c160;
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-hover-bg: #06ad57;
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: #ffffff;
+  --vp-button-brand-active-bg: #059a4e;
+
+  /* 首页 hero 标题渐变 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #07c160 0%,
+    #34d183 45%,
+    #069c51 100%
+  );
+}
+
+.dark {
+  --vp-c-brand-1: #3ddc91;
+  --vp-c-brand-2: #23d07c;
+  --vp-c-brand-3: #07c160;
+  --vp-c-brand-4: #069a4e;
+  --vp-c-brand-5: #057a3f;
+  --vp-c-brand-6: #045a2f;
+  --vp-c-brand-soft: rgba(7, 193, 96, 0.26);
+
+  --vp-button-brand-bg: #07c160;
+  --vp-button-brand-hover-bg: #23d07c;
+  --vp-button-brand-active-bg: #06ad57;
+}
