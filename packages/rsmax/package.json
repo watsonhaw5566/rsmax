@@ -1,6 +1,6 @@
 {
   "name": "rsmax",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "Rsmax JSX - JSX for WeChat Mini Program",
   "main": "index.js",
   "bin": {
