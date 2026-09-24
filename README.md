@@ -29,7 +29,7 @@ export default function Counter() {
 ## 快速开始
 
 ```bash
-pnpm add rsmax
+pnpm add -D rsmax
 rsmax dev src -o dist
 ```
 
@@ -41,8 +41,6 @@ rsmax dev src -o dist
 pnpm docs:dev      # 本地预览
 pnpm docs:build    # 构建文档
 ```
-
-文档内含 v2（当前版本）与 v1（旧版）两套内容，可在导航栏右上角切换。
 
 ## License
 

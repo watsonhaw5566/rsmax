@@ -8,11 +8,15 @@
 
 ## 安装
 
-在你的小程序项目中安装 `rsmax`：
+在你的小程序项目中安装 `rsmax`（**请安装到 `devDependencies`**）：
 
 ```bash
-pnpm add rsmax
+pnpm add -D rsmax
 ```
+
+::: warning 为什么必须是 devDependencies
+rsmax 是编译期工具链，小程序运行时并不依赖它。微信开发者工具的「构建 npm」只会扫描 `dependencies`，若把 rsmax 装入其中，工具会连带解析它的 Node 侧依赖（如 `@parcel/watcher`、`@babel/*`），这些包含工具无法解析的语法，构建会报 `parse js file ... failed: Unexpected token` 之类的错误。
+:::
 
 ## 项目结构
 
@@ -106,4 +110,11 @@ npx rsmax build src -o dist
 
 ## 使用 npm 包
 
-首次使用第三方 npm 包后，需在微信开发者工具中执行 **工具 → 构建 npm**。构建产物 `miniprogram_npm` 目录会被 rsmax 自动保留，无需重复构建。详见 [CLI 命令](./cli)。
+依赖按用途安装到不同位置：
+
+| 依赖类型 | 安装位置 | 示例 |
+|---------|---------|------|
+| 编译期工具链 | `devDependencies`（`pnpm add -D`） | `rsmax` |
+| 小程序运行时使用的包 | `dependencies`（`pnpm add`） | `@vant/weapp`、`tdesign-miniprogram`、`dayjs` |
+
+「构建 npm」只处理 `dependencies` 中的包：首次安装运行时 npm 包后，需在微信开发者工具中执行 **工具 → 构建 npm**。构建产物 `miniprogram_npm` 目录会被 rsmax 自动保留，无需重复构建。详见 [CLI 命令](./cli)。

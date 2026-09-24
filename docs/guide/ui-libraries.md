@@ -10,7 +10,7 @@
 | TDesign MiniProgram | `tdesign-miniprogram` | `t-` | `t-button` → `tdesign-miniprogram/button/button` |
 | Ant Design Mini | `antd-mini` | `ant-` | `ant-button` → `antd-mini/Button/index` |
 
-安装后直接使用：
+安装后直接使用（UI 组件库属于小程序运行时依赖，请安装到 `dependencies`，**不要加 `-D`**，否则「构建 npm」扫描不到）：
 
 ```bash
 pnpm add @vant/weapp
