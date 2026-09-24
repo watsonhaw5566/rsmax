@@ -8,15 +8,11 @@
 
 ## 安装
 
-在你的小程序项目中安装 `rsmax`（**请安装到 `devDependencies`**）：
+在你的小程序项目中安装 `rsmax`：
 
 ```bash
 pnpm add -D rsmax
 ```
-
-::: warning 为什么必须是 devDependencies
-rsmax 是编译期工具链，小程序运行时并不依赖它。微信开发者工具的「构建 npm」只会扫描 `dependencies`，若把 rsmax 装入其中，工具会连带解析它的 Node 侧依赖（如 `@parcel/watcher`、`@babel/*`），这些包含工具无法解析的语法，构建会报 `parse js file ... failed: Unexpected token` 之类的错误。
-:::
 
 ## 项目结构
 

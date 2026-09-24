@@ -10,6 +10,7 @@ const {transformModule: babelTransformModule} = transformJsPlugin;
 const {processStyle, isModuleFile, isStyleFile} = require('./css-modules');
 const {loadProjectConfig, detectInstalledLibraries, buildResolver, resolveComponents} = require('./component-resolver');
 const {loadEnvConfig} = require('./env');
+const {normalizeAliases, rewriteAstAliases} = require('./alias');
 const {logger} = require("rslog");
 
 const RUNTIME_SOURCE = require.resolve('@rsmax/runtime');
@@ -954,7 +955,11 @@ async function compileFile(sourcePath, targetPath, options = {}) {
         const sourceJsDir = path.dirname(sourcePath);
         const targetJsDir = targetDir;
 
-        // Single-pass AST analysis (replaces 7 separate traversals)
+        // Rewrite aliased imports (e.g. '@/utils') to relative paths before analysis.
+        // dist mirrors src structure, so the same relative path holds in the output.
+        const aliasRewriteCount = rewriteAstAliases(ast, sourceJsDir, options.alias);
+
+        // Single-pass AST analysis (replaces 7 AST traversals)
         const {fileInfo, wxsImports, styleImports} = analyzeFileCombined(ast, sourceJsDir);
         const shouldTransform = ext === '.jsx' || fileInfo.hasExportDefault;
 
@@ -1053,6 +1058,14 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             }
             const jsCode = babelTransformModule(ast, code, {...modulePaths, define: options.define});
             await fs.writeFile(targetPath, jsCode, 'utf-8');
+        } else if (aliasRewriteCount > 0) {
+            // Plain CJS file with aliased require()s - regenerate instead of verbatim copy
+            const rewritten = babel.transformFromAstSync(ast, code, {
+                configFile: false,
+                babelrc: false,
+                generatorOpts: {retainLines: false, compact: false}
+            });
+            await fs.writeFile(targetPath, rewritten.code, 'utf-8');
         } else {
             await fs.copy(sourcePath, targetPath);
         }
@@ -1262,6 +1275,9 @@ async function compile(sourceDir, targetDir, options = {}) {
     const installedPresets = detectInstalledLibraries(projectPkg);
     const componentResolver = buildResolver(projectConfig, installedPresets);
 
+    // 路径别名：默认 '@' 指向源码目录，可在 rsmax.config.js 的 alias 中覆盖/扩展
+    const alias = normalizeAliases(projectConfig.alias, sourceDir, projectRoot);
+
     // 加载环境变量（mode 优先级：命令行 options.mode > process.env.NODE_ENV）
     const mode = options.mode || process.env.NODE_ENV || process.env.MODE || 'development';
     const defineVars = await loadEnvConfig(projectRoot, mode, projectConfig.define || {});
@@ -1288,6 +1304,7 @@ async function compile(sourceDir, targetDir, options = {}) {
         componentResolver,
         publicDir,
         localesState,
+        alias,
         mode,
         define: defineVars
     });
@@ -1312,6 +1329,9 @@ async function watch(sourceDir, targetDir, options = {}) {
     const projectConfig = await loadProjectConfig(projectRoot);
     const installedPresets = detectInstalledLibraries(projectPkg);
     const watchComponentResolver = buildResolver(projectConfig, installedPresets);
+
+    // 路径别名（配置变更需重启 watch，与 env / components 一致）
+    const watchAlias = normalizeAliases(projectConfig.alias, sourceDir, projectRoot);
 
     // watch 模式下也要加载 env（配置变更需重启 watch，符合轻量原则）
     const watchMode = options.mode || process.env.NODE_ENV || process.env.MODE || 'development';
@@ -1406,6 +1426,8 @@ async function watch(sourceDir, targetDir, options = {}) {
                 plugins: ['jsx', 'classProperties']
             });
             const sourceJsDir = path.dirname(jsFilePath);
+            // Rewrite aliased style imports before resolving their disk paths
+            rewriteAstAliases(ast, sourceJsDir, watchAlias);
             // Use combined analysis (single traverse) instead of collectStyleImports
             const {styleImports} = analyzeFileCombined(ast, sourceJsDir);
             for (const s of styleImports.moduleStyles) {
@@ -1434,6 +1456,9 @@ async function watch(sourceDir, targetDir, options = {}) {
         const relPath = path.relative(sourceDir, filePath);
         subPackage = findSubPackageForFile(relPath, watchSubPackages);
         const effectiveRoot = getEffectiveTargetRoot(targetFileDir, targetDir, subPackage);
+
+        // Rewrite aliased imports to relative paths before analysis and transformation
+        const aliasRewriteCount = rewriteAstAliases(ast, sourceJsDir, watchAlias);
 
         // Single-pass AST analysis (replaces 7+ separate traversals)
         const {fileInfo, wxsImports, styleImports} = analyzeFileCombined(ast, sourceJsDir);
@@ -1539,6 +1564,14 @@ async function watch(sourceDir, targetDir, options = {}) {
             }
             const jsCode = babelTransformModule(ast, code, {...modulePaths, define: watchDefine});
             await fs.writeFile(targetPath, jsCode, 'utf-8');
+        } else if (aliasRewriteCount > 0) {
+            // Plain CJS file with aliased require()s - regenerate instead of verbatim copy
+            const rewritten = babel.transformFromAstSync(ast, code, {
+                configFile: false,
+                babelrc: false,
+                generatorOpts: {retainLines: false, compact: false}
+            });
+            await fs.writeFile(targetPath, rewritten.code, 'utf-8');
         } else {
             await fs.copy(filePath, targetPath);
         }
@@ -1609,6 +1642,7 @@ async function watch(sourceDir, targetDir, options = {}) {
                 sourceType: 'module',
                 plugins: ['jsx', 'classProperties']
             });
+            rewriteAstAliases(freshAst, path.dirname(filePath), watchAlias);
             const {moduleStyles: ms, plainStyles: ps} = collectStyleImports(freshAst, path.dirname(filePath));
             for (const s of ms) registerStyleDependency(s.resolvedPath, filePath);
             for (const s of ps) registerStyleDependency(s.resolvedPath, filePath);
