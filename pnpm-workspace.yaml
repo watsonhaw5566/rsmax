@@ -11,3 +11,4 @@ minimumReleaseAge: 10080
 # 会触发 no-downgrade 策略；VitePress 1.x 仅需 vite ^5.4.14，固定到 5.4.19
 overrides:
   vitepress>vite: 5.4.19
+  'nanoid': '5.1.16'
