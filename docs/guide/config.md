@@ -9,6 +9,9 @@ module.exports = {
   // 自定义组件 / UI 库 / 插件组件映射
   components: {},
 
+  // 路径别名（默认内置 '@' -> 源码目录）
+  alias: {},
+
   // 编译时注入的环境变量（优先级最高）
   define: {},
 };
@@ -43,6 +46,35 @@ module.exports = {
 ```
 
 解析优先级与更多示例见 [第三方 UI 库与组件映射](./ui-libraries)。
+
+### alias
+
+路径别名，用于缩短 `import` / `require` 的相对路径。内置默认别名 `@`，指向源码目录（CLI 传入的 `src`），无需任何配置即可使用：
+
+```js
+// src/pages/home/index.jsx
+import { add } from '@/utils/helper'; // -> src/utils/helper
+```
+
+也可以在 `rsmax.config.js` 中覆盖 `@` 或新增别名；相对路径基于项目根目录（配置文件所在目录）解析：
+
+```js
+const path = require('node:path');
+
+module.exports = {
+  alias: {
+    '@': path.resolve(__dirname, 'src'), // 默认值，可覆盖
+    '@components': path.resolve(__dirname, 'src/components'),
+    '@data': './src/data', // 也支持相对路径
+  },
+};
+```
+
+匹配规则：引用与别名完全相等、或以 `别名/` 开头时命中；多个别名同时命中取最长者。因此 `@` 不会影响 `@rsmax/runtime`、`@babel/core` 这类 npm 包名，`@components` 也不会误匹配 `@components-x/...`。
+
+作用范围：JS/JSX 中的 `import`、`require()`、`export ... from`，以及通过 JS 引入的样式文件和 WXS 文件（`<wxs src>` 会同步改写）。编译后别名统一被改写为相对路径，无扩展名与目录索引（`index.js`）的解析规则与微信原生 `require` 保持一致。
+
+> 注意：别名只负责路径改写，不改变小程序的分包引用限制——普通分包可以引用主包文件，独立分包不能引用主包文件，配置别名时需自行保证引用关系合法。
 
 ### define
 
@@ -121,7 +153,6 @@ module.exports = {
   "scripts": {
     "dev": "rsmax dev src -o dist",
     "build": "rsmax build src -o dist",
-    "build:staging": "rsmax build src -o dist -m staging",
     "clean": "rsmax clean dist"
   }
 }
