@@ -25,7 +25,7 @@ export default function Counter() {
 - **Hooks API** — `useState`、`useEffect`、`useContext`、`usePageEvent`、`useAppEvent`、`useStore` 等 React 风格 Hooks
 - **两种编程范式** — 支持函数式组件（Hooks）和 Options API（传统小程序 Page/Component 配置）
 - **API Promise 化** — 内置 `promisify` 工具函数，将小程序回调 API 转换为 Promise，支持 async/await
-- **环境变量注入** — 零依赖、无运行时开销；`.env` 文件、`RSMAX_*` 系统变量、`define` 配置三层来源，`process.env.XXX` 编译时替换为字面量
+- **环境变量注入** — 零依赖、无运行时开销；`.env` 文件按 mode 加载、`define` 配置覆盖，`process.env.XXX` 编译时替换为字面量
 - **CSS Modules** — `.module.less` / `.module.css` / `.module.scss` 自动局部作用域，class 名自动 hash
 - **样式预处理** — 内置 Less/Sass，px 自动转 rpx（1px → 1rpx，按 750rpx 设计稿）
 - **第三方 UI 库** — 自动识别并注册 Vant Weapp、TDesign MiniProgram、Ant Design Mini 组件

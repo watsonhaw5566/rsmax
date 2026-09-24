@@ -19,6 +19,22 @@ setCount(count + 1);
 setCount(c => c + 1); // 函数式更新
 ```
 
+初始值按静态 / 动态分两条路径处理：
+
+- **静态初值**（字面量、常量数组/对象）：编译器直接写入页面/组件注册期的 `data`，首屏第一帧即有值，无空帧；
+- **动态初值**（引用 `useQuery()` 等函数体内变量，或函数惰性初始化）：在组件函数首次执行时求值，`onLoad`/`attached` 内一次性 `setData`。
+
+```jsx
+const [tab, setTab] = useState('created');     // 静态 → 首屏 data 即有值
+const [list] = useState([1, 2]);               // 静态字面量同理
+
+const query = useQuery();
+const [id, setId] = useState(query.id || '');  // 动态 → 首跑时求值
+const [rows] = useState(() => computeRows());  // 动态：函数惰性初始化（同 React）
+```
+
+> 动态初值物理上无法出现在注册期 `data` 中（值在 `onLoad` 时才存在）。若该值参与首屏关键 UI（如默认选中态），请使用静态初值 + 后续更新，例如 `useState('created')` 后在接口返回或参数解析后 `setTab(...)`。
+
 第二个可选参数用于指定底层 data key（一般不需要，默认按 Hook 顺序自动生成）：
 
 ```jsx
