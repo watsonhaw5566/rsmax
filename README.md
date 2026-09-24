@@ -29,7 +29,7 @@ export default function Counter() {
 ## 快速开始
 
 ```bash
-pnpm add rsmax
+pnpm add -D rsmax
 rsmax dev src -o dist
 ```
 
