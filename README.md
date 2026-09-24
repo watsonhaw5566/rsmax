@@ -1,5 +1,9 @@
 # Rsmax JSX
 
+[![npm version](https://shields.io/npm/v/rsmax.svg)](https://npmjs.com/package/rsmax)
+
+[![npm license](https://shields.io/npm/l/rsmax.svg)](https://npmjs.com/package/rsmax)
+
 一个基于 Babel 的 **JSX 微信小程序开发框架**，让你用 React 风格的 JSX 语法和 Hooks API 编写微信小程序。编写一份 `.jsx`，编译器自动产出 `.js` / `.wxml` / `.wxss` / `.json`。
 
 ```jsx
