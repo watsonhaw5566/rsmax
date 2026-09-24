@@ -4,16 +4,14 @@ Rsmax 提供**零依赖、无运行时开销**的变量注入方案：所有 `pr
 
 > 设计原则：编译时静态替换（类似 Vite 的 `import.meta.env` / webpack 的 DefinePlugin），不是运行时读取。
 
-## 三层来源与优先级
+## 来源与优先级
 
 优先级从低到高，后者覆盖前者：
 
 ```
 .env 文件（.env → .env.local → .env.<mode> → .env.<mode>.local）
    ↓
-系统环境变量（RSMAX_ 前缀 + 白名单 NODE_ENV / ENV / MODE）
-   ↓
-CLI --mode 强制注入 NODE_ENV / MODE
+CLI --mode 注入 NODE_ENV / MODE
    ↓
 rsmax.config.js 的 define（最高优先级，可覆盖一切）
 ```
@@ -29,41 +27,20 @@ rsmax.config.js 的 define（最高优先级，可覆盖一切）
 | `.env.<mode>` | 指定环境配置 | `--mode <mode>` 匹配时加载 |
 | `.env.<mode>.local` | 指定环境的本地覆盖 | `--mode <mode>` 匹配时加载，优先级最高 |
 
-语法兼容主流 dotenv 用法：
+语法保持极简：
 
 ```dotenv
 # 简单键值对
 API_BASE=https://api.example.com
 APP_NAME=我的应用
 
-# 引号包裹（单/双引号均可）
+# 引号包裹（值含空格时使用，单/双引号均可）
 MOTTO="Hello World"
-
-# export 前缀（兼容 shell source）
-export DEBUG=true
-
-# ${VAR} / $VAR 引用本文件中已解析的变量
-HOST=localhost
-PORT=8080
-BASE_URL=http://${HOST}:${PORT}
-
-# 行尾注释（# 前需有空格）
-APP_TITLE=测试应用 # 应用标题
 ```
 
-## 第二层：系统环境变量
+> 仅支持 `KEY=VALUE`、`#` 整行注释与单/双引号包裹；不支持 `export` 前缀、行内注释、`${VAR}` 变量展开。值中的 `#` 始终按字面量保留（不会被当作注释截断）。
 
-编译时从 `process.env` 读取，仅注入以下两类，避免无关变量泄漏进小程序包：
-
-1. **`RSMAX_` 前缀**的变量，按原名注入：
-
-   ```bash
-   RSMAX_DEPLOY_VERSION=$(git rev-parse --short HEAD) rsmax build src -o dist
-   ```
-
-2. **白名单变量**：`NODE_ENV`、`ENV`、`MODE`。
-
-## 第三层：define 配置
+## 第二层：define 配置
 
 在 `rsmax.config.js` 中通过 `define` 注入或覆盖任意变量，优先级最高：
 
@@ -145,13 +122,22 @@ rsmax build src -o dist    # 加载 .env.production
 
 ### CI/CD 注入版本号
 
+系统环境变量不会自动注入，可在 `rsmax.config.js` 的 `define` 中显式读取：
+
+```js
+module.exports = {
+  define: {
+    BUILD_VERSION: process.env.BUILD_VERSION,
+  },
+};
+```
+
 ```bash
-export RSMAX_BUILD_VERSION="v1.2.3-$(git rev-parse --short HEAD)"
-rsmax build src -o dist -m production
+BUILD_VERSION="v1.2.3-$(git rev-parse --short HEAD)" rsmax build src -o dist -m production
 ```
 
 ```js
-console.log(process.env.RSMAX_BUILD_VERSION); // v1.2.3-a1b2c3d
+console.log(process.env.BUILD_VERSION); // v1.2.3-a1b2c3d
 ```
 
 ## 注意事项

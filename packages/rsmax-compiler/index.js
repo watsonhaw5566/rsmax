@@ -9,102 +9,8 @@ const transformJsPlugin = require('@rsmax/babel-plugin-transform-js');
 const {transformModule: babelTransformModule} = transformJsPlugin;
 const {processStyle, isModuleFile, isStyleFile} = require('./css-modules');
 const {loadProjectConfig, detectInstalledLibraries, buildResolver, resolveComponents} = require('./component-resolver');
+const {loadEnvConfig} = require('./env');
 const {logger} = require("rslog");
-
-// ============================================================
-// 轻量级环境变量加载（零依赖，不使用 dotenv）
-// ============================================================
-
-/**
- * 极简 .env 文件解析器（无需 dotenv 依赖）
- * 支持 KEY=VALUE、# 注释、export KEY=VALUE、引号包裹
- */
-function parseEnvFile(content) {
-  const result = {};
-  const lines = content.split(/\r?\n/);
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
-    // 支持 export 前缀
-    const cleanLine = trimmed.startsWith('export ') ? trimmed.slice(7) : trimmed;
-    const eqIdx = cleanLine.indexOf('=');
-    if (eqIdx === -1) continue;
-    let key = cleanLine.slice(0, eqIdx).trim();
-    let value = cleanLine.slice(eqIdx + 1).trim();
-    // 去掉首尾引号
-    if ((value.startsWith('"') && value.endsWith('"')) ||
-        (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
-    }
-    // 去掉行内注释（只处理 # 前有空格的情况，避免误伤 URL hash 等）
-    const hashIdx = value.search(/\s+#/);
-    if (hashIdx !== -1) value = value.slice(0, hashIdx).trim();
-    // 展开 ${VAR} / $VAR 引用（仅引用已解析过的同文件 key）
-    value = value.replace(/\$\{([^}]+)\}|\$([A-Za-z_][A-Za-z0-9_]*)/g, (m, braced, plain) => {
-      const name = braced || plain;
-      return Object.prototype.hasOwnProperty.call(result, name) ? result[name] : m;
-    });
-    if (key) result[key] = value;
-  }
-  return result;
-}
-
-/**
- * 按优先级加载 .env 文件（从低到高覆盖）：
- *   .env                -> 公共默认
- *   .env.local          -> 本地覆盖（不提交 git）
- *   .env.<mode>         -> 指定环境
- *   .env.<mode>.local   -> 指定环境的本地覆盖
- *
- * 同时合并 rsmax.config.js 中的 define 与 process.env（RSMAX_ 前缀 + 指定白名单）
- */
-async function loadEnvConfig(projectRoot, mode, configDefine = {}) {
-  const envFiles = [
-    '.env',
-    '.env.local',
-    mode ? `.env.${mode}` : null,
-    mode ? `.env.${mode}.local` : null,
-  ].filter(Boolean);
-
-  const fileEnv = {};
-  for (const file of envFiles) {
-    const fullPath = path.join(projectRoot, file);
-    if (await fs.pathExists(fullPath)) {
-      try {
-        const content = await fs.readFile(fullPath, 'utf-8');
-        Object.assign(fileEnv, parseEnvFile(content));
-        if (typeof logger.verbose === 'function') {
-          logger.verbose(`[rsmax] Loaded env file: ${file}`);
-        }
-      } catch (e) {
-        if (typeof logger.warn === 'function') {
-          logger.warn(`[rsmax] Failed to read ${file}: ${e.message}`);
-        }
-      }
-    }
-  }
-
-  // 从 process.env 中挑选：RSMAX_ 前缀 + 常用白名单
-  const PROCESS_ENV_WHITELIST = ['NODE_ENV', 'ENV', 'MODE'];
-  const sysEnv = {};
-  for (const [k, v] of Object.entries(process.env)) {
-    if (k.startsWith('RSMAX_') || PROCESS_ENV_WHITELIST.includes(k)) {
-      sysEnv[k] = v;
-    }
-  }
-
-  // 优先级（后者覆盖前者）：
-  //   .env 文件 < process.env(RSMAX_*) < --mode 参数注入 < config.define
-  // 注意：--mode 参数会强制覆盖 NODE_ENV 和 MODE（除非被更高优先级的 define 再覆盖）
-  const effectiveMode = mode || sysEnv.MODE || sysEnv.NODE_ENV || sysEnv.ENV || 'development';
-  const modeInjected = { NODE_ENV: effectiveMode, MODE: effectiveMode };
-
-  // 不将 ENV 白名单直接写入最终对象（避免冗余）
-  delete sysEnv.ENV;
-
-  const merged = { ...fileEnv, ...sysEnv, ...modeInjected, ...configDefine };
-  return merged;
-}
 
 const RUNTIME_SOURCE = require.resolve('@rsmax/runtime');
 const STORE_SOURCE = require.resolve('@rsmax/store');
@@ -1410,7 +1316,7 @@ async function watch(sourceDir, targetDir, options = {}) {
     // watch 模式下也要加载 env（配置变更需重启 watch，符合轻量原则）
     const watchMode = options.mode || process.env.NODE_ENV || process.env.MODE || 'development';
     const watchDefine = await loadEnvConfig(projectRoot, watchMode, projectConfig.define || {});
-    logger.verbose(`[rsmax] Watch mode env: ${watchMode} (${Object.keys(watchDefine).length} vars)`);
+    logger.debug(`[rsmax] Watch mode env: ${watchMode} (${Object.keys(watchDefine).length} vars)`);
 
     // Parse subPackages for watch mode
     const watchSubPackages = await parseSubPackages(sourceDir);
@@ -2056,7 +1962,5 @@ module.exports = {
     isStyleFile,
     analyzeFile,
     analyzeFileCombined,
-    RUNTIME_SOURCE,
-    parseEnvFile,
-    loadEnvConfig
+    RUNTIME_SOURCE
 };
