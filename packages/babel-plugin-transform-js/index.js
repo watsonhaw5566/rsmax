@@ -849,6 +849,69 @@ module.exports = function() {
               }));
             }
 
+            // 通用兜底：递归处理所有未显式列举的节点类型。
+            // import 会被整体移除，因此从 @rsmax/runtime 导入的标识符（hooks、promisify 等）
+            // 必须在任意语法位置（await、try/catch、if、循环、逻辑表达式、new、模板串等）
+            // 都改写为运行时命名空间成员，否则会留下裸引用导致运行时 ReferenceError。
+            if (t.isObjectPattern(node) || t.isArrayPattern(node) || t.isRestElement(node)) {
+              // 解构模式中的标识符是绑定目标而非变量引用，不能改写
+              return node;
+            }
+            if (t.isAssignmentPattern(node)) {
+              // 参数默认值：左侧是绑定模式（跳过），仅右侧表达式需要改写
+              if (node.right) {
+                const newRight = transformNode(node.right, state);
+                if (newRight) node.right = newRight;
+              }
+              return node;
+            }
+
+            const visitorKeys = t.VISITOR_KEYS[node.type];
+            if (visitorKeys) {
+              for (const key of visitorKeys) {
+                // 非计算的成员名/属性名以及跳转标签是「名字」而非变量引用，不能改写
+                const isNamePosition =
+                  (key === 'property' &&
+                    (t.isMemberExpression(node) || t.isOptionalMemberExpression(node)) &&
+                    !node.computed) ||
+                  (key === 'key' &&
+                    !node.computed &&
+                    (t.isObjectProperty(node) || t.isObjectMethod(node) ||
+                      t.isClassMethod(node) || t.isClassProperty(node)));
+                if (isNamePosition || key === 'label') continue;
+
+                const childValue = node[key];
+                if (Array.isArray(childValue)) {
+                  const newChildren = [];
+                  for (const child of childValue) {
+                    if (child && typeof child.type === 'string') {
+                      const transformed = transformNode(child, state);
+                      if (Array.isArray(transformed)) {
+                        // 语句列表位置：展开单条语句变换出的多条语句（如函数外提为 this 赋值）
+                        newChildren.push(...transformed.filter(Boolean));
+                      } else if (transformed) {
+                        newChildren.push(transformed);
+                      }
+                      // transformed 为 null：该子语句被移除（如仅返回 JSX 的 return），丢弃
+                    } else {
+                      // 保留 null（数组空洞）及非节点值
+                      newChildren.push(child);
+                    }
+                  }
+                  node[key] = newChildren;
+                } else if (childValue && typeof childValue.type === 'string') {
+                  const transformed = transformNode(childValue, state);
+                  if (Array.isArray(transformed)) {
+                    const stmts = transformed.filter(Boolean);
+                    // 单子节点槽位（如 if/循环的 body）：单条直接放入，多条包一层块语句
+                    node[key] = stmts.length === 1 ? stmts[0] : t.blockStatement(stmts);
+                  } else if (transformed) {
+                    node[key] = transformed;
+                  }
+                  // transformed 为 null 时保留原节点，避免在单子节点槽位生成非法 AST
+                }
+              }
+            }
             return node;
           }
 
