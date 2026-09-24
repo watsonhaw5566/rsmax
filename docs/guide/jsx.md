@@ -239,11 +239,18 @@ module.exports = { formatPrice: formatPrice };
 ES6 `import` npm 包会被自动转换为 CommonJS `require()`：
 
 ```jsx
-import dayjs from 'dayjs';     // → var dayjs = require('dayjs');
 import { format } from 'lib';  // → var { format } = require('lib');
 import 'polyfill';             // → require('polyfill');
-
-const now = dayjs().format('YYYY-MM-DD');
 ```
+
+default import 会自动做 ESM/CJS 互操作，同时兼容「主体挂在 `module.exports`」的传统 CJS 包与「主体挂在 `exports.default`」的 Babel/TS 编译包（如 axios-miniprogram）：
+
+```js
+// import dayjs from 'dayjs'; 编译产物：
+var _dayjs = require('dayjs');
+var dayjs = _dayjs && _dayjs.__esModule ? _dayjs.default : _dayjs;
+```
+
+因此无需再手写 `const axios = mod.default || mod` 之类的兼容代码。注意 `import * as ns` 不做包装，`ns` 即完整的 `exports` 对象。
 
 使用 npm 包需在微信开发者工具中执行 **工具 → 构建 npm**，之后 `miniprogram_npm` 会被 rsmax 自动保留。

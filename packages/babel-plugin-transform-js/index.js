@@ -107,7 +107,43 @@ function isRenderMethod(member) {
          t.isIdentifier(member.key, { name: 'render' });
 }
 
-function convertImportToRequire(specifiers, sourceLit) {
+/**
+ * default import 的 interop 包装。
+ * 编译产物：
+ *   var _mod = require('mod');
+ *   var mod = _mod && _mod.__esModule ? _mod.default : _mod;
+ *
+ * 同时兼容三类模块：
+ *  1. Babel/TS 编译的 ESM 包（exports.__esModule = true，主体挂在 exports.default），如 axios-miniprogram
+ *  2. 传统 CJS 包（主体直接挂在 module.exports）
+ *  3. rsmax 自身编译的模块（export default 编译为 module.exports = expr，无 __esModule）
+ */
+function buildDefaultImportStmts(localName, sourceLit, genUid) {
+  const tmp = genUid(localName);
+  return [
+    t.variableDeclaration('var', [
+      t.variableDeclarator(tmp, t.callExpression(t.identifier('require'), [sourceLit]))
+    ]),
+    t.variableDeclaration('var', [
+      t.variableDeclarator(
+        t.identifier(localName),
+        t.conditionalExpression(
+          t.logicalExpression(
+            '&&',
+            t.identifier(tmp.name),
+            t.memberExpression(t.identifier(tmp.name), t.identifier('__esModule'))
+          ),
+          t.memberExpression(t.identifier(tmp.name), t.identifier('default')),
+          t.identifier(tmp.name)
+        )
+      )
+    ])
+  ];
+}
+
+function convertImportToRequire(specifiers, sourceLit, genUid) {
+  // 兜底：正常调用方均会传入基于 babel scope 的唯一 id 生成器
+  const uidGen = genUid || ((name) => t.identifier('_' + name));
   const stmts = [];
   if (!specifiers || specifiers.length === 0) {
     // import 'side-effect-module'; -> require('module');
@@ -117,7 +153,10 @@ function convertImportToRequire(specifiers, sourceLit) {
     return stmts;
   }
   for (const spec of specifiers) {
-    if (t.isImportDefaultSpecifier(spec) || t.isImportNamespaceSpecifier(spec)) {
+    if (t.isImportDefaultSpecifier(spec)) {
+      stmts.push(...buildDefaultImportStmts(spec.local.name, sourceLit, uidGen));
+    } else if (t.isImportNamespaceSpecifier(spec)) {
+      // import * as ns -> 裸 require（namespace 即整个 exports 对象，不做 interop）
       stmts.push(t.variableDeclaration('var', [
         t.variableDeclarator(
           t.identifier(spec.local.name),
@@ -295,7 +334,7 @@ module.exports = function() {
               }
             });
 
-            const stmts = convertImportToRequire(path.node.specifiers, sourceLit);
+            const stmts = convertImportToRequire(path.node.specifiers, sourceLit, n => path.scope.generateUidIdentifier(n));
             if (stmts.length === 1) path.replaceWith(stmts[0]);
             else path.replaceWithMultiple(stmts);
           }
@@ -314,7 +353,7 @@ module.exports = function() {
               }
             });
 
-            const stmts = convertImportToRequire(path.node.specifiers, sourceLit);
+            const stmts = convertImportToRequire(path.node.specifiers, sourceLit, n => path.scope.generateUidIdentifier(n));
             if (stmts.length === 1) path.replaceWith(stmts[0]);
             else path.replaceWithMultiple(stmts);
           }
@@ -333,7 +372,7 @@ module.exports = function() {
               }
             });
 
-            const stmts = convertImportToRequire(path.node.specifiers, sourceLit);
+            const stmts = convertImportToRequire(path.node.specifiers, sourceLit, n => path.scope.generateUidIdentifier(n));
             if (stmts.length === 1) path.replaceWith(stmts[0]);
             else path.replaceWithMultiple(stmts);
           }
@@ -341,7 +380,7 @@ module.exports = function() {
           // Convert non-rsmax imports to CommonJS require()
           const source = path.node.source;
           const specifiers = path.node.specifiers;
-          const stmts = convertImportToRequire(specifiers, source);
+          const stmts = convertImportToRequire(specifiers, source, n => path.scope.generateUidIdentifier(n));
           if (stmts.length === 1) path.replaceWith(stmts[0]);
           else if (stmts.length > 1) path.replaceWithMultiple(stmts);
           else path.remove();
@@ -940,7 +979,7 @@ function esmToCjsPlugin() {
         }
 
         const sourceLit = t.stringLiteral(sourceValue);
-        const stmts = convertImportToRequire(path.node.specifiers, sourceLit);
+        const stmts = convertImportToRequire(path.node.specifiers, sourceLit, n => path.scope.generateUidIdentifier(n));
         if (stmts.length === 1) path.replaceWith(stmts[0]);
         else if (stmts.length > 1) path.replaceWithMultiple(stmts);
         else path.remove();
@@ -1024,7 +1063,7 @@ function esmToCjsPlugin() {
         const declaration = path.node.declaration;
         let expr;
         if (t.isFunctionDeclaration(declaration) || t.isClassDeclaration(declaration)) {
-          // export default function foo() {} -> function foo() {}; exports.default = foo;
+          // export default function foo() {} -> function foo() {}; module.exports = foo;
           const stmts = [declaration];
           if (declaration.id) {
             stmts.push(t.expressionStatement(
