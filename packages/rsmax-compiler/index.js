@@ -1281,7 +1281,10 @@ async function compile(sourceDir, targetDir, options = {}) {
     // 加载环境变量（mode 优先级：命令行 options.mode > process.env.NODE_ENV）
     const mode = options.mode || process.env.NODE_ENV || process.env.MODE || 'development';
     const defineVars = await loadEnvConfig(projectRoot, mode, projectConfig.define || {});
-    logger.log(`[rsmax] Environment mode: ${mode} (${Object.keys(defineVars).length} variables)`);
+    // NODE_ENV/MODE 由框架按当前 mode 自动注入，不计入用户定义的变量数
+    const userVarCount = Object.keys(defineVars)
+        .filter(key => key !== 'NODE_ENV' && key !== 'MODE').length;
+    logger.log(`[rsmax] Environment mode: ${mode} (${userVarCount} variables)`);
 
     // Parse subPackages configuration from app.json
     const subPackages = await parseSubPackages(sourceDir);
