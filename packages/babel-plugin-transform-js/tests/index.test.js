@@ -136,10 +136,12 @@ describe('@rsmax/babel-plugin-transform-js', () => {
       const ast = parseCode(code);
       const result = transformJS(ast, code, { type: 'page' });
 
-      expect(result).toContain('var utils = require');
-      expect(result).toContain('./utils');
+      // default import 走 interop：先 require 到临时变量，再按 __esModule 取 default
+      expect(result).toContain('require("./utils")');
+      expect(result).toContain('__esModule');
+      expect(result).toContain('.default');
       expect(result).toContain('helper');
-      expect(result).toContain('./helper');
+      expect(result).toContain('require("./helper")');
     });
 
     test('should remove @rsmax/runtime import', () => {
@@ -199,6 +201,88 @@ describe('@rsmax/babel-plugin-transform-js', () => {
 
       expect(result).toContain('@rsmax/i18n');
       expect(result).not.toContain('./rsmax-i18n.js');
+    });
+  });
+
+  // 执行 transformModule 产物，以桩 require 返回不同形态的模块，验证 default import 的运行时语义
+  function evalDefaultImport(source, requiredValue) {
+    const ast = parseCode(`${source}\nexport default _defaultImport;`);
+    const code = transformModule(ast, source + '\nexport default _defaultImport;');
+    const module = {exports: {}};
+    // eslint-disable-next-line no-new-func
+    new Function('module', 'exports', 'require', code)(
+      module,
+      module.exports,
+      () => requiredValue
+    );
+    return module.exports;
+  }
+
+  describe('default import interop', () => {
+    test('should emit __esModule guard for default imports (transformJS page)', () => {
+      const code = 'import axios from "axios-miniprogram";\nexport default {};';
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toMatch(/var _axios = require\("axios-miniprogram"\)/);
+      expect(result).toContain('_axios.__esModule');
+      expect(result).toContain('_axios.default');
+    });
+
+    test('should emit __esModule guard in plain modules (transformModule)', () => {
+      const code = 'import axios from "axios-miniprogram";\nexport default axios;';
+      const ast = parseCode(code);
+      const result = transformModule(ast, code);
+
+      expect(result).toMatch(/var _axios = require\("axios-miniprogram"\)/);
+      expect(result).toContain('_axios.__esModule ? _axios.default : _axios');
+    });
+
+    test('namespace import should stay a bare require without interop', () => {
+      const code = 'import * as ns from "./utils";\nexport default {};';
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toMatch(/var ns = require\("\.\/utils"\)/);
+      expect(result).not.toContain('__esModule');
+    });
+
+    test('runtime: ESM-style package (__esModule + default) resolves to .default (axios-miniprogram)', () => {
+      const axiosInstance = function request() {};
+      const pkg = {__esModule: true, default: axiosInstance};
+      expect(evalDefaultImport('import _defaultImport from "axios-miniprogram";', pkg)).toBe(axiosInstance);
+    });
+
+    test('runtime: plain CJS package (module.exports = fn) resolves to module itself', () => {
+      const cjsMain = function () {};
+      cjsMain.named = 1;
+      expect(evalDefaultImport('import _defaultImport from "cjs-pkg";', cjsMain)).toBe(cjsMain);
+    });
+
+    test('runtime: rsmax-compiled module (module.exports = expr, no __esModule) resolves to expr', () => {
+      const expr = {data: 1};
+      expect(evalDefaultImport('import _defaultImport from "./compiled";', expr)).toBe(expr);
+    });
+
+    test('runtime: mixed default + named import both resolve correctly', () => {
+      const instance = function request() {};
+      const post = function post() {};
+      const source = 'import _defaultImport, { post } from "axios-miniprogram";\nexport default { d: _defaultImport, post: post };';
+      const ast = parseCode(source);
+      const code = transformModule(ast, source);
+      const module = {exports: {}};
+      // eslint-disable-next-line no-new-func
+      new Function('module', 'exports', 'require', code)(
+        module,
+        module.exports,
+        () => ({__esModule: true, default: instance, post})
+      );
+      expect(module.exports.d).toBe(instance); // default 绑定
+      expect(module.exports.post).toBe(post); // named 绑定
+    });
+
+    test('runtime: null/falsy require result does not throw and resolves as-is', () => {
+      expect(evalDefaultImport('import _defaultImport from "maybe-missing";', null)).toBeNull();
     });
   });
 
