@@ -105,9 +105,65 @@ describe('@rsmax/babel-plugin-transform-js', () => {
 
       expect(result).toContain('Page(');
       expect(result).toContain('.useState(');
+      expect(result).toContain('rsmax-runtime.js');
+      // 纯字面量初值外提到注册期 data，保证首屏第一帧即有值
+      expect(result).toMatch(/useState\(0, ['"]count['"]\)/);
       expect(result).toContain('data:');
       expect(result).toContain('count: 0');
-      expect(result).toContain('rsmax-runtime.js');
+    });
+
+    test('should keep dynamic useState initializer inside component function scope', () => {
+      const code = [
+        'import { useState, useQuery } from "@rsmax/runtime";',
+        'export default function Detail() {',
+        '  const query = useQuery();',
+        '  const [id] = useState(query.id || "");',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      // 动态表达式原样保留在函数体内，且不出现在 createPage 的静态 data 中
+      expect(result).toContain('useState(query.id || "", "id")');
+      expect(result).not.toContain('data: {');
+    });
+
+    test('should keep lazy useState initializer function untouched', () => {
+      const code = [
+        'import { useState } from "@rsmax/runtime";',
+        'export default function Detail() {',
+        '  const [rows] = useState(() => computeRows());',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toContain('useState(() => computeRows(), "rows")');
+      expect(result).not.toContain('data: {');
+    });
+
+    test('should hoist static array/object literals but not dynamic ones', () => {
+      const code = [
+        'import { useState } from "@rsmax/runtime";',
+        'export default function Detail() {',
+        '  const [tabs] = useState(["created", "joined"]);',
+        '  const [filters] = useState({ page: 1, size: 20 });',
+        '  const [rows] = useState(awaitData());',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      // 静态数组/对象外提
+      expect(result).toContain('tabs: ["created", "joined"]');
+      expect(result).toContain('filters:');
+      expect(result).toContain('page: 1');
+      // 函数调用是动态的，不出现在 data 中
+      expect(result).not.toMatch(/data\s*:\s*\{[\s\S]*rows/);
+      expect(result).toContain('useState(awaitData(), "rows")');
     });
 
     test('should transform arrow function component', () => {

@@ -108,6 +108,38 @@ function isRenderMethod(member) {
 }
 
 /**
+ * 判断 useState 初值是否为「纯静态」表达式：
+ * 不引用任何变量/函数，求值结果在模块加载期确定，可安全外提到注册期 data。
+ * 支持：字面量、正负数字、无插值模板串、元素/属性全静态的数组与对象字面量。
+ */
+function isStaticLiteral(node) {
+  if (!node) return false;
+  if (t.isStringLiteral(node) || t.isNumericLiteral(node) ||
+      t.isBooleanLiteral(node) || t.isNullLiteral(node)) {
+    return true;
+  }
+  if (t.isUnaryExpression(node) && (node.operator === '-' || node.operator === '+')) {
+    return isStaticLiteral(node.argument);
+  }
+  if (t.isTemplateLiteral(node) && node.expressions.length === 0) {
+    return true;
+  }
+  if (t.isArrayExpression(node)) {
+    return node.elements.every(el => el === null || isStaticLiteral(el));
+  }
+  if (t.isObjectExpression(node)) {
+    return node.properties.every(prop =>
+      t.isObjectProperty(prop) &&
+      !prop.computed &&
+      !prop.shorthand &&
+      (t.isIdentifier(prop.key) || t.isStringLiteral(prop.key) || t.isNumericLiteral(prop.key)) &&
+      isStaticLiteral(prop.value)
+    );
+  }
+  return false;
+}
+
+/**
  * default import 的 interop 包装。
  * 编译产物：
  *   var _mod = require('mod');
@@ -560,31 +592,29 @@ module.exports = function() {
 
           if (!fnBody) return;
 
+          // 仅把「纯静态」的 useState 初值外提到注册期 data，保证首屏第一帧即有值
+          // （视图层首帧使用 Page()/Component() 注册时的 data，早于 onLoad/attached）。
+          // 引用函数体内变量的动态初值（如 useState(query.id)）不能外提，
+          // 保留在函数体中由 runtime 首跑求值。
           const stateInitialValues = [];
 
           if (isFunctional) {
             for (const stmt of fnBody.body) {
               if (t.isVariableDeclaration(stmt)) {
                 for (const decl of stmt.declarations) {
-                  // useState: const [count, setCount] = useState(0)
                   if (t.isArrayPattern(decl.id) && t.isCallExpression(decl.init)) {
                     const callee = decl.init.callee;
-                    let isUseState = false;
-                    if (t.isIdentifier(callee)) {
-                      const name = callee.name;
-                      if (state.rsmaxImported.get(name) === 'useState') {
-                        isUseState = true;
-                      }
-                    }
-                    if (isUseState) {
-                      const stateName = decl.id.elements[0] && t.isIdentifier(decl.id.elements[0]) ? decl.id.elements[0].name : null;
-                      const initArg = decl.init.arguments[0] || t.identifier('undefined');
-                      if (stateName) {
+                    if (t.isIdentifier(callee) &&
+                        state.rsmaxImported.get(callee.name) === 'useState') {
+                      const stateName = decl.id.elements[0] && t.isIdentifier(decl.id.elements[0])
+                        ? decl.id.elements[0].name : null;
+                      const initArg = decl.init.arguments[0];
+                      // 无参（undefined）或 lazy initializer（函数）均不外提
+                      if (stateName && initArg && isStaticLiteral(initArg)) {
                         stateInitialValues.push(t.objectProperty(t.identifier(stateName), initArg));
                       }
                     }
                   }
-                  // useStore initial value is set at runtime via setData, no need to add null here
                 }
               }
             }
@@ -630,12 +660,9 @@ module.exports = function() {
               const assignments = [];
 
               for (const decl of node.declarations) {
-                let isState = false;
-
                 if (t.isArrayPattern(decl.id) && t.isCallExpression(decl.init)) {
                   const hookName = getHookRuntimeName(decl.init.callee, state);
                   if (hookName === 'useState') {
-                    isState = true;
                     const stateName = decl.id.elements[0] && t.isIdentifier(decl.id.elements[0]) ? decl.id.elements[0].name : 'state';
                     const args = decl.init.arguments.map(a => transformNode(a, state));
                     if (args.length < 2) {

@@ -44,6 +44,7 @@ function _initHooks(instance, firstRun) {
   instance._effects = [];
   instance._pendingEffects = [];
   instance._pendingStoreData = {};
+  instance._pendingStateData = {};
   hookIndex = 0;
   currentInstance = instance;
   isFirstRun = firstRun;
@@ -54,11 +55,21 @@ function useState(initialValue, key) {
   const instance = getInstance();
   const idx = hookIndex++;
   const stateKey = key || `s${idx}`;
-  
+
   if (!instance._hooks[idx]) {
     instance._hooks[idx] = { type: 'state', key: stateKey };
+    if (Object.prototype.hasOwnProperty.call(instance.data, stateKey)) {
+      // 编译器已将纯静态初值写入注册期 data（首屏第一帧即有值），直接复用，
+      // 不再求值 initialValue、不再 setData。
+    } else {
+      // 动态初值（引用 useQuery() 等函数体内变量）：在首跑作用域内求值，
+      // userFn 执行完后由 _run 合并 setData。函数参数按 lazy initializer 处理。
+      const value = typeof initialValue === 'function' ? initialValue() : initialValue;
+      instance.data[stateKey] = value;
+      instance._pendingStateData[stateKey] = value;
+    }
   }
-  
+
   const hook = instance._hooks[idx];
   const state = instance.data[hook.key];
   
@@ -318,11 +329,12 @@ function createPage(userFn, pageConfig = {}) {
     _initHooks(this, firstRun);
     this._userFn.call(this);
     this._mounted = true;
-    // Apply initial store data via setData to ensure view is updated
-    const pendingStoreData = this._pendingStoreData;
+    // 首跑产生的 state/store 初值在函数执行完后一次性 setData（发生在首渲之前，无空帧）
+    const pendingData = Object.assign({}, this._pendingStateData, this._pendingStoreData);
+    this._pendingStateData = {};
     this._pendingStoreData = {};
-    if (Object.keys(pendingStoreData).length > 0) {
-      this.setData(pendingStoreData);
+    if (Object.keys(pendingData).length > 0) {
+      this.setData(pendingData);
     }
     this._runEffects();
   };
@@ -394,11 +406,12 @@ function createComponent(userFn, compConfig = {}) {
         _initHooks(this, firstRun);
         this._userFn.call(this, this.data);
         this._mounted = true;
-        // Apply initial store data via setData to ensure view is updated
-        const pendingStoreData = this._pendingStoreData;
+        // 首跑产生的 state/store 初值在函数执行完后一次性 setData（发生在首渲之前，无空帧）
+        const pendingData = Object.assign({}, this._pendingStateData, this._pendingStoreData);
+        this._pendingStateData = {};
         this._pendingStoreData = {};
-        if (Object.keys(pendingStoreData).length > 0) {
-          this.setData(pendingStoreData);
+        if (Object.keys(pendingData).length > 0) {
+          this.setData(pendingData);
         }
         this._runEffects();
       },

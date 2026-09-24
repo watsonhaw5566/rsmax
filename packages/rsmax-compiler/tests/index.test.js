@@ -382,6 +382,26 @@ module.exports = { format: format };`;
       await fs.remove(tmpDir);
     });
 
+    test('dynamic useState initial values should stay inside component function (not hoisted)', async () => {
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
+        pages: ['pages/index/index']
+      }), 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'pages', 'index', 'index.jsx'),
+        'import { useState, useQuery } from "@rsmax/runtime";\n' +
+        'export default function Detail() {\n' +
+        '  const query = useQuery();\n' +
+        '  const [id] = useState(query.id || "");\n' +
+        '  return <view><text>{id}</text></view>;\n' +
+        '}\n', 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const pageJs = await fs.readFile(path.join(distDir, 'pages', 'index', 'index.js'), 'utf-8');
+      // 动态初值保留在函数体内，不被外提到 createPage 的静态 data
+      expect(pageJs).toContain('useState(query.id || "", "id")');
+      expect(pageJs).not.toMatch(/data\s*:\s*\{\s*id/);
+    });
+
     test('should compile sub-package pages with correct relative runtime paths', async () => {
       await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({
         pages: ['pages/index/index'],
