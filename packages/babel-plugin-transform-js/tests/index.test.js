@@ -182,6 +182,136 @@ describe('@rsmax/babel-plugin-transform-js', () => {
     });
   });
 
+  describe('@rsmax/runtime references in nested syntax contexts', () => {
+    // 匹配「裸调用」：名字前不是点号/单词字符（即不是 _rsmax.promisify 这类成员访问）
+    const bareCall = name => new RegExp(`(?<![\\w.])${name}\\s*\\(`);
+
+    test('should rewrite promisify inside await + try/catch of async handler (login regression)', () => {
+      const code = [
+        'import { useState, useQuery, promisify } from "@rsmax/runtime";',
+        'export default function Login() {',
+        '  const query = useQuery();',
+        '  const [loading] = useState(false);',
+        '  const onWxLogin = async () => {',
+        '    try {',
+        '      const { code } = await promisify(wx.login)();',
+        '      return code;',
+        '    } catch (err) {',
+        '      wx.showToast({ title: "登录失败，请重试" });',
+        '    }',
+        '  };',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toContain('.promisify(wx.login)');
+      expect(result).toContain('.useQuery(');
+      expect(result).toContain('.useState(');
+      expect(result).toContain('catch');
+      // import 已被移除，裸 promisify 会在运行时 ReferenceError
+      expect(result).not.toMatch(bareCall('promisify'));
+      expect(result).not.toContain('@rsmax/runtime');
+    });
+
+    test('should rewrite promisify inside plain await without try/catch', () => {
+      const code = [
+        'import { promisify } from "@rsmax/runtime";',
+        'export default function Scan() {',
+        '  const scan = async () => {',
+        '    const res = await promisify(wx.scanCode)();',
+        '    return res;',
+        '  };',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toContain('.promisify(wx.scanCode)');
+      expect(result).not.toMatch(bareCall('promisify'));
+    });
+
+    test('should rewrite runtime imports across control-flow, logical, new and template contexts', () => {
+      const code = [
+        'import { promisify } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  const run = () => {',
+        '    if (flag) { promisify(wx.a)(); }',
+        '    while (flag) { promisify(wx.b)(); }',
+        '    const c = flag && promisify(wx.c);',
+        '    const d = flag ? promisify(wx.d) : null;',
+        '    const e = new Foo(promisify(wx.e));',
+        '    const g = `${promisify(wx.g)}`;',
+        '    return [c, d, e, g];',
+        '  };',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      ['wx.a', 'wx.b', 'wx.c', 'wx.d', 'wx.e', 'wx.g'].forEach(api => {
+        expect(result).toContain(`.promisify(${api})`);
+      });
+      expect(result).not.toMatch(bareCall('promisify'));
+    });
+
+    test('should not rewrite non-computed member/property names that look like runtime exports', () => {
+      const code = [
+        'import { promisify } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  const run = async () => {',
+        '    const api = { promisify: wx.login };',
+        '    return await api.promisify();',
+        '  };',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toContain('promisify: wx.login');
+      expect(result).toContain('api.promisify()');
+      expect(result).not.toContain('_rsmax.promisify');
+    });
+
+    test('should treat destructured parameters as bindings but rewrite default values', () => {
+      const code = [
+        'import { promisify } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  const run = ({ promisify: renamed }, [x], z = promisify(wx.getSetting)) => renamed || x || z;',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      // 解构中的 promisify 是局部绑定名，不能改写为命名空间成员（生成器可能跨行排版）
+      expect(result).toMatch(/\{\s*promisify:\s*renamed\s*\}/);
+      expect(result).toContain('renamed || x || z');
+      // 默认值是表达式位置，必须改写
+      expect(result).toContain('.promisify(wx.getSetting)');
+    });
+
+    test('should rewrite aliased require() runtime imports in nested context', () => {
+      const code = [
+        'const { promisify: pf } = require("@rsmax/runtime");',
+        'export default function Page() {',
+        '  const run = async () => await pf(wx.login)();',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toContain('.promisify(wx.login)');
+      expect(result).not.toMatch(/\bpf\s*\(/);
+      expect(result).not.toContain('@rsmax/runtime');
+    });
+  });
+
   describe('import transformation', () => {
     test('should convert non-rsmax imports to require', () => {
       const code = [
