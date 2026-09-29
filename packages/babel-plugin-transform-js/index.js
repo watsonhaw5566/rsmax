@@ -214,6 +214,165 @@ function convertImportToRequire(specifiers, sourceLit, genUid) {
   return stmts;
 }
 
+/**
+ * 内联箭头事件支持：onTap={(e) => fn(idx, e)}
+ *
+ * jsx-to-wxml 已为每个内联箭头生成唯一方法名（__rsmaxHN），并把列表行变量
+ * 收集为 data-rsmax-h-n="{{[idx, item]}}"。本模块在 setup 函数体顶部注入：
+ *
+ *   this.__rsmaxHN = (event) => {
+ *     var _rsmaxArgs = event.currentTarget.dataset.rsmaxHN || [];
+ *     return fn(_rsmaxArgs[0], event);   // 行变量引用改写为 _rsmaxArgs[i]
+ *   };
+ *
+ * 非列表场景（captured 为空）直接提升为 this 方法；其余自由变量（如 fn、
+ * useState 状态）走 setup 闭包，每次 rerun 重新挂载，天然拿到最新值。
+ */
+function isFunctionLike(node) {
+  return t.isArrowFunctionExpression(node) || t.isFunctionDeclaration(node) ||
+         t.isFunctionExpression(node) || t.isObjectMethod(node) || t.isClassMethod(node);
+}
+
+function collectPatternBindings(node, out) {
+  if (!node) return;
+  if (t.isIdentifier(node)) {
+    out.add(node.name);
+  } else if (t.isObjectPattern(node)) {
+    node.properties.forEach(p => {
+      if (t.isObjectProperty(p)) collectPatternBindings(p.value, out);
+      else if (t.isRestElement(p)) collectPatternBindings(p.argument, out);
+    });
+  } else if (t.isArrayPattern(node)) {
+    node.elements.forEach(el => { if (el) collectPatternBindings(el, out); });
+  } else if (t.isRestElement(node)) {
+    collectPatternBindings(node.argument, out);
+  } else if (t.isAssignmentPattern(node)) {
+    collectPatternBindings(node.left, out);
+  }
+}
+
+/**
+ * 将箭头体内引用的列表行变量改写为 argsId[i]（按 slotByName 的槽位）。
+ * 函数参数、局部声明、catch 参数等同名绑定视为遮蔽，不改写。
+ */
+function rewriteCapturedIdentifiers(root, slotByName, argsId) {
+  const scopeStack = [];
+  const isShadowed = name => scopeStack.some(s => s.has(name));
+
+  const walk = (node) => {
+    if (!node || typeof node.type !== 'string') return;
+
+    const isFn = isFunctionLike(node);
+    if (isFn) {
+      const names = new Set();
+      (node.params || []).forEach(p => collectPatternBindings(p, names));
+      if (node.id && t.isIdentifier(node.id)) names.add(node.id.name);
+      scopeStack.push(names);
+    }
+    if (t.isVariableDeclarator(node)) {
+      const scope = scopeStack[scopeStack.length - 1];
+      if (scope) collectPatternBindings(node.id, scope);
+    }
+    if (t.isCatchClause(node) && node.param) {
+      const scope = scopeStack[scopeStack.length - 1];
+      if (scope) collectPatternBindings(node.param, scope);
+    }
+
+    const keys = t.VISITOR_KEYS[node.type] || [];
+    for (const key of keys) {
+      const child = node[key];
+      if (Array.isArray(child)) {
+        for (let i = 0; i < child.length; i++) {
+          const el = child[i];
+          if (el && t.isIdentifier(el) &&
+              slotByName.has(el.name) && !isShadowed(el.name) &&
+              t.isReferenced(el, node)) {
+            child[i] = t.memberExpression(t.cloneNode(argsId), t.numericLiteral(slotByName.get(el.name)), true);
+          } else {
+            walk(el);
+          }
+        }
+      } else if (child) {
+        if (t.isIdentifier(child) &&
+            slotByName.has(child.name) && !isShadowed(child.name) &&
+            t.isReferenced(child, node)) {
+          node[key] = t.memberExpression(t.cloneNode(argsId), t.numericLiteral(slotByName.get(child.name)), true);
+        } else {
+          walk(child);
+        }
+      }
+    }
+
+    if (isFn) scopeStack.pop();
+  };
+
+  walk(root);
+}
+
+/**
+ * 构建单条 this.__rsmaxHN = <箭头函数> 注入语句。
+ * genUid: (hint) => Identifier，基于 babel scope 保证唯一。
+ */
+function buildInlineHandlerStatement(handler, genUid) {
+  const arrow = handler.node;
+  if (!t.isArrowFunctionExpression(arrow)) {
+    throw new Error('rsmax: 内联事件仅支持箭头函数，如 onTap={(e) => fn(e)}。');
+  }
+  if (arrow.params.length > 1 ||
+      (arrow.params.length === 1 && !t.isIdentifier(arrow.params[0]))) {
+    throw new Error(
+      'rsmax: 内联事件仅支持 0 或 1 个事件参数的箭头函数，如 onInput={(e) => fn(idx, e)}。' +
+      '多参数或解构参数请改为具名方法，并通过 data-* 传递列表行数据。'
+    );
+  }
+
+  const target = t.memberExpression(t.thisExpression(), t.identifier(handler.name));
+
+  const captured = handler.captured || [];
+  if (captured.length === 0) {
+    return t.expressionStatement(t.assignmentExpression('=', target, arrow));
+  }
+
+  // 列表场景：保证事件参数存在（用户可能写成 () => fn(idx)）
+  const eventId = arrow.params[0] || genUid('rsmaxEvent');
+  if (!arrow.params[0]) arrow.params = [eventId];
+  const argsId = genUid('rsmaxArgs');
+
+  const slotByName = new Map();
+  captured.forEach((name, i) => slotByName.set(name, i));
+  rewriteCapturedIdentifiers(arrow, slotByName, argsId);
+
+  // var _rsmaxArgs = (((event || {}).currentTarget || {}).dataset || {}).rsmaxHN || [];
+  const fallbackObj = t.objectExpression([]);
+  const datasetChain = t.memberExpression(
+    t.logicalExpression('||',
+      t.memberExpression(
+        t.logicalExpression('||',
+          t.memberExpression(
+            t.logicalExpression('||', eventId, fallbackObj),
+            t.identifier('currentTarget')
+          ),
+          t.objectExpression([])
+        ),
+        t.identifier('dataset')
+      ),
+      t.objectExpression([])
+    ),
+    t.identifier(handler.datasetKey)
+  );
+  const argsDecl = t.variableDeclaration('var', [
+    t.variableDeclarator(argsId, t.logicalExpression('||', datasetChain, t.arrayExpression([])))
+  ]);
+
+  if (t.isBlockStatement(arrow.body)) {
+    arrow.body.body.unshift(argsDecl);
+  } else {
+    arrow.body = t.blockStatement([argsDecl, t.returnStatement(arrow.body)]);
+  }
+
+  return t.expressionStatement(t.assignmentExpression('=', target, arrow));
+}
+
 function transformClassToConfig(classBody, addData = true) {
   const properties = [];
   const methods = [];
@@ -540,6 +699,14 @@ module.exports = function() {
 
         if (t.isFunctionDeclaration(declaration) || t.isArrowFunctionExpression(declaration)) {
           isFunctional = true;
+        }
+
+        const inlineHandlers = fileOpts.inlineHandlers || [];
+        if (inlineHandlers.length > 0 && !isFunctional) {
+          throw new Error(
+            'rsmax: JSX 内联箭头事件（如 onTap={(e) => fn(e)}）仅支持函数式组件/页面，' +
+            '对象/类组件请将事件处理函数声明为配置方法后用具名绑定。'
+          );
         }
 
         if (!isFunctional && !state.hasRsmaxImport) {
@@ -943,6 +1110,14 @@ module.exports = function() {
           }
 
           if (isFunctional) {
+            // 在 setup 顶部注入内联箭头事件对应的 this.__rsmaxHN 方法。
+            // 必须在 transformNode 之前注入：方法体内的 hooks/promisify 引用、
+            // this 外提等逻辑随后会被统一转换。
+            if (inlineHandlers.length > 0) {
+              const genUid = hint => program.scope.generateUidIdentifier(hint);
+              const handlerStmts = inlineHandlers.map(h => buildInlineHandlerStatement(h, genUid));
+              fnBody.body.unshift(...handlerStmts);
+            }
             transformedBody = transformNode(fnBody, state);
             userFn = t.functionExpression(null, fnParams, transformedBody, false, fnAsync);
           } else {
@@ -1014,10 +1189,11 @@ module.exports.transformJS = function(ast, code, options = {}) {
     storePath,
     storeMiddlewarePath,
     i18nPath,
-    define
+    define,
+    inlineHandlers
   } = options;
   const result = babel.transformFromAstSync(ast, code, {
-    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define }]],
+    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define, inlineHandlers }]],
     configFile: false,
     babelrc: false,
     generatorOpts: { retainLines: false, compact: false, quotes: 'single' }

@@ -188,6 +188,43 @@ describe('rsmax-compiler', () => {
       expect(result).toContain('./rsmax-i18n.js');
       expect(result).not.toContain('@rsmax/i18n');
     });
+
+    test('should carry inline arrow handlers from wxml extraction into js transform', () => {
+      const code = [
+        'export default function Page() {',
+        '  const onEdit = (idx, e) => {};',
+        '  return (',
+        '    <view>',
+        '      <button onClick={() => onEdit(-1)}>add</button>',
+        '      {items.map((item, idx) => (',
+        '        <input onInput={(e) => onEdit(idx, e)} />',
+        '      ))}',
+        '    </view>',
+        '  );',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const wxmlResult = extractWxml(ast, code);
+
+      expect(wxmlResult.wxml).toContain('bindtap="__rsmaxH0"');
+      expect(wxmlResult.wxml).not.toContain('data-rsmax-h0');
+      expect(wxmlResult.wxml).toContain('bindinput="__rsmaxH1"');
+      expect(wxmlResult.wxml).toContain('data-rsmax-h1="{{[idx]}}"');
+      expect(wxmlResult.inlineHandlers).toHaveLength(2);
+
+      const js = transformJsCode(
+        ast, code, 'page',
+        {runtimePath: './rsmax-runtime.js'},
+        {},
+        wxmlResult.inlineHandlers
+      );
+
+      expect(js).toContain('this.__rsmaxH0 = () => onEdit(-1)');
+      expect(js).toContain('.rsmaxH1');
+      expect(js).toMatch(/onEdit\(_rsmaxArgs\[0\], e\)/);
+      // 注入的方法体必须出现在 createPage 的 setup 函数内部
+      expect(js).toContain('createPage');
+    });
   });
 
   describe('parseFile', () => {
@@ -350,6 +387,55 @@ module.exports = { format: format };`;
       await compile(srcDir, distDir);
 
       expect(await fs.pathExists(path.join(distDir, 'pages', 'wxs-demo', 'helpers.wxs'))).toBe(true);
+    });
+  });
+
+  describe('inline arrow event handlers (full build)', () => {
+    let tmpDir;
+    let srcDir;
+    let distDir;
+
+    beforeEach(async () => {
+      tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rsmax-inline-event-test-'));
+      srcDir = path.join(tmpDir, 'src');
+      distDir = path.join(tmpDir, 'dist');
+      await fs.ensureDir(path.join(srcDir, 'pages', 'demo'));
+      await fs.writeFile(path.join(srcDir, 'app.js'), 'App({})', 'utf-8');
+      await fs.writeFile(path.join(srcDir, 'app.json'), JSON.stringify({pages: ['pages/demo/index']}), 'utf-8');
+    });
+
+    afterEach(async () => {
+      await fs.remove(tmpDir);
+    });
+
+    test('should compile inline arrows to bound methods with dataset args in dist', async () => {
+      const pageJsx = `import { useState } from '@rsmax/runtime';
+export default function Demo() {
+  const [list, setList] = useState([]);
+  const onEdit = (idx, e) => { setList(idx); };
+  return (
+    <view>
+      <button onClick={() => onEdit(-1)}>add</button>
+      {list.map((item, idx) => (
+        <input value={item.name} onInput={(e) => onEdit(idx, e)} />
+      ))}
+    </view>
+  );
+}`;
+      await fs.writeFile(path.join(srcDir, 'pages', 'demo', 'index.jsx'), pageJsx, 'utf-8');
+
+      await compile(srcDir, distDir);
+
+      const wxml = await fs.readFile(path.join(distDir, 'pages', 'demo', 'index.wxml'), 'utf-8');
+      expect(wxml).toContain('bindtap="__rsmaxH0"');
+      expect(wxml).toContain('bindinput="__rsmaxH1"');
+      expect(wxml).toContain('data-rsmax-h1="{{[idx]}}"');
+
+      const js = await fs.readFile(path.join(distDir, 'pages', 'demo', 'index.js'), 'utf-8');
+      expect(js).toContain('this.__rsmaxH0 = () => onEdit(-1)');
+      expect(js).toContain('this.__rsmaxH1 = e => {');
+      expect(js).toContain('.rsmaxH1');
+      expect(js).toMatch(/onEdit\(_rsmaxArgs\[0\], e\)/);
     });
   });
 
