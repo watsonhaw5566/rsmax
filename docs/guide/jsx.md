@@ -166,6 +166,61 @@ export default function Page() {
 <van-switch checked={on} bindchange={handleChange} />
 ```
 
+### 内联箭头函数
+
+除了绑定具名方法，也可以直接写内联箭头函数，编译器会自动生成对应的实例方法：
+
+```jsx
+<button onClick={() => setVisible(true)}>打开</button>
+<button onClick={(e) => submit(e.detail.value)}>提交</button>
+```
+
+编译后（示意）：
+
+```xml
+<button bindtap="__rsmaxH0">打开</button>
+```
+
+```js
+this.__rsmaxH0 = () => setVisible(true);
+```
+
+方法挂在当前页面/组件实例上，微信触发事件时按名字调用；每次 setup 重新执行都会重新挂载，因此闭包内引用的 state、局部变量始终是最新值。箭头函数的事件参数就是微信原生事件对象，输入框取值用 `e.detail.value`。
+
+### 列表中的事件传参
+
+`wx:for` 渲染层不存在 JS 闭包，列表行变量（`item`、`idx`）会被自动收集，通过 `data-*` 传递，事件触发时再取回，无需手写 dataset：
+
+```jsx
+{items.map((item, idx) => (
+  <input value={item.name} onInput={(e) => update(idx, e.detail.value)} />
+))}
+```
+
+编译后（示意）：
+
+```xml
+<block wx:for="{{items}}" wx:for-item="item" wx:for-index="idx">
+  <input bindinput="__rsmaxH0" data-rsmax-h0="{{[idx]}}" />
+</block>
+```
+
+```js
+this.__rsmaxH0 = e => {
+  const args = e.currentTarget.dataset.rsmaxH0 || [];
+  return update(args[0], e.detail.value);
+};
+```
+
+`item.id` 这类成员访问同样支持，编译器只把根标识符 `item` 放入参数数组，JS 侧保留为 `args[0].id`。箭头体内引用的非行变量（外部函数、state 等）仍走 setup 闭包，不经过 dataset。
+
+::: warning 限制
+1. 内联箭头只支持 **0 或 1 个事件参数**，且参数不能解构（`(a, b) => ...`、`({ detail }) => ...` 会编译报错），此时请改为具名方法 + 手动 `data-*`；
+2. 仅支持**函数式**页面/组件，对象或 `class` 组件请在配置上声明方法后用具名绑定；
+3. `onTap={fn(idx)}` 这类「立即执行表达式」不支持，必须传函数本身（具名或箭头）；
+4. 行变量经 dataset 传递，只能携带可被 WXML 数据绑定序列化的数据。
+:::
+
 ## class 与 className
 
 两者都支持，也支持动态拼接：

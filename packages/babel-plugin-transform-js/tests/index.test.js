@@ -312,6 +312,94 @@ describe('@rsmax/babel-plugin-transform-js', () => {
     });
   });
 
+  describe('inline arrow event handler injection', () => {
+    const parseArrow = arrowSource =>
+      parser.parse(`(${arrowSource})`, { sourceType: 'module', plugins: ['jsx'] }).program.body[0].expression;
+
+    const makeHandler = ({
+      name = '__rsmaxH0',
+      datasetKey = 'rsmaxH0',
+      captured = [],
+      arrow
+    }) => ({name, datasetKey, captured, node: parseArrow(arrow)});
+
+    test('should hoist non-list inline arrow as this method inside setup', () => {
+      const code = [
+        'export default function Page() {',
+        '  const setVisible = () => {};',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const handler = makeHandler({arrow: '() => setVisible(true)', captured: []});
+      const result = transformJS(ast, code, {type: 'page', inlineHandlers: [handler]});
+
+      expect(result).toContain('this.__rsmaxH0 = () => setVisible(true)');
+    });
+
+    test('should rewrite captured row variables to dataset slots and keep event parameter', () => {
+      const code = [
+        'export default function Page() {',
+        '  const onChange = () => {};',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const handler = makeHandler({
+        arrow: '(e) => onChange(item.id, idx, e)',
+        captured: ['item', 'idx']
+      });
+      const result = transformJS(ast, code, {type: 'page', inlineHandlers: [handler]});
+
+      expect(result).toContain('this.__rsmaxH0 = e => {');
+      expect(result).toContain('dataset').toContain('rsmaxH0');
+      expect(result).toContain('return onChange(_rsmaxArgs[0].id, _rsmaxArgs[1], e)');
+      // 不应再残留裸的行变量引用
+      expect(result).not.toMatch(/(?<![\w.])\bitem\b/);
+      expect(result).not.toMatch(/(?<![\w.\]])\bidx\b/);
+    });
+
+    test('should synthesize event parameter when arrow declares none', () => {
+      const code = 'export default function Page() { const fn = () => {}; return null; }';
+      const ast = parseCode(code);
+      const handler = makeHandler({
+        name: '__rsmaxH2',
+        datasetKey: 'rsmaxH2',
+        arrow: '() => fn(idx)',
+        captured: ['idx']
+      });
+      const result = transformJS(ast, code, {type: 'page', inlineHandlers: [handler]});
+
+      // 生成的事件参数名不固定，但 dataset 读取与槽位改写必须存在
+      expect(result).toContain('this.__rsmaxH2');
+      expect(result).toContain('.rsmaxH2');
+      expect(result).toMatch(/return fn\(_rsmaxArgs\[0\]\)/);
+    });
+
+    test('should not rewrite captured names shadowed inside nested function scopes', () => {
+      const code = 'export default function Page() { const list = []; return null; }';
+      const ast = parseCode(code);
+      const handler = makeHandler({
+        arrow: '(e) => list.map(item => fn(item, e))',
+        captured: ['item']
+      });
+      const result = transformJS(ast, code, {type: 'page', inlineHandlers: [handler]});
+
+      // 内层 map 参数 item 遮蔽行变量，不得改写为 _rsmaxArgs[0]
+      expect(result).toContain('list.map(item => fn(item, e))');
+      expect(result).not.toContain('fn(_rsmaxArgs[0]');
+    });
+
+    test('should throw when inline handlers are used with object/class component', () => {
+      const code = 'export default { data: {} };';
+      const ast = parseCode(code);
+      const handler = makeHandler({arrow: '() => fn()', captured: []});
+
+      expect(() => transformJS(ast, code, {type: 'page', inlineHandlers: [handler]}))
+        .toThrow(/仅支持函数式组件/);
+    });
+  });
+
   describe('import transformation', () => {
     test('should convert non-rsmax imports to require', () => {
       const code = [

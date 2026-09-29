@@ -223,7 +223,124 @@ function handleListRendering(code, callNode) {
   return { listSource, itemName, indexName, itemNode };
 }
 
-function buildAttributes(code, openingElement, tagName, isComponent) {
+// --- 内联箭头事件处理：onTap={(e) => fn(idx, e)} ---
+
+const INLINE_HANDLER_PREFIX = '__rsmaxH';
+
+function collectPatternIdNames(node, out) {
+  if (!node) return;
+  if (t.isIdentifier(node)) {
+    out.add(node.name);
+  } else if (t.isObjectPattern(node)) {
+    node.properties.forEach(p => {
+      if (t.isObjectProperty(p)) collectPatternIdNames(p.value, out);
+      else if (t.isRestElement(p)) collectPatternIdNames(p.argument, out);
+    });
+  } else if (t.isArrayPattern(node)) {
+    node.elements.forEach(el => { if (el) collectPatternIdNames(el, out); });
+  } else if (t.isRestElement(node)) {
+    collectPatternIdNames(node.argument, out);
+  } else if (t.isAssignmentPattern(node)) {
+    collectPatternIdNames(node.left, out);
+  }
+}
+
+function isFunctionLikeNode(node) {
+  return t.isArrowFunctionExpression(node) || t.isFunctionDeclaration(node) ||
+         t.isFunctionExpression(node) || t.isObjectMethod(node) || t.isClassMethod(node);
+}
+
+/**
+ * 收集箭头函数体内「引用了外层 wx:for 行变量（item/idx）」的标识符，
+ * 按首次出现顺序返回。函数自身参数、内部函数参数与局部变量声明会遮蔽行变量。
+ */
+function collectCapturedNames(arrowNode, boundNames) {
+  const found = [];
+  const seen = new Set();
+  const scopeStack = [];
+
+  const isShadowed = name => scopeStack.some(s => s.has(name));
+
+  const visit = (node, parent) => {
+    if (!node || typeof node.type !== 'string') return;
+
+    const isFn = isFunctionLikeNode(node);
+    if (isFn) {
+      const names = new Set();
+      (node.params || []).forEach(p => collectPatternIdNames(p, names));
+      if (node.id && t.isIdentifier(node.id)) names.add(node.id.name);
+      scopeStack.push(names);
+    }
+    if (t.isVariableDeclarator(node)) {
+      const scope = scopeStack[scopeStack.length - 1];
+      if (scope) collectPatternIdNames(node.id, scope);
+    }
+    if (t.isCatchClause(node) && node.param) {
+      const scope = scopeStack[scopeStack.length - 1];
+      if (scope) collectPatternIdNames(node.param, scope);
+    }
+    if (t.isIdentifier(node)) {
+      // 仅统计引用位置，跳过非计算属性名/定义位置；局部作用域中的同名绑定视为遮蔽
+      if (boundNames.has(node.name) && !isShadowed(node.name) && t.isReferenced(node, parent)) {
+        if (!seen.has(node.name)) {
+          seen.add(node.name);
+          found.push(node.name);
+        }
+      }
+    }
+
+    const keys = t.VISITOR_KEYS[node.type] || [];
+    for (const key of keys) {
+      const childValue = node[key];
+      if (Array.isArray(childValue)) {
+        childValue.forEach(child => visit(child, node));
+      } else {
+        visit(childValue, node);
+      }
+    }
+
+    if (isFn) scopeStack.pop();
+  };
+
+  visit(arrowNode, null);
+  return found;
+}
+
+/**
+ * 注册一个内联箭头事件处理器，返回 WXML 侧需要的信息：
+ * 生成唯一方法名 + 需要经 dataset 传递的行变量列表。
+ */
+function registerInlineHandler(arrowNode, loopScopes, ctx) {
+  if (arrowNode.params.length > 1 ||
+      (arrowNode.params.length === 1 && !t.isIdentifier(arrowNode.params[0]))) {
+    throw new Error(
+      'rsmax: 内联事件仅支持 0 或 1 个事件参数的箭头函数，如 onInput={(e) => fn(idx, e)}。' +
+      '多参数或解构参数请改为具名方法，并通过 data-* 传递列表行数据。'
+    );
+  }
+
+  // 由内层到外层收集 wx:for 作用域名（同名时内层遮蔽外层，与 WXML 取值一致）
+  const boundNames = new Set();
+  for (let i = loopScopes.length - 1; i >= 0; i--) {
+    boundNames.add(loopScopes[i].itemName);
+    boundNames.add(loopScopes[i].indexName);
+  }
+
+  const captured = collectCapturedNames(arrowNode, boundNames);
+  const name = INLINE_HANDLER_PREFIX + ctx.counter++;
+  const datasetKey = name.replace(/^__/, ''); // __rsmaxH0 -> rsmaxH0（对应 data-rsmax-h0）
+
+  ctx.handlers.push({
+    name,
+    datasetKey,
+    captured,
+    node: t.cloneNode(arrowNode, true, true)
+  });
+
+  return {name, datasetKey, captured};
+}
+
+function buildAttributes(code, openingElement, tagName, isComponent, loopScopes = [], ctx = null) {
   let attributes = '';
   const wxTag = tagName === 'navigator' ? 'view' : getWxTagName(tagName);
   
@@ -248,6 +365,20 @@ function buildAttributes(code, openingElement, tagName, isComponent) {
             attributes += ` ${eventName}="${handler.property.name}"`;
           } else if (t.isStringLiteral(handler)) {
             attributes += ` ${eventName}="${handler.value}"`;
+          } else if (t.isArrowFunctionExpression(handler) && ctx) {
+            const reg = registerInlineHandler(handler, loopScopes, ctx);
+            attributes += ` ${eventName}="${reg.name}"`;
+            if (reg.captured.length > 0) {
+              // 列表行变量经 dataset 数组传递，位置顺序与 captured 一致；
+              // data-rsmax-h0 -> event.currentTarget.dataset.rsmaxH0
+              const attrKey = reg.datasetKey.replace(/([A-Z])/g, '-$1').toLowerCase();
+              attributes += ` data-${attrKey}="{{[${reg.captured.join(', ')}]}}"`;
+            }
+          } else {
+            throw new Error(
+              `rsmax: 事件属性 ${attrName} 仅支持具名方法（如 ${attrName}={handler}）、` +
+              `this.method 或内联箭头函数（如 ${attrName}={(e) => fn(e)}），收到不支持的表达式。`
+            );
           }
         } else if (t.isStringLiteral(attr.value)) {
           attributes += ` ${eventName}="${attr.value.value}"`;
@@ -350,11 +481,11 @@ function collectInlineContent(code, children) {
   return rawContent.replace(/\s+/g, ' ').trim();
 }
 
-function formatNode(code, node, indent, collectedComponents) {
+function formatNode(code, node, indent, collectedComponents, loopScopes = [], ctx = null) {
   if (!node) return [];
   
   if (t.isJSXFragment(node)) {
-    return formatChildren(code, node.children, indent, collectedComponents);
+    return formatChildren(code, node.children, indent, collectedComponents, loopScopes, ctx);
   }
   
   const openingElement = node.openingElement;
@@ -373,7 +504,7 @@ function formatNode(code, node, indent, collectedComponents) {
   const isComponent = isComponentName(tagName) || isCustomComponent(tagName);
   const wxTag = tagName === 'navigator' ? 'view' : getWxTagName(tagName);
   const indentStr = getIndent(indent);
-  const attributes = buildAttributes(code, openingElement, tagName, isComponent);
+  const attributes = buildAttributes(code, openingElement, tagName, isComponent, loopScopes, ctx);
   
   if (node.selfClosing || WX_VOID_TAGS.has(wxTag)) {
     return [`${indentStr}<${wxTag}${attributes} />`];
@@ -384,7 +515,7 @@ function formatNode(code, node, indent, collectedComponents) {
     return [`${indentStr}<${wxTag}${attributes}>${inlineContent}</${wxTag}>`];
   }
   
-  const childLines = formatChildren(code, node.children, indent + 1, collectedComponents);
+  const childLines = formatChildren(code, node.children, indent + 1, collectedComponents, loopScopes, ctx);
   
   if (childLines.length === 0) {
     return [`${indentStr}<${wxTag}${attributes}></${wxTag}>`];
@@ -401,7 +532,7 @@ function formatNode(code, node, indent, collectedComponents) {
   return lines;
 }
 
-function formatChildren(code, children, indent, collectedComponents) {
+function formatChildren(code, children, indent, collectedComponents, loopScopes = [], ctx = null) {
   const lines = [];
   
   children.forEach(child => {
@@ -417,7 +548,9 @@ function formatChildren(code, children, indent, collectedComponents) {
       if (listResult) {
         lines.push(`${getIndent(indent)}<block wx:for="{{${listResult.listSource}}}" wx:for-item="${listResult.itemName}" wx:for-index="${listResult.indexName}" wx:key="*this">`);
         if (listResult.itemNode) {
-          lines.push(...formatNode(code, listResult.itemNode, indent + 1, collectedComponents));
+          // 列表项内部进入新的 wx:for 作用域
+          const innerScopes = loopScopes.concat([{itemName: listResult.itemName, indexName: listResult.indexName}]);
+          lines.push(...formatNode(code, listResult.itemNode, indent + 1, collectedComponents, innerScopes, ctx));
         }
         lines.push(`${getIndent(indent)}</block>`);
         return;
@@ -430,26 +563,26 @@ function formatChildren(code, children, indent, collectedComponents) {
         if (consequentIsJsx || alternateIsJsx) {
           const test = getExpressionCode(code, expr.test);
           lines.push(`${getIndent(indent)}<block wx:if="{{${test}}}">`);
-          if (consequentIsJsx) lines.push(...formatNode(code, expr.consequent, indent + 1, collectedComponents));
+          if (consequentIsJsx) lines.push(...formatNode(code, expr.consequent, indent + 1, collectedComponents, loopScopes, ctx));
           lines.push(`${getIndent(indent)}</block>`);
           
           if (expr.alternate && !t.isNullLiteral(expr.alternate)) {
             if (alternateIsJsx) {
               lines.push(`${getIndent(indent)}<block wx:else>`);
-              lines.push(...formatNode(code, expr.alternate, indent + 1, collectedComponents));
+              lines.push(...formatNode(code, expr.alternate, indent + 1, collectedComponents, loopScopes, ctx));
               lines.push(`${getIndent(indent)}</block>`);
             } else if (t.isConditionalExpression(expr.alternate)) {
               let current = expr.alternate;
               while (current && t.isConditionalExpression(current)) {
                 const elseTest = getExpressionCode(code, current.test);
                 lines.push(`${getIndent(indent)}<block wx:elif="{{${elseTest}}}">`);
-                if (t.isJSXElement(current.consequent)) lines.push(...formatNode(code, current.consequent, indent + 1, collectedComponents));
+                if (t.isJSXElement(current.consequent)) lines.push(...formatNode(code, current.consequent, indent + 1, collectedComponents, loopScopes, ctx));
                 lines.push(`${getIndent(indent)}</block>`);
                 
                 if (current.alternate && !t.isNullLiteral(current.alternate)) {
                   if (t.isJSXElement(current.alternate)) {
                     lines.push(`${getIndent(indent)}<block wx:else>`);
-                    lines.push(...formatNode(code, current.alternate, indent + 1, collectedComponents));
+                    lines.push(...formatNode(code, current.alternate, indent + 1, collectedComponents, loopScopes, ctx));
                     lines.push(`${getIndent(indent)}</block>`);
                   } else if (!t.isConditionalExpression(current.alternate)) {
                     break;
@@ -466,7 +599,7 @@ function formatChildren(code, children, indent, collectedComponents) {
       const exprText = convertExpression(code, child);
       if (exprText) lines.push(`${getIndent(indent)}${exprText}`);
     } else if (t.isJSXElement(child)) {
-      lines.push(...formatNode(code, child, indent, collectedComponents));
+      lines.push(...formatNode(code, child, indent, collectedComponents, loopScopes, ctx));
     }
   });
   
@@ -475,10 +608,12 @@ function formatChildren(code, children, indent, collectedComponents) {
 
 function jsxElementToWxml(code, node, indent = 0) {
   const collectedComponents = new Set();
-  const lines = formatNode(code, node, indent, collectedComponents);
+  const ctx = {counter: 0, handlers: []};
+  const lines = formatNode(code, node, indent, collectedComponents, [], ctx);
   return {
     wxml: lines.join('\n') + '\n',
-    components: collectedComponents
+    components: collectedComponents,
+    inlineHandlers: ctx.handlers
   };
 }
 
@@ -500,6 +635,7 @@ function findJsxInFunction(fn) {
 function extractWxmlFromCode(ast, code) {
   let wxml = '';
   let components = new Set();
+  let inlineHandlers = [];
   
   babelTraverse(ast, {
     ExportDefaultDeclaration(path) {
@@ -532,11 +668,12 @@ function extractWxmlFromCode(ast, code) {
         const result = jsxElementToWxml(code, jsxNode, 0);
         wxml = result.wxml;
         components = result.components;
+        inlineHandlers = result.inlineHandlers || [];
       }
     }
   });
   
-  return { wxml, components };
+  return { wxml, components, inlineHandlers };
 }
 
 function babelTraverse(ast, visitors) {

@@ -186,6 +186,85 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
       expect(result.wxml).toContain('bindtap="handleClick"');
     });
 
+    describe('inline arrow event handlers', () => {
+      const compile = (jsx) => {
+        const code = `export default function Page() { ${jsx} }`;
+        const ast = parseCode(code);
+        const jsxNode = findJsxInExportDefault(ast);
+        return jsxElementToWxml(code, jsxNode);
+      };
+
+      test('should bind non-list inline arrow to generated method without data attr', () => {
+        const result = compile("return <button onClick={() => setVisible(true)}>go</button>;");
+
+        expect(result.wxml).toContain('bindtap="__rsmaxH0"');
+        expect(result.wxml).not.toContain('data-rsmax-h0');
+        expect(result.inlineHandlers).toHaveLength(1);
+        expect(result.inlineHandlers[0].name).toBe('__rsmaxH0');
+        expect(result.inlineHandlers[0].captured).toEqual([]);
+      });
+
+      test('should pass list row variables through dataset array in capture order', () => {
+        const result = compile(
+          "return <view>{list.map((item, idx) => <input onInput={(e) => onChange(item.id, idx, e)} />)}</view>;"
+        );
+
+        expect(result.wxml).toContain('bindinput="__rsmaxH0"');
+        // item.id 只需传递根标识符 item（JS 侧重写为 args[0].id）
+        expect(result.wxml).toContain('data-rsmax-h0="{{[item, idx]}}"');
+        expect(result.inlineHandlers[0].captured).toEqual(['item', 'idx']);
+        expect(result.inlineHandlers[0].datasetKey).toBe('rsmaxH0');
+      });
+
+      test('should emit no data attr when inline arrow does not reference row variables', () => {
+        const result = compile(
+          "return <view>{list.map(() => <button onClick={() => refresh()}>r</button>)}</view>;"
+        );
+
+        expect(result.wxml).toContain('bindtap="__rsmaxH0"');
+        expect(result.wxml).not.toContain('data-rsmax-');
+        expect(result.inlineHandlers[0].captured).toEqual([]);
+      });
+
+      test('should not capture row variables shadowed by inner function parameters or locals', () => {
+        const result = compile(
+          "return <view>{list.map((item, idx) => <button onClick={(e) => list2.map(item => render(item, e))}>x</button>)}</view>;"
+        );
+
+        // 内层 map 的参数 item 遮蔽了行变量 item；idx 未出现，因此无 dataset
+        expect(result.wxml).not.toContain('data-rsmax-');
+        expect(result.inlineHandlers[0].captured).toEqual([]);
+      });
+
+      test('should give unique names to multiple inline handlers', () => {
+        const result = compile(
+          "return <view><button onClick={() => a()}>a</button><button onClick={() => b()}>b</button></view>;"
+        );
+
+        expect(result.wxml).toContain('bindtap="__rsmaxH0"');
+        expect(result.wxml).toContain('bindtap="__rsmaxH1"');
+        expect(result.inlineHandlers.map(h => h.name)).toEqual(['__rsmaxH0', '__rsmaxH1']);
+      });
+
+      test('should throw on inline arrow with multiple parameters', () => {
+        expect(() => compile(
+          "return <button onClick={(a, b) => fn(a, b)}>x</button>;"
+        )).toThrow(/0 或 1 个事件参数/);
+      });
+
+      test('should throw on inline arrow with destructured parameter', () => {
+        expect(() => compile(
+          "return <button onClick={({detail}) => fn(detail)}>x</button>;"
+        )).toThrow(/0 或 1 个事件参数/);
+      });
+
+      test('should throw on non-identifier non-arrow event expression', () => {
+        expect(() => compile(
+          "return <view>{list.map((item, idx) => <button onClick={fn(idx)}>x</button>)}</view>;"
+        )).toThrow(/具名方法|this.method|内联箭头函数/);
+      });
+    });
+
     test('should convert self-closing image tag', () => {
       const code = 'export default { render() { return <image src="/logo.png" />; } }';
       const ast = parseCode(code);
@@ -396,6 +475,17 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
       const result = extractWxmlFromCode(ast, code);
 
       expect(result.wxml).toContain('<view>Functional Page</view>');
+    });
+
+    test('should return inline handlers collected from functional component', () => {
+      const code = 'export default function() { return <view>{list.map((item, idx) => <button onClick={(e) => fn(idx, e)}>x</button>)}</view>; }';
+      const ast = parseCode(code);
+      const result = extractWxmlFromCode(ast, code);
+
+      expect(result.wxml).toContain('bindtap="__rsmaxH0"');
+      expect(result.wxml).toContain('data-rsmax-h0="{{[idx]}}"');
+      expect(result.inlineHandlers).toHaveLength(1);
+      expect(result.inlineHandlers[0].captured).toEqual(['idx']);
     });
 
     test('should extract wxml from class component render method', () => {

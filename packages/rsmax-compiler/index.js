@@ -90,7 +90,7 @@ function extractWxml(ast, code) {
     if (result && typeof result === 'object' && 'wxml' in result) {
         return result;
     }
-    return {wxml: result, components: new Set()};
+    return {wxml: result, components: new Set(), inlineHandlers: []};
 }
 
 /**
@@ -580,7 +580,7 @@ async function copyLocalesAndGenerate(localesDir, targetRoot) {
     return localeCodes;
 }
 
-function transformJsCode(ast, code, type = 'page', paths = {}, defineVars = {}) {
+function transformJsCode(ast, code, type = 'page', paths = {}, defineVars = {}, inlineHandlers = []) {
     const {
         runtimePath = './rsmax-runtime.js',
         storePath = './rsmax-store.js',
@@ -588,7 +588,7 @@ function transformJsCode(ast, code, type = 'page', paths = {}, defineVars = {}) 
         i18nPath = './rsmax-i18n.js'
     } = paths;
     const result = babel.transformFromAstSync(ast, code, {
-        plugins: [[transformJsPlugin, {type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define: defineVars}]],
+        plugins: [[transformJsPlugin, {type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define: defineVars, inlineHandlers}]],
         configFile: false,
         babelrc: false,
         generatorOpts: {retainLines: false, compact: false}
@@ -1009,7 +1009,7 @@ async function compileFile(sourcePath, targetPath, options = {}) {
 
             injectModuleStylesConst(ast, moduleStylesMappings);
 
-            const {wxml, components} = extractWxml(ast, code);
+            const {wxml, components, inlineHandlers} = extractWxml(ast, code);
             customComponents = components || new Set();
 
             if (wxml && fileType !== 'app') {
@@ -1032,7 +1032,7 @@ async function compileFile(sourcePath, targetPath, options = {}) {
                 paths.i18nPath = calculateI18nPath(targetDir, effectiveRoot);
             }
 
-            const jsCode = transformJsCode(ast, code, fileType, paths, options.define);
+            const jsCode = transformJsCode(ast, code, fileType, paths, options.define, inlineHandlers);
             const jsTargetPath = path.join(targetDir, basename + '.js');
             await fs.writeFile(jsTargetPath, jsCode, 'utf-8');
         } else if (hasEsModuleSyntax(ast)) {
@@ -1519,7 +1519,7 @@ async function watch(sourceDir, targetDir, options = {}) {
 
             injectModuleStylesConst(ast, moduleStylesMappings);
 
-            const {wxml, components} = extractWxml(ast, code);
+            const {wxml, components, inlineHandlers} = extractWxml(ast, code);
             customComponents = components || new Set();
 
             if (wxml && fileType !== 'app') {
@@ -1542,7 +1542,7 @@ async function watch(sourceDir, targetDir, options = {}) {
                 paths.i18nPath = calculateI18nPath(targetFileDir, effectiveRoot);
             }
 
-            const jsCode = transformJsCode(ast, code, fileType, paths, watchDefine);
+            const jsCode = transformJsCode(ast, code, fileType, paths, watchDefine, inlineHandlers);
             await fs.writeFile(path.join(targetFileDir, basename + '.js'), jsCode, 'utf-8');
         } else if (fileInfo.hasExportDefault || hasEsModuleSyntax(ast)) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
