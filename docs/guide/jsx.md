@@ -28,6 +28,18 @@
 ))}
 ```
 
+`key` 会被反推为 WXML 的 `wx:key`（React 的 key 是值，而 `wx:key` 要的是 item 的属性名）：
+
+| JSX 写法 | 编译结果 | 说明 |
+|---------|---------|------|
+| `key={item.id}` | `wx:key="id"` | 推荐：item 自身的唯一属性 |
+| `key="id"` | `wx:key="id"` | 字符串按属性名处理 |
+| 不写 `key` | `wx:key="*this"` | 适用于字符串/数字等基本类型数组 |
+| `key={idx}` | `wx:key="*this"` | WXML 不支持以索引为 key，回退 `*this` |
+| `key={item.a.b}`、复杂表达式 | `wx:key="*this"` | 仅支持 `item.xxx` 单层属性，无法反推时回退 |
+
+对象数组请尽量提供 `key={item.xxx}`，否则 `*this` 会以对象本身作为 key，微信开发者工具会输出重复 key 警告（不影响功能，但列表更新时 diff 效率下降）。
+
 ## Fragment
 
 使用空标签 `<>...</>` 返回多个根级元素，不产生额外包裹节点：

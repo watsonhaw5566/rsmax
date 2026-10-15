@@ -186,6 +186,63 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
       expect(result.wxml).toContain('bindtap="handleClick"');
     });
 
+    describe('list rendering wx:key', () => {
+      const blockLine = (wxml) =>
+        wxml.split('\n').find(l => l.includes('<block'));
+
+      const compileList = (mapExpr) => {
+        const code = `export default function Page() { return <view>{${mapExpr}}</view>; }`;
+        const ast = parseCode(code);
+        const jsxNode = findJsxInExportDefault(ast);
+        return jsxElementToWxml(code, jsxNode).wxml;
+      };
+
+      test('should derive wx:key from key={item.id}', () => {
+        const wxml = compileList('items.map(item => <view key={item.id}>{item.name}</view>)');
+
+        expect(blockLine(wxml)).toContain('wx:key="id"');
+        // key 是 React 内部 prop，不应残留在列表项节点上
+        expect(wxml).not.toContain(' key=');
+      });
+
+      test('should respect custom iteration variable names', () => {
+        const wxml = compileList('rows.map((row, i) => <view key={row.date}>{row.label}</view>)');
+
+        expect(blockLine(wxml)).toContain('wx:for-item="row"');
+        expect(blockLine(wxml)).toContain('wx:for-index="i"');
+        expect(blockLine(wxml)).toContain('wx:key="date"');
+      });
+
+      test('should treat string literal key as item property name', () => {
+        const wxml = compileList('tags.map(tag => <text key="name">{tag}</text>)');
+
+        expect(blockLine(wxml)).toContain('wx:key="name"');
+      });
+
+      test('should fall back to *this when key is the loop index', () => {
+        const wxml = compileList('items.map((item, idx) => <view key={idx}>{item.name}</view>)');
+
+        expect(blockLine(wxml)).toContain('wx:key="*this"');
+      });
+
+      test('should fall back to *this when key is a nested member or complex expression', () => {
+        const wxml1 = compileList('items.map(item => <view key={item.meta.id}>{item.name}</view>)');
+        expect(blockLine(wxml1)).toContain('wx:key="*this"');
+
+        const wxml2 = compileList('items.map(item => <view key={item.id + item.type}>{item.name}</view>)');
+        expect(blockLine(wxml2)).toContain('wx:key="*this"');
+
+        const wxml3 = compileList('items.map(item => <view key={getKey(item)}>{item.name}</view>)');
+        expect(blockLine(wxml3)).toContain('wx:key="*this"');
+      });
+
+      test('should use *this when no key is provided', () => {
+        const wxml = compileList('items.map(item => <view>{item.name}</view>)');
+
+        expect(blockLine(wxml)).toContain('wx:key="*this"');
+      });
+    });
+
     describe('inline arrow event handlers', () => {
       const compile = (jsx) => {
         const code = `export default function Page() { ${jsx} }`;

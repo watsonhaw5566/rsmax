@@ -220,7 +220,33 @@ function handleListRendering(code, callNode) {
     if (returnStmt && t.isJSXElement(returnStmt.argument)) itemNode = returnStmt.argument;
   }
   
-  return { listSource, itemName, indexName, itemNode };
+  return {listSource, itemName, indexName, itemNode, wxKey: itemNode ? deriveWxKey(itemNode, itemName) : '*this'};
+}
+
+/**
+ * 从列表项根节点的 key 属性反推 WXML wx:key。
+ * React 的 key 是「值」，WXML 的 wx:key 要的是 item 的属性名或保留字 *this：
+ *   key={item.id} -> "id"      key="id" -> "id"（字符串按属性名处理）
+ *   key={idx} / key={item.a.b} / 复杂表达式 -> 无法表达，回退 *this
+ */
+function deriveWxKey(itemNode, itemName) {
+  const keyAttr = itemNode.openingElement.attributes.find(
+    a => t.isJSXAttribute(a) && t.isJSXIdentifier(a.name, { name: 'key' })
+  );
+  if (!keyAttr) return '*this';
+
+  const value = keyAttr.value;
+  if (t.isStringLiteral(value)) return value.value;
+  if (t.isJSXExpressionContainer(value)) {
+    const expr = value.expression;
+    // 仅支持 item.xxx 形式的单层非计算成员访问
+    if (t.isMemberExpression(expr) && !expr.computed &&
+        t.isIdentifier(expr.object, { name: itemName }) &&
+        t.isIdentifier(expr.property)) {
+      return expr.property.name;
+    }
+  }
+  return '*this';
 }
 
 // --- 内联箭头事件处理：onTap={(e) => fn(idx, e)} ---
@@ -411,9 +437,8 @@ function buildAttributes(code, openingElement, tagName, isComponent, loopScopes 
           attributes += ` ${attrName}="{{${getExpressionCode(code, attr.value.expression)}}}"`;
         }
       } else if (attrName === 'key' || attrName === 'wxKey') {
-        if (t.isStringLiteral(attr.value)) {
-          attributes += ` wx:key="${attr.value.value}"`;
-        }
+        // React 的 key 仅用于列表 diff：map 场景已反推为外层 block 的 wx:key，
+        // 不应作为属性渲染到列表项节点本身
       } else if (attrName === 'src') {
         if (t.isStringLiteral(attr.value)) {
           attributes += ` ${attrName}="${attr.value.value}"`;
@@ -546,7 +571,7 @@ function formatChildren(code, children, indent, collectedComponents, loopScopes 
       const listResult = handleListRendering(code, expr);
       
       if (listResult) {
-        lines.push(`${getIndent(indent)}<block wx:for="{{${listResult.listSource}}}" wx:for-item="${listResult.itemName}" wx:for-index="${listResult.indexName}" wx:key="*this">`);
+        lines.push(`${getIndent(indent)}<block wx:for="{{${listResult.listSource}}}" wx:for-item="${listResult.itemName}" wx:for-index="${listResult.indexName}" wx:key="${listResult.wxKey}">`);
         if (listResult.itemNode) {
           // 列表项内部进入新的 wx:for 作用域
           const innerScopes = loopScopes.concat([{itemName: listResult.itemName, indexName: listResult.indexName}]);
