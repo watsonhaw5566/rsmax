@@ -180,6 +180,79 @@ describe('@rsmax/babel-plugin-transform-js', () => {
       expect(result).toContain('Page(');
       expect(result).toContain('.useState(');
     });
+
+    describe('function declaration hoisting', () => {
+      test('should expose function declaration on this AND keep a local alias', () => {
+        const code = [
+          'export default function Page() {',
+          '  async function init() {',
+          '    const res = await fetchData();',
+          '    return res;',
+          '  }',
+          '  return null;',
+          '}'
+        ].join('\n');
+        const ast = parseCode(code);
+        const result = transformJS(ast, code, { type: 'page' });
+
+        expect(result).toMatch(/this\.init = async function/);
+        expect(result).toContain('const init = this.init');
+      });
+
+      test('should keep bare calls inside useEffect resolvable via the local alias', () => {
+        const code = [
+          'import { useEffect } from "@rsmax/runtime";',
+          'export default function Page() {',
+          '  useEffect(() => {',
+          '    init();',
+          '  }, []);',
+          '  async function init() {',
+          '    return fetchData();',
+          '  }',
+          '  return null;',
+          '}'
+        ].join('\n');
+        const ast = parseCode(code);
+        const result = transformJS(ast, code, { type: 'page' });
+
+        // 闭包中的裸 init() 必须能词法解析到别名，而不是被改写成 this.init（回调内 this 不指向页面）
+        expect(result).toContain('init();');
+        expect(result).toContain('const init = this.init');
+        expect(result).not.toMatch(/useEffect\([\s\S]*this\.init\(\)/);
+      });
+
+      test('should keep recursive self-calls resolvable via the local alias', () => {
+        const code = [
+          'export default function Page() {',
+          '  function countdown(n) {',
+          '    if (n <= 0) return;',
+          '    return countdown(n - 1);',
+          '  }',
+          '  return null;',
+          '}'
+        ].join('\n');
+        const ast = parseCode(code);
+        const result = transformJS(ast, code, { type: 'page' });
+
+        expect(result).toContain('this.countdown = function (n)');
+        expect(result).toContain('const countdown = this.countdown');
+        expect(result).toContain('return countdown(n - 1)');
+      });
+
+      test('should not hoist functions named with use prefix (custom hooks stay local)', () => {
+        const code = [
+          'export default function Page() {',
+          '  function useCustom() { return 1; }',
+          '  return null;',
+          '}'
+        ].join('\n');
+        const ast = parseCode(code);
+        const result = transformJS(ast, code, { type: 'page' });
+
+        expect(result).toContain('function useCustom()');
+        expect(result).not.toContain('this.useCustom');
+      });
+    });
   });
 
   describe('@rsmax/runtime references in nested syntax contexts', () => {
