@@ -928,7 +928,16 @@ module.exports = function() {
                       t.memberExpression(t.thisExpression(), t.identifier(name)),
                       funcExpr
                     )
-                  )
+                  ),
+                  // 局部别名必须保留：useEffect 等闭包中的裸调用 init() 依赖词法作用域
+                  // 解析，this.init 无法被闭包直接看到。与 const fn = () => {} 的
+                  // 处理（this.fn = ...; const fn = this.fn）保持一致。
+                  t.variableDeclaration('const', [
+                    t.variableDeclarator(
+                      t.identifier(name),
+                      t.memberExpression(t.thisExpression(), t.identifier(name))
+                    )
+                  ])
                 ];
               }
               return node;
