@@ -189,6 +189,24 @@ describe('rsmax-compiler', () => {
       expect(result).not.toContain('@rsmax/i18n');
     });
 
+    test('should fill pageEventsOut with statically detected usePageEvent names', () => {
+      const code = [
+        'import { usePageEvent } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  usePageEvent("onPullDownRefresh", () => {});',
+        '  usePageEvent("onShareAppMessage", () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const pageEventsOut = [];
+      const result = transformJsCode(ast, code, 'page', { runtimePath: './rsmax-runtime.js' }, {}, [], pageEventsOut);
+
+      expect(result).toMatch(/pageEvents:\s*\[\s*['"]onPullDownRefresh['"]\s*,\s*['"]onShareAppMessage['"]\s*\]/);
+      // 供 JSON 注入消费：onPullDownRefresh 自动开启 enablePullDownRefresh
+      expect(pageEventsOut).toEqual(['onPullDownRefresh', 'onShareAppMessage']);
+    });
+
     test('should carry inline arrow handlers from wxml extraction into js transform', () => {
       const code = [
         'export default function Page() {',

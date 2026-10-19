@@ -4,6 +4,7 @@ const {
   useEffect,
   useStore,
   useQuery,
+  usePageEvent,
   createPage,
   createComponent,
   _flushBatch,
@@ -297,6 +298,90 @@ describe('@rsmax/runtime', () => {
       expect(instance.data.id).toBe(1);
       expect(instance.data.count).toBe(7);
       expect(instance._setDataCalls).toEqual([{ id: 1, count: 7 }]);
+    });
+  });
+
+  describe('usePageEvent 静态注册（pageEvents）', () => {
+    test('createPage 应为 pageEvents 生成静态转发器，且不泄漏 pageEvents 键', () => {
+      const config = createPage(function () {}, {
+        pageEvents: ['onShareAppMessage', 'onPullDownRefresh']
+      });
+
+      // 转发器静态存在于注册期配置对象上（微信据此点亮转发等菜单入口）
+      expect(typeof config.onShareAppMessage).toBe('function');
+      expect(config.onShareAppMessage.__rsmaxPageEvent).toBe('onShareAppMessage');
+      expect(typeof config.onPullDownRefresh).toBe('function');
+      expect(config.onPullDownRefresh.__rsmaxPageEvent).toBe('onPullDownRefresh');
+      // pageEvents 数组本身不应进入最终配置
+      expect(config.pageEvents).toBeUndefined();
+    });
+
+    test('内置生命周期不被 pageEvents 覆盖（防误用兜底）', () => {
+      const config = createPage(function () {}, { pageEvents: ['onShow'] });
+
+      expect(config.onShow.__rsmaxPageEvent).toBeUndefined();
+      expect(typeof config.onLoad).toBe('function');
+    });
+
+    test('静态转发器分发注册表回调并透传返回值（分享内容）', () => {
+      const config = createPage(function () {
+        usePageEvent('onShareAppMessage', () => ({ title: '分享标题', path: '/pages/ballot' }));
+      }, { pageEvents: ['onShareAppMessage'] });
+
+      const instance = mountPage(config);
+
+      // 微信调用页面实例上的 onShareAppMessage（无论查静态配置还是实例）
+      const share = instance.onShareAppMessage({ from: 'menu' });
+      expect(share).toEqual({ title: '分享标题', path: '/pages/ballot' });
+    });
+
+    test('静态注册事件只分发一次（不与实例包装叠加）', () => {
+      let calls = 0;
+      const config = createPage(function () {
+        usePageEvent('onShareAppMessage', () => { calls++; return {}; });
+      }, { pageEvents: ['onShareAppMessage'] });
+
+      const instance = mountPage(config);
+      instance.onShareAppMessage();
+
+      expect(calls).toBe(1);
+    });
+
+    test('静态转发器始终使用最新一次渲染注册的闭包', () => {
+      let setCount;
+      const config = createPage(function () {
+        const [count, _setCount] = useState(0, 'count');
+        setCount = _setCount;
+        usePageEvent('onShareAppMessage', () => ({ title: 'count=' + count }));
+      }, { data: { count: 0 }, pageEvents: ['onShareAppMessage'] });
+
+      const instance = mountPage(config);
+      expect(instance.onShareAppMessage().title).toBe('count=0');
+
+      setCount(5);
+      _flushBatch(); // 触发 rerender，usePageEvent 重新注册新闭包
+      expect(instance.onShareAppMessage().title).toBe('count=5');
+    });
+
+    test('同一事件多次注册：按顺序全部调用，后注册的返回值生效', () => {
+      const order = [];
+      const config = createPage(function () {
+        usePageEvent('onShareTimeline', () => { order.push(1); return 'a'; });
+        usePageEvent('onShareTimeline', () => { order.push(2); return 'b'; });
+      }, { pageEvents: ['onShareTimeline'] });
+
+      const instance = mountPage(config);
+      expect(instance.onShareTimeline()).toBe('b');
+      expect(order).toEqual([1, 2]);
+    });
+
+    test('非静态路径（未声明 pageEvents）维持实例挂载，且回调返回值不再丢失', () => {
+      const config = createPage(function () {
+        usePageEvent('onReachBottom', () => 42);
+      });
+
+      const instance = mountPage(config);
+      expect(instance.onReachBottom()).toBe(42);
     });
   });
 });

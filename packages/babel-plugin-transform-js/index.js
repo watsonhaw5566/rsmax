@@ -460,6 +460,50 @@ function transformObjectToConfig(objExpr, addData = true) {
   return t.objectExpression(props);
 }
 
+// createPage 已静态内置的键：这些生命周期由运行时统一管理（data / onLoad 等），
+// 同名事件不能作为静态转发器注册，否则会覆盖框架行为
+const PREDEFINED_PAGE_KEYS = ['data', 'pageEvents', 'onLoad', 'onShow', 'onReady', 'onHide', 'onUnload'];
+
+/**
+ * 收集函数体内 usePageEvent('literal', ...) 静态声明的事件名。
+ *
+ * 微信依据 Page() 注册期配置对象上是否定义了 onShareAppMessage / onShareTimeline /
+ * onAddToFavorites 等方法来决定是否点亮「转发」等菜单入口，onLoad 期间再往实例上
+ * 挂载不会生效。因此编译期把检测到的事件名通过 pageEvents 传给 createPage，
+ * 由运行时生成静态转发器（分发仍读取 _eventHandlers 注册表）。
+ * 仅识别字符串字面量事件名；动态事件名维持原有的实例挂载机制。
+ * 须在 transformNode 改写前调用：改写后调用点会变成 _rsmax.usePageEvent(...)。
+ */
+function collectPageEventNames(fnBody, rsmaxImported) {
+  const names = [];
+  const seen = new Set();
+  const walk = (node) => {
+    if (!node || typeof node.type !== 'string') return;
+    if (t.isCallExpression(node) &&
+        t.isIdentifier(node.callee) &&
+        rsmaxImported.get(node.callee.name) === 'usePageEvent' &&
+        node.arguments.length > 0 &&
+        t.isStringLiteral(node.arguments[0])) {
+      const name = node.arguments[0].value;
+      if (!seen.has(name) && !PREDEFINED_PAGE_KEYS.includes(name)) {
+        seen.add(name);
+        names.push(name);
+      }
+    }
+    const keys = t.VISITOR_KEYS[node.type] || [];
+    for (const key of keys) {
+      const child = node[key];
+      if (Array.isArray(child)) {
+        child.forEach(walk);
+      } else if (child && typeof child.type === 'string') {
+        walk(child);
+      }
+    }
+  };
+  walk(fnBody);
+  return names;
+}
+
 module.exports = function() {
   return {
     name: 'babel-plugin-transform-js',
@@ -1118,6 +1162,17 @@ module.exports = function() {
             }
           }
 
+          // 页面专属：静态声明 usePageEvent 检测到的事件（转发等菜单能力
+          // 由 Page() 注册期配置决定）。须在 transformNode 改写前收集。
+          let pageEvents = [];
+          if (isFunctional && !isApp && !isComponent) {
+            pageEvents = collectPageEventNames(fnBody, state.rsmaxImported);
+            if (pageEvents.length > 0 && Array.isArray(fileOpts.pageEventsOut)) {
+              // 供编译器消费（如 onPullDownRefresh 自动开启 enablePullDownRefresh）
+              pageEvents.forEach(name => fileOpts.pageEventsOut.push(name));
+            }
+          }
+
           if (isFunctional) {
             // 在 setup 顶部注入内联箭头事件对应的 this.__rsmaxHN 方法。
             // 必须在 transformNode 之前注入：方法体内的 hooks/promisify 引用、
@@ -1140,6 +1195,12 @@ module.exports = function() {
           }
           if (componentProps.length > 0) {
             configProps.push(t.objectProperty(t.identifier('properties'), t.objectExpression(componentProps)));
+          }
+          if (pageEvents.length > 0) {
+            configProps.push(t.objectProperty(
+              t.identifier('pageEvents'),
+              t.arrayExpression(pageEvents.map(name => t.stringLiteral(name)))
+            ));
           }
 
           const configArgs = [userFn];
@@ -1199,10 +1260,11 @@ module.exports.transformJS = function(ast, code, options = {}) {
     storeMiddlewarePath,
     i18nPath,
     define,
-    inlineHandlers
+    inlineHandlers,
+    pageEventsOut
   } = options;
   const result = babel.transformFromAstSync(ast, code, {
-    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define, inlineHandlers }]],
+    plugins: [[module.exports, { type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define, inlineHandlers, pageEventsOut }]],
     configFile: false,
     babelrc: false,
     generatorOpts: { retainLines: false, compact: false, quotes: 'single' }
