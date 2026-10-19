@@ -3,6 +3,9 @@
   "version": "2.0.0-beta.3",
   "description": "Babel plugin to transform JS logic for WeChat Mini Program",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "dependencies": {
     "@babel/core": "^7.23.0",
     "@babel/types": "^7.23.0"

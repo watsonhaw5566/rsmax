@@ -6,6 +6,10 @@
   "bin": {
     "rsmax": "./bin/rsmax.js"
   },
+  "files": [
+    "index.js",
+    "bin"
+  ],
   "dependencies": {
     "@rsmax/compiler": "workspace:*",
     "@rsmax/runtime": "workspace:*",

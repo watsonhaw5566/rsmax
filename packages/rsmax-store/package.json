@@ -6,5 +6,9 @@
     ".": "./index.js",
     "./middleware": "./middleware.js"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "middleware.js"
+  ]
 }
