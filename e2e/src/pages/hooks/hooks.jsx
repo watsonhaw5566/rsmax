@@ -29,6 +29,19 @@ export default function HooksDemo() {
     console.log(dayjs().format('YYYY-MM-DD HH:mm:ss'))
   });
 
+  usePageEvent('onShareAppMessage', () => {
+    return {
+      title: 'rsmax Hooks Demo',
+      path: '/pages/hooks/hooks'
+    };
+  });
+
+  usePageEvent('onPullDownRefresh', () => {
+    console.log('HooksDemo pull down refresh');
+    setCount(0);
+    wx.stopPullDownRefresh();
+  });
+
   return (
     <view class="container">
       <view class="header">

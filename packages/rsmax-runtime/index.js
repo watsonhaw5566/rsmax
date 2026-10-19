@@ -154,17 +154,24 @@ function useQuery() {
 function usePageEvent(event, handler) {
   const instance = getInstance();
   const idx = hookIndex++;
-  
+
   if (!instance._hooks[idx]) {
     instance._hooks[idx] = { type: 'event', event };
     const orig = instance[event];
-    instance[event] = function(...args) {
-      if (orig) orig.apply(this, args);
-      const latestHandler = instance._eventHandlers[`${event}_${idx}`];
-      if (latestHandler) latestHandler.apply(this, args);
-    };
+    if (orig && orig.__rsmaxPageEvent === event) {
+      // 该事件已由编译期静态注册（createPage 依据 pageEvents 生成的转发器）：
+      // 分发由转发器读取 _eventHandlers 注册表完成，这里不再包一层实例方法，
+      // 避免同一事件回调被调用两次。
+    } else {
+      instance[event] = function(...args) {
+        if (orig) orig.apply(this, args);
+        const latestHandler = instance._eventHandlers[`${event}_${idx}`];
+        // 返回 handler 结果：onShareAppMessage 等事件依赖返回值提供分享内容
+        if (latestHandler) return latestHandler.apply(this, args);
+      };
+    }
   }
-  
+
   instance._eventHandlers[`${event}_${idx}`] = handler;
 }
 
@@ -290,37 +297,74 @@ function createApp(appConfig) {
   return appConfig;
 }
 
+/**
+ * 生成页面事件的静态转发器。
+ *
+ * 微信依据 Page() 注册期配置对象上是否定义了 onShareAppMessage / onShareTimeline /
+ * onAddToFavorites 等方法，来决定是否点亮「转发」等右上角菜单入口；onLoad 期间
+ * 再往实例上挂载不会生效。编译器检测到 usePageEvent('xxx', ...) 调用后，会把事件
+ * 名通过 pageEvents 静态声明进 createPage 的配置，由这里生成同名转发器占位。
+ *
+ * 转发器实际分发读取实例上的 _eventHandlers 注册表，因此调用的始终是
+ * usePageEvent 最新一次渲染注册的回调闭包，并透传其返回值（分享内容等）。
+ */
+function createPageEventDispatcher(event) {
+  const dispatcher = function (...args) {
+    const handlers = this._eventHandlers;
+    if (!handlers) return undefined;
+    let result;
+    for (const key of Object.keys(handlers)) {
+      if (key.startsWith(event + '_')) {
+        result = handlers[key].apply(this, args);
+      }
+    }
+    return result;
+  };
+  // 标记事件名：usePageEvent 据此识别转发器，跳过实例方法包装，避免重复分发
+  dispatcher.__rsmaxPageEvent = event;
+  return dispatcher;
+}
+
 function createPage(userFn, pageConfig = {}) {
   const config = {
     data: pageConfig.data || {},
-    
+
     onLoad(options) {
       this._query = options || {};
       this._userFn = userFn;
       this._run(true);
     },
-    
+
     onShow() {
       if (this._mounted) {
         this._flushPendingEffects();
       }
     },
-    
+
     onReady() {
       this._ready = true;
       this._flushPendingEffects();
     },
-    
+
     onHide() {},
-    
+
     onUnload() {
       this._destroyed = true;
       this._cleanup();
     }
   };
-  
+
+  // 静态注册编译器检测到的页面事件（如 onShareAppMessage），转发器分发读取
+  // _eventHandlers 注册表。已内置的生命周期（onLoad 等）不会被覆盖。
+  const pageEvents = Array.isArray(pageConfig.pageEvents) ? pageConfig.pageEvents : [];
+  pageEvents.forEach(ev => {
+    if (typeof ev === 'string' && config[ev] === undefined) {
+      config[ev] = createPageEventDispatcher(ev);
+    }
+  });
+
   Object.keys(pageConfig).forEach(k => {
-    if (k !== 'data') {
+    if (k !== 'data' && k !== 'pageEvents') {
       config[k] = pageConfig[k];
     }
   });

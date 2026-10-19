@@ -713,6 +713,139 @@ export default msg;`;
     });
   });
 
+  describe('usePageEvent static registration (pageEvents)', () => {
+    test('应把函数体内的字面量 usePageEvent 事件写进 createPage 的 pageEvents', () => {
+      const code = [
+        'import { useState, usePageEvent } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  const [count] = useState(0);',
+        '  usePageEvent("onShareAppMessage", () => ({ title: "share" }));',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page', runtimePath: './rsmax-runtime.js' });
+
+      expect(result).toMatch(/createPage\(/);
+      expect(result).toMatch(/pageEvents:\s*\[\s*['"]onShareAppMessage['"]\s*\]/);
+    });
+
+    test('内置生命周期事件不写入 pageEvents（避免覆盖框架行为）', () => {
+      const code = [
+        'import { usePageEvent } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  usePageEvent("onShow", () => {});',
+        '  usePageEvent("onLoad", () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).not.toContain('pageEvents');
+    });
+
+    test('动态事件名不收集（维持实例挂载机制）', () => {
+      const code = [
+        'import { usePageEvent } from "@rsmax/runtime";',
+        'export default function Page(ev) {',
+        '  usePageEvent(ev, () => {});',
+        '  usePageEvent(`onShareAppMessage`, () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).not.toContain('pageEvents');
+    });
+
+    test('嵌套作用域（useEffect 回调内）的事件也应收集', () => {
+      const code = [
+        'import { useEffect, usePageEvent } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  useEffect(() => {',
+        '    usePageEvent("onReachBottom", () => {});',
+        '  }, []);',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toMatch(/pageEvents:\s*\[\s*['"]onReachBottom['"]\s*\]/);
+    });
+
+    test('多个事件去重并保持出现顺序', () => {
+      const code = [
+        'import { usePageEvent } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  usePageEvent("onShareAppMessage", () => {});',
+        '  usePageEvent("onShareTimeline", () => {});',
+        '  usePageEvent("onShareAppMessage", () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toMatch(/pageEvents:\s*\[\s*['"]onShareAppMessage['"]\s*,\s*['"]onShareTimeline['"]\s*\]/);
+    });
+
+    test('import 别名（usePageEvent as onEvt）也应识别', () => {
+      const code = [
+        'import { usePageEvent as onEvt } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  onEvt("onAddToFavorites", () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const ast = parseCode(code);
+      const result = transformJS(ast, code, { type: 'page' });
+
+      expect(result).toMatch(/pageEvents:\s*\[\s*['"]onAddToFavorites['"]\s*\]/);
+    });
+
+    test('组件与应用不生成 pageEvents', () => {
+      const compCode = [
+        'import { usePageEvent } from "@rsmax/runtime";',
+        'export default function Comp() {',
+        '  usePageEvent("onShareAppMessage", () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const compResult = transformJS(parseCode(compCode), compCode, { type: 'component' });
+      expect(compResult).toContain('createComponent(');
+      expect(compResult).not.toContain('pageEvents');
+
+      const appCode = [
+        'import { useAppEvent } from "@rsmax/runtime";',
+        'export default function App() {',
+        '  useAppEvent("onLaunch", () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const appResult = transformJS(parseCode(appCode), appCode, { type: 'app' });
+      expect(appResult).toContain('createApp(');
+      expect(appResult).not.toContain('pageEvents');
+    });
+
+    test('pageEventsOut 选项应回填检测到的事件名', () => {
+      const code = [
+        'import { usePageEvent } from "@rsmax/runtime";',
+        'export default function Page() {',
+        '  usePageEvent("onPullDownRefresh", () => {});',
+        '  usePageEvent("onShareAppMessage", () => {});',
+        '  return null;',
+        '}'
+      ].join('\n');
+      const pageEventsOut = [];
+      transformJS(parseCode(code), code, { type: 'page', pageEventsOut });
+
+      expect(pageEventsOut).toEqual(['onPullDownRefresh', 'onShareAppMessage']);
+    });
+  });
+
   describe('plugin exports', () => {
     test('should export plugin function', () => {
       expect(typeof plugin).toBe('function');

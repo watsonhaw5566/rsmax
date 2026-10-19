@@ -83,7 +83,7 @@ const query = useQuery(); // { id: '123', ... }
 
 ## usePageEvent
 
-监听页面生命周期事件，可多次注册，回调始终使用最新闭包：
+监听页面生命周期事件，可多次注册，回调始终使用最新闭包，回调返回值会透传给微信（如分享内容）：
 
 ```jsx
 usePageEvent('onShow', () => {
@@ -95,7 +95,22 @@ usePageEvent('onReachBottom', () => {
 });
 ```
 
-支持的页面事件包括：`onLoad`、`onShow`、`onReady`、`onHide`、`onUnload`、`onPullDownRefresh`、`onReachBottom`、`onShareAppMessage`、`onPageScroll` 等。
+支持的页面事件包括：`onLoad`、`onShow`、`onReady`、`onHide`、`onUnload`、`onPullDownRefresh`、`onReachBottom`、`onShareAppMessage`、`onShareTimeline`、`onAddToFavorites`、`onPageScroll`、`onTabItemTap` 等。
+
+### 静态注册与菜单能力
+
+`onShareAppMessage`（转发）、`onShareTimeline`（分享到朋友圈）、`onAddToFavorites`（收藏）等右上角菜单入口，由微信依据页面注册时 `Page()` 配置对象上是否定义了对应方法来决定是否点亮，运行期再往实例上挂载不会生效。rsmax 会在编译期检测函数体内的 `usePageEvent` 调用（事件名须为字符串字面量），把事件静态注册进页面配置，因此以下写法开箱即用：
+
+```jsx
+usePageEvent('onShareAppMessage', () => ({
+  title: '分享标题',
+  path: '/pages/index/index'
+}));
+```
+
+> 事件名为变量等动态写法无法静态注册，菜单入口不会被点亮，请使用字符串字面量。
+
+`onPullDownRefresh`（下拉刷新）同理依赖页面配置 `enablePullDownRefresh`：检测到该事件且页面 `.json` 未显式配置时，编译器会自动开启下拉刷新开关；显式配置（包括 `false`）时以页面 `.json` 为准。
 
 ## useAppEvent
 

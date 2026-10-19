@@ -580,7 +580,7 @@ async function copyLocalesAndGenerate(localesDir, targetRoot) {
     return localeCodes;
 }
 
-function transformJsCode(ast, code, type = 'page', paths = {}, defineVars = {}, inlineHandlers = []) {
+function transformJsCode(ast, code, type = 'page', paths = {}, defineVars = {}, inlineHandlers = [], pageEventsOut = undefined) {
     const {
         runtimePath = './rsmax-runtime.js',
         storePath = './rsmax-store.js',
@@ -588,7 +588,7 @@ function transformJsCode(ast, code, type = 'page', paths = {}, defineVars = {}, 
         i18nPath = './rsmax-i18n.js'
     } = paths;
     const result = babel.transformFromAstSync(ast, code, {
-        plugins: [[transformJsPlugin, {type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define: defineVars, inlineHandlers}]],
+        plugins: [[transformJsPlugin, {type, runtimePath, storePath, storeMiddlewarePath, i18nPath, define: defineVars, inlineHandlers, pageEventsOut}]],
         configFile: false,
         babelrc: false,
         generatorOpts: {retainLines: false, compact: false}
@@ -968,6 +968,8 @@ async function compileFile(sourcePath, targetPath, options = {}) {
         let moduleInlineCss = [];
         let importSources = new Set();
         let customComponents = new Set();
+        // 编译器检测到的 usePageEvent 静态事件名（由 babel 插件回填，供 JSON 注入等消费）
+        const pageEventsOut = [];
 
         if (shouldTransform) {
             const needsRuntimeInFile = fileInfo.needsRuntime;
@@ -1032,7 +1034,7 @@ async function compileFile(sourcePath, targetPath, options = {}) {
                 paths.i18nPath = calculateI18nPath(targetDir, effectiveRoot);
             }
 
-            const jsCode = transformJsCode(ast, code, fileType, paths, options.define, inlineHandlers);
+            const jsCode = transformJsCode(ast, code, fileType, paths, options.define, inlineHandlers, pageEventsOut);
             const jsTargetPath = path.join(targetDir, basename + '.js');
             await fs.writeFile(jsTargetPath, jsCode, 'utf-8');
         } else if (hasEsModuleSyntax(ast)) {
@@ -1095,11 +1097,21 @@ async function compileFile(sourcePath, targetPath, options = {}) {
             }
         }
 
+        // usePageEvent('onPullDownRefresh') 已静态注册转发器，但下拉手势还依赖页面
+        // json 的 enablePullDownRefresh 开关；未显式配置时自动开启（显式配置时尊重用户设置）。
+        const injectPullDownRefresh = fileType === 'page' &&
+            pageEventsOut.includes('onPullDownRefresh') &&
+            !('enablePullDownRefresh' in pageConfig);
+        if (injectPullDownRefresh) {
+            pageConfig.enablePullDownRefresh = true;
+        }
+
         // Write JSON if: there is an existing source .json, we added usingComponents,
-        // or this is a component (needs "component": true)
+        // this is a component (needs "component": true), or we injected pull-down refresh
         const shouldWriteJson = await fs.pathExists(jsonPath)
             || (pageConfig.usingComponents && Object.keys(pageConfig.usingComponents).length > 0)
-            || fileType === 'component';
+            || fileType === 'component'
+            || injectPullDownRefresh;
         if (shouldWriteJson) {
             await fs.writeJson(jsonTarget, pageConfig, {spaces: 2});
         }
@@ -1480,6 +1492,8 @@ async function watch(sourceDir, targetDir, options = {}) {
         let wxssImports = [];
         let moduleInlineCss = [];
         let importSources = styleImports.importSources;
+        // 编译器检测到的 usePageEvent 静态事件名（由 babel 插件回填，供 JSON 注入等消费）
+        const pageEventsOut = [];
 
         if (shouldTransform) {
             const needsRuntimeInFile = fileInfo.needsRuntime;
@@ -1542,7 +1556,7 @@ async function watch(sourceDir, targetDir, options = {}) {
                 paths.i18nPath = calculateI18nPath(targetFileDir, effectiveRoot);
             }
 
-            const jsCode = transformJsCode(ast, code, fileType, paths, watchDefine, inlineHandlers);
+            const jsCode = transformJsCode(ast, code, fileType, paths, watchDefine, inlineHandlers, pageEventsOut);
             await fs.writeFile(path.join(targetFileDir, basename + '.js'), jsCode, 'utf-8');
         } else if (fileInfo.hasExportDefault || hasEsModuleSyntax(ast)) {
             // Plain ES module (e.g. store definitions) - convert to CommonJS
@@ -1603,9 +1617,19 @@ async function watch(sourceDir, targetDir, options = {}) {
             }
         }
 
+        // usePageEvent('onPullDownRefresh') 已静态注册转发器，但下拉手势还依赖页面
+        // json 的 enablePullDownRefresh 开关；未显式配置时自动开启（显式配置时尊重用户设置）。
+        const injectPullDownRefresh = fileType === 'page' &&
+            pageEventsOut.includes('onPullDownRefresh') &&
+            !('enablePullDownRefresh' in pageConfig);
+        if (injectPullDownRefresh) {
+            pageConfig.enablePullDownRefresh = true;
+        }
+
         const shouldWriteJson = await fs.pathExists(jsonPath)
             || (pageConfig.usingComponents && Object.keys(pageConfig.usingComponents).length > 0)
-            || fileType === 'component';
+            || fileType === 'component'
+            || injectPullDownRefresh;
         if (shouldWriteJson) {
             await fs.writeJson(jsonTarget, pageConfig, {spaces: 2});
         }
