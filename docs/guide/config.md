@@ -14,6 +14,9 @@ module.exports = {
 
   // 编译时注入的环境变量（优先级最高）
   define: {},
+
+  // NPM 构建配置（自动生成 miniprogram_npm）
+  npm: true,
 };
 ```
 
@@ -92,6 +95,24 @@ module.exports = {
 ```
 
 `define` 的优先级高于 `.env` 文件与 `--mode` 注入。完整说明见 [环境变量](./env)。
+
+### npm
+
+控制是否在编译完成后自动构建 `miniprogram_npm`。默认开启（`true`），仅当项目 `package.json` 存在 `dependencies` 时才会实际执行。
+
+```js
+module.exports = {
+  // 关闭自动构建 npm（仍可在微信开发者工具中手动构建）
+  npm: false,
+
+  // 或配置自定义忽略规则
+  npm: {
+    ignores: ['some-package/**/*'],
+  },
+};
+```
+
+也可通过 CLI 的 `--no-npm` 参数临时关闭。完整说明见 [NPM 依赖与构建](./npm)。
 
 ## 环境文件
 

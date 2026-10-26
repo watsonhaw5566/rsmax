@@ -7,13 +7,14 @@
 构建项目，将源码编译输出到产物目录。编译前会清空输出目录，但保留 `miniprogram_npm`。
 
 ```bash
-rsmax build <source> -o <output> [-m, --mode <mode>]
+rsmax build <source> -o <output> [-m, --mode <mode>] [--no-npm]
 ```
 
 | 参数 | 别名 | 说明 | 默认值 |
 |------|------|------|--------|
 | `-o, --output <output>` | — | 输出目录 | `dist` |
 | `-m, --mode <mode>` | — | 环境模式（development / production / test 等任意自定义），决定加载的 `.env.<mode>` 文件和注入的 `process.env.NODE_ENV` / `process.env.MODE` | `production` |
+| `--no-npm` | — | 跳过自动构建 `miniprogram_npm`，详见 [NPM 依赖与构建](./npm) | 不跳过 |
 
 ```bash
 # 生产环境构建（默认）
@@ -28,13 +29,14 @@ rsmax build src -o dist -m staging
 监听源文件变化并增量编译，适合日常开发。
 
 ```bash
-rsmax dev <source> -o <output> [-m, --mode <mode>]
+rsmax dev <source> -o <output> [-m, --mode <mode>] [--no-npm]
 ```
 
 | 参数 | 别名 | 说明 | 默认值 |
 |------|------|------|--------|
 | `-o, --output <output>` | — | 输出目录 | `dist` |
 | `-m, --mode <mode>` | — | 环境模式，决定加载的 `.env.<mode>` 文件 | `development` |
+| `--no-npm` | — | 跳过自动构建 `miniprogram_npm`，详见 [NPM 依赖与构建](./npm) | 不跳过 |
 
 ```bash
 # 开发模式（默认 mode=development）

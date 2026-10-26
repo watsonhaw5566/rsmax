@@ -8,7 +8,8 @@
     "component-resolver.js",
     "css-modules.js",
     "env.js",
-    "index.js"
+    "index.js",
+    "npm.js"
   ],
   "dependencies": {
     "@babel/core": "^7.23.0",

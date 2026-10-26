@@ -27,6 +27,7 @@ const guideSidebar = [
       { text: '静态资源', link: '/guide/assets' },
       { text: '分包加载', link: '/guide/subpackages' },
       { text: '第三方 UI 库', link: '/guide/ui-libraries' },
+      { text: 'NPM 依赖与构建', link: '/guide/npm' },
     ],
   },
   {
