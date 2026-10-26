@@ -4,6 +4,7 @@ const cac = require('cac');
 const path = require('node:path');
 const { compile, watch, clean } = require('@rsmax/compiler');
 const {logger} = require('rslog');
+const { version } = require('../package.json');
 
 
 const cli = cac('rsmax');
@@ -12,11 +13,12 @@ cli
   .command('build <source>', 'Build the mini program project')
   .option('-o, --output <output>', 'Output directory', { default: 'dist' })
   .option('-m, --mode <mode>', 'Environment mode (development/production/...)', { default: 'production' })
+  .option('--no-npm', 'Skip automatic miniprogram_npm build')
   .action(async (source, options) => {
     const sourceDir = path.resolve(process.cwd(), source);
     const outputDir = path.resolve(process.cwd(), options.output);
     try {
-      await compile(sourceDir, outputDir, { mode: options.mode });
+      await compile(sourceDir, outputDir, { mode: options.mode, npm: options.npm });
     } catch (err) {
       logger.error('Build failed:', err);
       process.exit(1);
@@ -27,11 +29,12 @@ cli
   .command('dev <source>', 'Development mode with watch')
   .option('-o, --output <output>', 'Output directory', { default: 'dist' })
   .option('-m, --mode <mode>', 'Environment mode (development/production/...)', { default: 'development' })
+  .option('--no-npm', 'Skip automatic miniprogram_npm build')
   .action(async (source, options) => {
     const sourceDir = path.resolve(process.cwd(), source);
     const outputDir = path.resolve(process.cwd(), options.output);
     try {
-      await watch(sourceDir, outputDir, { mode: options.mode });
+      await watch(sourceDir, outputDir, { mode: options.mode, npm: options.npm });
     } catch (err) {
       logger.error('Dev server error:', err);
       process.exit(1);
@@ -52,6 +55,6 @@ cli
   });
 
 cli.help();
-cli.version('0.1.0');
+cli.version(version);
 
 cli.parse();

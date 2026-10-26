@@ -11,6 +11,7 @@ const {processStyle, isModuleFile, isStyleFile} = require('./css-modules');
 const {loadProjectConfig, detectInstalledLibraries, buildResolver, resolveComponents} = require('./component-resolver');
 const {loadEnvConfig} = require('./env');
 const {normalizeAliases, rewriteAstAliases} = require('./alias');
+const {buildNpm} = require('./npm');
 const {logger} = require("rslog");
 
 const RUNTIME_SOURCE = require.resolve('@rsmax/runtime');
@@ -1323,6 +1324,18 @@ async function compile(sourceDir, targetDir, options = {}) {
         mode,
         define: defineVars
     });
+
+    // Build miniprogram_npm automatically so users don't need to click
+    // "工具 -> 构建 npm" in WeChat DevTools.
+    // Can be disabled via `npm: false` in rsmax.config.js or `--no-npm` CLI flag.
+    if (options.npm !== false) {
+        await buildNpm({
+            projectRoot,
+            targetDir,
+            projectPkg,
+            npmConfig: projectConfig.npm,
+        });
+    }
 
     logger.success('[rsmax] Compilation complete!');
 }
