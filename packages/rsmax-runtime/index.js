@@ -151,24 +151,44 @@ function useQuery() {
   return instance._query || {};
 }
 
+// createPage 已静态内置的页面生命周期：这些事件不进入 pageEvents，
+// 统一由 createPage 同名方法分发 _eventHandlers，避免依赖实例方法覆盖。
+const PAGE_LIFECYCLE_EVENTS = ['onLoad', 'onShow', 'onReady', 'onHide', 'onUnload'];
+
+function dispatchPageEvent(instance, event, args) {
+  const handlers = instance._eventHandlers;
+  if (!handlers) return undefined;
+  let result;
+  for (const key of Object.keys(handlers)) {
+    if (key.startsWith(event + '_')) {
+      result = handlers[key].apply(instance, args);
+    }
+  }
+  return result;
+}
+
 function usePageEvent(event, handler) {
   const instance = getInstance();
   const idx = hookIndex++;
 
   if (!instance._hooks[idx]) {
     instance._hooks[idx] = { type: 'event', event };
-    const orig = instance[event];
-    if (orig && orig.__rsmaxPageEvent === event) {
-      // 该事件已由编译期静态注册（createPage 依据 pageEvents 生成的转发器）：
-      // 分发由转发器读取 _eventHandlers 注册表完成，这里不再包一层实例方法，
-      // 避免同一事件回调被调用两次。
+    if (PAGE_LIFECYCLE_EVENTS.includes(event)) {
+      // 内置生命周期由 createPage 同名方法统一分发，无需包装实例方法
     } else {
-      instance[event] = function(...args) {
-        if (orig) orig.apply(this, args);
-        const latestHandler = instance._eventHandlers[`${event}_${idx}`];
-        // 返回 handler 结果：onShareAppMessage 等事件依赖返回值提供分享内容
-        if (latestHandler) return latestHandler.apply(this, args);
-      };
+      const orig = instance[event];
+      if (orig && orig.__rsmaxPageEvent === event) {
+        // 该事件已由编译期静态注册（createPage 依据 pageEvents 生成的转发器）：
+        // 分发由转发器读取 _eventHandlers 注册表完成，这里不再包一层实例方法，
+        // 避免同一事件回调被调用两次。
+      } else {
+        instance[event] = function(...args) {
+          if (orig) orig.apply(this, args);
+          const latestHandler = instance._eventHandlers[`${event}_${idx}`];
+          // 返回 handler 结果：onShareAppMessage 等事件依赖返回值提供分享内容
+          if (latestHandler) return latestHandler.apply(this, args);
+        };
+      }
     }
   }
 
@@ -333,22 +353,28 @@ function createPage(userFn, pageConfig = {}) {
       this._query = options || {};
       this._userFn = userFn;
       this._run(true);
+      dispatchPageEvent(this, 'onLoad', [options]);
     },
 
     onShow() {
       if (this._mounted) {
         this._flushPendingEffects();
       }
+      dispatchPageEvent(this, 'onShow', []);
     },
 
     onReady() {
       this._ready = true;
       this._flushPendingEffects();
+      dispatchPageEvent(this, 'onReady', []);
     },
 
-    onHide() {},
+    onHide() {
+      dispatchPageEvent(this, 'onHide', []);
+    },
 
     onUnload() {
+      dispatchPageEvent(this, 'onUnload', []);
       this._destroyed = true;
       this._cleanup();
     }

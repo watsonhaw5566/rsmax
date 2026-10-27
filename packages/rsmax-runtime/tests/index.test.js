@@ -384,4 +384,88 @@ describe('@rsmax/runtime', () => {
       expect(instance.onReachBottom()).toBe(42);
     });
   });
+
+  describe('usePageEvent 内置生命周期（onLoad/onShow/onReady/onHide/onUnload）', () => {
+    test('onLoad 回调在首跑注册后触发一次，并透传 options', () => {
+      const calls = [];
+      const config = createPage(function () {
+        usePageEvent('onLoad', (options) => calls.push(options));
+      });
+
+      const instance = mountPage(config, { id: '42' });
+
+      expect(calls).toEqual([{ id: '42' }]);
+      // 再次调用生命周期不会重复注册/重复触发同一回调
+      instance.onLoad({ id: '43' });
+      expect(calls).toEqual([{ id: '42' }, { id: '43' }]);
+    });
+
+    test('onShow/onReady/onHide 由内置同名方法分发，且各触发一次', () => {
+      const order = [];
+      const config = createPage(function () {
+        usePageEvent('onShow', () => order.push('onShow'));
+        usePageEvent('onReady', () => order.push('onReady'));
+        usePageEvent('onHide', () => order.push('onHide'));
+      });
+
+      const instance = mountPage(config);
+      instance.onShow();
+      instance.onReady();
+      instance.onHide();
+
+      expect(order).toEqual(['onShow', 'onReady', 'onHide']);
+      // 内置生命周期方法不被实例包装覆盖
+      expect(instance.onShow).toBe(config.onShow);
+      expect(instance.onReady).toBe(config.onReady);
+      expect(instance.onHide).toBe(config.onHide);
+    });
+
+    test('onUnload 回调在销毁与清理之前触发', () => {
+      let destroyedWhenHandlerRun = null;
+      const config = createPage(function () {
+        usePageEvent('onUnload', function () {
+          destroyedWhenHandlerRun = this._destroyed;
+        });
+      });
+
+      const instance = mountPage(config);
+      instance.onUnload();
+
+      // 回调执行时实例尚未标记销毁（store 退订/effect cleanup 尚未执行）
+      expect(destroyedWhenHandlerRun).toBe(false);
+      expect(instance._destroyed).toBe(true);
+    });
+
+    test('同一内置生命周期多次注册：按顺序全部调用', () => {
+      const order = [];
+      const config = createPage(function () {
+        usePageEvent('onShow', () => order.push(1));
+        usePageEvent('onShow', () => order.push(2));
+      });
+
+      const instance = mountPage(config);
+      instance.onShow();
+
+      expect(order).toEqual([1, 2]);
+    });
+
+    test('内置生命周期回调始终使用最新一次渲染注册的闭包', () => {
+      const seen = [];
+      let setCount;
+      const config = createPage(function () {
+        const [count, _setCount] = useState(0, 'count');
+        setCount = _setCount;
+        usePageEvent('onShow', () => seen.push('count=' + count));
+      }, { data: { count: 0 } });
+
+      const instance = mountPage(config);
+      instance.onShow();
+
+      setCount(5);
+      _flushBatch(); // 触发 rerender，usePageEvent 重新注册新闭包
+      instance.onShow();
+
+      expect(seen).toEqual(['count=0', 'count=5']);
+    });
+  });
 });
