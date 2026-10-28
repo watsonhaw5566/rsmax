@@ -6,23 +6,16 @@ rsmax 将这一步集成到了 `build` / `dev` 流程中，**默认自动完成*
 
 ## 工作原理
 
-rsmax 内部调用 [`miniprogram-ci`](https://developers.weixin.qq.com/miniprogram/dev/devtools/ci.html) 的 `packNpmManually` 接口，将项目 `package.json` 中声明的 `dependencies` 构建为 `miniprogram_npm`，直接输出到产物目录（与 `app.json` 同级）。
+rsmax 内置了一套精简的「构建 npm」实现，将项目 `package.json` 中声明的 `dependencies` 构建为 `miniprogram_npm`，直接输出到产物目录（与 `app.json` 同级）。**无需安装任何额外工具**，`rsmax build` / `rsmax dev` 开箱即用。
 
-之所以使用 `packNpmManually` 而非 `packNpm`，是因为在 rsmax 项目中 `node_modules` 通常位于小程序产物目录之外（项目根目录或 monorepo 工作区根目录），需要显式指定 `package.json` 路径与 `miniprogram_npm` 输出目录。
+构建规则与微信开发者工具的「工具 → 构建 npm」保持一致：
 
-## 安装 miniprogram-ci
+1. 从项目根目录的 `dependencies` 出发，按 Node 模块解析规则（`node_modules` 向上查找 + symlink realpath，兼容 npm / yarn / pnpm / monorepo）收集运行时可达的依赖包；
+2. **小程序组件包**（`package.json` 含 `miniprogram` 字段或存在 `miniprogram_dist` 目录，如 `@vant/weapp`）：整目录拷贝到 `miniprogram_npm`；
+3. **普通 JS 包**（如 `dayjs`）：打包为单文件 `index.js`，包内的相对 `require` 与 `import` 被就地改写合并，跨包依赖保留为原生 `require`，由微信运行时从 `miniprogram_npm` 解析；
+4. `devDependencies` 不会被打包。
 
-`miniprogram-ci` 是 rsmax 的可选运行时依赖，**只需安装一次**：
-
-```bash
-pnpm add miniprogram-ci
-# 或
-npm install miniprogram-ci
-```
-
-安装后，`rsmax build` 和 `rsmax dev` 会自动在编译完成后执行 npm 构建。
-
-> 如果未安装 `miniprogram-ci`，rsmax 会在构建时打印一行警告并跳过 npm 构建，不影响主流程。此时仍可在微信开发者工具中手动「构建 npm」。
+> rsmax 不再依赖 `miniprogram-ci`，避免了其约 20MB 的体积与传递依赖问题。构建产物与开发者工具「构建 npm」语义兼容，可直接在小程序中使用。
 
 ## 自动构建流程
 
@@ -66,7 +59,7 @@ module.exports = {
 
 ## 自定义忽略规则
 
-通过 `npm.ignores` 指定构建 npm 时需要排除的文件 / 目录模式，透传给 `packNpmManually`：
+通过 `npm.ignores` 指定构建 npm 时需要排除的包或文件模式（支持 `*`、`**`、`?` 通配符）：
 
 ```js
 module.exports = {
@@ -75,6 +68,9 @@ module.exports = {
   },
 };
 ```
+
+- 匹配到的 `package.json` 所在包会被整体跳过；
+- 对小程序组件包，匹配到的文件不会被拷贝。
 
 ## project.config.json 配置
 
@@ -142,9 +138,9 @@ rsmax 会自动在页面 JSON 中注入 `usingComponents`，运行时从 `minipr
 
 ## 常见问题
 
-**Q: 构建时报 `miniprogram-ci is not installed`？**
+**Q: 需要安装 `miniprogram-ci` 吗？**
 
-A: 在项目目录执行 `pnpm add miniprogram-ci` 安装即可。若不需要自动构建，添加 `--no-npm` 或在配置中设置 `npm: false`。
+A: 不需要。rsmax 已内置 npm 构建能力，`rsmax build` / `rsmax dev` 会自动生成 `miniprogram_npm`。若项目不需要自动构建，可添加 `--no-npm` 或在配置中设置 `npm: false`。
 
 **Q: 运行时报 `module not found`？**
 
@@ -153,3 +149,7 @@ A: 检查 `miniprogram_npm` 是否生成于产物目录，以及 `project.config
 **Q: `miniprogram_npm` 没有被重新生成？**
 
 A: 增量编译（`dev` 模式下的文件变更）不会触发 npm 构建。若修改了 `package.json` 的依赖，请重启 `dev` 或执行一次 `build`。
+
+**Q: 同一个包存在多个版本时如何处理？**
+
+A: rsmax 以首次解析到的版本为准（通常是 `node_modules` 顶层的版本），其余同名版本会被跳过并输出告警。小程序运行时不支持同名包多版本共存，这与微信开发者工具「构建 npm」行为一致。
