@@ -1,30 +1,71 @@
 name: Release
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  id-token: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: actions/checkout@v4
+
       - name: 安装 pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
+
       - name: 使用 Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
-      - name: 升级 npm 以支持 Trusted Publishing
-        run: npm install -g npm@latest
+          cache: 'pnpm'
+
+      - name: 升级 npm 到支持新版 Trusted Publisher 的版本
+        run: npm install -g npm@11
+
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
-      - name: 发布到 npm（Trusted Publisher）
+
+      - name: Lint 与测试
+        run: |
+          pnpm run lint
+          pnpm test
+
+      - name: 校验 tag 与所有待发布包的版本一致
+        run: |
+          TAG_NAME="${GITHUB_REF_NAME}"
+          TAG_VERSION="${TAG_NAME#v}"
+          echo "tag=${TAG_VERSION}"
+          MISMATCH=0
+          for pkg in packages/*/package.json; do
+            IS_PRIVATE=$(node -p "require('./${pkg}').private === true")
+            if [ "${IS_PRIVATE}" = "true" ]; then
+              continue
+            fi
+            PKG_NAME=$(node -p "require('./${pkg}').name")
+            PKG_VERSION=$(node -p "require('./${pkg}').version")
+            echo "${PKG_NAME}=${PKG_VERSION}"
+            if [ "${TAG_VERSION}" != "${PKG_VERSION}" ]; then
+              echo "版本不一致：tag ${TAG_VERSION} ≠ ${PKG_NAME} ${PKG_VERSION}"
+              MISMATCH=1
+            fi
+          done
+          if [ "${MISMATCH}" -ne 0 ]; then
+            exit 1
+          fi
+
+      - name: 发布到 npm（可信发布 / OIDC）
         run: pnpm publish -r --access public --no-git-checks --provenance
+
+      - name: 创建 GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
