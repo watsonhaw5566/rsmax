@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: 使用 Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+      - name: 升级 npm 以支持 Trusted Publishing
+        run: npm install -g npm@latest
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+      - name: 发布到 npm（Trusted Publisher）
+        run: pnpm publish -r --access public --no-git-checks --provenance
