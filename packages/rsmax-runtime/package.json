@@ -5,5 +5,10 @@
   "main": "index.js",
   "files": [
     "index.js"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git",
+    "directory": "packages/rsmax-runtime"
+  }
 }

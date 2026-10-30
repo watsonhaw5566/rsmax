@@ -10,6 +10,11 @@
     "index.js",
     "bin"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git",
+    "directory": "packages/rsmax"
+  },
   "dependencies": {
     "@rsmax/compiler": "workspace:*",
     "@rsmax/runtime": "workspace:*",

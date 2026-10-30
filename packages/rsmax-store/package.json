@@ -10,5 +10,10 @@
   "files": [
     "index.js",
     "middleware.js"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git",
+    "directory": "packages/rsmax-store"
+  }
 }

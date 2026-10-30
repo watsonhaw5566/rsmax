@@ -11,6 +11,11 @@
     "index.js",
     "npm.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git",
+    "directory": "packages/rsmax-compiler"
+  },
   "dependencies": {
     "@babel/core": "^7.23.0",
     "@babel/parser": "^7.23.0",

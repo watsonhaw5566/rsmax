@@ -6,6 +6,11 @@
   "files": [
     "index.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git",
+    "directory": "packages/babel-plugin-transform-js"
+  },
   "dependencies": {
     "@babel/core": "^7.23.0",
     "@babel/types": "^7.23.0"

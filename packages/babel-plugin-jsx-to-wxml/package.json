@@ -7,6 +7,11 @@
     "index.js",
     "utils.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watsonhaw5566/rsmax.git",
+    "directory": "packages/babel-plugin-jsx-to-wxml"
+  },
   "dependencies": {
     "@babel/core": "^7.23.0",
     "@babel/types": "^7.23.0"
