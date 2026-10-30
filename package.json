@@ -34,8 +34,8 @@
     "miniprogram-api-typings": "^5.2.3"
   },
   "engines": {
-    "node": "^20",
-    "pnpm": "^10.0"
+    "node": ">=20",
+    "pnpm": ">=10.0"
   },
   "root": true
 }
