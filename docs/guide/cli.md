@@ -4,7 +4,7 @@
 
 ## build
 
-构建项目，将源码编译输出到产物目录。编译前会清空输出目录，但保留 `miniprogram_npm`。
+构建项目，将源码编译输出到产物目录。采用增量编译，不会清空输出目录（如需全量构建请先执行 [`rsmax clean`](#clean)）。编译完成后会自动使用 rsmax 内置的轻量级 npm 构建生成 `miniprogram_npm`，无需依赖 `miniprogram-ci` 或在微信开发者工具中手动「构建 npm」。
 
 ```bash
 rsmax build <source> -o <output> [-m, --mode <mode>] [--no-npm]
