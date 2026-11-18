@@ -913,8 +913,8 @@ export default function Demo() {
 
       // Locales module lazy-requires are relative to rsmax-i18n-locales.js (main root)
       const localesModule = await fs.readFile(path.join(distDir, 'rsmax-i18n-locales.js'), 'utf-8');
-      expect(localesModule).toContain("require('./locales/zh-CN.js')");
-      expect(localesModule).toContain("require('./locales/en.js')");
+      expect(localesModule).toContain('require("./locales/zh-CN.js")');
+      expect(localesModule).toContain('require("./locales/en.js")');
     });
 
     test('independent sub-package page using i18n should have its own i18n copy', async () => {
@@ -957,7 +957,7 @@ export default function Demo() {
 
       // Locales module in sub-package root uses correct relative path
       const localesModule = await fs.readFile(path.join(distDir, 'pkgIndep', 'rsmax-i18n-locales.js'), 'utf-8');
-      expect(localesModule).toContain("require('./locales/zh-CN.js')");
+      expect(localesModule).toContain('require("./locales/zh-CN.js")');
     });
 
     test('both main package and independent sub-package using i18n get separate copies', async () => {

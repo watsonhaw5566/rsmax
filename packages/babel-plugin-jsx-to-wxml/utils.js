@@ -53,10 +53,125 @@ function getNodeCode(code, node) {
   return code.substring(node.start, node.end);
 }
 
-function stripThisPrefix(exprCode) {
-  let result = exprCode.replace(/this\.data\./g, '');
-  result = result.replace(/\bthis\./g, '');
-  return result;
+/**
+ * 基于 AST 生成表达式代码，并剥离 this.data. / this. 前缀。
+ * 相比原始源码正则替换，AST 方式不会破坏字符串字面量内部的 "this." 字样。
+ */
+function exprToCode(node, code) {
+  if (!node) return '';
+
+  // 字符串字面量：用 JSON.stringify 安全转义，避免引号/this. 被误处理
+  if (t.isStringLiteral(node)) return JSON.stringify(node.value);
+  if (t.isNumericLiteral(node)) return String(node.value);
+  if (t.isBooleanLiteral(node)) return node.value ? 'true' : 'false';
+  if (t.isNullLiteral(node)) return 'null';
+  if (t.isIdentifier(node)) return node.name;
+  if (t.isThisExpression(node)) return 'this';
+
+  // 成员表达式：剥离 this.data.xxx / this.xxx
+  if (t.isMemberExpression(node)) {
+    const obj = node.object;
+    const prop = node.property;
+    // this.data.xxx  →  xxx
+    if (t.isMemberExpression(obj) && t.isThisExpression(obj.object) &&
+        t.isIdentifier(obj.property, { name: 'data' })) {
+      if (node.computed) {
+        return `[${exprToCode(prop, code)}]`;
+      }
+      return t.isIdentifier(prop) ? prop.name : exprToCode(prop, code);
+    }
+    // this.xxx  →  xxx
+    if (t.isThisExpression(obj)) {
+      if (node.computed) {
+        return `[${exprToCode(prop, code)}]`;
+      }
+      return t.isIdentifier(prop) ? prop.name : exprToCode(prop, code);
+    }
+    // 普通成员访问
+    const objCode = exprToCode(obj, code);
+    if (node.computed) {
+      return `${objCode}[${exprToCode(prop, code)}]`;
+    }
+    return `${objCode}.${t.isIdentifier(prop) ? prop.name : exprToCode(prop, code)}`;
+  }
+
+  // 函数调用
+  if (t.isCallExpression(node)) {
+    const args = node.arguments.map(a => exprToCode(a, code)).join(', ');
+    return `${exprToCode(node.callee, code)}(${args})`;
+  }
+
+  // 二元 / 逻辑表达式
+  if (t.isBinaryExpression(node) || t.isLogicalExpression(node)) {
+    return `(${exprToCode(node.left, code)} ${node.operator} ${exprToCode(node.right, code)})`;
+  }
+
+  // 三元表达式
+  if (t.isConditionalExpression(node)) {
+    return `(${exprToCode(node.test, code)} ? ${exprToCode(node.consequent, code)} : ${exprToCode(node.alternate, code)})`;
+  }
+
+  // 模板字符串
+  if (t.isTemplateLiteral(node)) {
+    let result = '`';
+    node.quasis.forEach((quasi, i) => {
+      result += quasi.value.raw;
+      if (i < node.expressions.length) {
+        result += '${' + exprToCode(node.expressions[i], code) + '}';
+      }
+    });
+    result += '`';
+    return result;
+  }
+
+  // 对象字面量
+  if (t.isObjectExpression(node)) {
+    const props = node.properties.map(p => {
+      if (t.isObjectProperty(p)) {
+        const key = t.isIdentifier(p.key) && !p.computed ? p.key.name : exprToCode(p.key, code);
+        return `${key}: ${exprToCode(p.value, code)}`;
+      }
+      if (t.isSpreadElement(p)) return `...${exprToCode(p.argument, code)}`;
+      return exprToCode(p, code);
+    }).join(', ');
+    return `{${props}}`;
+  }
+
+  // 数组字面量
+  if (t.isArrayExpression(node)) {
+    const elems = node.elements.map(e => e ? exprToCode(e, code) : '').join(', ');
+    return `[${elems}]`;
+  }
+
+  // 一元表达式
+  if (t.isUnaryExpression(node)) {
+    return `${node.operator}${exprToCode(node.argument, code)}`;
+  }
+
+  // 更新表达式 (++/--)
+  if (t.isUpdateExpression(node)) {
+    return node.prefix
+      ? `${node.operator}${exprToCode(node.argument, code)}`
+      : `${exprToCode(node.argument, code)}${node.operator}`;
+  }
+
+  // 括号表达式
+  if (t.isParenthesizedExpression(node)) {
+    return `(${exprToCode(node.expression, code)})`;
+  }
+
+  // 展开元素
+  if (t.isSpreadElement(node)) {
+    return `...${exprToCode(node.argument, code)}`;
+  }
+
+  // 赋值表达式
+  if (t.isAssignmentExpression(node)) {
+    return `(${exprToCode(node.left, code)} ${node.operator} ${exprToCode(node.right, code)})`;
+  }
+
+  // 兜底：取原始源码（极少命中，如箭头函数等数据绑定中不应出现的节点）
+  return getNodeCode(code, node);
 }
 
 function getExpressionCode(code, expr) {
@@ -69,8 +184,7 @@ function getExpressionCode(code, expr) {
       return "__i18n['" + i18nKey.replace(/'/g, "\\'") + "']";
     }
   }
-  const raw = getNodeCode(code, expr);
-  return stripThisPrefix(raw);
+  return exprToCode(expr, code);
 }
 
 function extractI18nKey(callExpr) {
@@ -105,7 +219,7 @@ function convertTemplateLiteral(code, node) {
       if (t.isStringLiteral(expr)) {
         parts.push("'" + expr.value.replace(/'/g, "\\'") + "'");
       } else {
-        parts.push('(' + getNodeCode(code, expr) + ')');
+        parts.push('(' + getExpressionCode(code, expr) + ')');
       }
       currentStr = '';
     } else {
@@ -184,10 +298,10 @@ function isListRenderCall(callNode) {
   const callback = args[0];
   if (!t.isArrowFunctionExpression(callback) && !t.isFunctionExpression(callback)) return false;
   const body = callback.body;
-  if (t.isJSXElement(body)) return true;
+  if (t.isJSXElement(body) || t.isJSXFragment(body)) return true;
   if (t.isBlockStatement(body)) {
     const returnStmt = body.body.find(s => t.isReturnStatement(s));
-    if (returnStmt && t.isJSXElement(returnStmt.argument)) return true;
+    if (returnStmt && (t.isJSXElement(returnStmt.argument) || t.isJSXFragment(returnStmt.argument))) return true;
   }
   return false;
 }
@@ -213,14 +327,20 @@ function handleListRendering(code, callNode) {
   }
   
   const body = callback.body;
-  if (t.isJSXElement(body)) {
+  if (t.isJSXElement(body) || t.isJSXFragment(body)) {
     itemNode = body;
   } else if (t.isBlockStatement(body)) {
     const returnStmt = body.body.find(s => t.isReturnStatement(s));
-    if (returnStmt && t.isJSXElement(returnStmt.argument)) itemNode = returnStmt.argument;
+    if (returnStmt && (t.isJSXElement(returnStmt.argument) || t.isJSXFragment(returnStmt.argument))) {
+      itemNode = returnStmt.argument;
+    }
   }
-  
-  return {listSource, itemName, indexName, itemNode, wxKey: itemNode ? deriveWxKey(itemNode, itemName) : '*this'};
+
+  let wxKey = '*this';
+  if (itemNode && t.isJSXElement(itemNode)) {
+    wxKey = deriveWxKey(itemNode, itemName);
+  }
+  return {listSource, itemName, indexName, itemNode, wxKey};
 }
 
 /**
@@ -379,7 +499,33 @@ function buildAttributes(code, openingElement, tagName, isComponent, loopScopes 
         attrName = attr.name.name;
       }
       
-      if (tagName === 'navigator' && attrName === 'url') return;
+      if (tagName === 'navigator' && attrName === 'url') {
+        // <navigator url="..."> → <view bindtap="__rsmaxNavN"> + 注入 wx.navigateTo 处理器
+        if (ctx) {
+          let urlExpr;
+          if (t.isStringLiteral(attr.value)) {
+            urlExpr = t.stringLiteral(attr.value.value);
+          } else if (t.isJSXExpressionContainer(attr.value)) {
+            urlExpr = attr.value.expression;
+          }
+          if (urlExpr) {
+            const arrow = t.arrowFunctionExpression(
+              [t.identifier('e')],
+              t.callExpression(
+                t.memberExpression(t.identifier('wx'), t.identifier('navigateTo')),
+                [t.objectExpression([t.objectProperty(t.identifier('url'), urlExpr)])]
+              )
+            );
+            const reg = registerInlineHandler(arrow, loopScopes, ctx);
+            attributes += ` bindtap="${reg.name}"`;
+            if (reg.captured.length > 0) {
+              const attrKey = reg.datasetKey.replace(/([A-Z])/g, '-$1').toLowerCase();
+              attributes += ` data-${attrKey}="{{[${reg.captured.join(', ')}]}}"`;
+            }
+          }
+        }
+        return;
+      }
       
       if (EVENT_MAP[attrName]) {
         const eventName = EVENT_MAP[attrName];
@@ -557,9 +703,123 @@ function formatNode(code, node, indent, collectedComponents, loopScopes = [], ct
   return lines;
 }
 
+/**
+ * 将任意表达式渲染为 WXML 内容行。
+ * - JSXElement / JSXFragment：走 formatNode 产出多行标签
+ * - 其他表达式：产出单行文本 / {{表达式}}
+ */
+function exprToContentLines(code, expr, indent, collectedComponents, loopScopes, ctx) {
+  if (!expr) return [];
+  if (t.isJSXElement(expr) || t.isJSXFragment(expr)) {
+    return formatNode(code, expr, indent, collectedComponents, loopScopes, ctx);
+  }
+  if (t.isNullLiteral(expr) || t.isJSXEmptyExpression(expr)) return [];
+  if (t.isStringLiteral(expr)) return [expr.value];
+  if (t.isNumericLiteral(expr)) return [String(expr.value)];
+  return [`{{${getExpressionCode(code, expr)}}}`];
+}
+
+// 去掉括号包裹
+function unwrapParens(expr) {
+  while (t.isParenthesizedExpression(expr)) expr = expr.expression;
+  return expr;
+}
+
+// 判断表达式是否会产出块级 WXML 内容（需要用 <block> 包裹而非 {{}}）
+function isBlockProducing(expr) {
+  const e = unwrapParens(expr);
+  if (t.isJSXElement(e) || t.isJSXFragment(e)) return true;
+  if (t.isLogicalExpression(e)) return isBlockProducing(e.right) || isBlockProducing(e.left);
+  if (t.isConditionalExpression(e)) return isBlockProducing(e.consequent) || isBlockProducing(e.alternate);
+  return false;
+}
+
+/**
+ * 格式化单个表达式为 WXML 行。
+ * 处理：列表渲染、逻辑表达式(&&/||)、三元表达式，以及普通文本/表达式。
+ * 支持嵌套（递归调用自身）。
+ */
+function formatExpression(expr, code, indent, collectedComponents, loopScopes, ctx) {
+  const lines = [];
+  const listResult = handleListRendering(code, expr);
+
+  if (listResult) {
+    lines.push(`${getIndent(indent)}<block wx:for="{{${listResult.listSource}}}" wx:for-item="${listResult.itemName}" wx:for-index="${listResult.indexName}" wx:key="${listResult.wxKey}">`);
+    if (listResult.itemNode) {
+      const innerScopes = loopScopes.concat([{itemName: listResult.itemName, indexName: listResult.indexName}]);
+      lines.push(...formatNode(code, listResult.itemNode, indent + 1, collectedComponents, innerScopes, ctx));
+    }
+    lines.push(`${getIndent(indent)}</block>`);
+    return lines;
+  }
+
+  // cond && <block> / cond || <block>
+  const logicalExpr = unwrapParens(expr);
+  if (t.isLogicalExpression(logicalExpr)) {
+    if (isBlockProducing(logicalExpr.right)) {
+      const test = getExpressionCode(code, logicalExpr.left);
+      if (logicalExpr.operator === '&&') {
+        lines.push(`${getIndent(indent)}<block wx:if="{{${test}}}">`);
+        lines.push(...formatExpression(logicalExpr.right, code, indent + 1, collectedComponents, loopScopes, ctx));
+        lines.push(`${getIndent(indent)}</block>`);
+      } else if (logicalExpr.operator === '||') {
+        lines.push(`${getIndent(indent)}<block wx:if="{{${test}}}">`);
+        lines.push(...formatExpression(logicalExpr.left, code, indent + 1, collectedComponents, loopScopes, ctx));
+        lines.push(`${getIndent(indent)}</block>`);
+        lines.push(`${getIndent(indent)}<block wx:else>`);
+        lines.push(...formatExpression(logicalExpr.right, code, indent + 1, collectedComponents, loopScopes, ctx));
+        lines.push(`${getIndent(indent)}</block>`);
+      }
+      return lines;
+    }
+  }
+
+  // 三元表达式
+  const condExpr = unwrapParens(expr);
+  if (t.isConditionalExpression(condExpr) && isBlockProducing(condExpr)) {
+    const test = getExpressionCode(code, condExpr.test);
+    lines.push(`${getIndent(indent)}<block wx:if="{{${test}}}">`);
+    lines.push(...formatExpression(condExpr.consequent, code, indent + 1, collectedComponents, loopScopes, ctx));
+    lines.push(`${getIndent(indent)}</block>`);
+
+    if (condExpr.alternate && !t.isNullLiteral(condExpr.alternate)) {
+      if (t.isConditionalExpression(unwrapParens(condExpr.alternate))) {
+        let current = unwrapParens(condExpr.alternate);
+        while (current && t.isConditionalExpression(current)) {
+          const elseTest = getExpressionCode(code, current.test);
+          lines.push(`${getIndent(indent)}<block wx:elif="{{${elseTest}}}">`);
+          lines.push(...formatExpression(current.consequent, code, indent + 1, collectedComponents, loopScopes, ctx));
+          lines.push(`${getIndent(indent)}</block>`);
+
+          if (current.alternate && !t.isNullLiteral(current.alternate)) {
+            if (t.isConditionalExpression(unwrapParens(current.alternate))) {
+              current = unwrapParens(current.alternate);
+              continue;
+            }
+            lines.push(`${getIndent(indent)}<block wx:else>`);
+            lines.push(...formatExpression(current.alternate, code, indent + 1, collectedComponents, loopScopes, ctx));
+            lines.push(`${getIndent(indent)}</block>`);
+          }
+          break;
+        }
+      } else {
+        lines.push(`${getIndent(indent)}<block wx:else>`);
+        lines.push(...formatExpression(condExpr.alternate, code, indent + 1, collectedComponents, loopScopes, ctx));
+        lines.push(`${getIndent(indent)}</block>`);
+      }
+    }
+    return lines;
+  }
+
+  // 普通文本 / 表达式
+  const text = exprToContentLines(code, unwrapParens(expr), indent, collectedComponents, loopScopes, ctx);
+  lines.push(...text);
+  return lines;
+}
+
 function formatChildren(code, children, indent, collectedComponents, loopScopes = [], ctx = null) {
   const lines = [];
-  
+
   children.forEach(child => {
     if (t.isJSXText(child)) {
       const text = child.value;
@@ -568,66 +828,18 @@ function formatChildren(code, children, indent, collectedComponents, loopScopes 
       if (cleaned) lines.push(`${getIndent(indent)}${cleaned}`);
     } else if (t.isJSXExpressionContainer(child)) {
       const expr = child.expression;
-      const listResult = handleListRendering(code, expr);
-      
-      if (listResult) {
-        lines.push(`${getIndent(indent)}<block wx:for="{{${listResult.listSource}}}" wx:for-item="${listResult.itemName}" wx:for-index="${listResult.indexName}" wx:key="${listResult.wxKey}">`);
-        if (listResult.itemNode) {
-          // 列表项内部进入新的 wx:for 作用域
-          const innerScopes = loopScopes.concat([{itemName: listResult.itemName, indexName: listResult.indexName}]);
-          lines.push(...formatNode(code, listResult.itemNode, indent + 1, collectedComponents, innerScopes, ctx));
-        }
-        lines.push(`${getIndent(indent)}</block>`);
-        return;
+      const exprLines = formatExpression(expr, code, indent, collectedComponents, loopScopes, ctx);
+      // 对纯文本/单表达式行保持原样，块级内容已由 formatExpression 处理
+      if (exprLines.length === 1) {
+        lines.push(exprLines[0]);
+      } else {
+        lines.push(...exprLines);
       }
-      
-      if (t.isConditionalExpression(expr)) {
-        const consequentIsJsx = t.isJSXElement(expr.consequent);
-        const alternateIsJsx = t.isJSXElement(expr.alternate);
-        
-        if (consequentIsJsx || alternateIsJsx) {
-          const test = getExpressionCode(code, expr.test);
-          lines.push(`${getIndent(indent)}<block wx:if="{{${test}}}">`);
-          if (consequentIsJsx) lines.push(...formatNode(code, expr.consequent, indent + 1, collectedComponents, loopScopes, ctx));
-          lines.push(`${getIndent(indent)}</block>`);
-          
-          if (expr.alternate && !t.isNullLiteral(expr.alternate)) {
-            if (alternateIsJsx) {
-              lines.push(`${getIndent(indent)}<block wx:else>`);
-              lines.push(...formatNode(code, expr.alternate, indent + 1, collectedComponents, loopScopes, ctx));
-              lines.push(`${getIndent(indent)}</block>`);
-            } else if (t.isConditionalExpression(expr.alternate)) {
-              let current = expr.alternate;
-              while (current && t.isConditionalExpression(current)) {
-                const elseTest = getExpressionCode(code, current.test);
-                lines.push(`${getIndent(indent)}<block wx:elif="{{${elseTest}}}">`);
-                if (t.isJSXElement(current.consequent)) lines.push(...formatNode(code, current.consequent, indent + 1, collectedComponents, loopScopes, ctx));
-                lines.push(`${getIndent(indent)}</block>`);
-                
-                if (current.alternate && !t.isNullLiteral(current.alternate)) {
-                  if (t.isJSXElement(current.alternate)) {
-                    lines.push(`${getIndent(indent)}<block wx:else>`);
-                    lines.push(...formatNode(code, current.alternate, indent + 1, collectedComponents, loopScopes, ctx));
-                    lines.push(`${getIndent(indent)}</block>`);
-                  } else if (!t.isConditionalExpression(current.alternate)) {
-                    break;
-                  }
-                }
-                current = current.alternate;
-              }
-            }
-          }
-          return;
-        }
-      }
-      
-      const exprText = convertExpression(code, child);
-      if (exprText) lines.push(`${getIndent(indent)}${exprText}`);
     } else if (t.isJSXElement(child)) {
       lines.push(...formatNode(code, child, indent, collectedComponents, loopScopes, ctx));
     }
   });
-  
+
   return lines;
 }
 

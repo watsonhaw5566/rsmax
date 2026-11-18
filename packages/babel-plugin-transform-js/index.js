@@ -777,6 +777,9 @@ module.exports = function() {
           const program = path.findParent(p => p.isProgram());
           const runtimeId = program.scope.generateUid('rsmax');
           state.runtimeId = runtimeId;
+          // 作用域栈：追踪局部绑定（参数、变量、函数声明、catch 变量），
+          // 避免遮蔽了导入 hook 名的局部标识符被错误改写到 runtime 命名空间。
+          state.scopeStack = [];
 
           let fnBody;
           let fnParams;
@@ -810,12 +813,22 @@ module.exports = function() {
           const stateInitialValues = [];
 
           if (isFunctional) {
+            // 遍历函数体语句时，追踪被局部变量声明遮蔽的 hook 名，
+            // 避免 const useState = () => {}; const [x] = useState(0) 被误判为 hook。
+            const shadowed = new Set();
             for (const stmt of fnBody.body) {
               if (t.isVariableDeclaration(stmt)) {
+                // 先记录本声明引入的所有绑定名（遮蔽后续同名 hook 引用）
+                const declaredNames = new Set();
+                for (const decl of stmt.declarations) {
+                  if (decl.id) collectBindingNames(decl.id, declaredNames);
+                }
+                for (const name of declaredNames) shadowed.add(name);
+
                 for (const decl of stmt.declarations) {
                   if (t.isArrayPattern(decl.id) && t.isCallExpression(decl.init)) {
                     const callee = decl.init.callee;
-                    if (t.isIdentifier(callee) &&
+                    if (t.isIdentifier(callee) && !shadowed.has(callee.name) &&
                         state.rsmaxImported.get(callee.name) === 'useState') {
                       const stateName = decl.id.elements[0] && t.isIdentifier(decl.id.elements[0])
                         ? decl.id.elements[0].name : null;
@@ -827,6 +840,8 @@ module.exports = function() {
                     }
                   }
                 }
+              } else if (t.isFunctionDeclaration(stmt) && stmt.id) {
+                shadowed.add(stmt.id.name);
               }
             }
           }
@@ -841,11 +856,54 @@ module.exports = function() {
             return null;
           }
 
+          // 从解构模式中收集所有绑定标识符名
+          function collectBindingNames(node, out) {
+            if (!node) return;
+            if (t.isIdentifier(node)) {
+              out.add(node.name);
+            } else if (t.isObjectPattern(node)) {
+              node.properties.forEach(p => {
+                if (t.isObjectProperty(p)) collectBindingNames(p.value, out);
+                else if (t.isRestElement(p)) collectBindingNames(p.argument, out);
+              });
+            } else if (t.isArrayPattern(node)) {
+              node.elements.forEach(el => { if (el) collectBindingNames(el, out); });
+            } else if (t.isRestElement(node)) {
+              collectBindingNames(node.argument, out);
+            } else if (t.isAssignmentPattern(node)) {
+              collectBindingNames(node.left, out);
+            }
+          }
+
+          // 判断标识符名是否被局部作用域遮蔽
+          function isShadowed(name, state) {
+            for (let i = state.scopeStack.length - 1; i >= 0; i--) {
+              if (state.scopeStack[i].has(name)) return true;
+            }
+            return false;
+          }
+
+          // 收集一个 BlockStatement 内的所有绑定名（变量声明 + 函数声明）
+          function collectBlockBindings(block) {
+            const names = new Set();
+            if (!t.isBlockStatement(block)) return names;
+            for (const stmt of block.body) {
+              if (t.isVariableDeclaration(stmt)) {
+                for (const decl of stmt.declarations) collectBindingNames(decl.id, names);
+              } else if (t.isFunctionDeclaration(stmt) && stmt.id) {
+                names.add(stmt.id.name);
+              }
+            }
+            return names;
+          }
+
           function transformNode(node, state) {
             if (!node) return node;
 
             if (t.isCallExpression(node)) {
-              const hookName = getHookRuntimeName(node.callee, state);
+              // 被局部作用域遮蔽的同名函数不应按 hook 处理
+              const calleeShadowed = t.isIdentifier(node.callee) && isShadowed(node.callee.name, state);
+              const hookName = calleeShadowed ? null : getHookRuntimeName(node.callee, state);
               if (hookName && (ALL_HOOKS.includes(hookName) || SETUP_FNS.includes(hookName) || RUNTIME_UTILS.includes(hookName))) {
                 const newArgs = node.arguments.map(arg => transformNode(arg, state));
                 return t.callExpression(
@@ -872,7 +930,8 @@ module.exports = function() {
 
               for (const decl of node.declarations) {
                 if (t.isArrayPattern(decl.id) && t.isCallExpression(decl.init)) {
-                  const hookName = getHookRuntimeName(decl.init.callee, state);
+                  const calleeShadowed = t.isIdentifier(decl.init.callee) && isShadowed(decl.init.callee.name, state);
+                  const hookName = calleeShadowed ? null : getHookRuntimeName(decl.init.callee, state);
                   if (hookName === 'useState') {
                     const stateName = decl.id.elements[0] && t.isIdentifier(decl.id.elements[0]) ? decl.id.elements[0].name : 'state';
                     const args = decl.init.arguments.map(a => transformNode(a, state));
@@ -884,10 +943,14 @@ module.exports = function() {
                       args
                     );
                     newDeclarators.push(t.variableDeclarator(t.cloneNode(decl.id, true, true), hookCall));
+                  } else {
+                    // 其他 hook / 普通调用的数组解构：正常改写，避免声明被静默丢弃
+                    newDeclarators.push(t.variableDeclarator(decl.id, decl.init ? transformNode(decl.init, state) : null));
                   }
                 } else if (t.isIdentifier(decl.id) && t.isCallExpression(decl.init)) {
                   // Check if this is a useStore call: const count = useStore(store, selector)
-                  const hookName = getHookRuntimeName(decl.init.callee, state);
+                  const calleeShadowed = t.isIdentifier(decl.init.callee) && isShadowed(decl.init.callee.name, state);
+                  const hookName = calleeShadowed ? null : getHookRuntimeName(decl.init.callee, state);
                   if (hookName === 'useStore') {
                     const stateName = decl.id.name;
                     const args = decl.init.arguments.map(a => transformNode(a, state));
@@ -900,31 +963,12 @@ module.exports = function() {
                       args
                     );
                     newDeclarators.push(t.variableDeclarator(t.cloneNode(decl.id, true, true), hookCall));
-                  } else if (t.isArrowFunctionExpression(decl.init) || t.isFunctionExpression(decl.init)) {
-                    const name = decl.id.name;
-                    const isHook = ALL_HOOKS.includes(name) || state.rsmaxImported.has(name);
-                    if (!isHook && !name.startsWith('use')) {
-                      const funcVal = transformNode(decl.init, state);
-                      assignments.push(t.expressionStatement(
-                        t.assignmentExpression(
-                          '=',
-                          t.memberExpression(t.thisExpression(), t.identifier(name)),
-                          funcVal
-                        )
-                      ));
-                      newDeclarators.push(t.variableDeclarator(
-                        decl.id,
-                        t.memberExpression(t.thisExpression(), t.identifier(name))
-                      ));
-                    } else {
-                      newDeclarators.push(t.variableDeclarator(decl.id, decl.init ? transformNode(decl.init, state) : null));
-                    }
                   } else {
                     newDeclarators.push(t.variableDeclarator(decl.id, decl.init ? transformNode(decl.init, state) : null));
                   }
                 } else if (t.isIdentifier(decl.id) && (t.isArrowFunctionExpression(decl.init) || t.isFunctionExpression(decl.init))) {
                   const name = decl.id.name;
-                  const isHook = ALL_HOOKS.includes(name) || state.rsmaxImported.has(name);
+                  const isHook = !isShadowed(name, state) && (ALL_HOOKS.includes(name) || state.rsmaxImported.has(name));
                   if (!isHook && !name.startsWith('use')) {
                     const funcVal = transformNode(decl.init, state);
                     assignments.push(t.expressionStatement(
@@ -956,8 +1000,11 @@ module.exports = function() {
 
             if (t.isFunctionDeclaration(node)) {
               const name = node.id && node.id.name;
-              const isHook = ALL_HOOKS.includes(name) || state.rsmaxImported.has(name);
+              const isHook = !isShadowed(name, state) && (ALL_HOOKS.includes(name) || state.rsmaxImported.has(name));
               if (name && !isHook && !name.startsWith('use')) {
+                const paramScope = new Set();
+                node.params.forEach(p => collectBindingNames(p, paramScope));
+                state.scopeStack.push(paramScope);
                 const funcExpr = t.functionExpression(
                   null,
                   node.params.map(p => transformNode(p, state)),
@@ -965,6 +1012,7 @@ module.exports = function() {
                   node.generator,
                   node.async
                 );
+                state.scopeStack.pop();
                 return [
                   t.expressionStatement(
                     t.assignmentExpression(
@@ -988,6 +1036,11 @@ module.exports = function() {
             }
 
             if (t.isArrowFunctionExpression(node) || t.isFunctionExpression(node)) {
+              // 推入参数作用域：参数是绑定而非引用，遮蔽 hook 名时不应被改写
+              const paramScope = new Set();
+              node.params.forEach(p => collectBindingNames(p, paramScope));
+              state.scopeStack.push(paramScope);
+
               const bodyIsBlock = t.isBlockStatement(node.body);
               let newBody;
               if (bodyIsBlock) {
@@ -1005,13 +1058,19 @@ module.exports = function() {
                 newBody = transformNode(node.body, state);
               }
 
+              const newParams = node.params.map(p => transformNode(p, state));
+              state.scopeStack.pop();
+
               if (t.isArrowFunctionExpression(node)) {
-                return t.arrowFunctionExpression(node.params.map(p => transformNode(p, state)), newBody, node.async);
+                return t.arrowFunctionExpression(newParams, newBody, node.async);
               }
-              return t.functionExpression(node.id, node.params.map(p => transformNode(p, state)), newBody, node.generator, node.async);
+              return t.functionExpression(node.id, newParams, newBody, node.generator, node.async);
             }
 
             if (t.isBlockStatement(node)) {
+              // 推入块级作用域：收集本块内的变量/函数声明绑定名
+              const blockScope = collectBlockBindings(node);
+              state.scopeStack.push(blockScope);
               const newStmts = [];
               for (const stmt of node.body) {
                 const transformed = transformNode(stmt, state);
@@ -1021,6 +1080,7 @@ module.exports = function() {
                   newStmts.push(transformed);
                 }
               }
+              state.scopeStack.pop();
               return t.blockStatement(newStmts);
             }
 
@@ -1037,6 +1097,8 @@ module.exports = function() {
             }
 
             if (t.isIdentifier(node)) {
+              // 被局部作用域（参数/变量/函数声明/catch 变量）遮蔽的标识符不改写
+              if (isShadowed(node.name, state)) return node;
               const hookName = state.rsmaxImported.get(node.name);
               if (hookName && (ALL_HOOKS.includes(hookName) || RUNTIME_UTILS.includes(hookName))) {
                 return t.memberExpression(t.identifier(runtimeId), t.identifier(hookName));
@@ -1067,6 +1129,16 @@ module.exports = function() {
                 }
                 return prop;
               }));
+            }
+
+            if (t.isCatchClause(node)) {
+              // catch 参数是绑定，推入作用域后再变换 body
+              const catchScope = new Set();
+              if (node.param) collectBindingNames(node.param, catchScope);
+              state.scopeStack.push(catchScope);
+              const newBody = transformNode(node.body, state);
+              state.scopeStack.pop();
+              return t.catchClause(node.param, newBody);
             }
 
             // 通用兜底：递归处理所有未显式列举的节点类型。

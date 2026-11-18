@@ -566,8 +566,11 @@ async function copyLocalesAndGenerate(localesDir, targetRoot) {
             localeCodes.push(localeCode);
             // Copy .js locale file directly to dist/locales/
             fs.copySync(fullPath, path.join(targetLocalesDir, entry));
-            // Add a lazy require entry so locale files are only loaded when the language is used
-            entries_js.push(`  '${localeCode}': function() { return require('./locales/${entry}'); }`);
+            // Add a lazy require entry so locale files are only loaded when the language is used.
+            // 使用 JSON.stringify 对 localeCode 与 require 路径做转义，避免文件名含引号等
+            // 特殊字符时生成非法 JS（代码注入/语法错误）。
+            const reqPath = JSON.stringify('./locales/' + entry);
+            entries_js.push(`  ${JSON.stringify(localeCode)}: function() { return require(${reqPath}); }`);
         }
     }
 
@@ -775,12 +778,12 @@ function collectStyleImports(ast, sourceJsDir) {
     return {moduleStyles, plainStyles, importSources};
 }
 
+function isValidIdentifier(name) {
+    return /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(name);
+}
+
 function injectModuleStylesConst(ast, moduleStylesMappings) {
     if (moduleStylesMappings.length === 0) return;
-
-    function isValidIdentifier(name) {
-        return /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(name);
-    }
 
     function buildObjectExpr(classNames) {
         const properties = Object.keys(classNames).map(key => {
@@ -851,9 +854,14 @@ function injectModuleStylesConst(ast, moduleStylesMappings) {
         // Inject at the beginning of the function body so this.data gets set
         // before any hooks run, ensuring WXML can access {{styles.xxx}}
         fnBody.body.unshift(...allStmts);
+    } else if (t.isObjectExpression(declaration)) {
+        // 对象组件：把 styles 注入到 data 属性，WXML 才能通过 {{styles.xxx}} 访问
+        injectStylesIntoData(declaration, moduleStylesMappings, buildObjectExpr);
+    } else if (t.isClassDeclaration(declaration)) {
+        // 类组件：把 styles 注入到 data 类属性
+        injectStylesIntoClassData(declaration, moduleStylesMappings, buildObjectExpr);
     } else {
-        // Non-functional export (plain object, class) - inject at module level
-        // without this.data assignment (no `this` context at module scope)
+        // 兜底：模块顶层注入（WXML 无法直接访问，仅保留变量供 JS 使用）
         const moduleLevelStmts = moduleStylesMappings.map(({localName, classNames}) =>
             t.variableDeclaration('const', [
                 t.variableDeclarator(t.identifier(localName), buildObjectExpr(classNames))
@@ -861,6 +869,52 @@ function injectModuleStylesConst(ast, moduleStylesMappings) {
         );
         body.splice(exportDefaultIndex, 0, ...moduleLevelStmts);
     }
+}
+
+/**
+ * 在对象组件的 data 属性中注入 CSS Modules 映射。
+ * 若 data 不存在则新建；若已有 data，则合并 styles 字段。
+ */
+function injectStylesIntoData(objExpr, moduleStylesMappings, buildObjectExpr) {
+    let dataProp = objExpr.properties.find(p =>
+        t.isObjectProperty(p) && t.isIdentifier(p.key, { name: 'data' })
+    );
+    if (!dataProp) {
+        dataProp = t.objectProperty(t.identifier('data'), t.objectExpression([]));
+        objExpr.properties.unshift(dataProp);
+    }
+    if (!t.isObjectExpression(dataProp.value)) {
+        dataProp.value = t.objectExpression([]);
+    }
+    moduleStylesMappings.forEach(({localName, classNames}) => {
+        const key = isValidIdentifier(localName) ? t.identifier(localName) : t.stringLiteral(localName);
+        dataProp.value.properties.push(
+            t.objectProperty(key, buildObjectExpr(classNames))
+        );
+    });
+}
+
+/**
+ * 在类组件的 data 类属性中注入 CSS Modules 映射。
+ */
+function injectStylesIntoClassData(classDecl, moduleStylesMappings, buildObjectExpr) {
+    let dataProp = classDecl.body.body.find(m =>
+        (t.isClassProperty(m) || t.isClassPrivateProperty(m)) &&
+        t.isIdentifier(m.key, { name: 'data' })
+    );
+    if (!dataProp) {
+        dataProp = t.classProperty(t.identifier('data'), t.objectExpression([]));
+        classDecl.body.body.unshift(dataProp);
+    }
+    if (!dataProp.value || !t.isObjectExpression(dataProp.value)) {
+        dataProp.value = t.objectExpression([]);
+    }
+    moduleStylesMappings.forEach(({localName, classNames}) => {
+        const key = isValidIdentifier(localName) ? t.identifier(localName) : t.stringLiteral(localName);
+        dataProp.value.properties.push(
+            t.objectProperty(key, buildObjectExpr(classNames))
+        );
+    });
 }
 
 function getWxssImportPath(fromWxssDir, toWxssPath) {
@@ -1361,9 +1415,9 @@ async function watch(sourceDir, targetDir, options = {}) {
     // 路径别名（配置变更需重启 watch，与 env / components 一致）
     const watchAlias = normalizeAliases(projectConfig.alias, sourceDir, projectRoot);
 
-    // watch 模式下也要加载 env（配置变更需重启 watch，符合轻量原则）
+    // watch 模式下加载 env（.env 文件变化时会重新加载并全量重编译）
     const watchMode = options.mode || process.env.NODE_ENV || process.env.MODE || 'development';
-    const watchDefine = await loadEnvConfig(projectRoot, watchMode, projectConfig.define || {});
+    let watchDefine = await loadEnvConfig(projectRoot, watchMode, projectConfig.define || {});
     logger.debug(`[rsmax] Watch mode env: ${watchMode} (${Object.keys(watchDefine).length} vars)`);
 
     // Parse subPackages for watch mode
@@ -1393,6 +1447,8 @@ async function watch(sourceDir, targetDir, options = {}) {
     if (await fs.pathExists(projectLocalesDir) && !projectLocalesDir.startsWith(path.resolve(sourceDir) + path.sep)) {
         watchPaths.push(projectLocalesDir);
     }
+    // 监听 projectRoot 下的 .env / .env.local / .env.<mode> 等环境变量文件
+    watchPaths.push(path.join(projectRoot, '.env*'));
 
     const watcher = chokidar.watch(watchPaths, {
         ignored,
@@ -1808,6 +1864,21 @@ async function watch(sourceDir, targetDir, options = {}) {
 
     async function handleFileEvent(event, filePath) {
         const ext = path.extname(filePath);
+
+        // .env / .env.local / .env.<mode> 变化：重新加载环境变量并全量重编译
+        // （环境变量会被注入到所有编译产物中，因此需要整体重编）
+        const baseName = path.basename(filePath);
+        if (baseName === '.env' || baseName.startsWith('.env.')) {
+            try {
+                logger.log(`[rsmax] ${event}: ${getDisplayRelPath(filePath)} (env file - reloading & recompiling)`);
+                watchDefine = await loadEnvConfig(projectRoot, watchMode, projectConfig.define || {});
+                logger.debug(`[rsmax] Reloaded env: ${watchMode} (${Object.keys(watchDefine).length} vars)`);
+                await compile(sourceDir, targetDir, options);
+            } catch (err) {
+                logger.error(`[rsmax] Error reloading env / recompiling after ${getDisplayRelPath(filePath)} change:`, err.message);
+            }
+            return;
+        }
 
         // Check if file is in public directory - copy directly to target root
         const publicInfo = getPublicTargetPath(filePath);

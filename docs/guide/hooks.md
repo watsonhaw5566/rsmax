@@ -73,6 +73,16 @@ function Child() {
 }
 ```
 
+通过 `Context.Provider(value)` 设置全局值，之后所有 `useContext` 调用都会拿到最新值（适合主题、登录态等全局共享数据）：
+
+```jsx
+// 在 app.js 或登录后设置
+ThemeContext.Provider('dark');
+
+// 任意页面 / 组件中读取
+const theme = useContext(ThemeContext); // 'dark'
+```
+
 ## useQuery
 
 获取页面 `onLoad` 时传入的查询参数：

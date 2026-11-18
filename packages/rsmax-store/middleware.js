@@ -82,20 +82,6 @@ function persist(config, options) {
       console.warn('[rsmax-store] Failed to hydrate from storage:', e);
     }
 
-    // Create initial state from user config.
-    // Pass a wrapped set that persists after state change.
-    const initialState = config(
-      (...args) => {
-        set(...args);
-        persistState();
-      },
-      get,
-      api
-    );
-
-    // Merge hydrated state with initial state
-    const mergedState = Object.assign({}, initialState, hasHydrated ? hydratedState : { __version: version });
-
     // Persist current state
     function persistState() {
       try {
@@ -107,16 +93,33 @@ function persist(config, options) {
       }
     }
 
-    // Subscribe to state changes so that direct api.setState calls also persist
-    // (e.g. store.setState({...}) outside of actions)
+    // Subscribe to state changes so that BOTH action set() and direct api.setState()
+    // calls persist. The wrapped set() below does NOT call persistState() directly,
+    // otherwise every set() would write to storage twice (once here, once via subscription).
     api.subscribe(() => {
       persistState();
     });
 
-    // If hydrated, save back to ensure version field is stored
+    // Create initial state from user config.
+    // The wrapped set delegates to the store's setState; persistence is handled by
+    // the subscription above, so no explicit persistState() call is needed here.
+    const initialState = config(
+      (...args) => {
+        set(...args);
+      },
+      get,
+      api
+    );
+
+    // Merge hydrated state with initial state
+    const mergedState = Object.assign({}, initialState, hasHydrated ? hydratedState : { __version: version });
+
+    // If hydrated, persist the merged state (with updated __version) back to storage
+    // so migration doesn't re-run on every launch. Defer to next microtask because
+    // createStore assigns `state = createState(...)` only after this function returns;
+    // calling persistState() synchronously here would read `get() === undefined`.
     if (hasHydrated) {
-      // Schedule persist after state is set (next tick)
-      // We do it synchronously after return since we know mergedState is already set
+      Promise.resolve().then(persistState);
     }
 
     return mergedState;

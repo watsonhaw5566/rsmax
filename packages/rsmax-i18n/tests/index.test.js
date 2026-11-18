@@ -353,7 +353,7 @@ describe('@rsmax/i18n', () => {
       expect(mockInst.data.__i18n['msg']).toBe('English');
     });
 
-    test('should unsubscribe when instance onUnload is called', async () => {
+    test('should unsubscribe when instance cleanup runs via _storeUnsubs', async () => {
       const i18n = loadI18n();
       i18n.initI18n({
         locale: 'zh-CN',
@@ -366,10 +366,12 @@ describe('@rsmax/i18n', () => {
       globalThis.__RSMAX_CURRENT_INSTANCE__ = mockInst;
 
       i18n.useI18n();
-      expect(typeof mockInst.onUnload).toBe('function');
+      // 运行时通过 _storeUnsubs 列表统一清理页面/组件订阅，不再包装 onUnload
+      expect(Array.isArray(mockInst._storeUnsubs)).toBe(true);
+      expect(typeof mockInst._storeUnsubs[0]).toBe('function');
       mockInst._destroyed = true;
-      mockInst.onUnload();
-      // After unload + destroy, switching locale should not throw or update the destroyed instance
+      mockInst._storeUnsubs.forEach(fn => fn());
+      // After cleanup, switching locale should not update the destroyed instance
       await i18n.getI18n().setLocale('en');
       // data.__i18n should still have old value since unsubscribed
       expect(mockInst.data.__i18n['msg']).toBe('中文');

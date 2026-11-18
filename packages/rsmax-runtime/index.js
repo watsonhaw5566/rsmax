@@ -133,11 +133,22 @@ let ctxId = 0;
 function createContext(defaultValue) {
   const id = `__ctx_${ctxId++}`;
   contexts[id] = { defaultValue, currentValue: defaultValue };
-  return { _id: id, _defaultValue: defaultValue };
+
+  const ctx = {
+    _id: id,
+    _defaultValue: defaultValue,
+    // Provider(value): 设置该 Context 的全局值。调用后所有 useContext(ctx) 都会拿到最新值，
+    // 从而实现跨页面 / 跨组件的数据共享（如主题、登录态），无需逐层 props 透传。
+    Provider(value) {
+      if (contexts[id]) contexts[id].currentValue = value;
+    },
+  };
+  return ctx;
 }
 
 function useContext(context) {
   const instance = getInstance();
+  // 实例级覆盖优先（预留），否则取全局 currentValue
   if (instance._providedCtx && instance._providedCtx[context._id] !== undefined) {
     return instance._providedCtx[context._id];
   }
@@ -248,12 +259,17 @@ function useAppEvent(event, handler) {
     instance._hooks[idx] = { type: 'appEvent', event };
     const app = typeof getApp === 'function' ? getApp() : null;
     if (app && app._rsmaxBus) {
-      app._rsmaxBus.on(event, (...args) => {
+      const listener = (...args) => {
         const latestHandler = instance._eventHandlers[`app_${event}_${idx}`];
         if (latestHandler && !instance._destroyed) {
           latestHandler.apply(instance, args);
         }
-      }, instance);
+      };
+      app._rsmaxBus.on(event, listener, instance);
+      // 保存取消订阅函数，供 _cleanup 在页面卸载/组件 detached 时调用，
+      // 避免监听器残留在全局 app bus 的 listeners 数组中造成泄漏。
+      instance._appEventUnsubs = instance._appEventUnsubs || [];
+      instance._appEventUnsubs.push(() => app._rsmaxBus.off(event, listener));
     }
   }
   
@@ -435,6 +451,13 @@ function createPage(userFn, pageConfig = {}) {
       });
       this._storeUnsubs = [];
     }
+    // Unsubscribe from all app-level events (useAppEvent) to avoid listener leak
+    if (this._appEventUnsubs) {
+      this._appEventUnsubs.forEach(unsub => {
+        if (typeof unsub === 'function') unsub();
+      });
+      this._appEventUnsubs = [];
+    }
   };
   
   return config;
@@ -511,6 +534,13 @@ function createComponent(userFn, compConfig = {}) {
             if (typeof unsub === 'function') unsub();
           });
           this._storeUnsubs = [];
+        }
+        // Unsubscribe from all app-level events (useAppEvent) to avoid listener leak
+        if (this._appEventUnsubs) {
+          this._appEventUnsubs.forEach(unsub => {
+            if (typeof unsub === 'function') unsub();
+          });
+          this._appEventUnsubs = [];
         }
       }
     }

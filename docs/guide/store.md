@@ -107,8 +107,8 @@ export const counterStore = create(
     {
       name: 'counter-storage', // 缓存键名（必填）
       // partialize: (state) => ({ count: state.count }), // 只持久化部分字段
-      // version: 1,                                       // 版本号
-      // migrate: (persistedState, version) => newState,   // 版本迁移
+      // version: 1,                                                         // 版本号
+      // migrate: (persistedState, persistedVersion) => newState,            // 版本迁移
     }
   )
 );
@@ -121,7 +121,7 @@ export const counterStore = create(
 | `name` | `string` | 是 | 本地缓存键名 |
 | `partialize` | `(state) => Partial<State>` | 否 | 筛选需要持久化的字段，默认全部 |
 | `version` | `number` | 否 | 版本号，配合 `migrate` 使用，默认 `0` |
-| `migrate` | `(persistedState, version) => State` | 否 | 版本号不匹配时调用的迁移函数 |
+| `migrate` | `(persistedState, persistedVersion) => State` | 否 | 版本号不匹配时调用的迁移函数，第二个参数为持久化状态中保存的旧版本号 |
 | `storage` | `{ getItem, setItem, removeItem }` | 否 | 自定义存储，默认使用微信同步缓存 API |
 
 恢复逻辑：启动时读取缓存并与初始 state 合并（缓存优先），随后每次状态变化都会写回缓存。

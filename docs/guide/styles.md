@@ -46,7 +46,9 @@ kebab-case 的 class 名在 JS 中以 camelCase 访问：
 <text class={styles.sectionTitle}>Title</text>
 ```
 
-支持的后缀：`.module.less`、`.module.css`、`.module.scss`。
+支持的后缀：`.module.less`、`.module.css`、`.module.scss`、`.module.sass`。
+
+CSS Modules 对**函数式组件、Options API 对象组件、class 组件**均生效：编译器会把 class 映射注入到组件的 `data` 中，因此在 `render()` 里通过 `styles.xxx` 访问后，WXML 可直接用 `&#123;&#123;styles.xxx&#125;&#125;` 渲染。
 
 ## px 自动转 rpx
 
