@@ -13,10 +13,20 @@
 
 ## 条件渲染
 
+三元表达式、逻辑与（`&&`）、逻辑或（`||`）均支持，JSX 与非 JSX 分支（字符串、数字、表达式）可混合使用，且可嵌套组合：
+
 ```jsx
 {show ? <view>Visible</view> : null}
 {show && <view>Visible</view>}
+{title || <text>默认标题</text>}
+{type === 'a' ? <text>Apple</text> : 'Banana'}
+{count > 0 ? count : 'zero'}
+{a && (b || <text>fallback</text>)}
 ```
+
+- `cond && <JSX/>` → `<block wx:if="{{cond}}">`
+- `cond || <JSX/>` → 当 `cond` 为真时渲染 `cond`，否则渲染 `<JSX/>`
+- 三元表达式按分支编译为 `wx:if` / `wx:elif` / `wx:else`
 
 ## 列表渲染
 
@@ -25,6 +35,17 @@
 ```jsx
 {items.map(item => (
   <view key={item.id}>{item.name}</view>
+))}
+```
+
+`map` 回调也可以返回 Fragment（`<>...</>`），Fragment 的子节点会平铺到 `wx:for` 块内：
+
+```jsx
+{items.map(item => (
+  <>
+    <text>{item.name}</text>
+    <text>{item.desc}</text>
+  </>
 ))}
 ```
 
@@ -152,6 +173,27 @@ export default function Page() {
 | 属性 | 说明 |
 |------|------|
 | `enable` | 是否启用 portal，默认 true |
+
+## navigator
+
+页面跳转组件，`url` 属性支持字符串字面量或表达式。编译器会将其转为 `view` 并生成 `bindtap`，点击时调用 `wx.navigateTo`：
+
+```jsx
+<navigator url="/pages/detail/index">进入详情</navigator>
+<navigator url={detailUrl}>进入详情</navigator>
+```
+
+编译后（示意）：
+
+```xml
+<view bindtap="__rsmaxH0">进入详情</view>
+```
+
+```js
+this.__rsmaxH0 = e => wx.navigateTo({ url: '/pages/detail/index' });
+```
+
+列表中的 `navigator` 同样会自动通过 `data-*` 传递行变量，无需手动处理。
 
 ## 事件绑定
 

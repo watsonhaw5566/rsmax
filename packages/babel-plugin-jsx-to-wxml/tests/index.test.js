@@ -370,6 +370,29 @@ describe('@rsmax/babel-plugin-jsx-to-wxml', () => {
       expect(result.wxml).toContain('{{name}}');
     });
 
+    test('should preserve string literals containing "this." while stripping this.data prefixes', () => {
+      const code = 'export default { render() { return <view>{label || "this.data.default"} {this.data.count} {this.foo}</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      // 字符串字面量内部的 "this.data." 必须原样保留，不能被误删
+      expect(result.wxml).toContain('"this.data.default"');
+      // this.data.count / this.foo 前缀应被剥离
+      expect(result.wxml).toContain('{{count}}');
+      expect(result.wxml).toContain('{{foo}}');
+    });
+
+    test('should not corrupt string literals with this. in ternary branches', () => {
+      const code = 'export default { render() { return <view>{cond ? "this.data.a" : "this.data.b"}</view>; } }';
+      const ast = parseCode(code);
+      const jsxNode = findJsxInExportDefault(ast);
+      const result = jsxElementToWxml(code, jsxNode);
+
+      expect(result.wxml).toContain('"this.data.a"');
+      expect(result.wxml).toContain('"this.data.b"');
+    });
+
     test('should handle src attribute with expression', () => {
       const code = 'export default { render() { return <image src={imgUrl} />; } }';
       const ast = parseCode(code);

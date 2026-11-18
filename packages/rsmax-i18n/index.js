@@ -216,12 +216,11 @@ function useI18n() {
       instance.setData(upd);
     });
 
-    // Wrap onUnload to clean up subscription when page is destroyed
-    var origOnUnload = instance.onUnload;
-    instance.onUnload = function() {
-      unsub();
-      if (typeof origOnUnload === 'function') origOnUnload.call(this);
-    };
+    // 将取消订阅函数注册到实例的 _storeUnsubs 列表。
+    // 运行时在页面 onUnload 与组件 detached 时都会调用 _cleanup 遍历该列表，
+    // 因此无需分别包装 onUnload（组件无此生命周期），页面与组件均能正确清理订阅。
+    if (!instance._storeUnsubs) instance._storeUnsubs = [];
+    instance._storeUnsubs.push(unsub);
   }
 
   return {

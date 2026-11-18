@@ -53,6 +53,29 @@ function matchAnyPattern(patterns, relPath) {
   return false;
 }
 
+// 从解构模式（ObjectPattern / ArrayPattern / RestElement / AssignmentPattern）中
+// 收集所有绑定标识符名称。用于处理 `export const {a, b} = obj` / `export const [x, y] = arr`
+// 这类解构导出，确保解构出的每个变量都被正确赋值到 exports 上。
+function collectPatternIds(node, out) {
+  if (!node) return;
+  if (t.isIdentifier(node)) {
+    out.push(node.name);
+  } else if (t.isObjectPattern(node)) {
+    for (const prop of node.properties) {
+      if (t.isObjectProperty(prop)) collectPatternIds(prop.value, out);
+      else if (t.isRestElement(prop)) collectPatternIds(prop.argument, out);
+    }
+  } else if (t.isArrayPattern(node)) {
+    for (const el of node.elements) {
+      if (el) collectPatternIds(el, out);
+    }
+  } else if (t.isRestElement(node)) {
+    collectPatternIds(node.argument, out);
+  } else if (t.isAssignmentPattern(node)) {
+    collectPatternIds(node.left, out);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // ESM -> CJS 就地改写插件
 // 仅处理 import / export 语法；其余语法保持原样输出（与微信开发者工具一致，
@@ -179,11 +202,13 @@ const esmToCjsPlugin = function () {
           const stmts = [decl];
           if (t.isVariableDeclaration(decl)) {
             for (const d of decl.declarations) {
-              if (t.isIdentifier(d.id)) {
+              const ids = [];
+              collectPatternIds(d.id, ids);
+              for (const name of ids) {
                 stmts.push(t.expressionStatement(t.assignmentExpression(
                   '=',
-                  t.memberExpression(t.identifier('exports'), t.identifier(d.id.name)),
-                  t.identifier(d.id.name)
+                  t.memberExpression(t.identifier('exports'), t.identifier(name)),
+                  t.identifier(name)
                 )));
               }
             }
