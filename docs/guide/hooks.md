@@ -91,6 +91,25 @@ const theme = useContext(ThemeContext); // 'dark'
 const query = useQuery(); // { id: '123', ... }
 ```
 
+## getApp / getCurrentPages
+
+需要拿到 App 实例或页面栈时，直接调用微信小程序提供的全局函数即可，rsmax 不会改写它们（编译后保留为裸调用）：
+
+```jsx
+useEffect(() => {
+  const app = getApp();              // App 实例
+  const pages = getCurrentPages();  // 页面栈数组，栈顶为当前页
+}, []);
+```
+
+在组件中需要「当前页面实例」时（例如调用 `page.selectComponent`、`wx.createSelectorQuery().in(page)`），取页面栈顶即可：
+
+```jsx
+const page = getCurrentPages().slice(-1)[0];
+```
+
+> 微信官方提示：不要修改 `getCurrentPages()` 返回的数组；`getApp()` 不要在 `App()` 未注册完成时（如 `onLaunch` 早期）调用，此时应使用 `this`。
+
 ## usePageEvent
 
 监听页面生命周期事件，可多次注册，回调始终使用最新闭包，回调返回值会透传给微信（如分享内容）：
